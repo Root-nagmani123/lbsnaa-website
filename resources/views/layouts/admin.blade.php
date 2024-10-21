@@ -34,9 +34,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('admin.staff.index') }}">Manage staff</a>
                     </li>
-                    <!-- <li class="nav-item">
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ route('sections.index') }}">Manage sections</a>
-                    </li> -->
+                    </li>
                     <!-- Add more links for other admin pages here -->
                 </ul>
             </div>
