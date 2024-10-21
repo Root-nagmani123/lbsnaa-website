@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
-
+use Illuminate\Support\Facades\DB;
 use App\Models\Admin\FacultyMember;
 use App\Models\Admin\StaffMember;
 use App\Models\Admin\Section;
@@ -221,7 +221,7 @@ class ManageOrganizationController extends Controller
         $sections = Section::all();
         return view('admin.sections.index', compact('sections'));
     }
-
+ 
     // Section create method to show the create form
     public function sectionCreate()
     {
@@ -264,4 +264,100 @@ class ManageOrganizationController extends Controller
 
         return redirect()->route('sections.index')->with('success', 'Section deleted successfully');
     }
+    public function createSectionCategory()
+    {
+        // Fetch sections using query builder
+        $sections = DB::table('sections')->get();
+        return view('admin.sections.section_category.create', compact('sections'));
+    }
+    
+    public function storeSectionCategory(Request $request)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'officer_Incharge' => 'nullable|string',
+            'email' => 'nullable|email',
+            'status' => 'required|boolean',
+            'section_id' => 'required|exists:sections,id',
+        ]);
+    
+        // Insert data using query builder
+        DB::table('section_category')->insert([
+            'name' => $validatedData['name'],
+            'description' => $validatedData['description'],
+            'officer_Incharge' => $validatedData['officer_Incharge'],
+            'alternative_Incharge_1st' => $request->alternative_Incharge_1st,
+            'alternative_Incharge_2st' => $request->alternative_Incharge_2st,
+            'alternative_Incharge_3st' => $request->alternative_Incharge_3st,
+            'alternative_Incharge_4st' => $request->alternative_Incharge_4st,
+            'alternative_Incharge_5st' => $request->alternative_Incharge_5st,
+            'section_head' => $request->section_head,
+            'phone_internal_office' => $request->phone_internal_office,
+            'phone_internal_residence' => $request->phone_internal_residence,
+            'phone_p_t_office' => $request->phone_p_t_office,
+            'phone_p_t_residence' => $request->phone_p_t_residence,
+            'fax' => $request->fax,
+            'email' => $validatedData['email'],
+            'status' => $validatedData['status'],
+            'section_id' => $validatedData['section_id'],
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+    
+        return redirect()->route('admin.section_category.index')->with('success', 'Section Category created successfully');
+    }
+    public function editSectionCategory($id)
+{
+    // Fetch section category and sections using query builder
+    $sectionCategory = DB::table('section_category')->where('id', $id)->first();
+    $sections = DB::table('sections')->get();
+    
+    return view('admin.sections.section_category.edit', compact('sectionCategory', 'sections'));
+}
+
+public function updateSectionCategory(Request $request, $id)
+{
+    $validatedData = $request->validate([
+        'name' => 'required|string|max:255',
+        'description' => 'nullable|string',
+        'officer_Incharge' => 'nullable|string',
+        'email' => 'nullable|email',
+        'status' => 'required|boolean',
+        'section_id' => 'required|exists:sections,id',
+    ]);
+
+    // Update data using query builder
+    DB::table('section_category')->where('id', $id)->update([
+        'name' => $validatedData['name'],
+        'description' => $validatedData['description'],
+        'officer_Incharge' => $validatedData['officer_Incharge'],
+        'alternative_Incharge_1st' => $request->alternative_Incharge_1st,
+        'alternative_Incharge_2st' => $request->alternative_Incharge_2st,
+        'alternative_Incharge_3st' => $request->alternative_Incharge_3st,
+        'alternative_Incharge_4st' => $request->alternative_Incharge_4st,
+        'alternative_Incharge_5st' => $request->alternative_Incharge_5st,
+        'section_head' => $request->section_head,
+        'phone_internal_office' => $request->phone_internal_office,
+        'phone_internal_residence' => $request->phone_internal_residence,
+        'phone_p_t_office' => $request->phone_p_t_office,
+        'phone_p_t_residence' => $request->phone_p_t_residence,
+        'fax' => $request->fax,
+        'email' => $validatedData['email'],
+        'status' => $validatedData['status'],
+        'section_id' => $validatedData['section_id'],
+        'updated_at' => now(),
+    ]);
+
+    return redirect()->route('admin.section_category.index')->with('success', 'Section Category updated successfully');
+}
+public function deleteSectionCategory($id)
+{
+    // Delete using query builder
+    DB::table('section_category')->where('id', $id)->delete();
+
+    return redirect()->route('admin.section_category.index')->with('success', 'Section Category deleted successfully');
+}
+
+    
 }
