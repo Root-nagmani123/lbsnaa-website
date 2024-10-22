@@ -114,38 +114,38 @@
           </div>
           <div class="position-relative">
             <div class="tns-outer" id="tns1-ow">
-              <div class="tns-liveregion tns-visually-hidden" aria-live="polite" aria-atomic="true">slide 
-                <span class="current">6 to 7</span>  of 5
+              <div class="tns-liveregion tns-visually-hidden" aria-live="polite" aria-atomic="true">
+                slide 
+                <span class="current">6 to 7</span>  
+                of 5
               </div>
               <div id="tns1-mw" class="tns-ovh">
                 <div class="tns-inner" id="tns1-iw">
-                  <div class="sliderTestimonialFourth  tns-slider tns-carousel tns-subpixel tns-calc tns-horizontal" id="tns1" style="transform: translate3d(-45.4545%, 0px, 0px);">
-              </div>
-              @foreach($quick_links as $key => $quick_link)
-              <div class="item tns-item tns-slide-cloned" aria-hidden="true" tabindex="-1">
-                <div class="card card-lift h-100 text-center text-lg-start">
-                  <div class="p-2">
-                    <a href="#"><img src="assets/images/3.jpg" alt="" class="img-fluid rounded-3 w-100"></a>
-                  </div>
-                  <div class="card-body pt-2">
-                    <h3><a class="text-inherit" href="#!">IELTS Course</a></h3>
-                    <p>Achieve your desired score with comprehensive study materials and practice tests for the International English Language Testing System.</p>
-                    <a href="#!" class="icon-link icon-link-hover link-primary fw-semibold">
-                      <span>View Details</span>
-  
-                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"></path>
-                      </svg>
-                    </a>
+                  <div class="sliderTestimonialFourth tns-slider tns-carousel tns-subpixel tns-calc tns-horizontal" id="tns1">
+                    @foreach($news as $slider)
+                      <div class="item tns-item">
+                        <div class="card card-lift h-100 text-center text-lg-start">
+                          <div class="p-2">
+                            <a href="#"><img src="{{ asset('assets/images/' . $slider->main_image) }}" alt="" class="img-fluid rounded-3 w-100"></a>
+                          </div>
+                          <div class="card-body pt-2">
+                            <h3><a class="text-inherit" href="#">{{ $slider->title }}</a></h3>
+                            <p>{{ $slider->short_description }}</p>
+                            <a href="" class="icon-link icon-link-hover link-primary fw-semibold">
+                              <span>View Details</span>
+                              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"></path>
+                              </svg>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    @endforeach
                   </div>
                 </div>
               </div>
-              @endforeach              
             </div>
-          </div>
-        </div>
-            
-              <ul class="controls-testimonial controls justify-content-start" id="sliderTestimonialFourthControls" aria-label="Carousel Navigation" tabindex="0">
+            <ul class="controls-testimonial controls justify-content-start" id="sliderTestimonialFourthControls" aria-label="Carousel Navigation" tabindex="0">
               <li class="prev ms-0" aria-controls="tns1" tabindex="-1" data-controls="prev">
                 <i class="fe fe-chevron-left"></i>
               </li>
@@ -170,157 +170,4 @@
   </div>
 </section>
 
-<section class="py-8 bg-light">
-  <div class="container">
-    <div class="row gy-4 gy-xl-0">
-      <div class="col-xl-8 col-lg-6 col-12">
-        <div class="px-xl-8 my-lg-6">
-          <div class="mb-5">
-            <span class="fw-semibold text-primary">LBSNAA Academy News</span>
-          </div>
-          <div class="position-relative">
-            <div class="tns-outer" id="tns1-ow"><div class="tns-liveregion tns-visually-hidden" aria-live="polite" aria-atomic="true">slide <span class="current">6 to 7</span>  of 5</div><div id="tns1-mw" class="tns-ovh"><div class="tns-inner" id="tns1-iw"><div class="sliderTestimonialFourth  tns-slider tns-carousel tns-subpixel tns-calc tns-horizontal" id="tns1" style="transform: translate3d(-45.4545%, 0px, 0px);"><div class="item tns-item tns-slide-cloned" aria-hidden="true" tabindex="-1">
-              <div class="card card-lift h-100 text-center text-lg-start">
-                <div class="p-2">
-                  <a href="#"><img src="assets/images/2.jpg" alt="" class="img-fluid rounded-3 w-100"></a>
-                </div>
-                <div class="card-body pt-2">
-                  <h3><a class="text-inherit" href="#!">IELTS Course</a></h3>
-                  <p>Achieve your desired score with comprehensive study materials and practice tests for the International English Language Testing System.</p>
-                  <a href="#!" class="icon-link icon-link-hover link-primary fw-semibold">
-                    <span>View Details</span>
-
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                      <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"></path>
-                    </svg>
-                  </a>
-                </div>
-              </div>
-              </div><div class="item tns-item tns-slide-cloned" aria-hidden="true" tabindex="-1">
-                <div class="card card-lift h-100 text-center text-lg-start">
-                  <div class="p-2">
-                    <a href="#"><img src="assets/images/3.jpg" alt="" class="img-fluid rounded-3 w-100"></a>
-                  </div>
-                  <div class="card-body pt-2">
-                    <h3><a class="text-inherit" href="#!">IELTS Course</a></h3>
-                    <p>Achieve your desired score with comprehensive study materials and practice tests for the International English Language Testing System.</p>
-                    <a href="#!" class="icon-link icon-link-hover link-primary fw-semibold">
-                      <span>View Details</span>
-  
-                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"></path>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              </div><div class="item tns-item tns-slide-cloned" aria-hidden="true" tabindex="-1">
-                <div class="card card-lift h-100 text-center text-lg-start">
-                  <div class="p-2">
-                    <a href="#"><img src="assets/images/4.jpg" alt="" class="img-fluid rounded-3 w-100"></a>
-                  </div>
-                  <div class="card-body pt-2">
-                    <h3><a class="text-inherit" href="#!">IELTS Course</a></h3>
-                    <p>Achieve your desired score with comprehensive study materials and practice tests for the International English Language Testing System.</p>
-                    <a href="#!" class="icon-link icon-link-hover link-primary fw-semibold">
-                      <span>View Details</span>
-  
-                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"></path>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <div class="item tns-item" id="tns1-item0" aria-hidden="true" tabindex="-1">
-                <div class="card card-lift h-100 text-center text-lg-start">
-                  <div class="p-2">
-                    <a href="#"><img src="assets/images/5.jpg" alt="" class="img-fluid rounded-3 w-100"></a>
-                  </div>
-                  <div class="card-body pt-2">
-                    <h3><a class="text-inherit" href="#!">IELTS Course</a></h3>
-                    <p>Achieve your desired score with comprehensive study materials and practice tests for the International English Language Testing System.</p>
-                    <a href="#!" class="icon-link icon-link-hover link-primary fw-semibold">
-                      <span>View Details</span>
-  
-                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"></path>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            <div class="item tns-item tns-slide-cloned" aria-hidden="true" tabindex="-1">
-              <div class="card card-lift h-100 text-center text-lg-start">
-                <div class="p-2">
-                  <a href="#"><img src="assets/images/6.jpg" alt="" class="img-fluid rounded-3 w-100"></a>
-                </div>
-                <div class="card-body pt-2">
-                  <h3><a class="text-inherit" href="#!">IELTS Course</a></h3>
-                  <p>Achieve your desired score with comprehensive study materials and practice tests for the International English Language Testing System.</p>
-                  <a href="#!" class="icon-link icon-link-hover link-primary fw-semibold">
-                    <span>View Details</span>
-
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                      <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"></path>
-                    </svg>
-                  </a>
-                </div>
-              </div>
-              </div><div class="item tns-item tns-slide-cloned" aria-hidden="true" tabindex="-1">
-                <div class="card card-lift h-100 text-center text-lg-start">
-                  <div class="p-2">
-                    <a href="#"><img src="assets/images/7.jpg" alt="" class="img-fluid rounded-3 w-100"></a>
-                  </div>
-                  <div class="card-body pt-2">
-                    <h3><a class="text-inherit" href="#!">IELTS Course</a></h3>
-                    <p>Achieve your desired score with comprehensive study materials and practice tests for the International English Language Testing System.</p>
-                    <a href="#!" class="icon-link icon-link-hover link-primary fw-semibold">
-                      <span>View Details</span>
-  
-                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"></path>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              </div></div></div></div></div>
-            <ul class="controls-testimonial controls justify-content-start" id="sliderTestimonialFourthControls" aria-label="Carousel Navigation" tabindex="0">
-              <li class="prev ms-0" aria-controls="tns1" tabindex="-1" data-controls="prev">
-                <i class="fe fe-chevron-left"></i>
-              </li>
-              <li class="next ms-2" aria-controls="tns1" tabindex="-1" data-controls="next">
-                <i class="fe fe-chevron-right"></i>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="col-xl-4 col-lg-6 col-12">
-        <div class="bg-primary px-4 pt-4 rounded-3 position-relative d-flex flex-column justify-content-center">
-              <ul class="mt-2 mb-2 list-group list-group-flush">
-                <li class="text-start list-group-item text-white">LBSNAA Newsletter</li>
-                <li class="text-start list-group-item text-white">Digital Learning Framework</li>
-                <li class="text-start list-group-item text-white">Calender 2024</li>
-                <li class="text-start list-group-item text-white">India Policy Insights</li>
-                <li class="text-start list-group-item text-white">Center For Food Planet And Health</li>
-                <li class="text-start list-group-item text-white">Notice To The Authors/Publishers</li>
-                <li class="text-start list-group-item text-white">Vacancies Notified For Recruitment</li>
-                <li class="text-start list-group-item text-white">Tender</li>
-                <li class="text-start list-group-item text-white">Online Registration For MCTP</li>
-                <li class="text-start list-group-item text-white">e-HRMS</li>
-                <li class="text-start list-group-item text-white">Sargam</li>
-                <li class="text-start list-group-item text-white">Civil List</li>
-                <li class="text-start list-group-item text-white">Media Gallery</li>
-              </ul>
-         
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-
-
-
-  @include('user.includes.footer')
+@include('user.includes.footer')
