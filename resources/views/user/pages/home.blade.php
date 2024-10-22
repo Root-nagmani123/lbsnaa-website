@@ -36,7 +36,21 @@
     </button>
   </div>
 
-  <section class="py-8">
+<section class="pb-4 bg-light">
+    <div class="row">
+      <div class="col-12">
+        <div class="scrolling-text bg-primary text-white py-2">
+          <span>
+            Welcome to Our Website! Stay updated with the latest news, events, and more! 
+            | Special Offers Available Now! Don't miss out on our limited-time deals!
+            | Contact us at info@example.com for more information.
+          </span>
+        </div>
+      </div>
+    </div>
+</section>
+
+<section class="py-8">
     <div class="container my-lg-8">
         <!-- row -->
         <div class="row">
