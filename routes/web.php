@@ -78,7 +78,7 @@ Route::prefix('admin')->group(function () {
     Route::delete('/staff/{id}', [ManageOrganizationController::class, 'staffDestroy'])->name('admin.staff.destroy');
     
    
-
+ 
     Route::get('sections', [ManageOrganizationController::class, 'sectionIndex'])->name('sections.index');
     Route::get('sections/create', [ManageOrganizationController::class, 'sectionCreate'])->name('sections.create');
     Route::post('sections', [ManageOrganizationController::class, 'sectionStore'])->name('sections.store');
@@ -87,8 +87,8 @@ Route::prefix('admin')->group(function () {
     Route::delete('sections/{id}', [ManageOrganizationController::class, 'sectionDestroy'])->name('sections.destroy');
    
     
-    Route::get('/section_category', [ManageOrganizationController::class, 'indexSectionCategory'])->name('admin.section_category.index');
-    Route::get('/section_category/create', [ManageOrganizationController::class, 'createSectionCategory'])->name('admin.section_category.create');
+    Route::get('/section_category/{id}', [ManageOrganizationController::class, 'indexSectionCategory'])->name('admin.section_category.index');
+    Route::get('/section_category/create/{id}', [ManageOrganizationController::class, 'createSectionCategory'])->name('admin.section_category.create');
     Route::post('/section_category/store', [ManageOrganizationController::class, 'storeSectionCategory'])->name('admin.section_category.store');
     Route::get('/section_category/{id}/edit', [ManageOrganizationController::class, 'editSectionCategory'])->name('admin.section_category.edit');
     Route::put('/section_category/{id}', [ManageOrganizationController::class, 'updateSectionCategory'])->name('admin.section_category.update');

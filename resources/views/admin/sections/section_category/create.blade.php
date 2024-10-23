@@ -9,12 +9,12 @@
             <h2>Create Section Category</h2>
             <form action="{{ route('admin.section_category.store') }}" method="POST">
                 @csrf
-
+ 
                 <div class="form-group">
                     <label for="name">Name *</label>
                     <input type="text" name="name" class="form-control" required>
                 </div>
-
+                <input type="hidden" name="section_id" value="{{ $id }}">
                 <div class="form-group">
                     <label for="description">Description</label>
                     <textarea name="description" class="form-control"></textarea>
@@ -22,7 +22,7 @@
 
                 <div class="form-group">
                     <label for="officer_incharge">Officer Incharge</label>
-                    <input type="text" name="officer_incharge" class="form-control">
+                    <input type="text" name="officer_Incharge" class="form-control">
                 </div>
 
                 <div class="form-group">

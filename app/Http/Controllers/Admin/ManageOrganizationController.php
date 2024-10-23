@@ -264,22 +264,29 @@ class ManageOrganizationController extends Controller
 
         return redirect()->route('sections.index')->with('success', 'Section deleted successfully');
     }
-    public function createSectionCategory()
+    public function indexSectionCategory($id)
+    {
+        // dd('hi');
+        $sections =  DB::table('section_category')->select('name','description','officer_Incharge','status','id')->from('section_category')->get();
+        // print_r($data);die;
+        return view('admin.sections.section_category.index', compact('sections','id'));
+    }
+    public function createSectionCategory($id)
     {
         // Fetch sections using query builder
-        $sections = DB::table('sections')->get();
-        return view('admin.sections.section_category.create', compact('sections'));
+     
+        return view('admin.sections.section_category.create', compact('id'));
     }
     
     public function storeSectionCategory(Request $request)
     {
+      
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'officer_Incharge' => 'nullable|string',
             'email' => 'nullable|email',
             'status' => 'required|boolean',
-            'section_id' => 'required|exists:sections,id',
         ]);
     
         // Insert data using query builder
@@ -300,31 +307,31 @@ class ManageOrganizationController extends Controller
             'fax' => $request->fax,
             'email' => $validatedData['email'],
             'status' => $validatedData['status'],
-            'section_id' => $validatedData['section_id'],
+            'section_id' => $request->section_id,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
     
-        return redirect()->route('admin.section_category.index')->with('success', 'Section Category created successfully');
+        return redirect()->route('admin.section_category.index',$request->section_id)->with('success', 'Section Category created successfully');
     }
     public function editSectionCategory($id)
 {
     // Fetch section category and sections using query builder
     $sectionCategory = DB::table('section_category')->where('id', $id)->first();
-    $sections = DB::table('sections')->get();
+   
     
-    return view('admin.sections.section_category.edit', compact('sectionCategory', 'sections'));
+    return view('admin.sections.section_category.edit', compact('sectionCategory'));
 }
 
 public function updateSectionCategory(Request $request, $id)
 {
+    // print_r($_POST);die;
     $validatedData = $request->validate([
         'name' => 'required|string|max:255',
         'description' => 'nullable|string',
         'officer_Incharge' => 'nullable|string',
         'email' => 'nullable|email',
         'status' => 'required|boolean',
-        'section_id' => 'required|exists:sections,id',
     ]);
 
     // Update data using query builder
@@ -345,18 +352,19 @@ public function updateSectionCategory(Request $request, $id)
         'fax' => $request->fax,
         'email' => $validatedData['email'],
         'status' => $validatedData['status'],
-        'section_id' => $validatedData['section_id'],
         'updated_at' => now(),
     ]);
 
-    return redirect()->route('admin.section_category.index')->with('success', 'Section Category updated successfully');
+    return redirect()->route('admin.section_category.index',$request->section_id)->with('success', 'Section Category updated successfully');
 }
-public function deleteSectionCategory($id)
+public function destroySectionCategory($id)
 {
     // Delete using query builder
+    $sectionCategory = DB::table('section_category')->select('section_id')->where('id', $id)->first();
+    
     DB::table('section_category')->where('id', $id)->delete();
 
-    return redirect()->route('admin.section_category.index')->with('success', 'Section Category deleted successfully');
+    return redirect()->route('admin.section_category.index',$sectionCategory->section_id)->with('success', 'Section Category deleted successfully');
 }
 
     
