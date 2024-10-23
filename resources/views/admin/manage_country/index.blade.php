@@ -1,5 +1,5 @@
-@extends('layouts.admin')
-
+@extends('admin.layouts.master')
+@section('title', 'Admin Dashboard')
 @section('content')
 <div class="container">
     <h1>Manage Country</h1>

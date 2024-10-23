@@ -123,27 +123,27 @@
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="#" class="menu-link">
+                            <a href="{{ route('category.index') }}" class="menu-link">
                                 Manage Category
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="#" class="menu-link">
+                            <a href="{{ route('country.index') }}" class="menu-link">
                                 Manage Country
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="#" class="menu-link">
+                            <a href="{{ route('state.index') }}" class="menu-link">
                                 Manage State
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="#" class="menu-link">
+                            <a href="{{ route('district.index') }}" class="menu-link">
                                 Manage Districts
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="#" class="menu-link">
+                            <a href="{{ route('exam.index') }}" class="menu-link">
                                 Manage Exam
                             </a>
                         </li>
