@@ -37,6 +37,21 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('sections.index') }}">Manage sections</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('category.index') }}">Manage category</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('country.index') }}">Manage country</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('state.index') }}">Manage State</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('district.index') }}">Manage District</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('exam.index') }}">Manage Exam</a>
+                    </li>
                     <!-- Add more links for other admin pages here -->
                 </ul>
             </div>
