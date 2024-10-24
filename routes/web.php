@@ -6,7 +6,11 @@ use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\ManageOrganizationController;
+
 use App\Http\Controllers\Admin\ManageSouvenirController;
+
+
+use App\Http\Controllers\Admin\TrainingManagementController;
 
 
 /*
@@ -35,7 +39,7 @@ Route::post('/admin/menus/{id}/toggle-status', [MenuController::class, 'toggleSt
 
 
 Route::prefix('admin')->group(function () {
-    
+
     Route::get('sliders', [HomeController::class, 'slider_list'])->name('admin.slider_list');
     Route::get('sliders/create', [HomeController::class, 'slider_create'])->name('admin.slider_create');
     Route::post('sliders', [HomeController::class, 'slider_store'])->name('admin.slider_store');
@@ -79,23 +83,60 @@ Route::prefix('admin')->group(function () {
     Route::put('/staff/{id}', [ManageOrganizationController::class, 'staffUpdate'])->name('admin.staff.update');
     Route::delete('/staff/{id}', [ManageOrganizationController::class, 'staffDestroy'])->name('admin.staff.destroy');
     
-   
- 
     Route::get('sections', [ManageOrganizationController::class, 'sectionIndex'])->name('sections.index');
     Route::get('sections/create', [ManageOrganizationController::class, 'sectionCreate'])->name('sections.create');
     Route::post('sections', [ManageOrganizationController::class, 'sectionStore'])->name('sections.store');
     Route::get('sections/{id}/edit', [ManageOrganizationController::class, 'sectionEdit'])->name('sections.edit');
     Route::put('sections/{id}', [ManageOrganizationController::class, 'sectionUpdate'])->name('sections.update');
     Route::delete('sections/{id}', [ManageOrganizationController::class, 'sectionDestroy'])->name('sections.destroy');
-   
     
-    Route::get('/section_category/{id}', [ManageOrganizationController::class, 'indexSectionCategory'])->name('admin.section_category.index');
-    Route::get('/section_category/create/{id}', [ManageOrganizationController::class, 'createSectionCategory'])->name('admin.section_category.create');
+    Route::get('/section_category', [ManageOrganizationController::class, 'indexSectionCategory'])->name('admin.section_category.index');
+    Route::get('/section_category/create', [ManageOrganizationController::class, 'createSectionCategory'])->name('admin.section_category.create');
     Route::post('/section_category/store', [ManageOrganizationController::class, 'storeSectionCategory'])->name('admin.section_category.store');
     Route::get('/section_category/{id}/edit', [ManageOrganizationController::class, 'editSectionCategory'])->name('admin.section_category.edit');
     Route::put('/section_category/{id}', [ManageOrganizationController::class, 'updateSectionCategory'])->name('admin.section_category.update');
     Route::delete('/section_category/{id}', [ManageOrganizationController::class, 'destroySectionCategory'])->name('admin.section_category.destroy');
 
+    // Manage category route
+    Route::get('category', [TrainingManagementController::class, 'categoryIndex'])->name('category.index');
+    Route::get('category/create', [TrainingManagementController::class, 'categoryCreate'])->name('category.create');
+    Route::post('category/store', [TrainingManagementController::class, 'categoryStore'])->name('category.store');
+    Route::get('category/{id}/edit', [TrainingManagementController::class, 'categoryEdit'])->name('category.edit');
+    Route::post('category/{id}/update', [TrainingManagementController::class, 'categoryUpdate'])->name('category.update');
+    Route::post('category/{id}/delete', [TrainingManagementController::class, 'categoryDestroy'])->name('category.destroy');
+
+    // Manage country route
+    Route::get('country', [TrainingManagementController::class, 'countryIndex'])->name('country.index');
+    Route::get('country/create', [TrainingManagementController::class, 'countryCreate'])->name('country.create');
+    Route::post('country/store', [TrainingManagementController::class, 'countryStore'])->name('country.store');
+    Route::get('country/{id}/edit', [TrainingManagementController::class, 'countryEdit'])->name('country.edit');
+    Route::post('country/{id}/update', [TrainingManagementController::class, 'countryUpdate'])->name('country.update');
+    Route::post('country/{id}/delete', [TrainingManagementController::class, 'countryDestroy'])->name('country.destroy');
+
+    // Manage state route
+    Route::get('state', [TrainingManagementController::class, 'stateIndex'])->name('state.index');
+    Route::get('state/create', [TrainingManagementController::class, 'stateCreate'])->name('state.create');
+    Route::post('state/store', [TrainingManagementController::class, 'stateStore'])->name('state.store');
+    Route::get('state/{id}/edit', [TrainingManagementController::class, 'stateEdit'])->name('state.edit');
+    Route::post('state/{id}/update', [TrainingManagementController::class, 'stateUpdate'])->name('state.update');
+    Route::post('state/{id}/delete', [TrainingManagementController::class, 'stateDestroy'])->name('state.destroy');
+
+    // Manage Districts route
+    Route::get('district', [TrainingManagementController::class, 'districtIndex'])->name('district.index');
+    Route::get('district/create', [TrainingManagementController::class, 'districtCreate'])->name('district.create');
+    Route::post('district/store', [TrainingManagementController::class, 'districtStore'])->name('district.store');
+    Route::get('district/{id}/edit', [TrainingManagementController::class, 'districtEdit'])->name('district.edit');
+    Route::post('district/{id}/update', [TrainingManagementController::class, 'districtUpdate'])->name('district.update');
+    Route::post('district/{id}/delete', [TrainingManagementController::class, 'districtDestroy'])->name('district.destroy');
+
+    // Manage Exam route
+    Route::get('exam', [TrainingManagementController::class, 'examIndex'])->name('exam.index');
+    Route::get('exam/create', [TrainingManagementController::class, 'examCreate'])->name('exam.create');
+    Route::post('exam/store', [TrainingManagementController::class, 'examStore'])->name('exam.store');
+    Route::get('exam/{id}/edit', [TrainingManagementController::class, 'examEdit'])->name('exam.edit');
+    Route::post('exam/{id}/update', [TrainingManagementController::class, 'examUpdate'])->name('exam.update');
+    Route::post('exam/{id}/delete', [TrainingManagementController::class, 'examDestroy'])->name('exam.destroy');
+});
 
 
 
@@ -118,8 +159,4 @@ Route::delete('/academy-souvenirs/destroy/{id}', [ManageSouvenirController::clas
 Route::prefix('admin')->name('admin.')->group(function() {
     Route::resource('news', NewsController::class);
     // Route::resource('faculty', FacultyMemberController::class);
-
 });
-
-
-
