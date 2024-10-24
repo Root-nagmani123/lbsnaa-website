@@ -10,13 +10,13 @@
             </button>
         </div>
         
-        <aside id="layout-menu" class="layout-menu menu-vertical menu active" data-simplebar="">
+        <aside id="layout-menu" class="layout-menu menu-vertical menu" data-simplebar="">
             <ul class="menu-inner">
                 <li class="menu-title small text-uppercase">
                     <span class="menu-title-text">Main Website</span>
                 </li>
                 <li class="menu-item open">
-                    <a href="{{ route('admin.index') }}" class="menu-link active">
+                    <a href="{{ route('admin.index') }}" class="menu-link">
                         <i data-feather="grid" class="menu-icon tf-icons"></i>
                         <span class="title">Dashboard</span>
                     </a>
@@ -28,7 +28,7 @@
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="javascript:void(0);" class="menu-link menu-toggle active">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
                         <i data-feather="folder-minus" class="menu-icon tf-icons"></i>
                         <span class="title">User Management</span>
                     </a>
@@ -51,7 +51,7 @@
                     </ul>
                 </li>
                 <li class="menu-item">
-                    <a href="javascript:void(0);" class="menu-link menu-toggle active">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
                         <i data-feather="folder-minus" class="menu-icon tf-icons"></i>
                         <span class="title">CMS Page</span>
                     </a>
@@ -64,7 +64,7 @@
                     </ul>
                 </li>
                 <li class="menu-item">
-                    <a href="javascript:void(0);" class="menu-link menu-toggle active">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
                         <i data-feather="folder-minus" class="menu-icon tf-icons"></i>
                         <span class="title">Manage Organization Module</span>
                     </a>
@@ -92,7 +92,7 @@
                     </ul>
                 </li>
                 <li class="menu-item">
-                    <a href="javascript:void(0);" class="menu-link menu-toggle active">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
                         <i data-feather="folder-minus" class="menu-icon tf-icons"></i>
                         <span class="title">Training Master Management</span>
                     </a>
@@ -186,25 +186,25 @@
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="javascript:void(0);" class="menu-link menu-toggle active">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
                         <i data-feather="mail" class="menu-icon tf-icons"></i>
                         <span class="title">Manage Souvenir Module</span>
                     </a>
                     <ul class="menu-sub">
                         <li class="menu-item">
-                            <a href="#" class="menu-link">
+                            <a href="{{ route('souvenir.index') }}" class="menu-link {{ Request::routeIs('souvenir.index') ? 'active' : '' }}">
                                 Manage Master Categories
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="#" class="menu-link">
+                            <a href="{{ route('academy_souvenirs.index') }}" class="menu-link {{ Request::routeIs('academy_souvenirs.index') ? 'active' : '' }}">
                                 Manage Academy Souvenir
                             </a>
                         </li>
                     </ul>
                 </li>
                 <li class="menu-item">
-                    <a href="javascript:void(0);" class="menu-link menu-toggle active">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
                         <i data-feather="mail" class="menu-icon tf-icons"></i>
                         <span class="title">Manage Course Module</span>
                     </a>
@@ -263,7 +263,7 @@
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="javascript:void(0);" class="menu-link menu-toggle active">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
                         <i data-feather="printer" class="menu-icon tf-icons"></i>
                         <span class="title">Manage Media Center</span>
                     </a>
@@ -305,7 +305,7 @@
                     <span class="menu-title-text">Micro-Website</span>
                 </li>
                 <li class="menu-item">
-                    <a href="javascript:void(0);" class="menu-link menu-toggle active">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
                         <i data-feather="folder-minus" class="menu-icon tf-icons"></i>
                         <span class="title">CMS Page</span>
                     </a>
@@ -348,7 +348,7 @@
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="javascript:void(0);" class="menu-link menu-toggle active">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
                         <i data-feather="printer" class="menu-icon tf-icons"></i>
                         <span class="title">Manage Media Center</span>
                     </a>
