@@ -6,6 +6,8 @@ use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\ManageOrganizationController;
+use App\Http\Controllers\Admin\ManageSouvenirController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -95,6 +97,22 @@ Route::prefix('admin')->group(function () {
     Route::delete('/section_category/{id}', [ManageOrganizationController::class, 'destroySectionCategory'])->name('admin.section_category.destroy');
 
 
+
+
+Route::get('souvenir', [ManageSouvenirController::class, 'index'])->name('souvenir.index'); // List all categories
+Route::get('souvenir/create', [ManageSouvenirController::class, 'create'])->name('souvenir.create'); // Show create form
+Route::post('souvenir', [ManageSouvenirController::class, 'store'])->name('souvenir.store'); // Store new category
+Route::get('souvenir/{id}/edit', [ManageSouvenirController::class, 'edit'])->name('souvenir.edit'); // Show edit form
+Route::put('souvenir/{id}', [ManageSouvenirController::class, 'update'])->name('souvenir.update'); // Update existing category
+Route::delete('souvenir/{id}', [ManageSouvenirController::class, 'destroy'])->name('souvenir.destroy'); // Delete category
+
+
+Route::get('/academy-souvenirs', [ManageSouvenirController::class, 'indexAcademySouvenirs'])->name('academy_souvenirs.index');
+Route::get('/academy-souvenirs/create', [ManageSouvenirController::class, 'createAcademySouvenir'])->name('academy_souvenirs.create');
+Route::post('/academy-souvenirs/store', [ManageSouvenirController::class, 'storeAcademySouvenir'])->name('academy_souvenirs.store');
+Route::get('/academy-souvenirs/edit/{id}', [ManageSouvenirController::class, 'editAcademySouvenir'])->name('academy_souvenirs.edit');
+Route::PUT('/academy-souvenirs/update/{id}', [ManageSouvenirController::class, 'updateAcademySouvenir'])->name('academy_souvenirs.update');
+Route::delete('/academy-souvenirs/destroy/{id}', [ManageSouvenirController::class, 'destroyAcademySouvenir'])->name('academy_souvenirs.destroy');
 
 });
 Route::prefix('admin')->name('admin.')->group(function() {
