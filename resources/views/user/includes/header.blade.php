@@ -41,12 +41,12 @@
       <div class="collapse navbar-collapse" id="navbar-default">
         <ul class="navbar-nav mx-auto">
           @php
-          $menus = DB::table('menus')->where('menu_status',1)->where('parent_id', null)->get();
+          $menus = DB::table('menus')->where('menu_status',1)->where('txtpostion',1)->where('parent_id', null)->get();
           @endphp
 
           @foreach($menus as $menu)
           @php
-          $submenus = DB::table('menus')->where('menu_status',1)->where('parent_id', $menu->id)->get();
+          $submenus = DB::table('menus')->where('menu_status',1)->where('txtpostion',1)->where('parent_id', $menu->id)->get();
           @endphp
           <li class="nav-item dropdown">
             <a class="nav-link {{count($submenus) > 0 ? 'dropdown-toggle' : ''}}" href="#" id="navbarListing"

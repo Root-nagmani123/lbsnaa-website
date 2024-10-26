@@ -1,5 +1,5 @@
 @php
-    $submenus = DB::table('menus')->where('menu_status',1)->where('parent_id', $menu->id)->get();
+    $submenus = DB::table('menus')->where('menu_status',1)->where('txtpostion',1)->where('parent_id', $menu->id)->get();
 @endphp
 
 <li class="dropdown-submenu dropend">

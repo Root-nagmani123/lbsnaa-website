@@ -36,19 +36,24 @@
     </button>
   </div>
 
-<section class="pb-4 bg-light">
-    <div class="row">
-      <div class="col-12">
-        <div class="scrolling-text bg-primary text-white py-2">
-          <span>
-            Welcome to Our Website! Stay updated with the latest news, events, and more! 
-            | Special Offers Available Now! Don't miss out on our limited-time deals!
-            | Contact us at info@example.com for more information.
-          </span>
+  <!-- floating notification start -->
+  <div class="caontainer-fluid">
+  <div class="position-relative d-flex overflow-x-hidden py-lg-4 pt-4 gap-3">
+    <button class="btn btn-primary" id="basic-addon2" style="z-index: 1;">Latest Updates</button>
+    <div class="animate-marquee d-flex gap-3">
+    @foreach($news_scrollers as $scroller)  
+    <a href="#" class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border">
+        <!--img-->
+        <div class="p-3">
+          <span class="text-gray-800">{{$scroller->menutitle}}</span>
         </div>
-      </div>
+      </a>
+      @endforeach  
     </div>
-</section>
+    
+  </div>
+</div>
+
 
 <section class="py-8">
     <div class="container my-lg-8">
@@ -145,7 +150,7 @@
                           <div class="card-body pt-2">
                             <h3><a class="text-inherit" href="#">{{ $slider->title }}</a></h3>
                             <p>{{ $slider->short_description }}</p>
-                            <a href="" class="icon-link icon-link-hover link-primary fw-semibold">
+                            <a href="{{ route('user.newsbyslug', $slider->slug) }}" class="icon-link icon-link-hover link-primary fw-semibold">
                               <span>View Details</span>
                               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"></path>

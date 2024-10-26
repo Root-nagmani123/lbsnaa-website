@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\ManageOrganizationController;
 
 
 Route::get('/', [HomeController::class,'index']);
+Route::get('/news/{slug}', [HomeController::class,'get_news'])->name('user.newsbyslug');
 
 
 Route::get('/admin', [Controller::class, 'index'])->name('admin.index');
