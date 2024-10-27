@@ -168,6 +168,14 @@ Route::prefix('admin')->group(function () {
     // Manage Social media route
     Route::get('socialmedia', [SocialmediaController::class, 'SocialmediaIndex'])->name('socialmedia.index');
     Route::post('socialmedia/store', [SocialmediaController::class, 'SocialmediaStore'])->name('socialmedia.store');
+    
+    Route::get('souvenir', [ManageSouvenirController::class, 'index'])->name('souvenir.index'); // List all categories
+    Route::get('souvenir/create', [ManageSouvenirController::class, 'create'])->name('souvenir.create'); // Show create form
+    Route::post('souvenir', [ManageSouvenirController::class, 'store'])->name('souvenir.store'); // Store new category
+    Route::get('souvenir/{id}/edit', [ManageSouvenirController::class, 'edit'])->name('souvenir.edit'); // Show edit form
+    Route::put('souvenir/{id}', [ManageSouvenirController::class, 'update'])->name('souvenir.update'); // Update existing category
+    Route::delete('souvenir/{id}', [ManageSouvenirController::class, 'destroy'])->name('souvenir.destroy'); // Delete category
+    
 
     Route::get('/academy-souvenirs', [ManageSouvenirController::class, 'indexAcademySouvenirs'])->name('academy_souvenirs.index');
     Route::get('/academy-souvenirs/create', [ManageSouvenirController::class, 'createAcademySouvenir'])->name('academy_souvenirs.create');
@@ -175,7 +183,6 @@ Route::prefix('admin')->group(function () {
     Route::get('/academy-souvenirs/edit/{id}', [ManageSouvenirController::class, 'editAcademySouvenir'])->name('academy_souvenirs.edit');
     Route::PUT('/academy-souvenirs/update/{id}', [ManageSouvenirController::class, 'updateAcademySouvenir'])->name('academy_souvenirs.update');
     Route::delete('/academy-souvenirs/destroy/{id}', [ManageSouvenirController::class, 'destroyAcademySouvenir'])->name('academy_souvenirs.destroy');
-});
 
 
 
@@ -184,6 +191,7 @@ Route::prefix('admin')->group(function () {
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('news', NewsController::class);
     // Route::resource('faculty', FacultyMemberController::class);
+});
 
 
     // Indrajeet
@@ -201,4 +209,5 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/manage_events/{id}/edit', [ManageEventsController::class, 'edit'])->name('manage_events.edit');
     Route::put('/manage_events/{id}', [ManageEventsController::class, 'update'])->name('manage_events.update');
 });
+
 // Indrajeet
