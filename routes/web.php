@@ -136,11 +136,8 @@ Route::prefix('admin')->group(function () {
     Route::get('exam/{id}/edit', [TrainingManagementController::class, 'examEdit'])->name('exam.edit');
     Route::post('exam/{id}/update', [TrainingManagementController::class, 'examUpdate'])->name('exam.update');
     Route::post('exam/{id}/delete', [TrainingManagementController::class, 'examDestroy'])->name('exam.destroy');
-});
 
-
-
-Route::get('souvenir', [ManageSouvenirController::class, 'index'])->name('souvenir.index'); // List all categories
+    Route::get('souvenir', [ManageSouvenirController::class, 'index'])->name('souvenir.index'); // List all categories
 Route::get('souvenir/create', [ManageSouvenirController::class, 'create'])->name('souvenir.create'); // Show create form
 Route::post('souvenir', [ManageSouvenirController::class, 'store'])->name('souvenir.store'); // Store new category
 Route::get('souvenir/{id}/edit', [ManageSouvenirController::class, 'edit'])->name('souvenir.edit'); // Show edit form
@@ -156,6 +153,10 @@ Route::PUT('/academy-souvenirs/update/{id}', [ManageSouvenirController::class, '
 Route::delete('/academy-souvenirs/destroy/{id}', [ManageSouvenirController::class, 'destroyAcademySouvenir'])->name('academy_souvenirs.destroy');
 
 });
+
+
+
+
 Route::prefix('admin')->name('admin.')->group(function() {
     Route::resource('news', NewsController::class);
     // Route::resource('faculty', FacultyMemberController::class);

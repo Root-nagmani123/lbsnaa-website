@@ -8,7 +8,7 @@ if (!function_exists('renderMenu')) {
         $output .= '<td>' . ($menu->parent_id ? htmlspecialchars(\App\Models\Admin\Menu::find($menu->parent_id)->menutitle) : 'Root Category') . '</td>';
         $output .= '<td>' . getMenuType($menu->texttype) . '</td>';
         $output .= '<td>' . getMenuPosition($menu->txtpostion) . '</td>';
-        $output .= '<td><a href="' . route('admin.menus.edit', $menu->id) . '" class="btn btn-sm btn-primary">Edit</a><a href="' . route('admin.menus.delete', $menu->id) . '" class="btn btn-sm btn-primary">Delete</a></td>';
+        $output .= '<td class="gap-3"><a href="' . route('admin.menus.edit', $menu->id) . '" class="btn bg-success text-white btn-sm">Edit</a> &nbsp;<a href="' . route('admin.menus.delete', $menu->id) . '" class="btn btn-sm btn-primary text-white">Delete</a></td>';
         $checked = $menu->menu_status ? 'checked' : '';
         $output .= '<td><label class="switch">
             <input type="checkbox" class="status-toggle" data-id="' . $menu->id . '" ' . $checked . '>
