@@ -155,7 +155,7 @@ Route::get('/academy-souvenirs/edit/{id}', [ManageSouvenirController::class, 'ed
 Route::PUT('/academy-souvenirs/update/{id}', [ManageSouvenirController::class, 'updateAcademySouvenir'])->name('academy_souvenirs.update');
 Route::delete('/academy-souvenirs/destroy/{id}', [ManageSouvenirController::class, 'destroyAcademySouvenir'])->name('academy_souvenirs.destroy');
 
-});
+
 Route::prefix('admin')->name('admin.')->group(function() {
     Route::resource('news', NewsController::class);
     // Route::resource('faculty', FacultyMemberController::class);
