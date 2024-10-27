@@ -98,27 +98,27 @@
                     </a>
                     <ul class="menu-sub">
                         <li class="menu-item">
-                            <a href="#" class="menu-link">
+                            <a href="{{ route('organisers.index') }}" class="menu-link">
                                 Manage Organiser
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="#" class="menu-link">
+                            <a href="{{ route('coordinators.index') }}" class="menu-link">
                                 Manage Coordinator
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="#" class="menu-link">
+                            <a href="{{ route('venues.index') }}" class="menu-link">
                                 Manage Venue
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="#" class="menu-link">
+                            <a href="{{ route('founders.index') }}" class="menu-link">
                                 Manage Founder
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="#" class="menu-link">
+                            <a href="{{ route('cadres.index') }}" class="menu-link">
                                 Manage Cadre
                             </a>
                         </li>
@@ -168,13 +168,13 @@
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="#" class="menu-link">
+                    <a href="{{ route('manage_events.index') }}" class="menu-link">
                         <i data-feather="message-square" class="menu-icon tf-icons"></i>
                         <span class="title">Manage Events</span>
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="#" class="menu-link">
+                    <a href="{{ route('manage_tender.index') }}" class="menu-link">
                         <i data-feather="message-square" class="menu-icon tf-icons"></i>
                         <span class="title">Manage Tender</span>
                     </a>
@@ -233,7 +233,7 @@
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="#" class="menu-link">
+                    <a href="{{ route('manage_vacancy.index') }}" class="menu-link">
                         <i data-feather="message-square" class="menu-icon tf-icons"></i>
                         <span class="title">Manage Vacancy</span>
                     </a>

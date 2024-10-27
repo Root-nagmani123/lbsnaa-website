@@ -12,6 +12,19 @@ use App\Http\Controllers\Admin\ManageSouvenirController;
 
 use App\Http\Controllers\Admin\TrainingManagementController;
 
+// Indrajeet
+use App\Http\Controllers\Admin\OrganiserController;
+use App\Http\Controllers\Admin\CoordinatorController;
+use App\Http\Controllers\Admin\ManageVenueController;
+use App\Http\Controllers\Admin\ManageFoundersController;
+use App\Http\Controllers\Admin\ManageCadresController;
+
+use App\Http\Controllers\Admin\ManageTenderController;
+use App\Http\Controllers\Admin\ManageVacancyController;
+use App\Http\Controllers\Admin\ManageEventsController;
+// Indrajeet
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -155,8 +168,25 @@ Route::get('/academy-souvenirs/edit/{id}', [ManageSouvenirController::class, 'ed
 Route::PUT('/academy-souvenirs/update/{id}', [ManageSouvenirController::class, 'updateAcademySouvenir'])->name('academy_souvenirs.update');
 Route::delete('/academy-souvenirs/destroy/{id}', [ManageSouvenirController::class, 'destroyAcademySouvenir'])->name('academy_souvenirs.destroy');
 
-});
+
 Route::prefix('admin')->name('admin.')->group(function() {
     Route::resource('news', NewsController::class);
     // Route::resource('faculty', FacultyMemberController::class);
 });
+
+
+// Indrajeet
+Route::resource('organisers', OrganiserController::class);
+Route::resource('coordinators', CoordinatorController::class);
+Route::resource('venues', ManageVenueController::class);
+Route::resource('founders', ManageFoundersController::class);
+Route::resource('cadres', ManageCadresController::class);
+
+Route::resource('manage_tender', ManageTenderController::class);
+Route::resource('manage_vacancy', ManageVacancyController::class);
+Route::get('/manage_vacancy/{id}/edit', [ManageVacancyController::class, 'edit'])->name('manage_vacancy.edit');
+Route::resource('manage_events', ManageEventsController::class);
+
+Route::get('/manage_events/{id}/edit', [ManageEventsController::class, 'edit'])->name('manage_events.edit');
+Route::put('/manage_events/{id}', [ManageEventsController::class, 'update'])->name('manage_events.update');
+// Indrajeet
