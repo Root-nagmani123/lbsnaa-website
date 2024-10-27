@@ -227,7 +227,7 @@
                     </ul>
                 </li>
                 <li class="menu-item">
-                    <a href="#" class="menu-link">
+                    <a href="{{ route('survey.index') }}" class="menu-link">
                         <i data-feather="message-square" class="menu-icon tf-icons"></i>
                         <span class="title">Manage Survey List</span>
                     </a>
@@ -251,7 +251,7 @@
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="#" class="menu-link">
+                    <a href="{{ route('socialmedia.index') }}" class="menu-link">
                         <i data-feather="message-square" class="menu-icon tf-icons"></i>
                         <span class="title">Manage Social Media</span>
                     </a>

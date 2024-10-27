@@ -11,6 +11,11 @@ use App\Http\Controllers\Admin\ManageSouvenirController;
 
 
 use App\Http\Controllers\Admin\TrainingManagementController;
+use App\Http\Controllers\Admin\SurveyController;
+use App\Http\Controllers\Admin\SocialmediaController;
+use App\Http\Controllers\Admin\CourseCmsController;
+
+
 
 // Indrajeet
 use App\Http\Controllers\Admin\OrganiserController;
@@ -27,6 +32,8 @@ use App\Http\Controllers\Admin\ManageEventsController;
 
 
 /*
+
+
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
@@ -95,14 +102,14 @@ Route::prefix('admin')->group(function () {
     Route::get('/staff/{id}/edit', [ManageOrganizationController::class, 'staffEdit'])->name('admin.staff.edit');
     Route::put('/staff/{id}', [ManageOrganizationController::class, 'staffUpdate'])->name('admin.staff.update');
     Route::delete('/staff/{id}', [ManageOrganizationController::class, 'staffDestroy'])->name('admin.staff.destroy');
-    
+
     Route::get('sections', [ManageOrganizationController::class, 'sectionIndex'])->name('sections.index');
     Route::get('sections/create', [ManageOrganizationController::class, 'sectionCreate'])->name('sections.create');
     Route::post('sections', [ManageOrganizationController::class, 'sectionStore'])->name('sections.store');
     Route::get('sections/{id}/edit', [ManageOrganizationController::class, 'sectionEdit'])->name('sections.edit');
     Route::put('sections/{id}', [ManageOrganizationController::class, 'sectionUpdate'])->name('sections.update');
     Route::delete('sections/{id}', [ManageOrganizationController::class, 'sectionDestroy'])->name('sections.destroy');
-    
+
     Route::get('/section_category', [ManageOrganizationController::class, 'indexSectionCategory'])->name('admin.section_category.index');
     Route::get('/section_category/create', [ManageOrganizationController::class, 'createSectionCategory'])->name('admin.section_category.create');
     Route::post('/section_category/store', [ManageOrganizationController::class, 'storeSectionCategory'])->name('admin.section_category.store');
@@ -150,45 +157,48 @@ Route::prefix('admin')->group(function () {
     Route::post('exam/{id}/update', [TrainingManagementController::class, 'examUpdate'])->name('exam.update');
     Route::post('exam/{id}/delete', [TrainingManagementController::class, 'examDestroy'])->name('exam.destroy');
 
-    Route::get('souvenir', [ManageSouvenirController::class, 'index'])->name('souvenir.index'); // List all categories
-Route::get('souvenir/create', [ManageSouvenirController::class, 'create'])->name('souvenir.create'); // Show create form
-Route::post('souvenir', [ManageSouvenirController::class, 'store'])->name('souvenir.store'); // Store new category
-Route::get('souvenir/{id}/edit', [ManageSouvenirController::class, 'edit'])->name('souvenir.edit'); // Show edit form
-Route::put('souvenir/{id}', [ManageSouvenirController::class, 'update'])->name('souvenir.update'); // Update existing category
-Route::delete('souvenir/{id}', [ManageSouvenirController::class, 'destroy'])->name('souvenir.destroy'); // Delete category
+    // Manage Exam route
+    Route::get('survey', [SurveyController::class, 'surveyIndex'])->name('survey.index');
+    Route::get('survey/create', [SurveyController::class, 'surveyCreate'])->name('survey.create');
+    Route::post('survey/store', [SurveyController::class, 'surveyStore'])->name('survey.store');
+    Route::get('survey/{id}/edit', [SurveyController::class, 'surveyEdit'])->name('survey.edit');
+    Route::post('survey/{id}/update', [SurveyController::class, 'surveyUpdate'])->name('survey.update');
+    Route::post('survey/{id}/delete', [SurveyController::class, 'surveyDestroy'])->name('survey.destroy');
 
+    // Manage Social media route
+    Route::get('socialmedia', [SocialmediaController::class, 'SocialmediaIndex'])->name('socialmedia.index');
+    Route::post('socialmedia/store', [SocialmediaController::class, 'SocialmediaStore'])->name('socialmedia.store');
 
-Route::get('/academy-souvenirs', [ManageSouvenirController::class, 'indexAcademySouvenirs'])->name('academy_souvenirs.index');
-Route::get('/academy-souvenirs/create', [ManageSouvenirController::class, 'createAcademySouvenir'])->name('academy_souvenirs.create');
-Route::post('/academy-souvenirs/store', [ManageSouvenirController::class, 'storeAcademySouvenir'])->name('academy_souvenirs.store');
-Route::get('/academy-souvenirs/edit/{id}', [ManageSouvenirController::class, 'editAcademySouvenir'])->name('academy_souvenirs.edit');
-Route::PUT('/academy-souvenirs/update/{id}', [ManageSouvenirController::class, 'updateAcademySouvenir'])->name('academy_souvenirs.update');
-Route::delete('/academy-souvenirs/destroy/{id}', [ManageSouvenirController::class, 'destroyAcademySouvenir'])->name('academy_souvenirs.destroy');
-
-
-
-
-
-Route::prefix('admin')->name('admin.')->group(function() {
-    Route::resource('news', NewsController::class);
-    // Route::resource('faculty', FacultyMemberController::class);
+    Route::get('/academy-souvenirs', [ManageSouvenirController::class, 'indexAcademySouvenirs'])->name('academy_souvenirs.index');
+    Route::get('/academy-souvenirs/create', [ManageSouvenirController::class, 'createAcademySouvenir'])->name('academy_souvenirs.create');
+    Route::post('/academy-souvenirs/store', [ManageSouvenirController::class, 'storeAcademySouvenir'])->name('academy_souvenirs.store');
+    Route::get('/academy-souvenirs/edit/{id}', [ManageSouvenirController::class, 'editAcademySouvenir'])->name('academy_souvenirs.edit');
+    Route::PUT('/academy-souvenirs/update/{id}', [ManageSouvenirController::class, 'updateAcademySouvenir'])->name('academy_souvenirs.update');
+    Route::delete('/academy-souvenirs/destroy/{id}', [ManageSouvenirController::class, 'destroyAcademySouvenir'])->name('academy_souvenirs.destroy');
 });
 
 
-// Indrajeet
-Route::resource('organisers', OrganiserController::class);
-Route::resource('coordinators', CoordinatorController::class);
-Route::resource('venues', ManageVenueController::class);
-Route::resource('founders', ManageFoundersController::class);
-Route::resource('cadres', ManageCadresController::class);
 
-Route::resource('manage_tender', ManageTenderController::class);
-Route::resource('manage_vacancy', ManageVacancyController::class);
-Route::get('/manage_vacancy/{id}/edit', [ManageVacancyController::class, 'edit'])->name('manage_vacancy.edit');
-Route::resource('manage_events', ManageEventsController::class);
 
-Route::get('/manage_events/{id}/edit', [ManageEventsController::class, 'edit'])->name('manage_events.edit');
-Route::put('/manage_events/{id}', [ManageEventsController::class, 'update'])->name('manage_events.update');
 
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::resource('news', NewsController::class);
+    // Route::resource('faculty', FacultyMemberController::class);
+
+
+    // Indrajeet
+    Route::resource('organisers', OrganiserController::class);
+    Route::resource('coordinators', CoordinatorController::class);
+    Route::resource('venues', ManageVenueController::class);
+    Route::resource('founders', ManageFoundersController::class);
+    Route::resource('cadres', ManageCadresController::class);
+
+    Route::resource('manage_tender', ManageTenderController::class);
+    Route::resource('manage_vacancy', ManageVacancyController::class);
+    Route::get('/manage_vacancy/{id}/edit', [ManageVacancyController::class, 'edit'])->name('manage_vacancy.edit');
+    Route::resource('manage_events', ManageEventsController::class);
+
+    Route::get('/manage_events/{id}/edit', [ManageEventsController::class, 'edit'])->name('manage_events.edit');
+    Route::put('/manage_events/{id}', [ManageEventsController::class, 'update'])->name('manage_events.update');
 });
 // Indrajeet
