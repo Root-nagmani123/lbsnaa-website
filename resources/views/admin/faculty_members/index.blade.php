@@ -3,69 +3,81 @@
 @section('title', 'Admin Dashboard')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-12">
-            <h2 class="mb-4">Faculty Members</h2>
-            <a href="{{ route('admin.faculty.create') }}" class="btn btn-primary mb-3">Add Faculty Member</a>
+<div class="card bg-white border-0 rounded-10 mb-4">
+    <div class="card-body p-4">
+        <div class="d-sm-flex text-center justify-content-between align-items-center border-bottom pb-20 mb-20">
+            <h4 class="fw-semibold fs-18 mb-sm-0">Faculty Members</h4>
 
-            @if(session('success'))
+            <a href="{{ route('admin.faculty.create') }}">
+                <button class="border-0 btn btn-success py-2 px-3 px-sm-4 text-white fs-14 fw-semibold rounded-3">
+                    <span class="py-sm-1 d-block">
+                        <i class="ri-add-line text-white"></i>
+                        <span>Add Faculty Member</span>
+                    </span>
+                </button>
+            </a>
+        </div>
+        @if(session('success'))
                 <div class="alert alert-success">
                     {{ session('success') }}
                 </div>
             @endif
-
-            <table class="table table-bordered table-striped">
-                <thead>
-                    <tr>
-                        <th>#</th>
+        <div class="default-table-area members-list recent-orders">
+            <div class="table-responsive">
+                <table class="table align-middle" id="myTable">
+                    <thead>
+                        <tr class="text-center">
+                            <th class="col">#</th>
                        
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Designation</th>
-                        <th>Mobile</th>
-                        <th>Category</th>
-                        <th>Image</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($facultyMembers as $faculty)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                       
-                        <td>{{ $faculty->name }}</td>
-                        <td>{{ $faculty->email }}</td>
-                        <td>{{ $faculty->designation }}</td>
-                        <td>{{ $faculty->mobile }}</td>
-                        <td>{{ $faculty->category }}</td>
-                        <td>
-                            @if($faculty->image)
-                                <img src="{{ asset($faculty->image) }}" alt="Faculty Image" width="50" height="50">
-                            @else
-                                No Image
-                            @endif
-                        </td>
-                        <td>
-                            @if($faculty->page_status == 1)
-                                <span class="badge badge-success">Active</span>
-                            @else
-                                <span class="badge badge-danger">Inactive</span>
-                            @endif
-                        </td>
-                        <td>
-                            <a href="{{ route('admin.faculty.edit', $faculty->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                            <form action="{{ route('admin.faculty.destroy', $faculty->id) }}" method="POST" style="display: inline-block;">
-                                @csrf
+                            <th class="col">Name</th>
+                            <th class="col">Email</th>
+                            <th class="col">Designation</th>
+                            <th class="col">Mobile</th>
+                            <th class="col">Category</th>
+                            <th class="col">Image</th>
+                            <th class="col">Status</th>
+                            <th class="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($facultyMembers as $faculty)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                           
+                            <td>{{ $faculty->name }}</td>
+                            <td>{{ $faculty->email }}</td>
+                            <td>{{ $faculty->designation }}</td>
+                            <td>{{ $faculty->mobile }}</td>
+                            <td>{{ $faculty->category }}</td>
+                            <td>
+                                @if($faculty->image)
+                                    <img src="{{ asset($faculty->image) }}" alt="Faculty Image" width="50" height="50">
+                                @else
+                                    No Image
+                                @endif
+                            </td>
+                            <td>
+                                @if($faculty->page_status == 1)
+                                    <span class="badge bg-success bg-opacity-10 text-success py-2 px-3 fw-semibold d-block text-center">Active</span>
+                                @else
+                                    <span class="badge bg-danger bg-opacity-10 text-danger py-2 px-3 fw-semibold d-block text-center">Inactive</span>
+                                @endif
+                            </td>
+                            <td>
+                                <a href="{{ route('admin.faculty.edit', $faculty->id) }}"
+                                    class="btn btn-success text-white">Edit</a>
+                                <form action="{{ route('admin.faculty.destroy', $faculty->id) }}" method="POST"
+                                    style="display:inline;">
+                                    @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this faculty member?')">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                                    <button type="submit" class="btn btn-primary text-white" onclick="return confirm('Are you sure you want to delete this faculty member?')">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
