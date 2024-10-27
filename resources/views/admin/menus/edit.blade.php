@@ -3,191 +3,225 @@
 @section('title', 'Admin Dashboard')
 
 @section('content')
-<div class="row">
-    <div class="col">
-        <h2>Edit Menu</h2>
-        <form action="{{ route('admin.menus.update', $menu->id) }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            @method('PUT') <!-- Use PUT method for updating -->
-
-            <!-- Menu Title Field -->
-            <div class="frm_row">
-                <span class="label1">
-                    <label for="menutitle">Menu Title :</label>
-                    <span class="star">*</span>
-                </span>
-                <span class="input1">
-                    <input type="text" name="menutitle" id="menutitle" class="form-control" value="{{ $menu->menutitle }}" required>
-                </span>
-                <div class="clear"></div>
-            </div>
-
-            <!-- Menu Type Dropdown -->
-            <div class="frm_row">
-                <span class="label1">
-                    <label for="texttype">Menu Type :</label>
-                    <span class="star">*</span>
-                </span>
-                <span class="input1">
-                    <select name="texttype" id="texttype" class="form-control" autocomplete="off"
-                        onchange="addmenutype(this.value)" required>
-                        <option value="">Select</option>
-                        <option value="1" {{ $menu->texttype == 1 ? 'selected' : '' }}>Content</option>
-                        <option value="2" {{ $menu->texttype == 2 ? 'selected' : '' }}>PDF file Upload</option>
-                        <option value="3" {{ $menu->texttype == 3 ? 'selected' : '' }}>Web Site Url</option>
-                    </select>
-                </span>
-                <div class="clear"></div>
-            </div>
-
-            <!-- Additional Fields Container -->
-            <div id="additional-fields" style="display: none;">
-                <!-- Content Field -->
-                <div class="frm_row" id="content-field" style="display: none;">
-                    <span class="label1">
-                        <label for="content">Content:</label>
-                        <span class="star">*</span>
-                    </span>
-                    <span class="input1">
-                        <textarea name="content" id="content" class="form-control">{{ $menu->content }}</textarea>
-                    </span>
-                    <div class="clear"></div>
-                    <div class="frm_row">
-                    <span class="label1">
-                        <label for="meta_title">Meta Title:</label>
-                        <span class="star">*</span>
-                    </span>
-                    <span class="input1">
-                        <input type="text" name="meta_title" id="meta_title" class="form-control" value="{{ $menu->meta_title }}" >
-                    </span>
-                    <div class="clear"></div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="row justify-content-center">
+        <div class="col-lg-12">
+            <div class="card bg-white border-0 rounded-10 mb-4">
+                <div class="card-body p-4">
+                    <h4 class="fs-18 mb-4">Edit Menu</h4>
+    
+                    <form action="{{ route('admin.menus.update', $menu->id) }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT') <!-- Use PUT method for updating -->
+                        
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group mb-4">
+                                    <label class="label" for="menutitle">Menu Title :</label>
+                                    <span class="star">*</span>
+                                    <div class="form-group position-relative">
+                                        <input type="text" class="form-control text-dark ps-5 h-58" name="menutitle"
+                                            id="menutitle" value="{{ $menu->menutitle }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group mb-4">
+                                    <label class="label" for="texttype">Menu Type :</label>
+                                    <span class="star">*</span>
+                                    <div class="form-group position-relative">
+                                        <select class="form-select form-control ps-5 h-58"
+                                            aria-label="Default select example" name="texttype" id="texttype"
+                                            autocomplete="off" onchange="addmenutype(this.value)" required>
+                                            <option class="text-dark">Select</option>
+                                            <option value="1" class="text-dark" {{ $menu->texttype == 1 ? 'selected' : '' }}>Content</option>
+                                            <option value="2" class="text-dark" {{ $menu->texttype == 2 ? 'selected' : '' }}>PDF file Upload</option>
+                                            <option value="3" class="text-dark" {{ $menu->texttype == 3 ? 'selected' : '' }}>Web Site Url</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="display: none;" id="additional-fields">
+                                <div class="row" id="content-field">
+                                    <div class="col-lg-12">
+                                        <div class="form-group mb-0">
+                                            <label class="label" for="content">Content :</label>
+                                            <span class="star">*</span>
+                                            <div class="form-group position-relative">
+                                                <textarea class="form-control ps-5 text-dark"
+                                                    placeholder="Some demo text ... " cols="30" rows="5" name="content"
+                                                    id="content">{{ $menu->content }}</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                   <div class="row mt-4">
+                                   <div class="col-lg-6">
+                                        <div class="form-group mb-4">
+                                            <label class="label" for="meta_title">Meta Title:</label>
+                                            <span class="star">*</span>
+                                            <div class="form-group position-relative">
+                                                <input type="text" class="form-control text-dark ps-5 h-58" name="menutitle"
+                                                    id="menutitle" value="{{ $menu->meta_title }}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group mb-4">
+                                            <label class="label" for="meta_keyword">Meta Keyword :</label>
+                                            <span class="star">*</span>
+                                            <div class="form-group position-relative">
+                                                <input type="text" class="form-control text-dark ps-5 h-58"
+                                                    name="meta_keyword" id="meta_keyword" value="{{ $menu->meta_keyword }}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                   </div>
+                                    <div class="col-lg-12">
+                                        <div class="form-group mb-0">
+                                            <label class="label" for="meta_description">Meta Description :</label>
+                                            <span class="star">*</span>
+                                            <div class="form-group position-relative">
+                                                <textarea class="form-control ps-5 text-dark"
+                                                    placeholder="Some demo text ... " cols="30" rows="5"
+                                                    name="meta_description" id="meta_description">{{ $menu->meta_description }}</textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="display: none;" id="pdf-upload-field">
+                                    <div class="col-lg-12">
+                                        <div class="form-group mb-0">
+                                            <label class="label" for="pdf_file">Upload PDF</label>
+                                            <div class="form-control h-100 text-center position-relative p-4 p-lg-5">
+                                                <div class="product-upload">
+                                                    <label for="file-upload" class="file-upload mb-0">
+                                                        <i class="ri-upload-cloud-2-line fs-2 text-gray-light"></i>
+                                                        <span class="d-block fw-semibold text-body">Drop files here or click
+                                                            to upload.</span>
+                                                    </label>
+                                                    <input id="file-upload" type="file" name="pdf_file" id="pdf_file"
+                                                        accept=".pdf">
+                                                        <p>Current File: <a href="{{ asset($menu->pdf_file) }}" target="_blank">{{ $menu->pdf_file }}</a></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" id="website-url-field">
+                                    <div class="col-lg-6">
+                                        <div class="form-group mb-4">
+                                            <label class="label" for="website_url">Website URL:</label>
+                                            <span class="star">*</span>
+                                            <div class="form-group position-relative">
+                                                <input type="text" class="form-control text-dark ps-5 h-58"
+                                                    name="website_url" id="website_url" value="{{ $menu->website_url }}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group mb-4">
+                                            <label class="label" for="web_site_target">Web Site Target :</label>
+                                            <span class="star">*</span>
+                                            <div class="form-group position-relative">
+                                                <select class="form-select form-control ps-5 h-58" name="web_site_target"
+                                                    id="web_site_target" autocomplete="off">
+                                                    <option class="text-dark"{{ $menu->menucategory == 0 ? 'selected' : '' }}>It is Root Category</option>
+                                                    {!! $menuOptions !!}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 mt-4">
+                                <div class="form-group mb-4">
+                                    <label class="label" for="menucategory">Primary Link :</label>
+                                    <span class="star">*</span>
+                                    <div class="form-group position-relative">
+                                        <select class="form-select form-control ps-5 h-58" name="menucategory"
+                                            id="menucategory" autocomplete="off">
+                                            <option selected class="text-dark">It is Root Category</option>
+                                            {!! $menuOptions !!}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 mt-4">
+                                <div class="form-group mb-4">
+                                    <label class="label" for="txtpostion">Content Position :</label>
+                                    <span class="star">*</span>
+                                    <div class="form-group position-relative">
+                                        <select class="form-select form-control ps-5 h-58" id="txtpostion" required>
+                                            <option class="text-dark">Select</option>
+                                            <option value="1" class="text-dark" {{ $menu->txtpostion == 1 ? 'selected' : '' }}>Header Menu</option>
+                                            <option value="2" class="text-dark" {{ $menu->txtpostion == 2 ? 'selected' : '' }}>Bottom Menu</option>
+                                            <option value="3" class="text-dark" {{ $menu->txtpostion == 3 ? 'selected' : '' }}>Footer Menu</option>
+                                            <option value="4" class="text-dark" {{ $menu->txtpostion == 4 ? 'selected' : '' }}>Director Message Menu</option>
+                                            <option value="5" class="text-dark" {{ $menu->txtpostion == 5 ? 'selected' : '' }}>Life Academy Menu</option>
+                                            <option value="6" class="text-dark" {{ $menu->txtpostion == 6 ? 'selected' : '' }}>Other Pages</option>
+                                            <option value="7" class="text-dark" {{ $menu->txtpostion == 7 ? 'selected' : '' }}>Latest Updates</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="date-fields" style="display: none;">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group mb-4">
+                                            <label class="label" for="start_date">Start Date:</label>
+                                            <span class="star">*</span>
+                                            <div class="form-group position-relative">
+                                                <input type="date" class="form-control text-dark ps-5 h-58"
+                                                    name="start_date" id="start_date" required value="{{ $menu->start_date }}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group mb-4">
+                                            <label class="label" for="termination_date">Termination Date :</label>
+                                            <span class="star">*</span>
+                                            <div class="form-group position-relative">
+                                                <input type="text" class="form-control text-dark ps-5 h-58"
+                                                    name="termination_date" id="termination_date"
+                                                    required value="{{ $menu->termination_date }}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 mt-4">
+                                <div class="form-group mb-4">
+                                    <label class="label" for="txtpostion">Status :</label>
+                                    <span class="star">*</span>
+                                    <div class="form-group position-relative">
+                                        <select class="form-select form-control ps-5 h-58" id="txtpostion" required>
+                                            <option class="text-dark">Select</option>
+                                            <option value="1" class="text-dark" {{ $menu->menu_status == 1 ? 'selected' : '' }}>Active</option>
+                                            <option value="2" class="text-dark" {{ $menu->menu_status == 2 ? 'selected' : '' }}>Inactive</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex ms-sm-3 ms-md-0">
+                                <button class="btn btn-success text-white fw-semibold" type="submit">Update</button>
+                            </div>
+                        </div>
+                    </form>
+    
+    
                 </div>
-
-                <!-- Meta Keyword Field -->
-                <div class="frm_row">
-                    <span class="label1">
-                        <label for="meta_keyword">Meta Keyword:</label>
-                    </span>
-                    <span class="input1">
-                        <input type="text" name="meta_keyword" id="meta_keyword" class="form-control" value="{{ $menu->meta_keyword }}">
-                    </span>
-                    <div class="clear"></div>
-                </div>
-
-                <!-- Meta Description Field -->
-                <div class="frm_row">
-                    <span class="label1">
-                        <label for="meta_description">Meta Description:</label>
-                    </span>
-                    <span class="input1">
-                        <textarea name="meta_description" id="meta_description" class="form-control">{{ $menu->meta_description }}</textarea>
-                    </span>
-                    <div class="clear"></div>
-                </div>
-                </div>
-
-                <!-- PDF File Upload Field -->
-                <div class="frm_row" id="pdf-upload-field" style="display: none;">
-                    <span class="label1">
-                        <label for="pdf_file">Upload PDF:</label>
-                        <span class="star">*</span>
-                    </span>
-                    <span class="input1">
-                        <input type="file" name="pdf_file" id="pdf_file" class="form-control" accept=".pdf">
-                        <p>Current File: <a href="{{ asset($menu->pdf_file) }}" target="_blank">{{ $menu->pdf_file }}</a></p>
-                    </span>
-                    <div class="clear"></div>
-                </div>
-
-                <!-- Website URL Field -->
-                <div class="frm_row" id="website-url-field" style="display: none;">
-                    <span class="label1">
-                        <label for="website_url">Website URL:</label>
-                        <span class="star">*</span>
-                    </span>
-                    <span class="input1">
-                        <input type="text" name="website_url" id="website_url" class="form-control" value="{{ $menu->website_url }}">
-                    </span>
-                    <div class="clear"></div>
-                </div>
-
-                <!-- Meta Title Field -->
-                
             </div>
-
-            <!-- Primary Link Field -->
-            <div class="frm_row">
-                <span class="label1">
-                    <label for="menucategory">Primary Link:</label>
-                    <span class="star">*</span>
-                </span>
-                <span class="input1">
-                    <select name="menucategory" id="menucategory" class="form-control">
-                        <option value="0" {{ $menu->menucategory == 0 ? 'selected' : '' }}>It is Root Category</option>
-                        {!! $menuOptions !!}
-                    </select>
-                </span>
-            </div>
-
-            <!-- Content Position Field -->
-            <div class="frm_row">
-                <span class="label1">
-                    <label for="txtpostion">Content Position:</label>
-                    <span class="star">*</span>
-                </span>
-                <span class="input1">
-                    <select name="txtpostion" id="txtpostion" class="form-control" required>
-                        <option value="">Select</option>
-                        <option value="1" {{ $menu->txtpostion == 1 ? 'selected' : '' }}>Header Menu</option>
-                        <option value="2" {{ $menu->txtpostion == 2 ? 'selected' : '' }}>Bottom Menu</option>
-                        <option value="4" {{ $menu->txtpostion == 4 ? 'selected' : '' }}>Director Message Menu</option>
-                        <option value="5" {{ $menu->txtpostion == 5 ? 'selected' : '' }}>Life Academy Menu</option>
-                        <option value="6" {{ $menu->txtpostion == 6 ? 'selected' : '' }}>Other Pages</option>
-                        <option value="7" {{ $menu->txtpostion == 7 ? 'selected' : '' }}>Latest Updates</option>
-                    </select>
-                </span>
-            </div>
-            <div id="additional-fields-for-letest-update" style="display: none;">
-            <div class="frm_row">
-                        <span class="label1">
-                            <label for="start_date">Start Date:</label>
-                        </span>
-                        <span class="input1">
-                            <input type="date" name="start_date" id="start_date" class="form-control" value="{{ $menu->start_date }}">
-                        </span>
-                        <div class="clear"></div>
-                    </div>
-
-                    <!-- Termination Date Field -->
-                    <div class="frm_row">
-                        <span class="label1">
-                            <label for="termination_date">Termination Date:</label>
-                        </span>
-                        <span class="input1">
-                            <input type="date" name="termination_date" id="termination_date" class="form-control" value="{{ $menu->termination_date }}">
-                        </span>
-                        <div class="clear"></div>
-                    </div>
-                    </div>
-            <div class="frm_row"> 
-                <span class="label1">
-                    <label for="txtpostion">Status:</label>
-                    <span class="star">*</span>
-                </span>
-                <span class="input1">
-                    <select name="menu_status" id="menu_status" class="form-control" required>
-                        <option value="">Select</option>
-                        <option value="1" {{ $menu->menu_status == 1 ? 'selected' : '' }}>Active</option>
-                        <option value="2" {{ $menu->menu_status == 2 ? 'selected' : '' }}>Inactive</option>
-                    </select>
-                </span>
-            </div>
-
-            <!-- Submit Button -->
-            <div class="frm_row">
-                <button type="submit" class="btn btn-primary">Update</button>
-            </div>
-        </form>
+        </div>
+    </div>
+</body>
+</html>
 
         <script>
         function addmenutype(value) {
