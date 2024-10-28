@@ -32,7 +32,7 @@
                     <h2 class="h1 fw-bold text-primary">
                     {{$news->title}}
                     </h2>
-                    <p class="mb-0 lead">Posted On:  28 Oct, 2024</p>
+                    <p class="mb-0 lead">Posted On: {{date('d M, Y',strtotime($news->start_date))}}</p>
                 </div>
             </div>
         </div>
@@ -66,7 +66,7 @@
                 </div>
             </div>
         </div>
-        <p>18th round of Mid-Career Training Programme for IAS Officers, Phase-IV commenced at Main Campus on 18th June, 2024. The total duration of course is 4 Weeks (18th June 2024 to 13th July, 2024) and a total of 83 participants are undergoing training in the training programme. The Chief Guest Shri. Sriram Taranikanti, Director, LBSNAA, delivered inaugural address to the participants. The welcome address was delivered by Shri Abhiram G. Sankar, Deputy Director. Course Overview was given by Ms. Sowjanya, Joint Director & Course Coordinator. The course team comprises of Ms. Sowjanya (Course coordinator), Shri Nand Kumarum, Ms. Sanmuga Priya Mishra, Shri Abhiram G Shankar (Associate Course Coordinators).</p>
+        <p>{{$news->description}}</p>
     </div>
 </section>
 
