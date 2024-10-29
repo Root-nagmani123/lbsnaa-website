@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\ManageOrganizationController;
+use App\Http\Controllers\Admin\CourseController;
 
 use App\Http\Controllers\Admin\ManageSouvenirController;
 
@@ -219,3 +220,8 @@ Route::prefix('admin')->name('admin.')->group(function() {
 });
 
 // Indrajeet
+
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::resource('courses', CourseController::class);
+});
