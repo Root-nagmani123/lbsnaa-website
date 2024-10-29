@@ -27,29 +27,7 @@
                         <span class="title">View Profile</span>
                     </a>
                 </li>
-                <li class="menu-item">
-                    <a href="javascript:void(0);" class="menu-link menu-toggle">
-                        <i data-feather="folder-minus" class="menu-icon tf-icons"></i>
-                        <span class="title">User Management</span>
-                    </a>
-                    <ul class="menu-sub">
-                        <li class="menu-item">
-                            <a href="#" class="menu-link">
-                                Manage User
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="documents.html" class="menu-link">
-                                Manage Role
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="media.html" class="menu-link">
-                                Designation Management
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+               
                 <li class="menu-item">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
                         <i data-feather="folder-minus" class="menu-icon tf-icons"></i>
@@ -179,12 +157,7 @@
                         <span class="title">Manage Tender</span>
                     </a>
                 </li>
-                <li class="menu-item">
-                    <a href="#" class="menu-link">
-                        <i data-feather="message-square" class="menu-icon tf-icons"></i>
-                        <span class="title">Manage Feedback</span>
-                    </a>
-                </li>
+               
                 <li class="menu-item">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
                         <i data-feather="mail" class="menu-icon tf-icons"></i>
@@ -215,15 +188,11 @@
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="#" class="menu-link">
+                            <a href="{{ route('admin.courses.index')}}" class="menu-link">
                                 Manage Course
                             </a>
                         </li>
-                        <li class="menu-item">
-                            <a href="#" class="menu-link">
-                                Manage Course CMS
-                            </a>
-                        </li>
+                       
                     </ul>
                 </li>
                 <li class="menu-item">
@@ -244,12 +213,7 @@
                         <span class="title">Manage RTI</span>
                     </a>
                 </li>
-                <li class="menu-item">
-                    <a href="#" class="menu-link">
-                        <i data-feather="message-square" class="menu-icon tf-icons"></i>
-                        <span class="title">Manage FAQ's</span>
-                    </a>
-                </li>
+               
                 <li class="menu-item">
                     <a href="{{ route('socialmedia.index') }}" class="menu-link">
                         <i data-feather="message-square" class="menu-icon tf-icons"></i>
