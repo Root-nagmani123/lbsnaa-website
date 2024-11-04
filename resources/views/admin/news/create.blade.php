@@ -3,67 +3,128 @@
 @section('title', 'Admin Dashboard')
 
 @section('content')
-<h1>Add News</h1>
-<form action="{{ route('admin.news.store') }}" method="POST" enctype="multipart/form-data">
-    @csrf
-    <div class="form-group">
-        <label for="title">News Title *</label>
-        <input type="text" name="title" class="form-control" required>
-    </div>
+<div class="row justify-content-center">
+    <div class="col-lg-12">
+        <div class="card bg-white border-0 rounded-10 mb-4">
+            <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-center border-bottom pb-20 mb-20">
+                <h4 class="fw-semibold fs-18 mb-0">Add News</h4>
+            </div>
 
-    <div class="form-group">
-        <label for="short_description">Short Description *</label>
-        <textarea name="short_description" class="form-control" required></textarea>
-    </div>
+                <form action="{{ route('admin.news.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="title">Title :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="name" id="name">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label for="short_description" class="label">Short Description</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                       <textarea name="short_description" id="short_description" class="form-control ps-5 text-dark"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="meta_title">Meta Title :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="meta_title" id="meta_title">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="meta_keywords">Meta Keywords :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="meta_keywords" id="meta_keywords">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label for="meta_description" class="label">Meta Description</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                       <textarea name="meta_description" id="meta_description" class="form-control ps-5 text-dark"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label for="description" class="label">Description</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                       <textarea name="description" id="description" class="form-control ps-5 text-dark"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label for="main_image" class="label">Main Image</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                       <input type="file" name="main_image" id="main_image" class="form-control text-dark ps-5 h-58">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label for="multiple_images" class="label">Upload Multiple Image</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                       <input type="file" name="multiple_images" id="multiple_images" class="form-control text-dark ps-5 h-58">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label for="start_date" class="label">Start Date</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                       <input type="date" name="start_date" id="start_date" class="form-control text-dark ps-5 h-58">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label for="end_date" class="label">End Date</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                       <input type="date" name="end_date" id="end_date" class="form-control text-dark ps-5 h-58">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="status">Status :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <select class="form-select form-control ps-5 h-58" name="status" id="status" required>
+                                        <option value="1" class="text-dark">Active</option>
+                                        <option value="0" class="text-dark">Inactive</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex ms-sm-3 ms-md-0">
+                            <button class="btn btn-success text-white fw-semibold" type="submit">Add News</button>
+                        </div>
+                    </div>
+                </form>
 
-    <div class="form-group">
-        <label for="meta_title">Meta Title *</label>
-        <input type="text" name="meta_title" class="form-control" required>
-    </div>
 
-    <div class="form-group">
-        <label for="meta_keywords">Meta Keywords</label>
-        <input type="text" name="meta_keywords" class="form-control">
+            </div>
+        </div>
     </div>
-
-    <div class="form-group">
-        <label for="meta_description">Meta Description</label>
-        <textarea name="meta_description" class="form-control"></textarea>
-    </div>
-
-    <div class="form-group">
-        <label for="description">Description *</label>
-        <textarea name="description" class="form-control" required></textarea>
-    </div>
-
-    <div class="form-group">
-        <label for="main_image">Main Image *</label>
-        <input type="file" name="main_image" class="form-control" required>
-    </div>
-
-    <div class="form-group">
-        <label for="multiple_images">Upload Multiple Images</label>
-        <input type="file" name="multiple_images[]" class="form-control" multiple>
-    </div>
-
-    <div class="form-group">
-        <label for="start_date">Start Date *</label>
-        <input type="date" name="start_date" class="form-control" required>
-    </div>
-
-    <div class="form-group">
-        <label for="end_date">End Date</label>
-        <input type="date" name="end_date" class="form-control">
-    </div>
-
-    <div class="form-group">
-        <label for="status">News Status</label>
-        <select name="status" class="form-control">
-            <option value="1">Active</option>
-            <option value="0">Inactive</option>
-        </select>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Add News</button>
-</form>
+</div>
 @endsection

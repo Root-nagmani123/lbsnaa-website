@@ -2,23 +2,33 @@
 @section('title', 'Admin Dashboard')
 
 @section('content')
-    <h2>Edit Tender/Circular</h2>
-    <form action="{{ route('manage_tender.update', $manageTender->id) }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        @method('PUT')
-        
-        @include('manage_tender.form')
+<div class="row justify-content-center">
+    <div class="col-lg-12">
+        <div class="card bg-white border-0 rounded-10 mb-4">
+            <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-center border-bottom pb-20 mb-20">
+                <h4 class="fw-semibold fs-18 mb-0">Edit Tender/Circular</h4>
+            </div>
 
-        <button type="submit" class="btn btn-success">Update</button>
-        <a href="{{ route('manage_tender.index') }}" class="btn btn-danger">Cancel</a>
-    </form>
+                <form action="{{ route('manage_tender.update', $manageTender->id) }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+        @method('PUT')
+                    <div class="row">
+                       @include('manage_tender.form')
+                        <div class="d-flex ms-sm-3 ms-md-0">
+                            <button class="btn btn-success text-white fw-semibold" type="submit">Create New Tender</button>&nbsp;
+                            <a href="{{ route('manage_tender.index') }}" class="btn btn-secondary text-white fw-semibold">Back</a>
+                        </div>
+                    </div>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
-
-<script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
-<script>
-    CKEDITOR.replace('description');
-</script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         let today = new Date().toISOString().split('T')[0];

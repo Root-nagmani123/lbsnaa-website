@@ -3,192 +3,252 @@
 @section('title', 'Admin Dashboard')
 
 @section('content')
-    <div class="container">
-        <h2>Edit Staff Member</h2>
-        <form action="{{ route('admin.staff.update', $staff->id) }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            @method('PUT')
-
-            <div class="row mb-3">
-                <label for="name" class="col-sm-2 col-form-label">Name *</label>
-                <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control" id="name" value="{{ $staff->name }}" required>
-                </div>
+<div class="row justify-content-center">
+    <div class="col-lg-12">
+        <div class="card bg-white border-0 rounded-10 mb-4">
+            <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-center border-bottom pb-20 mb-20">
+                <h4 class="fw-semibold fs-18 mb-0">Edit Staff Member</h4>
             </div>
 
-            <div class="row mb-3">
-                <label for="name_in_hindi" class="col-sm-2 col-form-label">Name in Hindi</label>
-                <div class="col-sm-10">
-                    <input type="text" name="name_in_hindi" class="form-control" id="name_in_hindi" value="{{ $staff->name_in_hindi }}">
-                </div>
-            </div>
-
-            <div class="row mb-3">
-                <label for="email" class="col-sm-2 col-form-label">Email *</label>
-                <div class="col-sm-10">
-                    <input type="email" name="email" class="form-control" id="email" value="{{ $staff->email }}" required>
-                </div>
-            </div>
-
-            <div class="row mb-3">
-                <label for="image" class="col-sm-2 col-form-label">Image Upload</label>
-                <div class="col-sm-10">
-                    <input type="file" name="image" class="form-control" id="image">
-                    @if($staff->image)
+                <form action="{{ route('admin.staff.update', $staff->id) }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="name">Name :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="name" id="name" value="{{ $staff->name }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="name_in_hindi">Name in Hindi :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="name_in_hindi" id="name_in_hindi" value="{{ $staff->name_in_hindi }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="email">Email :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="email" class="form-control text-dark ps-5 h-58" name="email" id="email" value="{{ $staff->email }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="image">Upload Image :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="file" class="form-control text-dark ps-5 h-58" name="image" id="image">
+                                    @if($staff->image)
                         <img src="{{ asset($staff->image) }}" alt="Staff Image" width="100">
                     @endif
-                </div>
-            </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label for="description" class="label">Description</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                       <textarea name="description" id="description" class="form-control ps-5 text-dark">{{ $staff->description }}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label for="description_in_hindi" class="label">Description in Hindi</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                       <textarea name="description_in_hindi" id="description_in_hindi" class="form-control ps-5 text-dark">{{ $staff->description_in_hindi }}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="designation">Designation :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="designation" id="designation" value="{{ $staff->designation }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="designation_in_hindi">Designation in Hindi :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="designation_in_hindi" id="designation_in_hindi" value="{{ $staff->designation_in_hindi }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="section">Section :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <select class="form-select form-control ps-5 h-58" name="section" id="section" required>
+                                        <option value="Section 1" class="text-dark" {{ $staff->section == 'Section 1' ? 'selected' : '' }}>Select 1</option>
+                                        <option value="Section 2" class="text-dark" {{ $staff->section == 'Section 2' ? 'selected' : '' }}>Select 1</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="country_code">Country Code :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="country_code" id="country_code" value="{{ $staff->country_code }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="std_code">STD Code :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="std_code" id="std_code" value="{{ $staff->std_code }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="phone_internal_office">Phone Internal Office :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="phone_internal_office" id="phone_internal_office" value="{{ $staff->phone_internal_office }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="phone_internal_residence">Phone Internal Residence :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="phone_internal_residence" id="phone_internal_residence" value="{{ $staff->phone_internal_residence }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="phone_pt_office">Phone P&T Office :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="phone_pt_office" id="phone_pt_office" value="{{ $staff->phone_pt_office }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="phone_pt_residence">Phone P&T Residence :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="phone_pt_residence" id="phone_pt_residence" value="{{ $staff->phone_pt_residence }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="mobile">Mobile :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="mobile" id="mobile" value="{{ $staff->mobile }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="abbreviation">Abbreviation :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="abbreviation" id="abbreviation" value="{{ $staff->abbreviation }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="rank">Rank :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="rank" id="rank" value="{{ $staff->rank }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="present_at_station">Present at Station :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <select class="form-select form-control ps-5 h-58" name="present_at_station" id="present_at_station" required>
+                                        <option value="1" class="text-dark" {{ $staff->present_station == 1 ? 'selected' : '' }}>Yes</option>
+                                        <option value="0" class="text-dark" {{ $staff->present_station == 0 ? 'selected' : '' }}>No</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="acm_member">ACM Member :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <select class="form-select form-control ps-5 h-58" name="acm_member" id="acm_member" required>
+                                        <option value="1" class="text-dark" {{ $staff->acm_member == 1 ? 'selected' : '' }}>Yes</option>
+                                        <option value="0" class="text-dark" {{ $staff->acm_member == 0 ? 'selected' : '' }}>No</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="acm_status_in_committee">ACM Status in Committee :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="acm_status_in_committee" id="acm_status_in_committee" value="{{ $staff->acm_status_in_committee }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="co_opted_member">Co-Opted Member :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <select class="form-select form-control ps-5 h-58" name="co_opted_member" id="co_opted_member" required>
+                                        <option value="1" class="text-dark" {{ $staff->co_opted_member == 1 ? 'selected' : '' }}>Yes</option>
+                                        <option value="0" class="text-dark" {{ $staff->co_opted_member == 0 ? 'selected' : '' }}>No</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="page_status">Page Status :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <select class="form-select form-control ps-5 h-58" name="page_status" id="page_status" required>
+                                        <option value="1" class="text-dark" {{ $staff->page_status == 1 ? 'selected' : '' }}>Active</option>
+                                        <option value="2" class="text-dark" {{ $staff->page_status == 0 ? 'selected' : '' }}>Inactive</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex ms-sm-3 ms-md-0">
+                            <button class="btn btn-success text-white fw-semibold" type="submit">Update Staff Member</button>
+                        </div>
+                    </div>
+                </form>
 
-            <div class="row mb-3">
-                <label for="description" class="col-sm-2 col-form-label">Description</label>
-                <div class="col-sm-10">
-                    <textarea name="description" class="form-control" id="description">{{ $staff->description }}</textarea>
-                </div>
-            </div>
 
-            <div class="row mb-3">
-                <label for="description_hindi" class="col-sm-2 col-form-label">Description in Hindi</label>
-                <div class="col-sm-10">
-                    <textarea name="description_in_hindi" class="form-control" id="description_in_hindi">{{ $staff->description_in_hindi }}</textarea>
-                </div>
             </div>
-
-            <div class="row mb-3">
-                <label for="designation" class="col-sm-2 col-form-label">Designation *</label>
-                <div class="col-sm-10">
-                    <input type="text" name="designation" class="form-control" id="designation" value="{{ $staff->designation }}" required>
-                </div>
-            </div>
-
-            <div class="row mb-3">
-                <label for="designation_hindi" class="col-sm-2 col-form-label">Designation in Hindi</label>
-                <div class="col-sm-10">
-                    <input type="text" name="designation_in_hindi" class="form-control" id="designation_in_hindi" value="{{ $staff->designation_in_hindi }}">
-                </div>
-            </div>
-
-            <div class="row mb-3">
-                <label for="section" class="col-sm-2 col-form-label">Section</label>
-                <div class="col-sm-10">
-                    <select name="section" class="form-control" id="section">
-                        <option value="Section 1" {{ $staff->section == 'Section 1' ? 'selected' : '' }}>Section 1</option>
-                        <option value="Section 2" {{ $staff->section == 'Section 2' ? 'selected' : '' }}>Section 2</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="row mb-3">
-                <label for="country_code" class="col-sm-2 col-form-label">Country Code</label>
-                <div class="col-sm-10">
-                    <input type="text" name="country_code" class="form-control" id="country_code" value="{{ $staff->country_code }}">
-                </div>
-            </div>
-
-            <div class="row mb-3">
-                <label for="std_code" class="col-sm-2 col-form-label">Std Code</label>
-                <div class="col-sm-10">
-                    <input type="text" name="std_code" class="form-control" id="std_code" value="{{ $staff->std_code }}">
-                </div>
-            </div>
-
-            <div class="row mb-3">
-                <label for="phone_office" class="col-sm-2 col-form-label">Phone Internal Office</label>
-                <div class="col-sm-10">
-                    <input type="text" name="phone_internal_office" class="form-control" id="phone_internal_office" value="{{ $staff->phone_internal_office }}">
-                </div>
-            </div>
-
-            <div class="row mb-3">
-                <label for="phone_residence" class="col-sm-2 col-form-label">Phone Internal Residence</label>
-                <div class="col-sm-10">
-                    <input type="text" name="phone_internal_residence" class="form-control" id="phone_internal_residence" value="{{ $staff->phone_internal_residence }}">
-                </div>
-            </div>
-
-            <div class="row mb-3">
-                <label for="phone_pt_office" class="col-sm-2 col-form-label">Phone P&T Office</label>
-                <div class="col-sm-10">
-                    <input type="text" name="phone_pt_office" class="form-control" id="phone_pt_office" value="{{ $staff->phone_pt_office }}">
-                </div>
-            </div>
-
-            <div class="row mb-3">
-                <label for="phone_pt_residence" class="col-sm-2 col-form-label">Phone P&T Residence</label>
-                <div class="col-sm-10">
-                    <input type="text" name="phone_pt_residence" class="form-control" id="phone_pt_residence" value="{{ $staff->phone_pt_residence }}">
-                </div>
-            </div>
-
-            <div class="row mb-3">
-                <label for="mobile" class="col-sm-2 col-form-label">Mobile *</label>
-                <div class="col-sm-10">
-                    <input type="text" name="mobile" class="form-control" id="mobile" value="{{ $staff->mobile }}" required>
-                </div>
-            </div>
-
-            <div class="row mb-3">
-                <label for="abbreviation" class="col-sm-2 col-form-label">Abbreviation</label>
-                <div class="col-sm-10">
-                    <input type="text" name="abbreviation" class="form-control" id="abbreviation" value="{{ $staff->abbreviation }}">
-                </div>
-            </div>
-
-            <div class="row mb-3">
-                <label for="rank" class="col-sm-2 col-form-label">Rank</label>
-                <div class="col-sm-10">
-                    <input type="text" name="rank" class="form-control" id="rank" value="{{ $staff->rank }}">
-                </div>
-            </div>
-
-            <div class="row mb-3">
-                <label for="present_station" class="col-sm-2 col-form-label">Present at Station</label>
-                <div class="col-sm-10">
-                    <select name="present_station" class="form-control" id="present_station">
-                        <option value="1" {{ $staff->present_station == 1 ? 'selected' : '' }}>Yes</option>
-                        <option value="0" {{ $staff->present_station == 0 ? 'selected' : '' }}>No</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="row mb-3">
-                <label for="acm_member" class="col-sm-2 col-form-label">ACM Member</label>
-                <div class="col-sm-10">
-                    <select name="acm_member" class="form-control" id="acm_member">
-                        <option value="1" {{ $staff->acm_member == 1 ? 'selected' : '' }}>Yes</option>
-                        <option value="0" {{ $staff->acm_member == 0 ? 'selected' : '' }}>No</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="row mb-3">
-                <label for="acm_status" class="col-sm-2 col-form-label">ACM Status in Committee</label>
-                <div class="col-sm-10">
-                    <input type="text" name="acm_status_in_committee" class="form-control" id="acm_status_in_committee" value="{{ $staff->acm_status_in_committee }}">
-                </div>
-            </div>
-
-            <div class="row mb-3">
-                <label for="co_opted_member" class="col-sm-2 col-form-label">Co. Opted Member</label>
-                <div class="col-sm-10">
-                    <select name="co_opted_member" class="form-control" id="co_opted_member">
-                        <option value="1" {{ $staff->co_opted_member == 1 ? 'selected' : '' }}>Yes</option>
-                        <option value="0" {{ $staff->co_opted_member == 0 ? 'selected' : '' }}>No</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="row mb-3">
-                <label for="page_status" class="col-sm-2 col-form-label">Page Status</label>
-                <div class="col-sm-10">
-                    <select name="page_status" class="form-control" id="page_status">
-                        <option value="1" {{ $staff->page_status == 1 ? 'selected' : '' }}>Active</option>
-                        <option value="0" {{ $staff->page_status == 0 ? 'selected' : '' }}>Inactive</option>
-                    </select>
-                </div>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Update Staff</button>
-        </form>
+        </div>
     </div>
+</div>
 @endsection
