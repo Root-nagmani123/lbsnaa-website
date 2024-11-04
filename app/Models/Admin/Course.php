@@ -10,4 +10,5 @@ class Course extends Model
     use HasFactory;
 
     protected $fillable = ['name'];  // Adjust fields based on your course table
+    protected $table = 'courses'; // Ensure this matches your database table name
 }

@@ -11,12 +11,12 @@ class CoordinatorController extends Controller
     public function index()
     {
         $coordinators = ManageCoordinator::all();
-        return view('training_master.manage_coordinator.index', compact('coordinators'));
+        return view('admin.training_master.manage_coordinator.index', compact('coordinators'));
     }
 
     public function create()
     {
-        return view('training_master.manage_coordinator.create');
+        return view('admin.training_master.manage_coordinator.create');
     }
 
     public function store(Request $request)
@@ -24,9 +24,10 @@ class CoordinatorController extends Controller
         $request->validate([
             'page_language' => 'required|string',
             'coordinator_name' => 'required|string|max:255',
-            'status' => 'required|in:active,inactive',
+            'status' => 'required|string',
         ]);
 
+        $validated['status'] = $request->status === 'active' ? 1 : 2;
         ManageCoordinator::create($request->all());
         return redirect()->route('coordinators.index')->with('success', 'Coordinator added successfully.');
     }
@@ -34,7 +35,7 @@ class CoordinatorController extends Controller
     public function edit($id)
     {
         $coordinator = ManageCoordinator::findOrFail($id);
-        return view('training_master.manage_coordinator.edit', compact('coordinator'));
+        return view('admin.training_master.manage_coordinator.edit', compact('coordinator'));
     }
 
     public function update(Request $request, $id)
@@ -42,9 +43,10 @@ class CoordinatorController extends Controller
         $request->validate([
             'page_language' => 'required|string',
             'coordinator_name' => 'required|string|max:255',
-            'status' => 'required|in:active,inactive',
+            'status' => 'required|string',
         ]);
 
+        $validated['status'] = $request->status === 'active' ? 1 : 2;
         $coordinator = ManageCoordinator::findOrFail($id);
         $coordinator->update($request->all());
         return redirect()->route('coordinators.index')->with('success', 'Coordinator updated successfully.');

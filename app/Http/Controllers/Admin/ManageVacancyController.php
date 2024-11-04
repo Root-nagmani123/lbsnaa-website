@@ -10,12 +10,12 @@ class ManageVacancyController extends Controller
     public function index()
     {
         $vacancies = ManageVacancy::all();
-        return view('manage_vacancy.index', compact('vacancies'));
+        return view('admin.manage_vacancy.index', compact('vacancies'));
     }
 
     public function create()
     {
-        return view('manage_vacancy.create');
+        return view('admin.manage_vacancy.create');
     }
 
 
@@ -29,7 +29,7 @@ class ManageVacancyController extends Controller
             'content_type' => 'required|in:PDF,Website',
             'publish_date' => 'required|date',
             'expiry_date' => 'required|date|after_or_equal:publish_date',
-            'status' => 'required|in:Draft,Approval,Publish',
+            'status' => 'required|integer|in:1,2,3',
         ];
 
         // Conditionally add validation for either document_upload or website_link
@@ -61,33 +61,8 @@ class ManageVacancyController extends Controller
     public function edit($id)
 	{
 	    $vacancy = ManageVacancy::findOrFail($id); // Retrieves the vacancy by ID, or fails if not found
-	    return view('manage_vacancy.edit', compact('vacancy')); // Passes the $vacancy variable to the view
+	    return view('admin.manage_vacancy.edit', compact('vacancy')); // Passes the $vacancy variable to the view
 	}
-
-    // public function update(Request $request, ManageVacancy $manage_vacancy)
-    // {
-    //     $request->validate([
-    //         'language' => 'required',
-    //         'job_title' => 'required',
-    //         'job_description' => 'required',
-    //         'content_type' => 'required',
-    //         'document_upload' => 'required|mimes:pdf,png,jpg|max:2048',
-    //         'website_link' => 'required_if:content_type,Website|url',
-    //         'publish_date' => 'required|date',
-    //         'expiry_date' => 'required|date|after_or_equal:publish_date',
-    //         'status' => 'required',
-    //     ]);
-
-    //     if ($request->hasFile('document_upload')) {
-    //         $fileName = time() . '.' . $request->document_upload->extension();
-    //         $request->document_upload->move(public_path('uploads'), $fileName);
-    //         $manage_vacancy->document_upload = $fileName;
-    //     }
-
-    //     $manage_vacancy->update($request->all());
-
-    //     return redirect()->route('manage_vacancy.index')->with('success', 'Vacancy updated successfully');
-    // }
 
     public function update(Request $request, ManageVacancy $manage_vacancy)
     {
@@ -99,7 +74,7 @@ class ManageVacancyController extends Controller
             'content_type' => 'required|in:PDF,Website',
             'publish_date' => 'required|date',
             'expiry_date' => 'required|date|after_or_equal:publish_date',
-            'status' => 'required|in:Draft,Approval,Publish',
+            'status' => 'required|integer|in:1,2,3',
         ];
 
         // Conditionally add validation for either document_upload or website_link

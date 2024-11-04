@@ -13,14 +13,14 @@ class ManageEventsController extends Controller
     public function index()
     {
         $events = ManageEvents::all();
-        return view('manage_events.index', compact('events'));
+        return view('admin.manage_events.index', compact('events'));
     }
-
+ 
     // Show the form for creating a new event
     public function create()
     {
         $courses = Course::all(); // Assuming you have courses in the database
-        return view('manage_events.create', compact('courses'));
+        return view('admin.manage_events.create', compact('courses'));
     }
 
     // Store a newly created event in storage
@@ -33,22 +33,30 @@ class ManageEventsController extends Controller
             'course_id' => 'required|integer',
             'start_date' => 'required|date|after:today',
             'end_date' => 'required|date|after:start_date',
-            'status' => 'required'
+            'status' => 'required|integer|in:1,2,3',
         ]);
 
         ManageEvents::create($request->all());
 
-        return redirect()->route('manage_events.index')
-            ->with('success', 'Event created successfully.');
+        return redirect()->route('manage_events.index')->with('success', 'Event created successfully.');
     }
 
-    // Show the form for editing an event
+
+    // Assuming you have a Course model that represents the courses table
     public function edit($id)
     {
         $event = ManageEvents::findOrFail($id);
-        $courses = Course::all();
-        return view('manage_events.edit', compact('event', 'courses'));
+
+        // Fetch course name based on course_id from the event
+        $courseName = null;
+        if ($event->course_id) {
+            $course = Course::find($event->course_id);
+            $courseName = $course ? $course->name : null;
+        }
+
+        return view('admin.manage_events.edit', compact('event', 'courseName'));
     }
+
 
     // Update the specified event in storage
     public function update(Request $request, $id)
@@ -60,14 +68,17 @@ class ManageEventsController extends Controller
             'course_id' => 'required|integer',
             'start_date' => 'required|date|after:today',
             'end_date' => 'required|date|after:start_date',
-            'status' => 'required'
+            'status' => 'required|integer|in:1,2,3',
         ]);
 
         $event = ManageEvents::findOrFail($id);
         $event->update($request->all());
 
-        return redirect()->route('manage_events.index')
-            ->with('success', 'Event updated successfully.');
+        $event->update([
+            'status' => (int) $request['status'], // Explicitly cast to integer
+        ]);
+
+        return redirect()->route('manage_events.index')->with('success', 'Event updated successfully.');
     }
 
     // Remove the specified event from storage
@@ -76,24 +87,35 @@ class ManageEventsController extends Controller
         $event = ManageEvents::findOrFail($id);
         $event->delete();
 
-        return redirect()->route('manage_events.index')
-            ->with('success', 'Event deleted successfully.');
+        return redirect()->route('manage_events.index')->with('success', 'Event deleted successfully.');
     }
 
 
 
     public function searchCourses(Request $request)
-	{
-	    $query = $request->input('query');
+    {
+        $query = $request->query('query');
+        $courses = Course::where('name', 'LIKE', '%' . $query . '%')->limit(10)->get(['id', 'name']);
+        return response()->json($courses);
+    }
 
-	    // Fetch courses that match the search query (you can adjust the filtering logic as needed)
-	    $courses = Course::where('name', 'LIKE', "%{$query}%")->get();
+    // In app/Http/Controllers/CourseController.php
+    public function getCourseDetails($courseId)
+    {
+        $course = Course::find($courseId); // Fetch course data based on ID
 
-	    return response()->json([
-	        'courses' => $courses
-	    ]);
-	}
-
+        if ($course) {
+            return response()->json([
+                'status' => 'success',
+                'data' => $course
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Course not found.'
+            ], 404);
+        }
+    }
 
 
 

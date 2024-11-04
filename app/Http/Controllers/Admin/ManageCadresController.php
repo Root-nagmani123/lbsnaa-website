@@ -12,13 +12,13 @@ class ManageCadresController extends Controller
     public function index()
     {
         $cadres = ManageCadres::all();
-        return view('training_master.cadres.index', compact('cadres'));
+        return view('admin.training_master.cadres.index', compact('cadres'));
     }
 
     // Show form for creating new cadre
     public function create()
     {
-        return view('training_master.cadres.create');
+        return view('admin.training_master.cadres.create');
     }
 
     // Store new cadre
@@ -28,9 +28,11 @@ class ManageCadresController extends Controller
             'code' => 'required',
             'description' => 'required',
             'language' => 'required',
-            'status' => 'required',
+            'status' => 'required|string',
         ]);
 
+        // Convert status to integer
+        $validated['status'] = $request->status === 'active' ? 1 : 2;
         ManageCadres::create($request->all());
         return redirect()->route('cadres.index')->with('success', 'Cadre added successfully');
     }
@@ -39,7 +41,7 @@ class ManageCadresController extends Controller
     public function edit($id)
     {
         $cadre = ManageCadres::find($id);
-        return view('training_master.cadres.edit', compact('cadre'));
+        return view('admin.training_master.cadres.edit', compact('cadre'));
     }
 
     // Update cadre details
@@ -49,9 +51,11 @@ class ManageCadresController extends Controller
             'code' => 'required',
             'description' => 'required',
             'language' => 'required',
-            'status' => 'required',
+            'status' => 'required|string',
         ]);
 
+        // Convert status to integer
+        $validated['status'] = $request->status === 'active' ? 1 : 2;
         $cadre = ManageCadres::find($id);
         $cadre->update($request->all());
         return redirect()->route('cadres.index')->with('success', 'Cadre updated successfully');

@@ -11,7 +11,7 @@ class ManageVenueController extends Controller
     // Show the form for creating a new venue
     public function create()
     {
-        return view('training_master.venue.create'); // Adjust the path based on your views
+        return view('admin.training_master.venue.create'); // Adjust the path based on your views
     }
 
     // Store a newly created venue in storage
@@ -21,11 +21,11 @@ class ManageVenueController extends Controller
             'page_language' => 'required|string',
             'venue_title' => 'required|string',
             'venue_detail' => 'required|string',
-            'status' => 'required|in:active,inactive',
+            'status' => 'required|string',
         ]);
 
+        $validated['status'] = $request->status === 'active' ? 1 : 2;
         ManageVenue::create($request->all());
-
         return redirect()->route('venues.index')->with('success', 'Venue created successfully.');
     }
 
@@ -33,13 +33,13 @@ class ManageVenueController extends Controller
     public function index()
     {
         $venues = ManageVenue::all();
-        return view('training_master.venue.index', compact('venues'));
+        return view('admin.training_master.venue.index', compact('venues'));
     }
 
     // Show the form for editing the specified venue
     public function edit(ManageVenue $venue)
     {
-        return view('training_master.venue.edit', compact('venue'));
+        return view('admin.training_master.venue.edit', compact('venue'));
     }
 
     // Update the specified venue in storage
@@ -49,7 +49,7 @@ class ManageVenueController extends Controller
             'page_language' => 'required|string',
             'venue_title' => 'required|string',
             'venue_detail' => 'required|string',
-            'status' => 'required|in:active,inactive',
+            'status' => 'required|string',
         ]);
 
         $venue->update($request->all());

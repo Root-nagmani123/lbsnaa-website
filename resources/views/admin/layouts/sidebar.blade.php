@@ -139,12 +139,7 @@
                         <span class="title">Manage Latest Updates</span>
                     </a>
                 </li>
-                <li class="menu-item">
-                    <a href="{{ route('admin.news.index') }}" class="menu-link">
-                        <i data-feather="message-square" class="menu-icon tf-icons"></i>
-                        <span class="title">Manage News</span>
-                    </a>
-                </li>
+                <!--  -->
                 <li class="menu-item">
                     <a href="{{ route('manage_events.index') }}" class="menu-link">
                         <i data-feather="message-square" class="menu-icon tf-icons"></i>
@@ -238,22 +233,22 @@
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="#" class="menu-link">
+                            <a href="{{ route('media-center.index') }}" class="menu-link">
                                 Audio Gallery
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="#" class="menu-link">
+                            <a href="{{ route('photo-gallery.index') }}" class="menu-link">
                                 Photo Gallery
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="#" class="menu-link">
+                            <a href="{{ route('video_gallery.index') }}" class="menu-link">
                                 Video Gallery
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="#" class="menu-link">
+                            <a href="{{ route('media-categories.index') }}" class="menu-link">
                                 Photo Gallery/ Video Gallery
                             </a>
                         </li>
