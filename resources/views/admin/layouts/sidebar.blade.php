@@ -17,20 +17,19 @@
                 </li>
                 <li class="menu-item open">
                     <a href="{{ route('admin.index') }}" class="menu-link">
-                        <i data-feather="grid" class="menu-icon tf-icons"></i>
+                    <i class="material-icons menu-icon">dashboard</i>
                         <span class="title">Dashboard</span>
                     </a>
                 </li>
                 <li class="menu-item open">
-                    <a href="javascript:void(0);" class="menu-link">
-                        <i data-feather="grid" class="menu-icon tf-icons"></i>
+                    <a href="javascript:void(0);" class="menu-link"><i class="material-icons menu-icon">person</i>
                         <span class="title">View Profile</span>
                     </a>
                 </li>
                
                 <li class="menu-item">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
-                        <i data-feather="folder-minus" class="menu-icon tf-icons"></i>
+                    <i class="material-icons menu-icon">wysiwyg</i>
                         <span class="title">CMS Page</span>
                     </a>
                     <ul class="menu-sub">
@@ -42,8 +41,8 @@
                     </ul>
                 </li>
                 <li class="menu-item">
-                    <a href="javascript:void(0);" class="menu-link menu-toggle">
-                        <i data-feather="folder-minus" class="menu-icon tf-icons"></i>
+                    <a href="javascript:void(0);" class="menu-link menu-toggle"><i class="material-icons menu-icon">corporate_fare
+                    </i>
                         <span class="title">Manage Organization Module</span>
                     </a>
                     <ul class="menu-sub">
@@ -71,7 +70,7 @@
                 </li>
                 <li class="menu-item">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
-                        <i data-feather="folder-minus" class="menu-icon tf-icons"></i>
+                    <i class="material-icons menu-icon">model_training</i> 
                         <span class="title">Training Master Management</span>
                     </a>
                     <ul class="menu-sub">
@@ -129,38 +128,38 @@
                 </li>
                 <li class="menu-item">
                     <a href="#" class="menu-link">
-                        <i data-feather="message-square" class="menu-icon tf-icons"></i>
+                    <i class="material-icons menu-icon">article</i>
                         <span class="title">Manage Middle Section</span>
                     </a>
                 </li>
                 <li class="menu-item">
                     <a href="#" class="menu-link">
-                        <i data-feather="message-square" class="menu-icon tf-icons"></i>
+                        <i class="material-icons menu-icon">campaign</i>
                         <span class="title">Manage Latest Updates</span>
                     </a>
                 </li>
                 <li class="menu-item">
                     <a href="{{ route('admin.news.index') }}" class="menu-link">
-                        <i data-feather="message-square" class="menu-icon tf-icons"></i>
+                    <i class="material-icons menu-icon">newspaper</i>
                         <span class="title">Manage News</span>
                     </a>
                 </li>
                 <li class="menu-item">
                     <a href="{{ route('manage_events.index') }}" class="menu-link">
-                        <i data-feather="message-square" class="menu-icon tf-icons"></i>
+                    <i class="material-icons menu-icon">event</i>
                         <span class="title">Manage Events</span>
                     </a>
                 </li>
                 <li class="menu-item">
                     <a href="{{ route('manage_tender.index') }}" class="menu-link">
-                        <i data-feather="message-square" class="menu-icon tf-icons"></i>
+                    <i class="material-icons menu-icon">content_paste</i>
                         <span class="title">Manage Tender</span>
                     </a>
                 </li>
                
                 <li class="menu-item">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
-                        <i data-feather="mail" class="menu-icon tf-icons"></i>
+                    <i class="material-icons menu-icon">description</i>
                         <span class="title">Manage Souvenir Module</span>
                     </a>
                     <ul class="menu-sub">
@@ -178,7 +177,7 @@
                 </li>
                 <li class="menu-item">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
-                        <i data-feather="mail" class="menu-icon tf-icons"></i>
+                    <i class="material-icons menu-icon">task</i>
                         <span class="title">Manage Course Module</span>
                     </a>
                     <ul class="menu-sub">
@@ -197,38 +196,38 @@
                 </li>
                 <li class="menu-item">
                     <a href="{{ route('survey.index') }}" class="menu-link">
-                        <i data-feather="message-square" class="menu-icon tf-icons"></i>
+                    <i class="material-icons menu-icon">inventory</i>
                         <span class="title">Manage Survey List</span>
                     </a>
                 </li>
                 <li class="menu-item">
                     <a href="{{ route('manage_vacancy.index') }}" class="menu-link">
-                        <i data-feather="message-square" class="menu-icon tf-icons"></i>
+                    <i class="material-icons menu-icon">assignment_ind</i>
                         <span class="title">Manage Vacancy</span>
                     </a>
                 </li>
                 <li class="menu-item">
                     <a href="#" class="menu-link">
-                        <i data-feather="message-square" class="menu-icon tf-icons"></i>
+                    <i class="material-icons menu-icon">person</i>
                         <span class="title">Manage RTI</span>
                     </a>
                 </li>
                
                 <li class="menu-item">
                     <a href="{{ route('socialmedia.index') }}" class="menu-link">
-                        <i data-feather="message-square" class="menu-icon tf-icons"></i>
+                    <i class="material-icons menu-icon">stock_media</i>
                         <span class="title">Manage Social Media</span>
                     </a>
                 </li>
                 <li class="menu-item">
                     <a href="{{ route('admin.footer_images.index') }}" class="menu-link">
-                        <i data-feather="message-square" class="menu-icon tf-icons"></i>
+                    <i class="material-icons menu-icon">person</i>
                         <span class="title">Manage Logo</span>
                     </a>
                 </li>
                 <li class="menu-item">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
-                        <i data-feather="printer" class="menu-icon tf-icons"></i>
+                    <i class="material-icons menu-icon">media_link</i>
                         <span class="title">Manage Media Center</span>
                     </a>
                     <ul class="menu-sub">
@@ -261,7 +260,7 @@
                 </li>
                 <li class="menu-item">
                     <a href="chat.html" class="menu-link">
-                        <i data-feather="message-square" class="menu-icon tf-icons"></i>
+                    <i class="material-icons menu-icon">list</i>
                         <span class="title">Manage Audit</span>
                     </a>
                 </li>
@@ -270,7 +269,7 @@
                 </li>
                 <li class="menu-item">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
-                        <i data-feather="folder-minus" class="menu-icon tf-icons"></i>
+                    <i class="material-icons menu-icon">person</i>
                         <span class="title">CMS Page</span>
                     </a>
                     <ul class="menu-sub">
@@ -283,37 +282,37 @@
                 </li>
                 <li class="menu-item">
                     <a href="#" class="menu-link">
-                        <i data-feather="message-square" class="menu-icon tf-icons"></i>
+                    <i class="material-icons menu-icon">person</i>
                         <span class="title">Manage What's New / Quick Links</span>
                     </a>
                 </li>
                 <li class="menu-item">
                     <a href="#" class="menu-link">
-                        <i data-feather="message-square" class="menu-icon tf-icons"></i>
+                    <i class="material-icons menu-icon">person</i>
                         <span class="title">Manage News</span>
                     </a>
                 </li>
                 <li class="menu-item">
                     <a href="#" class="menu-link">
-                        <i data-feather="message-square" class="menu-icon tf-icons"></i>
+                    <i class="material-icons menu-icon">person</i>
                         <span class="title">Manage Training Programs</span>
                     </a>
                 </li>
                 <li class="menu-item">
                     <a href="#" class="menu-link">
-                        <i data-feather="message-square" class="menu-icon tf-icons"></i>
+                    <i class="material-icons menu-icon">person</i>
                         <span class="title">Manage Organization Setup</span>
                     </a>
                 </li>
                 <li class="menu-item">
                     <a href="#" class="menu-link">
-                        <i data-feather="message-square" class="menu-icon tf-icons"></i>
+                    <i class="material-icons menu-icon">person</i>
                         <span class="title">Manage Vacancy</span>
                     </a>
                 </li>
                 <li class="menu-item">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
-                        <i data-feather="printer" class="menu-icon tf-icons"></i>
+                    <i class="material-icons menu-icon">person</i>
                         <span class="title">Manage Media Center</span>
                     </a>
                     <ul class="menu-sub">
@@ -341,7 +340,7 @@
                 </li>
                 <li class="menu-item">
                     <a href="chat.html" class="menu-link">
-                        <i data-feather="message-square" class="menu-icon tf-icons"></i>
+                    <i class="material-icons menu-icon">person</i>
                         <span class="title">Manage Audit</span>
                     </a>
                 </li>

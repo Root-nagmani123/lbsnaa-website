@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="{{ asset('admin_assets/css/sweetalert.min.css') }}">
     <link rel="stylesheet" href="{{ asset('admin_assets/css/quill.snow.css') }}">
     <link rel="stylesheet" href="{{ asset('admin_assets/css/style.css') }}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
 
     <link rel="icon" type="image/png" href="{{ asset('admin_assets/images/favicon.ico') }}">
     
