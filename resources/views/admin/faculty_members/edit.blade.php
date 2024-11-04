@@ -281,7 +281,7 @@
                             </div>
                         </div>
                         <div class="d-flex ms-sm-3 ms-md-0">
-                            <button class="btn btn-success text-white fw-semibold" type="submit">Add Faculty Member</button>
+                            <button class="btn btn-success text-white fw-semibold" type="submit">Update Faculty Member</button>
                         </div>
                     </div>
                 </form>

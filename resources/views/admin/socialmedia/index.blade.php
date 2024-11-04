@@ -3,46 +3,84 @@
 @section('title', 'Admin Dashboard')
 
 @section('content')
-<div class="container">
-    <h2>Manage Social Media Links</h2>
+<div class="row justify-content-center">
+    <div class="col-lg-12">
+        <div class="card bg-white border-0 rounded-10 mb-4">
+            <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-center border-bottom pb-20 mb-20">
+                <h4 class="fw-semibold fs-18 mb-0">Manage Social Media Links</h4>
+            </div>
 
-    <form action="{{ route('socialmedia.store') }}" method="POST">
-        @csrf
-        <div class="form-group">
-            <label for="txtename">Title *</label>
-            <input type="text" name="txtename" class="form-control" value="{{ $socialMedia->title ?? '' }}" required>
+                <form action="{{ route('socialmedia.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="txtename">Title :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="txtename" id="txtename" value="{{ $socialMedia->title ?? '' }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="facebook">Facebook URL :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="facebook" id="facebook" value="{{ $socialMedia->facebook_url ?? '' }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="twitter">Twitter URL :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="twitter" id="twitter" value="{{ $socialMedia->twitter_url ?? '' }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="googleplus">Youtube URL :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="googleplus" id="googleplus" value="{{ $socialMedia->youtube_url ?? '' }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="linkedin">Linkedin URL :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="linkedin" id="linkedin" value="{{ $socialMedia->linkedin_url ?? '' }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="txtstatus">Page Status :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <select class="form-select form-control ps-5 h-58" name="txtstatus" id="txtstatus" required>
+                                        <option value="1" class="text-dark" {{ isset($socialMedia) && $socialMedia->status == 1 ? 'selected' : '' }}>Draft</option>
+                                        <option value="2" class="text-dark" {{ isset($socialMedia) && $socialMedia->status == 2 ? 'selected' : '' }}>Approval</option>
+                                        <option value="3" class="text-dark" {{ isset($socialMedia) && $socialMedia->status == 3 ? 'selected' : '' }}>Publish</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex ms-sm-3 ms-md-0">
+                            <button class="btn btn-primary text-white fw-semibold" type="submit">Update</button>
+                        </div>
+                    </div>
+                </form>
+
+
+            </div>
         </div>
-
-        <div class="form-group">
-            <label for="facebook">Facebook URL *</label>
-            <input type="text" name="facebook" class="form-control"  value="{{ $socialMedia->facebook_url ?? '' }}" required>
-        </div>
-
-        <div class="form-group">
-            <label for="twitter">Twitter URL *</label>
-            <input type="text" name="twitter" class="form-control" value="{{ $socialMedia->twitter_url ?? '' }}" required>
-        </div>
-
-        <div class="form-group">
-            <label for="googleplus">Youtube URL *</label>
-            <input type="text" name="googleplus" class="form-control" value="{{ $socialMedia->youtube_url ?? '' }}" required>
-        </div>
-
-        <div class="form-group">
-            <label for="linkedin">LinkedIn URL *</label>
-            <input type="text" name="linkedin" class="form-control" value="{{ $socialMedia->linkedin_url ?? '' }}" required>
-        </div>
-
-        <div class="form-group">
-            <label for="txtstatus">Page Status *</label>
-            <select name="txtstatus" class="form-control" requireds>
-                <option value="1" {{ isset($socialMedia) && $socialMedia->status == 1 ? 'selected' : '' }}>Draft</option>
-                <option value="2" {{ isset($socialMedia) && $socialMedia->status == 2 ? 'selected' : '' }}>Approval</option>
-                <option value="3" {{ isset($socialMedia) && $socialMedia->status == 3 ? 'selected' : '' }}>Publish</option>
-            </select>
-        </div>
-
-        <button type="submit" class="btn btn-primary mt-2">Update</button>
-    </form>
+    </div>
 </div>
 @endsection
