@@ -11,13 +11,13 @@ class ManageTenderController extends Controller
     public function index()
     {
         $tenders = ManageTender::all();
-        return view('manage_tender.index', compact('tenders'));
+        return view('admin.manage_tender.index', compact('tenders'));
     }
 
     // Show form for creating a new tender
     public function create()
     {
-        return view('manage_tender.create');
+        return view('admin.manage_tender.create');
     }
 
     // Store the newly created tender
@@ -32,15 +32,9 @@ class ManageTenderController extends Controller
 	        'file' => 'required|mimes:pdf,png,jpg|max:2048',
 	        'publish_date' => 'required|date',
 	        'expiry_date' => 'required|date|after_or_equal:publish_date',
-	        'status' => 'required|in:Draft,Approval,Publish',
+	        'status' => 'required|integer|in:1,2,3',
 	    ]);
 
-        // Handle file upload
-        // if ($request->hasFile('file')) {
-        //     $filename = $request->file->store('uploads', 'public');
-        // } else {
-        //     $filename = null;
-        // }
 
         if ($request->hasFile('file')) {
 	        $filename = time() . '.' . $request->file->extension();
@@ -72,7 +66,7 @@ class ManageTenderController extends Controller
     // Show form to edit a specific tender
     public function edit(ManageTender $manageTender)
     {
-        return view('manage_tender.edit', compact('manageTender'));
+        return view('admin.manage_tender.edit', compact('manageTender'));
     }
 
     // Update the tender
@@ -86,7 +80,7 @@ class ManageTenderController extends Controller
 	        'file' => 'nullable|mimes:pdf,png,jpg|max:2048',
 	        'publish_date' => 'required|date',
 	        'expiry_date' => 'required|date|after_or_equal:publish_date',
-	        'status' => 'required|in:Draft,Approval,Publish',
+	        'status' => 'required|integer|in:1,2,3',
 	    ]);
 
         // Handle file upload

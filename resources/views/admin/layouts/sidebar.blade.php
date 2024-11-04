@@ -237,22 +237,22 @@
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="#" class="menu-link">
+                            <a href="{{ route('media-center.index') }}" class="menu-link">
                                 Audio Gallery
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="#" class="menu-link">
+                            <a href="{{ route('photo-gallery.index') }}" class="menu-link">
                                 Photo Gallery
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="#" class="menu-link">
+                            <a href="{{ route('video_gallery.index') }}" class="menu-link">
                                 Video Gallery
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="#" class="menu-link">
+                            <a href="{{ route('media-categories.index') }}" class="menu-link">
                                 Photo Gallery/ Video Gallery
                             </a>
                         </li>

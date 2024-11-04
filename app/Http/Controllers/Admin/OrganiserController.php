@@ -11,13 +11,13 @@ class OrganiserController extends Controller
     public function index()
     {
         $organisers = ManageOrganiser::all();
-        return view('training_master.manage_organiser.index', compact('organisers'));
+        return view('admin.training_master.manage_organiser.index', compact('organisers'));
     }
 
     // Show form for creating a new organiser
     public function create()
     {
-        return view('training_master.manage_organiser.create');
+        return view('admin.training_master.manage_organiser.create');
     }
 
     // Store a new organiser
@@ -26,11 +26,11 @@ class OrganiserController extends Controller
         $request->validate([
             'language' => 'required',
             'organiser_name' => 'required|string|max:255',
-            'status' => 'required|in:active,inactive',
+            'status' => 'required|string',
         ]);
 
+        $validated['status'] = $request->status === 'active' ? 1 : 2;
         ManageOrganiser::create($request->all());
-        // return redirect()->route('organisers.index')->with('success', 'Organiser created successfully.');
         return redirect()->route('organisers.index')->with('success', 'Organiser created successfully.');
 
     }
@@ -39,7 +39,7 @@ class OrganiserController extends Controller
     public function edit($id)
     {
         $organiser = ManageOrganiser::findOrFail($id);
-        return view('training_master.manage_organiser.edit', compact('organiser'));
+        return view('admin.training_master.manage_organiser.edit', compact('organiser'));
     }
 
     // Update the organiser
@@ -48,9 +48,10 @@ class OrganiserController extends Controller
         $request->validate([
             'language' => 'required',
             'organiser_name' => 'required|string|max:255',
-            'status' => 'required|in:active,inactive',
+            'status' => 'required|string',
         ]);
 
+        $validated['status'] = $request->status === 'active' ? 1 : 2;
         $organiser = ManageOrganiser::findOrFail($id);
         $organiser->update($request->all());
         return redirect()->route('organisers.index')->with('success', 'Organiser updated successfully.');

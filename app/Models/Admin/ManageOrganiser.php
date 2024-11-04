@@ -12,7 +12,7 @@ class ManageOrganiser extends Model
     // Define a custom table name
     protected $table = 'manage_organisers';
 
-    protected $fillable = [
+    protected $fillable = [ 
         'language', 'organiser_name', 'status'
     ];
 }

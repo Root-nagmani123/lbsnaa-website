@@ -12,13 +12,13 @@ class ManageFoundersController extends Controller
     public function index()
     {
         $founders = ManageFounders::all();
-        return view('training_master.founders.index', compact('founders'));
+        return view('admin.training_master.founders.index', compact('founders'));
     }
 
     // Show the form to create a new founder
     public function create()
     {
-        return view('training_master.founders.create');
+        return view('admin.training_master.founders.create');
     }
 
     // Store the new founder in the database
@@ -27,9 +27,10 @@ class ManageFoundersController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'language' => 'required',
-            'status' => 'required',
+            'status' => 'required|string',
         ]);
 
+        $validated['status'] = $request->status === 'active' ? 1 : 2;
         ManageFounders::create($request->all());
         return redirect()->route('founders.index')->with('success', 'Founder added successfully.');
     }
@@ -38,7 +39,7 @@ class ManageFoundersController extends Controller
     public function edit($id)
     {
         $founder = ManageFounders::findOrFail($id);
-        return view('training_master.founders.edit', compact('founder'));
+        return view('admin.training_master.founders.edit', compact('founder'));
     }
 
     // Update the founder's details
@@ -47,9 +48,10 @@ class ManageFoundersController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'language' => 'required',
-            'status' => 'required',
+            'status' => 'required|string',
         ]);
 
+        $validated['status'] = $request->status === 'active' ? 1 : 2;
         $founder = ManageFounders::findOrFail($id);
         $founder->update($request->all());
         return redirect()->route('founders.index')->with('success', 'Founder updated successfully.');
