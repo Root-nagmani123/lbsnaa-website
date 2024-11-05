@@ -2,81 +2,169 @@
 @section('title', 'Admin Dashboard')
 
 @section('content')
-    <h2>Add Vacancy</h2>
+<div class="row justify-content-center">
+    <div class="col-lg-12">
+        <div class="card bg-white border-0 rounded-10 mb-4">
+            <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-center border-bottom pb-20 mb-20">
+                <h4 class="fw-semibold fs-18 mb-0">Add Vacancy</h4>
+            </div>
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+                <form action="{{ route('manage_vacancy.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="language">Language :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input class="form-check-input" type="radio" name="language" value="english">
+                                    <label class="form-check-label" for="english">
+                                        English
+                                    </label>
+                                    <input class="form-check-input" type="radio" name="language" value="hindi">
+                                    <label class="form-check-label" for="hindi">
+                                        Hindi
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="job_title">Job Title :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="job_title"
+                                        id="job_title"  value="{{ old('job_title') }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group mb-4">
+                                <label class="label" for="job_description">Job Description :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <div id="standalone-container">
+                                        <div id="toolbar-container">
+                                            <span class="ql-formats">
+                                                <select class="ql-font"></select>
+                                                <select class="ql-size"></select>
+                                            </span>
+                                            <span class="ql-formats">
+                                                <button class="ql-bold"></button>
+                                                <button class="ql-italic"></button>
+                                                <button class="ql-underline"></button>
+                                                <button class="ql-strike"></button>
+                                            </span>
+                                            <span class="ql-formats">
+                                                <button class="ql-blockquote"></button>
+                                                <button class="ql-code-block"></button>
+                                            </span>
+                                            <span class="ql-formats">
+                                                <button class="ql-list" value="ordered"></button>
+                                                <button class="ql-list" value="bullet"></button>
+                                                <button class="ql-indent" value="-1"></button>
+                                                <button class="ql-indent" value="+1"></button>
+                                            </span>
+                                            <span class="ql-formats">
+                                                <button class="ql-link"></button>
+                                                <button class="ql-image"></button>
+                                                <button class="ql-video"></button>
+                                            </span>
+                                        </div>
+                                        <div id="editor-container" style="height: 250px;">{{ old('job_description') }}</div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="content_type">Content Type :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <select class="form-select form-control ps-5 h-58" name="content_type" id="content_type" required>
+                                        <option value="" class="text-dark">Select</option>
+                                        <option value="PDF" class="text-dark">PDF File Upload</option>
+                                        <option value="Website" class="text-dark">Website URL</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6" id="document_upload" style="display:none;">
+                            <div class="form-group mb-4">
+                                <label class="label" for="document_upload">Document Upload :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="file" class="form-control text-dark ps-5 h-58" name="document_upload"
+                                        id="document_upload">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6" id="website_link" style="display:none;">
+                            <div class="form-group mb-4">
+                                <label class="label" for="website_link">Website Link :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="url" class="form-control text-dark ps-5 h-58" name="website_link"
+                                        id="website_link">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6" id="document_upload">
+                            <div class="form-group mb-4">
+                                <label class="label" for="publish_date">Publish Date :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="date" class="form-control text-dark ps-5 h-58" name="publish_date"
+                                        id="publish_date" value="{{ old('publish_date') }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6" id="website_link">
+                            <div class="form-group mb-4">
+                                <label class="label" for="expiry_date">Expiry Date :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="date" class="form-control text-dark ps-5 h-58" name="expiry_date"
+                                        id="expiry_date" value="{{ old('expiry_date') }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="texttype">Status :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <select class="form-select form-control ps-5 h-58" name="status" id="status" required>
+                                        <option value="0" class="text-dark">Select</option>
+                                        <option value="1" class="text-dark">Draft</option>
+                                        <option value="2" class="text-dark">Approval</option>
+                                        <option value="3" class="text-dark">Publish</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex ms-sm-3 ms-md-0">
+                            <button class="btn btn-success text-white fw-semibold" type="submit">Submit</button> &nbsp;
+                            <button class="btn btn-warning text-white fw-semibold" type="reset">Reset</button> &nbsp;
+                            <a href="{{ route('manage_vacancy.index') }}" class="btn btn-secondary text-white">Cancel</a>
+                        </div>
+                    </div>
+                </form>
 
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
 
-    <form action="{{ route('manage_vacancy.store') }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        <div class="form-group">
-            <label>Language</label>
-            <div>
-                <label><input type="radio" name="language" value="English" checked> English</label>
-                <label><input type="radio" name="language" value="Hindi"> Hindi</label>
             </div>
         </div>
-
-        <div class="form-group">
-            <label>Job Title</label>
-            <input type="text" name="job_title" class="form-control" value="{{ old('job_title') }}">
-        </div>
-
-        <div class="form-group">
-            <label>Job Description</label>
-            <textarea name="job_description" class="form-control ckeditor">{{ old('job_description') }}</textarea>
-        </div>
-
-		<div class="form-group">
-		    <label for="content_type">Content Type</label>
-		    <select class="form-control" name="content_type" id="content_type">
-		        <option value="">Select</option>
-		        <option value="PDF">PDF File Upload</option>
-		        <option value="Website">Website URL</option>
-		    </select>
-		</div>
-
-		<div class="form-group" id="document_upload" style="display:none;">
-		    <label for="document_upload">Document Upload (PDF)</label>
-		    <input type="file" class="form-control" name="document_upload" accept="application/pdf">
-		</div>
-
-		<div class="form-group" id="website_link" style="display:none;">
-		    <label for="website_link">Website Link</label>
-		    <input type="url" class="form-control" name="website_link">
-		</div>
-
-        <div class="form-group">
-            <label>Publish Date</label>
-            <input type="date" name="publish_date" class="form-control" value="{{ old('publish_date') }}">
-        </div>
-
-        <div class="form-group">
-            <label>Expiry Date</label>
-            <input type="date" name="expiry_date" class="form-control" value="{{ old('expiry_date') }}">
-        </div>
-
-        <div class="form-group">
-            <label>Status</label>
-            <select name="status" class="form-control">
-            	<option value="">Select</option>
-                <option value="1">Draft</option>
-                <option value="2">Approval</option>
-                <option value="3">Publish</option>
-            </select>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Submit</button>
-        <button type="reset" class="btn btn-secondary">Reset</button>
-        <a href="{{ route('manage_vacancy.index') }}" class="btn btn-danger">Cancel</a>
-    </form>
+    </div>
+</div>
 
 
     <script>
@@ -97,12 +185,6 @@
 	</script>
 
 @endsection
-
-
-<script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
-<script>
-    CKEDITOR.replace('description');
-</script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         let today = new Date().toISOString().split('T')[0];

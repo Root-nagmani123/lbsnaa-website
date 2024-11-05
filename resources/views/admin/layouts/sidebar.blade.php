@@ -126,12 +126,12 @@
                         </li>
                     </ul>
                 </li>
-                <li class="menu-item">
+                <!-- <li class="menu-item">
                     <a href="#" class="menu-link">
                     <i class="material-icons menu-icon">article</i>
                         <span class="title">Manage Middle Section</span>
                     </a>
-                </li>
+                </li> -->
                 <li class="menu-item">
                     <a href="#" class="menu-link">
                         <i class="material-icons menu-icon">campaign</i>
@@ -144,12 +144,12 @@
                         <span class="title">Manage News</span>
                     </a>
                 </li>
-                <li class="menu-item">
+                <!-- <li class="menu-item">
                     <a href="{{ route('manage_events.index') }}" class="menu-link">
                     <i class="material-icons menu-icon">event</i>
                         <span class="title">Manage Events</span>
                     </a>
-                </li>
+                </li> -->
                 <li class="menu-item">
                     <a href="{{ route('manage_tender.index') }}" class="menu-link">
                     <i class="material-icons menu-icon">content_paste</i>
