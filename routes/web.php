@@ -258,9 +258,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('courses', CourseController::class);
 
 
-    Route::prefix('admin')->name('admin.')->group(function() {
-        Route::resource('news', NewsController::class);
-        // Route::resource('faculty', FacultyMemberController::class);
-    });
+    // Route::prefix('admin')->name('admin.')->group(function() {
+    //     Route::resource('news', NewsController::class);
+    //     // Route::resource('faculty', FacultyMemberController::class);
+    // });
 
 });

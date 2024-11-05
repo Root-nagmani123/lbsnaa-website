@@ -2,32 +2,67 @@
 @section('title', 'Admin Dashboard')
 
 @section('content')
-<div class="container">
-    <h2>Add Coordinator</h2>
-    <form action="{{ route('coordinators.store') }}" method="POST">
-        @csrf
-        <div class="mb-3">
-            <label for="page_language">Page Language:</label>
-            <div>
-                <label><input type="radio" name="page_language" value="English" required> English</label>
-                <label><input type="radio" name="page_language" value="Hindi" required> Hindi</label>
-                <!-- Add more languages as needed -->
+<div class="row justify-content-center">
+    <div class="col-lg-12">
+        <div class="card bg-white border-0 rounded-10 mb-4">
+            <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-center border-bottom pb-20 mb-20">
+                <h4 class="fw-semibold fs-18 mb-0">Add Coordinator</h4>
+            </div>
+
+                <form action="{{ route('coordinators.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="form-group mb-4">
+                                <label class="label" for="page_language">Page Language :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input class="form-check-input" type="radio" name="page_language" value="English">
+                                    <label class="form-check-label" for="english">
+                                        English
+                                    </label>
+                                    <input class="form-check-input" type="radio" name="page_language" value="hindi">
+                                    <label class="form-check-label" for="hindi">
+                                        Hindi
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group mb-4">
+                                <label class="label" for="coordinator_name">Co-ordinators Name :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="coordinator_name"
+                                        id="coordinator_name">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group mb-4">
+                                <label class="label" for="texttype">Status :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <select class="form-select form-control ps-5 h-58" name="status" id="status" required>
+                                        <option value="1" class="text-dark">Active</option>
+                                        <option value="0" class="text-dark">Inactive</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex ms-sm-3 ms-md-0">
+                            <button class="btn btn-success text-white fw-semibold" type="submit">Submit</button> &nbsp;
+                            <button class="btn btn-warning text-white fw-semibold" type="reset">Reset</button> &nbsp;
+                            <a href="{{ route('coordinators.index') }}" class="btn btn-secondary text-white">Cancel</a>
+                        </div>
+                    </div>
+                </form>
+
+
             </div>
         </div>
-        <div class="mb-3">
-            <label for="coordinator_name">Co-ordinators Name:</label>
-            <input type="text" name="coordinator_name" class="form-control" required>
-        </div>
-        <div class="mb-3">
-            <label for="status">Status:</label>
-            <select name="status" class="form-control" required>
-                <option value="1">Active</option>
-                <option value="2">Inactive</option>
-            </select>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-        <button type="reset" class="btn btn-secondary">Reset</button>
-        <a href="{{ route('coordinators.index') }}" class="btn btn-danger">Cancel</a>
-    </form>
+    </div>
 </div>
+
 @endsection

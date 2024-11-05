@@ -9,7 +9,7 @@
                     <div class="card-body p-4">
                         <div class="d-flex justify-content-between align-items-center mb-3 pb-1">
                             <div class="flex-grow-1 me-3">
-                                <h3 class="body-font fw-bold fs-3 mb-2">$25,890</h3>
+                                <h3 class="body-font fw-bold fs-3 mb-2">₹25,890</h3>
                                 <span>Total Sales</span>
                             </div>
                             <div class="flex-shrink-0">
@@ -38,7 +38,7 @@
                     <div class="card-body p-4">
                         <div class="d-flex justify-content-between align-items-center mb-3 pb-1">
                             <div class="flex-grow-1 me-3">
-                                <h3 class="body-font fw-bold fs-3 mb-2">$24,890</h3>
+                                <h3 class="body-font fw-bold fs-3 mb-2">₹24,890</h3>
                                 <span>Total Order</span>
                             </div>
                             <div class="flex-shrink-0">

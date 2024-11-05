@@ -215,7 +215,7 @@
                
                 <li class="menu-item">
                     <a href="{{ route('socialmedia.index') }}" class="menu-link">
-                    <i class="material-icons menu-icon">stock_media</i>
+                    <i class=" material-icons menu-icon">subscriptions</i>
                         <span class="title">Manage Social Media</span>
                     </a>
                 </li>
@@ -227,7 +227,7 @@
                 </li>
                 <li class="menu-item">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <i class="material-icons menu-icon">media_link</i>
+                    <i class="material-icons menu-icon">mediation</i>
                         <span class="title">Manage Media Center</span>
                     </a>
                     <ul class="menu-sub">
@@ -269,7 +269,7 @@
                 </li>
                 <li class="menu-item">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <i class="material-icons menu-icon">person</i>
+                    <i class="material-icons menu-icon">wysiwyg</i>
                         <span class="title">CMS Page</span>
                     </a>
                     <ul class="menu-sub">
@@ -282,37 +282,37 @@
                 </li>
                 <li class="menu-item">
                     <a href="#" class="menu-link">
-                    <i class="material-icons menu-icon">person</i>
+                    <i class="material-icons menu-icon">add_linka</i>
                         <span class="title">Manage What's New / Quick Links</span>
                     </a>
                 </li>
                 <li class="menu-item">
                     <a href="#" class="menu-link">
-                    <i class="material-icons menu-icon">person</i>
+                    <i class="material-icons menu-icon">newspaper</i>
                         <span class="title">Manage News</span>
                     </a>
                 </li>
                 <li class="menu-item">
                     <a href="#" class="menu-link">
-                    <i class="material-icons menu-icon">person</i>
+                    <i class="material-icons menu-icon">model_training</i>
                         <span class="title">Manage Training Programs</span>
                     </a>
                 </li>
                 <li class="menu-item">
                     <a href="#" class="menu-link">
-                    <i class="material-icons menu-icon">person</i>
+                    <i class="material-icons menu-icon">corporate_fare</i>
                         <span class="title">Manage Organization Setup</span>
                     </a>
                 </li>
                 <li class="menu-item">
                     <a href="#" class="menu-link">
-                    <i class="material-icons menu-icon">person</i>
+                    <i class="material-icons menu-icon">assignment_ind</i>
                         <span class="title">Manage Vacancy</span>
                     </a>
                 </li>
                 <li class="menu-item">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <i class="material-icons menu-icon">person</i>
+                    <i class="material-icons menu-icon">mediation</i>
                         <span class="title">Manage Media Center</span>
                     </a>
                     <ul class="menu-sub">
@@ -340,7 +340,7 @@
                 </li>
                 <li class="menu-item">
                     <a href="chat.html" class="menu-link">
-                    <i class="material-icons menu-icon">person</i>
+                    <i class="material-icons menu-icon">list</i>
                         <span class="title">Manage Audit</span>
                     </a>
                 </li>
