@@ -341,7 +341,7 @@
                         </li>
                         <li class="menu-item">
                             <a href="#" class="menu-link">
-                                Photo Gallery/ Video Gallery
+                                Photo Gallery/ Gallery
                             </a>
                         </li>
                     </ul>
