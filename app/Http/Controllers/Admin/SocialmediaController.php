@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+use App\Models\Admin\ManageAudit;
+use Illuminate\Support\Facades\Auth;
+
 class SocialmediaController extends Controller
 {
     // Show the form
@@ -33,7 +36,7 @@ class SocialmediaController extends Controller
 
         if ($exists) {
             // Update existing record
-            DB::table('social_media_links')
+            $exists = DB::table('social_media_links')
                 ->where('id', $exists->id)
                 ->update([
                     'title' => $request->txtename,
@@ -46,7 +49,7 @@ class SocialmediaController extends Controller
                 ]);
         } else {
             // Insert new record
-            DB::table('social_media_links')->insert([
+            $exists = DB::table('social_media_links')->insert([
                 'title' => $request->txtename,
                 'facebook_url' => $request->facebook,
                 'twitter_url' => $request->twitter,
@@ -57,6 +60,17 @@ class SocialmediaController extends Controller
                 'updated_at' => now(),
             ]);
         }
+
+
+        ManageAudit::create([
+            'Module_Name' => 'Social Media Module', // Static value
+            'Time_Stamp' => now(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Insert / Update', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+            'Current_State' => json_encode($$exists), // Save state as JSON
+        ]);
 
         return redirect()->route('socialmedia.index')->with('success', 'Social Media added successfully');
 

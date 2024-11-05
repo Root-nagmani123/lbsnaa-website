@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+use App\Models\Admin\ManageAudit;
+use Illuminate\Support\Facades\Auth;
+
 class ManageSouvenirController extends Controller
 {
     public function index()
@@ -32,13 +35,23 @@ class ManageSouvenirController extends Controller
         ]);
 
         // Use Query Builder to insert a new category
-        DB::table('souvenirCategory')->insert([
+        $souvenir = DB::table('souvenirCategory')->insert([
             'type' => $request->input('type'),
             'category_name' => $request->input('category_name'),
             'category_name_hindi' => $request->input('category_name_hindi'),
             'status' => $request->input('status'),
             'created_at' => now(),
             'updated_at' => now()
+        ]);
+
+        ManageAudit::create([
+            'Module_Name' => 'Souvenir Module', // Static value
+            'Time_Stamp' => now(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Insert', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+            'Current_State' => json_encode($souvenir), // Save state as JSON
         ]);
 
         return redirect()->route('souvenir.index')->with('success', 'Category created successfully.');
@@ -64,7 +77,7 @@ class ManageSouvenirController extends Controller
         ]);
 
         // Use Query Builder to update the category
-        DB::table('souvenirCategory')
+        $souvenir = DB::table('souvenirCategory')
             ->where('id', $id)
             ->update([
                 'type' => $request->input('type'),
@@ -72,6 +85,16 @@ class ManageSouvenirController extends Controller
                 'category_name_hindi' => $request->input('category_name_hindi'),
                 'status' => $request->input('status'),
                 'updated_at' => now()
+            ]);
+
+            ManageAudit::create([
+                'Module_Name' => 'Souvenir Module', // Static value
+                'Time_Stamp' => now(), // Current timestamp
+                'Created_By' => null, // ID of the authenticated user
+                'Updated_By' => null, // No update on creation, so leave null
+                'Action_Type' => 'Update', // Static value
+                'IP_Address' => $request->ip(), // Get IP address from request
+                'Current_State' => json_encode($souvenir), // Save state as JSON
             ]);
 
         return redirect()->route('souvenir.index')->with('success', 'Category updated successfully.');
@@ -121,7 +144,7 @@ class ManageSouvenirController extends Controller
         // Handle file uploads
         // $document_upload = $request->file('document_upload') ? $request->file('document_upload')->store('documents') : null;
         // $upload_image = $request->file('upload_image')->store('images');
-$document_name = '';
+        $document_name = '';
         if ($request->hasFile('document_upload')) {
             $document_upload = $request->file('document_upload');
             $document_name = $document_upload->getClientOriginalName();
@@ -135,7 +158,7 @@ $document_name = '';
         }
 
         // Insert Academy Souvenir using Query Builder
-        DB::table('academy_souvenirs')->insert([
+        $AcademySouvenir = DB::table('academy_souvenirs')->insert([
             'product_category' => $request->input('product_category'),
             'product_title' => $request->input('product_title'),
             'product_type' => $request->input('product_type'),
@@ -148,6 +171,16 @@ $document_name = '';
             'product_status' => $request->input('product_status'),
             'created_at' => now(),
             'updated_at' => now()
+        ]);
+
+        ManageAudit::create([
+            'Module_Name' => 'Academy Souvenir Module', // Static value
+            'Time_Stamp' => now(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Insert', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+            'Current_State' => json_encode($AcademySouvenir), // Save state as JSON
         ]);
 
         return redirect()->route('academy_souvenirs.index')->with('success', 'Academy Souvenir created successfully.');
@@ -213,7 +246,7 @@ $document_name = '';
     }
 
     // Update Academy Souvenir using Query Builder
-    DB::table('academy_souvenirs')->where('id', $id)->update([
+    $AcademySouvenir = DB::table('academy_souvenirs')->where('id', $id)->update([
         'product_category' => $request->input('product_category'),
         'product_title' => $request->input('product_title'),
         'product_type' => $request->input('product_type'),
@@ -225,6 +258,16 @@ $document_name = '';
         'product_description' => $request->input('product_description'),
         'product_status' => $request->input('product_status'),
         'updated_at' => now()
+    ]);
+
+    ManageAudit::create([
+        'Module_Name' => 'Academy Souvenir Module', // Static value
+        'Time_Stamp' => now(), // Current timestamp
+        'Created_By' => null, // ID of the authenticated user
+        'Updated_By' => null, // No update on creation, so leave null
+        'Action_Type' => 'Insert', // Static value
+        'IP_Address' => $request->ip(), // Get IP address from request
+        'Current_State' => json_encode($AcademySouvenir), // Save state as JSON
     ]);
 
     return redirect()->route('academy_souvenirs.index')->with('success', 'Academy Souvenir updated successfully.');

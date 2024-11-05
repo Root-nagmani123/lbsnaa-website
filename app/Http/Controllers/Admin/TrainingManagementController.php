@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+use App\Models\Admin\ManageAudit;
+use Illuminate\Support\Facades\Auth;
 
 class TrainingManagementController extends Controller
 {
@@ -28,10 +30,20 @@ class TrainingManagementController extends Controller
     // Category store method to handle form submission for creating new section
     public function categoryStore(Request $request)
     {
-        DB::table('manage_category')->insert([
+        $category = DB::table('manage_category')->insert([
             'section_title' => $request->section_title,
             'category_description' => $request->category_description,
             'status' => $request->status,
+        ]);
+
+        ManageAudit::create([
+            'Module_Name' => 'Category Module', // Static value
+            'Time_Stamp' => now(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Insert', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+            'Current_State' => json_encode($category), // Save state as JSON
         ]);
 
         return redirect()->route('category.index')->with('success', 'Category added successfully');
@@ -48,11 +60,22 @@ class TrainingManagementController extends Controller
     // Category update method to handle form submission for updating section details
     public function categoryUpdate(Request $request, $id)
     {
-        DB::table('manage_category')->where('id', $id)->update([
+        $category = DB::table('manage_category')->where('id', $id)->update([
             'section_title' => $request->section_title,
             'category_description' => $request->category_description,
             'status' => $request->status,
         ]);
+
+        ManageAudit::create([
+            'Module_Name' => 'Category Module', // Static value
+            'Time_Stamp' => now(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Update', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+            'Current_State' => json_encode($category), // Save state as JSON
+        ]);
+
         return redirect()->route('category.index')->with('success', 'category updated successfully');
     }
 
@@ -81,9 +104,19 @@ class TrainingManagementController extends Controller
     public function countryStore(Request $request)
     {
 
-        DB::table('manage_country')->insert([
+        $country = DB::table('manage_country')->insert([
             'country_name' => $request->country_name,
             'status' => $request->status,
+        ]);
+
+        ManageAudit::create([
+            'Module_Name' => 'Country Module', // Static value
+            'Time_Stamp' => now(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Insert', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+            'Current_State' => json_encode($country), // Save state as JSON
         ]);
 
         return redirect()->route('country.index')->with('success', 'country added successfully');
@@ -100,10 +133,21 @@ class TrainingManagementController extends Controller
     // country update method to handle form submission for updating section details
     public function countryUpdate(Request $request, $id)
     {
-        DB::table('manage_country')->where('id', $id)->update([
+        $country = DB::table('manage_country')->where('id', $id)->update([
             'country_name' => $request->country_name,
             'status' => $request->status,
         ]);
+
+        ManageAudit::create([
+            'Module_Name' => 'Country Module', // Static value
+            'Time_Stamp' => now(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Update', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+            'Current_State' => json_encode($country), // Save state as JSON
+        ]);
+
         return redirect()->route('country.index')->with('success', 'country updated successfully');
     }
 
@@ -132,9 +176,19 @@ class TrainingManagementController extends Controller
     public function stateStore(Request $request)
     {
 
-        DB::table('manage_state')->insert([
+        $state = DB::table('manage_state')->insert([
             'state_name' => $request->state_name,
             'status' => $request->status,
+        ]);
+
+        ManageAudit::create([
+            'Module_Name' => 'State Module', // Static value
+            'Time_Stamp' => now(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Insert', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+            'Current_State' => json_encode($state), // Save state as JSON
         ]);
 
         return redirect()->route('state.index')->with('success', 'state added successfully');
@@ -151,10 +205,21 @@ class TrainingManagementController extends Controller
     // state update method to handle form submission for updating section details
     public function stateUpdate(Request $request, $id)
     {
-        DB::table('manage_state')->where('id', $id)->update([
+        $state = DB::table('manage_state')->where('id', $id)->update([
             'state_name' => $request->state_name,
             'status' => $request->status,
         ]);
+
+        ManageAudit::create([
+            'Module_Name' => 'State Module', // Static value
+            'Time_Stamp' => now(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Update', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+            'Current_State' => json_encode($state), // Save state as JSON
+        ]);
+
         return redirect()->route('state.index')->with('success', 'state updated successfully');
     }
 
@@ -184,10 +249,20 @@ class TrainingManagementController extends Controller
     public function districtStore(Request $request)
     {
 
-        DB::table('manage_district')->insert([
+        $district = DB::table('manage_district')->insert([
             'state_id' => $request->state_name,
             'district_name' => $request->district_name,
             'status' => $request->status,
+        ]);
+
+        ManageAudit::create([
+            'Module_Name' => 'District Module', // Static value
+            'Time_Stamp' => now(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Insert', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+            'Current_State' => json_encode($district), // Save state as JSON
         ]);
 
         return redirect()->route('district.index')->with('success', 'District added successfully');
@@ -204,11 +279,22 @@ class TrainingManagementController extends Controller
     // state update method to handle form submission for updating section details
     public function districtUpdate(Request $request, $id)
     {
-        DB::table('manage_district')->where('id', $id)->update([
+        $district = DB::table('manage_district')->where('id', $id)->update([
             // 'state_id' => $request->state_id,
             'district_name' => $request->district_name,
             'status' => $request->status,
         ]);
+
+        ManageAudit::create([
+            'Module_Name' => 'District Module', // Static value
+            'Time_Stamp' => now(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Update', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+            'Current_State' => json_encode($district), // Save state as JSON
+        ]);
+
         return redirect()->route('district.index')->with('success', 'District updated successfully');
     }
 
@@ -237,7 +323,7 @@ class TrainingManagementController extends Controller
     // state store method to handle form submission for creating new section
     public function examStore(Request $request)
     {
-        DB::table('manage_exam')->insert([
+        $exam = DB::table('manage_exam')->insert([
             'exam_code' => $request->exm_code, // Exam Code
             'exam_description' => $request->exm_desc, // Exam Description (nullable)
             'user_id' => $request->exm_user_id, // User ID
@@ -245,6 +331,16 @@ class TrainingManagementController extends Controller
             'preliminary_flag' => $request->preliminary_flag, // Preliminary Flag
             'main_flag' => $request->main_flag, // Main Flag
             'status' => $request->status, // Status
+        ]);
+
+        ManageAudit::create([
+            'Module_Name' => 'Exam Module', // Static value
+            'Time_Stamp' => now(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Insert', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+            'Current_State' => json_encode($exam), // Save state as JSON
         ]);
 
         return redirect()->route('exam.index')->with('success', 'Exams added successfully');
@@ -261,7 +357,7 @@ class TrainingManagementController extends Controller
     // state update method to handle form submission for updating section details
     public function examUpdate(Request $request, $id)
     {
-        DB::table('manage_exam')->where('id', $id)->update([
+        $exam = DB::table('manage_exam')->where('id', $id)->update([
             'exam_code' => $request->exm_code, // Exam Code
             'exam_description' => $request->exm_desc, // Exam Description (nullable)
             'user_id' => $request->exm_user_id, // User ID
@@ -270,6 +366,17 @@ class TrainingManagementController extends Controller
             'main_flag' => $request->main_flag, // Main Flag
             'status' => $request->status, // Status
         ]);
+
+        ManageAudit::create([
+            'Module_Name' => 'Exam Module', // Static value
+            'Time_Stamp' => now(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Update', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+            'Current_State' => json_encode($exam), // Save state as JSON
+        ]);
+
         return redirect()->route('exam.index')->with('success', 'Exams updated successfully');
     }
 

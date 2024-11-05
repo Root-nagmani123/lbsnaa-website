@@ -261,14 +261,14 @@ public function footer_images_status_update(Request $request, $id)
 
         return redirect()->route('admin.quick_links.index')->with('success', 'Quick Link deleted successfully.');
     }
-function quick_link_status_update(Request $request, $id)
-{
-    $slider = QuickLink::findOrFail($id);
-    $slider->status = !$slider->status; // Toggle status
-    $slider->save();
+    function quick_link_status_update(Request $request, $id)
+    {
+        $slider = QuickLink::findOrFail($id);
+        $slider->status = !$slider->status; // Toggle status
+        $slider->save();
 
-    return response()->json(['success' => 'Status updated successfully.']);
-}
+        return response()->json(['success' => 'Status updated successfully.']);
+    }
 
     
 }

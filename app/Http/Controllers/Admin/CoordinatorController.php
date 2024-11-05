@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin\ManageCoordinator;
 use Illuminate\Http\Request;
 
+use App\Models\Admin\ManageAudit;
+use Illuminate\Support\Facades\Auth;
+
 class CoordinatorController extends Controller
 {
     public function index()
@@ -28,7 +31,18 @@ class CoordinatorController extends Controller
         ]);
 
         $validated['status'] = $request->status === 'active' ? 1 : 2;
-        ManageCoordinator::create($request->all());
+        $coordinator = ManageCoordinator::create($request->all());
+
+        ManageAudit::create([
+            'Module_Name' => 'Coordinator Module', // Static value
+            'Time_Stamp' => now(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Insert', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+            'Current_State' => json_encode($coordinator), // Save state as JSON
+        ]);
+
         return redirect()->route('coordinators.index')->with('success', 'Coordinator added successfully.');
     }
 
@@ -49,6 +63,17 @@ class CoordinatorController extends Controller
         $validated['status'] = $request->status === 'active' ? 1 : 2;
         $coordinator = ManageCoordinator::findOrFail($id);
         $coordinator->update($request->all());
+
+        ManageAudit::create([
+            'Module_Name' => 'Coordinator Module', // Static value
+            'Time_Stamp' => now(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Update', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+            'Current_State' => json_encode($coordinator), // Save state as JSON
+        ]);
+
         return redirect()->route('coordinators.index')->with('success', 'Coordinator updated successfully.');
     }
 
