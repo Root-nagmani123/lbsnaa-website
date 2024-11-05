@@ -259,7 +259,7 @@
                     </ul>
                 </li>
                 <li class="menu-item">
-                    <a href="chat.html" class="menu-link">
+                    <a href="{{route('manage_audit.index')}}" class="menu-link">
                     <i class="material-icons menu-icon">list</i>
                         <span class="title">Manage Audit</span>
                     </a>
@@ -339,7 +339,7 @@
                     </ul>
                 </li>
                 <li class="menu-item">
-                    <a href="chat.html" class="menu-link">
+                    <a href="#" class="menu-link">
                     <i class="material-icons menu-icon">list</i>
                         <span class="title">Manage Audit</span>
                     </a>
