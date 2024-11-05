@@ -33,7 +33,7 @@
                                 <label class="label" for="district_name">District Name :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="district_name" id="district_name">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="district_name" id="district_name" required>
                                 </div>
                             </div>
                         </div>

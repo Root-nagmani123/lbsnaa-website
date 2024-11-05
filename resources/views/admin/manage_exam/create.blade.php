@@ -19,7 +19,7 @@
                                 <label class="label" for="exm_code">Exam Code :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="exm_code" id="exm_code">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="exm_code" id="exm_code" required>
                                 </div>
                             </div>
                         </div>
@@ -28,7 +28,7 @@
                                 <label class="label" for="exm_desc">Exam Description :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="exm_desc" id="exm_desc">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="exm_desc" id="exm_desc"required>
                                 </div>
                             </div>
                         </div>
@@ -37,7 +37,7 @@
                                 <label class="label" for="exm_user_id">User ID :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="exm_user_id" id="exm_user_id">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="exm_user_id" id="exm_user_id"required>
                                 </div>
                             </div>
                         </div>
@@ -46,7 +46,7 @@
                                 <label class="label" for="exm_date">Transaction Date :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="exm_date" id="exm_date">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="exm_date" id="exm_date" required>
                                 </div>
                             </div>
                         </div>

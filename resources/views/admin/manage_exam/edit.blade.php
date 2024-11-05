@@ -19,7 +19,7 @@
                                 <label class="label" for="exm_code">Exam Code :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="exm_code" id="exm_code" value="{{ $exams->exam_code }}">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="exm_code" id="exm_code" value="{{ $exams->exam_code }}" required>
                                 </div>
                             </div>
                         </div>
@@ -28,7 +28,7 @@
                                 <label class="label" for="exm_desc">Exam Description :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="exm_desc" id="exm_desc" value="{{ $exams->exam_description }}">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="exm_desc" id="exm_desc" value="{{ $exams->exam_description }}" required>
                                 </div>
                             </div>
                         </div>
@@ -37,7 +37,7 @@
                                 <label class="label" for="exm_user_id">User ID :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="exm_user_id" id="exm_user_id" value="{{ $exams->user_id }}">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="exm_user_id" id="exm_user_id" value="{{ $exams->user_id }}" required>
                                 </div>
                             </div>
                         </div>
@@ -64,8 +64,8 @@
                                 <label for="main_flag" class="label">Main Flag</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                        <input class="form-check-input" type="radio" name="preliminary_flag" id="preliminary_flag" value="1" {{ $exams->main_flag == 1 ? 'checked' : '' }}> Yes
-                                        <input class="form-check-input" type="radio" name="preliminary_flag" id="preliminary_flag" value="0" {{ $exams->main_flag == 0 ? 'checked' : '' }}> No
+                                        <input class="form-check-input" type="radio" name="main_flag" id="main_flag" value="1" {{ $exams->main_flag == 1 ? 'checked' : '' }}> Yes
+                                        <input class="form-check-input" type="radio" name="main_flag" id="main_flag" value="0" {{ $exams->main_flag == 0 ? 'checked' : '' }}> No
                                 </div>
                             </div>
                         </div>

@@ -22,7 +22,8 @@
                     </a>
                 </li>
                 <li class="menu-item open">
-                    <a href="javascript:void(0);" class="menu-link"><i class="material-icons menu-icon">person</i>
+                    <a href="{{ route('view-profile.index') }}" class="menu-link">
+                        <i data-feather="grid" class="menu-icon tf-icons"></i>
                         <span class="title">View Profile</span>
                     </a>
                 </li>
@@ -182,7 +183,7 @@
                     </a>
                     <ul class="menu-sub">
                         <li class="menu-item">
-                            <a href="#" class="menu-link">
+                            <a href="" class="menu-link">
                                 Manage Course Category/Subcategory
                             </a>
                         </li>
