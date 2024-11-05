@@ -12,8 +12,7 @@
 
                 <form action="{{ route('venues.update', $venue->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    
-        @method('PUT')
+                    @method('PUT')
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
@@ -69,8 +68,6 @@
                         </div>
                     </div>
                 </form>
-
-
             </div>
         </div>
     </div>
