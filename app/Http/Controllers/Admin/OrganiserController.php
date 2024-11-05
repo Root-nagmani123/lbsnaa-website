@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\ManageOrganiser;
+use App\Models\Admin\ManageAudit;
 use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\Auth;
+
 
 class OrganiserController extends Controller
 {
@@ -23,17 +27,35 @@ class OrganiserController extends Controller
     // Store a new organiser
     public function store(Request $request)
     {
+        // Validate input data
         $request->validate([
             'language' => 'required',
             'organiser_name' => 'required|string|max:255',
             'status' => 'required|string',
         ]);
 
+        // Prepare validated data for organizer creation
         $validated['status'] = $request->status === 'active' ? 1 : 2;
-        ManageOrganiser::create($request->all());
-        return redirect()->route('organisers.index')->with('success', 'Organiser created successfully.');
+        $validatedData = $request->all();
+        // Create the organizer
+        $organizer = ManageOrganiser::create($validatedData);
 
+        // Log data to the audit table
+        ManageAudit::create([
+            'Module_Name' => 'Organiser Module', // Static value
+            'Time_Stamp' => now(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Insert', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+            'Current_State' => json_encode($organizer), // Save state as JSON
+        ]);
+
+        // Redirect with success message
+        return redirect()->route('organisers.index')->with('success', 'Organiser created successfully.');
     }
+
+
 
     // Show the form for editing an organiser
     public function edit($id)
@@ -45,15 +67,29 @@ class OrganiserController extends Controller
     // Update the organiser
     public function update(Request $request, $id)
     {
+        // 1. Validate the request data
         $request->validate([
             'language' => 'required',
             'organiser_name' => 'required|string|max:255',
             'status' => 'required|string',
         ]);
 
+
         $validated['status'] = $request->status === 'active' ? 1 : 2;
         $organiser = ManageOrganiser::findOrFail($id);
         $organiser->update($request->all());
+
+                // Log data to the audit table
+        ManageAudit::create([
+            'Module_Name' => 'Organiser Module', // Static value
+            'Time_Stamp' => now(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Update', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+            'Current_State' => json_encode($organiser), // Save state as JSON
+        ]);
+
         return redirect()->route('organisers.index')->with('success', 'Organiser updated successfully.');
     }
 

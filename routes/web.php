@@ -34,6 +34,7 @@ use App\Http\Controllers\Admin\ManageMediaCenterController;
 use App\Http\Controllers\Admin\ManageVideoController;
 use App\Http\Controllers\Admin\ManageMediaCategoriesController;
 use App\Http\Controllers\Admin\ManagePhotoGalleryController;
+use App\Http\Controllers\Admin\ManageAuditController;
 
 // Indrajeet
 
@@ -249,6 +250,8 @@ Route::prefix('admin')->name('admin.')->group(function() {
 
     Route::get('/manage_events/{id}/edit', [ManageEventsController::class, 'edit'])->name('manage_events.edit');
     Route::put('/manage_events/{id}', [ManageEventsController::class, 'update'])->name('manage_events.update');
+    Route::get('/manage-audit', [ManageAuditController::class, 'index'])->name('manage_audit.index');
+
 });
 
 // Indrajeet

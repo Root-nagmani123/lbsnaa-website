@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin\ManageVideoCenter;
 use Illuminate\Http\Request;
 
+use App\Models\Admin\ManageAudit;
+use Illuminate\Support\Facades\Auth;
+
 class ManageVideoController extends Controller
 {
     // List all media
@@ -40,7 +43,17 @@ class ManageVideoController extends Controller
 	    }
 
 
-        ManageVideoCenter::create($validated);
+        $video = ManageVideoCenter::create($validated);
+
+        ManageAudit::create([
+            'Module_Name' => 'Video Module', // Static value
+            'Time_Stamp' => now(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Insert', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+            'Current_State' => json_encode($video->getAttributes()), // Save state as JSON
+        ]);
 
         return redirect()->route('video_gallery.index')->with('success', 'Media added successfully.');
     }
@@ -77,7 +90,17 @@ class ManageVideoController extends Controller
             $data['video_upload'] = $request->file('video_upload')->store('uploads/media', 'public');
         }
 
-        $media->update($data);
+        $video = $media->update($data);
+
+        ManageAudit::create([
+            'Module_Name' => 'Video Module', // Static value
+            'Time_Stamp' => now(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Update', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+            'Current_State' => json_encode($video), // Save state as JSON
+        ]);
 
         return redirect()->route('video_gallery.index')->with('success', 'Media updated successfully.');
     }

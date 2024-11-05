@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin\ManageEvents;
 use App\Models\Admin\Course; // Assuming you have a Course model
 use Illuminate\Http\Request;
+use App\Models\Admin\ManageAudit;
+use Illuminate\Support\Facades\Auth;
 
 class ManageEventsController extends Controller
 {
@@ -36,7 +38,17 @@ class ManageEventsController extends Controller
             'status' => 'required|integer|in:1,2,3',
         ]);
 
-        ManageEvents::create($request->all());
+        $event = ManageEvents::create($request->all());
+
+        ManageAudit::create([
+            'Module_Name' => 'Event Module', // Static value
+            'Time_Stamp' => now(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Insert', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+            'Current_State' => json_encode($event), // Save state as JSON
+        ]);
 
         return redirect()->route('manage_events.index')->with('success', 'Event created successfully.');
     }
@@ -76,6 +88,16 @@ class ManageEventsController extends Controller
 
         $event->update([
             'status' => (int) $request['status'], // Explicitly cast to integer
+        ]);
+
+        ManageAudit::create([
+            'Module_Name' => 'Event Module', // Static value
+            'Time_Stamp' => now(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Update', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+            'Current_State' => json_encode($event), // Save state as JSON
         ]);
 
         return redirect()->route('manage_events.index')->with('success', 'Event updated successfully.');

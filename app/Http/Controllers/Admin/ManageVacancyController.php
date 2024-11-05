@@ -5,6 +5,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin\ManageVacancy;
 use Illuminate\Http\Request;
 
+use App\Models\Admin\ManageAudit;
+use Illuminate\Support\Facades\Auth;
+
 class ManageVacancyController extends Controller
 {
     public function index()
@@ -53,6 +56,16 @@ class ManageVacancyController extends Controller
         // Save the vacancy in the database
         $vacancy->save();
 
+        ManageAudit::create([
+            'Module_Name' => 'Vacancy Module', // Static value
+            'Time_Stamp' => now(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Insert', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+            'Current_State' => json_encode($vacancy), // Save state as JSON
+        ]);
+
         // Redirect with success message
         return redirect()->route('manage_vacancy.index')->with('success', 'Vacancy created successfully');
     }
@@ -96,6 +109,16 @@ class ManageVacancyController extends Controller
 
         // Update the vacancy with the validated data
         $manage_vacancy->update($validatedData);
+
+        ManageAudit::create([
+            'Module_Name' => 'Vacancy Module', // Static value
+            'Time_Stamp' => now(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Update', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+            'Current_State' => json_encode($manage_vacancy), // Save state as JSON
+        ]);
 
         // Redirect with success message
         return redirect()->route('manage_vacancy.index')->with('success', 'Vacancy updated successfully');

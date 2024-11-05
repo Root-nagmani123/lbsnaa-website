@@ -9,6 +9,9 @@ use App\Models\Admin\Section;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
+use App\Models\Admin\ManageAudit;
+use Illuminate\Support\Facades\Auth;
+
 class ManageOrganizationController extends Controller
 {
     // List faculty members
@@ -69,6 +72,16 @@ class ManageOrganizationController extends Controller
         // Save the faculty member
         $facultyMember->save();
 
+        ManageAudit::create([
+            'Module_Name' => 'Organization Module', // Static value
+            'Time_Stamp' => now(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Insert', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+            'Current_State' => json_encode($facultyMember), // Save state as JSON
+        ]);
+
         // Redirect with a success message
         return redirect()->route('admin.faculty.index')->with('success', 'Faculty member added successfully.');
     }
@@ -110,6 +123,16 @@ class ManageOrganizationController extends Controller
         }
 
         $facultyMember->update($data);
+
+        ManageAudit::create([
+            'Module_Name' => 'Organization Module', // Static value
+            'Time_Stamp' => now(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Update', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+            'Current_State' => json_encode($facultyMember), // Save state as JSON
+        ]);
 
         return redirect()->route('admin.faculty.index')->with('success', 'Faculty member updated successfully.');
     }
@@ -155,7 +178,18 @@ class ManageOrganizationController extends Controller
             $staffData['image'] = 'staff_images/' . $imageName;
         }
     
-        StaffMember::create($staffData);
+        $Staff = StaffMember::create($staffData);
+
+        ManageAudit::create([
+            'Module_Name' => 'Staff Module', // Static value
+            'Time_Stamp' => now(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Insert', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+            'Current_State' => json_encode($Staff), // Save state as JSON
+        ]);
+
         return redirect()->route('admin.staff.index')->with('success', 'Staff member created successfully!');
     }
 
@@ -195,7 +229,18 @@ class ManageOrganizationController extends Controller
             $staffData['image'] = 'staff_images/' . $imageName;
         }
     
-        $staff->update($staffData);
+        $Staff = $staff->update($staffData);
+
+        ManageAudit::create([
+            'Module_Name' => 'Staff Module', // Static value
+            'Time_Stamp' => now(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Update', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+            'Current_State' => json_encode($Staff), // Save state as JSON
+        ]);
+
         return redirect()->route('admin.staff.index')->with('success', 'Staff member updated successfully!');
     }
 

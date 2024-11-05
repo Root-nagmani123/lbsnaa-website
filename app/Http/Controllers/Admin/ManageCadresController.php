@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\ManageCadres;
+use App\Models\Admin\ManageAudit;
+use Illuminate\Support\Facades\Auth;
 
 class ManageCadresController extends Controller
 {
@@ -33,7 +35,18 @@ class ManageCadresController extends Controller
 
         // Convert status to integer
         $validated['status'] = $request->status === 'active' ? 1 : 2;
-        ManageCadres::create($request->all());
+        $cadres = ManageCadres::create($request->all());
+
+        ManageAudit::create([
+            'Module_Name' => 'Cadre Module', // Static value
+            'Time_Stamp' => now(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Insert', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+            'Current_State' => json_encode($cadres), // Save state as JSON
+        ]);
+
         return redirect()->route('cadres.index')->with('success', 'Cadre added successfully');
     }
 
@@ -58,6 +71,17 @@ class ManageCadresController extends Controller
         $validated['status'] = $request->status === 'active' ? 1 : 2;
         $cadre = ManageCadres::find($id);
         $cadre->update($request->all());
+
+        ManageAudit::create([
+            'Module_Name' => 'Cadre Module', // Static value
+            'Time_Stamp' => now(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Update', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+            'Current_State' => json_encode($cadre), // Save state as JSON
+        ]);
+
         return redirect()->route('cadres.index')->with('success', 'Cadre updated successfully');
     }
 
