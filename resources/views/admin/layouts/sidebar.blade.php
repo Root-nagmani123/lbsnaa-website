@@ -335,7 +335,7 @@
                     </ul>
                 </li>
                 <li class="menu-item">
-                    <a href="chat.html" class="menu-link">
+                    <a href="{{ route('manage_audit.index') }}" class="menu-link">
                         <i data-feather="message-square" class="menu-icon tf-icons"></i>
                         <span class="title">Manage Audit</span>
                     </a>

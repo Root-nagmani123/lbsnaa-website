@@ -5,6 +5,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\ManageMediaCenter;
 
+use App\Models\Admin\ManageAudit;
+use Illuminate\Support\Facades\Auth;
+
 class ManageMediaCenterController extends Controller
 {
     // Show all audio records
@@ -46,6 +49,16 @@ class ManageMediaCenterController extends Controller
         $audio->page_status = $request->page_status;
         $audio->save();
 
+        ManageAudit::create([
+            'Module_Name' => 'Media Module', // Static value
+            'Time_Stamp' => now(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Insert', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+            'Current_State' => json_encode($audio), // Save state as JSON
+        ]);
+
         return redirect()->route('media-center.index')->with('success', 'Audio created successfully');
     }
 
@@ -81,6 +94,16 @@ class ManageMediaCenterController extends Controller
 
         $audio->page_status = $request->page_status;
         $audio->save();
+
+        ManageAudit::create([
+            'Module_Name' => 'Media Module', // Static value
+            'Time_Stamp' => now(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Update', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+            'Current_State' => json_encode($audio), // Save state as JSON
+        ]);
 
         return redirect()->route('media-center.index')->with('success', 'Audio updated successfully');
     }

@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+use App\Models\Admin\ManageAudit;
+use Illuminate\Support\Facades\Auth;
+
 class CourseController extends Controller
 {
     /**
@@ -40,7 +43,19 @@ class CourseController extends Controller
     public function store(Request $request)
     {
         //
-        DB::table('course')->insert($request->except('_token'));
+        $course = DB::table('course')->insert($request->except('_token'));
+
+        ManageAudit::create([
+            'Module_Name' => 'Course Module', // Static value
+            'Time_Stamp' => now(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Insert', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+            'Current_State' => json_encode($course), // Save state as JSON
+        ]);
+
+
         return redirect()->route('admin.courses.index')->with('success', 'Course created successfully');
     
     }
@@ -53,7 +68,18 @@ class CourseController extends Controller
 
     public function update(Request $request, $id)
     {
-        DB::table('course')->where('id', $id)->update($request->except('_token', '_method'));
+        $course = DB::table('course')->where('id', $id)->update($request->except('_token', '_method'));
+
+        ManageAudit::create([
+            'Module_Name' => 'Course Module', // Static value
+            'Time_Stamp' => now(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Update', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+            'Current_State' => json_encode($course), // Save state as JSON
+        ]);
+
         return redirect()->route('admin.courses.index')->with('success', 'Course updated successfully');
     }
 

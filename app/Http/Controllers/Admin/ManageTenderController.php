@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\ManageTender;
 use Illuminate\Http\Request;
+use App\Models\Admin\ManageAudit;
+use Illuminate\Support\Facades\Auth;
 
 class ManageTenderController extends Controller
 {
@@ -43,7 +45,7 @@ class ManageTenderController extends Controller
 	    }
 
         // Save the tender
-        ManageTender::create([
+        $tender = ManageTender::create([
             'language' => $request->language,
             'type' => $request->type,
             'title' => $request->title,
@@ -52,6 +54,16 @@ class ManageTenderController extends Controller
             'publish_date' => $request->publish_date,
             'expiry_date' => $request->expiry_date,
             'status' => $request->status,
+        ]);
+
+        ManageAudit::create([
+            'Module_Name' => 'Tender Module', // Static value
+            'Time_Stamp' => now(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Insert', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+            'Current_State' => json_encode($tender), // Save state as JSON
         ]);
 
         return redirect()->route('manage_tender.index')->with('success', 'Tender created successfully.');
@@ -100,6 +112,17 @@ class ManageTenderController extends Controller
             'publish_date' => $request->publish_date,
             'expiry_date' => $request->expiry_date,
             'status' => $request->status,
+        ]);
+
+
+        ManageAudit::create([
+            'Module_Name' => 'Tender Module', // Static value
+            'Time_Stamp' => now(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Update', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+            'Current_State' => json_encode($manageTender), // Save state as JSON
         ]);
 
         return redirect()->route('manage_tender.index')->with('success', 'Tender updated successfully.');

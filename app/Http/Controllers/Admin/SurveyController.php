@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+use App\Models\Admin\ManageAudit;
+use Illuminate\Support\Facades\Auth;
+
 class SurveyController extends Controller
 {
     public function surveyIndex()
@@ -32,13 +35,23 @@ class SurveyController extends Controller
         ]);
 
         // Insert the survey data into the database
-        DB::table('manage_surveys')->insert([
+        $survey = DB::table('manage_surveys')->insert([
             'survey_title' => $request->survey_title,
             'start_date' => $request->startdate,
             'end_date' => $request->expairydate,
             'status' => $request->status,
             'created_at' => now(),
             'updated_at' => now(),
+        ]);
+
+        ManageAudit::create([
+            'Module_Name' => 'Survey Module', // Static value
+            'Time_Stamp' => now(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Insert', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+            'Current_State' => json_encode($survey), // Save state as JSON
         ]);
 
         return redirect()->route('survey.index')->with('success', 'Survey added successfully');
@@ -65,12 +78,22 @@ public function surveyUpdate(Request $request, $id)
     ]);
 
     // Update the survey data in the database
-    DB::table('manage_surveys')->where('id', $id)->update([
+    $survey = DB::table('manage_surveys')->where('id', $id)->update([
         'survey_title' => $request->survey_title,
         'start_date' => $request->startdate,
         'end_date' => $request->expairydate,
         'status' => $request->status,
         'updated_at' => now(),
+    ]);
+
+    ManageAudit::create([
+        'Module_Name' => 'Survey Module', // Static value
+        'Time_Stamp' => now(), // Current timestamp
+        'Created_By' => null, // ID of the authenticated user
+        'Updated_By' => null, // No update on creation, so leave null
+        'Action_Type' => 'Update', // Static value
+        'IP_Address' => $request->ip(), // Get IP address from request
+        'Current_State' => json_encode($survey), // Save state as JSON
     ]);
 
     // Optionally, you can redirect back or to another route
