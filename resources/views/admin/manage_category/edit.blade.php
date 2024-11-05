@@ -11,7 +11,7 @@
                 <h4 class="fw-semibold fs-18 mb-0">Edit Category</h4>
             </div>
 
-                <form action="{{ route('category.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('category.update',$category->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
         @method('post')
                     <div class="row">
@@ -20,7 +20,7 @@
                                 <label class="label" for="menutitle">Section Title :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="section_title" id="section_title" value="{{ $category->section_title }}">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="section_title" id="section_title" value="{{ $category->section_title }}" required>
                                 </div>
                             </div>
                         </div>
@@ -30,7 +30,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark ps-5 h-58" name="category_description"
-                                        id="category_description" value="{{ $category->category_description }}">
+                                        id="category_description" value="{{ $category->category_description }}" required>
                                 </div>
                             </div>
                         </div>
@@ -40,8 +40,8 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <select class="form-select form-control ps-5 h-58" name="status" id="status" required>
-                                        <option value="1" class="text-dark" {{ $category->status ? 'selected' : '' }}>Active</option>
-                                        <option value="0" class="text-dark" {{ $category->status ? 'selected' : '' }}>Inactive</option>
+                                        <option value="1" class="text-dark" {{ $category->status == 1? 'selected' : '' }}>Active</option>
+                                        <option value="0" class="text-dark" {{ $category->status == 0? 'selected' : '' }}>Inactive</option>
                                     </select>
                                 </div>
                             </div>

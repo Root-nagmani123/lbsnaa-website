@@ -14,7 +14,12 @@ use App\Http\Controllers\Admin\ManageSouvenirController;
 use App\Http\Controllers\Admin\TrainingManagementController;
 use App\Http\Controllers\Admin\SurveyController;
 use App\Http\Controllers\Admin\SocialmediaController;
-use App\Http\Controllers\Admin\CourseCmsController;
+use App\Http\Controllers\Admin\ViewprofileController;
+use App\Http\Controllers\ChangePasswordController;
+
+
+
+
 
 
 
@@ -177,7 +182,7 @@ Route::prefix('admin')->group(function () {
     // Manage Social media route
     Route::get('socialmedia', [SocialmediaController::class, 'SocialmediaIndex'])->name('socialmedia.index');
     Route::post('socialmedia/store', [SocialmediaController::class, 'SocialmediaStore'])->name('socialmedia.store');
-    
+
     Route::get('souvenir', [ManageSouvenirController::class, 'index'])->name('souvenir.index'); // List all categories
     Route::get('souvenir/create', [ManageSouvenirController::class, 'create'])->name('souvenir.create'); // Show create form
     Route::post('souvenir', [ManageSouvenirController::class, 'store'])->name('souvenir.store'); // Store new category
@@ -185,7 +190,6 @@ Route::prefix('admin')->group(function () {
     Route::put('souvenir/{id}', [ManageSouvenirController::class, 'update'])->name('souvenir.update'); // Update existing category
     Route::delete('souvenir/{id}', [ManageSouvenirController::class, 'destroy'])->name('souvenir.destroy'); // Delete category
 
-    
 
     Route::get('/academy-souvenirs', [ManageSouvenirController::class, 'indexAcademySouvenirs'])->name('academy_souvenirs.index');
     Route::get('/academy-souvenirs/create', [ManageSouvenirController::class, 'createAcademySouvenir'])->name('academy_souvenirs.create');
@@ -194,10 +198,15 @@ Route::prefix('admin')->group(function () {
     Route::PUT('/academy-souvenirs/update/{id}', [ManageSouvenirController::class, 'updateAcademySouvenir'])->name('academy_souvenirs.update');
     Route::delete('/academy-souvenirs/destroy/{id}', [ManageSouvenirController::class, 'destroyAcademySouvenir'])->name('academy_souvenirs.destroy');
 
+    //view profile route
+    Route::get('view-profile', [ViewprofileController::class, 'index'])->name('view-profile.index');
+
+    //change password
+    Route::get('change_password', [ChangePasswordController::class, 'showChangePasswordForm'])->name('change_password');
+    Route::post('change-password', [ChangePasswordController::class, 'updatePassword'])->name('update_password');
 
 
-
-
+    //change souvenirs
     Route::get('/academy-souvenirs', [ManageSouvenirController::class, 'indexAcademySouvenirs'])->name('academy_souvenirs.index');
     Route::get('/academy-souvenirs/create', [ManageSouvenirController::class, 'createAcademySouvenir'])->name('academy_souvenirs.create');
     Route::post('/academy-souvenirs/store', [ManageSouvenirController::class, 'storeAcademySouvenir'])->name('academy_souvenirs.store');
@@ -229,11 +238,10 @@ Route::prefix('admin')->group(function () {
 
 
 
-Route::prefix('admin')->name('admin.')->group(function() {
-
-    Route::resource('news', NewsController::class);
-    // Route::resource('faculty', FacultyMemberController::class);
-});
+    Route::prefix('admin')->name('admin.')->group(function () {
+        Route::resource('news', NewsController::class);
+        // Route::resource('faculty', FacultyMemberController::class);
+    });
 
 
     // Indrajeet
@@ -253,7 +261,6 @@ Route::prefix('admin')->name('admin.')->group(function() {
     Route::get('/manage-audit', [ManageAuditController::class, 'index'])->name('manage_audit.index');
 
 });
-
 // Indrajeet
 
 

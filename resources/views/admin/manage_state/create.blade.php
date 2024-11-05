@@ -18,7 +18,7 @@
                                 <label class="label" for="menutitle">State Name :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="state_name" id="state_name">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="state_name" id="state_name" required>
                                 </div>
                             </div>
                         </div>

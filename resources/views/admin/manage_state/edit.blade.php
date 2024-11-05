@@ -18,7 +18,7 @@
                                 <label class="label" for="menutitle">State Name :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="state_name" id="state_name" value="{{ $states->state_name }}">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="state_name" id="state_name" value="{{ $states->state_name }}" required>
                                 </div>
                             </div>
                         </div>
@@ -28,8 +28,8 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <select class="form-select form-control ps-5 h-58" name="status" id="status" required>
-                                        <option value="1" class="text-dark" {{ $states->status ? 'selected' : '' }}>Active</option>
-                                        <option value="0" class="text-dark" {{ $states->status ? 'selected' : '' }}>Inactive</option>
+                                        <option value="1" class="text-dark" {{ $states->status == 1? 'selected' : '' }}>Active</option>
+                                        <option value="0" class="text-dark" {{ $states->status == 0? 'selected' : '' }}>Inactive</option>
                                     </select>
                                 </div>
                             </div>

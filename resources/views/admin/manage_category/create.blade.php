@@ -19,7 +19,7 @@
                                 <label class="label" for="menutitle">Support Section Title :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="section_title" id="section_title">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="section_title" id="section_title" required>
                                 </div>
                             </div>
                         </div>
@@ -29,7 +29,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark ps-5 h-58" name="category_description"
-                                        id="category_description">
+                                        id="category_description" required>
                                 </div>
                             </div>
                         </div>

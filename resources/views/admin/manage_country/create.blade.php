@@ -19,7 +19,7 @@
                                 <label class="label" for="menutitle">Country Name :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="country_name" id="country_name">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="country_name" id="country_name" required>
                                 </div>
                             </div>
                         </div>
