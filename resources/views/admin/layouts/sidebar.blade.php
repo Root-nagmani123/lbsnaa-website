@@ -23,7 +23,7 @@
                 </li>
                 <li class="menu-item open">
                     <a href="{{ route('view-profile.index') }}" class="menu-link">
-                        <i data-feather="grid" class="menu-icon tf-icons"></i>
+                    <i class="material-icons menu-icon">badge</i>
                         <span class="title">View Profile</span>
                     </a>
                 </li>
