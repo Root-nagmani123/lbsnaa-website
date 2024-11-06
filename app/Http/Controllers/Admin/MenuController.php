@@ -70,8 +70,11 @@ class MenuController extends Controller
     
     private function buildMenuOptions($parentId = null, $spacing = '')
     {
+        $parentId = $parentId ?? 0;
         // Use null instead of 0 to also retrieve menus without a parent
-        $menus = Menu::where('parent_id', $parentId)->get();
+        $menus = Menu::where('parent_id', $parentId)
+        ->whereIn('txtpostion', [1, 2])
+        ->get();
         $options = '';
     
         foreach ($menus as $menu) {
@@ -87,6 +90,7 @@ class MenuController extends Controller
     // Store the newly created menu
     public function store(Request $request)
     {
+        // print_r($_POST);die;
         $menu = new Menu();
         $menu->menutitle = $request->menutitle;
         $menu->texttype = $request->texttype;

@@ -10,6 +10,7 @@
                 <h4 class="fs-18 mb-4">Add New Menu</h4>
 
                 <form action="{{ route('admin.menus.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
@@ -56,8 +57,8 @@
                                         <label class="label" for="meta_title">Meta Title:</label>
                                         <span class="star">*</span>
                                         <div class="form-group position-relative">
-                                            <input type="text" class="form-control text-dark ps-5 h-58" name="menutitle"
-                                                id="menutitle">
+                                            <input type="text" class="form-control text-dark ps-5 h-58" name="meta_title"
+                                                id="meta_title">
                                         </div>
                                     </div>
                                 </div>
@@ -148,7 +149,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <select class="form-select form-control ps-5 h-58" id="txtpostion"
-                                        autocomplete="off" autocomplete="off" required
+                                        autocomplete="off" autocomplete="off" name="txtpostion" required
                                         onchange="showDateFields(this.value)">
                                         <option selected class="text-dark">Select</option>
                                         <option value="1" class="text-dark">Header Menu</option>
@@ -170,7 +171,7 @@
                                         <span class="star">*</span>
                                         <div class="form-group position-relative">
                                             <input type="date" class="form-control text-dark ps-5 h-58"
-                                                name="start_date" id="start_date" required onfocus="(this.type='date')"
+                                                name="start_date" id="start_date"  onfocus="(this.type='date')"
                                                 onblur="(this.type='text')">
                                         </div>
                                     </div>
@@ -182,12 +183,25 @@
                                         <div class="form-group position-relative">
                                             <input type="text" class="form-control text-dark ps-5 h-58"
                                                 name="termination_date" id="termination_date" placeholder="dd/mm/yyyy"
-                                                required onfocus="(this.type='date')" onblur="(this.type='text')">
+                                                 onfocus="(this.type='date')" onblur="(this.type='text')">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="col-lg-12 mt-4">
+                                <div class="form-group mb-4">
+                                    <label class="label" for="menu_status">Status :</label>
+                                    <span class="star">*</span>
+                                    <div class="form-group position-relative">
+                                        <select class="form-select form-control ps-5 h-58" id="menu_status" name="menu_status" required>
+                                            <option class="text-dark">Select</option>
+                                            <option value="1" class="text-dark" >Active</option>
+                                            <option value="2" class="text-dark" >Inactive</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
                         <div class="d-flex ms-sm-3 ms-md-0">
                             <button class="btn btn-success text-white fw-semibold" type="submit">Submit</button>
                         </div>
