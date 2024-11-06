@@ -3,13 +3,30 @@
 @section('title', 'Admin Dashboard')
 
 @section('content')
+<div class="d-sm-flex text-center justify-content-between align-items-center mb-4">
+    <h3 class="mb-sm-0 mb-1 fs-18">Add Faculty Memeber</h3>
+    <!-- <ul class="ps-0 mb-0 list-unstyled d-flex justify-content-center">
+        <li>
+            <a href="{{ route('admin.index') }}" class="text-decoration-none">
+                <i class="ri-home-2-line" style="position: relative; top: -1px;"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        <li>
+            <span class="fw-semibold fs-14 heading-font dot ms-2">Manage Organization Module</span>
+        </li>
+        <li>
+            <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Manage Faculty</span>
+        </li>
+    </ul> -->
+</div>
 <div class="row justify-content-center">
     <div class="col-lg-12">
         <div class="card bg-white border-0 rounded-10 mb-4">
             <div class="card-body p-4">
-                <div class="d-flex justify-content-between align-items-center border-bottom pb-20 mb-20">
+                <!-- <div class="d-flex justify-content-between align-items-center border-bottom pb-20 mb-20">
                 <h4 class="fw-semibold fs-18 mb-0">Add Faculty Member</h4>
-            </div>
+            </div> -->
 
                 <form action="{{ route('admin.faculty.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf

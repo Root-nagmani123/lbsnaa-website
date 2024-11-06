@@ -53,14 +53,14 @@
                                                 <a class="dropdown-item d-flex align-items-center text-body"
                                                     href="profile.html">
                                                     <i data-feather="user"></i>
-                                                    <span class="ms-2">Profile</span>
+                                                    <span class="ms-2">View Profile</span>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a class="dropdown-item d-flex align-items-center text-body"
-                                                    href="account.html">
-                                                    <i data-feather="settings"></i>
-                                                    <span class="ms-2">Setting</span>
+                                                    href="{{route('change_password')}}">
+                                                    <i data-feather="tool"></i>
+                                                    <span class="ms-2">Change Password</span>
                                                 </a>
                                             </li>
                                             <li>
