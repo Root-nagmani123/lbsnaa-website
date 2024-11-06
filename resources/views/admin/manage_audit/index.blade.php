@@ -2,11 +2,11 @@
 @section('title', 'Admin Dashboard')
 
 @section('content')
+<div class="d-sm-flex text-center justify-content-between align-items-center mb-4">
+    <h3 class="mb-sm-0 mb-1 fs-18">Manage Audit Logs</h3>
+</div>
 <div class="card bg-white border-0 rounded-10 mb-4">
     <div class="card-body p-4">
-        <div class="d-sm-flex text-center justify-content-between align-items-center border-bottom pb-20 mb-20">
-            <h4 class="fw-semibold fs-18 mb-sm-0">Manage Audit Logs</h4>
-        </div>
         <div class="default-table-area members-list">
     <div class="table-responsive">
         <table class="table align-middle" id="myTable">

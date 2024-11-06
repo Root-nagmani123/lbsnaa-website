@@ -133,12 +133,12 @@
                         <span class="title">Manage Middle Section</span>
                     </a>
                 </li> -->
-                <li class="menu-item">
+                <!-- <li class="menu-item">
                     <a href="#" class="menu-link">
                         <i class="material-icons menu-icon">campaign</i>
                         <span class="title">Manage Latest Updates</span>
                     </a>
-                </li>
+                </li> -->
                 <li class="menu-item">
                     <a href="{{ route('admin.news.index') }}" class="menu-link">
                     <i class="material-icons menu-icon">newspaper</i>
@@ -347,7 +347,7 @@
                 </li>
             </ul>
         </aside>
-        <div class="bg-white z-1 admin">
+        <!-- <div class="bg-white z-1 admin">
             <div class="d-flex align-items-center admin-info border-top">
                 <div class="flex-shrink-0">
                     <a href="profile.html" class="d-block">
@@ -359,6 +359,6 @@
                     <a href="logout.html">Log Out</a>
                 </div>
             </div>
-        </div>
+        </div> -->
         
     </div>
