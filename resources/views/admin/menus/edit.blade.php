@@ -67,8 +67,8 @@
                                             <label class="label" for="meta_title">Meta Title:</label>
                                             <span class="star">*</span>
                                             <div class="form-group position-relative">
-                                                <input type="text" class="form-control text-dark ps-5 h-58" name="menutitle"
-                                                    id="menutitle" value="{{ $menu->meta_title }}">
+                                                <input type="text" class="form-control text-dark ps-5 h-58" name="meta_title"
+                                                    id="meta_title" value="{{ $menu->meta_title }}">
                                             </div>
                                         </div>
                                     </div>
@@ -158,7 +158,7 @@
                                     <label class="label" for="txtpostion">Content Position :</label>
                                     <span class="star">*</span>
                                     <div class="form-group position-relative">
-                                        <select class="form-select form-control ps-5 h-58" id="txtpostion" required>
+                                        <select class="form-select form-control ps-5 h-58" id="txtpostion" name="txtpostion" required>
                                             <option class="text-dark">Select</option>
                                             <option value="1" class="text-dark" {{ $menu->txtpostion == 1 ? 'selected' : '' }}>Header Menu</option>
                                             <option value="2" class="text-dark" {{ $menu->txtpostion == 2 ? 'selected' : '' }}>Bottom Menu</option>
@@ -179,7 +179,7 @@
                                             <span class="star">*</span>
                                             <div class="form-group position-relative">
                                                 <input type="date" class="form-control text-dark ps-5 h-58"
-                                                    name="start_date" id="start_date" required value="{{ $menu->start_date }}">
+                                                    name="start_date" id="start_date"  value="{{ $menu->start_date }}">
                                             </div>
                                         </div>
                                     </div>
@@ -190,7 +190,7 @@
                                             <div class="form-group position-relative">
                                                 <input type="text" class="form-control text-dark ps-5 h-58"
                                                     name="termination_date" id="termination_date"
-                                                    required value="{{ $menu->termination_date }}">
+                                                     value="{{ $menu->termination_date }}">
                                             </div>
                                         </div>
                                     </div>
@@ -198,10 +198,10 @@
                             </div>
                             <div class="col-lg-12 mt-4">
                                 <div class="form-group mb-4">
-                                    <label class="label" for="txtpostion">Status :</label>
+                                    <label class="label" for="menu_status">Status :</label>
                                     <span class="star">*</span>
                                     <div class="form-group position-relative">
-                                        <select class="form-select form-control ps-5 h-58" id="txtpostion" required>
+                                        <select class="form-select form-control ps-5 h-58" id="menu_status" name="menu_status" required>
                                             <option class="text-dark">Select</option>
                                             <option value="1" class="text-dark" {{ $menu->menu_status == 1 ? 'selected' : '' }}>Active</option>
                                             <option value="2" class="text-dark" {{ $menu->menu_status == 2 ? 'selected' : '' }}>Inactive</option>
