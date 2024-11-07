@@ -48,7 +48,7 @@
                     </a>
                     <ul class="menu-sub">
                         <li class="menu-item">
-                            <a href="#" class="menu-link">
+                            <a href="{{route('organisation_chart.index')}}" class="menu-link">
                                 Manage Organization Chart
                             </a>
                         </li>
@@ -183,7 +183,7 @@
                     </a>
                     <ul class="menu-sub">
                         <li class="menu-item">
-                            <a href="{{ route('organisation_chart.index')}}" class="menu-link">
+                            <a href="#" class="menu-link">
                                 Manage Course Category/Subcategory
                             </a>
                         </li>
