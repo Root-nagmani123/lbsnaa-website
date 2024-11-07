@@ -18,7 +18,7 @@ use App\Http\Controllers\Admin\SocialmediaController;
 use App\Http\Controllers\Admin\ViewprofileController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\Admin\EmployeeController;
-
+use App\Http\Controllers\Auth\LoginController;
 
 
 
@@ -64,7 +64,10 @@ use App\Http\Controllers\Admin\ManageAuditController;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::middleware('auth')->group(function () {
 Route::get('/admin', [Controller::class, 'index'])->name('admin.index');
+});
+
 Route::get('/admin/menu', [MenuController::class, 'index'])->name('admin.menus.index');
 Route::get('/admin/menu/create', [MenuController::class, 'create'])->name('admin.menus.create');
 Route::post('/admin/menu', [MenuController::class, 'store'])->name('admin.menus.store');
@@ -288,3 +291,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
     // });
 
 });
+
+
+// login wrok here mayank
+Route::get('/login', [LoginController::class, 'login'])->name('login');
+Route::post('/admin/login', [LoginController::class, 'authenticate'])->name('admin.login');
+Route::post('/admin/logout', [LoginController::class, 'logout'])->name('admin.logout');

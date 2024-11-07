@@ -11,6 +11,16 @@
                 <h4 class="fw-semibold fs-18 mb-0">Edit News</h4>
             </div>
 
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
                 <form action="{{ route('admin.news.update', $news->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
@@ -20,7 +30,7 @@
                                 <label class="label" for="title">Title :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="name" id="name" value="{{ old('title', $news->title) }}">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="title" id="title" value="{{ old('title', $news->title) }}">
                                 </div>
                             </div>
                         </div>
