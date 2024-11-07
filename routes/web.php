@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\ManageOrganizationController;
 use App\Http\Controllers\Admin\CourseController;
 
+
 use App\Http\Controllers\Admin\ManageSouvenirController;
 
 
@@ -16,6 +17,8 @@ use App\Http\Controllers\Admin\SurveyController;
 use App\Http\Controllers\Admin\SocialmediaController;
 use App\Http\Controllers\Admin\ViewprofileController;
 use App\Http\Controllers\ChangePasswordController;
+use App\Http\Controllers\Admin\EmployeeController;
+
 
 
 
@@ -214,6 +217,18 @@ Route::prefix('admin')->group(function () {
     Route::PUT('/academy-souvenirs/update/{id}', [ManageSouvenirController::class, 'updateAcademySouvenir'])->name('academy_souvenirs.update');
     Route::delete('/academy-souvenirs/destroy/{id}', [ManageSouvenirController::class, 'destroyAcademySouvenir'])->name('academy_souvenirs.destroy');
 
+
+    // Manage organisation chart route
+    Route::get('organisation_chart', [EmployeeController::class, 'organisation_chartIndex'])->name('organisation_chart.index');
+    Route::get('organisation_chart/create', [EmployeeController::class, 'organisation_chartCreate'])->name('organisation_chart.create');
+    Route::post('organisation_chart/store', [EmployeeController::class, 'organisation_chartStore'])->name('organisation_chart.store');
+    Route::get('organisation_chart/{id}/edit', [EmployeeController::class, 'organisation_chartEdit'])->name('organisation_chart.edit');
+    Route::post('organisation_chart/{id}/update', [EmployeeController::class, 'organisation_chartUpdate'])->name('organisation_chart.update');
+    Route::post('organisation_chart/{id}/delete', [EmployeeController::class, 'organisation_chartDestroy'])->name('organisation_chart.destroy');
+    Route::get('/autocomplete-employees', [EmployeeController::class, 'autocompleteEmployees'])->name('employee.autocomplete');
+    // Add this route for the sub-organisation page
+    Route::get('organisation-chart/sub-org/{parent_id}', [EmployeeController::class, 'showSubOrg'])->name('organisation_chart.sub_org');
+
     // Indrajeet
     Route::resource('organisers', OrganiserController::class);
     Route::resource('venues', ManageVenueController::class);
@@ -259,7 +274,6 @@ Route::prefix('admin')->group(function () {
     Route::get('/manage_events/{id}/edit', [ManageEventsController::class, 'edit'])->name('manage_events.edit');
     Route::put('/manage_events/{id}', [ManageEventsController::class, 'update'])->name('manage_events.update');
     Route::get('/manage-audit', [ManageAuditController::class, 'index'])->name('manage_audit.index');
-
 });
 // Indrajeet
 
