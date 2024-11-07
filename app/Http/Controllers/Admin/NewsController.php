@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\File;
 
 use App\Models\Admin\ManageAudit;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class NewsController extends Controller
 {
@@ -66,19 +67,21 @@ class NewsController extends Controller
         $news->end_date = $request->end_date;
         $news->status = $request->status;
 
+        $news->title_slug = Str::slug($request->title, '-');
+
         // Save the news instance
         $news = $news->save();
 
 
-        ManageAudit::create([
-            'Module_Name' => 'News Module', // Static value
-            'Time_Stamp' => now(), // Current timestamp
-            'Created_By' => null, // ID of the authenticated user
-            'Updated_By' => null, // No update on creation, so leave null
-            'Action_Type' => 'Insert', // Static value
-            'IP_Address' => $request->ip(), // Get IP address from request
-            'Current_State' => json_encode($news), // Save state as JSON
-        ]);
+        // ManageAudit::create([
+        //     'Module_Name' => 'News Module', // Static value
+        //     'Time_Stamp' => now(), // Current timestamp
+        //     'Created_By' => null, // ID of the authenticated user
+        //     'Updated_By' => null, // No update on creation, so leave null
+        //     'Action_Type' => 'Insert', // Static value
+        //     'IP_Address' => $request->ip(), // Get IP address from request
+        //     'Current_State' => json_encode($news), // Save state as JSON
+        // ]);
 
         return redirect()->route('admin.news.index')->with('success', 'News created successfully.');
     }
@@ -100,8 +103,7 @@ class NewsController extends Controller
             'meta_keyword' => 'nullable|string',
             'meta_description' => 'nullable|string',
             'description' => 'required|string',
-            'main_image' => 'nullable|image|mimes:jpeg,png,jpg,gif',
-            'multiple_images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif',
+            
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
             'status' => 'required|boolean',
@@ -151,20 +153,21 @@ class NewsController extends Controller
         $news->start_date = $request->start_date;
         $news->end_date = $request->end_date;
         $news->status = $request->status;
+        $news->title_slug = Str::slug($request->title, '-');
 
         // Save the updated news instance
         $news = $news->save();
 
 
-        ManageAudit::create([
-            'Module_Name' => 'News Module', // Static value
-            'Time_Stamp' => now(), // Current timestamp
-            'Created_By' => null, // ID of the authenticated user
-            'Updated_By' => null, // No update on creation, so leave null
-            'Action_Type' => 'Update', // Static value
-            'IP_Address' => $request->ip(), // Get IP address from request
-            'Current_State' => json_encode($news), // Save state as JSON
-        ]);
+        // ManageAudit::create([
+        //     'Module_Name' => 'News Module', // Static value
+        //     'Time_Stamp' => now(), // Current timestamp
+        //     'Created_By' => null, // ID of the authenticated user
+        //     'Updated_By' => null, // No update on creation, so leave null
+        //     'Action_Type' => 'Update', // Static value
+        //     'IP_Address' => $request->ip(), // Get IP address from request
+        //     'Current_State' => json_encode($news), // Save state as JSON
+        // ]);
 
         return redirect()->route('admin.news.index')->with('success', 'News updated successfully.');
     }

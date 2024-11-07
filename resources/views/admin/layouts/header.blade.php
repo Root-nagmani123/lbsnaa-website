@@ -64,12 +64,17 @@
                                                 </a>
                                             </li>
                                             <li>
-                                                <a class="dropdown-item d-flex align-items-center text-body"
-                                                    href="logout.html">
-                                                    <i data-feather="log-out"></i>
-                                                    <span class="ms-2">Logout</span>
-                                                </a>
-                                            </li>
+                                                    <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
+                                                        @csrf
+                                                    </form>
+                                                    
+                                                    <a class="dropdown-item d-flex align-items-center text-body"
+                                                    href="#"
+                                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                                        <i data-feather="log-out"></i>
+                                                        <span class="ms-2">Logout</span>
+                                                    </a>
+                                                </li>
                                         </ul>
                                     </div>
                                 </li>
