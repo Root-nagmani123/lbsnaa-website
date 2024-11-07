@@ -253,9 +253,16 @@
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="{{ route('media-categories.index') }}" class="menu-link">
+                            <a href="javascript:void(0);" class="menu-link menu-toggle">
                                 Photo Gallery/ Video Gallery
                             </a>
+                            <ul class="menu-sub">
+                        <li class="menu-item">
+                            <a href="{{ route('media-categories.index') }}" class="menu-link">
+                                Add Category
+                            </a>
+                        </li>
+                    </ul>
                         </li>
                     </ul>
                 </li>

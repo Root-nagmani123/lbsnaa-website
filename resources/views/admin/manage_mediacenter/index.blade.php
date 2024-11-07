@@ -2,49 +2,65 @@
 @section('title', 'Admin Dashboard')
 
 @section('content')
-<h2>Audio Gallery</h2>
-<a href="{{ route('media-center.create') }}" class="btn btn-primary">Add New Audio</a>
+<div class="d-sm-flex text-center justify-content-between align-items-center mb-4">
+    <h4 class="fw-semibold fs-18 mb-sm-0">Audio Gallery</h4>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Category</th>
-            <th>Audio Title (English)</th>
-            <th>Audio Title (Hindi)</th>
-            <th>Audio File</th>
-            <th>Page Status</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach($audios as $audio)
-        <tr>
-            <td>{{ $audio->category_name }}</td>
-            <td>{{ $audio->audio_title_en }}</td>
-            <td>{{ $audio->audio_title_hi }}</td>
-            <td><a href="{{ asset('uploads/audios/'.$audio->audio_upload) }}" target="_blank">Play</a></td>
-            <td>
-                @if ($audio->page_status == 1)
-                    Draft
-                @elseif ($audio->page_status == 2)
-                    Approval
-                @elseif ($audio->page_status == 3)
-                    Publish
-                @else
-                    Unknown
-                @endif
-            </td>
-            <td>
-                <a href="{{ route('media-center.edit', $audio->id) }}" class="btn btn-warning">Edit</a>
-                <form action="{{ route('media-center.destroy', $audio->id) }}" method="POST" style="display:inline;">
-                    @csrf
+    <a href="{{ route('media-center.create') }}">
+        <button class="border-0 btn btn-success py-2 px-3 px-sm-4 text-white fs-14 fw-semibold rounded-3">
+            <span class="py-sm-1 d-block">
+                <i class="ri-add-line text-white"></i>
+                <span>Add New Audio</span>
+            </span>
+        </button>
+    </a>
+</div>
+<div class="card bg-white border-0 rounded-10 mb-4">
+    <div class="card-body p-4">
+              <div class="default-table-area members-list">
+            <div class="table-responsive">
+                <table class="table align-middle" id="myTable">
+                    <thead>
+                        <tr class="text-center">
+                            <th class="col">Category</th>
+                            <th class="col">Audio Title (English)</th>
+                            <th class="col">Audio Title (Hindi)</th>
+                            <th class="col">Audio File</th>
+                            <th class="col">Page Status</th>
+                            <th class="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($audios as $audio)
+                        <tr>
+                            <td>{{ $audio->category_name }}</td>
+                            <td>{{ $audio->audio_title_en }}</td>
+                            <td>{{ $audio->audio_title_hi }}</td>
+                            <td><a href="{{ asset('uploads/audios/'.$audio->audio_upload) }}" target="_blank">Play</a></td>
+                            <td>
+                                @if ($audio->page_status == 1)
+                                    Draft
+                                @elseif ($audio->page_status == 2)
+                                    Approval
+                                @elseif ($audio->page_status == 3)
+                                    Publish
+                                @endif
+                            </td>
+                            <td>
+                                <a href="{{ route('media-center.edit', $audio->id) }}"
+                                    class="btn bg-success text-white btn-sm">Edit</a>
+                                <form action="{{ route('media-center.destroy', $audio->id) }}" method="POST"
+                                    style="display:inline;">
+                                    @csrf
                     @method('DELETE')
-                    <button type="submit" onclick="return confirm('Are you sure?')" class="btn btn-danger">Delete</button>
-                    
-                </form>
-            </td>
-        </tr>
-        @endforeach
-    </tbody>
-</table>
+                                    <button type="submit" class="btn btn-sm btn-primary text-white" onclick="return confirm('Are you sure?')">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

@@ -2,54 +2,93 @@
 @section('title', 'Admin Dashboard')
 
 @section('content')
-<h2>Add Audio Gallery</h2>
-	@if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
+<div class="d-sm-flex text-center justify-content-between align-items-center mb-4">
+    <h4 class="fw-semibold fs-18 mb-sm-0">Add Audio</h4>
+</div>
+<div class="row justify-content-center">
+    <div class="col-lg-12">
+        <div class="card bg-white border-0 rounded-10 mb-4">
+            <div class="card-body p-4">
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+                <form action="{{ route('media-center.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="category_name">Category Name :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <select class="form-select form-control ps-5 h-58" name="category_name" id="category_name" required>
+                                        <option value="" class="text-dark">Select</option>
+                                        <option value="Audio" class="text-dark">Audio</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="audio_title_en">Audio Title (English) :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="audio_title_en"
+                                        id="audio_title_en">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="audio_title_hi">Audio Title (Hindi) :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="audio_title_hi"
+                                        id="audio_title_hi">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="audio_upload">Audio Upload (.mp4 only) :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="file" class="form-control text-dark ps-5 h-58" name="audio_upload"
+                                        id="audio_upload" accept=".mp4,.mp3">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="page_status">Page Status :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <select class="form-select form-control ps-5 h-58" name="page_status" id="page_status" required>
+                                        <option value="0" class="text-dark">Select</option>
+                                        <option value="1" class="text-dark">Draft</option>
+                                        <option value="2" class="text-dark">Approval</option>
+                                        <option value="3" class="text-dark">Publish</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex ms-sm-3 ms-md-0">
+                            <button class="btn btn-success text-white fw-semibold" type="submit">Submit</button> &nbsp;
+                            <button class="btn btn-warning text-white fw-semibold" type="reset">Reset</button> &nbsp;
+                            <a href="{{ route('media-center.index') }}" class="btn btn-secondary text-white">Cancel</a>
+                        </div>
+                    </div>
+                </form>
+
+
+            </div>
         </div>
-    @endif
-<form action="{{ route('media-center.store') }}" method="POST" enctype="multipart/form-data">
-    @csrf
-    <div class="form-group">
-        <label>Category Name</label>
-        <select name="category_name" required  class="form-control">
-            <option value="">Select</option>
-            <option value="Audio">Audio</option>
-        </select>
     </div>
+</div>
 
-    <div class="form-group">
-        <label>Audio Title (English)</label>
-        <input type="text" name="audio_title_en" required  class="form-control">
-    </div>
-
-    <div class="form-group">
-        <label>Audio Title (Hindi)</label>
-        <input type="text" name="audio_title_hi"  class="form-control">
-    </div>
-
-
-    <div class="form-group">
-        <label>Audio Upload (.mp4 only)</label>
-        <input type="file" name="audio_upload" accept=".mp4,.mp3" required>
-    </div>
-
-    <div class="form-group">
-        <label>Page Status</label>
-        <select name="page_status" required  class="form-control">
-        	<option value="">Select</option>
-            <option value="1">Draft</option>
-            <option value="2">Approval</option>
-            <option value="3">Publish</option>
-        </select>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Submit</button>
-    <button type="reset" class="btn btn-secondary">Reset</button>
-    <a href="{{ route('media-center.index') }}"  class="btn btn-danger">Cancel</a>
-</form>
 @endsection
