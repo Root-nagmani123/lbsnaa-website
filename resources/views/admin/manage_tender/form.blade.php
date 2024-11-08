@@ -31,8 +31,9 @@
 
 <div class="form-group">
     <label>Description:</label>
-    
-    <div id="standalone-container">
+    <textarea name="description" class="form-control ckeditor">{{ old('description', $manageTender->description ?? '') }}</textarea>
+
+    <!-- <div id="standalone-container">
             <div id="toolbar-container">
                 <span class="ql-formats">
                     <select class="ql-font"></select>
@@ -62,7 +63,7 @@
             </div>
             <div id="editor-container" name="description" style="height: 250px;">{{ old('description', $manageTender->description ?? '') }} </div>
         </div>
-    </div>
+    </div> -->
 
 
 </div>
@@ -116,3 +117,8 @@
         <div class="text-danger">{{ $message }}</div>
     @enderror
 </div>
+
+<script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace('description');
+</script>
