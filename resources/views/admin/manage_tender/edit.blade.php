@@ -12,13 +12,13 @@
 
     <h2>Edit Tender/Circular</h2>
     <!-- <form action="{{ route('manage_tender.update', $manageTender->id) }}" method="POST" enctype="multipart/form-data"> -->
-        @csrf
-        @method('PUT')
+        <!-- @csrf
+        @method('PUT') -->
         
         <!-- @include('admin.manage_tender.form') -->
                 <form action="{{ route('manage_tender.update', $manageTender->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
-        @method('PUT')
+                    @method('PUT')
                     <div class="row">
                        @include('admin.manage_tender.form')
                         <div class="d-flex ms-sm-3 ms-md-0">
