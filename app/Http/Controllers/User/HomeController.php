@@ -21,4 +21,9 @@ class HomeController extends Controller
         $news_images = explode(',', $news->multiple_images);
         return view('user.pages.newsbyslug', compact('news','news_images'));
     }
+    public function get_navigation_pages($slug)
+    {
+        $nav_page =  DB::table('menus')->where('txtpostion',1)->where('menu_status',1)->where('slug',$slug)->first();
+        return view('user.pages.navigationpagesbyslug', compact('nav_page'));
+    }
 }

@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\ManageOrganizationController;
 
 Route::get('/', [HomeController::class,'index']);
 Route::get('/news/{slug}', [HomeController::class,'get_news'])->name('user.newsbyslug');
+Route::get('/{slug}', [HomeController::class,'get_navigation_pages'])->name('user.navigationpagesbyslug');
 
 
 Route::get('/admin', [Controller::class, 'index'])->name('admin.index');
