@@ -132,20 +132,7 @@ class MenuController extends Controller
         } elseif ($request->texttype == 3) {
             $menu->website_url = $request->website_url;
         }
-
-        $menu->menu_slug = Str::slug($request->menutitle, '-');
-        $menu = $menu->save();
-
-        // ManageAudit::create([
-        //     'Module_Name' => 'Menu Module', // Static value
-        //     'Time_Stamp' => now(), // Current timestamp
-        //     'Created_By' => null, // ID of the authenticated user
-        //     'Updated_By' => null, // No update on creation, so leave null
-        //     'Action_Type' => 'Insert', // Static value
-        //     'IP_Address' => $request->ip(), // Get IP address from request
-        //     'Current_State' => json_encode($menu), // Save state as JSON
-        // ]);
-
+        $menu->save();
         return redirect()->route('admin.menus.index')->with('success', 'Menu created successfully.');
     }
 
@@ -210,18 +197,7 @@ class MenuController extends Controller
         // die;
         $menu->menu_slug = Str::slug($request->menutitle, '-');
 
-    $menu = $menu->save(); // Save the menu
-
-
-    // ManageAudit::create([
-    //     'Module_Name' => 'Menu Module', // Static value
-    //     'Time_Stamp' => now(), // Current timestamp
-    //     'Created_By' => null, // ID of the authenticated user
-    //     'Updated_By' => null, // No update on creation, so leave null
-    //     'Action_Type' => 'Update', // Static value
-    //     'IP_Address' => $request->ip(), // Get IP address from request
-    //     'Current_State' => json_encode($menu), // Save state as JSON
-    // ]);
+    $menu->save(); // Save the menu
 
         return redirect()->route('admin.menus.index')->with('success', 'Menu updated successfully');
     }
