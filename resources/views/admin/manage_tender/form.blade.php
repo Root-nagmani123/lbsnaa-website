@@ -32,9 +32,40 @@
 <div class="form-group">
     <label>Description:</label>
     <textarea name="description" class="form-control ckeditor">{{ old('description', $manageTender->description ?? '') }}</textarea>
-    @error('description')
-        <div class="text-danger">{{ $message }}</div>
-    @enderror
+
+    <!-- <div id="standalone-container">
+            <div id="toolbar-container">
+                <span class="ql-formats">
+                    <select class="ql-font"></select>
+                    <select class="ql-size"></select>
+                </span>
+                <span class="ql-formats">
+                    <button class="ql-bold"></button>
+                    <button class="ql-italic"></button>
+                    <button class="ql-underline"></button>
+                    <button class="ql-strike"></button>
+                </span>
+                <span class="ql-formats">
+                    <button class="ql-blockquote"></button>
+                    <button class="ql-code-block"></button>
+                </span>
+                <span class="ql-formats">
+                    <button class="ql-list" value="ordered"></button>
+                    <button class="ql-list" value="bullet"></button>
+                    <button class="ql-indent" value="-1"></button>
+                    <button class="ql-indent" value="+1"></button>
+                </span>
+                <span class="ql-formats">
+                    <button class="ql-link"></button>
+                    <button class="ql-image"></button>
+                    <button class="ql-video"></button>
+                </span>
+            </div>
+            <div id="editor-container" name="description" style="height: 250px;">{{ old('description', $manageTender->description ?? '') }} </div>
+        </div>
+    </div> -->
+
+
 </div>
 
 <div class="form-group">
