@@ -25,7 +25,7 @@
                     <a href="javascript:void(0);" class="menu-link"><i class="material-icons menu-icon">person</i>
                         <span class="title">View Profile</span>
                     </a>
-                </li>
+                </li> 
                
                 <li class="menu-item">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -259,7 +259,7 @@
                     </ul>
                 </li>
                 <li class="menu-item">
-                    <a href="chat.html" class="menu-link">
+                    <a href="{{ route('manage_audit.index') }}" class="menu-link">
                     <i class="material-icons menu-icon">list</i>
                         <span class="title">Manage Audit</span>
                     </a>
