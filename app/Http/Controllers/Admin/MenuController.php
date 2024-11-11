@@ -119,15 +119,15 @@ class MenuController extends Controller
         }
         $menu = $menu->save();
 
-        ManageAudit::create([
-            'Module_Name' => 'Menu Module', // Static value
-            'Time_Stamp' => now(), // Current timestamp
-            'Created_By' => null, // ID of the authenticated user
-            'Updated_By' => null, // No update on creation, so leave null
-            'Action_Type' => 'Insert', // Static value
-            'IP_Address' => $request->ip(), // Get IP address from request
-            // 'Current_State' => json_encode($menu), // Save state as JSON
-        ]);
+        // ManageAudit::create([
+        //     'Module_Name' => 'Menu Module', // Static value
+        //     'Time_Stamp' => now(), // Current timestamp
+        //     'Created_By' => null, // ID of the authenticated user
+        //     'Updated_By' => null, // No update on creation, so leave null
+        //     'Action_Type' => 'Insert', // Static value
+        //     'IP_Address' => $request->ip(), // Get IP address from request
+        //     'Current_State' => json_encode($menu), // Save state as JSON
+        // ]);
 
         return redirect()->route('admin.menus.index')->with('success', 'Menu created successfully.');
     }
@@ -195,15 +195,15 @@ public function update(Request $request, $id)
     $menu = $menu->save(); // Save the menu
 
 
-    ManageAudit::create([
-        'Module_Name' => 'Menu Module', // Static value
-        'Time_Stamp' => now(), // Current timestamp
-        'Created_By' => null, // ID of the authenticated user
-        'Updated_By' => null, // No update on creation, so leave null
-        'Action_Type' => 'Update', // Static value
-        'IP_Address' => $request->ip(), // Get IP address from request
-        // 'Current_State' => json_encode($menu), // Save state as JSON
-    ]);
+    // ManageAudit::create([
+    //     'Module_Name' => 'Menu Module', // Static value
+    //     'Time_Stamp' => now(), // Current timestamp
+    //     'Created_By' => null, // ID of the authenticated user
+    //     'Updated_By' => null, // No update on creation, so leave null
+    //     'Action_Type' => 'Update', // Static value
+    //     'IP_Address' => $request->ip(), // Get IP address from request
+    //     'Current_State' => json_encode($menu), // Save state as JSON
+    // ]);
 
     return redirect()->route('admin.menus.index')->with('success', 'Menu updated successfully');
 }
