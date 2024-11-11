@@ -126,7 +126,7 @@ class MenuController extends Controller
             'Updated_By' => null, // No update on creation, so leave null
             'Action_Type' => 'Insert', // Static value
             'IP_Address' => $request->ip(), // Get IP address from request
-            'Current_State' => json_encode($menu), // Save state as JSON
+            // 'Current_State' => json_encode($menu), // Save state as JSON
         ]);
 
         return redirect()->route('admin.menus.index')->with('success', 'Menu created successfully.');
@@ -202,7 +202,7 @@ public function update(Request $request, $id)
         'Updated_By' => null, // No update on creation, so leave null
         'Action_Type' => 'Update', // Static value
         'IP_Address' => $request->ip(), // Get IP address from request
-        'Current_State' => json_encode($menu), // Save state as JSON
+        // 'Current_State' => json_encode($menu), // Save state as JSON
     ]);
 
     return redirect()->route('admin.menus.index')->with('success', 'Menu updated successfully');

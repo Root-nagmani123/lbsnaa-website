@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+use App\Models\Admin\ManageAudit;
+use Illuminate\Support\Facades\Auth;
+
 class EmployeeController extends Controller
 {
     // Display form
@@ -51,6 +54,16 @@ class EmployeeController extends Controller
             'updated_at' => now(),
         ]);
 
+        ManageAudit::create([
+            'Module_Name' => 'Organisation Chart', // Static value
+            'Time_Stamp' => now(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Insert', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+        ]);
+        
+
         // Redirect back to the same URL
         return redirect()->route('organisation_chart.sub_org', ['parent_id' => $request->input('parent_id')])
             ->with('success', 'Employee added successfully');
@@ -87,6 +100,15 @@ class EmployeeController extends Controller
             'status' => $request->status,
             'updated_at' => now(),
         ];
+
+        ManageAudit::create([
+            'Module_Name' => 'Organisation Chart', // Static value
+            'Time_Stamp' => now(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Update', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+        ]);
 
         // Update the record using the query builder
         DB::table('organisation_chart')->where('id', $id)->update($data);

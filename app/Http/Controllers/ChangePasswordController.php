@@ -8,6 +8,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
+use App\Models\Admin\ManageAudit;
+
 class ChangePasswordController extends Controller
 {
     public function showChangePasswordForm()
@@ -31,6 +33,15 @@ class ChangePasswordController extends Controller
     
         // Check if the old password matches the stored hash
         if (!Hash::check($request->old_password, $user->password)) {
+
+            ManageAudit::create([
+                'Module_Name' => 'Incorrect Password', // Static value
+                'Time_Stamp' => now(), // Current timestamp
+                'Created_By' => null, // ID of the authenticated user
+                'Updated_By' => null, // No update on creation, so leave null
+                'Action_Type' => 'Update', // Static value
+                'IP_Address' => $request->ip(), // Get IP address from request
+            ]);
             return back()->withErrors(['old_password' => 'Old password is incorrect']);
         }
     
@@ -39,6 +50,15 @@ class ChangePasswordController extends Controller
             'password' => Hash::make($request->new_password),
         ]);
     
+        ManageAudit::create([
+            'Module_Name' => 'Change Password', // Static value
+            'Time_Stamp' => now(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Update', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+        ]);
+
         return back()->with('success', 'Password changed successfully!');
     }
 }

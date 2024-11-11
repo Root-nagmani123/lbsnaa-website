@@ -69,7 +69,6 @@ class SocialmediaController extends Controller
             'Updated_By' => null, // No update on creation, so leave null
             'Action_Type' => 'Insert / Update', // Static value
             'IP_Address' => $request->ip(), // Get IP address from request
-            'Current_State' => json_encode($$exists), // Save state as JSON
         ]);
 
         return redirect()->route('socialmedia.index')->with('success', 'Social Media added successfully');
