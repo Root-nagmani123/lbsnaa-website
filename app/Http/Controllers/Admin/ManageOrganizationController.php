@@ -357,6 +357,15 @@ class ManageOrganizationController extends Controller
             'updated_at' => now(),
         ]);
     
+        ManageAudit::create([
+            'Module_Name' => 'Section Category', // Static value
+            'Time_Stamp' => now(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Insert', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+        ]);
+
         return redirect()->route('admin.section_category.index',$request->section_id)->with('success', 'Section Category created successfully');
     }
     public function editSectionCategory($id)

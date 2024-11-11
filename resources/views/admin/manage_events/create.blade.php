@@ -167,6 +167,7 @@
         });
     });
 </script>
+
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         let today = new Date().toISOString().split('T')[0];
@@ -179,33 +180,34 @@
 <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    // Initialize Quill editor
-    const quill = new Quill('#editor-container', {
-        modules: {
-            toolbar: '#toolbar-container'
-        },
-        theme: 'snow'
+    document.addEventListener("DOMContentLoaded", function() {
+        // Initialize Quill editor
+        const quill = new Quill('#editor-container', {
+            modules: {
+                toolbar: '#toolbar-container'
+            },
+            theme: 'snow'
+        });
+
+        // Populate Quill with old value if available (with HTML escaping)
+        quill.root.innerHTML = `{!! htmlspecialchars(old('description'), ENT_QUOTES, 'UTF-8') !!}`;
+
+        // Form submit listener
+        const form = document.querySelector("#descriptionForm");
+        form.onsubmit = function(e) {
+            // Set hidden input with Quill content
+            const descriptionInput = document.querySelector('input[name=description]');
+            descriptionInput.value = quill.root.innerHTML.trim();
+
+            // Check if the description is empty and prevent submission if it is
+            if (descriptionInput.value === "<p><br></p>" || descriptionInput.value === "") {
+                e.preventDefault(); // Stop form from submitting
+                alert("The description field is required."); // Display alert or custom message
+                return false;
+            }
+        };
     });
 
-    // Populate Quill with old value if available
-    quill.root.innerHTML = "{!! old('description') !!}";
-
-    // Form submit listener
-    const form = document.querySelector("form");
-    form.onsubmit = function(e) {
-        // Set hidden input with Quill content
-        const descriptionInput = document.querySelector('input[name=description]');
-        descriptionInput.value = quill.root.innerHTML.trim();
-
-        // Check if the description is empty and prevent submission if it is
-        if (descriptionInput.value === "<p><br></p>" || descriptionInput.value === "") {
-            e.preventDefault(); // Stop form from submitting
-            alert("The description field is required."); // Display alert or custom message
-            return false;
-        }
-    };
-});
 </script>
 
 
