@@ -4,7 +4,7 @@
 @section('content')
     <h2>Add Event</h2>
 
-    <form action="{{ route('manage_events.store') }}" method="POST">
+    <form action="{{ route('manage_events.store') }}" method="POST" id="descriptionForm">
         @csrf
  
         <div class="form-group">
@@ -24,12 +24,41 @@
             @enderror
         </div>
 
+
         <div class="form-group">
-            <label>Description:</label>
-            <textarea name="description" class="form-control ckeditor">{{ old('description') }}</textarea>
-            @error('description')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
+            <label>Discription:</label>       
+            <div id="standalone-container">
+                <div id="toolbar-container">
+                    <span class="ql-formats">
+                        <select class="ql-font"></select>
+                        <select class="ql-size"></select>
+                    </span>
+                    <span class="ql-formats">
+                        <button class="ql-bold"></button>
+                        <button class="ql-italic"></button>
+                        <button class="ql-underline"></button>
+                        <button class="ql-strike"></button>
+                    </span>
+                    <span class="ql-formats">
+                        <button class="ql-blockquote"></button>
+                        <button class="ql-code-block"></button>
+                    </span>
+                    <span class="ql-formats">
+                        <button class="ql-list" value="ordered"></button>
+                        <button class="ql-list" value="bullet"></button>
+                        <button class="ql-indent" value="-1"></button>
+                        <button class="ql-indent" value="+1"></button>
+                    </span>
+                    <span class="ql-formats">
+                        <button class="ql-link"></button>
+                        <button class="ql-image"></button>
+                        <button class="ql-video"></button>
+                    </span>
+                
+                    <input type="hidden" name="description" id="description">
+                </div>
+                <div id="editor-container" style="height: 250px;">{!! old('description') !!}</div>
+            </div>
         </div>
 
 
@@ -80,10 +109,6 @@
     </form>
 @endsection
 
-<script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
-<script>
-    CKEDITOR.replace('description');
-</script>
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -142,6 +167,7 @@
         });
     });
 </script>
+
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         let today = new Date().toISOString().split('T')[0];
@@ -149,5 +175,41 @@
         document.querySelector('input[name="end_date"]').setAttribute('min', today);
     });
 </script>
+
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+<script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Initialize Quill editor
+        const quill = new Quill('#editor-container', {
+            modules: {
+                toolbar: '#toolbar-container'
+            },
+            theme: 'snow'
+        });
+
+        // Populate Quill with old value if available (with HTML escaping)
+        quill.root.innerHTML = `{!! htmlspecialchars(old('description'), ENT_QUOTES, 'UTF-8') !!}`;
+
+        // Form submit listener
+        const form = document.querySelector("#descriptionForm");
+        form.onsubmit = function(e) {
+            // Set hidden input with Quill content
+            const descriptionInput = document.querySelector('input[name=description]');
+            descriptionInput.value = quill.root.innerHTML.trim();
+
+            // Check if the description is empty and prevent submission if it is
+            if (descriptionInput.value === "<p><br></p>" || descriptionInput.value === "") {
+                e.preventDefault(); // Stop form from submitting
+                alert("The description field is required."); // Display alert or custom message
+                return false;
+            }
+        };
+    });
+
+</script>
+
+
 
 

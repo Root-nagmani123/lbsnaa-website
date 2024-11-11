@@ -26,7 +26,7 @@
                     <i class="material-icons menu-icon">badge</i>
                         <span class="title">View Profile</span>
                     </a>
-                </li>
+                </li> 
                
                 <li class="menu-item">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -267,7 +267,7 @@
                     </ul>
                 </li>
                 <li class="menu-item">
-                    <a href="{{route('manage_audit.index')}}" class="menu-link">
+                    <a href="{{ route('manage_audit.index') }}" class="menu-link">
                     <i class="material-icons menu-icon">list</i>
                         <span class="title">Manage Audit</span>
                     </a>
@@ -341,14 +341,14 @@
                         </li>
                         <li class="menu-item">
                             <a href="#" class="menu-link">
-                                Photo Gallery/ Video Gallery
+                                Photo Gallery/ Gallery
                             </a>
                         </li>
                     </ul>
                 </li>
                 <li class="menu-item">
-                    <a href="#" class="menu-link">
-                    <i class="material-icons menu-icon">list</i>
+                    <a href="{{ route('manage_audit.index') }}" class="menu-link">
+                        <i data-feather="message-square" class="menu-icon tf-icons"></i>
                         <span class="title">Manage Audit</span>
                     </a>
                 </li>

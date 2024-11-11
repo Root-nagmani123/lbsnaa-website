@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Validation\ValidationException;
 
+use App\Models\Admin\ManageAudit;
+
 class LoginController extends Controller
 {
     public function login()
@@ -31,6 +33,16 @@ class LoginController extends Controller
             // Manually log the user in
           
             Auth::login($user);
+
+            ManageAudit::create([
+                'Module_Name' => 'Login', // Static value
+                'Time_Stamp' => now(), // Current timestamp
+                'Created_By' => null, // ID of the authenticated user
+                'Updated_By' => null, // No update on creation, so leave null
+                'Action_Type' => 'Login', // Static value
+                'IP_Address' => $request->ip(), // Get IP address from request
+            ]);
+
             return redirect()->intended('admin');
         }
     
@@ -44,6 +56,16 @@ class LoginController extends Controller
     Auth::logout();
     $request->session()->invalidate();
     $request->session()->regenerateToken();
+
+    ManageAudit::create([
+        'Module_Name' => 'Logout', // Static value
+        'Time_Stamp' => now(), // Current timestamp
+        'Created_By' => null, // ID of the authenticated user
+        'Updated_By' => null, // No update on creation, so leave null
+        'Action_Type' => 'Logout', // Static value
+        'IP_Address' => $request->ip(), // Get IP address from request
+    ]);
+
     return redirect('/login');
 }
 

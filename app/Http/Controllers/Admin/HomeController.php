@@ -8,6 +8,9 @@ use App\Models\Admin\HomeFooterImage;
 use App\Models\Admin\QuickLink;
 use Illuminate\Http\Request;
 
+use App\Models\Admin\ManageAudit;
+use Illuminate\Support\Facades\Auth;
+
 class HomeController extends Controller
 {
     // List all sliders
@@ -45,6 +48,15 @@ class HomeController extends Controller
             'is_deleted' => 0
         ]);
 
+        ManageAudit::create([
+            'Module_Name' => 'Slider', // Static value
+            'Time_Stamp' => now(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Insert', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+        ]);
+
         return redirect()->route('admin.slider_list')->with('success', 'Slider created successfully.');
     }
 
@@ -78,6 +90,15 @@ class HomeController extends Controller
         $slider->description = $request->description;
         $slider->status = $request->status ?? 0;
         $slider->save();
+
+        ManageAudit::create([
+            'Module_Name' => 'Section Category', // Static value
+            'Time_Stamp' => now(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Update', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+        ]);
 
         return redirect()->route('admin.slider_list')->with('success', 'Slider updated successfully.');
     }
@@ -131,6 +152,15 @@ public function footer_image_store(Request $request)
         'deleted_on' => null,
     ]);
 
+    ManageAudit::create([
+        'Module_Name' => 'Footer Image', // Static value
+        'Time_Stamp' => now(), // Current timestamp
+        'Created_By' => null, // ID of the authenticated user
+        'Updated_By' => null, // No update on creation, so leave null
+        'Action_Type' => 'Insert', // Static value
+        'IP_Address' => $request->ip(), // Get IP address from request
+    ]);
+
     return redirect()->route('admin.footer_images.index')->with('success', 'Footer image added successfully.');
 }
 
@@ -160,6 +190,15 @@ public function footer_image_update(Request $request, $id)
     // Update footer image data
     $footerImage->status = $request->status ?? 0;
     $footerImage->save();
+
+    ManageAudit::create([
+        'Module_Name' => 'Footer Image', // Static value
+        'Time_Stamp' => now(), // Current timestamp
+        'Created_By' => null, // ID of the authenticated user
+        'Updated_By' => null, // No update on creation, so leave null
+        'Action_Type' => 'Update', // Static value
+        'IP_Address' => $request->ip(), // Get IP address from request
+    ]);
 
     return redirect()->route('admin.footer_images.index')->with('success', 'Footer image updated successfully.');
 }
@@ -216,6 +255,16 @@ public function footer_images_status_update(Request $request, $id)
         'status' => $request->status ?? 0,
         'is_deleted' => 0,
     ]);
+
+    ManageAudit::create([
+        'Module_Name' => 'Quick Link', // Static value
+        'Time_Stamp' => now(), // Current timestamp
+        'Created_By' => null, // ID of the authenticated user
+        'Updated_By' => null, // No update on creation, so leave null
+        'Action_Type' => 'Insert', // Static value
+        'IP_Address' => $request->ip(), // Get IP address from request
+    ]);
+
         return redirect()->route('admin.quick_links.index')->with('success', 'Quick Link created successfully.');
     }
 
@@ -248,6 +297,15 @@ public function footer_images_status_update(Request $request, $id)
         $quickLink->url = $request->url ?? null;
         $quickLink->status = $request->status ?? 0;
         $quickLink->save();
+
+        ManageAudit::create([
+            'Module_Name' => 'Quick Link', // Static value
+            'Time_Stamp' => now(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Update', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+        ]);
 
         return redirect()->route('admin.quick_links.index')->with('success', 'Quick Link updated successfully.');
     }

@@ -43,7 +43,6 @@ class TrainingManagementController extends Controller
             'Updated_By' => null, // No update on creation, so leave null
             'Action_Type' => 'Insert', // Static value
             'IP_Address' => $request->ip(), // Get IP address from request
-            'Current_State' => json_encode($category), // Save state as JSON
         ]);
 
         return redirect()->route('category.index')->with('success', 'Category added successfully');
@@ -73,7 +72,6 @@ class TrainingManagementController extends Controller
             'Updated_By' => null, // No update on creation, so leave null
             'Action_Type' => 'Update', // Static value
             'IP_Address' => $request->ip(), // Get IP address from request
-            'Current_State' => json_encode($category), // Save state as JSON
         ]);
 
         return redirect()->route('category.index')->with('success', 'category updated successfully');
@@ -116,7 +114,6 @@ class TrainingManagementController extends Controller
             'Updated_By' => null, // No update on creation, so leave null
             'Action_Type' => 'Insert', // Static value
             'IP_Address' => $request->ip(), // Get IP address from request
-            'Current_State' => json_encode($country), // Save state as JSON
         ]);
 
         return redirect()->route('country.index')->with('success', 'country added successfully');
@@ -145,7 +142,6 @@ class TrainingManagementController extends Controller
             'Updated_By' => null, // No update on creation, so leave null
             'Action_Type' => 'Update', // Static value
             'IP_Address' => $request->ip(), // Get IP address from request
-            'Current_State' => json_encode($country), // Save state as JSON
         ]);
 
         return redirect()->route('country.index')->with('success', 'country updated successfully');
@@ -188,7 +184,6 @@ class TrainingManagementController extends Controller
             'Updated_By' => null, // No update on creation, so leave null
             'Action_Type' => 'Insert', // Static value
             'IP_Address' => $request->ip(), // Get IP address from request
-            'Current_State' => json_encode($state), // Save state as JSON
         ]);
 
         return redirect()->route('state.index')->with('success', 'state added successfully');
@@ -217,7 +212,6 @@ class TrainingManagementController extends Controller
             'Updated_By' => null, // No update on creation, so leave null
             'Action_Type' => 'Update', // Static value
             'IP_Address' => $request->ip(), // Get IP address from request
-            'Current_State' => json_encode($state), // Save state as JSON
         ]);
 
         return redirect()->route('state.index')->with('success', 'state updated successfully');
@@ -262,7 +256,6 @@ class TrainingManagementController extends Controller
             'Updated_By' => null, // No update on creation, so leave null
             'Action_Type' => 'Insert', // Static value
             'IP_Address' => $request->ip(), // Get IP address from request
-            'Current_State' => json_encode($district), // Save state as JSON
         ]);
 
         return redirect()->route('district.index')->with('success', 'District added successfully');
@@ -292,7 +285,6 @@ class TrainingManagementController extends Controller
             'Updated_By' => null, // No update on creation, so leave null
             'Action_Type' => 'Update', // Static value
             'IP_Address' => $request->ip(), // Get IP address from request
-            'Current_State' => json_encode($district), // Save state as JSON
         ]);
 
         return redirect()->route('district.index')->with('success', 'District updated successfully');
@@ -340,7 +332,6 @@ class TrainingManagementController extends Controller
             'Updated_By' => null, // No update on creation, so leave null
             'Action_Type' => 'Insert', // Static value
             'IP_Address' => $request->ip(), // Get IP address from request
-            'Current_State' => json_encode($exam), // Save state as JSON
         ]);
 
         return redirect()->route('exam.index')->with('success', 'Exams added successfully');
@@ -374,7 +365,6 @@ class TrainingManagementController extends Controller
             'Updated_By' => null, // No update on creation, so leave null
             'Action_Type' => 'Update', // Static value
             'IP_Address' => $request->ip(), // Get IP address from request
-            'Current_State' => json_encode($exam), // Save state as JSON
         ]);
 
         return redirect()->route('exam.index')->with('success', 'Exams updated successfully');
