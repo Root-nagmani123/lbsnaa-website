@@ -19,12 +19,7 @@ use App\Http\Controllers\Admin\ViewprofileController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Auth\LoginController;
-
-
-
-
-
-
+use App\Http\Controllers\Admin\CoursesubCategoryController;
 
 // Indrajeet
 use App\Http\Controllers\Admin\OrganiserController;
@@ -65,7 +60,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::middleware('auth')->group(function () {
-Route::get('/admin', [Controller::class, 'index'])->name('admin.index');
+    Route::get('/admin', [Controller::class, 'index'])->name('admin.index');
 });
 
 Route::get('/admin/menu', [MenuController::class, 'index'])->name('admin.menus.index');
@@ -231,6 +226,14 @@ Route::prefix('admin')->group(function () {
     Route::get('/autocomplete-employees', [EmployeeController::class, 'autocompleteEmployees'])->name('employee.autocomplete');
     // Add this route for the sub-organisation page
     Route::get('organisation-chart/sub-org/{parent_id}', [EmployeeController::class, 'showSubOrg'])->name('organisation_chart.sub_org');
+
+    // manage course subcategory
+    Route::get('subcategory', [CoursesubCategoryController::class, 'index'])->name('subcategory.index');
+    Route::get('subcategory/create', [CoursesubCategoryController::class, 'create'])->name('subcategory.create');
+    Route::post('subcategory/', [CoursesubCategoryController::class, 'store'])->name('subcategory.store');
+    Route::get('subcategory/{id}/edit', [CoursesubCategoryController::class, 'edit'])->name('subcategory.edit');
+    Route::put('subcategory/{id}', [CoursesubCategoryController::class, 'update'])->name('subcategory.update');
+    Route::get('subcategory/{id}/delete', [CoursesubCategoryController::class, 'delete'])->name('subcategory.delete');
 
     // Indrajeet
     Route::resource('organisers', OrganiserController::class);
