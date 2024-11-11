@@ -39,15 +39,14 @@
 
 
     <div class="container-fluid"
-        style="background-image: url({{ asset('admin_assets/images/background_img1') }}); background-repeat: no-repeat; background-size: cover;">
+        style="background-image: url({{ asset('admin_assets/images/background_img1.jpg') }}); background-repeat: no-repeat; background-size: cover;">
         <div class="main-content d-flex flex-column px-0">
 
             <div class="m-auto mw-510 py-5">
                 <form action="{{ route('admin.login') }}" method="POST">
                     @csrf
-                    <h4 class="fs-3 mb-3 text-center" style="color: #af2910;">LBSNAA Administration</h4>
                     <div class="card bg-white border-0 rounded-10 mb-4" style="width: 500px;">
-                        <div class="d-flex align-items-center gap-4 mb-3">
+                        <div class="d-flex align-items-center gap-4 mb-3 justify-content-center border-bottom">
                             <a href="index.html">
                                 <img src="{{ asset('admin_assets/images/logo.png')}}" alt="logo" width="300"
                                     style="padding: 20px; text-align: center;" class="img-fluid">
@@ -56,26 +55,16 @@
                         <div class="card-body p-4">
                             <div class="form-group mb-4">
                                 <label class="label">Email</label>
-                                <input type="email" name="email" class="form-control h-58"
-                                    placeholder="envytheme@info.com" required>
+                                <input type="email" name="email" class="form-control h-58" required>
                                     @error('email')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                             </div>
-                            <div class="form-group mb-0">
+                            <div class="form-group mb-4">
                                 <label class="label">Password</label>
                                 <div class="password-wrapper position-relative">
                                     <input type="password" name="password" class="form-control h-58 text-dark" required>
-                                    <i style="color: #A9A9C8; font-size: 16px; right: 15px !important;"
-                                        class="ri-eye-off-line password-toggle-icon translate-middle-y top-50 end-0 position-absolute"
-                                        aria-hidden="true"></i>
                                 </div>
-                            </div>
-                            <div class="d-sm-flex justify-content-between mb-4 py-3">
-                                <a href="forget-password.html"
-                                    class="fs-16 text-primary text-decoration-none mt-2 mt-sm-0 d-block">
-                                    Forgot your password?
-                                </a>
                             </div>
                             <button type="submit"
                                 class="btn btn-primary fs-16 fw-semibold text-dark heading-fornt py-2 py-md-3 px-4 text-white w-100">

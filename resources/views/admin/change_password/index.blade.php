@@ -21,26 +21,26 @@
     <div class="col-xxl-9">
         <div class="card bg-white border-0 rounded-10 mb-4">
             <div class="card-body p-4">
-            @if (session('success'))
-<div id="success-alert" class="alert alert-success">
-    {{ session('success') }}
-</div>
-@endif
+                @if (session('success'))
+                <div id="success-alert" class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+                @endif
 
-<!-- Check for error messages -->
-@if ($errors->any())
-<div class="alert alert-danger">
-    <ul>
-        @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-        @endforeach
-    </ul>
-</div>
-@endif
+                <!-- Check for error messages -->
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
                 <form id="changepass" name="changepass" method="post" action="{{ route('update_password') }}" autocomplete="off">
                     @csrf
                     <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-lg-12">
                             <div class="form-group mb-4">
                                 <label class="label" for="txtpwd">Enter Old Password</label>
                                 <div class="form-group">
@@ -54,7 +54,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-12">
                             <div class="form-group mb-4">
                                 <label class="label" for="txtnpwd">Enter New Password</label>
                                 <div class="form-group">
@@ -95,16 +95,12 @@
             document.addEventListener('DOMContentLoaded', function () {
                 const successAlert = document.getElementById('success-alert');
                 if (successAlert) {
-                    // Fade out alert after 10 seconds
                     setTimeout(function () {
-                        successAlert.style.transition = "opacity 1s ease";
                         successAlert.style.opacity = "0";
-                    }, 4000); // 10 seconds
-        
-                    // Remove alert after fade-out
-                    setTimeout(function () {
-                        successAlert.remove();
-                    }, 5000); // 11 seconds to complete fade-out
+                        setTimeout(function () {
+                            successAlert.remove();
+                        }, 1000);
+                    }, 4000);
                 }
             });
         </script>
@@ -113,3 +109,4 @@
     </div>
 </div>
 @endsection
+

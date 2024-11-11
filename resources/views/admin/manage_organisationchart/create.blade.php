@@ -2,6 +2,20 @@
 @section('title', 'Admin Dashboard')
 
 @section('content')
+<div class="d-sm-flex text-center justify-content-between align-items-center mb-4">
+    <h3 class="mb-sm-0 mb-1 fs-18">Manage Organisation Chart</h3>
+    <ul class="ps-0 mb-0 list-unstyled d-flex justify-content-center">
+        <li>
+            <a href="{{ route('admin.index') }}" class="text-decoration-none">
+                <i class="ri-home-2-line" style="position: relative; top: -1px;"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        <li>
+            <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Organisation Chart</span>
+        </li>
+    </ul>
+</div>
     <div class="row justify-content-center">
         <div class="col-lg-12">
             <div class="card bg-white border-0 rounded-10 mb-4">
@@ -32,7 +46,7 @@
                                     <label class="label" for="menutitle">Select Parent Employee :</label>
                                     <span class="star">*</span>
                                     <div class="form-group position-relative">
-                                        <select name="parentcategory" id="parentcategory">
+                                        <select name="parentcategory" id="parentcategory" class="form-select form-control ps-5 h-58">
                                             <option value="">Select Employee</option>
                                             @foreach ($records as $record)
                                                 <option value={{ $record->id }}>{{ $record->name }}</option>
@@ -48,7 +62,7 @@
                                     <label class="label" for="menutitle">Select Employee :</label>
                                     <span class="star">*</span>
                                     <div class="form-group position-relative">
-                                        <input type="text" id="employee_name" name="employee_name" autocomplete="">
+                                        <input type="text" id="employee_name" name="employee_name" autocomplete="" class="form-control text-dark ps-5 h-58">
                                     </div>
                                 </div>
                             </div>
@@ -60,7 +74,7 @@
                                     <label class="label" for="Description">Description :</label>
                                     <span class="star">*</span>
                                     <div class="form-group position-relative">
-                                        <textarea name="description" id="description"></textarea>
+                                        <textarea name="description" id="description" class="form-control ps-5 text-dark"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -68,18 +82,20 @@
                             <!-- Page Status -->
                             <div class="col-lg-6">
                                 <div class="form-group mb-4">
-                                    <label>Page Status:</label>
-                                    <select name="status">
-                                        <option value="">Select</option>
-                                        <option value="1">Draft</option>
-                                        <option value="2">Approval</option>
-                                        <option value="3">Publish</option>
+                                    <label class="label">Page Status:</label>
+                                    <select name="status" class="form-select form-control ps-5 h-58">
+                                        <option value="" class="text-dark">Select</option>
+                                        <option value="1" class="text-dark">Draft</option>
+                                        <option value="2" class="text-dark">Approval</option>
+                                        <option value="3" class="text-dark">Publish</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <!-- Submit Button -->
-                        <button type="submit">Submit</button>
+                        <div class="d-flex ms-sm-3 ms-md-0">
+                            <button class="btn btn-success text-white fw-semibold" type="submit">Submit</button>
+                        </div>
                 </div>
 
                 </form>

@@ -22,17 +22,21 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($audits as $index => $audit) <!-- Use $index for the incrementing index -->
+                @forelse($audits as $index => $audit) <!-- Use $index for the incrementing index -->
+                    <tr>
+                        <td>{{ $loop->iteration }}</td> <!-- Auto-incrementing index -->
+                        <td>{{ $audit->Module_Name }}</td>
+                        <td>{{ date('Y-m-d H:i:s', strtotime($audit->Time_Stamp)) }}</td>
+                        <td>{{ $audit->Created_By }}</td>
+                        <td>{{ $audit->Updated_By }}</td>
+                        <td>{{ $audit->Action_Type }}</td>
+                        <td>{{ $audit->IP_Address }}</td>
+                    </tr>
+                    @empty
                         <tr>
-                            <td>{{ $loop->iteration }}</td> <!-- Auto-incrementing index -->
-                            <td>{{ $audit->Module_Name }}</td>
-                            <td>{{ date('Y-m-d H:i:s', strtotime($audit->Time_Stamp)) }}</td>
-                            <td>{{ $audit->Created_By }}</td>
-                            <td>{{ $audit->Updated_By }}</td>
-                            <td>{{ $audit->Action_Type }}</td>
-                            <td>{{ $audit->IP_Address }}</td>
+                            <td colspan="7" class="text-center">No record found</td>
                         </tr>
-                        @endforeach
+                    @endforelse
             </tbody>
         </table>
     </div>

@@ -1,147 +1,318 @@
 @extends('admin.layouts.master')
 
 @section('content')
-<h1>Add New Course</h1>
-
-<form action="{{ route('admin.courses.store') }}" method="POST">
-    @csrf
-    <div class="form-group">
-        <label>Course Name *</label>
-        <input type="text" name="course_name" class="form-control" required>
-    </div>
-
-    <div class="form-group">
-        <label>Abbreviation *</label>
-        <input type="text" name="abbreviation" class="form-control" required>
-    </div>
-
-    <div class="form-group">
-        <label>Meta Title *</label>
-        <input type="text" name="meta_title" class="form-control" required>
-    </div>
-
-    <div class="form-group">
-        <label>Meta Keyword</label>
-        <input type="text" name="meta_keyword" class="form-control">
-    </div>
-
-    <div class="form-group">
-        <label>Meta Description</label>
-        <textarea id="meta_description" name="meta_description" rows="4" class="form-control"></textarea>
-
-    </div>
-
-    <div class="form-group">
-        <label>Description *</label>
-        <textarea id="editor1" name="description" rows="4" class="form-control Description"></textarea>
-    </div>
-
-    <div class="form-group">
-        <label>Course Start Date *</label>
-        <input type="date" name="course_start_date" class="form-control" required>
-    </div>
-
-    <div class="form-group">
-        <label>Course End Date *</label>
-        <input type="date" name="course_end_date" class="form-control" required>
-    </div>
-
-    <div class="form-group">
-        <label>Support Section *</label>
-        <select name="support_section" class="form-control" required>
-            <option value="" disabled selected>Select Section</option>
-            <option value="1"  >first</option>
-            <option value="2"  >second</option>
-            <option value="3"  >third</option>
-            <!-- Add options dynamically if available -->
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label>Co-ordinator</label>
-        <input type="text" name="coordinator_id" class="form-control" placeholder="Type and search">
-    </div>
-
-    <!-- Repeat similar structure for each Assistant Coordinator -->
-    <div class="form-group">
-    <label>1st Asst. Co-ordinator</label>
-    <input type="text" name="asst_coordinator_1_id" class="form-control" placeholder="Type and search">
+<div class="d-sm-flex text-center justify-content-between align-items-center mb-4">
+    <h3 class="mb-sm-0 mb-1 fs-18">Manage Course</h3>
+    <ul class="ps-0 mb-0 list-unstyled d-flex justify-content-center">
+        <li>
+            <a href="{{ route('admin.index') }}" class="text-decoration-none">
+                <i class="ri-home-2-line" style="position: relative; top: -1px;"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        <li>
+            <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Course</span>
+        </li>
+    </ul>
 </div>
-
-<div class="form-group">
-    <label>2nd Asst. Co-ordinator</label>
-    <input type="text" name="asst_coordinator_2_id" class="form-control" placeholder="Type and search">
-</div>
-
-<div class="form-group">
-    <label>3rd Asst. Co-ordinator</label>
-    <input type="text" name="asst_coordinator_3_id" class="form-control" placeholder="Type and search">
-</div>
-
-<div class="form-group">
-    <label>4th Asst. Co-ordinator</label>
-    <input type="text" name="asst_coordinator_4_id" class="form-control" placeholder="Type and search">
-</div>
-
-<div class="form-group">
-    <label>5th Asst. Co-ordinator</label>
-    <input type="text" name="asst_coordinator_5_id" class="form-control" placeholder="Type and search">
-</div>
-
-
-    <div class="form-group">
-        <label>Important Links</label>
-        <textarea name="important_links" class="form-control"></textarea>
-    </div>
-
-    <div class="form-group">
-        <label>Course Type</label>
-        <select name="course_type" class="form-control">
-            <option value="" disabled selected>Select Type</option>
-            <option value="1"  >first</option>
-            <option value="2"  >second</option>
-            <option value="3"  >third</option>
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label>Venue *</label>
-        <select name="venue_id" class="form-control" required>
-            <option value="" disabled selected>Select Venue</option>
-            <option value="1"  >first</option>
-            <option value="2"  >second</option>
-            <option value="3"  >third</option>
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label>Registration On *</label>
-        <div>
-            <input type="radio" name="registration_on" value="1" required> On
-            <input type="radio" name="registration_on" value="0" required> Off
+<div class="row justify-content-center">
+    <div class="col-lg-12">
+        <div class="card bg-white border-0 rounded-10 mb-4">
+            <div class="card-body p-4">
+                <div class="d-sm-flex text-center justify-content-between align-items-center border-bottom pb-20 mb-20">
+            <h4 class="fw-semibold fs-18 mb-sm-0">Add New Course</h4>
+        </div>
+                <form action="{{ route('admin.courses.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="course_name">Course Name :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="course_name"
+                                        id="course_name">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="abbreviation">Abbreviation :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="abbreviation"
+                                        id="abbreviation">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="meta_title">Meta Title :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="meta_title"
+                                        id="meta_title">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="meta_keyword">Meta Keyword :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="meta_keyword"
+                                        id="meta_keyword">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                           <form>
+    <div class="form-group mb-4">
+        <label class="d-block text-black fw-semibold mb-10" for="meta_description">Meta Description</label>
+        <div id="standalone-container">
+            <div id="toolbar-container">
+                <span class="ql-formats">
+                    <select class="ql-font"></select>
+                    <select class="ql-size"></select>
+                </span>
+                <span class="ql-formats">
+                    <button class="ql-bold"></button>
+                    <button class="ql-italic"></button>
+                    <button class="ql-underline"></button>
+                    <button class="ql-strike"></button>
+                </span>
+                <span class="ql-formats">
+                    <button class="ql-blockquote"></button>
+                    <button class="ql-code-block"></button>
+                </span>
+                <span class="ql-formats">
+                    <button class="ql-list" value="ordered"></button>
+                    <button class="ql-list" value="bullet"></button>
+                    <button class="ql-indent" value="-1"></button>
+                    <button class="ql-indent" value="+1"></button>
+                </span>
+                <span class="ql-formats">
+                    <button class="ql-link"></button>
+                    <button class="ql-image"></button>
+                    <button class="ql-video"></button>
+                </span>
+            </div>
+            <div id="editor-container" style="height: 250px;"></div>
         </div>
     </div>
-
-    <div class="form-group">
-        <label>Page Status *</label>
-        <select name="page_status" class="form-control" required>
-            <option value="" disabled selected>Select Status</option>
-            <option value="1"  >active</option>
-            <option value="2"  >inactive</option>
-            <!-- Add options dynamically if available -->
-        </select>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Save</button>
 </form>
-<script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
-
-<script>
-    
-    CKEDITOR.replace('editor1');
-    CKEDITOR.replace('meta_description');
-    var productDescription = CKEDITOR.instances['editor1'].getData();
-    var productDescription = CKEDITOR.instances['meta_description'].getData();
-</script>
+                        </div>
+                        <div class="col-lg-6">
+                        <form>
+    <div class="form-group mb-4">
+        <label class="d-block text-black fw-semibold mb-10" for="description">Description</label>
+        <div id="standalone-container">
+            <div id="toolbar-container">
+                <span class="ql-formats">
+                    <select class="ql-font"></select>
+                    <select class="ql-size"></select>
+                </span>
+                <span class="ql-formats">
+                    <button class="ql-bold"></button>
+                    <button class="ql-italic"></button>
+                    <button class="ql-underline"></button>
+                    <button class="ql-strike"></button>
+                </span>
+                <span class="ql-formats">
+                    <button class="ql-blockquote"></button>
+                    <button class="ql-code-block"></button>
+                </span>
+                <span class="ql-formats">
+                    <button class="ql-list" value="ordered"></button>
+                    <button class="ql-list" value="bullet"></button>
+                    <button class="ql-indent" value="-1"></button>
+                    <button class="ql-indent" value="+1"></button>
+                </span>
+                <span class="ql-formats">
+                    <button class="ql-link"></button>
+                    <button class="ql-image"></button>
+                    <button class="ql-video"></button>
+                </span>
+            </div>
+            <div id="editor-container" style="height: 250px;" name="description"></div>
+        </div>
+    </div>
+</form>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="course_start_date">Course Start Date :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="date" class="form-control text-dark ps-5 h-58" name="course_start_date"
+                                        id="course_start_date">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="course_end_date">Course End Date :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="date" class="form-control text-dark ps-5 h-58" name="course_end_date"
+                                        id="course_end_date">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="support_section">Support Section :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <select class="form-select form-control ps-5 h-58" name="support_section" id="support_section"
+                                        required>
+                                        <option value="" class="text-dark" selected>Select Section</option>
+                                        <option value="1" class="text-dark">First</option>
+                                        <option value="2" class="text-dark">Second</option>
+                                        <option value="3" class="text-dark">Tgird</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="coordinator_id">Coordinator ID :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="coordinator_id"
+                                        id="coordinator_id">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="asst_coordinator_1_id">1st Asst. Co-ordinator :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="asst_coordinator_1_id"
+                                        id="asst_coordinator_1_id">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="asst_coordinator_2_id">2nd Asst. Co-ordinator :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="asst_coordinator_2_id"
+                                        id="asst_coordinator_2_id">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="asst_coordinator_3_id">3rd Asst. Co-ordinator :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="asst_coordinator_3_id"
+                                        id="asst_coordinator_3_id">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="asst_coordinator_4_id">4th Asst. Co-ordinator :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="asst_coordinator_4_id"
+                                        id="asst_coordinator_4_id">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="asst_coordinator_5_id">5th Asst. Co-ordinator :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="asst_coordinator_5_id"
+                                        id="asst_coordinator_5_id">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-0">
+                                <label class="label" for="important_links">Order Notes :</label>
+                                <div class="form-group position-relative">
+                                    <textarea class="form-control ps-5 text-dark" id="important_links"
+                                        name="important_links"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="course_type">Course Type:</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <select class="form-select form-control ps-5 h-58" name="course_type" id="course_type"
+                                        required>
+                                        <option value="" class="text-dark" selected>Select Type</option>
+                                        <option value="1" class="text-dark">First</option>
+                                        <option value="2" class="text-dark">Second</option>
+                                        <option value="3" class="text-dark">Tgird</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="venue_id">Venue:</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <select class="form-select form-control ps-5 h-58" name="venue_id" id="venue_id"
+                                        required>
+                                        <option value="" class="text-dark" selected>Select Venue</option>
+                                        <option value="1" class="text-dark">First</option>
+                                        <option value="2" class="text-dark">Second</option>
+                                        <option value="3" class="text-dark">Tgird</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="registration_on">Registration on :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input class="form-check-input" type="radio" value="1" id="registration_on" name="registration_on">
+                                    <label class="form-check-label" for="registration_on">
+                                        On
+                                    </label>
+                                </div>
+                                <div class="form-group position-relative">
+                                    <input class="form-check-input" type="radio" value="0" id="registration_on" name="registration_on">
+                                    <label class="form-check-label" for="registration_on">
+                                        Off
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="page_status">Status :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <select class="form-select form-control ps-5 h-58" name="page_status" id="page_status"
+                                        required>
+                                        <option value="" class="text-dark" selected>Select Status</option>
+                                        <option value="1" class="text-dark">Active</option>
+                                        <option value="0" class="text-dark">Inactive</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex ms-sm-3 ms-md-0">
+                            <button class="btn btn-success text-white fw-semibold" type="submit">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div
 @endsection
 
