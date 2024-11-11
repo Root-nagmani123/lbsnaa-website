@@ -2,6 +2,20 @@
 @section('title', 'Edit Organisation Chart')
 
 @section('content')
+<div class="d-sm-flex text-center justify-content-between align-items-center mb-4">
+    <h3 class="mb-sm-0 mb-1 fs-18">Manage Organisation Chart</h3>
+    <ul class="ps-0 mb-0 list-unstyled d-flex justify-content-center">
+        <li>
+            <a href="{{ route('admin.index') }}" class="text-decoration-none">
+                <i class="ri-home-2-line" style="position: relative; top: -1px;"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        <li>
+            <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Organisation Chart</span>
+        </li>
+    </ul>
+</div>
 <div class="row justify-content-center">
     <div class="col-lg-12">
         <div class="card bg-white border-0 rounded-10 mb-4">
@@ -31,10 +45,10 @@
                                 <label class="label">Select Parent Employee :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select name="parentcategory" id="parentcategory">
-                                        <option value="">Select Employee</option>
+                                    <select name="parentcategory" id="parentcategory" class="form-select form-control ps-5 h-58">
+                                        <option value="" class="text-dark">Select Employee</option>
                                         @foreach ($faculty as $parent)
-                                            <option value={{ $parent->id }} {{ $record->faculty_id == $parent->id ? 'selected' : '' }}>
+                                            <option class="text-dark" value={{ $parent->id }} {{ $record->faculty_id == $parent->id ? 'selected' : '' }}>
                                                 {{ $parent->name }}
                                             </option>
                                         @endforeach
@@ -49,7 +63,7 @@
                                 <label class="label">Select Employee :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" id="employee_name" name="employee_name" value="{{ $record->employee_name }}">
+                                    <input type="text" id="employee_name" name="employee_name" value="{{ $record->employee_name }}" class="form-control text-dark ps-5 h-58">
                                 </div>
                             </div>
                         </div>
@@ -60,7 +74,7 @@
                                 <label class="label">Description :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <textarea name="description" id="description">{{ $record->description }}</textarea>
+                                    <textarea name="description" id="description" class="form-control ps-5 text-dark">{{ $record->description }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -68,8 +82,8 @@
                         <!-- Page Status -->
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
-                                <label>Page Status:</label>
-                                <select name="status">
+                                <label class="label">Page Status:</label>
+                                <select name="status" class="form-select form-control ps-5 h-58">
                                     <option value="">Select</option>
                                     <option value="1" {{ $record->status == '1' ? 'selected' : '' }}>Draft</option>
                                     <option value="2" {{ $record->status == '2' ? 'selected' : '' }}>Approval</option>
@@ -80,7 +94,9 @@
                     </div>
 
                     <!-- Submit Button -->
-                    <button type="submit" class="btn btn-primary">Update</button>
+                    <div class="d-flex ms-sm-3 ms-md-0">
+                            <button class="btn btn-success text-white fw-semibold" type="submit">Update</button>
+                        </div>
                 </form>
             </div>
         </div>

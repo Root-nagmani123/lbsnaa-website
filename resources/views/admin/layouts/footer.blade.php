@@ -1,9 +1,8 @@
 <div class="flex-grow-1"></div>
 
 <footer class="footer-area bg-white text-center rounded-top-10">
-    <p class="fs-14">© <span style="color: #af2910;">LBSNAA Administration</span> is Proudly Owned by <a
-            href="#" target="_blank" class="text-decoration-none" style="color: #af2910;">Lal Bahadur
-            Shastri National Academy of Administration</a></p>
+    <p class="fs-14">© <?php echo date("Y");?> -  <span style="color: #af2910;">LBSNAA Administration</span> is Proudly Owned by <a
+            href="https://www.digitalindia.gov.in/" target="_blank" class="text-decoration-none" style="color: #af2910;">National eGovernance Division (NeGD)</a>. Copyright Ministry of Electronics & IT, Government of India. All rights reserved.</p>
 </footer>
 </div>
 </div>
