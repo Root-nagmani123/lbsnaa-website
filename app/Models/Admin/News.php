@@ -9,6 +9,7 @@ class News extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'language',                // News language
         'title',                // News Title
         'short_description',    // News Short Description
         'meta_title',           // Meta Title

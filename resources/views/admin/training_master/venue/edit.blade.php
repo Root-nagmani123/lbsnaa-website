@@ -15,18 +15,14 @@
                     @method('PUT')
                     <div class="row">
                         <div class="col-lg-6">
-                            <div class="form-group mb-4">
-                                <label class="label" for="page_language">Page Language :</label>
-                                <span class="star">*</span>
-                                <div class="form-group position-relative">
-                                    <input class="form-check-input" type="radio" name="page_language" value="english" {{ $venue->page_language == 'English' ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="english">
-                                        English
-                                    </label>
-                                    <input class="form-check-input" type="radio" name="page_language" value="hindi" {{ $venue->page_language == 'Hindi' ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="hindi">
-                                        Hindi
-                                    </label>
+                            <div class="col-lg-6">
+                                <div class="form-group mb-4">
+                                    <label class="label" for="menutitle">Page Language :</label>
+                                    <span class="star">*</span>
+                                    <div class="form-group position-relative">
+                                        <input type="radio" name="language" value="1" {{ $venue->language == '1' ? 'checked' : '' }}> English
+                                        <input type="radio" name="language" value="2" {{ $venue->language == '2' ? 'checked' : '' }}> Hindi
+                                    </div>
                                 </div>
                             </div>
                         </div>

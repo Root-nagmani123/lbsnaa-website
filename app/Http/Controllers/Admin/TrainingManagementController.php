@@ -31,6 +31,7 @@ class TrainingManagementController extends Controller
     public function categoryStore(Request $request)
     {
         $category = DB::table('manage_category')->insert([
+            'language' => $request->txtlanguage,
             'section_title' => $request->section_title,
             'category_description' => $request->category_description,
             'status' => $request->status,
@@ -60,6 +61,7 @@ class TrainingManagementController extends Controller
     public function categoryUpdate(Request $request, $id)
     {
         $category = DB::table('manage_category')->where('id', $id)->update([
+            'language' => $request->txtlanguage,
             'section_title' => $request->section_title,
             'category_description' => $request->category_description,
             'status' => $request->status,
@@ -316,6 +318,7 @@ class TrainingManagementController extends Controller
     public function examStore(Request $request)
     {
         $exam = DB::table('manage_exam')->insert([
+            'language' => $request->txtlanguage, // Exam language
             'exam_code' => $request->exm_code, // Exam Code
             'exam_description' => $request->exm_desc, // Exam Description (nullable)
             'user_id' => $request->exm_user_id, // User ID
@@ -349,6 +352,7 @@ class TrainingManagementController extends Controller
     public function examUpdate(Request $request, $id)
     {
         $exam = DB::table('manage_exam')->where('id', $id)->update([
+            'language' => $request->txtlanguage, // Exam language
             'exam_code' => $request->exm_code, // Exam Code
             'exam_description' => $request->exm_desc, // Exam Description (nullable)
             'user_id' => $request->exm_user_id, // User ID

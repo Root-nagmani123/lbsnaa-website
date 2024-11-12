@@ -23,6 +23,7 @@ class SocialmediaController extends Controller
     {
 
         $request->validate([
+            'language' => 'required',
             'txtename' => 'required',
             'facebook' => 'required|url',
             'twitter' => 'required|url',
@@ -39,6 +40,7 @@ class SocialmediaController extends Controller
             $exists = DB::table('social_media_links')
                 ->where('id', $exists->id)
                 ->update([
+                    'language' => $request->language,
                     'title' => $request->txtename,
                     'facebook_url' => $request->facebook,
                     'twitter_url' => $request->twitter,
@@ -50,6 +52,7 @@ class SocialmediaController extends Controller
         } else {
             // Insert new record
             $exists = DB::table('social_media_links')->insert([
+                'language' => $request->language,
                 'title' => $request->txtename,
                 'facebook_url' => $request->facebook,
                 'twitter_url' => $request->twitter,

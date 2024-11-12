@@ -24,11 +24,23 @@
                     @csrf
                     <div class="row">
                         <div class="col-lg-6">
+                            <div class="col-lg-6">
+                                <div class="form-group mb-4">
+                                    <label class="label" for="language">Page Language :</label>
+                                    <span class="star">*</span>
+                                    <div class="form-group position-relative">
+                                        <input type="radio" name="language" value="1">English
+                                        <input type="radio" name="language" value="2">Hindi
+                                    </div>
+                                </div>
+                                
+                            </div>
+
                             <div class="form-group mb-4">
                                 <label class="label" for="title">Title :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="name" id="name">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="title" id="title">
                                 </div>
                             </div>
                         </div>

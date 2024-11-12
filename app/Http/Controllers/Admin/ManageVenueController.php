@@ -21,7 +21,7 @@ class ManageVenueController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'page_language' => 'required|string',
+            'language' => 'required|string',
             'venue_title' => 'required|string',
             'venue_detail' => 'required|string',
             'status' => 'required|string',
@@ -60,7 +60,7 @@ class ManageVenueController extends Controller
     public function update(Request $request, ManageVenue $venue)
     {
         $request->validate([
-            'page_language' => 'required|string',
+            'language' => 'required|string',
             'venue_title' => 'required|string',
             'venue_detail' => 'required|string',
             'status' => 'required|string',

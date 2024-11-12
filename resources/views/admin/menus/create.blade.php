@@ -27,6 +27,17 @@
                 @csrf
                     <div class="row">
                         <div class="col-lg-6">
+                            <div class="col-lg-6">
+                                <div class="form-group mb-4">
+                                    <label class="label" for="menutitle">Page Language :</label>
+                                    <span class="star">*</span>
+                                    <div class="form-group position-relative">
+                                        <input type="radio" name="txtlanguage" value="1">English
+                                        <input type="radio" name="txtlanguage" value="2">Hindi
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="form-group mb-4">
                                 <label class="label" for="menutitle">Menu Title :</label>
                                 <span class="star">*</span>

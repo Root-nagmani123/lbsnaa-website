@@ -26,6 +26,12 @@
                     @csrf
                     @method('PUT')
                     <div class="row">
+                        <div class="mb-3">
+                            <label for="language" class="form-label">Page_language : *</label>
+                            <input type="radio" name="language" value="1" {{ $footerImage->language == '1' ? 'checked' : '' }}> English
+                            <input type="radio" name="language" value="2" {{ $footerImage->language == '2' ? 'checked' : '' }}> Hindi
+                        </div>
+
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="image">Image :</label>

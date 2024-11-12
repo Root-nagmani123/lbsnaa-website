@@ -15,6 +15,15 @@
                     @csrf
         @method('post')
                     <div class="row">
+                        <div class="form-group mb-4">
+                            <label class="label" for="menutitle">Page Language :</label>
+                            <span class="star">*</span>
+                            <div class="form-group position-relative">
+                                <input type="radio" name="txtlanguage" value="1" {{ $category->language == 1 ? 'checked' : '' }}> English
+                                <input type="radio" name="txtlanguage" value="2" {{ $category->language == 2 ? 'checked' : '' }}> Hindi
+                            </div>
+                        </div>
+
                         <div class="col-lg-4">
                             <div class="form-group mb-4">
                                 <label class="label" for="menutitle">Section Title :</label>

@@ -36,7 +36,7 @@
                 @foreach ($venues as $index => $venue) <!-- Use $index to generate the auto-incrementing value -->
                         <tr>
                             <td>{{ $index + 1 }}</td> <!-- Display auto-incremented index (starts from 1) -->
-                            <td>{{ $venue->page_language }}</td>
+                            <td>{{ $venue->language == 1 ? 'English' : 'Hindi' }}</td>
                             <td>{{ $venue->venue_title }}</td>
                             <td>{{ $venue->venue_detail }}</td>
                             <td>

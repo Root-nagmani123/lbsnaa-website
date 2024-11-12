@@ -15,6 +15,19 @@
                     @csrf
                     <div class="row">
                         <div class="col-lg-6">
+                         
+                            <div class="form-group mb-4">
+                                <label class="label" for="language">Page Language :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="radio" name="language" value="1" {{ $socialMedia->language == '1' ? 'checked' : '' }}> English
+                                    <input type="radio" name="language" value="2" {{ $socialMedia->language == '2' ? 'checked' : '' }}> Hindi
+                                </div>
+                            </div>
+                            
+                        </div>
+
+                        <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="txtename">Title :</label>
                                 <span class="star">*</span>

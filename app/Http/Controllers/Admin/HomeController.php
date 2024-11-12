@@ -147,6 +147,7 @@ public function footer_image_store(Request $request)
 
     // Create footer image
     HomeFooterImage::create([
+        'language' => $request->language,
         'image' => $imageName,
         'status' => $request->status ?? 0,
         'deleted_on' => null,
@@ -188,6 +189,7 @@ public function footer_image_update(Request $request, $id)
     }
 
     // Update footer image data
+    $footerImage->language = $request->language;
     $footerImage->status = $request->status ?? 0;
     $footerImage->save();
 

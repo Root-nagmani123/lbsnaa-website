@@ -14,6 +14,16 @@
                 <form action="{{ route('category.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
+
+                        <div class="form-group mb-4">
+                            <label class="label" for="menutitle">Page Language :</label>
+                            <span class="star">*</span>
+                            <div class="form-group position-relative">
+                                <input type="radio" name="txtlanguage" value="1">English
+                                <input type="radio" name="txtlanguage" value="2">Hindi
+                            </div>
+                        </div>
+                        
                         <div class="col-lg-4">
                             <div class="form-group mb-4">
                                 <label class="label" for="menutitle">Support Section Title :</label>

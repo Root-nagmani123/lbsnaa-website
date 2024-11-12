@@ -37,7 +37,7 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td> <!-- Auto-incrementing index here -->
                             <td>{{ $founder->name }}</td>
-                            <td>{{ $founder->language }}</td>
+                            <td>{{ $founder->language == 1 ? 'English' : 'Hindi' }}</td>
                             <td>
                                 @if ($founder->status == 1)
                                     Active

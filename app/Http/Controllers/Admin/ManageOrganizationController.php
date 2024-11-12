@@ -42,6 +42,7 @@ class ManageOrganizationController extends Controller
 
         // Insert the data into the database
         $facultyMember = new FacultyMember();
+        $facultyMember->language = $request->input('txtlanguage');
         $facultyMember->category = $request->input('category');
         $facultyMember->name = $request->input('name');
         $facultyMember->name_in_hindi = $request->input('name_in_hindi');
@@ -160,13 +161,7 @@ class ManageOrganizationController extends Controller
     // Staff Store
     public function staffStore(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:staff_members,email',
-            'mobile' => 'required|string|max:15|unique:staff_members,mobile',
-            'image' => 'nullable|image|max:2048',
-            'designation' => 'required|string|max:255',
-        ]);
+       
 
         $staffData = $request->all();
 
@@ -205,13 +200,13 @@ class ManageOrganizationController extends Controller
     {
         $staff = StaffMember::findOrFail($id);
 
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:staff_members,email,' . $staff->id,
-            'mobile' => 'required|string|max:15|unique:staff_members,mobile,' . $staff->id,
-            'image' => 'nullable|image|max:2048',
-            'designation' => 'required|string|max:255',
-        ]);
+        // $request->validate([
+        //     'name' => 'required|string|max:255',
+        //     'email' => 'required|email|unique:staff_members,email,' . $staff->id,
+        //     'mobile' => 'required|string|max:15|unique:staff_members,mobile,' . $staff->id,
+        //     'image' => 'nullable|image|max:2048',
+        //     'designation' => 'required|string|max:255',
+        // ]);
 
         $staffData = $request->all();
     
@@ -262,7 +257,6 @@ class ManageOrganizationController extends Controller
 
     public function sectionIndex()
     {
-        // dd('hi');
         $sections = Section::all();
         return view('admin.sections.index', compact('sections'));
     }

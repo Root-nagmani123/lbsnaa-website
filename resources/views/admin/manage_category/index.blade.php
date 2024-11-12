@@ -39,6 +39,7 @@
                     <th class="col">ID</th>
             <th class="col">Category Name</th>
             <th class="col">Category Description</th>
+            <th class="col">Language</th>
             <th class="col">Action</th>
             <th class="col">Status</th>
                 </tr>
@@ -46,9 +47,10 @@
             <tbody>
                 @foreach($category as $cat)
                         <tr>
-                            <td>{{ $cat->id }}</td>
+                            <td>{{ $loop->iteration }}</td>
                             <td>{{ $cat->section_title }}</td>
                             <td>{{ $cat->category_description }}</td>
+                            <td>{{ $cat->language == 1 ? 'English' : 'Hindi' }}</td>
                             <td>{{ $cat->status ? 'Active' : 'Inactive' }}</td>
                             <td>
                                 <a href="{{ route('category.edit', $cat->id) }}" class="btn bg-success text-white btn-sm">Edit</a>

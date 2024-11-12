@@ -29,6 +29,7 @@
                     <th class="col">Language</th>
                     <th class="col">Publish Date</th>
                     <th class="col">Expiry Date</th>
+                    <th class="col">Language</th>
                     <th class="col">Status</th>
                     <th class="col">Uploaded Document / Website Link</th> <!-- Column for document or link -->
                     <th class="col">Actions</th>
@@ -43,6 +44,7 @@
                             <td>{{ $vacancy->language }}</td>
                             <td>{{ $vacancy->publish_date }}</td>
                             <td>{{ $vacancy->expiry_date }}</td>
+                            <td>{{ $vacancy->language == 1 ? 'English' : 'Hindi' }}</td>
                             <td>
                                 @if ($vacancy->status == 1)
                                     Draft

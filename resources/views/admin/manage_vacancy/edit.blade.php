@@ -10,8 +10,8 @@
 
         <div class="form-group">
             <label for="language">Page Language</label>
-            <input type="radio" name="language" value="English" {{ $vacancy->language == 'English' ? 'checked' : '' }}> English
-            <input type="radio" name="language" value="Hindi" {{ $vacancy->language == 'Hindi' ? 'checked' : '' }}> Hindi
+            <input type="radio" name="language" value="1" {{ $vacancy->language == '1' ? 'checked' : '' }}> English
+            <input type="radio" name="language" value="2" {{ $vacancy->language == '2' ? 'checked' : '' }}> Hindi
         </div>
 
         <div class="form-group">
@@ -25,34 +25,41 @@
         </div>
 
         <div class="form-group">
-		    <label for="content_type">Content Type</label>
-		    <select class="form-control" name="content_type" id="content_type">
-		        <option value="PDF" {{ old('content_type', $vacancy->content_type) == 'PDF' ? 'selected' : '' }}>PDF File Upload</option>
-		        <option value="Website" {{ old('content_type', $vacancy->content_type) == 'Website' ? 'selected' : '' }}>Website URL</option>
-		    </select>
-		</div>
+            <label for="content_type">Content Type</label>
+            <select class="form-control" name="content_type" id="content_type">
+                <option value="PDF" {{ old('content_type', $vacancy->content_type) == 'PDF' ? 'selected' : '' }}>PDF File
+                    Upload</option>
+                <option value="Website" {{ old('content_type', $vacancy->content_type) == 'Website' ? 'selected' : '' }}>
+                    Website URL</option>
+            </select>
+        </div>
 
-		<div class="form-group" id="document_upload" style="display: {{ old('content_type', $vacancy->content_type) == 'PDF' ? 'block' : 'none' }};">
-		    <label for="document_upload">Document Upload (PDF)</label>
-		    <input type="file" class="form-control" name="document_upload">
-		    @if ($vacancy->document_upload)
-		        <a href="{{ asset('storage/' . $vacancy->document_upload) }}" target="_blank">View Current Document</a>
-		    @endif
-		</div>
+        <div class="form-group" id="document_upload"
+            style="display: {{ old('content_type', $vacancy->content_type) == 'PDF' ? 'block' : 'none' }};">
+            <label for="document_upload">Document Upload (PDF)</label>
+            <input type="file" class="form-control" name="document_upload">
+            @if ($vacancy->document_upload)
+                <a href="{{ asset('storage/' . $vacancy->document_upload) }}" target="_blank">View Current Document</a>
+            @endif
+        </div>
 
-		<div class="form-group" id="website_link" style="display: {{ old('content_type', $vacancy->content_type) == 'Website' ? 'block' : 'none' }};">
-		    <label for="website_link">Website Link</label>
-		    <input type="text" class="form-control" name="website_link" value="{{ old('website_link', $vacancy->website_link) }}">
-		</div>
+        <div class="form-group" id="website_link"
+            style="display: {{ old('content_type', $vacancy->content_type) == 'Website' ? 'block' : 'none' }};">
+            <label for="website_link">Website Link</label>
+            <input type="text" class="form-control" name="website_link"
+                value="{{ old('website_link', $vacancy->website_link) }}">
+        </div>
 
         <div class="form-group">
             <label for="publish_date">Publish Date</label>
-            <input type="date" class="form-control" name="publish_date" value="{{ old('publish_date', $vacancy->publish_date) }}">
+            <input type="date" class="form-control" name="publish_date"
+                value="{{ old('publish_date', $vacancy->publish_date) }}">
         </div>
 
         <div class="form-group">
             <label for="expiry_date">Expiry Date</label>
-            <input type="date" class="form-control" name="expiry_date" value="{{ old('expiry_date', $vacancy->expiry_date) }}">
+            <input type="date" class="form-control" name="expiry_date"
+                value="{{ old('expiry_date', $vacancy->expiry_date) }}">
         </div>
 
         <div class="form-group">
@@ -71,7 +78,7 @@
     <script>
         document.getElementById('content_type').addEventListener('change', function() {
             var contentType = this.value;
-            
+
             if (contentType === 'PDF') {
                 document.getElementById('document_upload').style.display = 'block';
                 document.getElementById('website_link').style.display = 'none';
