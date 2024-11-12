@@ -39,7 +39,7 @@ class ManageCadresController extends Controller
 
         ManageAudit::create([
             'Module_Name' => 'Cadre Module', // Static value
-            'Time_Stamp' => now(), // Current timestamp
+            'Time_Stamp' => time(), // Current timestamp
             'Created_By' => null, // ID of the authenticated user
             'Updated_By' => null, // No update on creation, so leave null
             'Action_Type' => 'Insert', // Static value
@@ -74,7 +74,7 @@ class ManageCadresController extends Controller
 
         ManageAudit::create([
             'Module_Name' => 'Cadre Module', // Static value
-            'Time_Stamp' => now(), // Current timestamp
+            'Time_Stamp' => time(), // Current timestamp
             'Created_By' => null, // ID of the authenticated user
             'Updated_By' => null, // No update on creation, so leave null
             'Action_Type' => 'Update', // Static value

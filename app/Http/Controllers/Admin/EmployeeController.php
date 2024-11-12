@@ -56,7 +56,7 @@ class EmployeeController extends Controller
 
         ManageAudit::create([
             'Module_Name' => 'Organisation Chart', // Static value
-            'Time_Stamp' => now(), // Current timestamp
+            'Time_Stamp' => time(), // Current timestamp
             'Created_By' => null, // ID of the authenticated user
             'Updated_By' => null, // No update on creation, so leave null
             'Action_Type' => 'Insert', // Static value
@@ -103,7 +103,7 @@ class EmployeeController extends Controller
 
         ManageAudit::create([
             'Module_Name' => 'Organisation Chart', // Static value
-            'Time_Stamp' => now(), // Current timestamp
+            'Time_Stamp' => time(), // Current timestamp
             'Created_By' => null, // ID of the authenticated user
             'Updated_By' => null, // No update on creation, so leave null
             'Action_Type' => 'Update', // Static value

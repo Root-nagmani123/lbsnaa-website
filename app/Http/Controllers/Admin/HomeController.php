@@ -50,7 +50,7 @@ class HomeController extends Controller
 
         ManageAudit::create([
             'Module_Name' => 'Slider', // Static value
-            'Time_Stamp' => now(), // Current timestamp
+            'Time_Stamp' => time(), // Current timestamp
             'Created_By' => null, // ID of the authenticated user
             'Updated_By' => null, // No update on creation, so leave null
             'Action_Type' => 'Insert', // Static value
@@ -93,7 +93,7 @@ class HomeController extends Controller
 
         ManageAudit::create([
             'Module_Name' => 'Section Category', // Static value
-            'Time_Stamp' => now(), // Current timestamp
+            'Time_Stamp' => time(), // Current timestamp
             'Created_By' => null, // ID of the authenticated user
             'Updated_By' => null, // No update on creation, so leave null
             'Action_Type' => 'Update', // Static value
@@ -154,7 +154,7 @@ public function footer_image_store(Request $request)
 
     ManageAudit::create([
         'Module_Name' => 'Footer Image', // Static value
-        'Time_Stamp' => now(), // Current timestamp
+        'Time_Stamp' => time(), // Current timestamp
         'Created_By' => null, // ID of the authenticated user
         'Updated_By' => null, // No update on creation, so leave null
         'Action_Type' => 'Insert', // Static value
@@ -193,7 +193,7 @@ public function footer_image_update(Request $request, $id)
 
     ManageAudit::create([
         'Module_Name' => 'Footer Image', // Static value
-        'Time_Stamp' => now(), // Current timestamp
+        'Time_Stamp' => time(), // Current timestamp
         'Created_By' => null, // ID of the authenticated user
         'Updated_By' => null, // No update on creation, so leave null
         'Action_Type' => 'Update', // Static value
@@ -258,7 +258,7 @@ public function footer_images_status_update(Request $request, $id)
 
     ManageAudit::create([
         'Module_Name' => 'Quick Link', // Static value
-        'Time_Stamp' => now(), // Current timestamp
+        'Time_Stamp' => time(), // Current timestamp
         'Created_By' => null, // ID of the authenticated user
         'Updated_By' => null, // No update on creation, so leave null
         'Action_Type' => 'Insert', // Static value
@@ -300,7 +300,7 @@ public function footer_images_status_update(Request $request, $id)
 
         ManageAudit::create([
             'Module_Name' => 'Quick Link', // Static value
-            'Time_Stamp' => now(), // Current timestamp
+            'Time_Stamp' => time(), // Current timestamp
             'Created_By' => null, // ID of the authenticated user
             'Updated_By' => null, // No update on creation, so leave null
             'Action_Type' => 'Update', // Static value
