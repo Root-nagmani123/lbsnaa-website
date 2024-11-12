@@ -26,6 +26,7 @@
                     <th class="col">Survey Title</th>
                     <th class="col">Start Date </th>
                     <th class="col">Expire Date </th>
+                    <th class="col">language</th>
                     <th class="col">Status</th>
                     <th class="col">Actions</th>
                 </tr>
@@ -37,6 +38,7 @@
                             <td>{{ $record->survey_title }}</td>
                             <td>{{ $record->start_date }}</td>
                             <td>{{ $record->end_date }}</td>
+                            <td>{{ $record->language == 1 ? 'English' : 'Hindi' }}</td>
                             <td>{{ $record->status ? 'Active' : 'Inactive' }}</td>
                             <td>
                                 <a href="{{ route('survey.edit', $record->id) }}" class="btn bg-success text-white btn-sm">Edit</a>

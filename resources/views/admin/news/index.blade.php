@@ -24,6 +24,7 @@
                         <tr class="text-center">
                             <th class="col">Title</th>
                             <th class="col">Start Date</th>
+                            <th class="col">Language</th>
                             <th class="col">Status</th>
                             <th class="col">Actions</th>
                         </tr>
@@ -33,6 +34,7 @@
                         <tr>
                            <td>{{ $item->title }}</td>
                             <td>{{ $item->start_date }}</td>
+                            <td>{{ $item->language == 1 ? 'English' : 'Hindi' }}</td>
                             <td>{{ $item->status ? 'Active' : 'Inactive' }}</td>
                             <td>
                                 <a href="{{ route('admin.news.edit', $item->id) }}"

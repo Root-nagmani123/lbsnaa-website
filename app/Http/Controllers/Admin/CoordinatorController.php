@@ -25,7 +25,7 @@ class CoordinatorController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'page_language' => 'required|string',
+            'language' => 'required|string',
             'coordinator_name' => 'required|string|max:255',
             'status' => 'required|string',
         ]);
@@ -55,7 +55,7 @@ class CoordinatorController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'page_language' => 'required|string',
+            'language' => 'required|string',
             'coordinator_name' => 'required|string|max:255',
             'status' => 'required|string',
         ]);

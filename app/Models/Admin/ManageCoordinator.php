@@ -10,7 +10,7 @@ class ManageCoordinator extends Model
     use HasFactory;
 
     protected $fillable = [
-        'page_language',
+        'language',
         'coordinator_name',
         'status',
     ];

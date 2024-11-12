@@ -1,10 +1,13 @@
 <div class="form-group">
     <label>Page Language:</label>
-    <div>
-        <label><input type="radio" name="language" value="English"
-                {{ old('language', $manageTender->language ?? '') == 'English' ? 'checked' : '' }}> English</label>
-        <label><input type="radio" name="language" value="Hindi"
-                {{ old('language', $manageTender->language ?? '') == 'Hindi' ? 'checked' : '' }}> Hindi</label>
+    <span class="star">*</span>
+    <div class="col-lg-6">
+            <div class="form-group mb-4">
+                <div class="form-group position-relative">
+                    <input type="radio" name="language" value="1" {{ old('language', $manageTender->language ?? '') == 1 ? 'checked' : '' }}> English
+                    <input type="radio" name="language" value="2" {{ old('language', $manageTender->language ?? '') == 2 ? 'checked' : '' }}> Hindi
+            </div>
+        </div>
     </div>
     @error('language')
     <div class="text-danger">{{ $message }}</div>

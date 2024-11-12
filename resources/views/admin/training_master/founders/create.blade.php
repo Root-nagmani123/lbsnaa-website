@@ -13,20 +13,12 @@
                 <form action="{{ route('founders.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-                        <div class="col-lg-4">
-                            <div class="form-group mb-4">
-                                <label class="label" for="language">Page Language :</label>
-                                <span class="star">*</span>
-                                <div class="form-group position-relative">
-                                    <input class="form-check-input" type="radio" name="language" value="english">
-                                    <label class="form-check-label" for="english">
-                                        English
-                                    </label>
-                                    <input class="form-check-input" type="radio" name="language" value="hindi">
-                                    <label class="form-check-label" for="hindi">
-                                        Hindi
-                                    </label>
-                                </div>
+                        <div class="form-group mb-4">
+                            <label class="label" for="menutitle">Page Language :</label>
+                            <span class="star">*</span>
+                            <div class="form-group position-relative">
+                                <input type="radio" name="language" value="1">English
+                                <input type="radio" name="language" value="2">Hindi
                             </div>
                         </div>
                         <div class="col-lg-4">

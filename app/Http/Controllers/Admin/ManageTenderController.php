@@ -26,16 +26,16 @@ class ManageTenderController extends Controller
     public function store(Request $request)
     {
         // Validate the form
-        $request->validate([
-	        'language' => 'required',
-	        'type' => 'required',
-	        'title' => 'required|string|max:255',
-	        'description' => 'required|string',
-	        'file' => 'required|mimes:pdf,png,jpg|max:2048',
-	        'publish_date' => 'required|date',
-	        'expiry_date' => 'required|date|after_or_equal:publish_date',
-	        'status' => 'required|integer|in:1,2,3',
-	    ]);
+        // $request->validate([
+	    //     'txtlanguage' => 'required',
+	    //     'type' => 'required',
+	    //     'title' => 'required|string|max:255',
+	    //     'description' => 'required|string',
+	    //     'file' => 'required|mimes:pdf,png,jpg|max:2048',
+	    //     'publish_date' => 'required|date',
+	    //     'expiry_date' => 'required|date|after_or_equal:publish_date',
+	    //     'status' => 'required|integer|in:1,2,3',
+	    // ]);
 
 
         if ($request->hasFile('file')) {
@@ -46,7 +46,7 @@ class ManageTenderController extends Controller
 
         // Save the tender
         $tender = ManageTender::create([
-            'language' => $request->language,
+            'language' => $request->txtlanguage,
             'type' => $request->type,
             'title' => $request->title,
             'description' => $request->description,
@@ -104,7 +104,7 @@ class ManageTenderController extends Controller
 
         // Update the tender
         $manageTender->update([
-            'language' => $request->language,
+            'language' => $request->txtlanguage,
             'type' => $request->type,
             'title' => $request->title,
             'description' => $request->description,

@@ -33,7 +33,7 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td> 
                             <td>{{ $organiser->organiser_name }}</td>
-                            <td>{{ ucfirst($organiser->language) }}</td>
+                            <td>{{ $organiser->language == 1 ? 'English' : 'Hindi' }}</td>
                             <td>
                                 @if ($organiser->status == 1)
                                     Active

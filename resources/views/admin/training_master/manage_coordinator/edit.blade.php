@@ -14,19 +14,13 @@
                     @csrf
                     @method('PUT')
                     <div class="row">
-                        <div class="col-lg-4">
+                        <div class="col-lg-6">
                             <div class="form-group mb-4">
-                                <label class="label" for="page_language">Page Language :</label>
+                                <label class="label" for="menutitle">Page Language :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input class="form-check-input" type="radio" name="page_language" value="english" {{ $coordinator->page_language === 'English' ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="english">
-                                        English
-                                    </label>
-                                    <input class="form-check-input" type="radio" name="page_language" value="hindi" {{ $coordinator->page_language === 'Hindi' ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="hindi">
-                                        Hindi
-                                    </label>
+                                    <input type="radio" name="language" value="1" {{ $coordinator->language == '1' ? 'checked' : '' }}> English
+                                    <input type="radio" name="language" value="2" {{ $coordinator->language == '2' ? 'checked' : '' }}> Hindi
                                 </div>
                             </div>
                         </div>

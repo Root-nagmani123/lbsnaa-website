@@ -33,6 +33,7 @@ class ManageCadresController extends Controller
             'status' => 'required|string',
         ]);
 
+
         // Convert status to integer
         $validated['status'] = $request->status === 'active' ? 1 : 2;
         $cadres = ManageCadres::create($request->all());
@@ -60,12 +61,12 @@ class ManageCadresController extends Controller
     // Update cadre details
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'code' => 'required',
-            'description' => 'required',
-            'language' => 'required',
-            'status' => 'required|string',
-        ]);
+        // $request->validate([
+        //     'code' => 'required',
+        //     'description' => 'required',
+        //     'language' => 'required',
+        //     'status' => 'required|string',
+        // ]);
 
         // Convert status to integer
         $validated['status'] = $request->status === 'active' ? 1 : 2;

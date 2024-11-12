@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class HomeFooterImage extends Model
 {
     use HasFactory;
-    protected $fillable = ['image', 'status', 'deleted_on'];
+    protected $fillable = ['language','image', 'status', 'deleted_on'];
 }

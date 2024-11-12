@@ -35,7 +35,7 @@
                 @foreach ($coordinators as $coordinator)
                         <tr>
                             <td>{{ $loop->iteration }}</td> <!-- Auto-incrementing index -->
-                            <td>{{ $coordinator->page_language }}</td>
+                            <td>{{ $coordinator->language == 1 ? 'English' : 'Hindi' }}</td>
                             <td>{{ $coordinator->coordinator_name }}</td>
                             <td>
                                 @if ($coordinator->status == 1)

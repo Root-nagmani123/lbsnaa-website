@@ -11,6 +11,15 @@
         @csrf
         
         <div class="form-group">
+            <label for="language">Page language :</label>
+            <span class="star">*</span>
+            <input type="radio" name="language" value="1" {{ $survey->language == '1' ? 'checked' : '' }}> English
+            <input type="radio" name="language" value="2" {{ $survey->language == '2' ? 'checked' : '' }}> Hindi            @error('survey_title')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div class="form-group">
             <label for="survey_title">Survey Title </label>
             <span class="star">*</span>
             <input type="text" name="survey_title" id="survey_title" class="form-control" value="{{ old('survey_title', $survey->survey_title) }}">

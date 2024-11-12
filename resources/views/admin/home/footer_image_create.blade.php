@@ -25,6 +25,12 @@
                 <form action="{{ route('admin.footer_images.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
+                        <div class="mb-3">
+                            <label for="language" class="form-label">Page_language :</label>
+                            <input type="radio" name="language" value="1">English
+                            <input type="radio" name="language" value="2">Hindi
+                        </div>
+
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="image">Image :</label>
@@ -52,5 +58,4 @@
             </div>
         </div>
     </div>
-</div>
 @endsection

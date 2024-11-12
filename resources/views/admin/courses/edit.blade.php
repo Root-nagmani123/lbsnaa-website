@@ -6,6 +6,13 @@
 <form action="{{ route('admin.courses.update', $course->id) }}" method="POST">
     @csrf
     @method('PUT')
+
+    <div class="form-group">
+        <label>Page Language  *</label>
+        <input type="radio" name="language" value="1" {{ $course->language == '1' ? 'checked' : '' }}> English
+        <input type="radio" name="language" value="2" {{ $course->language == '2' ? 'checked' : '' }}> Hindi
+        </div>
+
     <div class="form-group">
         <label>Course Name *</label>
         <input type="text" name="course_name" class="form-control" value="{{ $course->course_name }}" required>

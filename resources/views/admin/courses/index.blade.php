@@ -37,6 +37,7 @@
                             <th class="col">ID</th>
                             <th class="col">Course Name</th>
                             <th class="col">Abbreviation</th>
+                            <th class="col">Language</th>
                             <th class="col">Actions</th>
                         </tr>
                     </thead>
@@ -46,6 +47,7 @@
             <td>{{ $course->id }}</td>
             <td>{{ $course->course_name }}</td>
             <td>{{ $course->abbreviation }}</td>
+            <td>{{ $course->language == 1 ? 'English' : 'Hindi' }}</td>
                             <td>
                                 <a href="{{ route('admin.courses.edit', $course->id) }}"
                                     class="btn bg-success text-white btn-sm">Edit</a>

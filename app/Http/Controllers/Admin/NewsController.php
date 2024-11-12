@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\File;
 
 use App\Models\Admin\ManageAudit;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str; 
 
 class NewsController extends Controller
 {
@@ -28,15 +29,16 @@ class NewsController extends Controller
     // Store new news
     public function store(Request $request)
     {
-        $request->validate([
-            'title' => 'required',
-            'short_description' => 'required',
-            'meta_title' => 'required',
-            'description' => 'required',
-            'main_image' => 'required|image|mimes:jpeg,png,jpg',
-            'multiple_images.*' => 'image|mimes:jpeg,png,jpg',
-            'start_date' => 'required|date',
-        ]);
+        // $request->validate([
+        //     'language' => 'required',
+        //     'title' => 'required',
+        //     'short_description' => 'required',
+        //     'meta_title' => 'required',
+        //     'description' => 'required',
+        //     'main_image' => 'required|image|mimes:jpeg,png,jpg',
+        //     'multiple_images.*' => 'image|mimes:jpeg,png,jpg',
+        //     'start_date' => 'required|date',
+        // ]);
         $news = new News();
 
         if ($request->hasFile('main_image')) {
@@ -56,6 +58,7 @@ class NewsController extends Controller
         }
 
         // Set other news attributes
+        $news->language = $request->language;
         $news->title = $request->title;
         $news->short_description = $request->short_description;
         $news->meta_title = $request->meta_title;
@@ -66,7 +69,7 @@ class NewsController extends Controller
         $news->end_date = $request->end_date;
         $news->status = $request->status;
 
-        $news->title_slug = Str::slug($request->title, '-');
+        // $news->title_slug = Str::slug($request->title, '-');
 
         // Save the news instance
         $news = $news->save();
@@ -142,6 +145,7 @@ class NewsController extends Controller
         }
 
         // Update other news attributes
+        $news->language = $request->language;
         $news->title = $request->title;
         $news->short_description = $request->short_description;
         $news->meta_title = $request->meta_title;
@@ -151,7 +155,7 @@ class NewsController extends Controller
         $news->start_date = $request->start_date;
         $news->end_date = $request->end_date;
         $news->status = $request->status;
-        $news->title_slug = Str::slug($request->title, '-');
+        // $news->title_slug = Str::slug($request->title, '-');
 
         // Save the updated news instance
         $news = $news->save();

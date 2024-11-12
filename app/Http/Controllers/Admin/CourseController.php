@@ -42,7 +42,8 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->language)
+;        //
         $course = DB::table('course')->insert($request->except('_token'));
 
         ManageAudit::create([

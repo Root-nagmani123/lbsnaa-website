@@ -12,6 +12,7 @@ class StaffMember extends Model
 
     // Specify which fields can be mass-assigned
     protected $fillable = [
+        'language',
         'name',
         'name_in_hindi',
         'email',

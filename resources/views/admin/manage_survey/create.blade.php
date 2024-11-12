@@ -10,6 +10,16 @@
     <form action="{{ route('survey.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
+
+        <div class="form-group">
+            <label for="language">Page language :</label>
+            <span class="star">*</span>
+            <input type="radio" name="language" value="1">English
+            <input type="radio" name="language" value="2">Hindi            @error('survey_title')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div> 
+
         <div class="form-group">
             <label for="survey_title">Survey Title </label>
             <span class="star">*</span>

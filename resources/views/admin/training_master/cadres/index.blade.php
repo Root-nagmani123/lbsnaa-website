@@ -38,7 +38,7 @@
                             <td>{{ $cadre->id }}</td>
                             <td>{{ $cadre->code }}</td>
                             <td>{{ $cadre->description }}</td>
-                            <td>{{ $cadre->language }}</td>
+                            <td>{{ $cadre->language == 1 ? 'English' : 'Hindi' }}</td>
                             <td>
                                 @if ($cadre->status == 1)
                                     Active

@@ -103,6 +103,7 @@ class MenuController extends Controller
     {
         // print_r($_POST);die;
         $menu = new Menu();
+        $menu->language = $request->txtlanguage;
         $menu->menutitle = $request->menutitle;
         $menu->texttype = $request->texttype;
         $menu->menucategory = $request->menucategory;

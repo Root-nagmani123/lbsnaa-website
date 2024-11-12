@@ -28,6 +28,7 @@ class SurveyController extends Controller
     public function surveyStore(Request $request)
     {
         $request->validate([
+            'language' => 'required',
             'survey_title' => 'required',
             'startdate' => 'required|date',
             'expairydate' => 'required|date|after_or_equal:startdate',
@@ -36,6 +37,7 @@ class SurveyController extends Controller
 
         // Insert the survey data into the database
         $survey = DB::table('manage_surveys')->insert([
+            'language' => $request->language,
             'survey_title' => $request->survey_title,
             'start_date' => $request->startdate,
             'end_date' => $request->expairydate,
@@ -70,6 +72,7 @@ public function surveyUpdate(Request $request, $id)
 {
     // Validate the incoming request data
     $request->validate([
+        'language' => 'required',
         'survey_title' => 'required',
         'startdate' => 'required|date',
         'expairydate' => 'required|date|after_or_equal:startdate',
@@ -78,6 +81,7 @@ public function surveyUpdate(Request $request, $id)
 
     // Update the survey data in the database
     $survey = DB::table('manage_surveys')->where('id', $id)->update([
+        'language' => $request->language,
         'survey_title' => $request->survey_title,
         'start_date' => $request->startdate,
         'end_date' => $request->expairydate,
