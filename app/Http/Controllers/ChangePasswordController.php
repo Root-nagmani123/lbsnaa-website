@@ -36,7 +36,7 @@ class ChangePasswordController extends Controller
 
             ManageAudit::create([
                 'Module_Name' => 'Incorrect Password', // Static value
-                'Time_Stamp' => now(), // Current timestamp
+                'Time_Stamp' => time(), // Current timestamp
                 'Created_By' => null, // ID of the authenticated user
                 'Updated_By' => null, // No update on creation, so leave null
                 'Action_Type' => 'Update', // Static value
@@ -52,7 +52,7 @@ class ChangePasswordController extends Controller
     
         ManageAudit::create([
             'Module_Name' => 'Change Password', // Static value
-            'Time_Stamp' => now(), // Current timestamp
+            'Time_Stamp' => time(), // Current timestamp
             'Created_By' => null, // ID of the authenticated user
             'Updated_By' => null, // No update on creation, so leave null
             'Action_Type' => 'Update', // Static value

@@ -38,7 +38,7 @@ class TrainingManagementController extends Controller
 
         ManageAudit::create([
             'Module_Name' => 'Category Module', // Static value
-            'Time_Stamp' => now(), // Current timestamp
+            'Time_Stamp' => time(), // Current timestamp
             'Created_By' => null, // ID of the authenticated user
             'Updated_By' => null, // No update on creation, so leave null
             'Action_Type' => 'Insert', // Static value
@@ -67,7 +67,7 @@ class TrainingManagementController extends Controller
 
         ManageAudit::create([
             'Module_Name' => 'Category Module', // Static value
-            'Time_Stamp' => now(), // Current timestamp
+            'Time_Stamp' => time(), // Current timestamp
             'Created_By' => null, // ID of the authenticated user
             'Updated_By' => null, // No update on creation, so leave null
             'Action_Type' => 'Update', // Static value
@@ -109,7 +109,7 @@ class TrainingManagementController extends Controller
 
         ManageAudit::create([
             'Module_Name' => 'Country Module', // Static value
-            'Time_Stamp' => now(), // Current timestamp
+            'Time_Stamp' => time(), // Current timestamp
             'Created_By' => null, // ID of the authenticated user
             'Updated_By' => null, // No update on creation, so leave null
             'Action_Type' => 'Insert', // Static value
@@ -137,7 +137,7 @@ class TrainingManagementController extends Controller
 
         ManageAudit::create([
             'Module_Name' => 'Country Module', // Static value
-            'Time_Stamp' => now(), // Current timestamp
+            'Time_Stamp' => time(), // Current timestamp
             'Created_By' => null, // ID of the authenticated user
             'Updated_By' => null, // No update on creation, so leave null
             'Action_Type' => 'Update', // Static value
@@ -179,7 +179,7 @@ class TrainingManagementController extends Controller
 
         ManageAudit::create([
             'Module_Name' => 'State Module', // Static value
-            'Time_Stamp' => now(), // Current timestamp
+            'Time_Stamp' => time(), // Current timestamp
             'Created_By' => null, // ID of the authenticated user
             'Updated_By' => null, // No update on creation, so leave null
             'Action_Type' => 'Insert', // Static value
@@ -207,7 +207,7 @@ class TrainingManagementController extends Controller
 
         ManageAudit::create([
             'Module_Name' => 'State Module', // Static value
-            'Time_Stamp' => now(), // Current timestamp
+            'Time_Stamp' => time(), // Current timestamp
             'Created_By' => null, // ID of the authenticated user
             'Updated_By' => null, // No update on creation, so leave null
             'Action_Type' => 'Update', // Static value
@@ -251,7 +251,7 @@ class TrainingManagementController extends Controller
 
         ManageAudit::create([
             'Module_Name' => 'District Module', // Static value
-            'Time_Stamp' => now(), // Current timestamp
+            'Time_Stamp' => time(), // Current timestamp
             'Created_By' => null, // ID of the authenticated user
             'Updated_By' => null, // No update on creation, so leave null
             'Action_Type' => 'Insert', // Static value
@@ -280,7 +280,7 @@ class TrainingManagementController extends Controller
 
         ManageAudit::create([
             'Module_Name' => 'District Module', // Static value
-            'Time_Stamp' => now(), // Current timestamp
+            'Time_Stamp' => time(), // Current timestamp
             'Created_By' => null, // ID of the authenticated user
             'Updated_By' => null, // No update on creation, so leave null
             'Action_Type' => 'Update', // Static value
@@ -327,7 +327,7 @@ class TrainingManagementController extends Controller
 
         ManageAudit::create([
             'Module_Name' => 'Exam Module', // Static value
-            'Time_Stamp' => now(), // Current timestamp
+            'Time_Stamp' => time(), // Current timestamp
             'Created_By' => null, // ID of the authenticated user
             'Updated_By' => null, // No update on creation, so leave null
             'Action_Type' => 'Insert', // Static value
@@ -360,7 +360,7 @@ class TrainingManagementController extends Controller
 
         ManageAudit::create([
             'Module_Name' => 'Exam Module', // Static value
-            'Time_Stamp' => now(), // Current timestamp
+            'Time_Stamp' => time(), // Current timestamp
             'Created_By' => null, // ID of the authenticated user
             'Updated_By' => null, // No update on creation, so leave null
             'Action_Type' => 'Update', // Static value

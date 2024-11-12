@@ -39,6 +39,9 @@
                                 </div>
                             </div>
                         </div>
+
+
+
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="cadres_desc">Cadres Desc :</label>
@@ -49,6 +52,9 @@
                                 </div>
                             </div>
                         </div>
+
+
+
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="texttype">Status :</label>
@@ -75,4 +81,23 @@
     </div>
 </div>
 
+
+<!-- Include Quill library -->
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+
+<script>
+    // Initialize the Quill editor
+    var quill = new Quill('#editor-container', {
+        modules: {
+            toolbar: '#toolbar-container'
+        },
+        theme: 'snow'
+    });
+
+    // Transfer the editor content to the hidden input on form submission
+    document.getElementById('cadreForm').onsubmit = function() {
+        document.getElementById('cadres_desc').value = quill.root.innerHTML;
+    };
+</script>
 @endsection

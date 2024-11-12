@@ -46,7 +46,7 @@ class ManageSouvenirController extends Controller
 
         ManageAudit::create([
             'Module_Name' => 'Souvenir Module', // Static value
-            'Time_Stamp' => now(), // Current timestamp
+            'Time_Stamp' => time(), // Current timestamp
             'Created_By' => null, // ID of the authenticated user
             'Updated_By' => null, // No update on creation, so leave null
             'Action_Type' => 'Insert', // Static value
@@ -89,7 +89,7 @@ class ManageSouvenirController extends Controller
 
             ManageAudit::create([
                 'Module_Name' => 'Souvenir Module', // Static value
-                'Time_Stamp' => now(), // Current timestamp
+                'Time_Stamp' => time(), // Current timestamp
                 'Created_By' => null, // ID of the authenticated user
                 'Updated_By' => null, // No update on creation, so leave null
                 'Action_Type' => 'Update', // Static value
@@ -175,7 +175,7 @@ class ManageSouvenirController extends Controller
 
         ManageAudit::create([
             'Module_Name' => 'Academy Souvenir Module', // Static value
-            'Time_Stamp' => now(), // Current timestamp
+            'Time_Stamp' => time(), // Current timestamp
             'Created_By' => null, // ID of the authenticated user
             'Updated_By' => null, // No update on creation, so leave null
             'Action_Type' => 'Insert', // Static value
@@ -262,7 +262,7 @@ class ManageSouvenirController extends Controller
 
     ManageAudit::create([
         'Module_Name' => 'Academy Souvenir Module', // Static value
-        'Time_Stamp' => now(), // Current timestamp
+        'Time_Stamp' => time(), // Current timestamp
         'Created_By' => null, // ID of the authenticated user
         'Updated_By' => null, // No update on creation, so leave null
         'Action_Type' => 'Insert', // Static value

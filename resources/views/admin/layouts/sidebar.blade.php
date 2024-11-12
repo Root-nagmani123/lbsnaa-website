@@ -301,7 +301,7 @@
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="#" class="menu-link">
+                    <a href="{{ route('training-programs.index') }}" class="menu-link">
                     <i class="material-icons menu-icon">model_training</i>
                         <span class="title">Manage Training Programs</span>
                     </a>

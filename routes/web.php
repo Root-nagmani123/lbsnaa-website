@@ -46,6 +46,12 @@ use App\Http\Controllers\Admin\ManageAuditController;
 
 // Indrajeet
 
+// For Micro Website
+
+use App\Http\Controllers\Admin\Micro\TrainingProgramController;
+use App\Http\Controllers\Admin\Micro\OrganizationSetupController;
+
+
 
 
 /*
@@ -277,6 +283,10 @@ Route::prefix('admin')->group(function () {
     Route::get('/manage_events/{id}/edit', [ManageEventsController::class, 'edit'])->name('manage_events.edit');
     Route::put('/manage_events/{id}', [ManageEventsController::class, 'update'])->name('manage_events.update');
     Route::get('/manage-audit', [ManageAuditController::class, 'index'])->name('manage_audit.index');
+
+    // For Micro Website
+    Route::resource('training-programs', TrainingProgramController::class);
+    Route::resource('organization_setups', OrganizationSetupController::class);
 });
 // Indrajeet
 
@@ -297,3 +307,5 @@ Route::prefix('admin')->name('admin.')->group(function () {
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/admin/login', [LoginController::class, 'authenticate'])->name('admin.login');
 Route::post('/admin/logout', [LoginController::class, 'logout'])->name('admin.logout');
+
+
