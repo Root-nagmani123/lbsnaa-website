@@ -91,7 +91,7 @@
                                 <label class="label" for="section">Section :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="section" id="section" required>
+                                    <select class="form-select form-control ps-5 h-58" name="section" id="section">
                                         <option value="" class="text-dark">Select Section</option>
                                     </select>
                                 </div>
