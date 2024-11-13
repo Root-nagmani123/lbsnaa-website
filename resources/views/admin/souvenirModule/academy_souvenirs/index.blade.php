@@ -45,6 +45,7 @@
                             <th class="col">Product Category</th>
                             <th class="col">Product Title</th>
                             <th class="col">Product Type</th>
+                            <th class="col">Language</th>
                             <th class="col">Status</th>
                             <th class="col">Actions</th>
                         </tr>
@@ -56,6 +57,7 @@
                             <td>{{ $souvenir->product_category }}</td>
                             <td>{{ $souvenir->product_title }}</td>
                             <td>{{ $souvenir->product_type }}</td>
+                            <td>{{ $souvenir->language == 1 ? 'English' : 'Hindi' }}</td>
                             <td>{{ $souvenir->product_status ? 'Active' : 'Inactive' }}</td>
                             <td>
                                 <a href="{{ route('academy_souvenirs.edit', $souvenir->id) }}"

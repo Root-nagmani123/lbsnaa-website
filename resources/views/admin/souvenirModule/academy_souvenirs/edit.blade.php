@@ -11,6 +11,16 @@
         @method('PUT')
 
         <div class="mb-3">
+            <label class="label" for="menutitle">Page Language :</label>
+            <span class="star">*</span>
+            <div class="form-group position-relative">
+                <input type="radio" name="language" value="1" {{ $souvenir->language == '1' ? 'checked' : '' }}> English
+                <input type="radio" name="language" value="2" {{ $souvenir->language == '2' ? 'checked' : '' }}> Hindi
+            </div>
+        </div>
+
+
+        <div class="mb-3">
             <label for="product_category" class="form-label">Product Category</label>
             <select name="product_category" id="product_category" class="form-control" required>
                 <!-- Options -->
