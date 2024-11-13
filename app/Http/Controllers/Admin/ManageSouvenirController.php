@@ -128,19 +128,20 @@ class ManageSouvenirController extends Controller
     // Store a new Academy Souvenir
     public function storeAcademySouvenir(Request $request)
     {
-        $request->validate([
-            'language' => 'required',
-            'product_category' => 'required|integer',
-            'product_title' => 'required|string|max:255',
-            'product_type' => 'required|in:Sale,Download',
-            'product_price' => 'nullable|numeric|required_if:product_type,Sale',
-            'product_discounted_price' => 'nullable|numeric',
-            'contact_email_id' => 'nullable|email|required_if:product_type,Sale',
-            'document_upload' => 'nullable|file|required_if:product_type,Download',
-            'upload_image' => 'required|file|image',
-            'product_description' => 'nullable|string',
-            'product_status' => 'required|boolean',
-        ]);
+        // dd("deded");
+        // $request->validate([
+        //     'language' => 'required',
+        //     'product_category' => 'required|integer',
+        //     'product_title' => 'required|string|max:255',
+        //     'product_type' => 'required|in:Sale,Download',
+        //     'product_price' => 'nullable|numeric|required_if:product_type,Sale',
+        //     'product_discounted_price' => 'nullable|numeric',
+        //     'contact_email_id' => 'nullable|email|required_if:product_type,Sale',
+        //     'document_upload' => 'nullable|file|required_if:product_type,Download',
+        //     'upload_image' => 'required|file|image',
+        //     'product_description' => 'nullable|string',
+        //     'product_status' => 'required|boolean',
+        // ]);
 
         // Handle file uploads
         // $document_upload = $request->file('document_upload') ? $request->file('document_upload')->store('documents') : null;
@@ -199,19 +200,19 @@ class ManageSouvenirController extends Controller
     // Update Academy Souvenir
     public function updateAcademySouvenir(Request $request, $id)
 {
-    $request->validate([
-        'language' => 'required',
-        'product_category' => 'required|integer',
-        'product_title' => 'required|string|max:255',
-        'product_type' => 'required|in:Sale,Download',
-        'product_price' => 'nullable|numeric|required_if:product_type,Sale',
-        'product_discounted_price' => 'nullable|numeric',
-        'contact_email_id' => 'nullable|email|required_if:product_type,Sale',
-        'document_upload' => 'nullable|file|required_if:product_type,Download',
-        'upload_image' => 'nullable|file|image',
-        'product_description' => 'nullable|string',
-        'product_status' => 'required|boolean',
-    ]);
+    // $request->validate([
+    //     'language' => 'required',
+    //     'product_category' => 'required|integer',
+    //     'product_title' => 'required|string|max:255',
+    //     'product_type' => 'required|in:Sale,Download',
+    //     'product_price' => 'nullable|numeric|required_if:product_type,Sale',
+    //     'product_discounted_price' => 'nullable|numeric',
+    //     'contact_email_id' => 'nullable|email|required_if:product_type,Sale',
+    //     'document_upload' => 'nullable|file|required_if:product_type,Download',
+    //     'upload_image' => 'nullable|file|image',
+    //     'product_description' => 'nullable|string',
+    //     'product_status' => 'required|boolean',
+    // ]);
 
     // Handle file uploads
     $document_upload = $request->input('old_document_upload'); // default to old document if no new file

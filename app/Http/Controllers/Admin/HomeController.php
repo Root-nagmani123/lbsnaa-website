@@ -29,11 +29,11 @@ class HomeController extends Controller
     // Store a newly created slider in the database
     public function slider_store(Request $request)
     {
-        $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif',
-            'text' => 'required',
-            'description' => 'required',
-        ]);
+        // $request->validate([
+        //     'image' => 'required|image|mimes:jpeg,png,jpg,gif',
+        //     'text' => 'required',
+        //     'description' => 'required',
+        // ]);
 
         // Save image
         $imageName = time() . '.' . $request->image->extension();
@@ -70,11 +70,11 @@ class HomeController extends Controller
     // Update an existing slider in the database
     public function slider_update(Request $request, $id)
     {
-        $request->validate([
-            'image' => 'image|mimes:jpeg,png,jpg,gif',
-            'text' => 'required',
-            'description' => 'required',
-        ]);
+        // $request->validate([
+        //     'image' => 'image|mimes:jpeg,png,jpg,gif',
+        //     'text' => 'required',
+        //     'description' => 'required',
+        // ]);
 
         $slider = Slider::findOrFail($id);
 
@@ -137,9 +137,9 @@ public function footer_image_create()
 // Store a newly created footer image in the database
 public function footer_image_store(Request $request)
 {
-    $request->validate([
-        'image' => 'required|image|mimes:jpeg,png,jpg,gif',
-    ]);
+    // $request->validate([
+    //     'image' => 'required|image|mimes:jpeg,png,jpg,gif',
+    // ]);
 
     // Save image
     $imageName = time() . '.' . $request->image->extension();
@@ -175,9 +175,9 @@ public function footer_image_edit($id)
 // Update an existing footer image in the database
 public function footer_image_update(Request $request, $id)
 {
-    $request->validate([
-        'image' => 'image|mimes:jpeg,png,jpg,gif',
-    ]);
+    // $request->validate([
+    //     'image' => 'image|mimes:jpeg,png,jpg,gif',
+    // ]);
 
     $footerImage = HomeFooterImage::findOrFail($id);
 

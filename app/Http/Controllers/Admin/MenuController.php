@@ -128,14 +128,14 @@ class MenuController extends Controller
 
         $menu->save();
 
-        ManageAudit::create([
-            'Module_Name' => 'Menu Module',
-            'Time_Stamp' => now(),
-            'Created_By' => null,
-            'Updated_By' => null,
-            'Action_Type' => 'Insert',
-            'IP_Address' => $request->ip(),
-        ]);
+        // ManageAudit::create([
+        //     'Module_Name' => 'Menu Module',
+        //     'Time_Stamp' => now(),
+        //     'Created_By' => null,
+        //     'Updated_By' => null,
+        //     'Action_Type' => 'Insert',
+        //     'IP_Address' => $request->ip(),
+        // ]);
 
         return redirect()->route('admin.menus.index')->with('success', 'Menu created successfully.');
     }
@@ -165,7 +165,7 @@ class MenuController extends Controller
     public function update(Request $request, $id)
     {
         $menu = Menu::findOrFail($id);
-
+        $menu->language = $request->txtlanguage;
         $menu->menutitle = $request->menutitle;
         $menu->texttype = $request->texttype;
         $menu->menucategory = $request->menucategory;
@@ -193,14 +193,14 @@ class MenuController extends Controller
 
         $menu->save();
 
-        ManageAudit::create([
-            'Module_Name' => 'Menu Module',
-            'Time_Stamp' => now(),
-            'Created_By' => null,
-            'Updated_By' => null,
-            'Action_Type' => 'Update',
-            'IP_Address' => $request->ip(),
-        ]);
+        // ManageAudit::create([
+        //     'Module_Name' => 'Menu Module',
+        //     'Time_Stamp' => now(),
+        //     'Created_By' => null,
+        //     'Updated_By' => null,
+        //     'Action_Type' => 'Update',
+        //     'IP_Address' => $request->ip(),
+        // ]);
 
         return redirect()->route('admin.menus.index')->with('success', 'Menu updated successfully.');
     }
