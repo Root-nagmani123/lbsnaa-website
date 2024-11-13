@@ -14,7 +14,7 @@ class ManageSouvenirController extends Controller
     public function index()
     {
         // Use Query Builder to get all categories
-        $categories = DB::table('souvenirCategory')->get();
+        $categories = DB::table('souvenircategory')->get();
         return view('admin.souvenirModule.index', compact('categories'));
     }
 
@@ -35,7 +35,7 @@ class ManageSouvenirController extends Controller
         ]);
 
         // Use Query Builder to insert a new category
-        $souvenir = DB::table('souvenirCategory')->insert([
+        $souvenir = DB::table('souvenircategory')->insert([
             'type' => $request->input('type'),
             'category_name' => $request->input('category_name'),
             'category_name_hindi' => $request->input('category_name_hindi'),
@@ -61,7 +61,7 @@ class ManageSouvenirController extends Controller
     public function edit($id)
     {
         // Use Query Builder to get a single category by ID
-        $category = DB::table('souvenirCategory')->where('id', $id)->first();
+        $category = DB::table('souvenircategory')->where('id', $id)->first();
 
         return view('admin.souvenirModule.edit', compact('category'));
     }
@@ -77,7 +77,7 @@ class ManageSouvenirController extends Controller
         ]);
 
         // Use Query Builder to update the category
-        $souvenir = DB::table('souvenirCategory')
+        $souvenir = DB::table('souvenircategory')
             ->where('id', $id)
             ->update([
                 'type' => $request->input('type'),
@@ -104,7 +104,7 @@ class ManageSouvenirController extends Controller
     public function destroy($id)
     {
         // Use Query Builder to delete the category by ID
-        DB::table('souvenirCategory')->where('id', $id)->delete();
+        DB::table('souvenircategory')->where('id', $id)->delete();
 
         return redirect()->route('souvenir.index')->with('success', 'Category deleted successfully.');
     }
@@ -120,7 +120,7 @@ class ManageSouvenirController extends Controller
     public function createAcademySouvenir()
     {
         // Fetch product categories for the select box
-        $categories = DB::table('souvenirCategory')->select('category_name', 'id')->get();
+        $categories = DB::table('souvenircategory')->select('category_name', 'id')->get();
         // print_r($categories);die;
         return view('admin.souvenirModule.academy_souvenirs.create', compact('categories'));
     }
@@ -129,6 +129,7 @@ class ManageSouvenirController extends Controller
     public function storeAcademySouvenir(Request $request)
     {
         $request->validate([
+            'language' => 'required',
             'product_category' => 'required|integer',
             'product_title' => 'required|string|max:255',
             'product_type' => 'required|in:Sale,Download',
@@ -159,6 +160,7 @@ class ManageSouvenirController extends Controller
 
         // Insert Academy Souvenir using Query Builder
         $AcademySouvenir = DB::table('academy_souvenirs')->insert([
+            'language' => $request->input('language'),
             'product_category' => $request->input('product_category'),
             'product_title' => $request->input('product_title'),
             'product_type' => $request->input('product_type'),
@@ -190,7 +192,7 @@ class ManageSouvenirController extends Controller
     public function editAcademySouvenir($id)
     {
         $souvenir = DB::table('academy_souvenirs')->where('id', $id)->first();
-        $categories = DB::table('souvenirCategory')->select('category_name', 'id')->get();
+        $categories = DB::table('souvenircategory')->select('category_name', 'id')->get();
         return view('admin.souvenirModule.academy_souvenirs.edit', compact('souvenir', 'categories'));
     }
 
@@ -198,6 +200,7 @@ class ManageSouvenirController extends Controller
     public function updateAcademySouvenir(Request $request, $id)
 {
     $request->validate([
+        'language' => 'required',
         'product_category' => 'required|integer',
         'product_title' => 'required|string|max:255',
         'product_type' => 'required|in:Sale,Download',
@@ -247,6 +250,7 @@ class ManageSouvenirController extends Controller
 
     // Update Academy Souvenir using Query Builder
     $AcademySouvenir = DB::table('academy_souvenirs')->where('id', $id)->update([
+        'language' => $request->input('language'),
         'product_category' => $request->input('product_category'),
         'product_title' => $request->input('product_title'),
         'product_type' => $request->input('product_type'),
