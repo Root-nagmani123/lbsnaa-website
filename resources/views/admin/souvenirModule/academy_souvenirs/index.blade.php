@@ -5,7 +5,7 @@
 @section('content')
 
 <div class="d-sm-flex text-center justify-content-between align-items-center mb-4">
-    <h3 class="mb-sm-0 mb-1 fs-18">Manage Academy Souvenirs</h3>
+    <h3 class="mb-sm-0 mb-1 fs-18">Manage Souvenir</h3>
     <ul class="ps-0 mb-0 list-unstyled d-flex justify-content-center">
         <li>
             <a href="{{ route('admin.index') }}" class="text-decoration-none">
@@ -14,7 +14,7 @@
             </a>
         </li>
         <li>
-            <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Academy Souvenirs</span>
+            <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Souvenir</span>
         </li>
     </ul>
 </div>
@@ -42,10 +42,11 @@
                     <thead>
                         <tr class="text-center">
                             <th class="col">ID</th>
+                            <th class="col">Language</th>
                             <th class="col">Product Category</th>
                             <th class="col">Product Title</th>
                             <th class="col">Product Type</th>
-                            <th class="col">Language</th>
+                            
                             <th class="col">Status</th>
                             <th class="col">Actions</th>
                         </tr>
@@ -54,11 +55,21 @@
                         @foreach($souvenirs as $souvenir)
                         <tr>
                             <td>{{ $souvenir->id }}</td>
+                            <td>{{ $souvenir->language == 1 ? 'English' : 'Hindi' }}</td>
                             <td>{{ $souvenir->product_category }}</td>
                             <td>{{ $souvenir->product_title }}</td>
                             <td>{{ $souvenir->product_type }}</td>
-                            <td>{{ $souvenir->language == 1 ? 'English' : 'Hindi' }}</td>
-                            <td>{{ $souvenir->product_status ? 'Active' : 'Inactive' }}</td>
+                            
+                            <!-- <td>{{ $souvenir->product_status ? 'Active' : 'Inactive' }}</td> -->
+                            <td>
+                                @if ($souvenir->product_status == 1)
+                                <span
+                                    class="badge bg-success bg-opacity-10 text-success py-2 fw-semibold text-center">Active</span>
+                                @elseif ($souvenir->product_status == 0)
+                                <span
+                                    class="badge bg-primary bg-opacity-10 text-primary py-2 fw-semibold text-center">Inactive</span>
+                                @endif
+                            </td>
                             <td>
                                 <a href="{{ route('academy_souvenirs.edit', $souvenir->id) }}"
                                     class="btn bg-success text-white btn-sm">Edit</a>

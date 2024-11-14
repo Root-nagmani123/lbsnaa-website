@@ -3,99 +3,169 @@
 @section('title', 'Add Academy Souvenir')
 
 @section('content')
-<div class="container">
-    <h2>Edit Academy Souvenir</h2>
+<div class="d-sm-flex text-center justify-content-between align-items-center mb-4">
+    <h3 class="mb-sm-0 mb-1 fs-18">Manage Souvenir</h3>
+    <ul class="ps-0 mb-0 list-unstyled d-flex justify-content-center">
+        <li>
+            <a href="{{ route('admin.index') }}" class="text-decoration-none">
+                <i class="ri-home-2-line" style="position: relative; top: -1px;"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        <li>
+            <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Souvenir</span>
+        </li>
+    </ul>
+</div>
+<div class="row justify-content-center">
+    <div class="col-lg-12">
+        <div class="card bg-white border-0 rounded-10 mb-4">
+            <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-center border-bottom pb-20 mb-20">
+                    <h4 class="fw-semibold fs-18 mb-0">Add Academy Souvenir</h4>
+                </div>
 
-    <form action="{{ route('academy_souvenirs.update', $souvenir->id) }}" method="POST" enctype="multipart/form-data">
-        @csrf
-        @method('PUT')
+                <form action="{{ route('academy_souvenirs.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="form-group mb-4">
+                                <label class="label" for="language">Page Language :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="radio" name="language" value="1" {{ $souvenir->language == '1' ? 'checked' : '' }}> English
+                                    <input type="radio" name="language" value="2" {{ $souvenir->language == '2' ? 'checked' : '' }}> Hindi
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group mb-4">
+                                <label class="label" for="product_category">Product Category :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <select class="form-select form-control ps-5 h-58" name="product_category" id="product_category"
+                                        required>
+                                        <option value="1" class="text-dark" selected>Select Category</option>
+                                        @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}" class="text-dark" {{ $souvenir->product_category == $category->id ? 'selected' : '' }}>{{ $category->category_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group mb-4">
+                                <label class="label" for="product_title">Product Title :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="product_title"
+                                        id="product_title" value="{{ $souvenir->product_title }}" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="product_type">Product Type :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <select class="form-select form-control ps-5 h-58" name="product_type" id="product_type"
+                                        required>
+                                        <option value="" class="text-dark">Select</option>
+                                        <option value="Sale" class="text-dark" {{ $souvenir->product_type == 'Sale' ? 'selected' : '' }}>Sale</option>
+                                        <option value="Download" class="text-dark" {{ $souvenir->product_type == 'Download' ? 'selected' : '' }}>Download</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="sale_fields" style="display: none;">
+                            <div class="col-lg-6">
+                                <div class="form-group mb-4">
+                                    <label class="label" for="product_price">Product Price :</label>
+                                    <span class="star">*</span>
+                                    <div class="form-group position-relative">
+                                        <input type="number" class="form-control text-dark ps-5 h-58" name="product_price"
+                                            id="product_price" step="0.01" value="{{ $souvenir->product_price }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group mb-4">
+                                    <label class="label" for="product_discounted_price">Product Discounted Price :</label>
+                                    <span class="star">*</span>
+                                    <div class="form-group position-relative">
+                                        <input type="number" class="form-control text-dark ps-5 h-58" name="product_discounted_price"
+                                            id="product_discounted_price" step="0.01" value="{{ $souvenir->product_discounted_price }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group mb-4">
+                                    <label class="label" for="contact_email_id">Contact Email :</label>
+                                    <span class="star">*</span>
+                                    <div class="form-group position-relative">
+                                        <input type="email" class="form-control text-dark ps-5 h-58" name="contact_email_id"
+                                            id="contact_email_id" value="{{ $souvenir->contact_email_id }}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="download_fields" style="display: none;">
+                            <div class="col-lg-6">
+                                <div class="form-group mb-4">
+                                    <label class="label" for="document_upload">Document Upload :</label>
+                                    <span class="star">*</span>
+                                    <div class="form-group position-relative">
+                                        <input type="file" class="form-control text-dark ps-5 h-58" name="document_upload"
+                                            id="document_upload" required value="{{ $souvenir->document_upload }}">
+                                            <img src="{{ asset('AcademySouvenir/documents/' . $souvenir->document_upload) }}" alt="Souvenir Image" width="100" height="100">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="upload_image">Upload Image :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="file" class="form-control text-dark ps-5 h-58" name="upload_image"
+                                        id="upload_image" required value="{{ $souvenir->upload_image }}">
+                                        <img src="{{ asset('AcademySouvenir/images/' . $souvenir->upload_image) }}" alt="Souvenir Image" width="100" height="100">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="product_description">Product Description :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                        <textarea name="product_description" id="product_description" rows="3" required class="form-control text-dark">{{ $souvenir->product_description }}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="product_status">Product Status :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <select class="form-select form-control ps-5 h-58" name="product_status" id="product_status"
+                                        required>
+                                        <option value="1" class="text-dark" {{ $souvenir->product_status == 1 ? 'selected' : '' }}>Active</option>
+                                        <option value="0" class="text-dark" {{ $souvenir->product_status == 0 ? 'selected' : '' }}>Inactive</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex ms-sm-3 ms-md-0">
+                            <button class="btn btn-success text-white fw-semibold" type="submit">Update</button> &nbsp;
+                            <a href="{{ route('academy_souvenirs.index') }}" class="btn btn-secondary text-white">Back</a>
+                        </div>
+                    </div>
+                </form>
 
-        <div class="mb-3">
-            <label class="label" for="menutitle">Page Language :</label>
-            <span class="star">*</span>
-            <div class="form-group position-relative">
-                <input type="radio" name="language" value="1" {{ $souvenir->language == '1' ? 'checked' : '' }}> English
-                <input type="radio" name="language" value="2" {{ $souvenir->language == '2' ? 'checked' : '' }}> Hindi
+
             </div>
         </div>
-
-
-        <div class="mb-3">
-            <label for="product_category" class="form-label">Product Category</label>
-            <select name="product_category" id="product_category" class="form-control" required>
-                <!-- Options -->
-                @foreach($categories as $category)
-                    <option value="{{ $category->id }}" {{ $souvenir->product_category == $category->id ? 'selected' : '' }}>
-                        {{ $category->category_name }}
-                    </option>
-                @endforeach
-            </select>
-        </div>
-
-        <div class="mb-3">
-            <label for="product_title" class="form-label">Product Title</label>
-            <input type="text" class="form-control" id="product_title" name="product_title" value="{{ $souvenir->product_title }}" required>
-        </div>
-
-        <div class="mb-3">
-            <label for="product_type" class="form-label">Product Type</label>
-            <select name="product_type" id="product_type" class="form-control" required>
-                <option value="Sale" {{ $souvenir->product_type == 'Sale' ? 'selected' : '' }}>Sale</option>
-                <option value="Download" {{ $souvenir->product_type == 'Download' ? 'selected' : '' }}>Download</option>
-            </select>
-        </div>
-
-        <!-- Sale-specific fields -->
-        <div id="sale_fields" style="display:none;">
-            <div class="mb-3">
-                <label for="product_price" class="form-label">Product Price</label>
-                <input type="number" class="form-control" id="product_price" name="product_price" value="{{ $souvenir->product_price }}" step="0.01">
-            </div>
-
-            <div class="mb-3">
-                <label for="product_discounted_price" class="form-label">Discounted Price</label>
-                <input type="number" class="form-control" id="product_discounted_price" name="product_discounted_price" value="{{ $souvenir->product_discounted_price }}" step="0.01">
-            </div>
-
-            <div class="mb-3">
-                <label for="contact_email_id" class="form-label">Contact Email</label>
-                <input type="email" class="form-control" id="contact_email_id" name="contact_email_id" value="{{ $souvenir->contact_email_id }}">
-            </div>
-        </div>
-
-        <!-- Download-specific fields -->
-        <div id="download_fields" style="display:none;">
-            <div class="mb-3">
-                <label for="document_upload" class="form-label">Document Upload</label>
-                <input type="file" class="form-control" id="document_upload" name="document_upload">
-            <input type="hidden" class="form-control" id="old_document_upload" name="old_document_upload" value="{{ $souvenir->document_upload }}">
-
-                <img src="{{ asset('AcademySouvenir/documents/' . $souvenir->document_upload) }}" alt="Souvenir Image" width="100" height="100">
-            </div>
-        </div>
-
-        <div class="mb-3">
-            <label for="upload_image" class="form-label">Upload Image</label>
-            <input type="file" class="form-control" id="upload_image" name="upload_image">
-            <input type="hidden" class="form-control" id="old_upload_image" name="old_upload_image" value="{{ $souvenir->upload_image }}">
-            <img src="{{ asset('AcademySouvenir/images/' . $souvenir->upload_image) }}" alt="Souvenir Image" width="100" height="100">
-        </div>
-
-        <div class="mb-3">
-            <label for="product_description" class="form-label">Product Description</label>
-            <textarea class="form-control" id="product_description" name="product_description">{{ $souvenir->product_description }}</textarea>
-        </div>
-
-        <div class="mb-3">
-            <label for="product_status" class="form-label">Product Status</label>
-            <select name="product_status" id="product_status" class="form-control" required>
-                <option value="1" {{ $souvenir->product_status == 1 ? 'selected' : '' }}>Active</option>
-                <option value="0" {{ $souvenir->product_status == 0 ? 'selected' : '' }}>Inactive</option>
-            </select>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Update</button>
-    </form>
+    </div>
 </div>
 
 <script>

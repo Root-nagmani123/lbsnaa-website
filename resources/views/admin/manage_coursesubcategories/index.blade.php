@@ -13,9 +13,6 @@
             </a>
         </li>
         <li>
-            <span class="fw-semibold fs-14 heading-font dot ms-2">CMS Page</span>
-        </li>
-        <li>
             <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Course Sub Category</span>
         </li>
     </ul>
@@ -54,12 +51,21 @@
                             <td>{{ $cat->category_name }}</td>
                             <td>{{ $cat->parent_category_name ?? 'Root Category' }}</td> <!-- Display parent category name or "Root Category" if none -->
                             <td>{{ $cat->language == 1 ? 'English': 'Hindi'}}</td>
-                            <td>{{ $cat->status == 1 ? 'Draft' : ($cat->status == 2 ? 'Approval' : 'Publish') }}</td>
+                            <!-- <td>{{ $cat->status == 1 ? 'Draft' : ($cat->status == 2 ? 'Approval' : 'Publish') }}</td> -->
                             <td>
-                                <a href="{{ route('subcategory.edit', $cat->id) }}" class="btn btn-success text-white">Edit</a>
+                                @if ($cat->status == 1)
+                                    <span class="badge bg-warning bg-opacity-10 text-warning py-2 fw-semibold text-center">Draft</span>
+                                @elseif ($cat->status == 2)
+                                    <span class="badge bg-primary bg-opacity-10 text-primary py-2 fw-semibold text-center">Approved</span>
+                                @elseif ($cat->status == 3)
+                                    <span class="badge bg-success bg-opacity-10 text-success py-2 fw-semibold text-center">Publish</span>
+                                @endif
+                            </td>
+                            <td>
+                                <a href="{{ route('subcategory.edit', $cat->id) }}" class="btn btn-success text-white btn-sm ">Edit</a>
                                 <form action="{{ route('subcategory.delete', $cat->id) }}" method="get" style="display:inline;">
                                     @csrf
-                                    <button type="submit" class="btn btn-primary text-white">Delete</button>
+                                    <button type="submit" class="btn btn-primary text-white btn-sm">Delete</button>
                                 </form>
                             </td>
                         </tr>
