@@ -13,6 +13,7 @@
                 <form action="{{ route('organisers.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
+                        <div class="col-lg-4">
                         <div class="form-group mb-4">
                             <label class="label" for="menutitle">Page Language :</label>
                             <span class="star">*</span>
@@ -20,6 +21,7 @@
                                 <input type="radio" name="language" value="1">English
                                 <input type="radio" name="language" value="2">Hindi
                             </div>
+                        </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="form-group mb-4">
@@ -45,7 +47,6 @@
                         </div>
                         <div class="d-flex ms-sm-3 ms-md-0">
                             <button class="btn btn-success text-white fw-semibold" type="submit">Submit</button> &nbsp;
-                            <button type="reset" class="btn btn-warning text-white fw-semibold">Reset</button> &nbsp;
                             <a href="{{ route('organisers.index') }}" class="btn btn-secondary text-white">Back</a>
                         </div>
                     </div>

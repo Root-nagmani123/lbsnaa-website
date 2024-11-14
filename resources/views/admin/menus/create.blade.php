@@ -27,18 +27,17 @@
                 @csrf
                     <div class="row">
                         <div class="col-lg-6">
-                            <div class="col-lg-6">
                                 <div class="form-group mb-4">
                                     <label class="label" for="menutitle">Page Language :</label>
                                     <span class="star">*</span>
                                     <div class="form-group position-relative">
-                                        <input type="radio" name="txtlanguage" value="1">English
-                                        <input type="radio" name="txtlanguage" value="2">Hindi
+                                        <input type="radio" name="txtlanguage" value="1"> English
+                                        <input type="radio" name="txtlanguage" value="2"> Hindi
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="form-group mb-4">
+                        </div>
+                        <div class="col-lg-6">
+                        <div class="form-group mb-4">
                                 <label class="label" for="menutitle">Menu Title :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
@@ -70,8 +69,7 @@
                                         <label class="label" for="content">Content :</label>
                                         <span class="star">*</span>
                                         <div class="form-group position-relative">
-                                            <textarea class="form-control ps-5 text-dark"
-                                                placeholder="Some demo text ... " cols="30" rows="5" name="content"
+                                            <textarea class="form-control ps-5 text-dark" rows="5" name="content"
                                                 id="content"></textarea>
                                         </div>
                                     </div>
@@ -99,7 +97,7 @@
                                 </div>
                                </div>
                                 <div class="col-lg-12">
-                                    <div class="form-group mb-0">
+                                    <div class="form-group mb-4">
                                         <label class="label" for="meta_description">Meta Description :</label>
                                         <span class="star">*</span>
                                         <div class="form-group position-relative">
@@ -112,7 +110,7 @@
                             </div>
                             <div class="row" style="display: none;" id="pdf-upload-field">
                                 <div class="col-lg-12">
-                                    <div class="form-group mb-0">
+                                    <div class="form-group mb-4">
                                         <label class="label" for="pdf_file">Upload PDF</label>
                                         <div class="form-control h-100 text-center position-relative p-4 p-lg-5">
                                             <div class="product-upload">
@@ -155,7 +153,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 mt-4">
+                        <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="menucategory">Primary Link :</label>
                                 <span class="star">*</span>
@@ -168,7 +166,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 mt-4">
+                        <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="txtpostion">Content Position :</label>
                                 <span class="star">*</span>
@@ -214,7 +212,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-12 mt-4">
+                        <div class="col-lg-6">
                                 <div class="form-group mb-4">
                                     <label class="label" for="menu_status">Status :</label>
                                     <span class="star">*</span>

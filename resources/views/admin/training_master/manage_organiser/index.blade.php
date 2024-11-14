@@ -36,11 +36,9 @@
                             <td>{{ $organiser->language == 1 ? 'English' : 'Hindi' }}</td>
                             <td>
                                 @if ($organiser->status == 1)
-                                    Active
+                                    <span class="badge bg-success bg-opacity-10 text-success py-2 fw-semibold text-center">Active</span>
                                 @elseif ($organiser->status == 2)
-                                    Inactive
-                                @else
-                                    Unknown
+                                <span class="badge bg-primary bg-opacity-10 text-primary py-2 fw-semibold text-center">Inactive</span>
                                 @endif
                             </td>
                             <td>

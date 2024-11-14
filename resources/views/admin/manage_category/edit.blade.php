@@ -3,6 +3,20 @@
 @section('title', 'Admin Dashboard')
 
 @section('content')
+<div class="d-sm-flex text-center justify-content-between align-items-center mb-4">
+    <h3 class="mb-sm-0 mb-1 fs-18">Manage Category</h3>
+    <ul class="ps-0 mb-0 list-unstyled d-flex justify-content-center">
+        <li>
+            <a href="{{ route('admin.index') }}" class="text-decoration-none">
+                <i class="ri-home-2-line" style="position: relative; top: -1px;"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        <li>
+            <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Category</span>
+        </li>
+    </ul>
+</div>
 <div class="row justify-content-center">
     <div class="col-lg-12">
         <div class="card bg-white border-0 rounded-10 mb-4">
@@ -15,7 +29,8 @@
                     @csrf
         @method('post')
                     <div class="row">
-                        <div class="form-group mb-4">
+                      <div class="col-lg-6">
+                      <div class="form-group mb-4">
                             <label class="label" for="menutitle">Page Language :</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
@@ -23,8 +38,9 @@
                                 <input type="radio" name="txtlanguage" value="2" {{ $category->language == 2 ? 'checked' : '' }}> Hindi
                             </div>
                         </div>
+                      </div>
 
-                        <div class="col-lg-4">
+                        <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="menutitle">Section Title :</label>
                                 <span class="star">*</span>
@@ -33,7 +49,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4">
+                        <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="texttype">Category Description :</label>
                                 <span class="star">*</span>
@@ -43,7 +59,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4">
+                        <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="texttype">Status :</label>
                                 <span class="star">*</span>
@@ -57,7 +73,7 @@
                         </div>
                         <div class="d-flex ms-sm-3 ms-md-0">
                             <button class="btn btn-success text-white fw-semibold" type="submit">Submit</button>&nbsp;
-                            <a href="{{ route('category.index') }}" class="btn btn-secondary">Back</a>
+                            <a href="{{ route('category.index') }}" class="btn btn-secondary text-white fw-semibold">Back</a>
                         </div>
                     </div>
                 </form>

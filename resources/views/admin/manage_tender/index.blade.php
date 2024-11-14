@@ -22,9 +22,10 @@
                     <thead>
                         <tr class="text-center">
                             <th class="col">ID</th> <!-- Index column -->
+                            <th class="col">Language</th>
                             <th class="col">Title</th>
                             <th class="col">Type</th>
-                            <th class="col">Language</th>
+                            
                             <th class="col">Publish Date</th>
                             <th class="col">Expiry Date</th>
                             <th class="col">Status</th>
@@ -49,8 +50,6 @@
                                     Approval
                                 @elseif ($tender->status == 3)
                                     Publish
-                                @else
-                                    Unknown
                                 @endif
                             </td>
                             <td>

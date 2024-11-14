@@ -2,6 +2,20 @@
 @section('title', 'Admin Dashboard')
 
 @section('content')
+<div class="d-sm-flex text-center justify-content-between align-items-center mb-4">
+    <h3 class="mb-sm-0 mb-1 fs-18">Manage Venue</h3>
+    <ul class="ps-0 mb-0 list-unstyled d-flex justify-content-center">
+        <li>
+            <a href="{{ route('admin.index') }}" class="text-decoration-none">
+                <i class="ri-home-2-line" style="position: relative; top: -1px;"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        <li>
+            <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Venue</span>
+        </li>
+    </ul>
+</div>
 <div class="row justify-content-center">
     <div class="col-lg-12">
         <div class="card bg-white border-0 rounded-10 mb-4">
@@ -18,8 +32,8 @@
                                 <label class="label" for="menutitle">Page Language :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="radio" name="language" value="1">English
-                                    <input type="radio" name="language" value="2">Hindi
+                                    <input type="radio" name="language" value="1">&nbsp;English
+                                    <input type="radio" name="language" value="2">&nbsp;Hindi
                                 </div>
                             </div>
                         </div>
@@ -57,7 +71,6 @@
                         </div>
                         <div class="d-flex ms-sm-3 ms-md-0">
                             <button class="btn btn-success text-white fw-semibold" type="submit">Submit</button> &nbsp;
-                            <button class="btn btn-warning text-white fw-semibold" type="submit">Reset</button> &nbsp;
                             <a href="{{ route('venues.index') }}" class="btn btn-secondary text-white">Back</a>
                         </div>
                     </div>

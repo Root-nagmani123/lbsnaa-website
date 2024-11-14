@@ -2,6 +2,7 @@
 @section('title', 'Admin Dashboard')
 
 @section('content')
+
 <div class="d-sm-flex text-center justify-content-between align-items-center mb-4">
     <h3 class="mb-sm-0 mb-1 fs-18">Manage Tender</h3>
     <ul class="ps-0 mb-0 list-unstyled d-flex justify-content-center">
@@ -26,7 +27,6 @@
                     @include('admin.manage_tender.form')
                     <div class="d-flex ms-sm-3 ms-md-0">
                         <button class="btn btn-success text-white fw-semibold" type="submit">Submit</button>&nbsp;
-                        <button class="btn btn-secondary text-white fw-semibold" type="reset">Reset</button>&nbsp;
                         <a href="{{ route('manage_tender.index') }}" class="btn btn-primary text-white fw-semibold">Cancel</a>
                     </div>
                 </form>

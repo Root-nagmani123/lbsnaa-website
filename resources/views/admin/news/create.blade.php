@@ -3,6 +3,20 @@
 @section('title', 'Admin Dashboard')
 
 @section('content')
+<div class="d-sm-flex text-center justify-content-between align-items-center mb-4">
+    <h3 class="mb-sm-0 mb-1 fs-18">Manage News</h3>
+    <ul class="ps-0 mb-0 list-unstyled d-flex justify-content-center">
+        <li>
+            <a href="{{ route('admin.index') }}" class="text-decoration-none">
+                <i class="ri-home-2-line" style="position: relative; top: -1px;"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        <li>
+            <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">News</span>
+        </li>
+    </ul>
+</div>
 <div class="row justify-content-center">
     <div class="col-lg-12">
         <div class="card bg-white border-0 rounded-10 mb-4">
@@ -23,18 +37,19 @@
                 <form action="{{ route('admin.news.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-                        <div class="col-lg-6">
-                            <div class="col-lg-6">
+                    <div class="col-lg-6">
                                 <div class="form-group mb-4">
                                     <label class="label" for="language">Page Language :</label>
                                     <span class="star">*</span>
                                     <div class="form-group position-relative">
-                                        <input type="radio" name="language" value="1">English
-                                        <input type="radio" name="language" value="2">Hindi
+                                        <input type="radio" name="language" value="1"> English
+                                        <input type="radio" name="language" value="2"> Hindi
                                     </div>
                                 </div>
                                 
                             </div>
+                        <div class="col-lg-6">
+                            
 
                             <div class="form-group mb-4">
                                 <label class="label" for="title">Title :</label>
@@ -80,7 +95,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-12">
                             <div class="form-group mb-4">
                                 <label for="description" class="label">Description</label>
                                 <span class="star">*</span>
@@ -139,6 +154,7 @@
                         </div>
                         <div class="d-flex ms-sm-3 ms-md-0">
                             <button class="btn btn-success text-white fw-semibold" type="submit">Add News</button>
+
                         </div>
                     </div>
                 </form>
