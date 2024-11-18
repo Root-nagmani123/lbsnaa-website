@@ -276,6 +276,12 @@
                     <span class="menu-title-text">Micro-Website</span>
                 </li>
                 <li class="menu-item">
+                    <a href="#" class="menu-link">
+                    <i class="material-icons menu-icon">hub</i>
+                        <span class="title">Research Center</span>
+                    </a>
+                </li>
+                <li class="menu-item">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="material-icons menu-icon">wysiwyg</i>
                         <span class="title">CMS Page</span>
