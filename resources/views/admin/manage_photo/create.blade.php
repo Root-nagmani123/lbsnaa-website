@@ -65,7 +65,7 @@
                         <!-- Dropdown to select related content for Training Programme -->
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
-                                <label class="label" for="image_relate_with_training">Image Relate with Training :</label>
+                                <label class="label" for="image_relate_with_training">Image Relate with :</label>
                                 <span class="star">*</span>
                                 <select name="image_relate_with_training" id="image_relate_with_training" class="form-control" required>
                                     <option value="">Select Training Programme</option>
@@ -74,7 +74,7 @@
                             </div>
                         </div>
                         <!-- Placeholder for Training Programme-related fields -->
-                         <div class="col-lg-6">
+                         <div class="col-lg-6" id="related_training_field" style="display: none;">
                             <div class="form-group mb-4">
                                 <label class="label" for="related_training_field">Related Training Field :</label>
                                 <span class="star">*</span>
@@ -90,7 +90,7 @@
                                 <span class="star">*</span>
                                 <select name="image_relate_with_events" id="image_relate_with_events" class="form-control" required>
                                     <option value="">Select Events</option>
-                                    <option value="Events">Events</option>
+                                    <option value="Related Events">Events</option>
                                 </select>
                             </div>
                         </div>
