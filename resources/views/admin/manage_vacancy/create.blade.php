@@ -2,6 +2,20 @@
 @section('title', 'Admin Dashboard')
 
 @section('content')
+<div class="d-sm-flex text-center justify-content-between align-items-center mb-4">
+    <h3 class="mb-sm-0 mb-1 fs-18">Manage Vacancy</h3>
+    <ul class="ps-0 mb-0 list-unstyled d-flex justify-content-center">
+        <li>
+            <a href="{{ route('admin.index') }}" class="text-decoration-none">
+                <i class="ri-home-2-line" style="position: relative; top: -1px;"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        <li>
+            <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Vacancy</span>
+        </li>
+    </ul>
+</div>
 <div class="row justify-content-center">
     <div class="col-lg-12">
         <div class="card bg-white border-0 rounded-10 mb-4">
@@ -26,8 +40,8 @@
                                 <label class="label" for="language">Page Language :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="radio" name="language" value="1">English
-                                    <input type="radio" name="language" value="2">Hindi
+                                    <input type="radio" name="language" value="1"> English
+                                    <input type="radio" name="language" value="2"> Hindi
                                 </div>
                             </div>
                             
@@ -48,36 +62,7 @@
                                 <label class="label" for="job_description">Job Description :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <div id="standalone-container">
-                                        <div id="toolbar-container">
-                                            <span class="ql-formats">
-                                                <select class="ql-font"></select>
-                                                <select class="ql-size"></select>
-                                            </span>
-                                            <span class="ql-formats">
-                                                <button class="ql-bold"></button>
-                                                <button class="ql-italic"></button>
-                                                <button class="ql-underline"></button>
-                                                <button class="ql-strike"></button>
-                                            </span>
-                                            <span class="ql-formats">
-                                                <button class="ql-blockquote"></button>
-                                                <button class="ql-code-block"></button>
-                                            </span>
-                                            <span class="ql-formats">
-                                                <button class="ql-list" value="ordered"></button>
-                                                <button class="ql-list" value="bullet"></button>
-                                                <button class="ql-indent" value="-1"></button>
-                                                <button class="ql-indent" value="+1"></button>
-                                            </span>
-                                            <span class="ql-formats">
-                                                <button class="ql-link"></button>
-                                                <button class="ql-image"></button>
-                                                <button class="ql-video"></button>
-                                            </span>
-                                        </div>
-                                        <div id="editor-container" style="height: 250px;">{{ old('job_description') }}</div>
-                                    </div>
+                                <textarea class="form-control" id="job_description" placeholder="Enter the Job Description" name="job_description" rows="5"></textarea>
                                 </div>
                                 </div>
                             </div>
@@ -150,7 +135,6 @@
                         </div>
                         <div class="d-flex ms-sm-3 ms-md-0">
                             <button class="btn btn-success text-white fw-semibold" type="submit">Submit</button> &nbsp;
-                            <button class="btn btn-warning text-white fw-semibold" type="reset">Reset</button> &nbsp;
                             <a href="{{ route('manage_vacancy.index') }}" class="btn btn-secondary text-white">Cancel</a>
                         </div>
                     </div>
@@ -161,7 +145,16 @@
         </div>
     </div>
 </div>
+<script src="{{ asset('admin_assets/js/ckeditor.js') }}"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
 
+<script>
+    ClassicEditor
+    .create( document.querySelector( '#job_description' ) )
+    .catch( error => {
+    console.error( error );
+    });
+</script>
 
     <script>
 	    document.getElementById('content_type').addEventListener('change', function() {
@@ -188,3 +181,4 @@
         document.querySelector('input[name="expiry_date"]').setAttribute('min', today);
     });
 </script>
+

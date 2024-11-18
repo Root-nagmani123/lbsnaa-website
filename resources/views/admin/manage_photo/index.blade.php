@@ -52,12 +52,12 @@
                             <td>{{ $gallery->category_name }}</td>
                             <td>{{ $gallery->image_title_english }}</td>
                             <td>
-                                @if ($gallery->status == 1)
-                                    Draft
-                                @elseif ($gallery->status == 2)
-                                    Approval
-                                @elseif ($gallery->status == 3)
-                                    Publish
+                                @if ($vacancy->status == 1)
+                                    <span class="badge bg-warning bg-opacity-10 text-warning py-2 fw-semibold text-center">Draft</span>
+                                @elseif ($vacancy->status == 2)
+                                    <span class="badge bg-primary bg-opacity-10 text-primary py-2 fw-semibold text-center">Approved</span>
+                                @elseif ($vacancy->status == 3)
+                                    <span class="badge bg-success bg-opacity-10 text-success py-2 fw-semibold text-center">Publish</span>
                                 @endif
                             </td>
                             <td>
