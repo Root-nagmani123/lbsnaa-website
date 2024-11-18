@@ -50,6 +50,8 @@ use App\Http\Controllers\Admin\Micro\MicroManageVacancyController;
 use App\Http\Controllers\Admin\Micro\MicroVideoGalleryController;
 
 use App\Http\Controllers\Admin\Micro\MicroManageMediaCenterController;
+use App\Http\Controllers\Admin\Micro\ManageResearchCentreController;
+use App\Http\Controllers\Admin\Micro\ManageNewsController;
 
 
 
@@ -308,6 +310,18 @@ Route::prefix('admin')->group(function () {
     Route::put('admin/micro-video-gallery/{id}', [MicroVideoGalleryController::class, 'update'])->name('micro-video-gallery.update');
 
     Route::resource('photovideogallery', MicroManageMediaCenterController::class);
+     // Manage manage Research centre  route
+     Route::get('researchcentres', [ManageResearchCentreController::class, 'researchcentresIndex'])->name('researchcentres.index');
+     Route::get('researchcentres/create', [ManageResearchCentreController::class, 'researchcentresCreate'])->name('researchcentres.create');
+     Route::post('researchcentres/store', [ManageResearchCentreController::class, 'researchcentresStore'])->name('researchcentres.store');
+     Route::get('researchcentres/{id}/edit', [ManageResearchCentreController::class, 'researchcentresEdit'])->name('researchcentres.edit');
+     Route::post('researchcentres/{id}/update', [ManageResearchCentreController::class, 'researchcentresUpdate'])->name('researchcentres.update');
+     Route::post('researchcentres/{id}/delete', [ManageResearchCentreController::class, 'researchcentresDestroy'])->name('researchcentres.destroy');
+
+     // Manage micro news route
+    Route::resource('Managenews', ManageNewsController::class);
+
+
 });
 // Indrajeet
 

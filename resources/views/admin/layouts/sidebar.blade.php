@@ -276,7 +276,7 @@
                     <span class="menu-title-text">Micro-Website</span>
                 </li>
                 <li class="menu-item">
-                    <a href="#" class="menu-link">
+                    <a href="{{ route('researchcentres.index') }}" class="menu-link">
                     <i class="material-icons menu-icon">hub</i>
                         <span class="title">Research Center</span>
                     </a>
@@ -301,7 +301,7 @@
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="#" class="menu-link">
+                    <a href="{{ route('Managenews.index') }}" class="menu-link">
                     <i class="material-icons menu-icon">newspaper</i>
                         <span class="title">Manage News</span>
                     </a>
