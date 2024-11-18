@@ -27,7 +27,7 @@ class OrganizationSetupController extends Controller
     {
         $request->validate([
             'research_centre' => 'required',
-            'language' => 'required',
+            'language' => 'required|integer|in:1,2',
             'employee_name' => 'required',
             'designation' => 'required',
             'email' => 'required|email|unique:mirco_organization_setups',
@@ -40,14 +40,20 @@ class OrganizationSetupController extends Controller
 
         // Handle file upload
         if ($request->hasFile('main_image')) {
-            $data['main_image'] = $request->file('main_image')->store('images', 'public');
-        }
+            $image = $request->file('main_image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('images'), $imageName);
+
+            // Store the image path in $data
+            $data['main_image'] = 'images/' . $imageName;
+        }   
 
         OrganizationSetup::create($data);
 
         return redirect()->route('organization_setups.index')
-                         ->with('success', 'Organization setup created successfully.');
+                        ->with('success', 'Organization setup created successfully.');
     }
+
 
     public function edit(OrganizationSetup $organizationSetup)
     {
@@ -58,26 +64,33 @@ class OrganizationSetupController extends Controller
     {
         $request->validate([
             'research_centre' => 'required',
-            'language' => 'required',
+            'language' => 'required|integer|in:1,2',
             'employee_name' => 'required',
             'designation' => 'required',
             'email' => 'required|email|unique:mirco_organization_setups,email,' . $organizationSetup->id,
             'program_description' => 'required',
+            'main_image' => 'image|mimes:jpeg,png,jpg', // optional if no image is uploaded
             'page_status' => 'required|integer|in:1,2,3',
         ]);
-
+    
         $data = $request->all();
-
+    
         // Handle file upload
         if ($request->hasFile('main_image')) {
-            $data['main_image'] = $request->file('main_image')->store('images', 'public');
+            $image = $request->file('main_image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('images'), $imageName);
+    
+            // Update image path in $data
+            $data['main_image'] = 'images/' . $imageName;
         }
-
+    
         $organizationSetup->update($data);
-
+    
         return redirect()->route('organization_setups.index')
                          ->with('success', 'Organization setup updated successfully.');
     }
+    
 
     public function destroy(OrganizationSetup $organizationSetup)
     {

@@ -307,13 +307,13 @@
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="#" class="menu-link">
+                    <a href="{{ route('organization_setups.index') }}" class="menu-link">
                     <i class="material-icons menu-icon">corporate_fare</i>
                         <span class="title">Manage Organization Setup</span>
                     </a>
                 </li>
                 <li class="menu-item">
-                    <a href="#" class="menu-link">
+                    <a href="{{ route('manage_vacancy.index') }}" class="menu-link">
                     <i class="material-icons menu-icon">assignment_ind</i>
                         <span class="title">Manage Vacancy</span>
                     </a>
@@ -335,12 +335,12 @@
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="#" class="menu-link">
+                            <a href="{{ route('micro-video-gallery.index') }}" class="menu-link">
                                 Video Gallery
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="#" class="menu-link">
+                            <a href="{{ route('photovideogallery.index') }}" class="menu-link">
                                 Photo Gallery/ Gallery
                             </a>
                         </li>

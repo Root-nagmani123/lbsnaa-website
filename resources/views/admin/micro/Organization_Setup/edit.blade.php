@@ -17,8 +17,8 @@
 
         <div class="form-group">
             <label>Page Language *</label><br>
-            <input type="radio" name="language" value="english" {{ $organizationSetup->language == 'english' ? 'checked' : '' }} required> English
-            <input type="radio" name="language" value="hindi" {{ $organizationSetup->language == 'hindi' ? 'checked' : '' }}> Hindi
+            <input type="radio" name="language" value="1" {{ $organizationSetup->language == '1' ? 'checked' : '' }} required> English
+            <input type="radio" name="language" value="2" {{ $organizationSetup->language == '2' ? 'checked' : '' }}> Hindi
         </div>
 
         <div class="form-group">
@@ -44,11 +44,13 @@
         <div class="form-group">
             <label>Upload Main Image</label><br>
             @if ($organizationSetup->main_image)
-                <img src="{{ asset('storage/' . $organizationSetup->main_image) }}" alt="Current Image" width="100" height="100"><br>
+                <!-- Display image from public/images -->
+                <img src="{{ asset('images/' . basename($organizationSetup->main_image)) }}" alt="Current Image" width="100" height="100"><br>
             @endif
             <input type="file" name="main_image" class="form-control">
             <small class="form-text text-muted">Leave blank to keep the current image.</small>
         </div>
+
 
         <div class="form-group">
             <label>Page Status *</label>

@@ -43,8 +43,13 @@ use App\Http\Controllers\Admin\ManageAuditController;
 
 // For Micro Website
 
+
 use App\Http\Controllers\Admin\Micro\TrainingProgramController;
 use App\Http\Controllers\Admin\Micro\OrganizationSetupController;
+use App\Http\Controllers\Admin\Micro\MicroManageVacancyController;
+use App\Http\Controllers\Admin\Micro\MicroVideoGalleryController;
+
+use App\Http\Controllers\Admin\Micro\MicroManageMediaCenterController;
 
 
 
@@ -290,6 +295,19 @@ Route::prefix('admin')->group(function () {
     // For Micro Website
     Route::resource('training-programs', TrainingProgramController::class);
     Route::resource('organization_setups', OrganizationSetupController::class);
+
+    Route::resource('manage_vacancy', MicroManageVacancyController::class);
+    Route::get('/manage_vacancy/{id}/edit', [MicroManageVacancyController::class, 'edit'])->name('manage_vacancy.edit');
+
+    Route::resource('micro-video-gallery', MicroVideoGalleryController::class);
+    Route::put('admin/micro-video-gallery/{id}', [MicroVideoGalleryController::class, 'update'])->name('micro-video-gallery.update');
+    Route::get('admin/micro-video-gallery/{id}', [MicroVideoGalleryController::class, 'show']);
+
+    Route::get('admin/micro-video-gallery/{id}', [MicroVideoGalleryController::class, 'show'])->name('micro-video-gallery.show');
+    Route::get('admin/micro-video-gallery/{id}/edit', [MicroVideoGalleryController::class, 'edit'])->name('micro-video-gallery.edit');
+    Route::put('admin/micro-video-gallery/{id}', [MicroVideoGalleryController::class, 'update'])->name('micro-video-gallery.update');
+
+    Route::resource('photovideogallery', MicroManageMediaCenterController::class);
 });
 // Indrajeet
 

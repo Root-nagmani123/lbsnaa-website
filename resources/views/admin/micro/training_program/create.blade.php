@@ -13,8 +13,8 @@
 
         <div class="form-group">
             <label>Page Language *</label><br>
-            <input type="radio" name="language" value="english" required> English
-            <input type="radio" name="language" value="hindi"> Hindi
+            <input type="radio" name="language" value="1" required> English
+            <input type="radio" name="language" value="2"> Hindi
         </div>
 
         <div class="form-group">
@@ -54,8 +54,8 @@
 
         <div class="form-group">
             <label>Registration Status *</label><br>
-            <input type="radio" name="registration_status" value="on" required> ON
-            <input type="radio" name="registration_status" value="off"> OFF
+            <input type="radio" name="registration_status" value="1" required> ON
+            <input type="radio" name="registration_status" value="2"> OFF
         </div>
 
         <div class="form-group">
