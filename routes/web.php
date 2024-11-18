@@ -45,6 +45,8 @@ use App\Http\Controllers\Admin\ManageAuditController;
 
 use App\Http\Controllers\Admin\Micro\TrainingProgramController;
 use App\Http\Controllers\Admin\Micro\OrganizationSetupController;
+use App\Http\Controllers\Admin\Micro\ManageResearchCentreController;
+use App\Http\Controllers\Admin\Micro\ManageNewsController;
 
 
 
@@ -290,6 +292,19 @@ Route::prefix('admin')->group(function () {
     // For Micro Website
     Route::resource('training-programs', TrainingProgramController::class);
     Route::resource('organization_setups', OrganizationSetupController::class);
+
+     // Manage manage Research centre  route
+     Route::get('researchcentres', [ManageResearchCentreController::class, 'researchcentresIndex'])->name('researchcentres.index');
+     Route::get('researchcentres/create', [ManageResearchCentreController::class, 'researchcentresCreate'])->name('researchcentres.create');
+     Route::post('researchcentres/store', [ManageResearchCentreController::class, 'researchcentresStore'])->name('researchcentres.store');
+     Route::get('researchcentres/{id}/edit', [ManageResearchCentreController::class, 'researchcentresEdit'])->name('researchcentres.edit');
+     Route::post('researchcentres/{id}/update', [ManageResearchCentreController::class, 'researchcentresUpdate'])->name('researchcentres.update');
+     Route::post('researchcentres/{id}/delete', [ManageResearchCentreController::class, 'researchcentresDestroy'])->name('researchcentres.destroy');
+
+     // Manage micro news route
+    Route::resource('Managenews', ManageNewsController::class);
+
+
 });
 // Indrajeet
 
