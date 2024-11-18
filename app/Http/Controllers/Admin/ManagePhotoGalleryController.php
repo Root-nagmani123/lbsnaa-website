@@ -8,7 +8,7 @@ use App\Models\Admin\ManageAudit;
 use Illuminate\Support\Facades\Auth;
 
 class ManagePhotoGalleryController extends Controller
-{
+{ 
     public function index()
     {
         $galleries = ManagePhotoGallery::all();

@@ -16,7 +16,9 @@
             <tr>
                 <th>ID</th>
                 <th>Research Centre</th>
-                <th>Program Name</th>
+                <th>Program Title</th>
+                <th>Venue</th>
+                <th>Co-ordinator</th>
                 <th>Start Date</th>
                 <th>End Date</th>
                 <th>Language</th>
@@ -30,9 +32,17 @@
                     <td>{{ $program->id }}</td>
                     <td>{{ $program->research_centre }}</td>
                     <td>{{ $program->program_name }}</td>
+                    <td>{{ $program->venue }}</td>
+                    <td>{{ $program->program_coordinator }}</td>
                     <td>{{ $program->start_date }}</td>
                     <td>{{ $program->end_date }}</td>
-                    <td>{{ $program->language }}</td>
+                    <td>
+                        @if ($program->language == 1)
+                            English
+                        @else ($program->language == 2)
+                            Hindi
+                        @endif
+                    </td>
                     <td>
                         @if ($program->page_status == 1)
                             Draft
@@ -40,8 +50,6 @@
                             Approval
                         @elseif ($program->page_status == 3)
                             Publish
-                        @else
-                            Unknown
                         @endif
                     </td>
                     <td>

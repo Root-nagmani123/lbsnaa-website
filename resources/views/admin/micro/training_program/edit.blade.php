@@ -20,8 +20,8 @@
 
         <div class="form-group">
             <label>Page Language *</label><br>
-            <input type="radio" name="language" value="english" {{ $trainingProgram->language == 'english' ? 'checked' : '' }} required> English
-            <input type="radio" name="language" value="hindi" {{ $trainingProgram->language == 'hindi' ? 'checked' : '' }}> Hindi
+            <input type="radio" name="language" value="1" {{ $trainingProgram->language == '1' ? 'checked' : '' }} required> English
+            <input type="radio" name="language" value="2" {{ $trainingProgram->language == '2' ? 'checked' : '' }}> Hindi
         </div>
 
         <div class="form-group">
@@ -61,8 +61,8 @@
 
         <div class="form-group">
             <label>Registration Status *</label><br>
-            <input type="radio" name="registration_status" value="on" {{ $trainingProgram->registration_status == 'on' ? 'checked' : '' }} required> ON
-            <input type="radio" name="registration_status" value="off" {{ $trainingProgram->registration_status == 'off' ? 'checked' : '' }}> OFF
+            <input type="radio" name="registration_status" value="1" {{ $trainingProgram->registration_status == '1' ? 'checked' : '' }} required> ON
+            <input type="radio" name="registration_status" value="2" {{ $trainingProgram->registration_status == '2' ? 'checked' : '' }}> OFF
         </div>
 
         <div class="form-group">

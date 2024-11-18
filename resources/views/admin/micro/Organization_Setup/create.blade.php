@@ -3,7 +3,7 @@
 
 @section('content')
 <div class="container">
-    <h2>Organization Setup</h2>
+    <h2>Add Organization Setup</h2>
     
     <form action="{{ route('organization_setups.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
@@ -15,8 +15,8 @@
 
         <div class="form-group">
             <label>Page Language *</label><br>
-            <input type="radio" name="language" value="english" required> English
-            <input type="radio" name="language" value="hindi"> Hindi
+            <input type="radio" name="language" value="1" required> English
+            <input type="radio" name="language" value="2"> Hindi
         </div>
 
         <div class="form-group">
