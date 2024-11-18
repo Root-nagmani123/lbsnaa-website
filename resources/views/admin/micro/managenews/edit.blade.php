@@ -52,6 +52,21 @@
 
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
+                                <label class="label" for="research_centre">Select Research Centre :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <select class="form-select form-control ps-5 h-58" name="research_centre" id="research_centre" required>
+                                        <option value="" disabled {{ is_null($news->research_centreid) ? 'selected' : '' }}>Select Research Centre</option>
+                                        @foreach($researchCentres as $id => $name)
+                                            <option value="{{ $id }}" {{ (string)$news->research_centreid === (string)$id ? 'selected' : '' }}>{{ $name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
                                 <label class="label" for="title">Title :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">

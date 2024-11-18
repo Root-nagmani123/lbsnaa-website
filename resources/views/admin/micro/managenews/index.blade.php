@@ -36,6 +36,7 @@
                 <table class="table align-middle" id="myTable">
                     <thead>
                         <tr class="text-center">
+                            <th class="col">#</th>
                             <th class="col">Title</th>
                             <th class="col">Start Date</th>
                             <th class="col">Language</th>
@@ -46,6 +47,7 @@
                     <tbody>
                         @foreach($news as $item)
                         <tr>
+                           <td>{{ $loop->iteration}}</td>
                            <td>{{ $item->title }}</td>
                             <td>{{ $item->start_date }}</td>
                             <td>{{ $item->language == 1 ? 'English' : 'Hindi' }}</td>

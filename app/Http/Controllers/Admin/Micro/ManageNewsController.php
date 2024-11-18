@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\File;
 use App\Models\Admin\ManageAudit;
 use App\Models\Admin\Micro\Managenews;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str; 
 
 class ManageNewsController extends Controller
@@ -23,7 +24,8 @@ class ManageNewsController extends Controller
     // Show create form
     public function create()
     {
-        return view('admin.micro.managenews.create');
+        $researchCentres = DB::table('research_centres')->pluck('research_centre_name', 'id'); // Replace 'name' and 'id' with your actual column names.
+        return view('admin.micro.managenews.create',compact('researchCentres'));
     }
 
     // Store new news
@@ -59,6 +61,7 @@ class ManageNewsController extends Controller
 
         // Set other news attributes
         $news->language = $request->language;
+        $news->research_centreid = $request->research_centre;
         $news->title = $request->title;
         $news->short_description = $request->short_description;
         $news->meta_title = $request->meta_title;
@@ -90,9 +93,16 @@ class ManageNewsController extends Controller
     // Edit form
     public function edit($id)
     {
-        $news = Managenews::findOrFail($id);
-        return view('admin.micro.managenews.edit', compact('news'));
+        $news = Managenews::findOrFail($id); // Ensure research_centreid is loaded correctly.
+    
+        $researchCentres = DB::table('research_centres')
+            ->select('id', 'research_centre_name')
+            ->pluck('research_centre_name', 'id')
+            ->toArray();
+    
+        return view('admin.micro.managenews.edit', compact('news', 'researchCentres'));
     }
+    
 
     // Update news
     public function update(Request $request, $id)
@@ -146,6 +156,7 @@ class ManageNewsController extends Controller
 
         // Update other news attributes
         $news->language = $request->language;
+        $news->research_centreid = $request->research_centre;
         $news->title = $request->title;
         $news->short_description = $request->short_description;
         $news->meta_title = $request->meta_title;
