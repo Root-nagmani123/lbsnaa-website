@@ -5,7 +5,7 @@
             <span class="star">*</span>
 
             <div class="form-group position-relative">
-                <input type="radio" name="language" value="1"
+                <input type="radio" name="txtlanguage" value="1"
                     {{ old('language', $manageTender->language ?? '') == 1 ? 'checked' : '' }}> English
                 <input type="radio" name="language" value="2"
                     {{ old('language', $manageTender->language ?? '') == 2 ? 'checked' : '' }}> Hindi
@@ -55,59 +55,9 @@
         <div class="form-group mb-4">
             <label class="label">Description:</label>
             <div class="form-group position-relative">
-                <div class="toolbar">
-                    <ul class="tool-list">
-                        <li class="tool">
-                            <button type="button" data-command='justifyLeft' class="tool--btn">
-                                <i class=' fas fa-align-left'></i>
-                            </button>
-                        </li>
-                        <li class="tool">
-                            <button type="button" data-command='justifyCenter' class="tool--btn">
-                                <i class=' fas fa-align-center'></i>
-                            </button>
-                        </li>
-                        <li class="tool">
-                            <button type="button" data-command="bold" class="tool--btn">
-                                <i class=' fas fa-bold'></i>
-                            </button>
-                        </li>
-                        <li class="tool">
-                            <button type="button" data-command="italic" class="tool--btn">
-                                <i class=' fas fa-italic'></i>
-                            </button>
-                        </li>
-                        <li class="tool">
-                            <button type="button" data-command="underline" class="tool--btn">
-                                <i class=' fas fa-underline'></i>
-                            </button>
-                        </li>
-                        <li class="tool">
-                            <button type="button" data-command="insertOrderedList" class="tool--btn">
-                                <i class=' fas fa-list-ol'></i>
-                            </button>
-                        </li>
-                        <li class="tool">
-                            <button type="button" data-command="insertUnorderedList" class="tool--btn">
-                                <i class=' fas fa-list-ul'></i>
-                            </button>
-                        </li>
-                        <li class="tool">
-                            <button type="button" data-command="createlink" class="tool--btn">
-                                <i class=' fas fa-link'></i>
-                            </button>
-                        </li>
-                        <li class="tool">
-                            <button type="button" data-command="attach" class="tool--btn">
-                                <i class=' fas fa-link'></i>
-                            </button>
-                        </li>
-                    </ul>
-                </div>
-                <textarea type="text" id="output" contenteditable="true" class="form-control"></textarea>
+                <!-- <textarea type="text" id="description" contenteditable="true" class="form-control"></textarea> -->
+                <textarea class="form-control" id="description" placeholder="Enter the Description" name="description" rows="5">{{ old('description', $manageTender->description ?? '') ?? '' }}</textarea>
             </div>
-
-
             @error('description')
             <div class="text-danger">{{ $message }}</div>
             @enderror
@@ -191,7 +141,17 @@
     </div>
 
 </div>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="{{ asset('admin_assets/js/ckeditor.js') }}"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+
+<script>
+    ClassicEditor
+    .create( document.querySelector( '#description' ) )
+    .catch( error => {
+    console.error( error );
+    });
+</script>
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link rel="stylesheet" href="texteditor.css">
 <style>
 .tool-list {
@@ -244,4 +204,4 @@ for (let btn of buttons) {
         }
     })
 }
-</script>
+</script> -->

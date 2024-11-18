@@ -21,7 +21,9 @@
     <div class="col-lg-12">
         <div class="card bg-white border-0 rounded-10 mb-4">
             <div class="card-body p-4">
-                <h4 class="fs-18 mb-4">Add New Tender/Circular</h4>
+            <div class="d-flex justify-content-between align-items-center border-bottom pb-20 mb-20">
+                    <h4 class="fw-semibold fs-18 mb-0">Add New Tender/Circular</h4>
+                </div>
                 <form action="{{ route('manage_tender.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @include('admin.manage_tender.form')
@@ -34,7 +36,7 @@
         </div>
     </div>
 </div>
-@endsection
+
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         let today = new Date().toISOString().split('T')[0];
@@ -42,3 +44,4 @@
         document.querySelector('input[name="expiry_date"]').setAttribute('min', today);
     });
 </script>
+@endsection

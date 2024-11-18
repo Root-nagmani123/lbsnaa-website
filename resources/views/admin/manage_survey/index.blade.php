@@ -39,7 +39,16 @@
                             <td>{{ $record->start_date }}</td>
                             <td>{{ $record->end_date }}</td>
                             <td>{{ $record->language == 1 ? 'English' : 'Hindi' }}</td>
-                            <td>{{ $record->status ? 'Active' : 'Inactive' }}</td>
+                            <!-- <td>{{ $record->status ? 'Active' : 'Inactive' }}</td> -->
+                            <td>
+                                @if ($record->status == 1)
+                                <span
+                                    class="badge bg-success bg-opacity-10 text-success py-2 fw-semibold text-center">Active</span>
+                                @elseif ($record->status == 0)
+                                <span
+                                    class="badge bg-danger bg-opacity-10 text-danger py-2 fw-semibold text-center">Inactive</span>
+                                @endif
+                            </td>
                             <td>
                                 <a href="{{ route('survey.edit', $record->id) }}" class="btn bg-success text-white btn-sm">Edit</a>
                                 <form action="{{ route('survey.destroy', $record->id) }}" method="POST" style="display:inline;">

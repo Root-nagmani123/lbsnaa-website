@@ -41,8 +41,13 @@ class CoursesubCategoryController extends Controller
 
     public function create()
     {
-        $subcategories = DB::table('courses_sub_categories')->get();
-        return view('admin.manage_coursesubcategories.create', compact('subcategories'));
+        $subcategories = DB::table('courses_sub_categories as sub')
+        ->leftJoin('courses_sub_categories as parent', 'sub.parent_id', '=', 'parent.id')
+        ->select('sub.*', 'parent.category_name as parent_category_name')
+        ->get();
+
+    $categoryTree = $this->buildCategoryTree($subcategories);
+            return view('admin.manage_coursesubcategories.create', compact('subcategories'));
     }
 
     public function store(Request $request)
@@ -75,7 +80,11 @@ class CoursesubCategoryController extends Controller
         // Fetch the subcategory to edit
         $subcategory = DB::table('courses_sub_categories')->where('id', $id)->first();
         // Fetch all categories for the dropdown
-        $categories = DB::table('courses_sub_categories')->get();
+        $categories = DB::table('courses_sub_categories as sub')
+        ->leftJoin('courses_sub_categories as parent', 'sub.parent_id', '=', 'parent.id')
+        ->select('sub.*', 'parent.category_name as parent_category_name')
+        ->get();
+
         return view('admin.manage_coursesubcategories.edit', compact('subcategory', 'categories'));
     }
 

@@ -85,7 +85,7 @@ class ManageTenderController extends Controller
     public function update(Request $request, ManageTender $manageTender)
     {
         $request->validate([
-	        'language' => 'required',
+	        'txtlanguage' => 'required',
 	        'type' => 'required',
 	        'title' => 'required|string|max:255',
 	        'description' => 'required|string',
@@ -103,6 +103,7 @@ class ManageTenderController extends Controller
         }
 
         // Update the tender
+        
         $manageTender->update([
             'language' => $request->txtlanguage,
             'type' => $request->type,

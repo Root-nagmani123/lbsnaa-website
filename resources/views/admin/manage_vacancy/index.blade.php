@@ -47,11 +47,11 @@
                             <td>{{ $vacancy->language == 1 ? 'English' : 'Hindi' }}</td>
                             <td>
                                 @if ($vacancy->status == 1)
-                                    Draft
+                                    <span class="badge bg-warning bg-opacity-10 text-warning py-2 fw-semibold text-center">Draft</span>
                                 @elseif ($vacancy->status == 2)
-                                    Approval
+                                    <span class="badge bg-primary bg-opacity-10 text-primary py-2 fw-semibold text-center">Approved</span>
                                 @elseif ($vacancy->status == 3)
-                                    Publish
+                                    <span class="badge bg-success bg-opacity-10 text-success py-2 fw-semibold text-center">Publish</span>
                                 @endif
                             </td>
                             <td>
