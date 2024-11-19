@@ -346,12 +346,18 @@
                             </a>
                         </li>
                         <li class="menu-item">
+                            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                                Photo Gallery/ Video Gallery
+                            </a>
+                            <ul class="menu-sub">
+                        <li class="menu-item">
                             <a href="{{ route('photovideogallery.index') }}" class="menu-link">
-                                Photo Gallery/ Gallery
+                                Add Category
                             </a>
                         </li>
                     </ul>
                 </li>
+                </ul>
                 <li class="menu-item">
                     <a href="{{ route('manage_audit.index') }}" class="menu-link">
                         <i data-feather="message-square" class="menu-icon tf-icons"></i>

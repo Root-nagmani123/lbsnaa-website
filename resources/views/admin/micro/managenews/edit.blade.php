@@ -185,4 +185,19 @@
         </div>
     </div>
 </div>
+<script src="{{ asset('admin_assets/js/ckeditor.js') }}"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+
+<script>
+    ClassicEditor
+    .create( document.querySelector( '#meta_description' ) )
+    .catch( error => {
+    console.error( error );
+    });
+    ClassicEditor
+    .create( document.querySelector( '#description' ) )
+    .catch( error => {
+    console.error( error );
+    });
+</script>   
 @endsection

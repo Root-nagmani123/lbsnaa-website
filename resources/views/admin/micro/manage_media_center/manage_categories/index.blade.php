@@ -3,22 +3,27 @@
 
 @section('content')
 <div class="d-sm-flex text-center justify-content-between align-items-center mb-4">
-    <h4 class="fw-semibold fs-18 mb-sm-0">Manage Media Categories</h4>
-
-    <!-- <a href="{{ route('media-center.create') }}">
-        <button class="border-0 btn btn-success py-2 px-3 px-sm-4 text-white fs-14 fw-semibold rounded-3">
-            <span class="py-sm-1 d-block">
-                <i class="ri-add-line text-white"></i>
-                <span>Add New Audio</span>
-            </span>
-        </button>
-    </a> -->
+    <h3 class="mb-sm-0 mb-1 fs-18">Manage Media Center</h3>
+    <ul class="ps-0 mb-0 list-unstyled d-flex justify-content-center">
+        <li>
+            <a href="{{ route('admin.index') }}" class="text-decoration-none">
+                <i class="ri-home-2-line" style="position: relative; top: -1px;"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        <li>
+            <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Media Categories</span>
+        </li>
+    </ul>
 </div>
 
 <div class="row justify-content-center">
     <div class="col-lg-12">
         <div class="card bg-white border-0 rounded-10 mb-4">
             <div class="card-body p-4">
+            <div class="d-flex justify-content-between align-items-center border-bottom pb-20 mb-20">
+                <h4 class="fw-semibold fs-18 mb-0">Manage Media Categories</h4>
+            </div>
                 @if (session('success'))
     <div class="alert alert-success">{{ session('success') }}</div>
 @endif
@@ -77,7 +82,6 @@
                         </div>
                         <div class="d-flex ms-sm-3 ms-md-0">
                             <button class="btn btn-success text-white fw-semibold" type="submit">{{ isset($category) ? 'Update' : 'Submit' }}</button> &nbsp;
-                            <button class="btn btn-warning text-white fw-semibold" type="reset">Reset</button> &nbsp;
                             <a href="{{ route('photovideogallery.index') }}" class="btn btn-secondary text-white">Cancel</a>
                         </div>
                     </div>
@@ -88,20 +92,12 @@
         </div>
     </div>
 </div>
-<div class="d-sm-flex text-center justify-content-between align-items-center mb-4">
-    <h4 class="fw-semibold fs-18 mb-sm-0">Media List</h4>
 
-    <!-- <a href="{{ route('media-center.create') }}">
-        <button class="border-0 btn btn-success py-2 px-3 px-sm-4 text-white fs-14 fw-semibold rounded-3">
-            <span class="py-sm-1 d-block">
-                <i class="ri-add-line text-white"></i>
-                <span>Add New Audio</span>
-            </span>
-        </button>
-    </a> -->
-</div>
 <div class="card bg-white border-0 rounded-10 mb-4">
     <div class="card-body p-4">
+    <div class="d-flex justify-content-between align-items-center border-bottom pb-20 mb-20">
+                <h4 class="fw-semibold fs-18 mb-0">Media List</h4>
+            </div>
               <div class="default-table-area members-list">
             <div class="table-responsive">
                 <table class="table align-middle" id="myTable">
@@ -129,14 +125,17 @@
                         <td>{{ $item->name }}</td>
                         <td>{{ $item->hindi_name }}</td>
                         <td>
-                            @if ($item->status == 1)
-                                Draft
-                            @elseif ($item->status == 2)
-                                Approval
-                            @elseif ($item->status == 3)
-                                Publish
-                            @endif
-                        </td>
+                    @if ($item->status == 1)
+                    <span
+                        class="badge bg-warning bg-opacity-10 text-warning py-2 fw-semibold text-center">Draft</span>
+                    @elseif ($item->status == 2)
+                    <span
+                        class="badge bg-primary bg-opacity-10 text-primary py-2 fw-semibold text-center">Approval</span>
+                    @elseif ($item->status == 3)
+                    <span
+                        class="badge bg-danger bg-opacity-10 text-danger py-2 fw-semibold text-center">Publish</span>
+                    @endif
+                </td>
                             <td>
                                 <a href="{{ route('photovideogallery.edit', $item->id) }}"
                                     class="btn bg-success text-white btn-sm">Edit</a>

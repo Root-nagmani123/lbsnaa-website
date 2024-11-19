@@ -2,6 +2,20 @@
 @section('title', 'Admin Dashboard')
 
 @section('content')
+<div class="d-sm-flex text-center justify-content-between align-items-center mb-4">
+    <h3 class="mb-sm-0 mb-1 fs-18">All Vacancy</h3>
+    <ul class="ps-0 mb-0 list-unstyled d-flex justify-content-center">
+        <li>
+            <a href="{{ route('admin.index') }}" class="text-decoration-none">
+                <i class="ri-home-2-line" style="position: relative; top: -1px;"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        <li>
+            <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Vacancy</span>
+        </li>
+    </ul>
+</div>
 <div class="row justify-content-center">
     <div class="col-lg-12">
         <div class="card bg-white border-0 rounded-10 mb-4">
@@ -21,22 +35,7 @@
                 <form action="{{ route('manage_vacancy.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-                        <!-- New Dropdown for Research Centre -->
-                        <div class="col-lg-12">
-                            <div class="form-group mb-4">
-                                <label class="label" for="research_centre">Select Research Centre <span class="star">*</span>:</label>
-                                <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="research_centre" id="research_centre" required>
-                                        <option value="">Select Research Centre</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6">
+                    <div class="col-lg-2">
                             <div class="form-group mb-4">
                                 <label class="label" for="language">Language :</label>
                                 <span class="star">*</span>
@@ -52,17 +51,32 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <!-- New Dropdown for Research Centre -->
+                        <div class="col-lg-5">
+                            <div class="form-group mb-4">
+                                <label class="label" for="research_centre">Select Research Centre <span class="star">*</span>:</label>
+                                <div class="form-group position-relative">
+                                    <select class="form-select form-control ps-5 h-58" name="research_centre" id="research_centre" required>
+                                        <option value="">Select Research Centre</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                        <div class="col-lg-5">
                             <div class="form-group mb-4">
                                 <label class="label" for="job_title">Job Title :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark ps-5 h-58" name="job_title"
-                                        id="job_title"  value="{{ old('job_title') }}">
+                                        id="job_title">
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-12">
                             <!-- Job Description with Textarea -->
                         <div class="col-lg-12">
                             <div class="form-group mb-4">
@@ -72,7 +86,7 @@
                                     class="form-control" 
                                     name="job_description" 
                                     id="job_description" 
-                                    rows="5">{{ old('job_description') }}</textarea>
+                                    rows="5"></textarea>
                             </div>
                         </div>
 
@@ -146,7 +160,6 @@
                         </div>
                         <div class="d-flex ms-sm-3 ms-md-0">
                             <button class="btn btn-success text-white fw-semibold" type="submit">Submit</button> &nbsp;
-                            <button class="btn btn-warning text-white fw-semibold" type="reset">Reset</button> &nbsp;
                             <a href="{{ route('manage_vacancy.index') }}" class="btn btn-secondary text-white">Cancel</a>
                         </div>
                     </div>
@@ -175,6 +188,16 @@
 	        }
 	    });
 	</script>
+    <script src="{{ asset('admin_assets/js/ckeditor.js') }}"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+
+<script>
+    ClassicEditor
+    .create( document.querySelector( '#job_description' ) )
+    .catch( error => {
+    console.error( error );
+    });
+</script>
 
 @endsection
 

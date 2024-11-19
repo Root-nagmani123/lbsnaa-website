@@ -2,6 +2,20 @@
 @section('title', 'Admin Dashboard')
 
 @section('content')
+<div class="d-sm-flex text-center justify-content-between align-items-center mb-4">
+    <h3 class="mb-sm-0 mb-1 fs-18">All Vacancy</h3>
+    <ul class="ps-0 mb-0 list-unstyled d-flex justify-content-center">
+        <li>
+            <a href="{{ route('admin.index') }}" class="text-decoration-none">
+                <i class="ri-home-2-line" style="position: relative; top: -1px;"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        <li>
+            <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Vacancy</span>
+        </li>
+    </ul>
+</div>
 <div class="card bg-white border-0 rounded-10 mb-4">
     <div class="card-body p-4">
         <div class="d-sm-flex text-center justify-content-between align-items-center border-bottom pb-20 mb-20">
@@ -50,11 +64,14 @@
                             <td>{{ $vacancy->expiry_date }}</td>
                             <td>
                                 @if ($vacancy->status == 1)
-                                    Draft
+                                <span
+                                    class="badge bg-warning bg-opacity-10 text-warning py-2 fw-semibold text-center">Draft</span>
                                 @elseif ($vacancy->status == 2)
-                                    Approval
+                                <span
+                                    class="badge bg-primary bg-opacity-10 text-primary py-2 fw-semibold text-center">Approval</span>
                                 @elseif ($vacancy->status == 3)
-                                    Publish
+                                <span
+                                    class="badge bg-danger bg-opacity-10 text-danger py-2 fw-semibold text-center">Publish</span>
                                 @endif
                             </td>
                             <td>
