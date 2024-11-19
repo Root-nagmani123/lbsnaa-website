@@ -288,7 +288,7 @@
                     </a>
                     <ul class="menu-sub">
                         <li class="menu-item">
-                            <a href="#" class="menu-link">
+                            <a href="{{ route('micromenus.index') }}" class="menu-link">
                                 Manage Menu
                             </a>
                         </li>

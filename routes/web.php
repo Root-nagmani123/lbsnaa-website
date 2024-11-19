@@ -52,6 +52,8 @@ use App\Http\Controllers\Admin\Micro\MicroVideoGalleryController;
 use App\Http\Controllers\Admin\Micro\MicroManageMediaCenterController;
 use App\Http\Controllers\Admin\Micro\ManageResearchCentreController;
 use App\Http\Controllers\Admin\Micro\ManageNewsController;
+use App\Http\Controllers\Admin\Micro\MicroMenuController;
+
 
 
 
@@ -310,18 +312,26 @@ Route::prefix('admin')->group(function () {
     Route::put('admin/micro-video-gallery/{id}', [MicroVideoGalleryController::class, 'update'])->name('micro-video-gallery.update');
 
     Route::resource('photovideogallery', MicroManageMediaCenterController::class);
-     // Manage manage Research centre  route
-     Route::get('researchcentres', [ManageResearchCentreController::class, 'researchcentresIndex'])->name('researchcentres.index');
-     Route::get('researchcentres/create', [ManageResearchCentreController::class, 'researchcentresCreate'])->name('researchcentres.create');
-     Route::post('researchcentres/store', [ManageResearchCentreController::class, 'researchcentresStore'])->name('researchcentres.store');
-     Route::get('researchcentres/{id}/edit', [ManageResearchCentreController::class, 'researchcentresEdit'])->name('researchcentres.edit');
-     Route::post('researchcentres/{id}/update', [ManageResearchCentreController::class, 'researchcentresUpdate'])->name('researchcentres.update');
-     Route::post('researchcentres/{id}/delete', [ManageResearchCentreController::class, 'researchcentresDestroy'])->name('researchcentres.destroy');
+    // Manage manage Research centre  route
+    Route::get('researchcentres', [ManageResearchCentreController::class, 'researchcentresIndex'])->name('researchcentres.index');
+    Route::get('researchcentres/create', [ManageResearchCentreController::class, 'researchcentresCreate'])->name('researchcentres.create');
+    Route::post('researchcentres/store', [ManageResearchCentreController::class, 'researchcentresStore'])->name('researchcentres.store');
+    Route::get('researchcentres/{id}/edit', [ManageResearchCentreController::class, 'researchcentresEdit'])->name('researchcentres.edit');
+    Route::post('researchcentres/{id}/update', [ManageResearchCentreController::class, 'researchcentresUpdate'])->name('researchcentres.update');
+    Route::post('researchcentres/{id}/delete', [ManageResearchCentreController::class, 'researchcentresDestroy'])->name('researchcentres.destroy');
 
-     // Manage micro news route
+    // Manage micro news route
     Route::resource('Managenews', ManageNewsController::class);
 
+    //Manage micro Menu cms Page
+    Route::get('/admin/micromenu', [MicroMenuController::class, 'index'])->name('micromenus.index');
+    Route::get('/admin/micromenu/create', [MicroMenuController::class, 'create'])->name('micromenus.create');
+    Route::post('/admin/micromenu', [MicroMenuController::class, 'store'])->name('micromenus.store');
+    Route::get('/admin/micromenu/{id}/edit', [MicroMenuController::class, 'edit'])->name('micromenus.edit');
+    Route::put('/admin/micromenu/{id}', [MicroMenuController::class, 'update'])->name('micromenu.update');
+    Route::get('/admin/micromenu/{id}/delete', [MicroMenuController::class, 'delete'])->name('micromenu.delete');
 
+    Route::post('/micromenu/{id}/toggle-status', [MicroMenuController::class, 'toggleStatus'])->name('micromenus.toggleStatus');
 });
 // Indrajeet
 
@@ -342,5 +352,3 @@ Route::prefix('admin')->name('admin.')->group(function () {
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/admin/login', [LoginController::class, 'authenticate'])->name('admin.login');
 Route::post('/admin/logout', [LoginController::class, 'logout'])->name('admin.logout');
-
-
