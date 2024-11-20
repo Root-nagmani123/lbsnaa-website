@@ -36,8 +36,8 @@
                                 <label class="label" for="menutitle">Page Language :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="radio" name="txtlanguage" value="1">English
-                                    <input type="radio" name="txtlanguage" value="2">Hindi
+                                    <input type="radio" name="txtlanguage" value="1"> English
+                                    <input type="radio" name="txtlanguage" value="2"> Hindi
                                 </div>
                             </div>
                         </div>
@@ -91,7 +91,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-12">
                             <div class="form-group mb-4">
                                 <label for="description" class="label">Description</label>
                                 <span class="star">*</span>
@@ -100,7 +100,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-12">
                             <div class="form-group mb-4">
                                 <label for="description_in_hindi" class="label">Description in Hindi</label>
                                 <span class="star">*</span>
@@ -315,5 +315,70 @@
         </div>
     </div>
 </div>
+<script src="{{ asset('admin_assets/js/ckeditor.js') }}"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+
+<!-- <script>
+    ClassicEditor
+    .create( document.querySelector( '#description_in_hindi' ) )
+    .catch( error => {
+    console.error( error );
+    });
+    ClassicEditor
+    .create( document.querySelector( '#description' ) )
+    .catch( error => {
+    console.error( error );
+    });
+</script> -->
+
+<script>
+ ClassicEditor
+    .create(document.querySelector('#description_in_hindi'), {
+        toolbar: ['bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'imageUpload', 'undo', 'redo'],
+        ckfinder: {
+            uploadUrl: '/upload-image-endpoint', // Ensure this route matches your Laravel route
+        },
+    })
+    .catch(error => console.error(error));
+
+
+    ClassicEditor
+    .create(document.querySelector('#description'), {
+        toolbar: ['bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'imageUpload', 'undo', 'redo'],
+        ckfinder: {
+            uploadUrl: '/upload-image-endpoint', // Ensure this route matches your Laravel route
+        },
+    })
+    .catch(error => console.error(error));
+
+
+</script>
+
+<?php
+if (isset($_FILES['upload'])) {
+    $file = $_FILES['upload'];
+    $filename = $file['name'];
+    $targetDir = "uploads/";
+    $targetFile = $targetDir . basename($filename);
+
+    $fileType = $file['type'];
+    $fileSize = $file['size'];
+    $allowedTypes = ['image/png', 'image/jpeg', 'image/gif'];
+    $allowedSize = 5000000;
+
+    if (in_array($fileType, $allowedTypes) && $fileSize < $allowedSize) {
+        if (move_uploaded_file($file['tmp_name'], $targetFile)) {
+            $url = "/uploads/" . $filename;
+            echo json_encode(['url' => $url]);
+        } else {
+            http_response_code(400);
+            echo json_encode(['error' => 'File upload failed.']);
+        }
+    } else {
+        http_response_code(400);
+        echo json_encode(['error' => 'Only PNG, JPEG, GIF images are allowed and file size should be less than 5MB.']);
+    }
+}
+?>
 
 @endsection

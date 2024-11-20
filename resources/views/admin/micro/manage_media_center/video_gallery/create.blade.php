@@ -3,12 +3,26 @@
 
 @section('content')
 <div class="d-sm-flex text-center justify-content-between align-items-center mb-4">
-    <h4 class="fw-semibold fs-18 mb-sm-0">Add Video Gallery</h4>
+    <h3 class="mb-sm-0 mb-1 fs-18">Manage Media Center</h3>
+    <ul class="ps-0 mb-0 list-unstyled d-flex justify-content-center">
+        <li>
+            <a href="{{ route('admin.index') }}" class="text-decoration-none">
+                <i class="ri-home-2-line" style="position: relative; top: -1px;"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        <li>
+            <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Video Gallery</span>
+        </li>
+    </ul>
 </div>
 <div class="row justify-content-center">
     <div class="col-lg-12">
         <div class="card bg-white border-0 rounded-10 mb-4">
             <div class="card-body p-4">
+            <div class="d-sm-flex text-center justify-content-between align-items-center mb-4 border-bottom pb-20 mb-20">
+    <h4 class="fw-semibold fs-18 mb-sm-0">Add Video Gallery</h4>
+</div>
                 @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -58,10 +72,9 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-lg-12">
-                            <button type="submit" class="btn btn-success">Submit</button>
-                            <button type="reset" class="btn btn-warning">Reset</button>
-                            <a href="{{ route('micro-video-gallery.index') }}" class="btn btn-secondary">Cancel</a>
+                        <div class="d-flex ms-sm-3 ms-md-0">
+                            <button class="btn btn-success text-white fw-semibold" type="submit">Submit</button> &nbsp;
+                            <a href="{{ route('manage_vacancy.index') }}" class="btn btn-secondary text-white">Cancel</a>
                         </div>
                     </div>
                 </form>

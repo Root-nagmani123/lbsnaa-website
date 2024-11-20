@@ -360,7 +360,7 @@
                 </ul>
                 <li class="menu-item">
                     <a href="{{ route('manage_audit.index') }}" class="menu-link">
-                        <i data-feather="message-square" class="menu-icon tf-icons"></i>
+                    <i class="material-icons menu-icon">list</i>
                         <span class="title">Manage Audit</span>
                     </a>
                 </li>
