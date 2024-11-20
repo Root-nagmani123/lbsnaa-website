@@ -295,7 +295,7 @@
                     </ul>
                 </li>
                 <li class="menu-item">
-                    <a href="#" class="menu-link">
+                    <a href="{{ route('microquicklinks.index') }}" class="menu-link">
                     <i class="material-icons menu-icon">add_linka</i>
                         <span class="title">Manage What's New / Quick Links</span>
                     </a>

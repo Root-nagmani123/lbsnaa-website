@@ -53,6 +53,8 @@ use App\Http\Controllers\Admin\Micro\MicroManageMediaCenterController;
 use App\Http\Controllers\Admin\Micro\ManageResearchCentreController;
 use App\Http\Controllers\Admin\Micro\ManageNewsController;
 use App\Http\Controllers\Admin\Micro\MicroMenuController;
+use App\Http\Controllers\Admin\Micro\ManageQuickLinksController;
+
 
 
 
@@ -332,6 +334,15 @@ Route::prefix('admin')->group(function () {
     Route::get('/admin/micromenu/{id}/delete', [MicroMenuController::class, 'delete'])->name('micromenu.delete');
 
     Route::post('/micromenu/{id}/toggle-status', [MicroMenuController::class, 'toggleStatus'])->name('micromenus.toggleStatus');
+
+    //Manage micro Quick links Page
+
+    Route::get('/microquick-links', [ManageQuickLinksController::class, 'quick_link_list'])->name('microquicklinks.index');
+    Route::get('/microquick-links/create', [ManageQuickLinksController::class, 'quick_link_create'])->name('microquicklinks.create');
+    Route::post('/microquick-links/store', [ManageQuickLinksController::class, 'quick_link_store'])->name('microquicklinks.store');
+    Route::get('/microquick-links/{id}/edit', [ManageQuickLinksController::class, 'quick_link_edit'])->name('microquicklinks.edit');
+    Route::put('/microquick-links/{id}', [ManageQuickLinksController::class, 'quick_link_update'])->name('microquicklinks.update');
+    Route::delete('/microquick-links/{id}', [ManageQuickLinksController::class, 'quick_link_destroy'])->name('microquicklinks.destroy');
 });
 // Indrajeet
 

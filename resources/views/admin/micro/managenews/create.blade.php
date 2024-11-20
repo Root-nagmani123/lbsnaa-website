@@ -22,7 +22,7 @@
             <div class="card bg-white border-0 rounded-10 mb-4">
                 <div class="card-body p-4">
                     <div class="d-flex justify-content-between align-items-center border-bottom pb-20 mb-20">
-                        <h4 class="fw-semibold fs-18 mb-0">Add Newsgg</h4>
+                        <h4 class="fw-semibold fs-18 mb-0">Add News</h4>
                     </div>
                     @if ($errors->any())
                         <div class="alert alert-danger">
