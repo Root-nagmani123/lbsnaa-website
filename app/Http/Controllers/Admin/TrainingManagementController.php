@@ -106,6 +106,7 @@ class TrainingManagementController extends Controller
 
         $country = DB::table('manage_country')->insert([
             'country_name' => $request->country_name,
+            'country_name_hindi' => $request->country_name_hindi,
             'status' => $request->status,
         ]);
 
@@ -134,6 +135,7 @@ class TrainingManagementController extends Controller
     {
         $country = DB::table('manage_country')->where('id', $id)->update([
             'country_name' => $request->country_name,
+            'country_name_hindi' => $request->country_name_hindi,
             'status' => $request->status,
         ]);
 

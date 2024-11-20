@@ -21,7 +21,10 @@
         <div class="col-lg-12">
             <div class="card bg-white border-0 rounded-10 mb-4">
                 <div class="card-body p-4">
-                    <h4 class="fs-18 mb-4">Manage Country</h4>
+                <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-center border-bottom pb-20 mb-20">
+                <h4 class="fw-semibold fs-18 mb-0">Edit Country</h4>
+            </div>
 
                     <form action="{{ route('country.update', $country->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
@@ -34,6 +37,16 @@
                                     <div class="form-group position-relative">
                                         <input name = "country_name" id ="country_name" type="text"
                                             class="form-control text-dark ps-5 h-58" value="{{ $country->country_name }}" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group mb-4">
+                                    <label class="label" for="country_name_hindi">Country Name in Hindi :</label>
+                                    <span class="star">*</span>
+                                    <div class="form-group position-relative">
+                                        <input type="text" class="form-control text-dark ps-5 h-58" name="country_name_hindi"
+                                            id="country_name_hindi" required value="{{ $country->country_name_hindi }}">
                                     </div>
                                 </div>
                             </div>

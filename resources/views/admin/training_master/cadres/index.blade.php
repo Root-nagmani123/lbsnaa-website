@@ -38,12 +38,13 @@
         <table class="table align-middle" id="myTable">
             <thead>
                 <tr class="text-center">
-                    <th class="col">ID</th>
+                    <th class="col">#</th>
                     <th class="col">Code</th>
                     <th class="col">Description</th>
                     <th class="col">Language</th>
-                    <th class="col">Status</th>
                     <th class="col">Action</th>
+                    <th class="col">Status</th>
+                    
                 </tr>
             </thead>
             <tbody>
@@ -54,13 +55,6 @@
                             <td>{{ $cadre->description }}</td>
                             <td>{{ $cadre->language == 1 ? 'English' : 'Hindi' }}</td>
                             <td>
-                                @if ($cadre->status == 1)
-                                    <span class="badge bg-success bg-opacity-10 text-success py-2 fw-semibold text-center">Active</span>
-                                @elseif ($cadre->status == 0)
-                                    <span class="badge bg-primary bg-opacity-10 text-primary py-2 fw-semibold text-center">Inactive</span>
-                                @endif
-                            </td>
-                            <td>
                                 <a href="{{ route('cadres.edit', $cadre->id) }}" class="btn bg-success text-white btn-sm">Edit</a>
                                 <form action="{{ route('cadres.destroy', $cadre->id) }}" method="POST" style="display:inline;">
                                     @csrf
@@ -68,6 +62,10 @@
                                     <button type="submit" class="btn btn-sm btn-primary text-white">Delete</button>
                                 </form>
                             </td>
+                            <td><div class="form-check form-switch">
+            <input class="form-check-input status-toggle" type="checkbox" role="switch"  data-table="manage_cadres" 
+            data-column="status" data-id="{{$cadre->id}}" {{$cadre->status ? 'checked' : ''}}>
+          </div></td>
                         </tr>
                         @endforeach
             </tbody>

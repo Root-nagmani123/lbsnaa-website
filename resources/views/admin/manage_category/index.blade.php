@@ -40,7 +40,6 @@
                             <th class="col">Language</th>
                             <th class="col">Category Name</th>
                             <th class="col">Category Description</th>
-
                             <th class="col">Action</th>
                             <th class="col">Status</th>
                         </tr>
@@ -54,15 +53,7 @@
                             <td>{{ $cat->category_description }}</td>
 
                             <!-- <td>{{ $cat->status ? 'Active' : 'Inactive' }}</td> -->
-                            <td>
-                                @if ($cat->status == 1)
-                                <span
-                                    class="badge bg-success bg-opacity-10 text-success py-2 fw-semibold text-center">Active</span>
-                                @elseif ($cat->status == 0)
-                                <span
-                                    class="badge bg-primary bg-opacity-10 text-primary py-2 fw-semibold text-center">Inactive</span>
-                                @endif
-                            </td>
+                           
                             <td>
                                 <a href="{{ route('category.edit', $cat->id) }}"
                                     class="btn bg-success text-white btn-sm">Edit</a>
@@ -72,6 +63,10 @@
                                     <button type="submit" class="btn btn-sm btn-primary text-white">Delete</button>
                                 </form>
                             </td>
+                            <td><div class="form-check form-switch">
+            <input class="form-check-input status-toggle" type="checkbox" role="switch"  data-table="manage_category" 
+            data-column="status" data-id="{{$cat->id}}" {{$cat->status ? 'checked' : ''}}>
+          </div></td>
                         </tr>
                         @endforeach
                     </tbody>

@@ -41,35 +41,23 @@
                 <table class="table align-middle" id="myTable">
                     <thead>
                         <tr class="text-center">
-                            <th class="col">ID</th>
+                            <th class="col">#</th>
                             <th class="col">Language</th>
                             <th class="col">Product Category</th>
                             <th class="col">Product Title</th>
                             <th class="col">Product Type</th>
-                            
-                            <th class="col">Status</th>
                             <th class="col">Actions</th>
+                            <th class="col">Status</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($souvenirs as $souvenir)
                         <tr>
-                            <td>{{ $souvenir->id }}</td>
+                        <td>{{ $loop->iteration }}</td> <!-- Auto-incrementing index -->
                             <td>{{ $souvenir->language == 1 ? 'English' : 'Hindi' }}</td>
                             <td>{{ $souvenir->product_category }}</td>
                             <td>{{ $souvenir->product_title }}</td>
                             <td>{{ $souvenir->product_type }}</td>
-                            
-                            <!-- <td>{{ $souvenir->product_status ? 'Active' : 'Inactive' }}</td> -->
-                            <td>
-                                @if ($souvenir->product_status == 1)
-                                <span
-                                    class="badge bg-success bg-opacity-10 text-success py-2 fw-semibold text-center">Active</span>
-                                @elseif ($souvenir->product_status == 0)
-                                <span
-                                    class="badge bg-primary bg-opacity-10 text-primary py-2 fw-semibold text-center">Inactive</span>
-                                @endif
-                            </td>
                             <td>
                                 <a href="{{ route('academy_souvenirs.edit', $souvenir->id) }}"
                                     class="btn bg-success text-white btn-sm">Edit</a>
@@ -80,6 +68,10 @@
                                     <button type="submit" class="btn btn-sm btn-primary text-white" onclick="return confirm('Are you sure?')">Delete</button>
                                 </form>
                             </td>
+                            <td><div class="form-check form-switch">
+            <input class="form-check-input status-toggle" type="checkbox" role="switch"  data-table="academy_souvenirs" 
+            data-column="product_status" data-id="{{$souvenir->id}}" {{$souvenir->product_status ? 'checked' : ''}}>
+          </div></td>
                         </tr>
                         @endforeach
                     </tbody>

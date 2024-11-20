@@ -36,7 +36,7 @@
                 <table class="table align-middle" id="myTable">
                     <thead>
                         <tr class="text-center">
-                            <th class="col">ID</th>
+                            <th class="col">#</th>
                             <th class="col">District Name</th>
                             <th class="col">Action</th>
                             <th class="col">Status</th>
@@ -45,18 +45,8 @@
                     <tbody>
                         @foreach($districts as $district)
             <tr>
-                <td>{{ $district->id }}</td>
+            <td>{{ $loop->iteration }}</td> <!-- Auto-incrementing index -->
                 <td>{{ $district->district_name }}</td>
-                <!-- <td>{{ $district->status ? 'Active' : 'Inactive' }}</td> -->
-                <td>
-                                @if ($district->status == 1)
-                                <span
-                                    class="badge bg-success bg-opacity-10 text-success py-2 fw-semibold text-center">Active</span>
-                                @elseif ($district->status == 0)
-                                <span
-                                    class="badge bg-primary bg-opacity-10 text-primary py-2 fw-semibold text-center">Inactive</span>
-                                @endif
-                            </td>
                             <td>
                                 <a href="{{ route('district.edit', $district->id) }}"
                                     class="btn btn-success text-white fw-semibold btn-sm">Edit</a>
@@ -66,6 +56,10 @@
                                     <button type="submit" class="btn btn-primary text-white fw-semibold btn-sm">Delete</button>
                                 </form>
                             </td>
+                            <td><div class="form-check form-switch">
+            <input class="form-check-input status-toggle" type="checkbox" role="switch"  data-table="manage_district" 
+            data-column="status" data-id="{{$district->id}}" {{$district->status ? 'checked' : ''}}>
+          </div></td>
                         </tr>
                         @endforeach
                     </tbody>

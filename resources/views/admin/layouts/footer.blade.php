@@ -7,7 +7,7 @@
 </div>
 </div>
 
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script data-cfasync="false" src="cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
 <script src="{{ asset('admin_assets/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('admin_assets/js/sidebar-menu.js') }}"></script>
@@ -25,3 +25,4 @@
 <script src="{{ asset('admin_assets/js/custom/ecommerce-chart.js') }}"></script>
 <script src="{{ asset('admin_assets/js/custom/custom.js') }}"></script>
 <script src="{{ asset('admin_assets/js/ckeditor.js') }}"></script>
+<script src="{{ asset('admin_assets/js/custom/toggle.js') }}"></script>

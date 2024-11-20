@@ -36,6 +36,7 @@
                 <table class="table align-middle" id="myTable">
                     <thead>
                         <tr class="text-center">
+                        <th class="col">#</th>
                             <th class="col">Title</th>
                             <th class="col">Start Date</th>
                             <th class="col">Language</th>
@@ -46,19 +47,10 @@
                     <tbody>
                         @foreach($news as $item)
                         <tr>
+                        <td>{{ $loop->iteration }}</td> <!-- Auto-incrementing index -->
                            <td>{{ $item->title }}</td>
                             <td>{{ $item->start_date }}</td>
                             <td>{{ $item->language == 1 ? 'English' : 'Hindi' }}</td>
-                            <!-- <td>{{ $item->status ? 'Active' : 'Inactive' }}</td> -->
-                            <td>
-                                @if ($item->status == 1)
-                                <span
-                                    class="badge bg-success bg-opacity-10 text-success py-2 fw-semibold text-center">Active</span>
-                                @elseif ($item->status == 0)
-                                <span
-                                    class="badge bg-primary bg-opacity-10 text-primary py-2 fw-semibold text-center">Inactive</span>
-                                @endif
-                            </td>
                             <td>
                                 <a href="{{ route('admin.news.edit', $item->id) }}"
                                     class="btn btn-success text-white fw-semibold btn-sm">Edit</a>
@@ -69,6 +61,10 @@
                                     <button type="submit" class="btn btn-primary text-white fw-semibold btn-sm" onclick="return confirm('Are you sure you want to delete this faculty member?')">Delete</button>
                                 </form>
                             </td>
+                            <td><div class="form-check form-switch">
+            <input class="form-check-input status-toggle" type="checkbox" role="switch"  data-table="news" 
+            data-column="status" data-id="{{$item->id}}" {{$item->status ? 'checked' : ''}}>
+          </div></td>
                         </tr>
                         @endforeach
                     </tbody>

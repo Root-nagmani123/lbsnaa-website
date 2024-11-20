@@ -64,6 +64,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <select class="form-select form-control ps-5 h-58" name="status" id="status" required>
+                                    <option value="" class="text-dark" selected>Select</option>
                                         <option value="1" class="text-dark">Active</option>
                                         <option value="0" class="text-dark">Inactive</option>
                                     </select>

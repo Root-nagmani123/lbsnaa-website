@@ -6,7 +6,7 @@ if (!function_exists('renderMenu')) {
         $output = '<tr>';
         $output .= '<td>' . $indent . htmlspecialchars($menu->menutitle) . '</td>';
         $output .= '<td>' . ($menu->parent_id ? htmlspecialchars(\App\Models\Admin\Menu::find($menu->parent_id)->menutitle) : 'Root Category') . '</td>';
-        $output .= '<td>' . getMenuType($menu->texttype) . '</td>';
+    
         $output .= '<td>' . getMenuPosition($menu->txtpostion) . '</td>';
         $output .= '<td class="gap-3"><a href="' . route('admin.menus.edit', $menu->id) . '" class="btn bg-success text-white btn-sm">Edit</a> &nbsp;<a href="' . route('admin.menus.delete', $menu->id) . '" class="btn btn-sm btn-primary text-white">Delete</a></td>';
         $checked = $menu->menu_status ? 'checked' : '';

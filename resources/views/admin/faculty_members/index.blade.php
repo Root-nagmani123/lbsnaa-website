@@ -57,37 +57,20 @@
                             <th class="col">Name</th>
                             <th class="col">Email</th>
                             <th class="col">Designation</th>
-                            <th class="col">Mobile</th>
                             <th class="col">Category</th>
-                            <th class="col">Image</th>
-                            <th class="col">Status</th>
                             <th class="col">Actions</th>
+                            <th class="col">Status</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($facultyMembers as $faculty)
-                        <tr>
+                        <tr style="overflow-x: scroll">
                             <td>{{ $loop->iteration }}</td>
                            
                             <td>{{ $faculty->name }}</td>
                             <td>{{ $faculty->email }}</td>
                             <td>{{ $faculty->designation }}</td>
-                            <td>{{ $faculty->mobile }}</td>
                             <td>{{ $faculty->category }}</td>
-                            <td>
-                                @if($faculty->image)
-                                    <img src="{{ asset($faculty->image) }}" alt="Faculty Image" width="50" height="50">
-                                @else
-                                    No Image
-                                @endif
-                            </td>
-                            <td>
-                                @if($faculty->page_status == 1)
-                                    <span class="badge bg-success bg-opacity-10 text-success py-2 px-3 fw-semibold d-block text-center">Active</span>
-                                @else
-                                    <span class="badge bg-danger bg-opacity-10 text-danger py-2 px-3 fw-semibold d-block text-center">Inactive</span>
-                                @endif
-                            </td>
                             <td>
                                 <a href="{{ route('admin.faculty.edit', $faculty->id) }}"
                                     class="btn btn-success text-white btn-sm">Edit</a>
@@ -98,6 +81,10 @@
                                     <button type="submit" class="btn btn-primary text-white btn-sm" onclick="return confirm('Are you sure you want to delete this faculty member?')">Delete</button>
                                 </form>
                             </td>
+                            <td><div class="form-check form-switch">
+            <input class="form-check-input status-toggle" type="checkbox" role="switch"  data-table="faculty_members" 
+            data-column="page_status" data-id="{{$faculty->id}}" {{$faculty->page_status ? 'checked' : ''}}>
+          </div></td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -107,3 +94,4 @@
     </div>
 </div>
 @endsection
+

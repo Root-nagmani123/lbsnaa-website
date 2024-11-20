@@ -27,6 +27,7 @@
                 <table class="table align-middle" id="myTable">
                     <thead>
                         <tr class="text-center">
+                            <th class="col">#</th>
                             <th class="col">Name</th>
                             <th class="col">Email</th>
                             <th class="col">Designation</th>
@@ -36,17 +37,18 @@
                     <tbody>
                         @foreach($staffMembers as $staff)
                         <tr>
+                        <td>{{ $loop->iteration }}</td>
                             <td>{{ $staff->name }}</td>
                             <td>{{ $staff->email }}</td>
                             <td>{{ $staff->designation }}</td>
                             <td>
                                 <a href="{{ route('admin.staff.edit', $staff->id) }}"
-                                    class="btn btn-success text-white">Edit</a>
+                                    class="btn btn-success text-white btn-sm">Edit</a>
                                 <form action="{{ route('admin.staff.destroy', $staff->id) }}" method="POST"
                                     style="display:inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-primary text-white" onclick="return confirm('Are you sure you want to delete?')">Delete</button>
+                                    <button type="submit" class="btn btn-primary text-white btn-sm" onclick="return confirm('Are you sure you want to delete?')">Delete</button>
                                 </form>
                             </td>
                         </tr>

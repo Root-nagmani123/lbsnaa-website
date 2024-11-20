@@ -27,11 +27,11 @@
                 <table class="table align-middle" id="myTable">
                     <thead>
                         <tr class="text-center">
-                            <th class="col">ID</th>
+                            <th class="col">#</th>
                             <th class="col">Section Title</th>
                             <th class="col">View</th>
-                            <th class="col">Status</th>
                             <th class="col">Actions</th>
+                            <th class="col">Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -40,17 +40,20 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $section->title }}</td>
                             <td><a href="{{ route('admin.section_category.index', $section->id) }}" class="">Click Here</a></td>
-                            <td>{{ $section->status ? 'Active' : 'Inactive' }}</td>
                             <td>
                                 <a href="{{ route('sections.edit', $section->id) }}"
-                                    class="btn btn-success text-white">Edit</a>
+                                    class="btn btn-success text-white btn-sm">Edit</a>
                                 <form action="{{ route('sections.destroy', $section->id) }}" method="POST"
                                     style="display:inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-primary text-white" onclick="return confirm('Are you sure you want to delete?')">Delete</button>
+                                    <button type="submit" class="btn btn-primary text-white btn-sm" onclick="return confirm('Are you sure you want to delete?')">Delete</button>
                                 </form>
                             </td>
+                            <td><div class="form-check form-switch">
+            <input class="form-check-input status-toggle" type="checkbox" role="switch"  data-table="sections" 
+            data-column="status" data-id="{{$section->id}}" {{$section->status ? 'checked' : ''}}>
+          </div></td>
                         </tr>
                         @endforeach
                     </tbody>

@@ -121,6 +121,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <select class="form-select form-control ps-5 h-58" name="status" id="status" required>
+                                    <option value="" class="text-dark" selected>Select</option>
                                         <option value="Draft" class="text-dark" {{ old('status') == 'Draft' ? 'selected' : '' }}>Draft</option>
                                         <option value="Approval" class="text-dark" {{ old('status') == 'Approval' ? 'selected' : '' }}>Approval</option>
                                         <option value="Publish" class="text-dark" {{ old('status') == 'Publish' ? 'selected' : '' }}>Publish</option>

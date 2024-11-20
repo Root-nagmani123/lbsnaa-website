@@ -348,6 +348,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
 });
 
 
+
+Route::post('/admin/toggle-status', [MenuController::class, 'toggle_status'])->name('admin.toggle-status');
+
+
+
 // login wrok here mayank
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/admin/login', [LoginController::class, 'authenticate'])->name('admin.login');

@@ -36,35 +36,26 @@
                 <table class="table align-middle" id="myTable">
                     <thead>
                         <tr class="text-center">
-                            <th class="col">ID</th>
+                            <th class="col">#</th>
                             <th class="col">Exam Code</th>
                             <th class="col">Exam Description</th>
                             <th class="col">Transaction Date</th>
                             <th class="col">Preliminary Flag</th>
                             <th class="col">Main Flag</th>
-                            <th class="col">Status</th>
                             <th class="col">Actions</th>
+                            <th class="col">Status</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($exams as $exam)
                         <tr>
-                            <td>{{ $exam->id }}</td>
+                        <td>{{ $loop->iteration }}</td> <!-- Auto-incrementing index -->
                             <td>{{ $exam->exam_code }}</td>
                             <td>{{ $exam->exam_description }}</td>
                             <td>{{ $exam->transaction_date }}</td>
                             <td>{{ $exam->preliminary_flag == 1 ? 'Yes' : 'No' }}</td>
                             <td>{{ $exam->main_flag == 1 ? 'Yes' : 'No' }}</td>
-                            <!-- <td>{{ $exam->status ? 'Active' : 'Inactive' }}</td> -->
-                            <td>
-                                @if ($exam->status == 1)
-                                <span
-                                    class="badge bg-success bg-opacity-10 text-success py-2 fw-semibold text-center">Active</span>
-                                @elseif ($exam->status == 0)
-                                <span
-                                    class="badge bg-primary bg-opacity-10 text-primary py-2 fw-semibold text-center">Inactive</span>
-                                @endif
-                            </td>
                             <td>
                                 <a href="{{ route('exam.edit', $exam->id) }}"
                                     class="btn btn-success text-white fw-semibold btn-sm">Edit</a>
@@ -74,6 +65,10 @@
                                     <button type="submit" class="btn btn-primary text-white fw-semibold btn-sm">Delete</button>
                                 </form>
                             </td>
+                            <td><div class="form-check form-switch">
+            <input class="form-check-input status-toggle" type="checkbox" role="switch"  data-table="manage_exam" 
+            data-column="status" data-id="{{$exam->id}}" {{$exam->status ? 'checked' : ''}}>
+          </div></td>
                         </tr>
                         @endforeach
                     </tbody>

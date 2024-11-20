@@ -39,11 +39,11 @@
         <table class="table align-middle" id="myTable">
             <thead>
                 <tr class="text-center">
-                    <th class="col">ID</th> <!-- Add a header for index -->
+                    <th class="col">#</th> <!-- Add a header for index -->
                     <th class="col">Name</th>
                     <th class="col">Language</th>
-                    <th class="col">Status</th>
                     <th class="col">Actions</th>
+                    <th class="col">Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -53,20 +53,17 @@
                             <td>{{ $founder->name }}</td>
                             <td>{{ $founder->language == 1 ? 'English' : 'Hindi' }}</td>
                             <td>
-                                @if ($founder->status == 1)
-                                    <span class="badge bg-success bg-opacity-10 text-success py-2 fw-semibold text-center">Active</span>
-                                @elseif ($founder->status == 0)
-                                    <span class="badge bg-primary bg-opacity-10 text-primary py-2 fw-semibold text-center">Inactive</span>
-                                @endif
-                            </td>
-                            <td>
                                 <a href="{{ route('founders.edit', $founder->id) }}" class="btn bg-success text-white btn-sm">Edit</a>
                                 <form action="{{ route('founders.destroy', $founder->id) }}" method="POST" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-primary text-white">Delete</button>
+                                    <button type="submit" class="btn btn-primary text-white btn-sm">Delete</button>
                                 </form>
                             </td>
+                            <td><div class="form-check form-switch">
+            <input class="form-check-input status-toggle" type="checkbox" role="switch"  data-table="manage_founders" 
+            data-column="status" data-id="{{$founder->id}}" {{$founder->status ? 'checked' : ''}}>
+          </div></td>
                         </tr>
                         @endforeach
             </tbody>

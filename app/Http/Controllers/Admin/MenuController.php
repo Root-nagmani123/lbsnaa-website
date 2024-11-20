@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Models\Admin\ManageAudit;
 
+use Illuminate\Support\Facades\DB;
+
 class MenuController extends Controller
 {
     public function index()
@@ -223,4 +225,32 @@ class MenuController extends Controller
 
         return response()->json(['status' => $menu->menu_status]);
     }
+    
+    public function toggle_status(Request $request)
+{
+    $id = $request->id;
+    $table = $request->table;
+    $column = $request->column;
+    $status = $request->status;
+
+    try {
+        // Validate inputs
+       
+
+        // Update the status dynamically
+        DB::table($table)
+            ->where('id', $id)
+            ->update([$column => $status]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Status updated successfully.',
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => $e->getMessage(),
+        ]);
+    }
+}
 }

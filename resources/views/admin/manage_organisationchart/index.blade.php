@@ -42,7 +42,6 @@
                             <td>{{ $record->employee_name }}</td>
                             <td><a href="{{ route('organisation_chart.sub_org', ['parent_id' => $record->id]) }}" class="btn btn-secondary btn-sm text-white">click here</a></td>
                             <td>{{ $record->description }}</td>
-                            <td>{{ $record->status == 1 ? 'Draft' : ($record->status == 2 ? 'Approval' : 'Publish') }}</td>
                             <td>
                                 <a href="{{ route('organisation_chart.edit', $record->id) }}" class="btn bg-success text-white btn-sm">Edit</a>
                                 <form action="{{ route('organisation_chart.destroy', $record->id) }}" method="POST" style="display:inline;">
@@ -50,6 +49,10 @@
                                     <button type="submit" class="btn btn-sm btn-primary text-white">Delete</button>
                                 </form>
                             </td>
+                            <td><div class="form-check form-switch">
+            <input class="form-check-input status-toggle" type="checkbox" role="switch"  data-table="organisation_chart" 
+            data-column="status" data-id="{{$record->id}}" {{$record->status ? 'checked' : ''}}>
+          </div></td>
                         </tr>
                         @endforeach
             </tbody>
@@ -59,3 +62,43 @@
     </div>
 </div>
 @endsection 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(document).on('change', '.status-toggle', function () {
+            var checkbox = $(this);
+            var recordId = checkbox.data('id');
+            var table = checkbox.data('table');
+            var column = checkbox.data('column');
+            var newStatus = checkbox.prop('checked') ? 1 : 0;
+
+            // Send AJAX request to toggle the status
+            $.ajax({
+                url: '/admin/toggle-status', // Single route
+                // url: '/admin/menus/' + menuId + '/toggle-status',
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    id: recordId,
+                    table: table,
+                    column: column,
+                    status: newStatus
+                },
+                success: function (response) {
+                    if (response.success) {
+                        alert(response.message);
+                    } else {
+                        alert('Status update failed.');
+                        // Revert the checkbox if the update fails
+                        checkbox.prop('checked', !checkbox.prop('checked'));
+                    }
+                },
+                error: function () {
+                    alert('Error updating status.');
+                    // Revert the checkbox if AJAX fails
+                    checkbox.prop('checked', !checkbox.prop('checked'));
+                }
+            });
+        });
+    });
+</script>

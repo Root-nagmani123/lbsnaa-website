@@ -22,7 +22,7 @@
         <div class="card bg-white border-0 rounded-10 mb-4">
             <div class="card-body p-4">
                 <div class="d-flex justify-content-between align-items-center border-bottom pb-20 mb-20">
-                <h4 class="fw-semibold fs-18 mb-0">Manage Exam</h4>
+                <h4 class="fw-semibold fs-18 mb-0">Add Exam</h4>
             </div>
 
                 <form action="{{ route('exam.store') }}" method="POST" enctype="multipart/form-data">
@@ -37,7 +37,8 @@
                                     <input type="radio" name="txtlanguage" value="2">Hindi
                                 </div>
                             </div>
-
+</div>
+<div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="exm_code">Exam Code :</label>
                                 <span class="star">*</span>
@@ -46,7 +47,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-12">
                             <div class="form-group mb-4">
                                 <label class="label" for="exm_desc">Exam Description :</label>
                                 <span class="star">*</span>
@@ -99,6 +100,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <select class="form-select form-control ps-5 h-58" name="status" id="status" required>
+                                    <option value="" class="text-dark" selected>Select</option>
                                         <option value="1" class="text-dark">Active</option>
                                         <option value="0" class="text-dark">Inactive</option>
                                     </select>

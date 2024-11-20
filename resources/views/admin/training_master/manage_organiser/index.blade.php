@@ -21,11 +21,12 @@
         <table class="table align-middle" id="myTable">
             <thead>
                 <tr class="text-center">
-                    <th class="col">ID</th> <!-- Updated to reflect the index -->
+                    <th class="col">#</th> <!-- Updated to reflect the index -->
                     <th class="col">Section Name</th>
                     <th class="col">Language</th>
-                    <th class="col">Status</th>
                     <th class="col">Actions</th>
+                    <th class="col">Status</th>
+                    
                 </tr>
             </thead>
             <tbody>
@@ -35,13 +36,6 @@
                             <td>{{ $organiser->organiser_name }}</td>
                             <td>{{ $organiser->language == 1 ? 'English' : 'Hindi' }}</td>
                             <td>
-                                @if ($organiser->status == 1)
-                                    <span class="badge bg-success bg-opacity-10 text-success py-2 fw-semibold text-center">Active</span>
-                                @elseif ($organiser->status == 2)
-                                <span class="badge bg-primary bg-opacity-10 text-primary py-2 fw-semibold text-center">Inactive</span>
-                                @endif
-                            </td>
-                            <td>
                                 <a href="{{ route('organisers.edit', $organiser->id) }}" class="btn bg-success text-white btn-sm">Edit</a>
                                 <form action="{{ route('organisers.destroy', $organiser->id) }}" method="POST" style="display:inline;">
                                     @csrf
@@ -49,6 +43,10 @@
                                     <button type="submit" class="btn btn-sm btn-primary text-white">Delete</button>
                                 </form>
                             </td>
+                            <td><div class="form-check form-switch">
+            <input class="form-check-input status-toggle" type="checkbox" role="switch"  data-table="manage_organisers" 
+            data-column="status" data-id="{{$organiser->id}}" {{$organiser->status ? 'checked' : ''}}>
+          </div></td>
                         </tr>
                         @endforeach
             </tbody>

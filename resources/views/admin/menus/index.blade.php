@@ -38,7 +38,6 @@
                         <tr class="text-center">
                             <th class="col">Menu Title</th>
                             <th class="col">Parent Menu</th>
-                            <th class="col">Menu Type</th>
                             <th class="col">Content Position</th>
                             <th class="col">Action</th>
                             <th class="col">Status</th>
@@ -54,39 +53,6 @@
         </div>
     </div>
 </div>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<script>
-    $(document).ready(function() {
-        // Attach change event to all toggle switches
-        $('.status-toggle').change(function() {
-            var checkbox = $(this);
-            var menuId = checkbox.data('id');
-
-            // Send AJAX request to toggle the status
-            $.ajax({
-                url: '/admin/menus/' + menuId + '/toggle-status',
-                type: 'POST',
-                data: {
-                    _token: '{{ csrf_token() }}',
-                },
-                success: function(response) {
-                    if (response.status) {
-                        alert('Menu status updated to Active.');
-                    } else {
-                        alert('Menu status updated to Inactive.');
-                    }
-                },
-                error: function() {
-                    alert('Error updating status.');
-                    // Revert the checkbox if AJAX fails
-                    checkbox.prop('checked', !checkbox.prop('checked'));
-                }
-            });
-        });
-    });
-</script>
 
 <style>
     /* CSS for switch */

@@ -35,16 +35,17 @@
                 <table class="table align-middle" id="myTable">
                     <thead>
                         <tr class="text-center">
-                            <th class="col">ID</th> <!-- Index column -->
+                            <th class="col">#</th> <!-- Index column -->
                             <th class="col">Language</th>
                             <th class="col">Title</th>
                             <th class="col">Type</th>
                             
                             <th class="col">Publish Date</th>
                             <th class="col">Expiry Date</th>
-                            <th class="col">Status</th>
+                            
                             <th class="col">File</th> <!-- Add a column for the file -->
                             <th class="col">Actions</th>
+                            <th class="col">Status</th>
                         </tr>
                         </tr>
                     </thead>
@@ -58,15 +59,6 @@
                            
                             <td>{{ $tender->publish_date }}</td>
                             <td>{{ $tender->expiry_date }}</td>
-                            <td>
-                                @if ($tender->status == 1)
-                                    <span class="badge bg-warning bg-opacity-10 text-warning py-2 fw-semibold text-center">Draft</span>
-                                @elseif ($tender->status == 2)
-                                    <span class="badge bg-primary bg-opacity-10 text-primary py-2 fw-semibold text-center">Approved</span>
-                                @elseif ($tender->status == 3)
-                                    <span class="badge bg-success bg-opacity-10 text-success py-2 fw-semibold text-center">Publish</span>
-                                @endif
-                            </td>
                             <td>
                                 <!-- Display image if the file exists -->
                                 @if($tender->file && in_array(pathinfo($tender->file, PATHINFO_EXTENSION), ['png', 'jpg', 'jpeg']))
@@ -87,6 +79,10 @@
                                     <button type="submit" class="btn btn-primary text-white fw-semibold btn-sm" onclick="return confirm('Are you sure you want to delete?')">Delete</button>
                                 </form>
                             </td>
+                            <td><div class="form-check form-switch">
+            <input class="form-check-input status-toggle" type="checkbox" role="switch"  data-table="manage_tenders" 
+            data-column="status" data-id="{{$tender->id}}" {{$tender->status ? 'checked' : ''}}>
+          </div></td>
                         </tr>
                         @endforeach
                     </tbody>

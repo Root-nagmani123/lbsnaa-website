@@ -17,7 +17,7 @@ class ManageOrganizationController extends Controller
     // List faculty members
     public function facultyIndex()
     {
-        $facultyMembers = FacultyMember::where('page_status', 1)->get();
+        $facultyMembers = FacultyMember::get();
         return view('admin.faculty_members.index', compact('facultyMembers'));
     }
 

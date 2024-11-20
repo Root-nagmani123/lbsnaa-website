@@ -22,9 +22,9 @@
             <div class="col-lg-5">
                 <div class="welcome-farol card border-0 rounded-0 rounded-top-3 position-relative" style="background-color:#af2910;">
                     <div class="card-body p-4 pb-5 my-2">
-                        <div class="mw-350">
+                        <!-- <div class="mw-350">
                             <h3 class="text-white fw-semibold fs-20 mb-2">Welcome to LBSNAA Dashboard !</h3>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <div class="stats-box style-eight bg-white card border-0 rounded-0 rounded-bottom-3 mb-4">

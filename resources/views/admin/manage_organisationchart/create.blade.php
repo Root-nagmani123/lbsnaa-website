@@ -21,7 +21,7 @@
             <div class="card bg-white border-0 rounded-10 mb-4">
                 <div class="card-body p-4">
                     <div class="d-flex justify-content-between align-items-center border-bottom pb-20 mb-20">
-                        <h4 class="fw-semibold fs-18 mb-0">Manage organistion chart</h4>
+                        <h4 class="fw-semibold fs-18 mb-0">Add Organization Structure</h4>
                     </div>
                     <form action="{{ route('organisation_chart.store') }}" method="post" enctype="multipart/form-data">
                         @csrf
@@ -34,8 +34,8 @@
                                     <label class="label" for="menutitle">Page Language :</label>
                                     <span class="star">*</span>
                                     <div class="form-group position-relative">
-                                        <input type="radio" name="txtlanguage" value="1">English
-                                        <input type="radio" name="txtlanguage" value="2">Hindi
+                                        <input type="radio" name="txtlanguage" value="1"> English
+                                        <input type="radio" name="txtlanguage" value="2"> Hindi
                                     </div>
                                 </div>
                             </div>
@@ -67,24 +67,12 @@
                                 </div>
                             </div>
 
-                            <!-- CKEditor for Description -->
-
-                            <div class="col-lg-6">
-                                <div class="form-group mb-4">
-                                    <label class="label" for="Description">Description :</label>
-                                    <span class="star">*</span>
-                                    <div class="form-group position-relative">
-                                        <textarea name="description" id="description" class="form-control ps-5 text-dark"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-
                             <!-- Page Status -->
                             <div class="col-lg-6">
                                 <div class="form-group mb-4">
                                     <label class="label">Page Status:</label>
                                     <select name="status" class="form-select form-control ps-5 h-58">
-                                        <option value="" class="text-dark">Select</option>
+                                        <option value="" class="text-dark" selected>Select</option>
                                         <option value="1" class="text-dark">Draft</option>
                                         <option value="2" class="text-dark">Approval</option>
                                         <option value="3" class="text-dark">Publish</option>
@@ -94,7 +82,8 @@
                         </div>
                         <!-- Submit Button -->
                         <div class="d-flex ms-sm-3 ms-md-0">
-                            <button class="btn btn-success text-white fw-semibold" type="submit">Submit</button>
+                            <button class="btn btn-success text-white fw-semibold" type="submit">Submit</button>&nbsp;
+                            <a href="{{ route('organisation_chart.index') }}" class="btn btn-secondary text-white">Cancel</a>
                         </div>
                 </div>
 

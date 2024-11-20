@@ -21,14 +21,15 @@
         <div class="col-lg-12">
             <div class="card bg-white border-0 rounded-10 mb-4">
                 <div class="card-body p-4">
-                    <h4 class="fs-18 mb-4">Edit Menu</h4>
+                <div class="d-flex justify-content-between align-items-center border-bottom pb-20 mb-20">
+                <h4 class="fw-semibold fs-18 mb-0">Edit Menu</h4>
+            </div>
 
                     <form action="{{ route('micromenu.update', $menu->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT') <!-- Use PUT method for updating -->
 
                         <div class="row">
-                            <div class="col-lg-6">
                                 <div class="col-lg-6">
                                     <div class="form-group mb-4">
                                         <label class="label" for="menutitle">Page Language :</label>
@@ -42,6 +43,7 @@
                                     </div>
                                 </div>
 
+                                    <div class="col-lg-6">
                                     <div class="form-group mb-4">
                                         <label class="label" for="research_centre">Select Research Centre :</label>
                                         <span class="star">*</span>
@@ -60,7 +62,9 @@
                                         </div>
                                     </div>
 
+                                    </div>
 
+                                <div class="col-lg-6">
                                 <div class="form-group mb-4">
                                     <label class="label" for="menutitle">Menu Title :</label>
                                     <span class="star">*</span>
@@ -69,7 +73,7 @@
                                             id="menutitle" value="{{ $menu->menutitle }}">
                                     </div>
                                 </div>
-                            </div>
+                                </div>
                             <div class="col-lg-6">
                                 <div class="form-group mb-4">
                                     <label class="label" for="texttype">Menu Type :</label>
@@ -250,7 +254,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-12 mt-4">
+                            <div class="col-lg-6">
                                 <div class="form-group mb-4">
                                     <label class="label" for="menu_status">Status :</label>
                                     <span class="star">*</span>
@@ -267,7 +271,8 @@
                                 </div>
                             </div>
                             <div class="d-flex ms-sm-3 ms-md-0">
-                                <button class="btn btn-success text-white fw-semibold" type="submit">Update</button>
+                                <button class="btn btn-success text-white fw-semibold" type="submit">Update</button>&nbsp;
+                                <a href="{{ route('micromenus.index') }}" class="btn btn-secondary text-white">Cancel</a>
                             </div>
                         </div>
                     </form>

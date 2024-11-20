@@ -47,21 +47,16 @@
                     <td>{{ $cat->country_name }}</td>
                     <!-- <td>{{ $cat->status ? 'Active' : 'Inactive' }}</td> -->
                     <td>
-                                @if ($cat->status == 1)
-                                <span
-                                    class="badge bg-success bg-opacity-10 text-success py-2 fw-semibold text-center">Active</span>
-                                @elseif ($cat->status == 0)
-                                <span
-                                    class="badge bg-primary bg-opacity-10 text-primary py-2 fw-semibold text-center">Inactive</span>
-                                @endif
-                            </td>
-                    <td>
                         <a href="{{ route('country.edit', $cat->id) }}" class="btn btn-success text-white btn-sm">Edit</a>
                         <form action="{{ route('country.destroy', $cat->id) }}" method="POST" style="display:inline;">
                             @csrf
                             <button type="submit" class="btn btn-primary text-white btn-sm">Delete</button>
                         </form>
                     </td>
+                    <td><div class="form-check form-switch">
+            <input class="form-check-input status-toggle" type="checkbox" role="switch"  data-table="manage_country" 
+            data-column="status" data-id="{{$cat->id}}" {{$cat->status ? 'checked' : ''}}>
+          </div></td>
                 </tr>
                 @endforeach
             </tbody>
@@ -71,3 +66,4 @@
     </div>
 </div>
 @endsection
+

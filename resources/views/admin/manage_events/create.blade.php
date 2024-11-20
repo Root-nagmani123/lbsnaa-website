@@ -93,7 +93,7 @@
         <div class="form-group">
             <label>Status:</label>
             <select name="status" class="form-control">
-            	<option value="">Select</option>
+            <option value="" class="text-dark" selected>Select</option>
                 <option value="1" {{ old('status') == '1' ? 'selected' : '' }}>Draft</option>
                 <option value="2" {{ old('status') == '2' ? 'selected' : '' }}>Approval</option>
                 <option value="3" {{ old('status') == '3' ? 'selected' : '' }}>Publish</option>

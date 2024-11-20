@@ -38,11 +38,11 @@
         <table class="table align-middle" id="myTable">
             <thead>
                 <tr class="text-center">
-                    <th class="col">ID</th> <!-- Add this column for indexing -->
+                    <th class="col">#</th> <!-- Add this column for indexing -->
                     <th class="col">Page Language</th>
                     <th class="col">Coordinator Name</th>
-                    <th class="col">Status</th>
                     <th class="col">Actions</th>
+                    <th class="col">Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -52,13 +52,6 @@
                             <td>{{ $coordinator->language == 1 ? 'English' : 'Hindi' }}</td>
                             <td>{{ $coordinator->coordinator_name }}</td>
                             <td>
-                                @if ($coordinator->status == 1)
-                                <span class="badge bg-success bg-opacity-10 text-success py-2 fw-semibold text-center">Active</span>
-                                @elseif ($coordinator->status == 2)
-                                <span class="badge bg-primary bg-opacity-10 text-primary py-2 fw-semibold text-center">Inactive</span>
-                                @endif
-                            </td>
-                            <td>
                                 <a href="{{ route('coordinators.edit', $coordinator->id) }}" class="btn bg-success text-white btn-sm">Edit</a>
                                 <form action="{{ route('coordinators.destroy', $coordinator->id) }}" method="POST" style="display:inline;">
                                     @csrf
@@ -66,6 +59,10 @@
                                     <button type="submit" class="btn btn-sm btn-primary text-white">Delete</button>
                                 </form>
                             </td>
+                            <td><div class="form-check form-switch">
+            <input class="form-check-input status-toggle" type="checkbox" role="switch"  data-table="manage_coordinators" 
+            data-column="status" data-id="{{$coordinator->id}}" {{$coordinator->status ? 'checked' : ''}}>
+          </div></td>
                         </tr>
                         @endforeach
             </tbody>
