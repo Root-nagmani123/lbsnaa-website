@@ -3,12 +3,26 @@
 
 @section('content')
 <div class="d-sm-flex text-center justify-content-between align-items-center mb-4">
-    <h4 class="fw-semibold fs-18 mb-sm-0">Edit Video Gallery</h4>
+    <h3 class="mb-sm-0 mb-1 fs-18">Manage Media Center</h3>
+    <ul class="ps-0 mb-0 list-unstyled d-flex justify-content-center">
+        <li>
+            <a href="{{ route('admin.index') }}" class="text-decoration-none">
+                <i class="ri-home-2-line" style="position: relative; top: -1px;"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        <li>
+            <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Video Gallery</span>
+        </li>
+    </ul>
 </div>
 <div class="row justify-content-center">
     <div class="col-lg-12">
         <div class="card bg-white border-0 rounded-10 mb-4">
             <div class="card-body p-4">
+            <div class="d-sm-flex text-center justify-content-between align-items-center mb-4 border-bottom pb-20 mb-20">
+    <h4 class="fw-semibold fs-18 mb-sm-0">Edit Video Gallery</h4>
+</div>
                 @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -79,18 +93,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="d-flex ms-sm-3 ms-md-0">
-                            <button class="btn btn-success text-white fw-semibold" type="submit">Update</button> &nbsp;
-                            <a href="{{ route('micro-video-gallery.index') }}" class="btn btn-secondary text-white">Cancel</a>
-                        </div>
-                    </div>
-                </form>
-
-                <!-- Display the current video if exists -->
+                        <div class="col-lg-6">
+                             <!-- Display the current video if exists -->
                 @if($video->video_upload)
-                <div class="mt-4">
-                    <h5>Current Video:</h5>
-                    <video width="300" height="200" controls>
+                <div class="form-group mb-4">
+                   <label for="" class="label">Video</label>
+                    <video width="100%" height="300" controls>
                         <source src="{{ asset('storage/' . $video->video_upload) }}" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
@@ -98,6 +106,13 @@
                 @else
                     <p>No video uploaded</p>
                 @endif
+                        </div>
+                        <div class="d-flex ms-sm-3 ms-md-0">
+                            <button class="btn btn-success text-white fw-semibold" type="submit">Update</button> &nbsp;
+                            <a href="{{ route('micro-video-gallery.index') }}" class="btn btn-secondary text-white">Cancel</a>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
