@@ -67,9 +67,8 @@
                                 <label for="page_status">Page Status :</label>
                                 <select name="page_status" id="page_status" class="form-control" required>
                                 <option value="" class="text-dark" selected>Select</option>
-                                    <option value="1">Draft</option>
-                                    <option value="2">Approval</option>
-                                    <option value="3">Publish</option>
+                                    <option value="1">Active</option>
+                                    <option value="0">Inactive</option>
                                 </select>
                             </div>
                         </div>

@@ -129,9 +129,8 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <select class="form-select form-control ps-5 h-58" name="status" id="status" required>
-                                        <option value="1" class="text-dark" {{ $vacancy->status == 'Draft' ? 'selected' : '' }}>Draft</option>
-                                        <option value="2" class="text-dark" {{ $vacancy->status == 'Approval' ? 'selected' : '' }}>Approval</option>
-                                        <option value="3" class="text-dark" {{ $vacancy->status == 'Publish' ? 'selected' : '' }}>Publish</option>
+                                        <option value="1" class="text-dark" {{ $vacancy->status == '1' ? 'selected' : '' }}>Active</option>
+                                        <option value="2" class="text-dark" {{ $vacancy->status == '0' ? 'selected' : '' }}>Inactive</option>
                                     </select>
                                 </div>
                             </div>

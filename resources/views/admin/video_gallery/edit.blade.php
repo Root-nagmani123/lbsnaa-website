@@ -77,9 +77,8 @@
                                 <label class="label" for="page_status">Status :</label>
                                 <span class="star">*</span>
                                 <select name="page_status" id="page_status" class="form-control" required>
-                                    <option value="1" {{ $media->page_status == '1' ? 'selected' : '' }}>Draft</option>
-                                    <option value="2" {{ $media->page_status == '2' ? 'selected' : '' }}>Approval</option>
-                                    <option value="3" {{ $media->page_status == '3' ? 'selected' : '' }}>Publish</option>
+                                    <option value="1" {{ $media->page_status == '1' ? 'selected' : '' }}>Active</option>
+                                    <option value="2" {{ $media->page_status == '0' ? 'selected' : '' }}>Inactive</option>
                                 </select>
                             </div>
                         </div>

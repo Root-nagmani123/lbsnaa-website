@@ -36,7 +36,7 @@
                 <table class="table align-middle" id="myTable">
                     <thead>
                         <tr class="text-center">
-                            <th class="col">ID</th>
+                            <th class="col">#</th>
                             <th class="col">Research Centre</th>
                             <th class="col">Program Title</th>
                             <th class="col">Venue</th>
@@ -51,7 +51,7 @@
                     <tbody>
                         @foreach ($programs as $program)
                 <tr>
-                    <td>{{ $program->id }}</td>
+                <td>{{ $loop->iteration }}</td> <!-- Auto-incrementing index -->
 
                     <td>{{ $program->research_centre_name }}</td>
 
@@ -67,15 +67,6 @@
                             Hindi
                         @endif
                     </td>
-                    <td>
-                        @if ($program->page_status == 1)
-                            <span class="badge bg-warning bg-opacity-10 text-warning py-2 fw-semibold text-center">Draft</span>
-                            @elseif ($program->page_status == 2)
-                            <span class="badge bg-primary bg-opacity-10 text-primary py-2 fw-semibold text-center">Approved</span>
-                        @elseif ($program->page_status == 3)
-                            <span class="badge bg-success bg-opacity-10 text-success py-2 fw-semibold text-center">Publish</span>
-                        @endif
-                    </td>
                             <td>
                                 <a href="{{ route('training-programs.edit', $program->id) }}"
                                     class="btn bg-success text-white btn-sm">Edit</a>
@@ -86,6 +77,10 @@
                                     <button type="submit" class="btn btn-sm btn-primary text-white" onclick="return confirm('Are you sure?')">Delete</button>
                                 </form>
                             </td>
+                            <td><div class="form-check form-switch">
+            <input class="form-check-input status-toggle" type="checkbox" role="switch"  data-table="micro_manage_training_programs" 
+            data-column="page_status" data-id="{{$program->id}}" {{$program->page_status ? 'checked' : ''}}>
+          </div></td>
                         </tr>
                         @endforeach
                     </tbody>

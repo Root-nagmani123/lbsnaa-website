@@ -35,11 +35,11 @@
                 <table class="table align-middle" id="myTable">
                     <thead>
                         <tr class="text-center">
-                            <th class="col">ID</th> <!-- Index column header -->
+                            <th class="col">#</th> <!-- Index column header -->
                             <th class="col">Category Name</th>
                             <th class="col">Media Category</th>
-                            <th class="col">Page Status</th>
                             <th class="col">Actions</th>
+                            <th class="col">Page Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -48,15 +48,6 @@
                     <td>{{ $loop->iteration }}</td> <!-- Display row number here -->
                     <td>{{ $item->category_name }}</td>
                     <td><a href="{{ $item->video_upload }}" target="_blank">View Video</a></td>
-                    <td>
-                        @if ($item->page_status == 1)
-                            <span class="badge bg-warning bg-opacity-10 text-warning py-2 fw-semibold text-center">Draft</span>
-                        @elseif ($item->page_status == 2)
-                            <span class="badge bg-primary bg-opacity-10 text-primary py-2 fw-semibold text-center">Approved</span>
-                        @elseif ($item->page_status == 3)
-                            <span class="badge bg-success bg-opacity-10 text-success py-2 fw-semibold text-center">Publish</span>
-                        @endif
-                    </td>
                             <td>
                                 <a href="{{ route('video_gallery.edit', $item->id) }}"
                                     class="btn bg-success text-white btn-sm">Edit</a>
@@ -67,6 +58,10 @@
                                     <button type="submit" class="btn btn-sm btn-primary text-white" onclick="return confirm('Are you sure?')">Delete</button>
                                 </form>
                             </td>
+                            <td><div class="form-check form-switch">
+            <input class="form-check-input status-toggle" type="checkbox" role="switch"  data-table="manage_video_centers" 
+            data-column="page_status" data-id="{{$item->id}}" {{$item->page_status ? 'checked' : ''}}>
+          </div></td>
                         </tr>
                         @endforeach
                     </tbody>

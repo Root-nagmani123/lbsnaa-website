@@ -21,30 +21,23 @@
                 <table class="table align-middle" id="myTable">
                     <thead>
                         <tr class="text-center">
+                            <th class="col">#</th>
                             <th class="col">Category</th>
                             <th class="col">Audio Title (English)</th>
                             <th class="col">Audio Title (Hindi)</th>
                             <th class="col">Audio File</th>
-                            <th class="col">Page Status</th>
                             <th class="col">Actions</th>
+                            <th class="col">Page Status</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($audios as $audio)
                         <tr>
+                        <td>{{ $loop->iteration }}</td> <!-- Auto-incrementing index -->
                             <td>{{ $audio->category_name }}</td>
                             <td>{{ $audio->audio_title_en }}</td>
                             <td>{{ $audio->audio_title_hi }}</td>
                             <td><a href="{{ asset('uploads/audios/'.$audio->audio_upload) }}" target="_blank">Play</a></td>
-                            <td>
-                                @if ($audio->page_status == 1)
-                                    Draft
-                                @elseif ($audio->page_status == 2)
-                                    Approval
-                                @elseif ($audio->page_status == 3)
-                                    Publish
-                                @endif
-                            </td>
                             <td>
                                 <a href="{{ route('media-center.edit', $audio->id) }}"
                                     class="btn bg-success text-white btn-sm">Edit</a>
@@ -55,6 +48,10 @@
                                     <button type="submit" class="btn btn-sm btn-primary text-white" onclick="return confirm('Are you sure?')">Delete</button>
                                 </form>
                             </td>
+                            <td><div class="form-check form-switch">
+            <input class="form-check-input status-toggle" type="checkbox" role="switch"  data-table="manage_media_centers" 
+            data-column="page_status" data-id="{{$audio->id}}" {{$audio->page_status ? 'checked' : ''}}>
+          </div></td>
                         </tr>
                         @endforeach
                     </tbody>

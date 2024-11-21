@@ -54,18 +54,6 @@
                     <td>{{ $video->category_name }}</td>
                     <td>{{ $video->video_title_en }}</td>
                     <td>{{ $video->video_title_hi }}</td>
-                <td>
-                    @if ($video->page_status == 1)
-                    <span
-                        class="badge bg-warning bg-opacity-10 text-warning py-2 fw-semibold text-center">Draft</span>
-                    @elseif ($video->page_status == 2)
-                    <span
-                        class="badge bg-primary bg-opacity-10 text-primary py-2 fw-semibold text-center">Approval</span>
-                    @elseif ($video->page_status == 3)
-                    <span
-                        class="badge bg-danger bg-opacity-10 text-danger py-2 fw-semibold text-center">Publish</span>
-                    @endif
-                </td>
                  <!-- Display the uploaded video -->
                  <td>
                     @if($video->video_upload)
@@ -88,6 +76,10 @@
                                     <button type="submit" class="btn btn-sm btn-primary text-white" onclick="return confirm('Are you sure?')">Delete</button>
                                 </form>
                             </td>
+                            <td><div class="form-check form-switch">
+            <input class="form-check-input status-toggle" type="checkbox" role="switch"  data-table="micro_video_galleries" 
+            data-column="page_status" data-id="{{$video->id}}" {{$video->page_status ? 'checked' : ''}}>
+          </div></td>
                         </tr>
                         @endforeach
                     </tbody>

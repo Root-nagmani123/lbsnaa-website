@@ -13,14 +13,14 @@
             </a>
         </li>
         <li>
-            <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Manage Whats New / Quick Link</span>
+            <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Whats New / Quick Link</span>
         </li>
     </ul>
 </div>
 <div class="card bg-white border-0 rounded-10 mb-4">
     <div class="card-body p-4">
         <div class="d-sm-flex text-center justify-content-between align-items-center border-bottom pb-20 mb-20">
-            <h4 class="fw-semibold fs-18 mb-sm-0">Manage Whats New / Quick Link</h4>
+            <h4 class="fw-semibold fs-18 mb-sm-0">Whats New / Quick Link</h4>
 
             <a href="{{ route('microquicklinks.create') }}">
                 <button class="border-0 btn btn-success py-2 px-3 px-sm-4 text-white fs-14 fw-semibold rounded-3">
@@ -40,8 +40,8 @@
                             <th class="col">Name</th>
                             <th class="col">Title</th>
                             <th class="col">Language</th>
-                            <th class="col">Status</th>
                             <th class="col">Actions</th>
+                            <th class="col">Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -51,16 +51,6 @@
                            <td>{{ $links->txtename }}</td>
                             <td>{{ $links->meta_description }}</td>
                             <td>{{ $links->language == 1 ? 'English' : 'Hindi' }}</td>
-                            {{-- <!-- <td>{{ $links->status ? 'Active' : 'Inactive' }}</td> --> --}}
-                            <td>
-                                @if ($links->status == 1)
-                                <span
-                                    class="badge bg-success bg-opacity-10 text-success py-2 fw-semibold text-center">Active</span>
-                                @elseif ($links->status == 0)
-                                <span
-                                    class="badge bg-primary bg-opacity-10 text-primary py-2 fw-semibold text-center">Inactive</span>
-                                @endif
-                            </td>
                             <td>
                                 <a href="{{ route('microquicklinks.edit', $links->id) }}"
                                     class="btn btn-success text-white fw-semibold btn-sm">Edit</a>
@@ -71,6 +61,10 @@
                                     <button type="submit" class="btn btn-primary text-white fw-semibold btn-sm" onclick="return confirm('Are you sure you want to delete this link ?')">Delete</button>
                                 </form>
                             </td>
+                            <td><div class="form-check form-switch">
+            <input class="form-check-input status-toggle" type="checkbox" role="switch"  data-table="micro_quick_links" 
+            data-column="status" data-id="{{$links->id}}" {{$links->status ? 'checked' : ''}}>
+          </div></td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -79,39 +73,5 @@
         </div>
     </div>
 </div>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<script>
-    $(document).ready(function() {
-        // Attach change event to all toggle switches
-        $('.status-toggle').change(function() {
-            var checkbox = $(this);
-            var menuId = checkbox.data('id');
-
-            // Send AJAX request to toggle the status
-            $.ajax({
-                url: '/admin/micromenu/' + menuId + '/toggle-status',
-                type: 'POST',
-                data: {
-                    _token: '{{ csrf_token() }}',
-                },
-                success: function(response) {
-                    if (response.status) {
-                        alert('Menu status updated to Active.');
-                    } else {
-                        alert('Menu status updated to Inactive.');
-                    }
-                },
-                error: function() {
-                    alert('Error updating status.');
-                    // Revert the checkbox if AJAX fails
-                    checkbox.prop('checked', !checkbox.prop('checked'));
-                }
-            });
-        });
-    });
-</script>
-
 
 @endsection
