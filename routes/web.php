@@ -50,6 +50,11 @@ use App\Http\Controllers\Admin\Micro\MicroManageVacancyController;
 use App\Http\Controllers\Admin\Micro\MicroVideoGalleryController;
 
 use App\Http\Controllers\Admin\Micro\MicroManageMediaCenterController;
+use App\Http\Controllers\Admin\Micro\ManageResearchCentreController;
+use App\Http\Controllers\Admin\Micro\ManageNewsController;
+use App\Http\Controllers\Admin\Micro\MicroMenuController;
+use App\Http\Controllers\Admin\Micro\ManageQuickLinksController;
+
 use App\Http\Controllers\Admin\Micro\MicroManagePhotoGalleryController;
 
 
@@ -263,13 +268,10 @@ Route::prefix('admin')->group(function () {
     Route::resource('video_gallery', ManageVideoController::class);
     Route::resource('media-categories', ManageMediaCategoriesController::class);
     Route::resource('photo-gallery', ManagePhotoGalleryController::class);
-    
     Route::get('search-courses', [ManageEventsController::class, 'searchCourses'])->name('search.courses');
     // In routes/web.php
     Route::get('/admin/get-course-details/{courseId}', [CourseController::class, 'getCourseDetails']);
 
-
-    
     // Indrajeet
 
 
@@ -310,10 +312,38 @@ Route::prefix('admin')->group(function () {
     Route::get('admin/micro-video-gallery/{id}', [MicroVideoGalleryController::class, 'show'])->name('micro-video-gallery.show');
     Route::get('admin/micro-video-gallery/{id}/edit', [MicroVideoGalleryController::class, 'edit'])->name('micro-video-gallery.edit');
     Route::put('admin/micro-video-gallery/{id}', [MicroVideoGalleryController::class, 'update'])->name('micro-video-gallery.update');
+    Route::resource('micro-photo-gallery', MicroManagePhotoGalleryController::class);
 
     Route::resource('photovideogallery', MicroManageMediaCenterController::class);
+    // Manage manage Research centre  route
+    Route::get('researchcentres', [ManageResearchCentreController::class, 'researchcentresIndex'])->name('researchcentres.index');
+    Route::get('researchcentres/create', [ManageResearchCentreController::class, 'researchcentresCreate'])->name('researchcentres.create');
+    Route::post('researchcentres/store', [ManageResearchCentreController::class, 'researchcentresStore'])->name('researchcentres.store');
+    Route::get('researchcentres/{id}/edit', [ManageResearchCentreController::class, 'researchcentresEdit'])->name('researchcentres.edit');
+    Route::post('researchcentres/{id}/update', [ManageResearchCentreController::class, 'researchcentresUpdate'])->name('researchcentres.update');
+    Route::post('researchcentres/{id}/delete', [ManageResearchCentreController::class, 'researchcentresDestroy'])->name('researchcentres.destroy');
 
-    Route::resource('micro-photo-gallery', MicroManagePhotoGalleryController::class);
+    // Manage micro news route
+    Route::resource('Managenews', ManageNewsController::class);
+
+    //Manage micro Menu cms Page
+    Route::get('/admin/micromenu', [MicroMenuController::class, 'index'])->name('micromenus.index');
+    Route::get('/admin/micromenu/create', [MicroMenuController::class, 'create'])->name('micromenus.create');
+    Route::post('/admin/micromenu', [MicroMenuController::class, 'store'])->name('micromenus.store');
+    Route::get('/admin/micromenu/{id}/edit', [MicroMenuController::class, 'edit'])->name('micromenus.edit');
+    Route::put('/admin/micromenu/{id}', [MicroMenuController::class, 'update'])->name('micromenu.update');
+    Route::get('/admin/micromenu/{id}/delete', [MicroMenuController::class, 'delete'])->name('micromenu.delete');
+
+    Route::post('/micromenu/{id}/toggle-status', [MicroMenuController::class, 'toggleStatus'])->name('micromenus.toggleStatus');
+
+    //Manage micro Quick links Page
+
+    Route::get('/microquick-links', [ManageQuickLinksController::class, 'quick_link_list'])->name('microquicklinks.index');
+    Route::get('/microquick-links/create', [ManageQuickLinksController::class, 'quick_link_create'])->name('microquicklinks.create');
+    Route::post('/microquick-links/store', [ManageQuickLinksController::class, 'quick_link_store'])->name('microquicklinks.store');
+    Route::get('/microquick-links/{id}/edit', [ManageQuickLinksController::class, 'quick_link_edit'])->name('microquicklinks.edit');
+    Route::put('/microquick-links/{id}', [ManageQuickLinksController::class, 'quick_link_update'])->name('microquicklinks.update');
+    Route::delete('/microquick-links/{id}', [ManageQuickLinksController::class, 'quick_link_destroy'])->name('microquicklinks.destroy');
 });
 // Indrajeet
 
