@@ -1,15 +1,15 @@
 <?php 
 // app/Models/ManagePhotoGallery.php
 
-namespace App\Models\Admin;
+namespace App\Models\Admin\Micro;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ManagePhotoGallery extends Model
+class MicroManagePhotoGallery extends Model
 {
     use HasFactory;
-    protected $table = 'manage_photo_galleries'; // Replace 'your_table_name' with the actual table name.
+    protected $table = 'micro_manage_photo_galleries'; // Replace 'your_table_name' with the actual table name.
 
     protected $fillable = [
         'image_title_english',

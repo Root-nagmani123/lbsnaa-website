@@ -51,8 +51,10 @@
                     <tbody>
                         @foreach ($programs as $program)
                 <tr>
-                    <td>{{ $loop->iteration }}</td> <!-- Display row number here -->
-                    <td>{{ $program->research_centre }}</td>
+                    <td>{{ $program->id }}</td>
+
+                    <td>{{ $program->research_centre_name }}</td>
+
                     <td>{{ $program->program_name }}</td>
                     <td>{{ $program->venue }}</td>
                     <td>{{ $program->program_coordinator }}</td>
