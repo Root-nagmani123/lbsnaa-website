@@ -50,6 +50,7 @@ use App\Http\Controllers\Admin\Micro\MicroManageVacancyController;
 use App\Http\Controllers\Admin\Micro\MicroVideoGalleryController;
 
 use App\Http\Controllers\Admin\Micro\MicroManageMediaCenterController;
+use App\Http\Controllers\Admin\Micro\MicroManagePhotoGalleryController;
 
 
 
@@ -311,6 +312,8 @@ Route::prefix('admin')->group(function () {
     Route::put('admin/micro-video-gallery/{id}', [MicroVideoGalleryController::class, 'update'])->name('micro-video-gallery.update');
 
     Route::resource('photovideogallery', MicroManageMediaCenterController::class);
+
+    Route::resource('micro-photo-gallery', MicroManagePhotoGalleryController::class);
 });
 // Indrajeet
 
