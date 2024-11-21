@@ -54,8 +54,6 @@ use App\Http\Controllers\Admin\Micro\ManageResearchCentreController;
 use App\Http\Controllers\Admin\Micro\ManageNewsController;
 use App\Http\Controllers\Admin\Micro\MicroMenuController;
 use App\Http\Controllers\Admin\Micro\ManageQuickLinksController;
-
-
 use App\Http\Controllers\Admin\Micro\MicroManagePhotoGalleryController;
 
 
