@@ -24,15 +24,15 @@
         <table class="table align-middle" id="myTable">
             <thead>
                 <tr class="text-center">
-                    <th class="col">ID</th> <!-- Add index column -->
+                    <th class="col">#</th> <!-- Add index column -->
                     <th class="col">Job Title</th>
                     <th class="col">Language</th>
                     <th class="col">Publish Date</th>
                     <th class="col">Expiry Date</th>
                     <th class="col">Language</th>
-                    <th class="col">Status</th>
                     <th class="col">Uploaded Document / Website Link</th> <!-- Column for document or link -->
                     <th class="col">Actions</th>
+                    <th class="col">Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -45,16 +45,6 @@
                             <td>{{ $vacancy->publish_date }}</td>
                             <td>{{ $vacancy->expiry_date }}</td>
                             <td>{{ $vacancy->language == 1 ? 'English' : 'Hindi' }}</td>
-                            <td>
-                                @if ($vacancy->status == 1)
-                                    <span class="badge bg-warning bg-opacity-10 text-warning py-2 fw-semibold text-center">Draft</span>
-                                @elseif ($vacancy->status == 2)
-                                    <span class="badge bg-primary bg-opacity-10 text-primary py-2 fw-semibold text-center">Approved</span>
-                                @elseif ($vacancy->status == 3)
-                                    <span class="badge bg-success bg-opacity-10 text-success py-2 fw-semibold text-center">Publish</span>
-                                @endif
-                            </td>
-                            <td>
                                 @if($vacancy->content_type == 'PDF' && $vacancy->document_upload)
                                     <!-- Check if document is an image -->
                                     @if(in_array(pathinfo($vacancy->document_upload, PATHINFO_EXTENSION), ['jpg', 'png', 'jpeg']))
@@ -80,6 +70,10 @@
                                     <button type="submit" class="btn btn-sm btn-primary text-white">Delete</button>
                                 </form>
                             </td>
+                            <td><div class="form-check form-switch">
+            <input class="form-check-input status-toggle" type="checkbox" role="switch"  data-table="manage_vacancies" 
+            data-column="status" data-id="{{$vacancy->id}}" {{$vacancy->status ? 'checked' : ''}}>
+          </div></td>
                         </tr>
                         @endforeach
             </tbody>

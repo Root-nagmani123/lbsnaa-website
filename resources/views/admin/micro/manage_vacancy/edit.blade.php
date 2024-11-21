@@ -80,9 +80,8 @@
         <div class="form-group">
             <label for="status">Status</label>
             <select class="form-control" name="status">
-                <option value="1" {{ $vacancy->status == '1' ? 'selected' : '' }}>Draft</option>
-                <option value="2" {{ $vacancy->status == '2' ? 'selected' : '' }}>Approval</option>
-                <option value="3" {{ $vacancy->status == '3' ? 'selected' : '' }}>Publish</option>
+                <option value="1" {{ $vacancy->status == '1' ? 'selected' : '' }}>Active</option>
+                <option value="0" {{ $vacancy->status == '0' ? 'selected' : '' }}>Inactive</option>
             </select>
         </div>
 

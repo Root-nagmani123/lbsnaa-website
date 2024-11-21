@@ -38,32 +38,21 @@
                 <table class="table align-middle" id="myTable">
                     <thead>
                         <tr class="text-center">
-                            <th class="col">ID</th>
+                            <th class="col">#</th>
                             <th class="col">Category Name</th>
                             <th class="col">Media Category</th>
                             <th class="col">Image Title (English)</th>
-                            <th class="col">Status</th>
                             <th class="col">Actions</th>
+                            <th class="col">Status</th>
                         </tr>
                     </thead>
                     <tbody>
-                    <!-- <pre>{{ print_r($galleries) }}</pre> -->
                         @foreach($galleries as $index => $gallery) <!-- Use $index to track the row number -->
                         <tr>
-                        <!-- <pre>{{ print_r($gallery) }}</pre> -->
-                            <td class="text-center">{{ $index + 1 }}</td> <!-- Display index here -->
+                        <td>{{ $loop->iteration }}</td> <!-- Auto-incrementing index -->
                             <td>{{ $gallery->name ?? 'N/A' }}</td>
                             <td>{{ $gallery->media_cat_name ?? 'N/A' }}</td>
                             <td>{{ $gallery->image_title_english }}</td>
-                            <td>
-                                @if ($gallery->status == 1)
-                                    <span class="badge bg-warning bg-opacity-10 text-warning py-2 fw-semibold text-center">Draft</span>
-                                @elseif ($gallery->status == 2)
-                                    <span class="badge bg-primary bg-opacity-10 text-primary py-2 fw-semibold text-center">Approved</span>
-                                @elseif ($gallery->status == 3)
-                                    <span class="badge bg-success bg-opacity-10 text-success py-2 fw-semibold text-center">Publish</span>
-                                @endif
-                            </td>
                             <td>
                                 <a href="{{ route('photo-gallery.edit', $gallery->id) }}" class="btn bg-success text-white btn-sm">Edit</a>
                                 <form action="{{ route('photo-gallery.destroy', $gallery->id) }}" method="POST" style="display:inline;">
@@ -72,6 +61,10 @@
                                     <button type="submit" class="btn btn-sm btn-primary text-white" onclick="return confirm('Are you sure?')">Delete</button>
                                 </form>
                             </td>
+                            <td><div class="form-check form-switch">
+            <input class="form-check-input status-toggle" type="checkbox" role="switch"  data-table="manage_photo_galleries" 
+            data-column="status" data-id="{{$gallery->id}}" {{$gallery->status ? 'checked' : ''}}>
+          </div></td>
                         </tr>
                         @endforeach
                     </tbody>

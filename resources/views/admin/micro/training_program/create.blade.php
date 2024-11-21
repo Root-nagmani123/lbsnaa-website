@@ -206,9 +206,8 @@
                             <div class="form-group position-relative">
                             <select name="page_status" class="form-control" required>
                                 <option value="" class="text-dark" selected>Select</option>
-                                <option value="1" class="text-dark">Draft</option>
-                                <option value="2" class="text-dark">Approval</option>
-                                <option value="3" class="text-dark">Publish</option>
+                                <option value="1" class="text-dark">Active</option>
+                                <option value="0" class="text-dark">Inactive</option>
                             </select>
                             </div>
 

@@ -135,9 +135,8 @@
     <div class="form-group">
         <label>Status</label>
         <select name="status" required class="form-control">
-            <option value="1" {{ (old('status', $gallery->status) == '1') ? 'selected' : '' }}>Draft</option>
-            <option value="2" {{ (old('status', $gallery->status) == '2') ? 'selected' : '' }}>Approval</option>
-            <option value="3" {{ (old('status', $gallery->status) == '3') ? 'selected' : '' }}>Publish</option>
+            <option value="1" {{ (old('status', $gallery->status) == '1') ? 'selected' : '' }}>Active</option>
+            <option value="2" {{ (old('status', $gallery->status) == '0') ? 'selected' : '' }}>Inactive</option>
         </select>
     </div>
 

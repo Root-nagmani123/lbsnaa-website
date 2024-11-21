@@ -22,33 +22,23 @@
         <table class="table align-middle" id="myTable">
             <thead>
                 <tr class="text-center">
-                    <th class="col">ID</th>
+                    <th class="col">#</th>
                     <th class="col">Survey Title</th>
                     <th class="col">Start Date </th>
                     <th class="col">Expire Date </th>
                     <th class="col">language</th>
-                    <th class="col">Status</th>
                     <th class="col">Actions</th>
+                    <th class="col">Status</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($survey as $record)
                         <tr>
-                            <td>{{ $record->id }}</td>
+                        <td>{{ $loop->iteration }}</td> <!-- Auto-incrementing index -->
                             <td>{{ $record->survey_title }}</td>
                             <td>{{ $record->start_date }}</td>
                             <td>{{ $record->end_date }}</td>
                             <td>{{ $record->language == 1 ? 'English' : 'Hindi' }}</td>
-                            <!-- <td>{{ $record->status ? 'Active' : 'Inactive' }}</td> -->
-                            <td>
-                                @if ($record->status == 1)
-                                <span
-                                    class="badge bg-success bg-opacity-10 text-success py-2 fw-semibold text-center">Active</span>
-                                @elseif ($record->status == 0)
-                                <span
-                                    class="badge bg-danger bg-opacity-10 text-danger py-2 fw-semibold text-center">Inactive</span>
-                                @endif
-                            </td>
                             <td>
                                 <a href="{{ route('survey.edit', $record->id) }}" class="btn bg-success text-white btn-sm">Edit</a>
                                 <form action="{{ route('survey.destroy', $record->id) }}" method="POST" style="display:inline;">
@@ -56,6 +46,10 @@
                                     <button type="submit" class="btn btn-sm btn-primary text-white">Delete</button>
                                 </form>
                             </td>
+                            <td><div class="form-check form-switch">
+            <input class="form-check-input status-toggle" type="checkbox" role="switch"  data-table="manage_surveys" 
+            data-column="status" data-id="{{$record->id}}" {{$record->status ? 'checked' : ''}}>
+          </div></td>
                         </tr>
                         @endforeach
             </tbody>

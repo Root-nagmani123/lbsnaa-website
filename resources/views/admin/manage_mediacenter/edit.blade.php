@@ -3,14 +3,28 @@
 
 @section('content')
 <div class="d-sm-flex text-center justify-content-between align-items-center mb-4">
-    <h4 class="fw-semibold fs-18 mb-sm-0">Edit Audio Gallery</h4>
+    <h3 class="mb-sm-0 mb-1 fs-18">Manage Audio</h3>
+    <ul class="ps-0 mb-0 list-unstyled d-flex justify-content-center">
+        <li>
+            <a href="{{ route('admin.index') }}" class="text-decoration-none">
+                <i class="ri-home-2-line" style="position: relative; top: -1px;"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        <li>
+            <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Audio</span>
+        </li>
+    </ul>
 </div>
 <div class="row justify-content-center">
     <div class="col-lg-12">
         <div class="card bg-white border-0 rounded-10 mb-4">
             <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-center border-bottom pb-20 mb-20">
+                <h4 class="fw-semibold fs-18 mb-0">Edit Audio</h4>
+            </div>
             @if ($errors->any())
-            <div class="alert alert-success">
+            <div class="alert alert-danger">
                 <ul>
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
@@ -70,9 +84,8 @@
                                 <div class="form-group position-relative">
                                     <select class="form-select form-control ps-5 h-58" name="page_status" id="page_status" required>
                                         <option value="0" class="text-dark">Select</option>
-                                        <option value="1" class="text-dark" {{ $audio->page_status == '1' ? 'selected' : '' }}>Draft</option>
-                                        <option value="2" class="text-dark" {{ $audio->page_status == '2' ? 'selected' : '' }}>Approval</option>
-                                        <option value="3" class="text-dark" {{ $audio->page_status == '3' ? 'selected' : '' }}>Publish</option>
+                                        <option value="1" class="text-dark" {{ $audio->page_status == '1' ? 'selected' : '' }}>Active</option>
+                                        <option value="2" class="text-dark" {{ $audio->page_status == '0' ? 'selected' : '' }}>Inactive</option>
                                     </select>
                                 </div>
                             </div>

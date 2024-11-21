@@ -51,13 +51,6 @@
                 <td>{{ $centre->language == 1 ? 'English' : 'Hindi' }}</td>
                 <td>{{ $centre->research_centre_name }}</td>
                 <td>{{ $centre->description }}</td>
-                    <td>
-                        @if ($centre->status == 1)
-                            <span class="badge bg-warning bg-opacity-10 text-warning py-2 fw-semibold text-center">Active</span>
-                        @elseif ($centre->status == 0)
-                            <span class="badge bg-primary bg-opacity-10 text-primary py-2 fw-semibold text-center">Inactive</span>
-                        @endif
-                    </td>
                             <td>
                                 <a href="{{ route('researchcentres.edit', $centre->id) }}"
                                     class="btn bg-success text-white btn-sm">Edit</a>
@@ -68,6 +61,10 @@
                                     <button type="submit" class="btn btn-sm btn-primary text-white" onclick="return confirm('Are you sure?')">Delete</button>
                                 </form>
                             </td>
+                            <td><div class="form-check form-switch">
+            <input class="form-check-input status-toggle" type="checkbox" role="switch"  data-table="research_centres" 
+            data-column="status" data-id="{{$centre->id}}" {{$centre->status ? 'checked' : ''}}>
+          </div></td>
                         </tr>
                         @endforeach
                     </tbody>

@@ -44,9 +44,9 @@
                     <th class="col">Language</th>
                     <th class="col">Publish Date</th>
                     <th class="col">Expiry Date</th>
-                    <th class="col">Status</th>
                     <th class="col">Uploaded Document / Website Link</th> <!-- Column for document or link -->
                     <th class="col">Actions</th>
+                    <th class="col">Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -64,18 +64,6 @@
                             </td>
                             <td>{{ $vacancy->publish_date }}</td>
                             <td>{{ $vacancy->expiry_date }}</td>
-                            <td>
-                                @if ($vacancy->status == 1)
-                                <span
-                                    class="badge bg-warning bg-opacity-10 text-warning py-2 fw-semibold text-center">Draft</span>
-                                @elseif ($vacancy->status == 2)
-                                <span
-                                    class="badge bg-primary bg-opacity-10 text-primary py-2 fw-semibold text-center">Approval</span>
-                                @elseif ($vacancy->status == 3)
-                                <span
-                                    class="badge bg-danger bg-opacity-10 text-danger py-2 fw-semibold text-center">Publish</span>
-                                @endif
-                            </td>
                             <td>
                                 @if($vacancy->content_type == 'PDF' && $vacancy->document_upload)
                                    
@@ -102,6 +90,10 @@
                                     <button type="submit" class="btn btn-sm btn-primary text-white">Delete</button>
                                 </form>
                             </td>
+                            <td><div class="form-check form-switch">
+            <input class="form-check-input status-toggle" type="checkbox" role="switch"  data-table="micro_manage_vacancies" 
+            data-column="status" data-id="{{$vacancy->id}}" {{$vacancy->status ? 'checked' : ''}}>
+          </div></td>
                         </tr>
                         @endforeach
             </tbody>
