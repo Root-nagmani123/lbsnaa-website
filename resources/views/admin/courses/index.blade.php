@@ -34,17 +34,18 @@
                 <table class="table align-middle" id="myTable">
                     <thead>
                         <tr class="text-center">
-                            <th class="col">ID</th>
+                            <th class="col">#</th>
                             <th class="col">Course Name</th>
                             <th class="col">Abbreviation</th>
                             <th class="col">Language</th>
                             <th class="col">Actions</th>
+                            <th class="col">Status</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($courses as $course)
         <tr>
-            <td>{{ $course->id }}</td>
+        <td>{{ $loop->iteration }}</td> <!-- Auto-incrementing index -->
             <td>{{ $course->course_name }}</td>
             <td>{{ $course->abbreviation }}</td>
             <td>{{ $course->language == 1 ? 'English' : 'Hindi' }}</td>
@@ -58,6 +59,10 @@
                                     <button type="submit" class="btn btn-sm btn-primary text-white" onclick="return confirm('Are you sure?')">Delete</button>
                                 </form>
                             </td>
+                            <td><div class="form-check form-switch">
+            <input class="form-check-input status-toggle" type="checkbox" role="switch"  data-table="course" 
+            data-column="page_status" data-id="{{$course->id}}" {{$course->page_status ? 'checked' : ''}}>
+          </div></td>
                         </tr>
                         @endforeach
                     </tbody>

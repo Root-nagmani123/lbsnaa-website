@@ -40,27 +40,18 @@
                             <th class="col">Category Name</th>
                             <th class="col">Parent</th>
                             <th class="col">Language</th>
-                            <th class="col">Status</th>
                             <th class="col">Action</th>
+                            <th class="col">Status</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($subcategories as $cat)
                         <tr>
-                            <td>{{ $cat->id }}</td>
+                        <td>{{ $loop->iteration }}</td> <!-- Auto-incrementing index -->
                             <td>{{ $cat->category_name }}</td>
                             <td>{{ $cat->parent_category_name ?? 'Root Category' }}</td> <!-- Display parent category name or "Root Category" if none -->
                             <td>{{ $cat->language == 1 ? 'English': 'Hindi'}}</td>
-                            <!-- <td>{{ $cat->status == 1 ? 'Draft' : ($cat->status == 2 ? 'Approval' : 'Publish') }}</td> -->
-                            <td>
-                                @if ($cat->status == 1)
-                                    <span class="badge bg-warning bg-opacity-10 text-warning py-2 fw-semibold text-center">Draft</span>
-                                @elseif ($cat->status == 2)
-                                    <span class="badge bg-primary bg-opacity-10 text-primary py-2 fw-semibold text-center">Approved</span>
-                                @elseif ($cat->status == 3)
-                                    <span class="badge bg-success bg-opacity-10 text-success py-2 fw-semibold text-center">Publish</span>
-                                @endif
-                            </td>
                             <td>
                                 <a href="{{ route('subcategory.edit', $cat->id) }}" class="btn btn-success text-white btn-sm ">Edit</a>
                                 <form action="{{ route('subcategory.delete', $cat->id) }}" method="get" style="display:inline;">
@@ -68,6 +59,10 @@
                                     <button type="submit" class="btn btn-primary text-white btn-sm">Delete</button>
                                 </form>
                             </td>
+                            <td><div class="form-check form-switch">
+            <input class="form-check-input status-toggle" type="checkbox" role="switch"  data-table="courses_sub_categories" 
+            data-column="status" data-id="{{$cat->id}}" {{$cat->status ? 'checked' : ''}}>
+          </div></td>
                         </tr>
                         @endforeach
                     </tbody>
