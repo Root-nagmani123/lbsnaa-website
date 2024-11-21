@@ -111,11 +111,9 @@
                                     <select class="form-select form-control ps-5 h-58" name="status" id="status"
                                         required>
                                         <option value="1" class="text-dark"
-                                            {{ $subcategory->status == '1' ? 'selected' : '' }}>Draft</option>
+                                            {{ $subcategory->status == '1' ? 'selected' : '' }}>Active</option>
                                         <option value="2" class="text-dark"
-                                            {{ $subcategory->status == '2' ? 'selected' : '' }}>Approval</option>
-                                        <option value="3" class="text-dark"
-                                            {{ $subcategory->status == '3' ? 'selected' : '' }}>Publish</option>
+                                            {{ $subcategory->status == '0' ? 'selected' : '' }}>Inactive</option>
                                     </select>
                                 </div>
                             </div>
