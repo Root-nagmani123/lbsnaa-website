@@ -59,6 +59,9 @@ use App\Http\Controllers\Admin\Micro\MicroManagePhotoGalleryController;
 
 
 
+
+
+
 /*
 
 
@@ -322,6 +325,7 @@ Route::prefix('admin')->group(function () {
     Route::post('researchcentres/{id}/update', [ManageResearchCentreController::class, 'researchcentresUpdate'])->name('researchcentres.update');
     Route::post('researchcentres/{id}/delete', [ManageResearchCentreController::class, 'researchcentresDestroy'])->name('researchcentres.destroy');
 
+    Route::resource('micro-photo-gallery', MicroManagePhotoGalleryController::class);
     // Manage micro news route
     Route::resource('Managenews', ManageNewsController::class);
 
