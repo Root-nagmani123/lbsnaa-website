@@ -27,13 +27,7 @@
 
 
 
-    <div class="form-group" style="display: none;">
-        <label>Image Relate With News</label>
-        <select name="image_relate_with_news" id="image_relate_with_news" class="form-control">
-            <option value="">Select News</option>
-            <option value="News" {{ (old('image_relate_with_news', $gallery->image_relate_with_news) == 'News') ? 'selected' : '' }}>News</option>
-        </select>
-    </div>
+
 
     <div id="related_news_field">
         <div class="form-group">
@@ -50,13 +44,7 @@
 
 
 
-    <div class="form-group"  style="display: none;">
-        <label>Image Relate With Training Programme</label>
-        <select name="image_relate_with_training" id="image_relate_with_training" class="form-control">
-            <option value="">Select Training Programme</option>
-            <option value="Training Programme" {{ (old('image_relate_with_training', $gallery->image_relate_with_training) == 'Training Programme') ? 'selected' : '' }}>Training Programme</option>
-        </select>
-    </div>
+
 
     <div id="related_training_field">
     <div class="form-group">
@@ -69,13 +57,7 @@
         <div id="training-suggestions" class="dropdown-menu" style="display: none; position: relative;"></div>
     </div>
 
-    <div class="form-group"  style="display: none;">
-        <label>Image Relate With Events</label>
-        <select name="image_relate_with_events" id="image_relate_with_events" class="form-control">
-            <option value="">Select Events</option>
-            <option value="Related Events" {{ (old('image_relate_with_events', $gallery->image_relate_with_events) == 'Related Events') ? 'selected' : '' }}>Related Events</option>
-        </select>
-    </div>
+
 
     <div id="related_events_field">
         <div class="form-group">
@@ -178,7 +160,7 @@
             const query = courseSearch.value;
 
             if (query.length > 1) {
-                fetch(`/admin/search-courses?query=${query}`, {
+                fetch(/admin/search-courses?query=${query}, {
                     headers: {
                         'X-Requested-With': 'XMLHttpRequest'
                     }
@@ -234,7 +216,7 @@
             const query = courseSearch.value;
 
             if (query.length > 1) {
-                fetch(`/admin/search-courses?query=${query}`, {
+                fetch(/admin/search-courses?query=${query}, {
                     headers: {
                         'X-Requested-With': 'XMLHttpRequest'
                     }
@@ -293,7 +275,7 @@
             const query = courseSearch.value;
 
             if (query.length > 1) {
-                fetch(`/admin/search-courses?query=${query}`, {
+                fetch(/admin/search-courses?query=${query}, {
                     headers: {
                         'X-Requested-With': 'XMLHttpRequest'
                     }
@@ -351,7 +333,7 @@
             const query = courseSearch.value;
 
             if (query.length > 1) {
-                fetch(`/admin/search-courses?query=${query}`, {
+                fetch(/admin/search-courses?query=${query}, {
                     headers: {
                         'X-Requested-With': 'XMLHttpRequest'
                     }
@@ -429,5 +411,4 @@
         });
     });
 </script>
-
 @endsection

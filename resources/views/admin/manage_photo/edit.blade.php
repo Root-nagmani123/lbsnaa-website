@@ -178,7 +178,7 @@
             const query = courseSearch.value;
 
             if (query.length > 1) {
-                fetch(`/admin/search-courses?query=${query}`, {
+                fetch(/admin/search-courses?query=${query}, {
                     headers: {
                         'X-Requested-With': 'XMLHttpRequest'
                     }
@@ -234,7 +234,7 @@
             const query = courseSearch.value;
 
             if (query.length > 1) {
-                fetch(`/admin/search-courses?query=${query}`, {
+                fetch(/admin/search-courses?query=${query}, {
                     headers: {
                         'X-Requested-With': 'XMLHttpRequest'
                     }
@@ -293,7 +293,7 @@
             const query = courseSearch.value;
 
             if (query.length > 1) {
-                fetch(`/admin/search-courses?query=${query}`, {
+                fetch(/admin/search-courses?query=${query}, {
                     headers: {
                         'X-Requested-With': 'XMLHttpRequest'
                     }
@@ -351,7 +351,7 @@
             const query = courseSearch.value;
 
             if (query.length > 1) {
-                fetch(`/admin/search-courses?query=${query}`, {
+                fetch(/admin/search-courses?query=${query}, {
                     headers: {
                         'X-Requested-With': 'XMLHttpRequest'
                     }

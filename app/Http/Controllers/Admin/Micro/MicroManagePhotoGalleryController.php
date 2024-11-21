@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 
 use App\Models\Admin\ManageAudit;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth; 
 
 class MicroManagePhotoGalleryController extends Controller
 { 
@@ -83,32 +83,49 @@ class MicroManagePhotoGalleryController extends Controller
     public function edit(Request $request, $id)
     {
         // Fetch the specific gallery with its associated course
-        $gallery = MicroManagePhotoGallery::with('courses')->find($id);
+        $gallery = DB::table('micro_manage_photo_galleries as sub')
+        ->leftJoin('courses as parent', 'sub.course_id', '=', 'parent.id') 
+        ->where('sub.id', $id)
+        ->select('sub.*', 'parent.id as parent_id', 'parent.name as parent_name')
+        ->first();
 
-        $related_news = MicroManagePhotoGallery::select('id', 'related_news')->where('related_news', $gallery->related_news)->first();
-        $related_training_program = MicroManagePhotoGallery::select('id', 'related_training_program')->where('related_training_program', $gallery->related_training_program)->first();
-        $related_events = MicroManagePhotoGallery::select('id', 'related_events')->where('related_events', $gallery->related_events)->first();
 
 
         if (!$gallery) {
             abort(404, 'Gallery not found');
         }
-        // Fetch all courses for the dropdown
-        $allCourses = Course::select('id', 'name')->where('id', $gallery->course_id)->first();
-        $bbb = Course::select('id', 'name')->where('id', $related_news->related_news)->first();
-        $ccc = Course::select('id', 'name')->where('id', $related_training_program->related_training_program)->first();
-        $ddd = Course::select('id', 'name')->where('id', $related_events->related_events)->first();
 
+        // Fetch related data only if the fields are not null
+        $related_news = $gallery->related_news 
+            ? MicroManagePhotoGallery::select('id', 'related_news')->where('related_news', $gallery->related_news)->first()
+            : null;
+
+        $related_training_program = $gallery->related_training_program 
+            ? MicroManagePhotoGallery::select('id', 'related_training_program')->where('related_training_program', $gallery->related_training_program)->first()
+            : null;
+
+        $related_events = $gallery->related_events 
+            ? MicroManagePhotoGallery::select('id', 'related_events')->where('related_events', $gallery->related_events)->first()
+            : null;
+
+        // Fetch the course for dropdown
+        $allCourses = Course::select('id', 'name')->where('id', $gallery->course_id)->first();
+
+        $bbb = $related_news ? Course::select('id', 'name')->where('id', $related_news->related_news)->first() : null;
+        $ccc = $related_training_program ? Course::select('id', 'name')->where('id', $related_training_program->related_training_program)->first() : null;
+        $ddd = $related_events ? Course::select('id', 'name')->where('id', $related_events->related_events)->first() : null;
 
         return view('admin.micro.manage_media_center.manage_photo.edit', [
             'gallery' => $gallery,
             'allCourses' => $allCourses,
-            'aaa' => $allCourses->name,
-            'bbb' => $bbb->name,
-            'ccc' => $ccc->name,
-            'ddd' => $ddd->name,
+            'aaa' => $allCourses ? $allCourses->name : null,
+            'bbb' => $bbb ? $bbb->name : null,
+            'ccc' => $ccc ? $ccc->name : null,
+            'ddd' => $ddd ? $ddd->name : null,
         ]);
     }
+
+
 
 
     public function update(Request $request, $id)
