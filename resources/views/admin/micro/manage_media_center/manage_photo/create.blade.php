@@ -8,7 +8,7 @@
     <div class="alert alert-success">{{ session('success') }}</div>
 @endif
 
-<form action="{{ isset($gallery) ? route('photo-gallery.update', $gallery->id) : route('photo-gallery.store') }}" method="POST">
+<form action="{{ isset($gallery) ? route('micro-photo-gallery.update', $gallery->id) : route('micro-photo-gallery.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
     @if(isset($gallery))
         @method('PUT')
@@ -81,9 +81,6 @@
     </div>
 
 
-
-
-
     <div class="form-group">
         <label>Image Title (English)</label>
         <input type="text" name="image_title_english" value="{{ old('image_title_english', $gallery->image_title_english ?? '') }}" required class="form-control">
@@ -94,17 +91,40 @@
         <input type="text" name="image_title_hindi" value="{{ old('image_title_hindi', $gallery->image_title_hindi ?? '') }}" class="form-control">
     </div>
 
+
+
+    <!-- For Image  -->
+
+    <div class="form-group">
+        <label>Image Files</label>
+        <div id="file-container">
+            <!-- Initial file input group -->
+            <div class="file-group">
+                <input type="file" name="image_files[]" class="form-control mb-2" accept="image/*">
+                <button type="button" class="btn btn-danger remove-file" style="display: none;">Remove</button>
+            </div>
+        </div>
+        <!-- Button to add more file input fields -->
+        <button type="button" class="btn btn-primary" id="add-file">Add More</button>
+    </div>
+
+
+
+    <!-- For Image  -->
+
+
+
     <div class="form-group">
         <label>Status</label>
         <select name="status" required class="form-control">
-            <option value="Draft">Draft</option>
-            <option value="Approval">Approval</option>
-            <option value="Publish">Publish</option>
+            <option value="1">Draft</option>
+            <option value="2">Approval</option>
+            <option value="3">Publish</option>
         </select>
     </div>
 
     <button type="submit" class="btn btn-primary">{{ isset($gallery) ? 'Update' : 'Add' }}</button>
-    <a href="{{ route('photo-gallery.index') }}" class="btn btn-danger">Cancel</a>
+    <a href="{{ route('micro-photo-gallery.index') }}" class="btn btn-danger">Cancel</a>
 </form>
 
 <script>

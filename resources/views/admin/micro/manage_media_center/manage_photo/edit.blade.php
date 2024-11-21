@@ -2,87 +2,89 @@
 @section('title', 'Admin Dashboard')
 
 @section('content')
-<h1>Add/Update Photo Gallery</h1>
+<h1>Edit Photo Gallery</h1>
 
 @if (session('success'))
     <div class="alert alert-success">{{ session('success') }}</div>
 @endif
 
-<form action="{{ isset($gallery) ? route('photo-gallery.update', $gallery->id) : route('photo-gallery.store') }}" method="POST">
+<form action="{{ route('micro-photo-gallery.update', $gallery->id) }}" method="POST" enctype="multipart/form-data">
     @csrf
-    @if(isset($gallery))
-        @method('PUT')
-    @endif
- 
+    @method('PUT')
+
     <div class="form-group">
         <label>Category Name:</label>
-        <input type="text" id="course-search" class="form-control" placeholder="Type to search for category...">
-        <!-- Hidden field to store selected course ID -->
-        <input type="hidden" name="course_id" id="selected-course-id">
-        <!-- Dropdown to show course suggestions -->
+        <input type="text" id="course-search" class="form-control" placeholder="Type to search for course..." value="{{ old('aaa', $aaa ?? '') }}">
+        <!-- Hidden input to store the course_id -->
+        <input type="hidden" name="course_id" id="selected-course-id" value="{{ old('course_id', $gallery->course_id ?? '') }}">
+        <!-- Dropdown for suggestions (optional, for searching courses dynamically) -->
         <div id="course-suggestions" class="dropdown-menu" style="display: none; position: relative;"></div>
     </div>
 
-    <!-- Dropdown to select related content for News -->
-    <div class="form-group">
+
+    
+
+
+
+
+    <div class="form-group" style="display: none;">
         <label>Image Relate With News</label>
         <select name="image_relate_with_news" id="image_relate_with_news" class="form-control">
             <option value="">Select News</option>
-            <option value="News">News</option>
+            <option value="News" {{ (old('image_relate_with_news', $gallery->image_relate_with_news) == 'News') ? 'selected' : '' }}>News</option>
         </select>
     </div>
 
-    <!-- Placeholder for News-related fields -->
-    <div id="related_news_field" style="display: none;">
+    <div id="related_news_field">
         <div class="form-group">
-            <label>Related News:</label>
-            <input type="text" id="news-search" class="form-control" placeholder="Type to search for news...">
-            <input type="hidden" name="related_news" id="selected-news-id">
+            <label for="related_news">Related News:</label>
+            <!-- Searchable input field -->
+            <input type="text" id="news-search" class="form-control" placeholder="Type to search for courses..." value="{{ old('bbb', $bbb ?? '') }}">
+            <!-- Store the selected course ID -->
+            <input type="hidden" name="related_news" id="selected-news-id" value="{{ old('related_news', $gallery->related_news) }}">
+            <!-- Dropdown for suggestions -->
             <div id="news-suggestions" class="dropdown-menu" style="display: none; position: relative;"></div>
         </div>
     </div>
 
-    <!-- Dropdown to select related content for Training Programme -->
-    <div class="form-group">
+
+
+
+    <div class="form-group"  style="display: none;">
         <label>Image Relate With Training Programme</label>
         <select name="image_relate_with_training" id="image_relate_with_training" class="form-control">
             <option value="">Select Training Programme</option>
-            <option value="Training Programme">Training Programme</option>
+            <option value="Training Programme" {{ (old('image_relate_with_training', $gallery->image_relate_with_training) == 'Training Programme') ? 'selected' : '' }}>Training Programme</option>
         </select>
     </div>
 
-    <!-- Placeholder for Training Programme-related fields -->
-    <div id="related_training_field" style="display: none;">
-        <div class="form-group">
-            <label>Related Training Programme:</label>
-            <input type="text" id="training-search" class="form-control" placeholder="Type to search for training programmes...">
-            <input type="hidden" name="related_training_program" id="selected-training-id">
-            <div id="training-suggestions" class="dropdown-menu" style="display: none; position: relative;"></div>
-        </div>
+    <div id="related_training_field">
+    <div class="form-group">
+        <label for="related_training_program">Related Training Programme:</label>
+        <!-- Display training program name -->
+        <input type="text" id="training-search" class="form-control" placeholder="Type to search for training programmes..." 
+            value="{{ old('ccc', $ccc ?? '') }}" >
+        <!-- Store the selected training ID -->
+        <input type="hidden" name="related_training_program" id="selected-training-id" value="{{ $gallery->related_training_program }}">
+        <div id="training-suggestions" class="dropdown-menu" style="display: none; position: relative;"></div>
     </div>
 
-    <!-- Dropdown to select related content for Related Events -->
-    <div class="form-group">
+    <div class="form-group"  style="display: none;">
         <label>Image Relate With Events</label>
         <select name="image_relate_with_events" id="image_relate_with_events" class="form-control">
             <option value="">Select Events</option>
-            <option value="Related Events">Related Events</option>
+            <option value="Related Events" {{ (old('image_relate_with_events', $gallery->image_relate_with_events) == 'Related Events') ? 'selected' : '' }}>Related Events</option>
         </select>
     </div>
 
-    <!-- Placeholder for Events-related fields -->
-    <div id="related_events_field" style="display: none;">
+    <div id="related_events_field">
         <div class="form-group">
             <label>Related Events:</label>
-            <input type="text" id="event-search" class="form-control" placeholder="Type to search for events...">
-            <input type="hidden" name="related_events" id="selected-event-id">
+            <input type="text" id="event-search" class="form-control" placeholder="Type to search for events..." value="{{ old('ddd', $ddd ?? '') }}">
+            <input type="hidden" name="related_events" id="selected-event-id" value="{{ old('related_events', $gallery->related_events ?? '') }}">
             <div id="event-suggestions" class="dropdown-menu" style="display: none; position: relative;"></div>
         </div>
     </div>
-
-
-
-
 
     <div class="form-group">
         <label>Image Title (English)</label>
@@ -94,17 +96,53 @@
         <input type="text" name="image_title_hindi" value="{{ old('image_title_hindi', $gallery->image_title_hindi ?? '') }}" class="form-control">
     </div>
 
+    
+
+    <div class="form-group">
+        <label>Image Files</label>
+        <div id="file-container">
+            @if($gallery->image_files)  <!-- Check if image_files is not null -->
+                @php
+                    // Decode the JSON string into an array
+                    $imageFiles = json_decode($gallery->image_files);
+                @endphp
+
+                @if(is_array($imageFiles) && count($imageFiles) > 0)
+                    @foreach($imageFiles as $file)
+                        <div class="file-group">
+                            <!-- Display the image thumbnail -->
+                            <div class="image-preview">
+                                <img src="{{ asset('storage/' . $file) }}" alt="image" width="100" height="100">
+                            </div>
+
+                            <!-- File input to update image -->
+                            <input type="file" name="image_files[]" class="form-control mb-2" accept="image/*">
+                            <button type="button" class="btn btn-danger remove-file">Remove</button>
+                        </div>
+                    @endforeach
+                @else
+                    <p>No images available.</p>
+                @endif
+            @else
+                <p>No images available.</p>
+            @endif
+        </div>
+        <button type="button" class="btn btn-primary" id="add-file">Add More</button>
+    </div>
+
+
+
     <div class="form-group">
         <label>Status</label>
         <select name="status" required class="form-control">
-            <option value="Draft">Draft</option>
-            <option value="Approval">Approval</option>
-            <option value="Publish">Publish</option>
+            <option value="1" {{ (old('status', $gallery->status) == '1') ? 'selected' : '' }}>Draft</option>
+            <option value="2" {{ (old('status', $gallery->status) == '2') ? 'selected' : '' }}>Approval</option>
+            <option value="3" {{ (old('status', $gallery->status) == '3') ? 'selected' : '' }}>Publish</option>
         </select>
     </div>
 
-    <button type="submit" class="btn btn-primary">{{ isset($gallery) ? 'Update' : 'Add' }}</button>
-    <a href="{{ route('photo-gallery.index') }}" class="btn btn-danger">Cancel</a>
+    <button type="submit" class="btn btn-primary">Update</button>
+    <a href="{{ route('micro-photo-gallery.index') }}" class="btn btn-danger">Cancel</a>
 </form>
 
 <script>
@@ -130,8 +168,6 @@
 
 </script>
 
-@endsection
-
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const courseSearch = document.getElementById("course-search");
@@ -149,9 +185,8 @@
                 })
                 .then(response => response.json())
                 .then(data => {
-                    courseSuggestions.innerHTML = ""; // Clear previous suggestions
+                    courseSuggestions.innerHTML = "";
 
-                    // If we have results, show the dropdown and populate it
                     if (data.length > 0) {
                         courseSuggestions.style.display = "block";
                         
@@ -162,26 +197,24 @@
                             option.textContent = course.name;
                             option.dataset.id = course.id;
 
-                            // When a course is clicked, set the input and hide dropdown
                             option.addEventListener("click", function(e) {
                                 e.preventDefault();
-                                courseSearch.value = course.name; // Set visible input for display
-                                selectedCourseId.value = course.id; // Set hidden input for submission
+                                courseSearch.value = course.name;
+                                selectedCourseId.value = course.id;
                                 courseSuggestions.style.display = "none";
                             });
 
                             courseSuggestions.appendChild(option);
                         });
                     } else {
-                        courseSuggestions.style.display = "none"; // Hide if no results
+                        courseSuggestions.style.display = "none";
                     }
                 });
             } else {
-                courseSuggestions.style.display = "none"; // Hide if query is too short
+                courseSuggestions.style.display = "none";
             }
         });
 
-        // Hide suggestions if clicked outside
         document.addEventListener("click", function(e) {
             if (!courseSuggestions.contains(e.target) && e.target !== courseSearch) {
                 courseSuggestions.style.display = "none";
@@ -189,6 +222,7 @@
         });
     });
 </script>
+
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -365,31 +399,35 @@
     });
 </script>
 
+
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-    // Make sure the DOM is fully loaded before running the script
+        // Handle file input fields dynamically
+        const addFileButton = document.getElementById("add-file");
+        const fileContainer = document.getElementById("file-container");
 
-        // Add event listener to "Add More" button
-        document.getElementById('add-file').addEventListener('click', function() {
-            // Create a new file input group
-            var fileGroup = document.createElement('div');
-            fileGroup.classList.add('file-group');
-            fileGroup.innerHTML = `
+        addFileButton.addEventListener("click", function() {
+            const newFileGroup = document.createElement("div");
+            newFileGroup.classList.add("file-group");
+            newFileGroup.innerHTML = `
                 <input type="file" name="image_files[]" class="form-control mb-2" accept="image/*">
                 <button type="button" class="btn btn-danger remove-file">Remove</button>
             `;
+            fileContainer.appendChild(newFileGroup);
 
-            // Append the new file group to the container
-            document.getElementById('file-container').appendChild(fileGroup);
-
-            // Bind the event listener for the "Remove" button in the new file group
-            fileGroup.querySelector('.remove-file').addEventListener('click', function() {
-                // Remove the file group when the "Remove" button is clicked
-                fileGroup.remove();
+            // Add event listener to the remove button
+            newFileGroup.querySelector(".remove-file").addEventListener("click", function() {
+                fileContainer.removeChild(newFileGroup);
             });
+        });
 
-            // Make the "Remove" button visible for the newly added input
-            fileGroup.querySelector('.remove-file').style.display = 'inline-block';
+        // Handle file removal
+        document.querySelectorAll(".remove-file").forEach(function(button) {
+            button.addEventListener("click", function() {
+                fileContainer.removeChild(button.parentElement);
+            });
         });
     });
 </script>
+
+@endsection
