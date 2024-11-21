@@ -22,18 +22,14 @@
                     @csrf
                     <div class="row">
                         <!-- New Dropdown for Research Centre -->
-                        <div class="col-lg-12">
-                            <div class="form-group mb-4">
-                                <label class="label" for="research_centre">Select Research Centre <span class="star">*</span>:</label>
-                                <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="research_centre" id="research_centre" required>
-                                        <option value="">Select Research Centre</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                    </select>
-                                </div>
-                            </div>
+                        <div class="form-group">
+                            <label for="research_centre_id">Select Research Centre *</label>
+                            <select name="research_centre" id="research_centre_id" class="form-control" required>
+                                <option value="">Select Research Centre</option>
+                                @foreach ($researchCentres as $id => $name)
+                                    <option value="{{ $id }}">{{ $name }}</option>
+                                @endforeach
+                            </select>
                         </div>
 
                         <div class="col-lg-6">

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\Micro;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Micro\OrganizationSetup;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 
 use App\Models\Admin\Micro\ManageAudit;
 use Illuminate\Support\Facades\Auth;
@@ -14,13 +14,18 @@ class OrganizationSetupController extends Controller
 {
     public function index()
     {
-        $organizations = OrganizationSetup::all();
+        $organizations = DB::table('mirco_organization_setups as tp')
+        ->leftJoin('research_centres as rc', 'tp.research_centre', '=', 'rc.id') // Adjust column names as needed
+        ->select('tp.*', 'rc.research_centre_name as research_centre_name') // Include the name of the research centre
+        ->get();
+
         return view('admin.micro.Organization_Setup.index', compact('organizations'));
     }
 
     public function create()
     {
-        return view('admin.micro.Organization_Setup.create');
+        $researchCentres = DB::table('research_centres')->pluck('research_centre_name', 'id'); // Replace 'name' and 'id' with your actual column names.
+        return view('admin.micro.Organization_Setup.create',compact('researchCentres'));
     }
 
     public function store(Request $request)
@@ -54,10 +59,18 @@ class OrganizationSetupController extends Controller
                         ->with('success', 'Organization setup created successfully.');
     }
 
-
-    public function edit(OrganizationSetup $organizationSetup)
+    public function edit($id)
     {
-        return view('admin.micro.Organization_Setup.edit', compact('organizationSetup'));
+        // Fetch the specific training program by ID
+        $organizationSetup = OrganizationSetup::findOrFail($id); 
+
+        // Fetch the research centers
+        $researchCentres = DB::table('research_centres')
+            ->select('id', 'research_centre_name')
+            ->pluck('research_centre_name', 'id') // Retrieves an associative array of id => name
+            ->toArray();
+        // Pass the variables to the Blade file
+        return view('admin.micro.Organization_Setup.edit', compact('organizationSetup', 'researchCentres'));
     }
 
     public function update(Request $request, OrganizationSetup $organizationSetup)

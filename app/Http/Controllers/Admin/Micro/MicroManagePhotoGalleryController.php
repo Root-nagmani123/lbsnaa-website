@@ -1,8 +1,8 @@
 <?php 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Micro;
 
 use App\Http\Controllers\Controller;
-use App\Models\Admin\ManagePhotoGallery;
+use App\Models\Admin\Micro\MicroManagePhotoGallery;
 use App\Models\Admin\Course;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -12,23 +12,23 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Admin\ManageAudit;
 use Illuminate\Support\Facades\Auth;
 
-class ManagePhotoGalleryController extends Controller
+class MicroManagePhotoGalleryController extends Controller
 { 
     public function index()
     {
-        $galleries = DB::table('manage_photo_galleries as sub')
+        $galleries = DB::table('micro_manage_photo_galleries as sub')
         ->leftJoin('courses as parent', 'sub.course_id', '=', 'parent.id') // Correct join
         ->leftJoin('courses as second_row', 'sub.related_training_program', '=', 'second_row.id') // Correct join
         ->select('sub.*', 'parent.id', 'parent.name','second_row.name as media_cat_name') // Select the necessary columns
         ->get();
 
         // print_r($galleries);
-        return view('admin.manage_photo.index', compact('galleries'));
+        return view('admin.micro.manage_media_center.manage_photo.index', compact('galleries'));
     }
 
     public function create()
     {
-        return view('admin.manage_photo.create'); 
+        return view('admin.micro.manage_media_center.manage_photo.create'); 
     }
 
 
@@ -73,21 +73,21 @@ class ManagePhotoGalleryController extends Controller
 
         // Insert all data in a single query
         if (!empty($data)) {
-            ManagePhotoGallery::insert($data);
+            MicroManagePhotoGallery::insert($data);
         }
 
-        return redirect()->route('photo-gallery.index')->with('success', 'Gallery added successfully.');
+        return redirect()->route('micro-photo-gallery.index')->with('success', 'Gallery added successfully.');
     }
 
 
     public function edit(Request $request, $id)
     {
         // Fetch the specific gallery with its associated course
-        $gallery = ManagePhotoGallery::with('courses')->find($id);
+        $gallery = MicroManagePhotoGallery::with('courses')->find($id);
 
-        $related_news = ManagePhotoGallery::select('id', 'related_news')->where('related_news', $gallery->related_news)->first();
-        $related_training_program = ManagePhotoGallery::select('id', 'related_training_program')->where('related_training_program', $gallery->related_training_program)->first();
-        $related_events = ManagePhotoGallery::select('id', 'related_events')->where('related_events', $gallery->related_events)->first();
+        $related_news = MicroManagePhotoGallery::select('id', 'related_news')->where('related_news', $gallery->related_news)->first();
+        $related_training_program = MicroManagePhotoGallery::select('id', 'related_training_program')->where('related_training_program', $gallery->related_training_program)->first();
+        $related_events = MicroManagePhotoGallery::select('id', 'related_events')->where('related_events', $gallery->related_events)->first();
 
 
         if (!$gallery) {
@@ -100,7 +100,7 @@ class ManagePhotoGalleryController extends Controller
         $ddd = Course::select('id', 'name')->where('id', $related_events->related_events)->first();
 
 
-        return view('admin.manage_photo.edit', [
+        return view('admin.micro.manage_media_center.manage_photo.edit', [
             'gallery' => $gallery,
             'allCourses' => $allCourses,
             'aaa' => $allCourses->name,
@@ -120,7 +120,7 @@ class ManagePhotoGalleryController extends Controller
         ]);
     
         // Find the gallery by ID
-        $gallery = ManagePhotoGallery::findOrFail($id);
+        $gallery = MicroManagePhotoGallery::findOrFail($id);
     
         // Get the old image paths (if any)
         $oldImages = json_decode($gallery->image_files, true);
@@ -176,13 +176,13 @@ class ManagePhotoGalleryController extends Controller
         // Save the gallery
         $gallery->save();
     
-        return redirect()->route('photo-gallery.index')->with('success', 'Gallery updated successfully.');
+        return redirect()->route('micro-photo-gallery.index')->with('success', 'Gallery updated successfully.');
     }
     
-    public function destroy(ManagePhotoGallery $gallery)
+    public function destroy(MicroManagePhotoGallery $gallery)
     {
         $gallery->delete();
-        return redirect()->route('photo-gallery.index')->with('success', 'Gallery deleted successfully.');
+        return redirect()->route('micro-photo-gallery.index')->with('success', 'Gallery deleted successfully.');
     }
 
     public function searchCourses(Request $request)
@@ -195,8 +195,8 @@ class ManagePhotoGalleryController extends Controller
 
     public function show($id)
     {
-        $photos = ManagePhotoGallery::where('gallery_id', $id)->get();  // Returns a collection
-        return view('admin.manage_photo.edit', compact('photos'));
+        $photos = MicroManagePhotoGallery::where('gallery_id', $id)->get();  // Returns a collection
+        return view('admin.micro.manage_media_center.manage_photo.edit', compact('photos'));
     }
 
 }

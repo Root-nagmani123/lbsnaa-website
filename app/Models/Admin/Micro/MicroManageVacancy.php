@@ -12,7 +12,7 @@ class MicroManageVacancy extends Model
     protected $table = 'micro_manage_vacancies';
 
     protected $fillable = [
-        'language', 'job_title', 'job_description', 'content_type',
+        'language','research_centre', 'job_title', 'job_description', 'content_type',
         'document_upload', 'website_link', 'publish_date', 'expiry_date', 'status'
     ];
 }

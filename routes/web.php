@@ -50,6 +50,7 @@ use App\Http\Controllers\Admin\Micro\MicroManageVacancyController;
 use App\Http\Controllers\Admin\Micro\MicroVideoGalleryController;
 
 use App\Http\Controllers\Admin\Micro\MicroManageMediaCenterController;
+use App\Http\Controllers\Admin\Micro\MicroManagePhotoGalleryController;
 
 
 
@@ -262,10 +263,13 @@ Route::prefix('admin')->group(function () {
     Route::resource('video_gallery', ManageVideoController::class);
     Route::resource('media-categories', ManageMediaCategoriesController::class);
     Route::resource('photo-gallery', ManagePhotoGalleryController::class);
+    
     Route::get('search-courses', [ManageEventsController::class, 'searchCourses'])->name('search.courses');
     // In routes/web.php
     Route::get('/admin/get-course-details/{courseId}', [CourseController::class, 'getCourseDetails']);
 
+
+    
     // Indrajeet
 
 
@@ -308,6 +312,8 @@ Route::prefix('admin')->group(function () {
     Route::put('admin/micro-video-gallery/{id}', [MicroVideoGalleryController::class, 'update'])->name('micro-video-gallery.update');
 
     Route::resource('photovideogallery', MicroManageMediaCenterController::class);
+
+    Route::resource('micro-photo-gallery', MicroManagePhotoGalleryController::class);
 });
 // Indrajeet
 

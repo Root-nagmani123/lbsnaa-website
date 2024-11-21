@@ -8,7 +8,7 @@
     <div class="alert alert-success">{{ session('success') }}</div>
 @endif
 
-<form action="{{ isset($gallery) ? route('photo-gallery.update', $gallery->id) : route('photo-gallery.store') }}" method="POST" enctype="multipart/form-data">
+<form action="{{ isset($gallery) ? route('micro-photo-gallery.update', $gallery->id) : route('micro-photo-gallery.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
     @if(isset($gallery))
         @method('PUT')
@@ -124,7 +124,7 @@
     </div>
 
     <button type="submit" class="btn btn-primary">{{ isset($gallery) ? 'Update' : 'Add' }}</button>
-    <a href="{{ route('photo-gallery.index') }}" class="btn btn-danger">Cancel</a>
+    <a href="{{ route('micro-photo-gallery.index') }}" class="btn btn-danger">Cancel</a>
 </form>
 
 <script>

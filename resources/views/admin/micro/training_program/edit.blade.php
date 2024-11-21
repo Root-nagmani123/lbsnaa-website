@@ -13,10 +13,28 @@
         @csrf
         @method('PUT')
 
-        <div class="form-group">
-            <label>Research Centre *</label>
-            <input type="text" name="research_centre" class="form-control" value="{{ $trainingProgram->research_centre }}" required>
+        <div class="col-lg-6">
+            <div class="form-group mb-4">
+                <label class="label" for="research_centre">Select Research Centre:</label>
+                <span class="star">*</span>
+                <div class="form-group position-relative">
+                    <select class="form-select form-control ps-5 h-58" name="research_centre" id="research_centre" required>
+                        <option value="" disabled {{ is_null($trainingProgram->research_centre) ? 'selected' : '' }}>
+                            Select Research Centre
+                        </option>
+                        dd($researchCentres);
+                        @foreach($researchCentres as $id => $name)
+                            <option value="{{ $id }}" {{ (string)$trainingProgram->research_centre === (string)$id ? 'selected' : '' }}>
+                                {{ $name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
         </div>
+
+
+
 
         <div class="form-group">
             <label>Page Language *</label><br>

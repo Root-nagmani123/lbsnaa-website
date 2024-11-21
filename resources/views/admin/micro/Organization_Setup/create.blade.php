@@ -9,8 +9,13 @@
         @csrf
 
         <div class="form-group">
-            <label>Research Centre *</label>
-            <input type="text" name="research_centre" class="form-control" required>
+            <label for="research_centre_id">Select Research Centre *</label>
+            <select name="research_centre" id="research_centre_id" class="form-control" required>
+                <option value="">Select Research Centre</option>
+                @foreach ($researchCentres as $id => $name)
+                    <option value="{{ $id }}">{{ $name }}</option>
+                @endforeach
+            </select>
         </div>
 
         <div class="form-group">
