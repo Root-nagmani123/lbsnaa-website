@@ -2,67 +2,19 @@
 @section('title', 'Admin Dashboard')
 
 @section('content')
-<div class="container">
-    <h2>Add Organization Setup</h2>
-    
-    <form action="{{ route('organization_setups.store') }}" method="POST" enctype="multipart/form-data">
-        @csrf
-
-        <div class="form-group">
-            <label for="research_centre_id">Select Research Centre *</label>
-            <select name="research_centre" id="research_centre_id" class="form-control" required>
-                <option value="">Select Research Centre</option>
-                @foreach ($researchCentres as $id => $name)
-                    <option value="{{ $id }}">{{ $name }}</option>
-                @endforeach
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label>Page Language *</label><br>
-            <input type="radio" name="language" value="1" required> English
-            <input type="radio" name="language" value="2"> Hindi
-        </div>
-
-        <div class="form-group">
-            <label>Employee Name *</label>
-            <input type="text" name="employee_name" class="form-control" required>
-        </div>
-
-        <div class="form-group">
-            <label>Designation *</label>
-            <input type="text" name="designation" class="form-control" required>
-        </div>
-
-        <div class="form-group">
-            <label>Email *</label>
-            <input type="email" name="email" class="form-control" required>
-        </div>
-
-        <div class="form-group">
-            <label>Program Description *</label>
-            <textarea name="program_description" class="form-control" required></textarea>
-        </div>
-
-        <div class="form-group">
-            <label>Upload Main Image *</label>
-            <input type="file" name="main_image" class="form-control" required>
-        </div>
-
-        <div class="form-group">
-            <label>Page Status *</label>
-            <select name="page_status" class="form-control" required>
-                <option value="">Select</option>
-                <option value="1">Draft</option>
-                <option value="2">Approval</option>
-                <option value="3">Publish</option>
-            </select>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Submit</button>
-        <button type="reset" class="btn btn-secondary">Reset</button>
-        <a href="{{ route('organization_setups.index') }}" class="btn btn-secondary">Cancel</a>
-    </form>
+<div class="d-sm-flex text-center justify-content-between align-items-center mb-4">
+    <h3 class="mb-sm-0 mb-1 fs-18">Organization Structure</h3>
+    <ul class="ps-0 mb-0 list-unstyled d-flex justify-content-center">
+        <li>
+            <a href="{{ route('admin.index') }}" class="text-decoration-none">
+                <i class="ri-home-2-line" style="position: relative; top: -1px;"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        <li>
+            <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Organization Management</span>
+        </li>
+    </ul>
 </div>
 <div class="row justify-content-center">
     <div class="col-lg-12">

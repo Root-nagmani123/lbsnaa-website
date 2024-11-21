@@ -3,12 +3,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin\ManagePhotoGallery;
-use App\Models\Admin\Course;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\DB;
-
-
 use App\Models\Admin\ManageAudit;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,13 +11,7 @@ class ManagePhotoGalleryController extends Controller
 { 
     public function index()
     {
-        $galleries = DB::table('manage_photo_galleries as sub')
-        ->leftJoin('courses as parent', 'sub.course_id', '=', 'parent.id') // Correct join
-        ->leftJoin('courses as second_row', 'sub.related_training_program', '=', 'second_row.id') // Correct join
-        ->select('sub.*', 'parent.id', 'parent.name','second_row.name as media_cat_name') // Select the necessary columns
-        ->get();
-
-        // print_r($galleries);
+        $galleries = ManagePhotoGallery::all();
         return view('admin.manage_photo.index', compact('galleries'));
     }
 
@@ -31,172 +20,77 @@ class ManagePhotoGalleryController extends Controller
         return view('admin.manage_photo.create'); 
     }
 
-
     public function store(Request $request)
     {
-        // Validate inputs
         $request->validate([
-            'image_files' => 'required|array',
-            'image_files.*' => 'file|mimes:jpeg,png,jpg|max:2048',
+            'category_name' => 'required|string',
+            'image_title_english' => 'required|string',
+            'image_title_hindi' => 'nullable|string',
+            'related_news' => 'nullable|string',
+            'related_training_program' => 'nullable|string',
+            'related_events' => 'nullable|string',
+            'status' => 'required|integer|in:1,2,3',
         ]);
 
-        // Ensure image files are provided
-        $imageFiles = $request->file('image_files');
+        $gallery = ManagePhotoGallery::create($request->all());
 
-        if (!$imageFiles) {
-            return redirect()->back()->with('error', 'No images uploaded!');
-        }
-
-        // Collect data for all images
-        $data1 = [];
-        foreach ($imageFiles as $file) {
-            // Save image and get the path
-            $data1[] = $file->store('uploads/gallery', 'public');
-            if (!$data1) {
-                return redirect()->back()->with('error', 'Failed to upload file.');
-            }
-        }
-        // print_r( json_encode($data1));die;
-            // Prepare data for insertion
-        $data[] = [
-            'image_title_english' => $request->input('image_title_english', 'Default Title'),
-            'image_title_hindi' => $request->input('image_title_hindi'),
-            'status' => $request->input('status', 'Draft'),
-            'image_files' => json_encode($data1),
-            'course_id' => $request->input('course_id'),
-            'related_news' => $request->input('related_news'),
-            'related_training_program' => $request->input('related_training_program'),
-            'related_events' => $request->input('related_events'),
-            'created_at' => now(), // Add timestamp for created_at
-            'updated_at' => now(), // Add timestamp for updated_at
-        ];
-
-        // Insert all data in a single query
-        if (!empty($data)) {
-            ManagePhotoGallery::insert($data);
-        }
+        ManageAudit::create([
+            'Module_Name' => 'Photo Gallery Module', // Static value
+            'Time_Stamp' => time(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Insert', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+            'Current_State' => json_encode($gallery), // Save state as JSON
+        ]);
 
         return redirect()->route('photo-gallery.index')->with('success', 'Gallery added successfully.');
     }
 
-
-    public function edit(Request $request, $id)
+    public function edit(ManagePhotoGallery $gallery)
     {
-        // Fetch the specific gallery with its associated course
-        $gallery = ManagePhotoGallery::with('courses')->find($id);
-
-        $related_news = ManagePhotoGallery::select('id', 'related_news')->where('related_news', $gallery->related_news)->first();
-        $related_training_program = ManagePhotoGallery::select('id', 'related_training_program')->where('related_training_program', $gallery->related_training_program)->first();
-        $related_events = ManagePhotoGallery::select('id', 'related_events')->where('related_events', $gallery->related_events)->first();
-
-
-        if (!$gallery) {
-            abort(404, 'Gallery not found');
-        }
-        // Fetch all courses for the dropdown
-        $allCourses = Course::select('id', 'name')->where('id', $gallery->course_id)->first();
-        $bbb = Course::select('id', 'name')->where('id', $related_news->related_news)->first();
-        $ccc = Course::select('id', 'name')->where('id', $related_training_program->related_training_program)->first();
-        $ddd = Course::select('id', 'name')->where('id', $related_events->related_events)->first();
-
-
-        return view('admin.manage_photo.edit', [
-            'gallery' => $gallery,
-            'allCourses' => $allCourses,
-            'aaa' => $allCourses->name,
-            'bbb' => $bbb->name,
-            'ccc' => $ccc->name,
-            'ddd' => $ddd->name,
-        ]);
+        return view('manage_photo.edit', compact('gallery'));
     }
 
-
-    public function update(Request $request, $id)
+    public function update(Request $request, ManagePhotoGallery $gallery)
     {
-        // Validate inputs
         $request->validate([
-            'image_files' => 'nullable|array',
-            'image_files.*' => 'nullable|file|mimes:jpeg,png,jpg|max:2048',
+            'category_name' => 'required|string',
+            'image_title_english' => 'required|string',
+            'image_title_hindi' => 'nullable|string',
+            'related_news' => 'nullable|string',
+            'related_training_program' => 'nullable|string',
+            'related_events' => 'nullable|string',
+            'status' => 'required|integer|in:1,2,3',
         ]);
-    
-        // Find the gallery by ID
-        $gallery = ManagePhotoGallery::findOrFail($id);
-    
-        // Get the old image paths (if any)
-        $oldImages = json_decode($gallery->image_files, true);
-    
-        // Remove old images from storage if they exist
-        if ($oldImages) {
-            foreach ($oldImages as $oldImage) {
-                $imagePath = storage_path('app/public/uploads/gallery/' . $oldImage);
-    
-                // Check if the file exists before attempting to delete
-                if (file_exists($imagePath)) {
-                    unlink($imagePath);
-                    Log::info("Old image removed: $imagePath");  // Log successful removal
-                } else {
-                    Log::warning("Old image not found: $imagePath");  // Log if file not found
-                }
-            }
-        } else {
-            Log::info("No old images to remove.");  // Log if no old images
-        }
-    
-        // Process new image files if they are uploaded
-        $imageFiles = $request->file('image_files');
-        $uploadedFiles = [];
-    
-        if ($imageFiles) {
-            foreach ($imageFiles as $file) {
-                // Store new files and get their paths
-                $uploadedFiles[] = $file->store('uploads/gallery', 'public');
-            }
-        }
-    
-        // If there are new images, save them in the database
-        if (count($uploadedFiles) > 0) {
-            // Merge old images with the newly uploaded ones (if any)
-            $updatedImages = array_merge($oldImages ?? [], $uploadedFiles);
-            $gallery->image_files = json_encode($updatedImages);
-        } else {
-            // If no new images are uploaded, keep the old images in the database
-            $gallery->image_files = json_encode($oldImages);
-        }
-    
-        // Update other fields
-        $gallery->image_title_english = $request->input('image_title_english', 'Default Title');
-        $gallery->image_title_hindi = $request->input('image_title_hindi');
-        $gallery->status = $request->input('status', 'Draft');
-        $gallery->course_id = $request->input('course_id');
-        $gallery->related_news = $request->input('related_news');
-        $gallery->related_training_program = $request->input('related_training_program');
-        $gallery->related_events = $request->input('related_events');
-        $gallery->updated_at = now();
-    
-        // Save the gallery
-        $gallery->save();
-    
+
+        $gallery->update($request->all());
+
+        ManageAudit::create([
+            'Module_Name' => 'Photo Gallery Module', // Static value
+            'Time_Stamp' => time(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Update', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+            'Current_State' => json_encode($gallery), // Save state as JSON
+        ]);
+
         return redirect()->route('photo-gallery.index')->with('success', 'Gallery updated successfully.');
     }
-    
+
     public function destroy(ManagePhotoGallery $gallery)
     {
         $gallery->delete();
         return redirect()->route('photo-gallery.index')->with('success', 'Gallery deleted successfully.');
     }
 
+
     public function searchCourses(Request $request)
     {
         $query = $request->query('query');
         $courses = Course::where('name', 'LIKE', '%' . $query . '%')->limit(10)->get(['id', 'name']);
         return response()->json($courses);
-    }
-
-
-    public function show($id)
-    {
-        $photos = ManagePhotoGallery::where('gallery_id', $id)->get();  // Returns a collection
-        return view('admin.manage_photo.edit', compact('photos'));
     }
 
 }

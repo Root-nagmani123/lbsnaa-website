@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin\Micro;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Micro\TrainingProgram;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 use App\Models\Admin\Micro\ManageAudit;
 use Illuminate\Support\Facades\Auth;
@@ -13,18 +12,13 @@ class TrainingProgramController extends Controller
 {
     public function index()
     {
-        $programs = DB::table('micro_manage_training_programs as tp')
-            ->leftJoin('research_centres as rc', 'tp.research_centre', '=', 'rc.id') // Adjust column names as needed
-            ->select('tp.*', 'rc.research_centre_name as research_centre_name') // Include the name of the research centre
-            ->get();
+        $programs = TrainingProgram::all();
         return view('admin.micro.training_program.index', compact('programs'));
     }
 
-
     public function create()
     {
-        $researchCentres = DB::table('research_centres')->pluck('research_centre_name', 'id'); // Replace 'name' and 'id' with your actual column names.
-        return view('admin.micro.training_program.create',compact('researchCentres'));
+        return view('admin.micro.training_program.create');
     }
 
     public function store(Request $request)
@@ -46,22 +40,10 @@ class TrainingProgramController extends Controller
         return redirect()->route('training-programs.index')->with('success', 'Program added successfully.');
     }
 
-
-    public function edit($id)
+    public function edit(TrainingProgram $trainingProgram)
     {
-        // Fetch the specific training program by ID
-        $trainingProgram = TrainingProgram::findOrFail($id); 
-
-        // Fetch the research centers
-        $researchCentres = DB::table('research_centres')
-            ->select('id', 'research_centre_name')
-            ->pluck('research_centre_name', 'id') // Retrieves an associative array of id => name
-            ->toArray();
-        // Pass the variables to the Blade file
-        return view('admin.micro.training_program.edit', compact('trainingProgram', 'researchCentres'));
+        return view('admin.micro.training_program.edit', compact('trainingProgram'));
     }
-
-
 
     public function update(Request $request, TrainingProgram $trainingProgram)
     {

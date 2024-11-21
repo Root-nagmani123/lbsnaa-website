@@ -35,18 +35,7 @@
                 <form action="{{ route('manage_vacancy.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-                        <!-- New Dropdown for Research Centre -->
-                        <div class="form-group">
-                            <label for="research_centre_id">Select Research Centre *</label>
-                            <select name="research_centre" id="research_centre_id" class="form-control" required>
-                                <option value="">Select Research Centre</option>
-                                @foreach ($researchCentres as $id => $name)
-                                    <option value="{{ $id }}">{{ $name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="col-lg-6">
+                    <div class="col-lg-2">
                             <div class="form-group mb-4">
                                 <label class="label" for="language">Language :</label>
                                 <span class="star">*</span>

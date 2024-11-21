@@ -11,11 +11,4 @@ class Course extends Model
 
     protected $fillable = ['name'];  // Adjust fields based on your course table
     protected $table = 'courses'; // Ensure this matches your database table name
-
-    public function ManagePhotoGallery()
-    {
-        return $this->hasMany(ManagePhotoGallery::class, 'course_id' , 'id');
-    }
 }
-
-

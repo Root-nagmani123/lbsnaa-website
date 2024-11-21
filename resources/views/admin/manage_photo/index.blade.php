@@ -25,35 +25,31 @@
                 <button class="border-0 btn btn-success py-2 px-3 px-sm-4 text-white fs-14 fw-semibold rounded-3">
                     <span class="py-sm-1 d-block">
                         <i class="ri-add-line text-white"></i>
-                        <span>Add Photo Gallery</span>
+                        <span>Add</span>
                     </span>
                 </button>
             </a>
         </div>
         @if (session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
-        @endif
-        <div class="default-table-area members-list">
+    @endif
+              <div class="default-table-area members-list">
             <div class="table-responsive">
                 <table class="table align-middle" id="myTable">
                     <thead>
                         <tr class="text-center">
                             <th class="col">ID</th>
                             <th class="col">Category Name</th>
-                            <th class="col">Media Category</th>
                             <th class="col">Image Title (English)</th>
                             <th class="col">Status</th>
                             <th class="col">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                    <!-- <pre>{{ print_r($galleries) }}</pre> -->
-                        @foreach($galleries as $index => $gallery) <!-- Use $index to track the row number -->
+                        @foreach($galleries as $gallery)
                         <tr>
-                        <!-- <pre>{{ print_r($gallery) }}</pre> -->
-                            <td class="text-center">{{ $index + 1 }}</td> <!-- Display index here -->
-                            <td>{{ $gallery->name ?? 'N/A' }}</td>
-                            <td>{{ $gallery->media_cat_name ?? 'N/A' }}</td>
+                            <td>{{ $gallery->id }}</td>
+                            <td>{{ $gallery->category_name }}</td>
                             <td>{{ $gallery->image_title_english }}</td>
                             <td>
                                 @if ($gallery->status == 1)
@@ -65,10 +61,12 @@
                                 @endif
                             </td>
                             <td>
-                                <a href="{{ route('photo-gallery.edit', $gallery->id) }}" class="btn bg-success text-white btn-sm">Edit</a>
-                                <form action="{{ route('photo-gallery.destroy', $gallery->id) }}" method="POST" style="display:inline;">
+                                <a href="{{ route('photo-gallery.edit', $gallery->id) }}"
+                                    class="btn bg-success text-white btn-sm">Edit</a>
+                                <form action="{{ route('photo-gallery.destroy', $gallery->id) }}" method="POST"
+                                    style="display:inline;">
                                     @csrf
-                                    @method('DELETE')
+                    @method('DELETE')
                                     <button type="submit" class="btn btn-sm btn-primary text-white" onclick="return confirm('Are you sure?')">Delete</button>
                                 </form>
                             </td>

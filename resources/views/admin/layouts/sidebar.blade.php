@@ -336,7 +336,7 @@
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="{{ route('micro-photo-gallery.index') }}" class="menu-link">
+                            <a href="#" class="menu-link">
                                 Photo Gallery
                             </a>
                         </li>

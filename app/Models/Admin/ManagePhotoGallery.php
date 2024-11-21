@@ -9,24 +9,14 @@ use Illuminate\Database\Eloquent\Model;
 class ManagePhotoGallery extends Model
 {
     use HasFactory;
-    protected $table = 'manage_photo_galleries'; // Replace 'your_table_name' with the actual table name.
 
     protected $fillable = [
+        'category_name',
         'image_title_english',
         'image_title_hindi',
-        'status',
-        'image_path',
-        'course_id',
         'related_news',
         'related_training_program',
         'related_events',
+        'status',
     ];
-
-
-    public function courses()
-    {
-        return $this->belongsTo(Course::class, 'course_id');
-
-    }
-
 }

@@ -40,7 +40,6 @@
                 <tr class="text-center">
                     <th class="col">ID</th> <!-- Add index column -->
                     <th class="col">Job Title</th>
-                    <th class="col">Research Centre</th>
                     <th class="col">Language</th>
                     <th class="col">Publish Date</th>
                     <th class="col">Expiry Date</th>
@@ -54,7 +53,6 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $vacancy->job_title }}</td>
-                            <td>{{ $vacancy->research_centre_name }}</td>
                             <td>
                                 @if ($vacancy->language == 1)
                                     English
