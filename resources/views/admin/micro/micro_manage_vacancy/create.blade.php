@@ -32,7 +32,7 @@
                 </ul>
             </div>
         @endif
-                <form action="{{ route('manage_vacancy.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('micro_manage_vacancy.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         
@@ -159,7 +159,7 @@
                         </div>
                         <div class="d-flex ms-sm-3 ms-md-0">
                             <button class="btn btn-success text-white fw-semibold" type="submit">Submit</button> &nbsp;
-                            <a href="{{ route('manage_vacancy.index') }}" class="btn btn-secondary text-white">Cancel</a>
+                            <a href="{{ route('micro_manage_vacancy.index') }}" class="btn btn-secondary text-white">Cancel</a>
                         </div>
                     </div>
                 </form>

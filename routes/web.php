@@ -39,6 +39,9 @@ use App\Http\Controllers\Admin\ManageMediaCategoriesController;
 use App\Http\Controllers\Admin\ManagePhotoGalleryController;
 use App\Http\Controllers\Admin\ManageAuditController;
 
+use App\Http\Controllers\Admin\Micro\MicroManageAuditController;
+
+
 // Indrajeet
 
 // For Micro Website
@@ -56,6 +59,7 @@ use App\Http\Controllers\Admin\Micro\MicroMenuController;
 use App\Http\Controllers\Admin\Micro\ManageQuickLinksController;
 use App\Http\Controllers\Admin\Micro\MicroManagePhotoGalleryController;
 
+use App\Http\Controllers\Admin\Micro\MicroSliderController;
 
 
 
@@ -261,8 +265,8 @@ Route::prefix('admin')->group(function () {
     Route::resource('founders', ManageFoundersController::class);
     Route::resource('cadres', ManageCadresController::class);
     Route::resource('manage_tender', ManageTenderController::class);
-    Route::resource('manage_vacancy', ManageVacancyController::class);
-    Route::get('/manage_vacancy/{id}/edit', [ManageVacancyController::class, 'edit'])->name('manage_vacancy.edit');
+    // Route::resource('manage_vacancy', ManageVacancyController::class);
+    // Route::get('/manage_vacancy/{id}/edit', [ManageVacancyController::class, 'edit'])->name('manage_vacancy.edit');
     Route::resource('manage_events', ManageEventsController::class);
     Route::get('/manage_events/{id}/edit', [ManageEventsController::class, 'edit'])->name('manage_events.edit');
     Route::put('/manage_events/{id}', [ManageEventsController::class, 'update'])->name('manage_events.update');
@@ -270,6 +274,9 @@ Route::prefix('admin')->group(function () {
     Route::resource('video_gallery', ManageVideoController::class);
     Route::resource('media-categories', ManageMediaCategoriesController::class);
     Route::resource('photo-gallery', ManagePhotoGalleryController::class);
+    Route::delete('/photo-gallery/{id}', [ManagePhotoGalleryController::class, 'destroy'])->name('photo-gallery.destroy');
+    Route::delete('/micro-photo-gallery/{id}', [MicroManagePhotoGalleryController::class, 'destroy'])->name('micro-photo-gallery.destroy');
+
     Route::get('search-courses', [ManageEventsController::class, 'searchCourses'])->name('search.courses');
     // In routes/web.php
     Route::get('/admin/get-course-details/{courseId}', [CourseController::class, 'getCourseDetails']);
@@ -300,12 +307,16 @@ Route::prefix('admin')->group(function () {
     Route::put('/manage_events/{id}', [ManageEventsController::class, 'update'])->name('manage_events.update');
     Route::get('/manage-audit', [ManageAuditController::class, 'index'])->name('manage_audit.index');
 
+    Route::get('/micro_manage_audit', [MicroManageAuditController::class, 'index'])->name('micro_manage_audit.index');
+
+    
+
     // For Micro Website
     Route::resource('training-programs', TrainingProgramController::class);
     Route::resource('organization_setups', OrganizationSetupController::class);
 
-    Route::resource('manage_vacancy', MicroManageVacancyController::class);
-    Route::get('/manage_vacancy/{id}/edit', [MicroManageVacancyController::class, 'edit'])->name('manage_vacancy.edit');
+    Route::resource('micro_manage_vacancy', MicroManageVacancyController::class);
+    Route::get('/micro_manage_vacancy/{id}/edit', [MicroManageVacancyController::class, 'edit'])->name('micro_manage_vacancy.edit');
 
     Route::resource('micro-video-gallery', MicroVideoGalleryController::class);
     Route::put('admin/micro-video-gallery/{id}', [MicroVideoGalleryController::class, 'update'])->name('micro-video-gallery.update');
@@ -347,6 +358,10 @@ Route::prefix('admin')->group(function () {
     Route::get('/microquick-links/{id}/edit', [ManageQuickLinksController::class, 'quick_link_edit'])->name('microquicklinks.edit');
     Route::put('/microquick-links/{id}', [ManageQuickLinksController::class, 'quick_link_update'])->name('microquicklinks.update');
     Route::delete('/microquick-links/{id}', [ManageQuickLinksController::class, 'quick_link_destroy'])->name('microquicklinks.destroy');
+    
+    Route::resource('slider', MicroSliderController::class);
+
+
 });
 // Indrajeet
 

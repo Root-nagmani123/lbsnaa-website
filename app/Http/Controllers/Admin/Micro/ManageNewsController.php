@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 
-use App\Models\Admin\ManageAudit;
+use App\Models\Admin\Micro\MicroManageAudit;
 use App\Models\Admin\Micro\Managenews;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -78,7 +78,7 @@ class ManageNewsController extends Controller
         $news = $news->save();
 
 
-        ManageAudit::create([
+        MicroManageAudit::create([
             'Module_Name' => 'News Module', // Static value
             'Time_Stamp' => time(), // Current timestamp
             'Created_By' => null, // ID of the authenticated user
@@ -172,14 +172,13 @@ class ManageNewsController extends Controller
         $news = $news->save();
 
 
-        ManageAudit::create([
+        MicroManageAudit::create([
             'Module_Name' => 'News Module', // Static value
             'Time_Stamp' => time(), // Current timestamp
             'Created_By' => null, // ID of the authenticated user
             'Updated_By' => null, // No update on creation, so leave null
             'Action_Type' => 'Update', // Static value
             'IP_Address' => $request->ip(), // Get IP address from request
-            'Current_State' => json_encode($news), // Save state as JSON
         ]);
 
         return redirect()->route('Managenews.index')->with('success', 'News updated successfully.');

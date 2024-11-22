@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+use App\Models\Admin\Micro\MicroManageAudit;
+use Illuminate\Support\Facades\Auth;
+
 class ManageQuickLinksController extends Controller
 {
     public function quick_link_list()
@@ -72,6 +75,16 @@ class ManageQuickLinksController extends Controller
         // Insert data into the database
         DB::table('micro_quick_links')->insert($data);
         // Redirect or return response
+
+        MicroManageAudit::create([
+            'Module_Name' => 'Quick Links', // Static value
+            'Time_Stamp' => time(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Insert', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+        ]);
+
         return redirect()->route('microquicklinks.index')->with('success', 'Data added successfully!');
     }
 
@@ -114,6 +127,15 @@ public function quick_link_update(Request $request, $id)
     }
 
     DB::table('micro_quick_links')->where('id', $id)->update($data);
+
+    MicroManageAudit::create([
+        'Module_Name' => 'Quick Links', // Static value
+        'Time_Stamp' => time(), // Current timestamp
+        'Created_By' => null, // ID of the authenticated user
+        'Updated_By' => null, // No update on creation, so leave null
+        'Action_Type' => 'Update', // Static value
+        'IP_Address' => $request->ip(), // Get IP address from request
+    ]);
 
     return redirect()->route('microquicklinks.index')->with('success', 'Quick Link updated successfully!');
 }

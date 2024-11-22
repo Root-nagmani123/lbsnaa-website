@@ -26,7 +26,6 @@
                 <tr class="text-center">
                     <th class="col">#</th> <!-- Add index column -->
                     <th class="col">Job Title</th>
-                    <th class="col">Language</th>
                     <th class="col">Publish Date</th>
                     <th class="col">Expiry Date</th>
                     <th class="col">Language</th>
@@ -41,11 +40,10 @@
                             <td>{{ $loop->iteration }}</td>
                     
                             <td>{{ $vacancy->job_title }}</td>
-                            <td>{{ $vacancy->language }}</td>
                             <td>{{ $vacancy->publish_date }}</td>
                             <td>{{ $vacancy->expiry_date }}</td>
                             <td>{{ $vacancy->language == 1 ? 'English' : 'Hindi' }}</td>
-                                @if($vacancy->content_type == 'PDF' && $vacancy->document_upload)
+                             <td>   @if($vacancy->content_type == 'PDF' && $vacancy->document_upload)
                                     <!-- Check if document is an image -->
                                     @if(in_array(pathinfo($vacancy->document_upload, PATHINFO_EXTENSION), ['jpg', 'png', 'jpeg']))
                                         <img src="{{ asset('storage/' . $vacancy->document_upload) }}" alt="Document Image" style="width: 100px; height: auto;">

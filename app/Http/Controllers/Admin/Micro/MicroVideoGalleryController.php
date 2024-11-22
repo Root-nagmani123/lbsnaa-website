@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin\Micro\MicroVideoGallery;
 use Illuminate\Http\Request;
 
+use App\Models\Admin\Micro\MicroManageAudit;
+use Illuminate\Support\Facades\Auth;
+
 class MicroVideoGalleryController extends Controller
 {
     // Display a listing of the videos
@@ -40,6 +43,15 @@ class MicroVideoGalleryController extends Controller
         }
 
         MicroVideoGallery::create($data);
+
+        MicroManageAudit::create([
+            'Module_Name' => 'Video Gallery', // Static value
+            'Time_Stamp' => time(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Insert', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+        ]);
 
         return redirect()->route('micro-video-gallery.index')
                          ->with('success', 'Video added successfully.');
@@ -76,6 +88,15 @@ class MicroVideoGalleryController extends Controller
         }
 
         $video->update($data);
+
+        MicroManageAudit::create([
+            'Module_Name' => 'Video Gallery', // Static value
+            'Time_Stamp' => time(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Update', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+        ]);
 
         return redirect()->route('micro-video-gallery.index')
                          ->with('success', 'Video updated successfully.');

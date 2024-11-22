@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+use App\Models\Admin\Micro\MicroManageAudit;
+use Illuminate\Support\Facades\Auth;
+
 class ManageResearchCentreController extends Controller
 {
     public function researchcentresIndex()
@@ -37,6 +40,15 @@ class ManageResearchCentreController extends Controller
             'updated_at' => now(),
         ]);
 
+        MicroManageAudit::create([
+            'Module_Name' => 'Research Center', // Static value
+            'Time_Stamp' => time(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Insert', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+        ]);
+
         return redirect()->route('researchcentres.index')->with('success', 'Research Centre added successfully!');
     }
 
@@ -61,6 +73,15 @@ class ManageResearchCentreController extends Controller
             'description' => $validatedData['description'],
             'status' => $validatedData['status'],
             'updated_at' => now(),
+        ]);
+
+        MicroManageAudit::create([
+            'Module_Name' => 'Research Center', // Static value
+            'Time_Stamp' => time(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Update', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
         ]);
 
         return redirect()->route('researchcentres.index')->with('success', 'Research Centre updated successfully!');

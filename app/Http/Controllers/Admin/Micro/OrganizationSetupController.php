@@ -7,7 +7,7 @@ use App\Models\Admin\Micro\OrganizationSetup;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-use App\Models\Admin\Micro\ManageAudit;
+use App\Models\Admin\Micro\MicroManageAudit;
 use Illuminate\Support\Facades\Auth;
 
 class OrganizationSetupController extends Controller
@@ -55,6 +55,15 @@ class OrganizationSetupController extends Controller
 
         OrganizationSetup::create($data);
 
+        MicroManageAudit::create([
+            'Module_Name' => 'Organization Setup', // Static value
+            'Time_Stamp' => time(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Insert', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+        ]);
+
         return redirect()->route('organization_setups.index')
                         ->with('success', 'Organization setup created successfully.');
     }
@@ -100,6 +109,15 @@ class OrganizationSetupController extends Controller
     
         $organizationSetup->update($data);
     
+        MicroManageAudit::create([
+            'Module_Name' => 'Organization Setup', // Static value
+            'Time_Stamp' => time(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Update', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+        ]);
+
         return redirect()->route('organization_setups.index')
                          ->with('success', 'Organization setup updated successfully.');
     }
