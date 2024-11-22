@@ -1,14 +1,14 @@
 <?php 
-namespace App\Models\Admin;
+namespace App\Models\Admin\Micro;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ManageAudit extends Model
+class MicroManageAudit extends Model
 {
     use HasFactory;
 
-    protected $table = 'manage_audit';
+    protected $table = 'micro_manage_audit';
 
     protected $fillable = [
         'Module_Name',

@@ -9,17 +9,27 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 
 
-use App\Models\Admin\ManageAudit;
+use App\Models\Admin\Micro\MicroManageAudit;
 use Illuminate\Support\Facades\Auth; 
 
 class MicroManagePhotoGalleryController extends Controller
 { 
     public function index()
     {
+        // $galleries = DB::table('micro_manage_photo_galleries as sub')
+        // ->leftJoin('courses as parent', 'sub.course_id', '=', 'parent.id') // Correct join
+        // ->leftJoin('courses as second_row', 'sub.related_training_program', '=', 'second_row.id') // Correct join
+        // ->select('sub.*', 'parent.id', 'parent.name','second_row.name as media_cat_name') // Select the necessary columns
+        // ->get();
         $galleries = DB::table('micro_manage_photo_galleries as sub')
         ->leftJoin('courses as parent', 'sub.course_id', '=', 'parent.id') // Correct join
         ->leftJoin('courses as second_row', 'sub.related_training_program', '=', 'second_row.id') // Correct join
-        ->select('sub.*', 'parent.id', 'parent.name','second_row.name as media_cat_name') // Select the necessary columns
+        ->select(
+            'sub.*',                    // All columns from micro_manage_photo_galleries
+            'parent.id as course_id',   // Alias for parent.id to avoid overwriting sub.id
+            'parent.name',              // Course name from parent
+            'second_row.name as media_cat_name' // Media category name
+        )
         ->get();
 
         // print_r($galleries);
@@ -75,6 +85,15 @@ class MicroManagePhotoGalleryController extends Controller
         if (!empty($data)) {
             MicroManagePhotoGallery::insert($data);
         }
+
+        MicroManageAudit::create([
+            'Module_Name' => 'Photo Gallery',
+            'Time_Stamp' => time(),
+            'Created_By' => null,
+            'Updated_By' => null,
+            'Action_Type' => 'Insert',
+            'IP_Address' => $request->ip(),
+        ]);
 
         return redirect()->route('micro-photo-gallery.index')->with('success', 'Gallery added successfully.');
     }
@@ -193,13 +212,29 @@ class MicroManagePhotoGalleryController extends Controller
         // Save the gallery
         $gallery->save();
     
+        MicroManageAudit::create([
+            'Module_Name' => 'Photo Gallery',
+            'Time_Stamp' => time(),
+            'Created_By' => null,
+            'Updated_By' => null,
+            'Action_Type' => 'Update',
+            'IP_Address' => $request->ip(),
+        ]);
+
         return redirect()->route('micro-photo-gallery.index')->with('success', 'Gallery updated successfully.');
     }
     
-    public function destroy(MicroManagePhotoGallery $gallery)
+    public function destroy($id)
     {
-        $gallery->delete();
-        return redirect()->route('micro-photo-gallery.index')->with('success', 'Gallery deleted successfully.');
+        try {
+            // Fetch the record using the ID and delete it
+            $gallery = MicroManagePhotoGallery::findOrFail($id); // Assuming 'MicroManagePhotoGallery' is your model
+            $gallery->delete();
+
+            return redirect()->route('micro-photo-gallery.index')->with('success', 'Photo Gallery deleted successfully.');
+        } catch (\Exception $e) {
+            return redirect()->route('micro-photo-gallery.index')->with('error', 'Error deleting Photo Gallery: ' . $e->getMessage());
+        }
     }
 
     public function searchCourses(Request $request)

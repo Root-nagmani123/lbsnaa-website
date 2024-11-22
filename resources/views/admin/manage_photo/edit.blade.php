@@ -244,6 +244,8 @@ document.getElementById('image_relate_with_events').addEventListener('change', f
 });
 </script>
 
+@endsection
+
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     const courseSearch = document.getElementById("course-search");
@@ -253,18 +255,24 @@ document.addEventListener("DOMContentLoaded", function() {
     courseSearch.addEventListener("keyup", function() {
         const query = courseSearch.value;
 
+<<<<<<< HEAD
         if (query.length > 1) {
             fetch(/admin/search - courses ? query = $ {
                     query
                 }, {
+=======
+            if (query.length > 1) {
+                fetch(`/admin/search-courses?query=${query}`, {
+>>>>>>> 0a04a0c (micro_banner)
                     headers: {
                         'X-Requested-With': 'XMLHttpRequest'
                     }
                 })
                 .then(response => response.json())
                 .then(data => {
-                    courseSuggestions.innerHTML = "";
+                    courseSuggestions.innerHTML = ""; // Clear previous suggestions
 
+                    // If we have results, show the dropdown and populate it
                     if (data.length > 0) {
                         courseSuggestions.style.display = "block";
 
@@ -275,22 +283,37 @@ document.addEventListener("DOMContentLoaded", function() {
                             option.textContent = course.name;
                             option.dataset.id = course.id;
 
+                            // When a course is clicked, set the input and hide dropdown
                             option.addEventListener("click", function(e) {
                                 e.preventDefault();
-                                courseSearch.value = course.name;
-                                selectedCourseId.value = course.id;
+                                courseSearch.value = course.name; // Set visible input for display
+                                selectedCourseId.value = course.id; // Set hidden input for submission
                                 courseSuggestions.style.display = "none";
                             });
 
                             courseSuggestions.appendChild(option);
                         });
                     } else {
-                        courseSuggestions.style.display = "none";
+                        courseSuggestions.style.display = "none"; // Hide if no results
                     }
                 });
+<<<<<<< HEAD
         } else {
             courseSuggestions.style.display = "none";
         }
+=======
+            } else {
+                courseSuggestions.style.display = "none"; // Hide if query is too short
+            }
+        });
+
+        // Hide suggestions if clicked outside
+        document.addEventListener("click", function(e) {
+            if (!courseSuggestions.contains(e.target) && e.target !== courseSearch) {
+                courseSuggestions.style.display = "none";
+            }
+        });
+>>>>>>> 0a04a0c (micro_banner)
     });
 
     document.addEventListener("click", function(e) {
@@ -301,7 +324,6 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
 
-
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     const courseSearch = document.getElementById("news-search");
@@ -311,10 +333,15 @@ document.addEventListener("DOMContentLoaded", function() {
     courseSearch.addEventListener("keyup", function() {
         const query = courseSearch.value;
 
+<<<<<<< HEAD
         if (query.length > 1) {
             fetch(/admin/search - courses ? query = $ {
                     query
                 }, {
+=======
+            if (query.length > 1) {
+                fetch(`/admin/search-courses?query=${query}`, {
+>>>>>>> 0a04a0c (micro_banner)
                     headers: {
                         'X-Requested-With': 'XMLHttpRequest'
                     }
@@ -374,10 +401,15 @@ document.addEventListener("DOMContentLoaded", function() {
     courseSearch.addEventListener("keyup", function() {
         const query = courseSearch.value;
 
+<<<<<<< HEAD
         if (query.length > 1) {
             fetch(/admin/search - courses ? query = $ {
                     query
                 }, {
+=======
+            if (query.length > 1) {
+                fetch(`/admin/search-courses?query=${query}`, {
+>>>>>>> 0a04a0c (micro_banner)
                     headers: {
                         'X-Requested-With': 'XMLHttpRequest'
                     }
@@ -436,10 +468,15 @@ document.addEventListener("DOMContentLoaded", function() {
     courseSearch.addEventListener("keyup", function() {
         const query = courseSearch.value;
 
+<<<<<<< HEAD
         if (query.length > 1) {
             fetch(/admin/search - courses ? query = $ {
                     query
                 }, {
+=======
+            if (query.length > 1) {
+                fetch(`/admin/search-courses?query=${query}`, {
+>>>>>>> 0a04a0c (micro_banner)
                     headers: {
                         'X-Requested-With': 'XMLHttpRequest'
                     }
@@ -489,7 +526,6 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
 
-
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     // Handle file input fields dynamically
@@ -520,4 +556,3 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
 
-@endsection

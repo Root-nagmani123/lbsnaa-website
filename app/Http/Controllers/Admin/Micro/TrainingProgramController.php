@@ -6,7 +6,7 @@ use App\Models\Admin\Micro\TrainingProgram;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-use App\Models\Admin\Micro\ManageAudit;
+use App\Models\Admin\Micro\MicroManageAudit;
 use Illuminate\Support\Facades\Auth;
 
 class TrainingProgramController extends Controller
@@ -43,6 +43,16 @@ class TrainingProgramController extends Controller
         ]);
 
         TrainingProgram::create($request->all());
+
+        MicroManageAudit::create([
+            'Module_Name' => 'Training Program', // Static value
+            'Time_Stamp' => time(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Insert', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+        ]);
+
         return redirect()->route('training-programs.index')->with('success', 'Program added successfully.');
     }
 
@@ -79,6 +89,16 @@ class TrainingProgramController extends Controller
         ]);
 
         $trainingProgram->update($request->all());
+
+        MicroManageAudit::create([
+            'Module_Name' => 'Training Program', // Static value
+            'Time_Stamp' => time(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Update', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+        ]);
+
         return redirect()->route('training-programs.index')->with('success', 'Program updated successfully.');
     }
 
