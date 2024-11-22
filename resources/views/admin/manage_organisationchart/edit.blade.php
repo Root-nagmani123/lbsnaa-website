@@ -85,9 +85,8 @@
                                 <label class="label">Page Status:</label>
                                 <select name="status" class="form-select form-control ps-5 h-58">
                                     <option value="">Select</option>
-                                    <option value="1" {{ $record->status == '1' ? 'selected' : '' }}>Draft</option>
-                                    <option value="2" {{ $record->status == '2' ? 'selected' : '' }}>Approval</option>
-                                    <option value="3" {{ $record->status == '3' ? 'selected' : '' }}>Publish</option>
+                                    <option value="1" {{ $record->status == '1' ? 'selected' : '' }}>Active</option>
+                                    <option value="0" {{ $record->status == '0' ? 'selected' : '' }}>Inactive</option>
                                 </select>
                             </div>
                         </div>
@@ -95,7 +94,8 @@
 
                     <!-- Submit Button -->
                     <div class="d-flex ms-sm-3 ms-md-0">
-                            <button class="btn btn-success text-white fw-semibold" type="submit">Update</button>
+                            <button class="btn btn-success text-white fw-semibold" type="submit">Update</button>&nbsp;
+                            <a href="{{ route('organisation_chart.index') }}" class="btn btn-secondary text-white">Cancel</a>
                         </div>
                 </form>
             </div>

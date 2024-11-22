@@ -21,7 +21,7 @@
 <div class="card bg-white border-0 rounded-10 mb-4">
     <div class="card-body p-4">
         <div class="d-sm-flex text-center justify-content-between align-items-center border-bottom pb-20 mb-20">
-            <h4 class="fw-semibold fs-18 mb-sm-0">Add Academy Souvenirs</h4>
+            <h4 class="fw-semibold fs-18 mb-sm-0">Academy Souvenirs</h4>
             <a href="{{ route('academy_souvenirs.create') }}">
                 <button class="border-0 btn btn-success py-2 px-3 px-sm-4 text-white fs-14 fw-semibold rounded-3">
                     <span class="py-sm-1 d-block">
