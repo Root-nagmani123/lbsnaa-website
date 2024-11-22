@@ -7,11 +7,16 @@ use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\ManageOrganizationController;
+use App\Http\Controllers\User\MicrositeController;
 
 
 Route::get('/', [HomeController::class,'index']);
 Route::get('/news/{slug}', [HomeController::class,'get_news'])->name('user.newsbyslug');
-Route::get('/{slug}', [HomeController::class,'get_navigation_pages'])->name('user.navigationpagesbyslug');
+Route::get('/content/{slug}', [HomeController::class,'get_navigation_pages'])->name('user.navigationpagesbyslug');
+
+Route::get('/lbsnaa-sub', function () {
+    return view('user.pages.microsites.index');
+})->name('user.micrositebyslug');
 
 
 Route::get('/admin', [Controller::class, 'index'])->name('admin.index');

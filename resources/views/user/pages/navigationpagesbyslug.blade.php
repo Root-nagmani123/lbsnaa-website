@@ -70,7 +70,7 @@
 
 
 @else
-    <h4>News does not exist</h4>
+    <h4>404 The Page Not Found</h4>
 @endif
 
 

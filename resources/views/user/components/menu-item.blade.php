@@ -4,8 +4,7 @@
 
 <li class="dropdown-submenu dropend">
     <a class="dropdown-item dropdown-list-group-item {{count($submenus) > 0 ? 'dropdown-toggle' : ''}}"
-        href="{{$submenu->parent_id == 27 ? '#' : route('user.navigationpagesbyslug', $submenu->slug)}}">{{$submenu->menutitle}}</a>
-
+        href="{{$submenu->parent_id == 27 ? route('user.micrositebyslug', $menu->slug) : route('user.navigationpagesbyslug', $submenu->slug)}}">{{$submenu->menutitle}}</a>
     @if(count($submenus) > 0)
         <ul class="dropdown-menu">
             @foreach($submenus as $submenu)
