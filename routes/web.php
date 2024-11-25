@@ -271,6 +271,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/manage_events/{id}/edit', [ManageEventsController::class, 'edit'])->name('manage_events.edit');
     Route::put('/manage_events/{id}', [ManageEventsController::class, 'update'])->name('manage_events.update');
     Route::resource('media-center', ManageMediaCenterController::class);
+    Route::put('admin/media-center/{id}', [ManageMediaCenterController::class, 'update'])->name('media-center.update');
     Route::resource('video_gallery', ManageVideoController::class);
     Route::resource('media-categories', ManageMediaCategoriesController::class);
     Route::resource('photo-gallery', ManagePhotoGalleryController::class);
@@ -317,6 +318,8 @@ Route::prefix('admin')->group(function () {
 
     Route::resource('micro_manage_vacancy', MicroManageVacancyController::class);
     Route::get('/micro_manage_vacancy/{id}/edit', [MicroManageVacancyController::class, 'edit'])->name('micro_manage_vacancy.edit');
+    Route::delete('/admin/micro_manage_vacancy/{id}', [MicroManageVacancyController::class, 'destroy'])->name('micro_manage_vacancy.destroy');
+
 
     Route::resource('micro-video-gallery', MicroVideoGalleryController::class);
     Route::put('admin/micro-video-gallery/{id}', [MicroVideoGalleryController::class, 'update'])->name('micro-video-gallery.update');

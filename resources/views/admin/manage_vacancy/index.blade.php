@@ -24,7 +24,7 @@
         <table class="table align-middle" id="myTable">
             <thead>
                 <tr class="text-center">
-                    <th class="col">#</th> <!-- Add index column -->
+                    <th class="col">ID</th> <!-- Add index column -->
                     <th class="col">Job Title</th>
                     <th class="col">Publish Date</th>
                     <th class="col">Expiry Date</th>
@@ -46,10 +46,10 @@
                              <td>   @if($vacancy->content_type == 'PDF' && $vacancy->document_upload)
                                     <!-- Check if document is an image -->
                                     @if(in_array(pathinfo($vacancy->document_upload, PATHINFO_EXTENSION), ['jpg', 'png', 'jpeg']))
-                                        <img src="{{ asset('storage/' . $vacancy->document_upload) }}" alt="Document Image" style="width: 100px; height: auto;">
+                                        <img src="{{ asset('uploads/' . $vacancy->document_upload) }}" alt="Document Image" style="width: 100px; height: auto;">
                                     @elseif(pathinfo($vacancy->document_upload, PATHINFO_EXTENSION) == 'pdf')
                                         <!-- Provide a link to download or view the PDF -->
-                                        <a href="{{ asset('storage/' . $vacancy->document_upload) }}" target="_blank">View PDF</a>
+                                        <a href="{{ asset('uploads/' . $vacancy->document_upload) }}" target="_blank">View PDF</a>
                                     @else
                                         No document uploaded.
                                     @endif

@@ -163,28 +163,19 @@
                                 <label class="label">Image Files</label>
                                 <div id="file-container">
                                     @if($gallery->image_files)
-                                    <!-- Check if image_files is not null -->
                                     @php
-                                    // Decode the JSON string into an array
                                     $imageFiles = json_decode($gallery->image_files);
                                     @endphp
-
                                     @if(is_array($imageFiles) && count($imageFiles) > 0)
                                     @foreach($imageFiles as $file)
                                     <div class="file-group">
-
-                                        <!-- File input to update image -->
-                                        <input type="file" name="image_files[]"
-                                            class="form-control mb-2 text-dark ps-5 h-58" accept="image/*">
-                                        <!-- Display the image thumbnail -->
-                                        <div class="image-preview">
-                                            <img src="{{ asset('storage/' . $file) }}" alt="image" width="100"
-                                                height="100">
+                                        <div class="image-preview mb-2">
+                                            <!-- Display the image thumbnail -->
+                                            <img src="{{ asset('storage/' . $file) }}" alt="image" width="100" height="100">
                                         </div>
-                                        <button type="button"
-                                            class="btn btn-primary remove-file text-white">Remove</button>
-                                        <button type="button" class="btn btn-success text-white" id="add-file">Add
-                                            More</button>
+                                        <!-- File input for updating image -->
+                                        <input type="file" name="image_files[]" class="form-control text-dark ps-5 h-58 mb-2" accept="image/*">
+                                        <button type="button" class="btn btn-primary remove-existing-file text-white mb-2" data-file="{{ $file }}">Remove</button>
                                     </div>
                                     @endforeach
                                     @else
@@ -194,9 +185,12 @@
                                     <p>No images available.</p>
                                     @endif
                                 </div>
-
+                                <button type="button" class="btn btn-success text-white" id="add-file">Add More</button>
+                                <!-- Hidden input to track removed images -->
+                                <input type="hidden" name="removed_files" id="removed-files" value="">
                             </div>
                         </div>
+
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label">Status</label>
@@ -223,40 +217,38 @@
     </div>
 </div>
 <script>
-// Event listener for the News dropdown
-document.getElementById('image_relate_with_news').addEventListener('change', function() {
-    // Show related News fields if 'News' is selected, hide otherwise
-    document.getElementById('related_news_field').style.display = this.value === 'News' ? 'block' : 'none';
-});
+    // Event listener for the News dropdown
+    document.getElementById('image_relate_with_news').addEventListener('change', function() {
+        // Show related News fields if 'News' is selected, hide otherwise
+        document.getElementById('related_news_field').style.display = this.value === 'News' ? 'block' : 'none';
+    });
 
-// Event listener for the Training Programme dropdown
-document.getElementById('image_relate_with_training').addEventListener('change', function() {
-    // Show related Training Programme fields if 'Training Programme' is selected, hide otherwise
-    document.getElementById('related_training_field').style.display = this.value === 'Training Programme' ?
-        'block' : 'none';
-});
+    // Event listener for the Training Programme dropdown
+    document.getElementById('image_relate_with_training').addEventListener('change', function() {
+        // Show related Training Programme fields if 'Training Programme' is selected, hide otherwise
+        document.getElementById('related_training_field').style.display = this.value === 'Training Programme' ?
+            'block' : 'none';
+    });
 
-// Event listener for the Events dropdown
-document.getElementById('image_relate_with_events').addEventListener('change', function() {
-    // Show related Events fields if 'Related Events' is selected, hide otherwise
-    document.getElementById('related_events_field').style.display = this.value === 'Related Events' ? 'block' :
-        'none';
-});
+    // Event listener for the Events dropdown
+    document.getElementById('image_relate_with_events').addEventListener('change', function() {
+        // Show related Events fields if 'Related Events' is selected, hide otherwise
+        document.getElementById('related_events_field').style.display = this.value === 'Related Events' ? 'block' :
+            'none';
+    });
 </script>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    const courseSearch = document.getElementById("course-search");
-    const courseSuggestions = document.getElementById("course-suggestions");
-    const selectedCourseId = document.getElementById("selected-course-id");
+    document.addEventListener("DOMContentLoaded", function() {
+        const courseSearch = document.getElementById("course-search");
+        const courseSuggestions = document.getElementById("course-suggestions");
+        const selectedCourseId = document.getElementById("selected-course-id");
 
-    courseSearch.addEventListener("keyup", function() {
-        const query = courseSearch.value;
+        courseSearch.addEventListener("keyup", function() {
+            const query = courseSearch.value;
 
-        if (query.length > 1) {
-            fetch(/admin/search - courses ? query = $ {
-                    query
-                }, {
+            if (query.length > 1) {
+                fetch(`/admin/search-courses?query=${query}`, {
                     headers: {
                         'X-Requested-With': 'XMLHttpRequest'
                     }
@@ -267,7 +259,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
                     if (data.length > 0) {
                         courseSuggestions.style.display = "block";
-
+                        
                         data.forEach(course => {
                             const option = document.createElement("a");
                             option.href = "#";
@@ -288,33 +280,32 @@ document.addEventListener("DOMContentLoaded", function() {
                         courseSuggestions.style.display = "none";
                     }
                 });
-        } else {
-            courseSuggestions.style.display = "none";
-        }
-    });
+            } else {
+                courseSuggestions.style.display = "none"; // Hide if query is too short
+            }
+        });
 
-    document.addEventListener("click", function(e) {
-        if (!courseSuggestions.contains(e.target) && e.target !== courseSearch) {
-            courseSuggestions.style.display = "none";
-        }
+        // Hide suggestions if clicked outside
+        document.addEventListener("click", function(e) {
+            if (!courseSuggestions.contains(e.target) && e.target !== courseSearch) {
+                courseSuggestions.style.display = "none";
+            }
+        });
     });
-});
 </script>
 
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    const courseSearch = document.getElementById("news-search");
-    const courseSuggestions = document.getElementById("news-suggestions");
-    const selectedCourseId = document.getElementById("selected-news-id");
+    document.addEventListener("DOMContentLoaded", function() {
+        const courseSearch = document.getElementById("news-search");
+        const courseSuggestions = document.getElementById("news-suggestions");
+        const selectedCourseId = document.getElementById("selected-news-id");
 
-    courseSearch.addEventListener("keyup", function() {
-        const query = courseSearch.value;
+        courseSearch.addEventListener("keyup", function() {
+            const query = courseSearch.value;
 
-        if (query.length > 1) {
-            fetch(/admin/search - courses ? query = $ {
-                    query
-                }, {
+            if (query.length > 1) {
+                fetch(`/admin/search-courses?query=${query}`, {
                     headers: {
                         'X-Requested-With': 'XMLHttpRequest'
                     }
@@ -326,7 +317,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     // If we have results, show the dropdown and populate it
                     if (data.length > 0) {
                         courseSuggestions.style.display = "block";
-
+                        
                         data.forEach(course => {
                             const option = document.createElement("a");
                             option.href = "#";
@@ -337,10 +328,8 @@ document.addEventListener("DOMContentLoaded", function() {
                             // When a course is clicked, set the input and hide dropdown
                             option.addEventListener("click", function(e) {
                                 e.preventDefault();
-                                courseSearch.value = course
-                                    .name; // Set visible input for display
-                                selectedCourseId.value = course
-                                    .id; // Set hidden input for submission
+                                courseSearch.value = course.name; // Set visible input for display
+                                selectedCourseId.value = course.id; // Set hidden input for submission
                                 courseSuggestions.style.display = "none";
                             });
 
@@ -350,34 +339,32 @@ document.addEventListener("DOMContentLoaded", function() {
                         courseSuggestions.style.display = "none"; // Hide if no results
                     }
                 });
-        } else {
-            courseSuggestions.style.display = "none"; // Hide if query is too short
-        }
-    });
+            } else {
+                courseSuggestions.style.display = "none"; // Hide if query is too short
+            }
+        });
 
-    // Hide suggestions if clicked outside
-    document.addEventListener("click", function(e) {
-        if (!courseSuggestions.contains(e.target) && e.target !== courseSearch) {
-            courseSuggestions.style.display = "none";
-        }
+        // Hide suggestions if clicked outside
+        document.addEventListener("click", function(e) {
+            if (!courseSuggestions.contains(e.target) && e.target !== courseSearch) {
+                courseSuggestions.style.display = "none";
+            }
+        });
     });
-});
 </script>
 
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    const courseSearch = document.getElementById("training-search");
-    const courseSuggestions = document.getElementById("training-suggestions");
-    const selectedCourseId = document.getElementById("selected-training-id");
+    document.addEventListener("DOMContentLoaded", function() {
+        const courseSearch = document.getElementById("training-search");
+        const courseSuggestions = document.getElementById("training-suggestions");
+        const selectedCourseId = document.getElementById("selected-training-id");
 
-    courseSearch.addEventListener("keyup", function() {
-        const query = courseSearch.value;
+        courseSearch.addEventListener("keyup", function() {
+            const query = courseSearch.value;
 
-        if (query.length > 1) {
-            fetch(/admin/search - courses ? query = $ {
-                    query
-                }, {
+            if (query.length > 1) {
+                fetch(`/admin/search-courses?query=${query}`, {
                     headers: {
                         'X-Requested-With': 'XMLHttpRequest'
                     }
@@ -389,7 +376,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     // If we have results, show the dropdown and populate it
                     if (data.length > 0) {
                         courseSuggestions.style.display = "block";
-
+                        
                         data.forEach(course => {
                             const option = document.createElement("a");
                             option.href = "#";
@@ -400,10 +387,8 @@ document.addEventListener("DOMContentLoaded", function() {
                             // When a course is clicked, set the input and hide dropdown
                             option.addEventListener("click", function(e) {
                                 e.preventDefault();
-                                courseSearch.value = course
-                                    .name; // Set visible input for display
-                                selectedCourseId.value = course
-                                    .id; // Set hidden input for submission
+                                courseSearch.value = course.name; // Set visible input for display
+                                selectedCourseId.value = course.id; // Set hidden input for submission
                                 courseSuggestions.style.display = "none";
                             });
 
@@ -413,33 +398,31 @@ document.addEventListener("DOMContentLoaded", function() {
                         courseSuggestions.style.display = "none"; // Hide if no results
                     }
                 });
-        } else {
-            courseSuggestions.style.display = "none"; // Hide if query is too short
-        }
-    });
+            } else {
+                courseSuggestions.style.display = "none"; // Hide if query is too short
+            }
+        });
 
-    // Hide suggestions if clicked outside
-    document.addEventListener("click", function(e) {
-        if (!courseSuggestions.contains(e.target) && e.target !== courseSearch) {
-            courseSuggestions.style.display = "none";
-        }
+        // Hide suggestions if clicked outside
+        document.addEventListener("click", function(e) {
+            if (!courseSuggestions.contains(e.target) && e.target !== courseSearch) {
+                courseSuggestions.style.display = "none";
+            }
+        });
     });
-});
 </script>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    const courseSearch = document.getElementById("event-search");
-    const courseSuggestions = document.getElementById("event-suggestions");
-    const selectedCourseId = document.getElementById("selected-event-id");
+    document.addEventListener("DOMContentLoaded", function() {
+        const courseSearch = document.getElementById("event-search");
+        const courseSuggestions = document.getElementById("event-suggestions");
+        const selectedCourseId = document.getElementById("selected-event-id");
 
-    courseSearch.addEventListener("keyup", function() {
-        const query = courseSearch.value;
+        courseSearch.addEventListener("keyup", function() {
+            const query = courseSearch.value;
 
-        if (query.length > 1) {
-            fetch(/admin/search - courses ? query = $ {
-                    query
-                }, {
+            if (query.length > 1) {
+                fetch(`/admin/search-courses?query=${query}`, {
                     headers: {
                         'X-Requested-With': 'XMLHttpRequest'
                     }
@@ -451,7 +434,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     // If we have results, show the dropdown and populate it
                     if (data.length > 0) {
                         courseSuggestions.style.display = "block";
-
+                        
                         data.forEach(course => {
                             const option = document.createElement("a");
                             option.href = "#";
@@ -462,10 +445,8 @@ document.addEventListener("DOMContentLoaded", function() {
                             // When a course is clicked, set the input and hide dropdown
                             option.addEventListener("click", function(e) {
                                 e.preventDefault();
-                                courseSearch.value = course
-                                    .name; // Set visible input for display
-                                selectedCourseId.value = course
-                                    .id; // Set hidden input for submission
+                                courseSearch.value = course.name; // Set visible input for display
+                                selectedCourseId.value = course.id; // Set hidden input for submission
                                 courseSuggestions.style.display = "none";
                             });
 
@@ -475,48 +456,58 @@ document.addEventListener("DOMContentLoaded", function() {
                         courseSuggestions.style.display = "none"; // Hide if no results
                     }
                 });
-        } else {
-            courseSuggestions.style.display = "none"; // Hide if query is too short
-        }
-    });
+            } else {
+                courseSuggestions.style.display = "none"; // Hide if query is too short
+            }
+        });
 
-    // Hide suggestions if clicked outside
-    document.addEventListener("click", function(e) {
-        if (!courseSuggestions.contains(e.target) && e.target !== courseSearch) {
-            courseSuggestions.style.display = "none";
-        }
+        // Hide suggestions if clicked outside
+        document.addEventListener("click", function(e) {
+            if (!courseSuggestions.contains(e.target) && e.target !== courseSearch) {
+                courseSuggestions.style.display = "none";
+            }
+        });
     });
-});
 </script>
 
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    // Handle file input fields dynamically
-    const addFileButton = document.getElementById("add-file");
-    const fileContainer = document.getElementById("file-container");
+document.addEventListener("DOMContentLoaded", function () {
+    const removedFilesInput = document.getElementById('removed-files'); // Hidden input for removed files
+    const fileContainer = document.getElementById('file-container'); // Container for all files
 
-    addFileButton.addEventListener("click", function() {
-        const newFileGroup = document.createElement("div");
-        newFileGroup.classList.add("file-group");
-        newFileGroup.innerHTML = `
-                <input type="file" name="image_files[]" class="form-control mb-2" accept="image/*">
-                <button type="button" class="btn btn-danger remove-file">Remove</button>
-            `;
-        fileContainer.appendChild(newFileGroup);
+    // Event listener for dynamically adding new file inputs
+    document.getElementById('add-file').addEventListener('click', function () {
+        const fileGroup = document.createElement('div');
+        fileGroup.classList.add('file-group', 'mt-2');
+        fileGroup.innerHTML = `
+            <input type="file" name="image_files[]" class="form-control text-dark ps-5 h-58" accept="image/*">
+            <button type="button" class="btn btn-danger remove-file mt-2 text-white">Remove</button>
+        `;
+        fileContainer.appendChild(fileGroup);
 
-        // Add event listener to the remove button
-        newFileGroup.querySelector(".remove-file").addEventListener("click", function() {
-            fileContainer.removeChild(newFileGroup);
+        // Attach remove event listener to the new "Remove" button
+        fileGroup.querySelector('.remove-file').addEventListener('click', function () {
+            fileGroup.remove();
         });
     });
 
-    // Handle file removal
-    document.querySelectorAll(".remove-file").forEach(function(button) {
-        button.addEventListener("click", function() {
-            fileContainer.removeChild(button.parentElement);
-        });
+    // Event delegation for removing existing images
+    fileContainer.addEventListener('click', function (event) {
+        if (event.target.classList.contains('remove-existing-file')) {
+            const fileGroup = event.target.closest('.file-group');
+            const fileName = event.target.getAttribute('data-file');
+
+            // Add the removed file to the hidden input value
+            const removedFiles = removedFilesInput.value ? JSON.parse(removedFilesInput.value) : [];
+            removedFiles.push(fileName);
+            removedFilesInput.value = JSON.stringify(removedFiles);
+
+            // Remove the file group from the DOM
+            fileGroup.remove();
+        }
     });
 });
+
 </script>
 @endsection

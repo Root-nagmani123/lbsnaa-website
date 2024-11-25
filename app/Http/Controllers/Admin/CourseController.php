@@ -53,7 +53,6 @@ class CourseController extends Controller
             'Updated_By' => null, // No update on creation, so leave null
             'Action_Type' => 'Insert', // Static value
             'IP_Address' => $request->ip(), // Get IP address from request
-            'Current_State' => json_encode($course), // Save state as JSON
         ]);
 
 
@@ -78,7 +77,6 @@ class CourseController extends Controller
             'Updated_By' => null, // No update on creation, so leave null
             'Action_Type' => 'Update', // Static value
             'IP_Address' => $request->ip(), // Get IP address from request
-            'Current_State' => json_encode($course), // Save state as JSON
         ]);
 
         return redirect()->route('admin.courses.index')->with('success', 'Course updated successfully');

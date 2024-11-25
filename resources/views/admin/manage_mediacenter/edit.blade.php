@@ -33,7 +33,8 @@
             </div>
         @endif
                 <form action="{{ route('media-center.update', $audio->id) }}" method="POST" enctype="multipart/form-data">
-                    @csrf
+                @csrf
+                @method('PUT') <!-- Add this to specify the HTTP method -->
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
@@ -89,7 +90,7 @@
                                     </select>
                                 </div>
                             </div>
-                        </div>
+                        </div> 
                         <div class="d-flex ms-sm-3 ms-md-0">
                             <button class="btn btn-success text-white fw-semibold" type="submit">Update</button> &nbsp;
                             <a href="{{ route('media-center.index') }}" class="btn btn-secondary text-white">Cancel</a>

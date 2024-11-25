@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin\Micro\MicroManageVacancy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 
 use App\Models\Admin\Micro\MicroManageAudit;
@@ -84,7 +85,7 @@ class MicroManageVacancyController extends Controller
             ->toArray();
         // Pass the variables to the Blade file
         return view('admin.micro.micro_manage_vacancy.edit', compact('vacancy', 'researchCentres'));
-    }
+    } 
 
     public function update(Request $request, MicroManageVacancy $manage_vacancy)
     {
@@ -141,9 +142,19 @@ class MicroManageVacancyController extends Controller
         return redirect()->route('micro_manage_vacancy.index')->with('success', 'Vacancy updated successfully');
     }
 
+    // public function destroy(MicroManageVacancy $manage_vacancy)
+    // {
+    //     $manage_vacancy->delete();
+    //     return redirect()->route('micro_manage_vacancy.index')->with('success', 'Vacancy deleted successfully');
+    // }
+
     public function destroy(MicroManageVacancy $manage_vacancy)
     {
+        Log::info('Destroy method called for vacancy ID: ' . $manage_vacancy->id);
+
         $manage_vacancy->delete();
         return redirect()->route('micro_manage_vacancy.index')->with('success', 'Vacancy deleted successfully');
     }
+
+
 }

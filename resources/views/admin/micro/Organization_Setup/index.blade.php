@@ -52,8 +52,8 @@
                         @foreach ($organizations as $loopIndex => $org)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $org->research_centre }}</td>
-                            <td>{{ $org->employee_name }}</td>
+                            <td>{{ $org->research_centre_name }}</td>
+                            <td>{{ $org->employee_name }}</td> 
                             <td>{{ $org->designation }}</td>
                             <td>{{ $org->email }}</td>
                             <td>

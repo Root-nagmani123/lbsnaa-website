@@ -88,8 +88,10 @@
                                     <input type="file" class="form-control text-dark ps-5 h-58" name="document_upload"
                                         id="document_upload">
                                         @if ($vacancy->document_upload)
-                <a href="{{ asset('storage/' . $vacancy->document_upload) }}" target="_blank">View Current Document</a>
-            @endif
+                                            <a href="{{ asset('uploads/' . $vacancy->document_upload) }}" target="_blank">View Current Document</a>
+                                        @endif
+
+
                                 </div>
                             </div>
                         </div>

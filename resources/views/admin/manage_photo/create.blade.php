@@ -176,10 +176,12 @@
                                         style="display: none;">Remove</button>
                                 </div>
                             </div>
-                            <!-- Button to add more file input fields -->
                             <button type="button" class="btn btn-secondary text-white mt-2" id="add-file">Add
                                 More</button>
+                                <div id="file-container"></div>
                         </div>
+
+                        
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="status">Status:</label>
@@ -467,30 +469,30 @@
 </script>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function() {
     // Make sure the DOM is fully loaded before running the script
 
-        // Add event listener to "Add More" button
-        document.getElementById('add-file').addEventListener('click', function() {
-            // Create a new file input group
-            var fileGroup = document.createElement('div');
-            fileGroup.classList.add('file-group');
-            fileGroup.innerHTML = `
-                <input type="file" name="image_files[]" class="form-control mb-2" accept="image/*">
-                <button type="button" class="btn btn-danger remove-file">Remove</button>
+    // Add event listener to "Add More" button
+    document.getElementById('add-file').addEventListener('click', function() {
+        // Create a new file input group
+        var fileGroup = document.createElement('div');
+        fileGroup.classList.add('file-group');
+        fileGroup.innerHTML = `
+                <input type="file" name="image_files[]" class="form-control text-dark ps-5 h-58" accept="image/*">
+                <button type="button" class="btn btn-primary remove-file mb-2 text-white">Remove</button>
             `;
 
-            // Append the new file group to the container
-            document.getElementById('file-container').appendChild(fileGroup);
+        // Append the new file group to the container
+        document.getElementById('file-container').appendChild(fileGroup);
 
-            // Bind the event listener for the "Remove" button in the new file group
-            fileGroup.querySelector('.remove-file').addEventListener('click', function() {
-                // Remove the file group when the "Remove" button is clicked
-                fileGroup.remove();
-            });
-
-            // Make the "Remove" button visible for the newly added input
-            fileGroup.querySelector('.remove-file').style.display = 'inline-block';
+        // Bind the event listener for the "Remove" button in the new file group
+        fileGroup.querySelector('.remove-file').addEventListener('click', function() {
+            // Remove the file group when the "Remove" button is clicked
+            fileGroup.remove();
         });
+
+        // Make the "Remove" button visible for the newly added input
+        fileGroup.querySelector('.remove-file').style.display = 'inline-block';
     });
+});
 </script>
