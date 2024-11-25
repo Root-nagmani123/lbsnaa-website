@@ -255,8 +255,9 @@
                 })
                 .then(response => response.json())
                 .then(data => {
-                    courseSuggestions.innerHTML = "";
+                    courseSuggestions.innerHTML = ""; // Clear previous suggestions
 
+                    // If we have results, show the dropdown and populate it
                     if (data.length > 0) {
                         courseSuggestions.style.display = "block";
                         
@@ -267,17 +268,18 @@
                             option.textContent = course.name;
                             option.dataset.id = course.id;
 
+                            // When a course is clicked, set the input and hide dropdown
                             option.addEventListener("click", function(e) {
                                 e.preventDefault();
-                                courseSearch.value = course.name;
-                                selectedCourseId.value = course.id;
+                                courseSearch.value = course.name; // Set visible input for display
+                                selectedCourseId.value = course.id; // Set hidden input for submission
                                 courseSuggestions.style.display = "none";
                             });
 
                             courseSuggestions.appendChild(option);
                         });
                     } else {
-                        courseSuggestions.style.display = "none";
+                        courseSuggestions.style.display = "none"; // Hide if no results
                     }
                 });
             } else {
@@ -352,7 +354,6 @@
         });
     });
 </script>
-
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -469,7 +470,6 @@
         });
     });
 </script>
-
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {

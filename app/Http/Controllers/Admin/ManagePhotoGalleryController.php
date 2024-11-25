@@ -188,14 +188,14 @@ class ManagePhotoGalleryController extends Controller
         // Save the gallery
         $gallery->save();
 
-        MicroManageAudit::create([
-            'Module_Name' => 'Photo Gallery',
-            'Time_Stamp' => time(),
-            'Created_By' => null,
-            'Updated_By' => null,
-            'Action_Type' => 'Update',
-            'IP_Address' => $request->ip(),
-        ]);
+        // MicroManageAudit::create([
+        //     'Module_Name' => 'Photo Gallery',
+        //     'Time_Stamp' => time(),
+        //     'Created_By' => null,
+        //     'Updated_By' => null,
+        //     'Action_Type' => 'Update',
+        //     'IP_Address' => $request->ip(),
+        // ]);
 
         return redirect()->route('photo-gallery.index')->with('success', 'Gallery updated successfully.');
     }
