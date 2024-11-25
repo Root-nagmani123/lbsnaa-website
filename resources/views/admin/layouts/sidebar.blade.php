@@ -369,9 +369,101 @@
                 <li class="menu-item">
                     <a href="{{ route('micro_manage_audit.index') }}" class="menu-link">
                     <i class="material-icons menu-icon">list</i>
+                        <span class="title">Manage Audit</span>
+                    </a>
+                </li>
+                <!-- <li class="menu-title small text-uppercase">
+                    <span class="menu-title-text">Micro-Website</span>
+                </li>
+                <li class="menu-item">
+                    <a href="{{ route('researchcentres.index') }}" class="menu-link">
+                    <i class="material-icons menu-icon">hub</i>
+                        <span class="title">Research Center</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <i class="material-icons menu-icon">wysiwyg</i>
+                        <span class="title">CMS Page</span>
+                    </a>
+                    <ul class="menu-sub">
+                        <li class="menu-item">
+                            <a href="{{ route('micromenus.index') }}" class="menu-link">
+                                Manage Menu
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="menu-item">
+                    <a href="{{ route('microquicklinks.index') }}" class="menu-link">
+                    <i class="material-icons menu-icon">add_linka</i>
+                        <span class="title">Manage What's New / Quick Links</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="{{ route('Managenews.index') }}" class="menu-link">
+                    <i class="material-icons menu-icon">newspaper</i>
+                        <span class="title">Manage News</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="{{ route('training-programs.index') }}" class="menu-link">
+                    <i class="material-icons menu-icon">model_training</i>
+                        <span class="title">Manage Training Programs</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="{{ route('organization_setups.index') }}" class="menu-link">
+                    <i class="material-icons menu-icon">corporate_fare</i>
+                        <span class="title">Manage Organization Setup</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="{{ route('micro_manage_vacancy.index') }}" class="menu-link">
+                    <i class="material-icons menu-icon">assignment_ind</i>
+                        <span class="title">Manage Vacancy</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <i class="material-icons menu-icon">mediation</i>
+                        <span class="title">Manage Media Center</span>
+                    </a>
+                    <ul class="menu-sub">
+                        <li class="menu-item">
+                            <a href="{{ route('slider.index') }}" class="menu-link">
+                                Home Banner
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="{{ route('micro-photo-gallery.index') }}" class="menu-link">
+                                Photo Gallery
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="{{ route('micro-video-gallery.index') }}" class="menu-link">
+                                Video Gallery
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                                Photo Gallery/ Video Gallery
+                            </a>
+                            <ul class="menu-sub">
+                        <li class="menu-item">
+                            <a href="{{ route('photovideogallery.index') }}" class="menu-link">
+                                Add Category
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                </ul>
+                <li class="menu-item">
+                    <a href="{{ route('micro_manage_audit.index') }}" class="menu-link">
+                    <i class="material-icons menu-icon">list</i>
                     <span class="title">Manage Audit</span>
                 </a>
-            </li>
+            </li> -->
         </ul>
     </aside>
     <!-- <div class="bg-white z-1 admin">
