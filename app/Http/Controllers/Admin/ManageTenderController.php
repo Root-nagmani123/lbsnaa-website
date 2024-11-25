@@ -46,7 +46,7 @@ class ManageTenderController extends Controller
 
         // Save the tender
         $tender = ManageTender::create([
-            'language' => $request->txtlanguage,
+            'language' => $request->language,
             'type' => $request->type,
             'title' => $request->title,
             'description' => $request->description,
@@ -85,7 +85,7 @@ class ManageTenderController extends Controller
     public function update(Request $request, ManageTender $manageTender)
     {
         $request->validate([
-	        'txtlanguage' => 'required',
+	        'language' => 'required',
 	        'type' => 'required',
 	        'title' => 'required|string|max:255',
 	        'description' => 'required|string',
@@ -105,7 +105,7 @@ class ManageTenderController extends Controller
         // Update the tender
         
         $manageTender->update([
-            'language' => $request->txtlanguage,
+            'language' => $request->language,
             'type' => $request->type,
             'title' => $request->title,
             'description' => $request->description,
@@ -123,7 +123,6 @@ class ManageTenderController extends Controller
             'Updated_By' => null, // No update on creation, so leave null
             'Action_Type' => 'Update', // Static value
             'IP_Address' => $request->ip(), // Get IP address from request
-            'Current_State' => json_encode($manageTender), // Save state as JSON
         ]);
 
         return redirect()->route('manage_tender.index')->with('success', 'Tender updated successfully.');

@@ -5,11 +5,12 @@
             <span class="star">*</span>
 
             <div class="form-group position-relative">
-                <input type="radio" name="txtlanguage" value="1"
+                <input type="radio" name="language" value="1"
                     {{ old('language', $manageTender->language ?? '') == 1 ? 'checked' : '' }}> English
                 <input type="radio" name="language" value="2"
                     {{ old('language', $manageTender->language ?? '') == 2 ? 'checked' : '' }}> Hindi
             </div>
+
             @error('language')
             <div class="text-danger">{{ $message }}</div>
             @enderror
