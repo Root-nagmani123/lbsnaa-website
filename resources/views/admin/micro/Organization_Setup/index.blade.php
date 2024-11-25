@@ -37,7 +37,7 @@
                 <table class="table align-middle" id="myTable">
                     <thead>
                         <tr class="text-center">
-                            <th class="col">#</th> <!-- Index Column -->
+                            <th class="col">ID</th> <!-- Index Column -->
                             <th class="col">Research Centre</th>
                             <th class="col">Employee Name</th>
                             <th class="col">Designation</th>

@@ -24,7 +24,7 @@
                     <h4 class="fw-semibold fs-18 mb-0">Edit Vacancy</h4>
                 </div>
 
-                <form action="{{ route('manage_vacancy.update', $vacancy->id) }}" method="POST"
+                <form action="{{ route('micro_manage_vacancy.update', $vacancy->id) }}" method="POST"
                     enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
@@ -165,7 +165,7 @@
                         </div>
                         <div class="d-flex ms-sm-3 ms-md-0">
                             <button class="btn btn-success text-white fw-semibold" type="submit">Update</button> &nbsp;
-                            <a href="{{ route('manage_vacancy.index') }}" class="btn btn-secondary text-white">Cancel</a>
+                            <a href="{{ route('micro_manage_vacancy.index') }}" class="btn btn-secondary text-white">Cancel</a>
                         </div>
                     </div>
                 </form>
