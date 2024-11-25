@@ -122,27 +122,19 @@
                                 <label class="label">Image Files</label>
                                 <div id="file-container">
                                     @if($gallery->image_files)
-                                    <!-- Check if image_files is not null -->
                                     @php
-                                    // Decode the JSON string into an array
                                     $imageFiles = json_decode($gallery->image_files);
                                     @endphp
-
                                     @if(is_array($imageFiles) && count($imageFiles) > 0)
                                     @foreach($imageFiles as $file)
                                     <div class="file-group">
-
-
-                                        <!-- File input to update image -->
-                                        <input type="file" name="image_files[]"
-                                            class="form-control mb-2 text-dark ps-5 h-58" accept="image/*">
-                                        <!-- Display the image thumbnail -->
-                                        <div class="image-preview">
-                                            <img src="{{ asset('storage/' . $file) }}" alt="image" width="100"
-                                                height="100">
+                                        <div class="image-preview mb-2">
+                                            <!-- Display the image thumbnail -->
+                                            <img src="{{ asset('storage/' . $file) }}" alt="image" width="100" height="100">
                                         </div>
-                                        <button type="button"
-                                            class="btn btn-primary remove-file mt-2 mb-2 text-white">Remove</button>
+                                        <!-- File input for updating image -->
+                                        <input type="file" name="image_files[]" class="form-control text-dark ps-5 h-58 mb-2" accept="image/*">
+                                        <button type="button" class="btn btn-primary remove-existing-file text-white mb-2" data-file="{{ $file }}">Remove</button>
                                     </div>
                                     @endforeach
                                     @else
@@ -152,7 +144,10 @@
                                     <p>No images available.</p>
                                     @endif
                                 </div>
-                                <button type="button" class="btn btn-success text-white" id="add-file">Add More</button>
+                                    <button type="button" class="btn btn-success text-white" id="add-file">Add More</button>
+                                    <!-- Hidden input to track removed images -->
+                                    <input type="hidden" name="removed_files" id="removed-files" value="">
+                                </div>
                             </div>
                         </div>
                         <div class="col-lg-6">
@@ -452,7 +447,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
 
-<script>
+<!-- <script>
 document.addEventListener("DOMContentLoaded", function() {
     // Make sure the DOM is fully loaded before running the script
 
@@ -479,4 +474,44 @@ document.addEventListener("DOMContentLoaded", function() {
         fileGroup.querySelector('.remove-file').style.display = 'inline-block';
     });
 });
+</script> -->
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const removedFilesInput = document.getElementById('removed-files'); // Hidden input for removed files
+    const fileContainer = document.getElementById('file-container'); // Container for all files
+
+    // Event listener for dynamically adding new file inputs
+    document.getElementById('add-file').addEventListener('click', function () {
+        const fileGroup = document.createElement('div');
+        fileGroup.classList.add('file-group', 'mt-2');
+        fileGroup.innerHTML = `
+            <input type="file" name="image_files[]" class="form-control text-dark ps-5 h-58" accept="image/*">
+            <button type="button" class="btn btn-danger remove-file mt-2 text-white">Remove</button>
+        `;
+        fileContainer.appendChild(fileGroup);
+
+        // Attach remove event listener to the new "Remove" button
+        fileGroup.querySelector('.remove-file').addEventListener('click', function () {
+            fileGroup.remove();
+        });
+    });
+
+    // Event delegation for removing existing images
+    fileContainer.addEventListener('click', function (event) {
+        if (event.target.classList.contains('remove-existing-file')) {
+            const fileGroup = event.target.closest('.file-group');
+            const fileName = event.target.getAttribute('data-file');
+
+            // Add the removed file to the hidden input value
+            const removedFiles = removedFilesInput.value ? JSON.parse(removedFilesInput.value) : [];
+            removedFiles.push(fileName);
+            removedFilesInput.value = JSON.stringify(removedFiles);
+
+            // Remove the file group from the DOM
+            fileGroup.remove();
+        }
+    });
+});
+
 </script>

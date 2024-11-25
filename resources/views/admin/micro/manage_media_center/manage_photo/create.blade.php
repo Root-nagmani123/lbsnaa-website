@@ -179,6 +179,7 @@
                             <!-- Button to add more file input fields -->
                             <button type="button" class="btn btn-secondary text-white mt-2" id="add-file">Add
                                 More</button>
+                                <div id="file-container"></div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group mb-4">

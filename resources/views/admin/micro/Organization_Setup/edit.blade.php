@@ -103,7 +103,7 @@
                             <span class="star">*</span>
                             <div class="form-group position-relative">
                                 <input type="file" name="main_image" class="form-control text-dark ps-5 h-58"
-                                    id="main_image" required>
+                                    id="main_image" >
                                     <small class="form-text text-muted">Leave blank to keep the current image.</small>
                             </div>
                             @if ($organizationSetup->main_image)

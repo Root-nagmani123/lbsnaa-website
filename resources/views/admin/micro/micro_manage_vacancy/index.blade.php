@@ -91,8 +91,8 @@
                                 </form>
                             </td>
                             <td><div class="form-check form-switch">
-            <input class="form-check-input status-toggle" type="checkbox" role="switch"  data-table="micro_manage_vacancies" 
-            data-column="status" data-id="{{$vacancy->id}}" {{$vacancy->status ? 'checked' : ''}}>
+                            <input class="form-check-input status-toggle" type="checkbox" role="switch"  data-table="micro_manage_vacancies" 
+                            data-column="status" data-id="{{$vacancy->id}}" {{$vacancy->status ? 'checked' : ''}}>
           </div></td>
                         </tr>
                         @endforeach

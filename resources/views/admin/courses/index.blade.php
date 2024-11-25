@@ -34,10 +34,11 @@
                 <table class="table align-middle" id="myTable">
                     <thead>
                         <tr class="text-center">
-                            <th class="col">#</th>
+                            <th class="col">ID</th>
                             <th class="col">Course Name</th>
                             <th class="col">Abbreviation</th>
                             <th class="col">Language</th>
+                            <th class="col">Coordinator</th>
                             <th class="col">Actions</th>
                             <th class="col">Status</th>
                         </tr>
@@ -49,6 +50,7 @@
             <td>{{ $course->course_name }}</td>
             <td>{{ $course->abbreviation }}</td>
             <td>{{ $course->language == 1 ? 'English' : 'Hindi' }}</td>
+            <td>{{ $course->coordinator_id }}</td>
                             <td>
                                 <a href="{{ route('admin.courses.edit', $course->id) }}"
                                     class="btn bg-success text-white btn-sm">Edit</a>

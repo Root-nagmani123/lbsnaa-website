@@ -16,11 +16,7 @@ class MicroManagePhotoGalleryController extends Controller
 { 
     public function index()
     {
-        // $galleries = DB::table('micro_manage_photo_galleries as sub')
-        // ->leftJoin('courses as parent', 'sub.course_id', '=', 'parent.id') // Correct join
-        // ->leftJoin('courses as second_row', 'sub.related_training_program', '=', 'second_row.id') // Correct join
-        // ->select('sub.*', 'parent.id', 'parent.name','second_row.name as media_cat_name') // Select the necessary columns
-        // ->get();
+
         $galleries = DB::table('micro_manage_photo_galleries as sub')
         ->leftJoin('courses as parent', 'sub.course_id', '=', 'parent.id') // Correct join
         ->leftJoin('courses as second_row', 'sub.related_training_program', '=', 'second_row.id') // Correct join
@@ -147,6 +143,83 @@ class MicroManagePhotoGalleryController extends Controller
 
 
 
+    // public function update(Request $request, $id)
+    // {
+    //     // Validate inputs
+    //     $request->validate([
+    //         'image_files' => 'nullable|array',
+    //         'image_files.*' => 'nullable|file|mimes:jpeg,png,jpg|max:2048',
+    //     ]);
+    
+    //     // Find the gallery by ID
+    //     $gallery = MicroManagePhotoGallery::findOrFail($id);
+    
+    //     // Get the old image paths (if any)
+    //     $oldImages = json_decode($gallery->image_files, true);
+    
+    //     // Remove old images from storage if they exist
+    //     if ($oldImages) {
+    //         foreach ($oldImages as $oldImage) {
+    //             $imagePath = storage_path('app/public/uploads/gallery/' . $oldImage);
+    
+    //             // Check if the file exists before attempting to delete
+    //             if (file_exists($imagePath)) {
+    //                 unlink($imagePath);
+    //                 Log::info("Old image removed: $imagePath");  // Log successful removal
+    //             } else {
+    //                 Log::warning("Old image not found: $imagePath");  // Log if file not found
+    //             }
+    //         }
+    //     } else {
+    //         Log::info("No old images to remove.");  // Log if no old images
+    //     }
+    
+    //     // Process new image files if they are uploaded
+    //     $imageFiles = $request->file('image_files');
+    //     $uploadedFiles = [];
+    
+    //     if ($imageFiles) {
+    //         foreach ($imageFiles as $file) {
+    //             // Store new files and get their paths
+    //             $uploadedFiles[] = $file->store('uploads/gallery', 'public');
+    //         }
+    //     }
+    
+    //     // If there are new images, save them in the database
+    //     if (count($uploadedFiles) > 0) {
+    //         // Merge old images with the newly uploaded ones (if any)
+    //         $updatedImages = array_merge($oldImages ?? [], $uploadedFiles);
+    //         $gallery->image_files = json_encode($updatedImages);
+    //     } else {
+    //         // If no new images are uploaded, keep the old images in the database
+    //         $gallery->image_files = json_encode($oldImages);
+    //     }
+    
+    //     // Update other fields
+    //     $gallery->image_title_english = $request->input('image_title_english', 'Default Title');
+    //     $gallery->image_title_hindi = $request->input('image_title_hindi');
+    //     $gallery->status = $request->input('status', 'Draft');
+    //     $gallery->course_id = $request->input('course_id');
+    //     $gallery->related_news = $request->input('related_news');
+    //     $gallery->related_training_program = $request->input('related_training_program');
+    //     $gallery->related_events = $request->input('related_events');
+    //     $gallery->updated_at = now();
+    
+    //     // Save the gallery
+    //     $gallery->save();
+    
+    //     MicroManageAudit::create([
+    //         'Module_Name' => 'Photo Gallery',
+    //         'Time_Stamp' => time(),
+    //         'Created_By' => null,
+    //         'Updated_By' => null,
+    //         'Action_Type' => 'Update',
+    //         'IP_Address' => $request->ip(),
+    //     ]);
+
+    //     return redirect()->route('micro-photo-gallery.index')->with('success', 'Gallery updated successfully.');
+    // }
+
     public function update(Request $request, $id)
     {
         // Validate inputs
@@ -154,51 +227,52 @@ class MicroManagePhotoGalleryController extends Controller
             'image_files' => 'nullable|array',
             'image_files.*' => 'nullable|file|mimes:jpeg,png,jpg|max:2048',
         ]);
-    
+
         // Find the gallery by ID
         $gallery = MicroManagePhotoGallery::findOrFail($id);
-    
+
         // Get the old image paths (if any)
-        $oldImages = json_decode($gallery->image_files, true);
-    
-        // Remove old images from storage if they exist
-        if ($oldImages) {
-            foreach ($oldImages as $oldImage) {
-                $imagePath = storage_path('app/public/uploads/gallery/' . $oldImage);
-    
-                // Check if the file exists before attempting to delete
+        $oldImages = json_decode($gallery->image_files, true) ?? [];
+
+        // Handle removed images
+        if ($request->has('removed_files')) {
+            $removedFiles = json_decode($request->input('removed_files'), true) ?? [];
+
+            // Delete removed images from storage
+            foreach ($removedFiles as $removedFile) {
+                $imagePath = storage_path('app/public/' . $removedFile);
+
                 if (file_exists($imagePath)) {
                     unlink($imagePath);
-                    Log::info("Old image removed: $imagePath");  // Log successful removal
+                    Log::info("Removed image: $imagePath");
                 } else {
-                    Log::warning("Old image not found: $imagePath");  // Log if file not found
+                    Log::warning("Image not found for removal: $imagePath");
                 }
+
+                // Remove the file from the old images array
+                $oldImages = array_filter($oldImages, function ($file) use ($removedFile) {
+                    return $file !== $removedFile;
+                });
             }
-        } else {
-            Log::info("No old images to remove.");  // Log if no old images
         }
-    
+
         // Process new image files if they are uploaded
         $imageFiles = $request->file('image_files');
         $uploadedFiles = [];
-    
+
         if ($imageFiles) {
             foreach ($imageFiles as $file) {
                 // Store new files and get their paths
                 $uploadedFiles[] = $file->store('uploads/gallery', 'public');
             }
         }
-    
-        // If there are new images, save them in the database
-        if (count($uploadedFiles) > 0) {
-            // Merge old images with the newly uploaded ones (if any)
-            $updatedImages = array_merge($oldImages ?? [], $uploadedFiles);
-            $gallery->image_files = json_encode($updatedImages);
-        } else {
-            // If no new images are uploaded, keep the old images in the database
-            $gallery->image_files = json_encode($oldImages);
-        }
-    
+
+        // Merge remaining old images with newly uploaded images
+        $updatedImages = array_merge($oldImages, $uploadedFiles);
+
+        // Update the gallery with the new image data
+        $gallery->image_files = json_encode($updatedImages);
+
         // Update other fields
         $gallery->image_title_english = $request->input('image_title_english', 'Default Title');
         $gallery->image_title_hindi = $request->input('image_title_hindi');
@@ -208,10 +282,10 @@ class MicroManagePhotoGalleryController extends Controller
         $gallery->related_training_program = $request->input('related_training_program');
         $gallery->related_events = $request->input('related_events');
         $gallery->updated_at = now();
-    
+
         // Save the gallery
         $gallery->save();
-    
+
         MicroManageAudit::create([
             'Module_Name' => 'Photo Gallery',
             'Time_Stamp' => time(),

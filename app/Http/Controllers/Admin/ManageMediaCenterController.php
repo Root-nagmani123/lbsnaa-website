@@ -56,7 +56,6 @@ class ManageMediaCenterController extends Controller
             'Updated_By' => null, // No update on creation, so leave null
             'Action_Type' => 'Insert', // Static value
             'IP_Address' => $request->ip(), // Get IP address from request
-            'Current_State' => json_encode($audio), // Save state as JSON
         ]);
 
         return redirect()->route('media-center.index')->with('success', 'Audio created successfully');
@@ -102,7 +101,6 @@ class ManageMediaCenterController extends Controller
             'Updated_By' => null, // No update on creation, so leave null
             'Action_Type' => 'Update', // Static value
             'IP_Address' => $request->ip(), // Get IP address from request
-            'Current_State' => json_encode($audio), // Save state as JSON
         ]);
 
         return redirect()->route('media-center.index')->with('success', 'Audio updated successfully');
