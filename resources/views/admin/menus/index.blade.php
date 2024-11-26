@@ -69,7 +69,8 @@
 
             // Send AJAX request to toggle the status
             $.ajax({
-                url: '/admin/menus/' + menuId + '/toggle-status',
+                // url: '/admin/menus/' + menuId + '/toggle-status',
+                url: '{{ url("admin/menus") }}/' + menuId + '/toggle-status',
                 type: 'POST',
                 data: {
                     _token: '{{ csrf_token() }}',
