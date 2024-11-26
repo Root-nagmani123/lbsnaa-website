@@ -39,7 +39,7 @@
                                                     <div class="d-none d-xxl-block">
                                                         <span class="degeneration">Admin</span>
                                                         <div class="d-flex align-content-center">
-                                                            <h3>Adison Jeck</h3>
+                                                            <h3>Viru</h3>
                                                             <div class="down">
                                                                 <i data-feather="chevron-down"></i>
                                                             </div>
