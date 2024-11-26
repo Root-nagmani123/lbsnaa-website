@@ -10,7 +10,7 @@
                                         <i data-feather="menu"></i>
                                     </button>
                                 </li>
-                                <li>
+                                <!-- <li>
                                     <form class="src-form position-relative">
                                         <input type="text" class="form-control" placeholder="Search here..">
                                         <button type="submit"
@@ -18,7 +18,7 @@
                                             <i data-feather="search"></i>
                                         </button>
                                     </form>
-                                </li>
+                                </li> -->
                             </ul>
                         </div>
                     </div>
