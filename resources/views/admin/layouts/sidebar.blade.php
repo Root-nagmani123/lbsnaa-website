@@ -1,22 +1,22 @@
 <div class="sidebar-area" id="sidebar-area">
-    <div class="logo position-relative">
-        <a href="index.html" class="d-block text-decoration-none">
-            <img src="{{ asset('admin_assets/images/logo.png') }}" alt="logo-icon" style="width: 230px;">
-        </a>
-        <button
-            class="sidebar-burger-menu bg-transparent p-0 border-0 opacity-0 z-n1 position-absolute top-50 end-0 translate-middle-y"
-            id="sidebar-burger-menu">
-            <i data-feather="x"></i>
-        </button>
-    </div>
-
-    <aside id="layout-menu" class="layout-menu menu-vertical menu" data-simplebar="">
-        <ul class="menu-inner">
-            <li class="menu-title small text-uppercase">
-                <span class="menu-title-text">Main Website</span>
-            </li>
-            <li class="menu-item open">
-                <a href="{{ route('admin.index') }}" class="menu-link">
+        <div class="logo position-relative">
+            <a href="index.html" class="d-block text-decoration-none">
+                <img src="{{ asset('public/admin_assets/images/logo.png') }}" alt="logo-icon">
+            </a>
+            <button
+                class="sidebar-burger-menu bg-transparent p-0 border-0 opacity-0 z-n1 position-absolute top-50 end-0 translate-middle-y"
+                id="sidebar-burger-menu">
+                <i data-feather="x"></i>
+            </button>
+        </div>
+        
+        <aside id="layout-menu" class="layout-menu menu-vertical menu" data-simplebar="">
+            <ul class="menu-inner">
+                <li class="menu-title small text-uppercase">
+                    <span class="menu-title-text">Main Website</span>
+                </li>
+                <li class="menu-item open">
+                    <a href="{{ route('admin.index') }}" class="menu-link {{ Request::routeIs('admin.index') ? 'active' : '' }}">
                     <i class="material-icons menu-icon">dashboard</i>
                     <span class="title">Dashboard</span>
                 </a>
