@@ -225,15 +225,20 @@ public function update(Request $request, $id)
     return redirect()->route('admin.menus.index')->with('success', 'Menu marked as deleted successfully.');
   }
   public function toggleStatus(Request $request, $id)
-{
-    $menu = Menu::findOrFail($id);
-
-    // Toggle the status: 1 -> 0 or 0 -> 1
-    $menu->menu_status = !$menu->status;
-    $menu->save();
-
-    // Return the new status to the AJAX response
-    return response()->json(['status' => $menu->status]);
-}
+  {
+      // Find the menu by ID or throw a 404 error if not found
+      $menu = Menu::findOrFail($id);
+  
+      // Toggle the status: 1 -> 0 or 0 -> 1
+      $menu->menu_status = !$menu->menu_status;
+      $menu->save();
+  
+      // Return the new status to the AJAX response
+      return response()->json([
+          'status' => $menu->menu_status,
+          'message' => 'Menu status updated successfully.',
+      ]);
+  }
+  
 
 }
