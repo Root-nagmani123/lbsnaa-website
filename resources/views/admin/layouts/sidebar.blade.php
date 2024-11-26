@@ -1,7 +1,7 @@
 <div class="sidebar-area" id="sidebar-area">
         <div class="logo position-relative">
             <a href="index.html" class="d-block text-decoration-none">
-                <img src="{{ asset('admin_assets/images/logo.png') }}" alt="logo-icon">
+                <img src="{{ asset('public/admin_assets/images/logo.png') }}" alt="logo-icon">
             </a>
             <button
                 class="sidebar-burger-menu bg-transparent p-0 border-0 opacity-0 z-n1 position-absolute top-50 end-0 translate-middle-y"
