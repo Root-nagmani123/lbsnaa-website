@@ -226,31 +226,28 @@ class MenuController extends Controller
         return response()->json(['status' => $menu->menu_status]);
     }
     
-    public function toggle_status(Request $request)
-{
-    $id = $request->id;
-    $table = $request->table;
-    $column = $request->column;
-    $status = $request->status;
+    // Update the is_delete column to 1 (or true)
+    $menu->is_deleted = 1; 
+    $menu->save();
 
-    try {
-        // Validate inputs
-       
+    // Redirect with a success message
+    return redirect()->route('admin.menus.index')->with('success', 'Menu marked as deleted successfully.');
+  }
+  public function toggleStatus(Request $request, $id)
+  {
+      // Find the menu by ID or throw a 404 error if not found
+      $menu = Menu::findOrFail($id);
+  
+      // Toggle the status: 1 -> 0 or 0 -> 1
+      $menu->menu_status = !$menu->menu_status;
+      $menu->save();
+  
+      // Return the new status to the AJAX response
+      return response()->json([
+          'status' => $menu->menu_status,
+          'message' => 'Menu status updated successfully.',
+      ]);
+  }
+  
 
-        // Update the status dynamically
-        DB::table($table)
-            ->where('id', $id)
-            ->update([$column => $status]);
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Status updated successfully.',
-        ]);
-    } catch (\Exception $e) {
-        return response()->json([
-            'success' => false,
-            'message' => $e->getMessage(),
-        ]);
-    }
-}
 }

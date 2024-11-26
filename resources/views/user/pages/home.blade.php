@@ -1,19 +1,16 @@
 @include('user.includes.header')
 
 <!-- Page Content -->
-<!-- slider start -->
-<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
-  
+  <!-- slider start -->
+  <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
     <div class="carousel-indicators">
-
-        @foreach($sliders as $i => $slider)
+     
+    @foreach($sliders as $i => $slider)
         @if($i == 0)
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to={{$i}} class="active"
-            aria-current="true" aria-label={{$slider->text}}></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to={{$i}} class="active" aria-current="true" aria-label={{$slider->text}}></button>
         @endif
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{$i}}"
-            aria-label={{$slider->text}}></button>
-        @endforeach
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{$i}}" aria-label={{$slider->text}}></button>
+    @endforeach
     </div>
 
     <!-- Dynamic Slider -->
