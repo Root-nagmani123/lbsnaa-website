@@ -79,9 +79,8 @@
                                 <div class="form-group position-relative">
                                     <select class="form-select form-control ps-5 h-58" name="txtstatus" id="txtstatus" required>
                                     <option value="" class="text-dark" selected>Select</option>
-                                        <option value="1" class="text-dark" {{ isset($socialMedia) && $socialMedia->status == 1 ? 'selected' : '' }}>Draft</option>
-                                        <option value="2" class="text-dark" {{ isset($socialMedia) && $socialMedia->status == 2 ? 'selected' : '' }}>Approval</option>
-                                        <option value="3" class="text-dark" {{ isset($socialMedia) && $socialMedia->status == 3 ? 'selected' : '' }}>Publish</option>
+                                        <option value="1" class="text-dark" {{ isset($socialMedia) && $socialMedia->status == 1 ? 'selected' : '' }}>Active</option>
+                                        <option value="0" class="text-dark" {{ isset($socialMedia) && $socialMedia->status == 0 ? 'selected' : '' }}>Inactive</option>
                                     </select>
                                 </div>
                             </div>
