@@ -24,20 +24,20 @@
                 <h4 class="fs-18 mb-4">Add New Menu</h4>
 
                 <form action="{{ route('admin.menus.store') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
+                @csrf
                     <div class="row">
                         <div class="col-lg-6">
-                            <div class="form-group mb-4">
-                                <label class="label" for="menutitle">Page Language :</label>
-                                <span class="star">*</span>
-                                <div class="form-group position-relative">
-                                    <input type="radio" name="txtlanguage" value="1"> English
-                                    <input type="radio" name="txtlanguage" value="2"> Hindi
+                                <div class="form-group mb-4">
+                                    <label class="label" for="menutitle">Page Language :</label>
+                                    <span class="star">*</span>
+                                    <div class="form-group position-relative">
+                                        <input type="radio" name="txtlanguage" value="1"> English
+                                        <input type="radio" name="txtlanguage" value="2"> Hindi
+                                    </div>
                                 </div>
-                            </div>
                         </div>
                         <div class="col-lg-6">
-                            <div class="form-group mb-4">
+                        <div class="form-group mb-4">
                                 <label class="label" for="menutitle">Menu Title :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
@@ -63,8 +63,8 @@
                             </div>
                         </div>
                         <div style="display: none;" id="additional-fields">
-                            <div class="row" id="content-field" style="display: none;">
-                                <div class="col-lg-6">
+                            <div class="row" id="content-field">
+                                <div class="col-lg-12">
                                     <div class="form-group mb-0">
                                         <label class="label" for="content">Content :</label>
                                         <span class="star">*</span>
@@ -74,28 +74,28 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row mt-4">
-                                    <div class="col-lg-6">
-                                        <div class="form-group mb-4">
-                                            <label class="label" for="meta_title">Meta Title:</label>
-                                            <span class="star">*</span>
-                                            <div class="form-group position-relative">
-                                                <input type="text" class="form-control text-dark ps-5 h-58"
-                                                    name="meta_title" id="meta_title">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="form-group mb-4">
-                                            <label class="label" for="meta_keyword">Meta Keyword :</label>
-                                            <span class="star">*</span>
-                                            <div class="form-group position-relative">
-                                                <input type="text" class="form-control text-dark ps-5 h-58"
-                                                    name="meta_keyword" id="meta_keyword">
-                                            </div>
+                               <div class="row mt-4">
+                               <div class="col-lg-6">
+                                    <div class="form-group mb-4">
+                                        <label class="label" for="meta_title">Meta Title:</label>
+                                        <span class="star">*</span>
+                                        <div class="form-group position-relative">
+                                            <input type="text" class="form-control text-dark ps-5 h-58" name="meta_title"
+                                                id="meta_title">
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group mb-4">
+                                        <label class="label" for="meta_keyword">Meta Keyword :</label>
+                                        <span class="star">*</span>
+                                        <div class="form-group position-relative">
+                                            <input type="text" class="form-control text-dark ps-5 h-58"
+                                                name="meta_keyword" id="meta_keyword">
+                                        </div>
+                                    </div>
+                                </div>
+                               </div>
                                 <div class="col-lg-12">
                                     <div class="form-group mb-4">
                                         <label class="label" for="meta_description">Meta Description :</label>
@@ -108,18 +108,20 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-12" style="display: none;" id="pdf-upload-field">
-                                <div class="form-group mb-4">
-                                    <label class="label" for="pdf_file">Upload PDF</label>
-                                    <div class="form-control h-100 text-center position-relative p-4 p-lg-5">
-                                        <div class="product-upload">
-                                            <label for="file-upload" class="file-upload mb-0">
-                                                <i class="ri-upload-cloud-2-line fs-2 text-gray-light"></i>
-                                                <span class="d-block fw-semibold text-body">Drop files here or click
-                                                    to upload.</span>
-                                            </label>
-                                            <input id="file-upload" type="file" name="pdf_file" id="pdf_file"
-                                                accept=".pdf">
+                            <div class="row" style="display: none;" id="pdf-upload-field">
+                                <div class="col-lg-12">
+                                    <div class="form-group mb-4">
+                                        <label class="label" for="pdf_file">Upload PDF</label>
+                                        <div class="form-control h-100 text-center position-relative p-4 p-lg-5">
+                                            <div class="product-upload">
+                                                <label for="file-upload" class="file-upload mb-0">
+                                                    <i class="ri-upload-cloud-2-line fs-2 text-gray-light"></i>
+                                                    <span class="d-block fw-semibold text-body">Drop files here or click
+                                                        to upload.</span>
+                                                </label>
+                                                <input id="file-upload" type="file" name="pdf_file" id="pdf_file"
+                                                    accept=".pdf">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -192,7 +194,7 @@
                                         <span class="star">*</span>
                                         <div class="form-group position-relative">
                                             <input type="date" class="form-control text-dark ps-5 h-58"
-                                                name="start_date" id="start_date" onfocus="(this.type='date')"
+                                                name="start_date" id="start_date"  onfocus="(this.type='date')"
                                                 onblur="(this.type='text')">
                                         </div>
                                     </div>
@@ -204,26 +206,25 @@
                                         <div class="form-group position-relative">
                                             <input type="text" class="form-control text-dark ps-5 h-58"
                                                 name="termination_date" id="termination_date" placeholder="dd/mm/yyyy"
-                                                onfocus="(this.type='date')" onblur="(this.type='text')">
+                                                 onfocus="(this.type='date')" onblur="(this.type='text')">
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-6">
-                            <div class="form-group mb-4">
-                                <label class="label" for="menu_status">Status :</label>
-                                <span class="star">*</span>
-                                <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" id="menu_status"
-                                        name="menu_status" required>
-                                        <option class="text-dark">Select</option>
-                                        <option value="1" class="text-dark">Active</option>
-                                        <option value="2" class="text-dark">Inactive</option>
-                                    </select>
+                                <div class="form-group mb-4">
+                                    <label class="label" for="menu_status">Status :</label>
+                                    <span class="star">*</span>
+                                    <div class="form-group position-relative">
+                                        <select class="form-select form-control ps-5 h-58" id="menu_status" name="menu_status" required>
+                                            <option class="text-dark">Select</option>
+                                            <option value="1" class="text-dark" >Active</option>
+                                            <option value="2" class="text-dark" >Inactive</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                         <div class="d-flex ms-sm-3 ms-md-0">
                             <button class="btn btn-success text-white fw-semibold" type="submit">Submit</button>
                         </div>
@@ -235,31 +236,31 @@
         </div>
     </div>
 </div>
-<script>
-function addmenutype(value) {
-    // Hide all additional fields initially
-    document.getElementById('additional-fields').style.display = 'block';
-    document.getElementById('content-field').style.display = 'none';
-    document.getElementById('pdf-upload-field').style.display = 'none';
-    document.getElementById('website-url-field').style.display = 'none';
+        <script>
+        function addmenutype(value) {
+            // Hide all additional fields initially
+            document.getElementById('additional-fields').style.display = 'block';
+            document.getElementById('content-field').style.display = 'none';
+            document.getElementById('pdf-upload-field').style.display = 'none';
+            document.getElementById('website-url-field').style.display = 'none';
 
-    // Show fields based on the selected menu type
-    if (value === '1') { // Content
-        document.getElementById('content-field').style.display = 'block';
-    } else if (value === '2') { // PDF file upload
-        document.getElementById('pdf-upload-field').style.display = 'block';
-    } else if (value === '3') { // Website URL
-        document.getElementById('website-url-field').style.display = 'block';
-    }
-}
-
-function showDateFields(value) {
-    const dateFields = document.getElementById('date-fields');
-    if (value === '7') { // Latest Updates
-        dateFields.style.display = 'block';
-    } else {
-        dateFields.style.display = 'none';
-    }
-}
-</script>
-@endsection
+            // Show fields based on the selected menu type
+            if (value === '1') { // Content
+                document.getElementById('content-field').style.display = 'block';
+            } else if (value === '2') { // PDF file upload
+                document.getElementById('pdf-upload-field').style.display = 'block';
+            } else if (value === '3') { // Website URL
+                document.getElementById('website-url-field').style.display = 'block';
+            }
+        }
+        function showDateFields(value) {
+                const dateFields = document.getElementById('date-fields');
+                if (value === '7') { // Latest Updates
+                    dateFields.style.display = 'block';
+                } else {
+                    dateFields.style.display = 'none';
+                }
+            }
+            
+        </script>
+        @endsection
