@@ -16,7 +16,7 @@
             @foreach($footer_icons as $i => $footer_icon)
             <div class="col align-self-center">
               <div class="mb-3 mt-3">
-                <img src="{{ asset('public/footer-images/' . $footer_icon->image) }}" alt="logo" class="w-75">
+                <img src="{{ asset('footer-images/' . $footer_icon->image) }}" alt="logo" class="w-75">
               </div>
             </div>
             @endforeach              
@@ -32,7 +32,7 @@
         <div class="col-12 col-md-12 px-0">
           <!-- <div class="mb-4">
             <a href="index.html">
-              <img src="assets/public/images/lbsnaa_logo_new.png" alt="logo" class="mb-4 logo-inverse" width="200">
+              <img src="assets/images/lbsnaa_logo_new.png" alt="logo" class="mb-4 logo-inverse" width="200">
             </a>
           </div> -->
           <nav class="nav nav-footer justify-content-center">
@@ -103,21 +103,21 @@
 
   <!-- Scripts -->
   <!-- Libs JS -->
-  <script src="{{ asset('public/assets/libs/%40popperjs/core/dist/umd/popper.min.js') }}"></script>
-  <script src="{{ asset('public/assets/libs/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-  <script src="{{ asset('public/assets/libs/simplebar/dist/simplebar.min.js') }}"></script>
+  <script src="{{ asset('assets/libs/%40popperjs/core/dist/umd/popper.min.js') }}"></script>
+  <script src="{{ asset('assets/libs/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+  <script src="{{ asset('assets/libs/simplebar/dist/simplebar.min.js') }}"></script>
 
   <!-- Theme JS -->
-  <script src="{{ asset('public/assets/js/theme.min.js') }}"></script>
+  <script src="{{ asset('assets/js/theme.min.js') }}"></script>
 
 
-  <script src="{{ asset('public/assets/libs/tippy.js/dist/tippy-bundle.umd.min.js') }}"></script>
+  <script src="{{ asset('assets/libs/tippy.js/dist/tippy-bundle.umd.min.js') }}"></script>
 
-  <script src="{{ asset('public/assets/js/vendors/tooltip.js') }}"></script>
-  <script src="{{ asset('public/assets/libs/tiny-slider/dist/min/tiny-slider.js') }}"></script>
-  <script src="{{ asset('public/assets/js/vendors/tnsSlider.js') }}"></script>
-  <script src="{{ asset('public/assets/libs/glightbox/dist/js/glightbox.min.js') }}"></script>
-  <script src="{{ asset('public/assets/js/vendors/glight.js') }}"></script>
+  <script src="{{ asset('assets/js/vendors/tooltip.js') }}"></script>
+  <script src="{{ asset('assets/libs/tiny-slider/dist/min/tiny-slider.js') }}"></script>
+  <script src="{{ asset('assets/js/vendors/tnsSlider.js') }}"></script>
+  <script src="{{ asset('assets/libs/glightbox/dist/js/glightbox.min.js') }}"></script>
+  <script src="{{ asset('assets/js/vendors/glight.js') }}"></script>
 
 </body>
 </html>

@@ -127,11 +127,9 @@
             <div class="form-group position-relative">
                 <select name="status" class="form-control">
                     <option value="">Select</option>
-                    <option value="1" {{ old('status', $manageTender->status ?? '') == '1' ? 'selected' : '' }}>Draft
+                    <option value="1" {{ old('status', $manageTender->status ?? '') == '1' ? 'selected' : '' }}>Active
                     </option>
-                    <option value="2" {{ old('status', $manageTender->status ?? '') == '2' ? 'selected' : '' }}>Approval
-                    </option>
-                    <option value="3" {{ old('status', $manageTender->status ?? '') == '3' ? 'selected' : '' }}>Publish
+                    <option value="0" {{ old('status', $manageTender->status ?? '') == '0' ? 'selected' : '' }}>Inactive
                     </option>
                 </select>
             </div>

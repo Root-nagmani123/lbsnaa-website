@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="d-sm-flex text-center justify-content-between align-items-center mb-4">
-    <h3 class="mb-sm-0 mb-1 fs-18">Manage Course Sub Category</h3>
+    <h3 class="mb-sm-0 mb-1 fs-18">Manage Course Category/Sub Category</h3>
     <ul class="ps-0 mb-0 list-unstyled d-flex justify-content-center">
         <li>
             <a href="{{ route('admin.index') }}" class="text-decoration-none">
@@ -13,14 +13,14 @@
             </a>
         </li>
         <li>
-            <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Course Sub Category</span>
+            <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Course Category/Sub Category</span>
         </li>
     </ul>
 </div>
 <div class="card bg-white border-0 rounded-10 mb-4">
     <div class="card-body p-4">
         <div class="d-sm-flex text-center justify-content-between align-items-center border-bottom pb-20 mb-20">
-            <h4 class="fw-semibold fs-18 mb-sm-0">Sub Category List</h4>
+            <h4 class="fw-semibold fs-18 mb-sm-0">Course Category/Sub Category</h4>
             
             <a href="{{ route('subcategory.create') }}">
                 <button class="border-0 btn btn-success py-2 px-3 px-sm-4 text-white fs-14 fw-semibold rounded-3">

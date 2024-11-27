@@ -62,10 +62,6 @@ use App\Http\Controllers\Admin\Micro\MicroManagePhotoGalleryController;
 use App\Http\Controllers\Admin\Micro\MicroSliderController;
 
 
-
-
-
-
 //front data
 use App\Http\Controllers\User\HomeFrontController;
 /*
@@ -84,16 +80,6 @@ use App\Http\Controllers\User\HomeFrontController;
 Route::get('/', [HomeFrontController::class,'index']);
 Route::get('/news/{slug}', [HomeFrontController::class,'get_news'])->name('user.newsbyslug');
 Route::get('/menu/{slug}', [HomeFrontController::class, 'get_navigation_pages'])->name('user.navigationpagesbyslug');
-
-
-
-
-
-
-
-
-
-
 Route::middleware('auth')->group(function () {
     Route::get('/admin', [Controller::class, 'index'])->name('admin.index');
 });

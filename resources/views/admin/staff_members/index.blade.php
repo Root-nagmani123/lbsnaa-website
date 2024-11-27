@@ -32,6 +32,7 @@
                             <th class="col">Email</th>
                             <th class="col">Designation</th>
                             <th class="col">Actions</th>
+                            <th class="col">Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -51,6 +52,10 @@
                                     <button type="submit" class="btn btn-primary text-white btn-sm" onclick="return confirm('Are you sure you want to delete?')">Delete</button>
                                 </form>
                             </td>
+                            <td><div class="form-check form-switch">
+            <input class="form-check-input status-toggle" type="checkbox" role="switch"  data-table="staff_members" 
+            data-column="page_status" data-id="{{$staff->id}}" {{$staff->page_status ? 'checked' : ''}}>
+          </div></td>
                         </tr>
                         @endforeach
                     </tbody>
