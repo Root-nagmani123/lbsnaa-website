@@ -14,7 +14,7 @@
                             <a href="#" style="color: #af2910;">Home</a>
                           </li>
                           <li class="breadcrumb-item">
-                            <a href="#" style="color: #af2910;">{{$nav_page->menutitle}}</a>
+                            <a href="#" style="color: #af2910;">Academy News</a>
                           </li>
                         </ol>
                       </nav>

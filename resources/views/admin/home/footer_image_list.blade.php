@@ -31,7 +31,7 @@
                 </button>
             </a>
         </div>
-        <div class="default-table-area members-list">
+              <div class="default-table-area members-list">
             <div class="table-responsive">
                 <table class="table align-middle" id="myTable">
                     <thead>
@@ -45,26 +45,22 @@
                     <tbody>
                         @foreach($footerImages as $footerImage)
                         <tr>
-                            <td>{{ $loop->iteration }}</td> <!-- Auto-incrementing index -->
+                        <td>{{ $loop->iteration }}</td> <!-- Auto-incrementing index -->
                             <td><img src="{{ asset('footer-images/' . $footerImage->image) }}" width="100"></td>
                             <td>
                                 <a href="{{ route('admin.footer_images.edit', $footerImage->id) }}"
                                     class="btn bg-success text-white btn-sm">Edit</a>
-                                <form action="{{ route('admin.footer_images.destroy', $footerImage->id) }}"
-                                    method="POST" style="display:inline;">
+                                <form action="{{ route('admin.footer_images.destroy', $footerImage->id) }}" method="POST"
+                                    style="display:inline;">
                                     @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-primary text-white"
-                                        onclick="return confirm('Are you sure?')">Delete</button>
+                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-primary text-white" onclick="return confirm('Are you sure?')">Delete</button>
                                 </form>
                             </td>
-                            <td>
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input status-toggle" type="checkbox" role="switch"
-                                        data-table="home_footer_images" data-column="status"
-                                        data-id="{{$footerImage->id}}" {{$footerImage->status ? 'checked' : ''}}>
-                                </div>
-                            </td>
+                            <td><div class="form-check form-switch">
+            <input class="form-check-input status-toggle" type="checkbox" role="switch"  data-table="home_footer_images" 
+            data-column="status" data-id="{{$footerImage->id}}" {{$footerImage->status ? 'checked' : ''}}>
+          </div></td>
                         </tr>
                         @endforeach
                     </tbody>

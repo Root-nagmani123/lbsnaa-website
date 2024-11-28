@@ -5,17 +5,18 @@
 <!-- quick link section -->
   <!-- card section end -->
   <!-- footer -->
-  <section class="py-4  bg-white">
+  <section class="py-4 bg-white">
     <!-- container -->
     <div class="container">
       <div class="row">
         <div class="offset-xl-1 col-xl-10 col-md-12 col-12">
           <!-- row -->
-          <div class="row">
+          <div class="row text-center">
+            <!-- col -->
             @foreach($footer_icons as $i => $footer_icon)
-            <div class="col d-flex justify-content-center align-items-center">
+            <div class="col align-self-center">
               <div class="mb-3 mt-3">
-                <img src="{{ asset('footer-images/' . $footer_icon->image) }}" alt="logo" class="img-fluid" style=" max-width: 150px; max-height: 60px; object-fit: contain;">
+                <img src="{{ asset('footer-images/' . $footer_icon->image) }}" alt="logo" class="w-75">
               </div>
             </div>
             @endforeach              
@@ -68,19 +69,19 @@
           $social_media_links = DB::table('social_media_links')->get();
           @endphp
             <!--Facebook-->
-            <a href="{{ $social_media_links[0]->facebook_url; }}" class="me-2" target="_blank">
+            <a href="{{ $social_media_links[0]->facebook_url; }}" class="me-2">
               <i class="bi bi-facebook fa-2x" style="color: #af2910;"></i>
             </a>
             <!--Twitter-->
-            <a href="{{ $social_media_links[0]->twitter_url; }}" class="me-2" target="_blank">
+            <a href="{{ $social_media_links[0]->twitter_url; }}" class="me-2">
               <i class="bi bi-twitter" style="color: #af2910;"></i>
             </a>
 
             <!--GitHub-->
-            <a href="{{ $social_media_links[0]->youtube_url; }}" class="me-2" target="_blank">
+            <a href="{{ $social_media_links[0]->youtube_url; }}" class="me-2">
               <i class="bi bi-youtube" style="color:#af2910;"></i>
             </a>
-            <a href="{{ $social_media_links[0]->linkedin_url; }}" class="me-2" target="_blank">
+            <a href="{{ $social_media_links[0]->linkedin_url; }}" class="me-2">
               <i class="bi bi-linkedin" style="color:#af2910;"></i>
             </a>
           </div>

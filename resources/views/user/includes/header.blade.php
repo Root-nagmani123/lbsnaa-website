@@ -17,16 +17,25 @@
   <link rel="canonical" href="LBSNAA">
   <link href="{{ asset('assets/libs/tiny-slider/dist/tiny-slider.css') }}" rel="stylesheet">
   <link rel="stylesheet" href="{{ asset('assets/libs/glightbox/dist/css/glightbox.min.css') }}">
-  <link rel="icon" type="image/png" href="{{ asset('admin_assets/images/favicon.ico') }}">
 
   <title>Home | Lal Bahadur Shastri National Academy of Administration</title>
 </head>
 <header>
   <nav class="navbar navbar-expand-lg">
     <div class="container px-0">
-    <a href="#" class="d-block text-decoration-none">
-            <img src="{{ asset('admin_assets/images/logo.png') }}" alt="logo-icon" style="width: 300px;">
-        </a>
+      <a class="navbar-brand" href="#">
+        <div class="row">
+          <div class="col-3">
+            <img src="{{ asset('assets/images/lbsnaa-logo.png') }}" alt="" width="65px">
+          </div>
+          <div class="col-9">
+            <p style="color: #af2910; font-size: 11px; margin-top: 1rem;"><b>लाल बहादुर शास्त्री राष्ट्रीय प्रशासन
+                अकादमी<br>Lal Bahadur
+                Shastri National Academy<br> of Administration</b>
+            </p>
+          </div>
+        </div>
+      </a>
       <!-- Button -->
 
       <!-- Collapse -->
