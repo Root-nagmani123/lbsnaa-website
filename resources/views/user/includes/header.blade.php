@@ -7,16 +7,16 @@
   <meta name="author" content="Codescandy">
 
   <!-- Favicon -->
-  <link rel="shortcut icon" type="image/x-icon" href="{{ asset('public/assets/favicon.ico') }}">
+  <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/favicon.ico') }}">
 
-  <!-- CSS public/Assets -->
-  <link href="{{ asset('public/assets/fonts/feather/feather.css') }}" rel="stylesheet">
-  <link href="{{ asset('public/assets/libs/bootstrap-icons/font/bootstrap-icons.min.css') }}" rel="stylesheet">
-  <link href="{{ asset('public/assets/libs/simplebar/dist/simplebar.min.css') }}" rel="stylesheet">
-  <link rel="stylesheet" href="{{ asset('public/assets/css/theme.min.css') }}">
+  <!-- CSS Assets -->
+  <link href="{{ asset('assets/fonts/feather/feather.css') }}" rel="stylesheet">
+  <link href="{{ asset('assets/libs/bootstrap-icons/font/bootstrap-icons.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('assets/libs/simplebar/dist/simplebar.min.css') }}" rel="stylesheet">
+  <link rel="stylesheet" href="{{ asset('assets/css/theme.min.css') }}">
   <link rel="canonical" href="LBSNAA">
-  <link href="{{ asset('public/assets/libs/tiny-slider/dist/tiny-slider.css') }}" rel="stylesheet">
-  <link rel="stylesheet" href="{{ asset('public/assets/libs/glightbox/dist/css/glightbox.min.css') }}">
+  <link href="{{ asset('assets/libs/tiny-slider/dist/tiny-slider.css') }}" rel="stylesheet">
+  <link rel="stylesheet" href="{{ asset('assets/libs/glightbox/dist/css/glightbox.min.css') }}">
 
   <title>Home | Lal Bahadur Shastri National Academy of Administration</title>
 </head>
@@ -26,7 +26,7 @@
       <a class="navbar-brand" href="#">
         <div class="row">
           <div class="col-3">
-            <img src="{{ asset('public/assets/images/lbsnaa-logo.png') }}" alt="" width="65px">
+            <img src="{{ asset('assets/images/lbsnaa-logo.png') }}" alt="" width="65px">
           </div>
           <div class="col-9">
             <p style="color: #af2910; font-size: 11px; margin-top: 1rem;"><b>लाल बहादुर शास्त्री राष्ट्रीय प्रशासन
