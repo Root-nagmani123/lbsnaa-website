@@ -133,7 +133,7 @@
             <div class="col-xl-8 col-lg-6 col-12">
                 <div class="px-xl-8 my-lg-6">
                     <div class="mb-5">
-                        <span class="fw-semibold text-primary">LBSNAA Academy News</span>
+                        <h3 class="fw-semibold text-primary">LBSNAA Academy News</h3>
                     </div>
                     <div class="position-relative">
                         <div class="tns-outer" id="tns1-ow">
@@ -151,12 +151,13 @@
                                             <div class="card card-lift h-100 text-center text-lg-start">
                                                 <div class="p-2">
                                                     <a href="#"><img
-                                                            src="{{ asset('assets/images/' . $slider->main_image) }}"
+                                                            src="{{ asset('assets/images/4.jpg') }}"
                                                             alt="" class="img-fluid rounded-3 w-100"></a>
                                                 </div>
                                                 <div class="card-body pt-2">
                                                     <h3><a class="text-inherit" href="#">{{ $slider->title }}</a></h3>
                                                     <p>{{ $slider->short_description }}</p>
+                                                    <small>Posted on:- {{ $slider->created_at }}</small> <br><br>
                                                     <a href="{{ route('user.newsbyslug', $slider->title_slug) }}"
                                                         class="icon-link icon-link-hover link-primary fw-semibold">
                                                         <span>View Details</span>
@@ -190,6 +191,7 @@
             </div>
             <div class="col-xl-4 col-lg-6 col-12">
                 <div class="bg-primary px-4 pt-4 rounded-3 position-relative d-flex flex-column justify-content-center">
+                    <h3 class="fw-semibold text-white">Quick Links</h3>
                     <ul class="mt-2 mb-2 list-group list-group-flush">
                         @foreach($quick_links as $key => $quick_link)
                         <li class="text-start list-group-item text-white">{{$quick_link->text}}</li>
