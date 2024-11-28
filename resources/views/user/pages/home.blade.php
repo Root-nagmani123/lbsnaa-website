@@ -65,7 +65,7 @@
                 <div class="card mb-4 card-hover">
                     <!-- img -->
                     <div>
-                        <img src="{{ asset('assets/images/4.jpg') }}" alt="img" class="card-img-top">
+                        <img src="{{ asset('public/assets/images/4.jpg') }}" alt="img" class="card-img-top">
                     </div>
                     <!-- card body -->
                     <div class="card-body">
@@ -80,7 +80,7 @@
                 <div class="card mb-4 card-hover">
                     <!-- img -->
                     <div>
-                        <img src="{{ asset('assets/images/2.jpg') }}" alt="img" class="card-img-top">
+                        <img src="{{ asset('public/assets/images/2.jpg') }}" alt="img" class="card-img-top">
                     </div>
                     <!-- card body -->
                     <div class="card-body">
@@ -95,7 +95,7 @@
                 <div class="card mb-4 card-hover">
                     <!-- img -->
                     <div>
-                        <img src="{{ asset('assets/images/3.jpg') }}" alt="img" class="card-img-top">
+                        <img src="{{ asset('public/assets/images/3.jpg') }}" alt="img" class="card-img-top">
                     </div>
                     <!-- card body -->
                     <div class="card-body">
@@ -110,7 +110,7 @@
                 <div class="card mb-4 card-hover">
                     <!-- img -->
                     <div>
-                        <img src="{{ asset('assets/images/5.jpg')}}" alt="img" class="card-img-top">
+                        <img src="{{ asset('public/assets/images/5.jpg')}}" alt="img" class="card-img-top">
                     </div>
                     <!-- card body -->
                     <div class="card-body">

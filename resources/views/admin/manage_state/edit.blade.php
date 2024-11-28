@@ -27,25 +27,16 @@
                 <form action="{{ route('state.update', $states->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-                        <div class="col-lg-4">
+                        <div class="col-lg-6">
                             <div class="form-group mb-4">
-                                <label class="label" for="state_name">State Name :</label>
+                                <label class="label" for="menutitle">State Name :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark ps-5 h-58" name="state_name" id="state_name" value="{{ $states->state_name }}" required>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4">
-                            <div class="form-group mb-4">
-                                <label class="label" for="state_name_hindi">State Name in Hindi :</label>
-                                <span class="star">*</span>
-                                <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="state_name_hindi" id="state_name_hindi" value="{{ $states->state_name_hindi }}" required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
+                        <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="texttype">Status :</label>
                                 <span class="star">*</span>

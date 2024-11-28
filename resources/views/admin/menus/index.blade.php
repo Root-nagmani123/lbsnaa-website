@@ -36,7 +36,6 @@
                 <table class="table align-middle" id="myTable">
                     <thead>
                         <tr class="text-center">
-                            <th class="col">#</th>
                             <th class="col">Menu Title</th>
                             <th class="col">Parent Menu</th>
                             <th class="col">Content Position</th>

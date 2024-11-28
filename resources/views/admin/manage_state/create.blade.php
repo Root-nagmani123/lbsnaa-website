@@ -22,30 +22,21 @@
         <div class="card bg-white border-0 rounded-10 mb-4">
             <div class="card-body p-4">
                 <div class="d-flex justify-content-between align-items-center border-bottom pb-20 mb-20">
-                <h4 class="fw-semibold fs-18 mb-0">Add State</h4>
+                <h4 class="fw-semibold fs-18 mb-0">Manage State</h4>
             </div>
                 <form action="{{ route('state.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-                        <div class="col-lg-4">
+                        <div class="col-lg-6">
                             <div class="form-group mb-4">
-                                <label class="label" for="state_name">State Name :</label>
+                                <label class="label" for="menutitle">State Name :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark ps-5 h-58" name="state_name" id="state_name" required>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4">
-                            <div class="form-group mb-4">
-                                <label class="label" for="state_name_hindi">State Name in Hindi :</label>
-                                <span class="star">*</span>
-                                <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="state_name_hindi" id="state_name_hindi" required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
+                        <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="texttype">Status :</label>
                                 <span class="star">*</span>

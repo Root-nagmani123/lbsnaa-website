@@ -19,8 +19,8 @@
                                 <label class="label" for="menutitle">Page Language :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="radio" name="language" value="1"> English
-                                    <input type="radio" name="language" value="2"> Hindi
+                                    <input type="radio" name="language" value="1">English
+                                    <input type="radio" name="language" value="2">Hindi
                                 </div>
                             </div>
                         </div>
@@ -248,8 +248,7 @@
                             </div>
                         </div>
                         <div class="d-flex ms-sm-3 ms-md-0">
-                            <button class="btn btn-success text-white fw-semibold" type="submit">Create Staff Member</button>&nbsp;
-                            <a href="{{ route('admin.staff.index') }}" class="btn btn-secondary text-white">Back</a>
+                            <button class="btn btn-success text-white fw-semibold" type="submit">Create Staff Member</button>
                         </div>
                     </div>
                 </form>

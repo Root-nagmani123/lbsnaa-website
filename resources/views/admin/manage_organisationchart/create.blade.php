@@ -3,7 +3,7 @@
 
 @section('content')
 <div class="d-sm-flex text-center justify-content-between align-items-center mb-4">
-    <h3 class="mb-sm-0 mb-1 fs-18">Manage Organization Chart</h3>
+    <h3 class="mb-sm-0 mb-1 fs-18">Manage Organisation Chart</h3>
     <ul class="ps-0 mb-0 list-unstyled d-flex justify-content-center">
         <li>
             <a href="{{ route('admin.index') }}" class="text-decoration-none">
@@ -12,7 +12,7 @@
             </a>
         </li>
         <li>
-            <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Organization Chart</span>
+            <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Organisation Chart</span>
         </li>
     </ul>
 </div>

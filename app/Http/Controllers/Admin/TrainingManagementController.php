@@ -178,7 +178,6 @@ class TrainingManagementController extends Controller
 
         $state = DB::table('manage_state')->insert([
             'state_name' => $request->state_name,
-            'state_name_hindi' => $request->state_name_hindi,
             'status' => $request->status,
         ]);
 
@@ -207,7 +206,6 @@ class TrainingManagementController extends Controller
     {
         $state = DB::table('manage_state')->where('id', $id)->update([
             'state_name' => $request->state_name,
-            'state_name_hindi' => $request->state_name_hindi,
             'status' => $request->status,
         ]);
 

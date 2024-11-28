@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="d-sm-flex text-center justify-content-between align-items-center mb-4">
-    <h3 class="mb-sm-0 mb-1 fs-18">Manage Organization Chart</h3>
+    <h3 class="mb-sm-0 mb-1 fs-18">Manage Organisation Chart</h3>
     <ul class="ps-0 mb-0 list-unstyled d-flex justify-content-center">
         <li>
             <a href="{{ route('admin.index') }}" class="text-decoration-none">
@@ -13,14 +13,14 @@
             </a>
         </li>
         <li>
-            <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Organization Chart</span>
+            <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Organisation Chart</span>
         </li>
     </ul>
 </div>
 <div class="card bg-white border-0 rounded-10 mb-4">
     <div class="card-body p-4">
         <div class="d-sm-flex text-center justify-content-between align-items-center border-bottom pb-20 mb-20">
-            <h4 class="fw-semibold fs-18 mb-sm-0">Organization</h4>
+            <h4 class="fw-semibold fs-18 mb-sm-0">Organisation</h4>
         </div>
         <div class="default-table-area members-list">
     <div class="table-responsive">
