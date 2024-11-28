@@ -32,18 +32,24 @@
                                 <label class="label" for="menutitle">Page Language :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="radio" name="language" value="1"> English
-                                    <input type="radio" name="language" value="2"> Hindi
+                                    <input type="radio" name="language" value="1" {{ old('language') == '1' ? 'checked' : '' }}> English
+                                    <input type="radio" name="language" value="2" {{ old('language') == '2' ? 'checked' : '' }}> Hindi
                                 </div>
+                                @error('language')
+                                    <div style="color: red;">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
-                                <label class="label" for="cadres_code">Cadres Code :</label>
+                                <label class="label" for="code">Cadres Code :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="cadres_code"
-                                        id="cadres_code">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="code"
+                                        id="code" value="{{ old('code') }}">
+                                    @error('code')
+                                        <div style="color: red;">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -52,11 +58,14 @@
 
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
-                                <label class="label" for="cadres_desc">Cadres Desc :</label>
+                                <label class="label" for="description">Cadres Desc :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="cadres_desc"
-                                        id="cadres_desc">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="description"
+                                        id="description" value="{{ old('description') }}">
+                                    @error('description')
+                                        <div style="color: red;">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -68,11 +77,14 @@
                                 <label class="label" for="texttype">Status :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="status" id="status" required>
+                                    <select class="form-select form-control ps-5 h-58" name="status" id="status">
                                     <option value="" class="text-dark" selected>Select</option>
-                                        <option value="1" class="text-dark">Active</option>
-                                        <option value="0" class="text-dark">Inactive</option>
+                                        <option value="1" class="text-dark" {{ old('status') == '1' ? 'checked' : '' }}>Active</option>
+                                        <option value="0" class="text-dark" {{ old('status') == '0' ? 'checked' : '' }}>Inactive</option>
                                     </select>
+                                    @error('status')
+                                        <div style="color: red;">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>

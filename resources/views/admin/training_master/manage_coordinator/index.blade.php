@@ -49,14 +49,14 @@
                 @foreach ($coordinators as $coordinator)
                         <tr>
                             <td>{{ $loop->iteration }}</td> <!-- Auto-incrementing index -->
-                            <td>{{ $coordinator->language == 1 ? 'English' : 'Hindi' }}</td>
+                            <td>{{ $coordinator->page_language == 1 ? 'English' : 'Hindi' }}</td>
                             <td>{{ $coordinator->coordinator_name }}</td>
                             <td>
                                 <a href="{{ route('coordinators.edit', $coordinator->id) }}" class="btn bg-success text-white btn-sm">Edit</a>
                                 <form action="{{ route('coordinators.destroy', $coordinator->id) }}" method="POST" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-primary text-white">Delete</button>
+                                    <button type="submit" class="btn btn-sm btn-primary text-white" onclick="return confirm('Are you sure you want to delete?')">Delete</button>
                                 </form>
                             </td>
                             <td><div class="form-check form-switch">

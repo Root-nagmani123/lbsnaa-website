@@ -21,11 +21,18 @@ class ManageVenueController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'language' => 'required|string',
+            'page_language' => 'required',
             'venue_title' => 'required|string',
             'venue_detail' => 'required|string',
             'status' => 'required|string',
-        ]);
+        ],
+        [
+            'page_language.required' => 'Please select language.', // Custom message for language
+            'venue_title.required' => 'Please enter venue.', // Custom message for language
+            'venue_detail.required' => 'Please enter venue details.', // Custom message for organiser name
+            'status.required' => 'Please select status.', // Custom message for status
+        ]
+    );
 
         $validated['status'] = $request->status === 'active' ? 1 : 2;
         $venue = ManageVenue::create($request->all());
@@ -37,7 +44,6 @@ class ManageVenueController extends Controller
             'Updated_By' => null, // No update on creation, so leave null
             'Action_Type' => 'Insert', // Static value
             'IP_Address' => $request->ip(), // Get IP address from request
-            'Current_State' => json_encode($venue), // Save state as JSON
         ]);
 
         return redirect()->route('venues.index')->with('success', 'Venue created successfully.');
@@ -60,7 +66,7 @@ class ManageVenueController extends Controller
     public function update(Request $request, ManageVenue $venue)
     {
         $request->validate([
-            'language' => 'required|string',
+            'page_language' => 'required',
             'venue_title' => 'required|string',
             'venue_detail' => 'required|string',
             'status' => 'required|string',
@@ -75,7 +81,6 @@ class ManageVenueController extends Controller
             'Updated_By' => null, // No update on creation, so leave null
             'Action_Type' => 'Update', // Static value
             'IP_Address' => $request->ip(), // Get IP address from request
-            'Current_State' => json_encode($venue), // Save state as JSON
         ]);
 
         return redirect()->route('venues.index')->with('success', 'Venue updated successfully.');

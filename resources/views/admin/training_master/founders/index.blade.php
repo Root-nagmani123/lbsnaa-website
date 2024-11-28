@@ -57,13 +57,13 @@
                                 <form action="{{ route('founders.destroy', $founder->id) }}" method="POST" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-primary text-white btn-sm">Delete</button>
+                                    <button type="submit" class="btn btn-primary text-white btn-sm" onclick="return confirm('Are you sure you want to delete?')">Delete</button>
                                 </form>
                             </td>
                             <td><div class="form-check form-switch">
-            <input class="form-check-input status-toggle" type="checkbox" role="switch"  data-table="manage_founders" 
-            data-column="status" data-id="{{$founder->id}}" {{$founder->status ? 'checked' : ''}}>
-          </div></td>
+                            <input class="form-check-input status-toggle" type="checkbox" role="switch"  data-table="manage_founders" 
+                            data-column="status" data-id="{{$founder->id}}" {{$founder->status ? 'checked' : ''}}>
+                        </div></td>
                         </tr>
                         @endforeach
             </tbody>

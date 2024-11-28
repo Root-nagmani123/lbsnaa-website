@@ -36,13 +36,11 @@
                     <thead>
                         <tr class="text-center">
                             <th class="col">#</th> <!-- Index column -->
-                            <th class="col">Language</th>
                             <th class="col">Title</th>
                             <th class="col">Type</th>
-                            
+                            <th class="col">Language</th>
                             <th class="col">Publish Date</th>
                             <th class="col">Expiry Date</th>
-                            
                             <th class="col">File</th> <!-- Add a column for the file -->
                             <th class="col">Actions</th>
                             <th class="col">Status</th>
@@ -53,10 +51,9 @@
                         @foreach($tenders as $tender)
                         <tr>
                             <td>{{ $loop->iteration }}</td> <!-- Auto-incrementing index -->
-                            <td>{{ ($tender->language == 1) ? 'English' : 'Hindi' }}</td>
                             <td>{{ $tender->title }}</td>
                             <td>{{ $tender->type }}</td>
-                           
+                            <td>{{ ($tender->language == 1) ? 'English' : 'Hindi' }}</td>
                             <td>{{ $tender->publish_date }}</td>
                             <td>{{ $tender->expiry_date }}</td>
                             <td>

@@ -25,10 +25,16 @@ class CoordinatorController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'language' => 'required|string',
+            'page_language' => 'required',
             'coordinator_name' => 'required|string|max:255',
             'status' => 'required|string',
-        ]);
+        ],
+        [
+            'page_language.required' => 'Please select language.', // Custom message for language
+            'coordinator_name.required' => 'Please enter coodinator name.', // Custom message for organiser name
+            'status.required' => 'Please select status.', // Custom message for status
+        ]
+    );
 
         $validated['status'] = $request->status === 'active' ? 1 : 2;
         $coordinator = ManageCoordinator::create($request->all());
@@ -40,7 +46,6 @@ class CoordinatorController extends Controller
             'Updated_By' => null, // No update on creation, so leave null
             'Action_Type' => 'Insert', // Static value
             'IP_Address' => $request->ip(), // Get IP address from request
-            'Current_State' => json_encode($coordinator), // Save state as JSON
         ]);
 
         return redirect()->route('coordinators.index')->with('success', 'Coordinator added successfully.');
@@ -55,7 +60,7 @@ class CoordinatorController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'language' => 'required|string',
+            'page_language' => 'required',
             'coordinator_name' => 'required|string|max:255',
             'status' => 'required|string',
         ]);
@@ -71,7 +76,6 @@ class CoordinatorController extends Controller
             'Updated_By' => null, // No update on creation, so leave null
             'Action_Type' => 'Update', // Static value
             'IP_Address' => $request->ip(), // Get IP address from request
-            'Current_State' => json_encode($coordinator), // Save state as JSON
         ]);
 
         return redirect()->route('coordinators.index')->with('success', 'Coordinator updated successfully.');

@@ -31,7 +31,14 @@ class ManageCadresController extends Controller
             'description' => 'required',
             'language' => 'required',
             'status' => 'required|string',
-        ]);
+        ],
+        [
+            'code.required' => 'Please enter code.', // Custom message for language
+            'language.required' => 'Please select language.', // Custom message for language
+            'description.required' => 'Please enter description name.', // Custom message for organiser name
+            'status.required' => 'Please select status.', // Custom message for status
+        ]
+    );
 
 
         // Convert status to integer
@@ -45,7 +52,6 @@ class ManageCadresController extends Controller
             'Updated_By' => null, // No update on creation, so leave null
             'Action_Type' => 'Insert', // Static value
             'IP_Address' => $request->ip(), // Get IP address from request
-            'Current_State' => json_encode($cadres), // Save state as JSON
         ]);
 
         return redirect()->route('cadres.index')->with('success', 'Cadre added successfully');
@@ -61,12 +67,12 @@ class ManageCadresController extends Controller
     // Update cadre details
     public function update(Request $request, $id)
     {
-        // $request->validate([
-        //     'code' => 'required',
-        //     'description' => 'required',
-        //     'language' => 'required',
-        //     'status' => 'required|string',
-        // ]);
+        $request->validate([
+            'code' => 'required',
+            'description' => 'required',
+            'language' => 'required',
+            'status' => 'required|string',
+        ]);
 
         // Convert status to integer
         $validated['status'] = $request->status === 'active' ? 1 : 2;
@@ -80,7 +86,6 @@ class ManageCadresController extends Controller
             'Updated_By' => null, // No update on creation, so leave null
             'Action_Type' => 'Update', // Static value
             'IP_Address' => $request->ip(), // Get IP address from request
-            'Current_State' => json_encode($cadre), // Save state as JSON
         ]);
 
         return redirect()->route('cadres.index')->with('success', 'Cadre updated successfully');

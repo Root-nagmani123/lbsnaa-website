@@ -30,7 +30,13 @@ class ManageFoundersController extends Controller
             'name' => 'required|string|max:255',
             'language' => 'required',
             'status' => 'required|string',
-        ]);
+        ],
+        [
+            'language.required' => 'Please select language.', // Custom message for language
+            'name.required' => 'Please enter founders name.', // Custom message for organiser name
+            'status.required' => 'Please select status.', // Custom message for status
+        ]    
+    );
 
         $validated['status'] = $request->status === 'active' ? 1 : 2;
         $founder = ManageFounders::create($request->all());
