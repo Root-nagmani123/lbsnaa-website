@@ -22,6 +22,9 @@
                                     <input type="radio" name="language" value="1" {{ $organiser->language == '1' ? 'checked' : '' }}> English
                                     <input type="radio" name="language" value="2" {{ $organiser->language == '2' ? 'checked' : '' }}> Hindi
                                 </div>
+                                @error('language')
+                                    <div style="color: red;">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-lg-4">
@@ -31,6 +34,9 @@
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark ps-5 h-58" name="organiser_name"
                                         id="organiser_name" value="{{ $organiser->organiser_name }}">
+                                        @error('organiser_name')
+                                            <div style="color: red;">{{ $message }}</div>
+                                        @enderror
                                 </div>
                             </div>
                         </div>
@@ -43,6 +49,9 @@
                                         <option value="1" class="text-dark" {{ $organiser->status == '1' ? 'selected' : '' }}>Active</option>
                                         <option value="0" class="text-dark" {{ $organiser->status == '2' ? 'selected' : '' }}>Inactive</option>
                                     </select>
+                                    @error('status')
+                                        <div style="color: red;">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>

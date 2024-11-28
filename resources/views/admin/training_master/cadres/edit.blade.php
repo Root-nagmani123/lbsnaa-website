@@ -42,21 +42,27 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
-                                <label class="label" for="cadres_code">Cadres Code :</label>
+                                <label class="label" for="code">Cadres Code :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="cadres_code"
-                                        id="cadres_code" value="{{ $cadre->code }}">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="code"
+                                        id="code" value="{{ $cadre->code }}">
+                                    @error('code')
+                                        <div style="color: red;">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
-                                <label class="label" for="cadres_desc">Cadres Desc :</label>
+                                <label class="label" for="description">Cadres Desc :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="cadres_desc"
-                                        id="cadres_desc" value="{{ $cadre->description }}">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="description"
+                                        id="description" value="{{ $cadre->description }}">
+                                    @error('description')
+                                        <div style="color: red;">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>

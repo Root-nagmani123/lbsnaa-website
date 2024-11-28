@@ -47,6 +47,9 @@
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark ps-5 h-58" name="name"
                                         id="name" value="{{ $founder->name }}">
+                                        @error('name')
+                                            <div style="color: red;">{{ $message }}</div>
+                                        @enderror
                                 </div>
                             </div>
                         </div>

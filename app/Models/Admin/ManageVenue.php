@@ -10,7 +10,7 @@ class ManageVenue extends Model
     use HasFactory;
 
     protected $fillable = [
-        'language',
+        'page_language',
         'venue_title',
         'venue_detail',
         'status',

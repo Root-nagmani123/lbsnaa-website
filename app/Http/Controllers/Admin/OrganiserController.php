@@ -25,22 +25,58 @@ class OrganiserController extends Controller
     }
 
     // Store a new organiser
+    // public function store(Request $request)
+    // {
+    //     // Validate input data
+    //     $request->validate([
+    //         'language' => 'required',
+    //         'organiser_name' => 'required|string|max:255',
+    //         'status' => 'required|string',
+    //     ]);
+
+    //     // Prepare validated data for organizer creation
+    //     $validated['status'] = $request->status === 'active' ? 1 : 2;
+    //     $validatedData = $request->all();
+    //     // Create the organizer
+    //     $organizer = ManageOrganiser::create($validatedData);
+
+    //     // Log data to the audit table
+    //     ManageAudit::create([
+    //         'Module_Name' => 'Organiser Module', // Static value
+    //         'Time_Stamp' => time(), // Current timestamp
+    //         'Created_By' => null, // ID of the authenticated user
+    //         'Updated_By' => null, // No update on creation, so leave null
+    //         'Action_Type' => 'Insert', // Static value
+    //         'IP_Address' => $request->ip(), // Get IP address from request
+    //     ]);
+
+    //     // Redirect with success message
+    //     return redirect()->route('organisers.index')->with('success', 'Organiser created successfully.');
+    // }
+
     public function store(Request $request)
     {
-        // Validate input data
-        $request->validate([
-            'language' => 'required',
-            'organiser_name' => 'required|string|max:255',
-            'status' => 'required|string',
-        ]);
-
+        // Validate input data with custom error messages
+        $request->validate(
+            [
+                'language' => 'required', // Language must be selected
+                'organiser_name' => 'required|string|max:255', // Organizer name must be entered
+                'status' => 'required', // Status must be selected
+            ],
+            [
+                'language.required' => 'Please select language.', // Custom message for language
+                'organiser_name.required' => 'Please enter organiser name.', // Custom message for organiser name
+                'status.required' => 'Please select status.', // Custom message for status
+            ]
+        );
+    
         // Prepare validated data for organizer creation
-        $validated['status'] = $request->status === 'active' ? 1 : 2;
         $validatedData = $request->all();
+        $validatedData['status'] = $request->status === 'active' ? 1 : 2;
+    
         // Create the organizer
         $organizer = ManageOrganiser::create($validatedData);
-
-        // Log data to the audit table
+    
         ManageAudit::create([
             'Module_Name' => 'Organiser Module', // Static value
             'Time_Stamp' => time(), // Current timestamp
@@ -49,11 +85,11 @@ class OrganiserController extends Controller
             'Action_Type' => 'Insert', // Static value
             'IP_Address' => $request->ip(), // Get IP address from request
         ]);
-
         // Redirect with success message
         return redirect()->route('organisers.index')->with('success', 'Organiser created successfully.');
     }
 
+    
 
 
     // Show the form for editing an organiser

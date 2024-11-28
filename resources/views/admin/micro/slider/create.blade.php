@@ -11,7 +11,7 @@
                 <span>Dashboard</span>
             </a>
         </li>
-        <li>
+        <li> 
             <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Home Banner - Micro</span>
         </li>
     </ul>
@@ -77,7 +77,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <!-- <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label for="slider_description" class="label">Slider Description</label>
                                 <span class="star">*</span>
@@ -86,7 +86,28 @@
                                         class="form-control text-dark ps-5 h-58" required></textarea>
                                 </div>
                             </div>
+                        </div> -->
+
+                        <!-- <div class="col-lg-12">
+                            <div class="form-group mb-4">
+                                <label class="label">Description:</label>
+                                <div class="form-group position-relative">
+                                    <textarea class="form-control" id="slider_description" placeholder="Enter the Description" name="slider_description" rows="5">{{ old('slider_description', $manageTender->slider_description ?? '') ?? '' }}</textarea>
+                                    <textarea class="form-control" id="slider_description" placeholder="Enter the Description" name="slider_description" rows="5">
+                                        {{ old('slider_description', $manageTender->slider_description ?? '') }}
+                                    </textarea>
+                                </div>
+                                @error('slider_description')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div> -->
+
+                        <div class="form-group">
+                            <label for="slider_description">Description:</label>
+                            <textarea name="slider_description" id="editor" class="form-control">{{ old('slider_description') }}</textarea>
                         </div>
+
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label for="status" class="label">Status</label>
@@ -111,4 +132,16 @@
         </div>
     </div>
 </div>
+
+
+<script src="https://cdn.ckeditor.com/4.20.2/standard/ckeditor.js"></script>
+<script>
+    // Attach CKEditor to the textarea
+    CKEDITOR.replace('editor', {
+        height: 300, // Customize editor height
+        filebrowserUploadUrl: "{{ route('ckeditor.upload', ['_token' => csrf_token()]) }}",
+        filebrowserUploadMethod: 'form'
+    });
+</script>
+
 @endsection

@@ -21,8 +21,8 @@
         <div class="card bg-white border-0 rounded-10 mb-4">
             <div class="card-body p-4">
                 <div class="d-flex justify-content-between align-items-center border-bottom pb-20 mb-20">
-                <h4 class="fw-semibold fs-18 mb-0">Add Venue</h4>
-            </div>
+                    <h4 class="fw-semibold fs-18 mb-0">Add Venue</h4>
+                </div>
 
                 <form action="{{ route('venues.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
@@ -32,9 +32,12 @@
                                 <label class="label" for="menutitle">Page Language :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="radio" name="language" value="1">&nbsp;English
-                                    <input type="radio" name="language" value="2">&nbsp;Hindi
+                                    <input type="radio" name="page_language" value="1" {{ old('page_language') == '1' ? 'checked' : '' }}>&nbsp;English
+                                    <input type="radio" name="page_language" value="2" {{ old('page_language') == '2' ? 'checked' : '' }}>&nbsp;Hindi
                                 </div>
+                                @error('page_language')
+                                <div style="color: red;">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-lg-6">
@@ -43,7 +46,11 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark ps-5 h-58" name="venue_title"
-                                        id="venue_title">
+                                        id="venue_title"  value="{{ old('venue_title') }}">
+
+                                    @error('venue_title')
+                                    <div style="color: red;">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -53,7 +60,11 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark ps-5 h-58" name="venue_detail"
-                                        id="venue_detail">
+                                        id="venue_detail" value="{{ old('venue_detail') }}">
+
+                                    @error('venue_detail')
+                                    <div style="color: red;">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -62,11 +73,15 @@
                                 <label class="label" for="texttype">Status :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="status" id="status" required>
-                                    <option value="" class="text-dark" selected>Select</option>
-                                        <option value="1" class="text-dark">Active</option>
-                                        <option value="0" class="text-dark">Inactive</option>
+                                    <select class="form-select form-control ps-5 h-58" name="status" id="status">
+                                        <option value="" class="text-dark" selected>Select</option>
+                                        <option value="1" class="text-dark" {{ old('status') == '1' ? 'checked' : '' }}>Active</option>
+                                        <option value="0" class="text-dark" {{ old('status') == '0' ? 'checked' : '' }}>Inactive</option>
                                     </select>
+
+                                    @error('status')
+                                    <div style="color: red;">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>

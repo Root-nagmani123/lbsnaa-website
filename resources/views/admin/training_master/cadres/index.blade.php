@@ -20,7 +20,7 @@
     <div class="card-body p-4">
         <div class="d-sm-flex text-center justify-content-between align-items-center border-bottom pb-20 mb-20">
             <h4 class="fw-semibold fs-18 mb-sm-0">Cadres List</h4>
-            
+
             <a href="{{ route('cadres.create') }}">
                 <button class="border-0 btn btn-success py-2 px-3 px-sm-4 text-white fs-14 fw-semibold rounded-3">
                     <span class="py-sm-1 d-block">
@@ -34,44 +34,51 @@
         <div class="alert alert-success">{{ session('success') }}</div>
         @endif
         <div class="default-table-area members-list">
-    <div class="table-responsive">
-        <table class="table align-middle" id="myTable">
-            <thead>
-                <tr class="text-center">
-                    <th class="col">#</th>
-                    <th class="col">Code</th>
-                    <th class="col">Description</th>
-                    <th class="col">Language</th>
-                    <th class="col">Action</th>
-                    <th class="col">Status</th>
-                    
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($cadres as $cadre) <!-- Use $index for the incrementing index -->
+            <div class="table-responsive">
+                <table class="table align-middle" id="myTable">
+                    <thead>
+                        <tr class="text-center">
+                            <th class="col">#</th>
+                            <th class="col">Code</th>
+                            <th class="col">Description</th>
+                            <th class="col">Language</th>
+                            <th class="col">Action</th>
+                            <th class="col">Status</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($cadres as $cadre)
+                        <!-- Use $index for the incrementing index -->
                         <tr>
-                        <td>{{ $loop->iteration }}</td>
+                            <td>{{ $loop->iteration }}</td>
                             <td>{{ $cadre->code }}</td>
                             <td>{{ $cadre->description }}</td>
                             <td>{{ $cadre->language == 1 ? 'English' : 'Hindi' }}</td>
                             <td>
-                                <a href="{{ route('cadres.edit', $cadre->id) }}" class="btn bg-success text-white btn-sm">Edit</a>
-                                <form action="{{ route('cadres.destroy', $cadre->id) }}" method="POST" style="display:inline;">
+                                <a href="{{ route('cadres.edit', $cadre->id) }}"
+                                    class="btn bg-success text-white btn-sm">Edit</a>
+                                <form action="{{ route('cadres.destroy', $cadre->id) }}" method="POST"
+                                    style="display:inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-primary text-white">Delete</button>
+                                    <button type="submit" class="btn btn-sm btn-primary text-white"
+                                        onclick="return confirm('Are you sure you want to delete?')">Delete</button>
                                 </form>
                             </td>
-                            <td><div class="form-check form-switch">
-            <input class="form-check-input status-toggle" type="checkbox" role="switch"  data-table="manage_cadres" 
-            data-column="status" data-id="{{$cadre->id}}" {{$cadre->status ? 'checked' : ''}}>
-          </div></td>
+                            <td>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input status-toggle" type="checkbox" role="switch"
+                                        data-table="manage_cadres" data-column="status" data-id="{{$cadre->id}}"
+                                        {{$cadre->status ? 'checked' : ''}}>
+                                </div>
+                            </td>
                         </tr>
                         @endforeach
-            </tbody>
-        </table>
-    </div>
-</div>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 @endsection

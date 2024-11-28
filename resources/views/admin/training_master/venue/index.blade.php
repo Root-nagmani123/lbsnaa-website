@@ -51,7 +51,7 @@
                 @foreach ($venues as $index => $venue) <!-- Use $index to generate the auto-incrementing value -->
                         <tr>
                         <td>{{ $loop->iteration }}</td> <!-- Auto-incrementing index -->
-                            <td>{{ $venue->language == 1 ? 'English' : 'Hindi' }}</td>
+                            <td>{{ $venue->page_language == 1 ? 'English' : 'Hindi' }}</td>
                             <td>{{ $venue->venue_title }}</td>
                             <td>{{ $venue->venue_detail }}</td>
                             <td>
@@ -59,7 +59,7 @@
                                 <form action="{{ route('venues.destroy', $venue->id) }}" method="POST" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-primary text-white">Delete</button>
+                                    <button type="submit" class="btn btn-sm btn-primary text-white" onclick="return confirm('Are you sure you want to delete?')">Delete</button>
                                 </form>
                             </td>
                             <td><div class="form-check form-switch">
