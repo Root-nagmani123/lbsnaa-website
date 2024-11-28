@@ -66,8 +66,11 @@ use App\Http\Controllers\Admin\Micro\MicroSliderController;
 
 
 
+<<<<<<< HEAD
 //front data
 use App\Http\Controllers\User\HomeFrontController;
+=======
+>>>>>>> parent of e582d0a (lbsnaa_website_frontend work)
 /*
 
 
@@ -81,6 +84,7 @@ use App\Http\Controllers\User\HomeFrontController;
 |
 */
 
+<<<<<<< HEAD
 Route::get('/', [HomeFrontController::class,'index']);
 Route::get('/news/{slug}', [HomeFrontController::class,'get_news'])->name('user.newsbyslug');
 Route::get('/menu/{slug}', [HomeFrontController::class, 'get_navigation_pages'])->name('user.navigationpagesbyslug');
@@ -94,6 +98,11 @@ Route::get('/menu/{slug}', [HomeFrontController::class, 'get_navigation_pages'])
 
 
 
+=======
+Route::get('/', function () {
+    return view('welcome');
+});
+>>>>>>> parent of e582d0a (lbsnaa_website_frontend work)
 Route::middleware('auth')->group(function () {
     Route::get('/admin', [Controller::class, 'index'])->name('admin.index');
 });
