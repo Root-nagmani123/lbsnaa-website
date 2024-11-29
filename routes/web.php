@@ -80,6 +80,7 @@ use App\Http\Controllers\User\HomeFrontController;
 Route::get('/', [HomeFrontController::class,'index']);
 Route::get('/news/{slug}', [HomeFrontController::class,'get_news'])->name('user.newsbyslug');
 Route::get('/menu/{slug}', [HomeFrontController::class, 'get_navigation_pages'])->name('user.navigationpagesbyslug');
+Route::get('/footer_menu/{slug}', [HomeFrontController::class, 'footer_menu'])->name('user.footer_menu');
 Route::middleware('auth')->group(function () {
     Route::get('/admin', [Controller::class, 'index'])->name('admin.index');
 });

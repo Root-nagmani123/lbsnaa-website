@@ -167,7 +167,7 @@
                                     <div class="form-group position-relative">
                                         <select class="form-select form-control ps-5 h-58" name="menucategory"
                                             id="menucategory" autocomplete="off">
-                                            <option selected class="text-dark">It is Root Category</option>
+                                            <option selected value="0" class="text-dark">It is Root Category</option>
                                             {!! $menuOptions !!}
                                         </select>
                                     </div>

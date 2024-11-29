@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\File;
 use App\Models\Admin\ManageAudit;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class MenuController extends Controller
 {
@@ -102,6 +103,7 @@ class MenuController extends Controller
         $menu = new Menu();
         $menu->language = $request->txtlanguage;
         $menu->menutitle = $request->menutitle;
+        $menu->menu_slug = Str::slug($request->menutitle, '-');
         $menu->texttype = $request->texttype;
         $menu->menucategory = $request->menucategory;
         $menu->parent_id = $request->menucategory;
@@ -169,6 +171,7 @@ class MenuController extends Controller
         $menu = Menu::findOrFail($id);
         $menu->language = $request->txtlanguage;
         $menu->menutitle = $request->menutitle;
+        $menu->menu_slug = Str::slug($request->menutitle, '-');
         $menu->texttype = $request->texttype;
         $menu->menucategory = $request->menucategory;
         $menu->parent_id = $request->menucategory;
