@@ -1,6 +1,6 @@
 @include('user.includes.header')
 
-@if(isset($news))
+@if(isset($nav_page))
 
   <!-- Page Content -->
   <section class="py-4">
@@ -14,9 +14,8 @@
                           <a href="{{ route('home')}}" style="color: #af2910;">Home</a>
                           </li>
                           <li class="breadcrumb-item">
-                            <a href="#" style="color: #af2910;">Academy News</a>
+                            <a href="#" style="color: #af2910;">{{$nav_page->menutitle}}</a>
                           </li>
-                          <li class="breadcrumb-item active" aria-current="page">{{$news->title}}</li>
                         </ol>
                       </nav>
                 </div>
@@ -30,20 +29,19 @@
             <div class="col-xl-12 col-md-12 col-12">
                 <div class="mb-6 mb-lg-8">
                     <h2 class="h1 fw-bold text-primary">
-                    {{$news->title}}
+                    {{$nav_page->menutitle}}
                     </h2>
-                    <p class="mb-0 lead">Posted On: {{date('d M, Y',strtotime($news->start_date))}}</p>
                 </div>
             </div>
         </div>
-      
-        <p><?= $news->description;?></p>
+       
+        <p><?= $nav_page->content ?></p>
     </div>
 </section>
 
 
 @else
-    <h4>News does not exist</h4>
+    <h4>Does not exist</h4>
 @endif
 
 

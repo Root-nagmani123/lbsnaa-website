@@ -3,6 +3,15 @@
 @section('title', 'Admin Dashboard')
 
 @section('content')
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <!-- include summernote css/js -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+
+
 <div class="d-sm-flex text-center justify-content-between align-items-center mb-4">
     <h3 class="mb-sm-0 mb-1 fs-18">Manage News</h3>
     <ul class="ps-0 mb-0 list-unstyled d-flex justify-content-center">
@@ -170,4 +179,12 @@
         </div>
     </div>
 </div>
+
+<script>
+        $('#description').summernote({
+            placeholder: 'description...',
+            tabsize:2,
+            height:300
+        });
+    </script>
 @endsection
