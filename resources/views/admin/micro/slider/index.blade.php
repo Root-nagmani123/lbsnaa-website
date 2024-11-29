@@ -125,10 +125,9 @@
                     <p id="sliderLanguage"></p>  <!-- Language will be injected here -->
                 </div>
             </div>
-            <div class="modal-footer">
+            <!-- <div class="modal-footer">
                 <button type="button" class="btn btn-danger text-white" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary text-white">Understood</button>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>
