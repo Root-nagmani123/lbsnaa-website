@@ -34,8 +34,8 @@
                                     <label class="label" for="menutitle">Page Language :</label>
                                     <span class="star">*</span>
                                     <div class="form-group position-relative">
-                                        <input type="radio" name="txtlanguage" value="1"> English
-                                        <input type="radio" name="txtlanguage" value="2"> Hindi
+                                        <input type="radio" name="language" value="1"> English
+                                        <input type="radio" name="language" value="2"> Hindi
                                     </div>
                                 </div>
                             </div>
@@ -63,6 +63,16 @@
                                     <span class="star">*</span>
                                     <div class="form-group position-relative">
                                         <input type="text" id="employee_name" name="employee_name" autocomplete="" class="form-control text-dark ps-5 h-58">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group mb-4">
+                                    <label class="label">Description :</label>
+                                    <span class="star">*</span>
+                                    <div class="form-group position-relative">
+                                        <textarea name="description" id="description" class="form-control ps-5 text-dark"></textarea>
                                     </div>
                                 </div>
                             </div>

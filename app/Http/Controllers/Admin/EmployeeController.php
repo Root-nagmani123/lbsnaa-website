@@ -32,7 +32,7 @@ class EmployeeController extends Controller
     public function organisation_chartStore(Request $request)
     {
         $request->validate([
-            'txtlanguage' => 'required',
+            'language' => 'required',
             'parentcategory' => 'required',
             'employee_name' => 'required',
             'description' => 'nullable|string',
@@ -43,7 +43,7 @@ class EmployeeController extends Controller
 
 
         DB::table('organisation_chart')->insert([
-            'language' => $request->input('txtlanguage'),
+            'language' => $request->input('language'),
             'faculty_id' => $request->input('parentcategory'),
             'parent_id' => $request->input('parent_id'),
             'employee_name' => $request->input('employee_name'),
@@ -83,20 +83,23 @@ class EmployeeController extends Controller
     public function organisation_chartUpdate(Request $request, $id)
     {
         $request->validate([
-            'txtlanguage' => 'required',
+            'language' => 'required',
             'parentcategory' => 'required',
             'employee_name' => 'required',
             'description' => 'nullable|string',
             'category' => 'nullable',
             'status' => 'required',
-
         ]);
+
+        $category = ($id == 1) ? 0 : 1;
+        dd($request->parent_id);
         $data = [
-            'language' => $request->txtlanguage,
+            'language' => $request->language,
             'faculty_id' => $request->parentcategory,
+            'parent_id' => $request->parent_id,
             'employee_name' => $request->employee_name,
             'description' => $request->description,
-            'category' => 1,
+            'category' => $category,
             'status' => $request->status,
             'updated_at' => now(),
         ];
@@ -127,13 +130,14 @@ class EmployeeController extends Controller
         $term = $request->get('term');
         $employees = DB::table('faculty_members') // Replace 'employees' with your actual table name
             ->where('name', 'LIKE', '%' . $term . '%')
-            ->pluck('name'); // Adjust the column name if it's not `name`
+            ->pluck('name'); // Adjust the column name if it's not `name`NULL
 
         return response()->json($employees);
     }
 
     public function showSubOrg($parent_id)
     {
+        
         // Fetch records based on the parent_id
         $records = DB::table('organisation_chart')
             ->where('parent_id', $parent_id)

@@ -14,7 +14,7 @@
             </a>
         </li>
         <li>
-            <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Research</span>
+            <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Research Centre</span>
         </li>
     </ul>
 </div>
@@ -57,7 +57,6 @@
                                 <form action="{{ route('researchcentres.destroy', $centre->id) }}" method="POST"
                                     style="display:inline;">
                                     @csrf
-                    @method('DELETE')
                                     <button type="submit" class="btn btn-sm btn-primary text-white" onclick="return confirm('Are you sure?')">Delete</button>
                                 </form>
                             </td>

@@ -19,38 +19,43 @@ class LoginController extends Controller
         return view('auth.admin_login');
     }
     public function authenticate(Request $request)
-    {
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
+{
+    $request->validate([
+        'email' => 'required|email',
+        'password' => 'required',
+    ]);
+
+    // Retrieve the user by email
+    $user = User::where('email', $request->email)->first();
+
+    // Use Hash::check() to verify the password
+    if ($user && Hash::check($request->password, $user->password)) {
+        // Manually log the user in
+        Auth::login($user);
+
+        // Store the logged-in user's ID in the session
+        session(['user_id' => $user->id]);
+
+        // Log the login action in the audit table
+        ManageAudit::create([
+            'Module_Name' => 'Login', // Static value
+            'Time_Stamp' => time(), // Use Laravel's now() helper
+            'Created_By' => $user->id, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Login', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
         ]);
 
-        // Retrieve the user by email
-        $user = User::where('email', $request->email)->first();
-
-        // Use Hash::check() to verify the password
-        if ($user && Hash::check($request->password, $user->password)) {
-            // Manually log the user in
-          
-            Auth::login($user);
-
-            ManageAudit::create([
-                'Module_Name' => 'Login', // Static value
-                'Time_Stamp' => time(), // Current timestamp
-                'Created_By' => null, // ID of the authenticated user
-                'Updated_By' => null, // No update on creation, so leave null
-                'Action_Type' => 'Login', // Static value
-                'IP_Address' => $request->ip(), // Get IP address from request
-            ]);
-
-            return redirect()->intended('admin');
-        }
-    
-        // Throw an error if authentication fails
-        throw ValidationException::withMessages([
-            'email' => 'The provided credentials do not match our records.',
-        ]);
+        // Redirect to the intended route or a default page
+        return redirect()->intended('admin');
     }
+
+    // Throw an error if authentication fails
+    throw ValidationException::withMessages([
+        'email' => 'The provided credentials do not match our records.',
+    ]);
+}
+
     public function logout(Request $request)
 {
     Auth::logout();

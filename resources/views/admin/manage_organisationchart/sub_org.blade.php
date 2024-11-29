@@ -46,6 +46,11 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @if ($records->isEmpty())
+                        <div class="alert alert-warning text-center" role="alert" colspan="6" class="text-center">
+                            No records found
+                        </div>
+                        @else
                         @foreach($records as $record)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
@@ -66,6 +71,7 @@
           </div></td>
                             </tr>
                         @endforeach
+                        @endif
                     </tbody>
                 </table>
             </div>

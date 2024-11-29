@@ -33,8 +33,8 @@
                                 <label class="label">Page Language :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="radio" name="txtlanguage" value="1" {{ $record->language == '1' ? 'checked' : '' }}> English
-                                    <input type="radio" name="txtlanguage" value="2" {{ $record->language == '2' ? 'checked' : '' }}> Hindi
+                                    <input type="radio" name="language" value="1" {{ $record->language == '1' ? 'checked' : '' }}> English
+                                    <input type="radio" name="language" value="2" {{ $record->language == '2' ? 'checked' : '' }}> Hindi
                                 </div>
                             </div>
                         </div>
