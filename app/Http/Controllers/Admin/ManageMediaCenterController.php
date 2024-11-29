@@ -24,16 +24,69 @@ class ManageMediaCenterController extends Controller
     }
 
     // Store the newly created audio
+    // public function store(Request $request)
+    // {
+    //     $validatedData = $request->validate([
+    //         'category_name' => 'required|string',
+    //         'audio_title_en' => 'required|string',
+    //         'audio_title_hi' => 'nullable|string',
+    //         'audio_upload' => 'required|mimes:mp3,mp4|max:2048',  // Accept .mp4 and audio formats
+    //         'page_status' => 'required|integer|in:1,0',
+    //     ]);
+ 
+    //     $audio = new ManageMediaCenter();
+    //     $audio->category_name = $request->category_name;
+    //     $audio->audio_title_en = $request->audio_title_en;
+    //     $audio->audio_title_hi = $request->audio_title_hi;
+        
+    //     // Handle file upload
+    //     if ($request->hasFile('audio_upload')) {
+    //         $filename = time() . '.' . $request->audio_upload->extension();
+    //         $request->audio_upload->move(public_path('uploads/audios'), $filename);
+    //         $audio->audio_upload = $filename;
+    //     }
+
+    //     $audio->page_status = $request->page_status;
+    //     $audio->save();
+
+    //     ManageAudit::create([
+    //         'Module_Name' => 'Media Module', // Static value
+    //         'Time_Stamp' => time(), // Current timestamp
+    //         'Created_By' => null, // ID of the authenticated user
+    //         'Updated_By' => null, // No update on creation, so leave null
+    //         'Action_Type' => 'Insert', // Static value
+    //         'IP_Address' => $request->ip(), // Get IP address from request
+    //     ]);
+
+    //     return redirect()->route('media-center.index')->with('success', 'Audio created successfully');
+    // }
+
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        // Validation rules
+        $rules = [
             'category_name' => 'required|string',
             'audio_title_en' => 'required|string',
-            'audio_title_hi' => 'nullable|string',
-            'audio_upload' => 'required|mimes:mp3,mp4|max:2048',  // Accept .mp4 and audio formats
-            'page_status' => 'required|integer|in:1,2,3',
-        ]);
+            'audio_title_hi' => 'nullable',
+            'audio_upload' => 'required|mimes:mp3,mp4|max:15360',  // Accept .mp4 and audio formats
+            'page_status' => 'required|integer|in:1,0',
+        ];
 
+        // Custom messages
+        $messages = [
+            'category_name.required' => 'Select category name.',
+            'audio_title_en.required' => 'Enter the English audio title.',
+            'audio_upload.required' => 'Please upload an audio file.',
+            'audio_upload.mimes' => 'Only MP3 and MP4 files are allowed.',
+            'audio_upload.max' => 'The audio file size must not exceed 2MB.',
+            'page_status.required' => 'Select the page status.',
+            'page_status.in' => 'The page status must be either active (1) or inactive (0).',
+        ];
+
+        // Validate request
+        $validatedData = $request->validate($rules, $messages);
+
+        // Save the data
         $audio = new ManageMediaCenter();
         $audio->category_name = $request->category_name;
         $audio->audio_title_en = $request->audio_title_en;
@@ -61,6 +114,7 @@ class ManageMediaCenterController extends Controller
         return redirect()->route('media-center.index')->with('success', 'Audio created successfully');
     }
 
+
     // Edit an existing audio
     public function edit($id)
     {
@@ -76,7 +130,7 @@ class ManageMediaCenterController extends Controller
             'audio_title_en' => 'required|string',
             'audio_title_hi' => 'nullable|string',
             'audio_upload' => 'nullable|mimes:mp3,mp4|max:2048',  // Accept .mp4 and audio formats
-            'page_status' => 'required|integer|in:1,2,3',
+            'page_status' => 'required|integer|in:1,0',
         ]);
 
         $audio = ManageMediaCenter::findOrFail($id);

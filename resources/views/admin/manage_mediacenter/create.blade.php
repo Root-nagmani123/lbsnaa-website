@@ -23,7 +23,7 @@
                 <div class="d-flex justify-content-between align-items-center border-bottom pb-20 mb-20">
                 <h4 class="fw-semibold fs-18 mb-0">Add Audio</h4>
             </div>
-            @if ($errors->any())
+            <!-- `@if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
                     @foreach ($errors->all() as $error)
@@ -31,7 +31,7 @@
                     @endforeach
                 </ul>
             </div>
-        @endif
+        @endif` -->
                 <form action="{{ route('media-center.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
@@ -40,10 +40,13 @@
                                 <label class="label" for="category_name">Category Name :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="category_name" id="category_name" required>
+                                    <select class="form-select form-control ps-5 h-58" name="category_name" id="category_name">
                                         <option value="" class="text-dark">Select</option>
-                                        <option value="Audio" class="text-dark">Audio</option>
+                                        <option value="Audio" class="text-dark"  {{ old('category_name') == 'Audio' ? 'selected' : '' }}>Audio</option>
                                     </select>
+                                    @error('category_name')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -53,17 +56,20 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark ps-5 h-58" name="audio_title_en"
-                                        id="audio_title_en">
+                                        id="audio_title_en" value="{{ old('audio_title_en') }}">
+                                    @error('audio_title_en')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="audio_title_hi">Audio Title (Hindi) :</label>
-                                <span class="star">*</span>
+                                
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark ps-5 h-58" name="audio_title_hi"
-                                        id="audio_title_hi">
+                                        id="audio_title_hi"  value="{{ old('audio_title_hi') }}">
                                 </div>
                             </div>
                         </div>
@@ -73,7 +79,10 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="file" class="form-control text-dark ps-5 h-58" name="audio_upload"
-                                        id="audio_upload" accept=".mp4,.mp3">
+                                        id="audio_upload" accept=".mp4,.mp3"  value="{{ old('audio_upload') }}">
+                                    @error('audio_upload')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -82,11 +91,14 @@
                                 <label class="label" for="page_status">Page Status :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="page_status" id="page_status" required>
+                                    <select class="form-select form-control ps-5 h-58" name="page_status" id="page_status">
                                         <option value="" class="text-dark" selected>Select</option>
-                                        <option value="1" class="text-dark">Active</option>
-                                        <option value="0" class="text-dark">Inactive</option>
+                                        <option value="1" class="text-dark" {{ old('page_status') == '1' ? 'selected' : '' }}>Active</option>
+                                        <option value="0" class="text-dark" {{ old('page_status') == '0' ? 'selected' : '' }}>Inactive</option>
                                     </select>
+                                    @error('page_status')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>

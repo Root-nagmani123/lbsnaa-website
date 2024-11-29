@@ -30,6 +30,9 @@
                 </button>
             </a>
         </div>
+        @if (session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
         <div class="default-table-area members-list recent-orders">
             <div class="table-responsive">
                 <table class="table align-middle" id="myTable">
@@ -42,6 +45,7 @@
                             <th class="col">Publish Date</th>
                             <th class="col">Expiry Date</th>
                             <th class="col">File</th> <!-- Add a column for the file -->
+                            <th class="col">Option</th> <!-- Add a column for the file -->
                             <th class="col">Actions</th>
                             <th class="col">Status</th>
                         </tr>
@@ -58,13 +62,30 @@
                             <td>{{ $tender->expiry_date }}</td>
                             <td>
                                 <!-- Display image if the file exists -->
-                                @if($tender->file && in_array(pathinfo($tender->file, PATHINFO_EXTENSION), ['png', 'jpg', 'jpeg']))
-                                    <img src="{{ asset('/storage/uploads/' . $tender->file) }}" alt="Uploaded File" width="100">
+                                @if($tender->file && in_array(pathinfo($tender->file, PATHINFO_EXTENSION), ['png',
+                                'jpg', 'jpeg']))
+                                <img src="{{ asset('/storage/uploads/' . $tender->file) }}" alt="Uploaded File"
+                                    width="100">
                                 @elseif($tender->file)
-                                    <a href="{{ asset('/storage/uploads/' . $tender->file) }}" target="_blank">View File</a>
+                                <a href="{{ asset('/storage/uploads/' . $tender->file) }}" target="_blank">View File</a>
                                 @else
-                                    No file uploaded
+                                No file uploaded
                                 @endif
+                            </td>
+                            <td>
+                                <button type="button"
+                                    class="btn btn-outline-primary text-primary fw-semibold btn-sm view-slider"
+                                    data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+
+                                    data-title="{{ $tender->title }}"
+                                    data-type="{{ $tender->type }}"
+                                    data-publish_date="{{ $tender->publish_date }}"
+                                    data-expiry_date="{{ $tender->expiry_date }}"
+                                    data-description="{{ $tender->description }}"
+                                    data-image="{{ asset('/storage/uploads/' . $tender->file) }}"
+                                    data-language="{{ $tender->language == 1 ? 'English' : 'Hindi' }}">
+                                    View
+                                </button>
                             </td>
                             <td>
                                 <a href="{{ route('manage_tender.edit', $tender->id) }}"
@@ -73,13 +94,17 @@
                                     style="display:inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-primary text-white fw-semibold btn-sm" onclick="return confirm('Are you sure you want to delete?')">Delete</button>
+                                    <button type="submit" class="btn btn-primary text-white fw-semibold btn-sm"
+                                        onclick="return confirm('Are you sure you want to delete?')">Delete</button>
                                 </form>
                             </td>
-                            <td><div class="form-check form-switch">
-            <input class="form-check-input status-toggle" type="checkbox" role="switch"  data-table="manage_tenders" 
-            data-column="status" data-id="{{$tender->id}}" {{$tender->status ? 'checked' : ''}}>
-          </div></td>
+                            <td>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input status-toggle" type="checkbox" role="switch"
+                                        data-table="manage_tenders" data-column="status" data-id="{{$tender->id}}"
+                                        {{$tender->status ? 'checked' : ''}}>
+                                </div>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -90,4 +115,78 @@
 </div>
 
 
+<!-- modal start -->
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Tenders / Circulars Details</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="sliderText">Title</label>
+                    <p id="sliderText"></p> <!-- Text will be injected here -->
+                </div>
+                <div class="form-group">
+                    <label for="sliderDescription">Type</label>
+                    <p id="sliderDescription"></p> <!-- Description will be injected here -->
+                </div>
+                <div class="form-group">
+                    <label for="sliderDescription">publish_date</label>
+                    <p id="sliderDescription"></p> <!-- Description will be injected here -->
+                </div>
+                <div class="form-group">
+                    <label for="sliderDescription">Type</label>
+                    <p id="sliderDescription"></p> <!-- Description will be injected here -->
+                </div>
+                <div class="form-group">
+                    <label for="sliderImage">Image</label>
+                    <img id="sliderImage" src="" width="100" /> <!-- Image will be injected here -->
+                </div>
+                <div class="form-group">
+                    <label for="sliderLanguage">Language</label>
+                    <p id="sliderLanguage"></p> <!-- Language will be injected here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const viewButtons = document.querySelectorAll('.view-slider');
+    const modalTitle = document.getElementById('staticBackdropLabel');
+    const modalBody = document.querySelector('.modal-body');
+
+    viewButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Extract data from the button
+            const title = this.dataset.title;
+            const type = this.dataset.type;
+            const publish_date = this.dataset.publish_date;
+            const expiry_date = this.dataset.expiry_date;
+            const image = this.dataset.image;
+            const description = this.dataset.description;
+            const language = this.dataset.language;
+            
+            // Update modal content
+            modalTitle.textContent = 'Tenders / Circulars Details';
+            modalBody.innerHTML = `<div>
+                    <p><strong>Title:</strong> ${title}</p>
+                    <p><strong>Type:</strong> ${type} </p>
+                    <p><strong>Publish Date:</strong> ${publish_date}</p>
+                    <p><strong>Expiry Date:</strong> ${expiry_date}</p>
+                     <p><strong>Description:</strong> ${description}</p>
+                    <p><strong>File:</strong><img src="${image}" alt="Slider Image" class="img-fluid mb-3" style="width:100px; height:100px;" /> </p>
+                    <p><strong>Language:</strong> ${language}</p>
+                    </div>`;
+        });
+    });
+});
+</script>

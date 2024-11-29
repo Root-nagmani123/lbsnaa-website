@@ -56,8 +56,8 @@
         <div class="form-group mb-4">
             <label class="label">Description:</label>
             <div class="form-group position-relative">
-                <!-- <textarea type="text" id="description" contenteditable="true" class="form-control"></textarea> -->
-                <textarea class="form-control" id="description" placeholder="Enter the Description" name="description" rows="5">{{ old('description', $manageTender->description ?? '') ?? '' }}</textarea>
+                <textarea class="form-control" id="description" placeholder="Enter the Description" name="description"
+                    rows="5">{{ old('description', $manageTender->description ?? '') ?? '' }}</textarea>
             </div>
             @error('description')
             <div class="text-danger">{{ $message }}</div>
@@ -140,67 +140,3 @@
     </div>
 
 </div>
-<script src="{{ asset('admin_assets/js/ckeditor.js') }}"></script>
-<script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
-
-<script>
-    ClassicEditor
-    .create( document.querySelector( '#description' ) )
-    .catch( error => {
-    console.error( error );
-    });
-</script>
-<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link rel="stylesheet" href="texteditor.css">
-<style>
-.tool-list {
-    display: flex;
-    flex-flow: row nowrap;
-    list-style: none;
-    padding: 0;
-    overflow: hidden;
-    gap: 10px;
-    border: 1px solid #333;
-    padding: 20px;
-    border-radius: 5px;
-    background-color: white;
-}
-
-.tool--btn {
-    display: block;
-    border: none;
-    border-radius: 5px;
-    height: 30px;
-    width: 30px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-.tool--btn:hover {
-    background-color: #dddddd;
-}
-
-#output {
-    height: 200px;
-    padding: 1rem;
-    border: 1px solid #333;
-    border-radius: 5px;
-    background-color: white;
-}
-</style>
-<script src="texteditor.js"></script>
-<script>
-let output = document.getElementById('output');
-let buttons = document.getElementsByClassName('tool--btn');
-for (let btn of buttons) {
-    btn.addEventListener('click', () => {
-        let cmd = btn.dataset['command'];
-        if (cmd === 'createlink') {
-            let url = prompt("Enter the link here: ", "http:\/\/");
-            document.execCommand(cmd, false, url);
-        } else {
-            document.execCommand(cmd, false, null);
-        }
-    })
-}
-</script> -->

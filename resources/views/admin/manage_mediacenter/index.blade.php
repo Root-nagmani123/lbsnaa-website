@@ -16,6 +16,9 @@
         </li>
     </ul>
 </div>
+@if (session('success'))
+<div class="alert alert-success">{{ session('success') }}</div>
+@endif
 <div class="card bg-white border-0 rounded-10 mb-4">
     <div class="card-body p-4">
         <div class="d-sm-flex text-center justify-content-between align-items-center border-bottom pb-20 mb-20">
@@ -39,6 +42,7 @@
                             <th class="col">Audio Title (English)</th>
                             <th class="col">Audio Title (Hindi)</th>
                             <th class="col">Audio File</th>
+                            <th class="col">Option</th>
                             <th class="col">Actions</th>
                             <th class="col">Page Status</th>
                         </tr>
@@ -50,17 +54,28 @@
                             <td>{{ $audio->category_name }}</td>
                             <td>{{ $audio->audio_title_en }}</td>
                             <td>{{ $audio->audio_title_hi }}</td>
-                            <td><a href="{{ asset('uploads/audios/'.$audio->audio_upload) }}" target="_blank">Play</a>
-                            </td>
+                            <td><a href="{{ asset('uploads/audios/'.$audio->audio_upload) }}" target="_blank">Play</a></td>
+                            
                             <td>
-                                <a href="{{ route('media-center.edit', $audio->id) }}"
-                                    class="btn bg-success text-white btn-sm">Edit</a>
+                                <button type="button"
+                                    class="btn btn-outline-primary text-primary fw-semibold btn-sm view-slider"
+                                    data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+
+                                    data-category_name="{{ $audio->category_name }}"
+                                    data-audio_title_en="{{ $audio->audio_title_en }}"
+                                    data-audio_title_hi="{{ $audio->audio_title_hi }}"
+                                    data-audio_upload="{{ asset('uploads/audios/'.$audio->audio_upload) }}">
+                                    View
+                                </button>
+                            </td>
+
+                            <td>
+                                <a href="{{ route('media-center.edit', $audio->id) }}" class="btn bg-success text-white btn-sm">Edit</a>
                                 <form action="{{ route('media-center.destroy', $audio->id) }}" method="POST"
                                     style="display:inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-primary text-white"
-                                        onclick="return confirm('Are you sure?')">Delete</button>
+                                    <button type="submit" class="btn btn-sm btn-primary text-white" onclick="return confirm('Are you sure you want to delete?')">Delete</button>
                                 </form>
                             </td>
                             <td>
@@ -78,4 +93,91 @@
         </div>
     </div>
 </div>
+
+<!-- modal start -->
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Tenders / Circulars Details</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="sliderText">Title</label>
+                    <p id="sliderText"></p> <!-- Text will be injected here -->
+                </div>
+                <div class="form-group">
+                    <label for="sliderDescription">Type</label>
+                    <p id="sliderDescription"></p> <!-- Description will be injected here -->
+                </div>
+                <div class="form-group">
+                    <label for="sliderDescription">publish_date</label>
+                    <p id="sliderDescription"></p> <!-- Description will be injected here -->
+                </div>
+                <div class="form-group">
+                    <label for="sliderDescription">Type</label>
+                    <p id="sliderDescription"></p> <!-- Description will be injected here -->
+                </div>
+                <div class="form-group">
+                    <label for="sliderImage">Image</label>
+                    <img id="sliderImage" src="" width="100" /> <!-- Image will be injected here -->
+                </div>
+                <div class="form-group">
+                    <label for="sliderLanguage">Language</label>
+                    <p id="sliderLanguage"></p> <!-- Language will be injected here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const viewButtons = document.querySelectorAll('.view-slider');
+    const modalTitle = document.getElementById('staticBackdropLabel');
+    const modalBody = document.querySelector('.modal-body');
+
+    viewButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Extract data from the button
+            const category_name = this.dataset.category_name;
+            const audio_title_en = this.dataset.audio_title_en;
+            const audio_title_hi = this.dataset.audio_title_hi;
+            const audio_upload = this.dataset.audio_upload;
+            
+            // Update modal content
+            modalTitle.textContent = 'Tenders / Circulars Details';
+            modalBody.innerHTML = `<div>
+                    <p><strong>Category Name:</strong> ${category_name}</p>
+                    <p><strong>Audio Title En:</strong> ${audio_title_en} </p>
+                    <p><strong>Audio Title Hi:</strong> ${audio_title_hi}</p>
+                    
+
+                    <p><strong>File:</strong></p>
+                        @if($audio->audio_upload)
+                            @if(pathinfo($audio->audio_upload, PATHINFO_EXTENSION) == 'mp3')
+                                <!-- Audio player -->
+                                <audio controls class="mb-3" style="width: 100%;">
+                                    <source src="{{ asset('uploads/audios/' . $audio->audio_upload) }}" type="audio/mpeg">
+                                    Your browser does not support the audio element.
+                                </audio>
+                            @elseif(pathinfo($audio->audio_upload, PATHINFO_EXTENSION) == 'mp4')
+                                <!-- Video player -->
+                                <video controls class="img-fluid mb-3" style="width: 100px; height: 100px;">
+                                    <source src="{{ asset('uploads/audios/' . $audio->audio_upload) }}" type="video/mp4">
+                                    Your browser does not support the video element.
+                                </video>
+                            @endif
+                        @endif
+                    
+                    </div>`;
+        });
+    });
+});
+</script>
