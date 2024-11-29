@@ -25,3 +25,5 @@
 <script src="{{ asset('admin_assets/js/custom/ecommerce-chart.js') }}"></script>
 <script src="{{ asset('admin_assets/js/custom/custom.js') }}"></script>
 <script src="{{ asset('admin_assets/js/ckeditor.js') }}"></script>
+<script src="{{ asset('admin_assets/js/custom/toggle.js') }}"></script>
+

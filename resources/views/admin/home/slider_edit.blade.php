@@ -21,7 +21,9 @@
     <div class="col-lg-12">
         <div class="card bg-white border-0 rounded-10 mb-4">
             <div class="card-body p-4">
-                <h4 class="fs-18 mb-4">Edit Slider</h4>
+            <div class="d-flex justify-content-between align-items-center border-bottom pb-20 mb-20">
+                    <h4 class="fw-semibold fs-18 mb-0">Edit Slider</h4>
+                </div>
                 @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -40,7 +42,7 @@
                                 <label class="label" for="image">Slider Image :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="file" class="form-control text-dark ps-5 h-58" name="image" id="image">
+                                    <input type="file" class="form-control text-dark ps-5 h-58 mb-2" name="image" id="image">
                                     <small>Current Image:</small> <img src="{{ asset('slider-images/' . $slider->image) }}" width="100" class="img-fluid">
                                 </div>
                             </div>
@@ -71,14 +73,15 @@
                                 <div class="form-group position-relative">
                                     <select class="form-select form-control ps-5 h-58" name="status" id="status"
                                         required>
-                                        <option value="1" class="text-dark" {{ $slider->status ? 'selected' : '' }}>Active</option>
-                                        <option value="0" class="text-dark" {{ $slider->status ? 'selected' : '' }}>Inactive</option>
+                                        <option value="1" class="text-dark" {{ $slider->status == 1? 'selected' : '' }}>Active</option>
+                                        <option value="0" class="text-dark" {{ $slider->status == 0? 'selected' : '' }}>Inactive</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div class="d-flex ms-sm-3 ms-md-0">
-                            <button class="btn btn-success text-white fw-semibold" type="submit">Update Slider</button>
+                            <button class="btn btn-success text-white fw-semibold" type="submit">Update Slider</button>&nbsp;
+                            <a href="{{ route('admin.slider_list') }}" class="btn btn-secondary text-white">Back</a>
                         </div>
                     </div>
                 </form>

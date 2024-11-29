@@ -81,11 +81,9 @@
                                     <select class="form-select form-control ps-5 h-58" name="status" id="status"
                                         required>
                                         <option value="" class="text-dark">Select</option>
-                                        <option value="1" class="text-dark"
-                                            {{ isset($category) && $category->status == '1' ? 'selected' : '' }}>Active
+                                        <option value="1" class="text-dark">Active
                                         </option>
-                                        <option value="0" class="text-dark"
-                                            {{ isset($category) && $category->status == '0' ? 'selected' : '' }}>
+                                        <option value="0" class="text-dark">
                                             Inactive</option>
                                     </select>
                                 </div>

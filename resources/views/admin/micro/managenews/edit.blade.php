@@ -167,8 +167,8 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <select class="form-select form-control ps-5 h-58" name="status" id="status" required>
-                                        <option value="1" class="text-dark" {{ $news->status == 1 ? 'selected' : '' }}>Active</option>
-                                        <option value="0" class="text-dark" {{ $news->status == 0 ? 'selected' : '' }}>Inactive</option>
+                                        <option value="1" class="text-dark" {{ $news->status == 1? 'selected' : '' }}>Active</option>
+                                        <option value="0" class="text-dark" {{ $news->status == 0? 'selected' : '' }}>Inactive</option>
                                     </select>
                                 </div>
                             </div>

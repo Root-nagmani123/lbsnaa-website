@@ -23,7 +23,7 @@
             <img src="{{ asset('slider-images/' . $slider->image) }}" class="d-block img-fluid"
                 alt="{{ $slider->text }}" style="
   width: 100%;
-  height: 600px; background-size: cover; background-position: center; border-radius: 10px;">
+  height: 600px; background-size: cover; background-position: center; border-radius: 10px;background-repeat: no-repeat;">
             <div class="carousel-caption d-none d-md-block">
                 <h3 class="text-white">{{ $slider->text }}</h3>
                 <!-- <p>{{ $slider->description }}</p> -->

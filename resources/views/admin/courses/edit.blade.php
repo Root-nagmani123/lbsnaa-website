@@ -22,7 +22,8 @@
                 <div class="d-sm-flex text-center justify-content-between align-items-center border-bottom pb-20 mb-20">
                     <h4 class="fw-semibold fs-18 mb-sm-0">Add New Course</h4>
                 </div>
-                <form action="{{ route('admin.courses.update', $course->id) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('admin.courses.update', $course->id) }}" method="POST"
+                    enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="row">
@@ -31,8 +32,10 @@
                                 <label class="label" for="menutitle">Page Language :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="radio" name="language" value="1" {{ $course->language == '1' ? 'checked' : '' }}> English
-                                    <input type="radio" name="language" value="2" {{ $course->language == '2' ? 'checked' : '' }}> Hindi
+                                    <input type="radio" name="language" value="1"
+                                        {{ $course->language == '1' ? 'checked' : '' }}> English
+                                    <input type="radio" name="language" value="2"
+                                        {{ $course->language == '2' ? 'checked' : '' }}> Hindi
                                 </div>
                             </div>
                         </div>
@@ -81,7 +84,9 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="meta_description">Meta Description:</label>
                                 <div class="form-group position-relative">
-                                    <textarea class="form-control" id="meta_description" placeholder="Enter the Meta Description" name="meta_description" rows="5">{{ $course->meta_description }}</textarea>
+                                    <textarea class="form-control" id="meta_description"
+                                        placeholder="Enter the Meta Description" name="meta_description"
+                                        rows="5">{{ $course->meta_description }}</textarea>
                                 </div>
 
 
@@ -94,7 +99,8 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="description">Description:</label>
                                 <div class="form-group position-relative">
-                                    <textarea class="form-control" id="description" placeholder="Enter the Description" name="description" rows="5">{{ $course->description }}</textarea>
+                                    <textarea class="form-control" id="description" placeholder="Enter the Description"
+                                        name="description" rows="5">{{ $course->description }}</textarea>
                                 </div>
 
 
@@ -130,10 +136,9 @@
                                 <div class="form-group position-relative">
                                     <select class="form-select form-control ps-5 h-58" name="support_section"
                                         id="support_section" required>
-                                        <option value="" class="text-dark" selected>Select Section</option>
-                                        <option value="1" class="text-dark">First</option>
-                                        <option value="2" class="text-dark">Second</option>
-                                        <option value="3" class="text-dark">Tgird</option>
+                                        <option value="1" class="text-dark" {{ $course->support_section == 1 ? 'selected' : '' }}>First</option>
+                                        <option value="2" class="text-dark" {{ $course->support_section == 2 ? 'selected' : '' }}>Second</option>
+                                        <option value="3" class="text-dark" {{ $course->support_section == 3 ? 'selected' : '' }}>Tgird</option>
                                     </select>
                                 </div>
                             </div>
@@ -154,7 +159,8 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark ps-5 h-58"
-                                        name="asst_coordinator_1_id" id="asst_coordinator_1_id" value="{{ $course->asst_coordinator_1_id }}">
+                                        name="asst_coordinator_1_id" id="asst_coordinator_1_id"
+                                        value="{{ $course->asst_coordinator_1_id }}">
                                 </div>
                             </div>
                         </div>
@@ -164,7 +170,8 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark ps-5 h-58"
-                                        name="asst_coordinator_2_id" id="asst_coordinator_2_id" value="{{ $course->asst_coordinator_2_id }}">
+                                        name="asst_coordinator_2_id" id="asst_coordinator_2_id"
+                                        value="{{ $course->asst_coordinator_2_id }}">
                                 </div>
                             </div>
                         </div>
@@ -174,7 +181,8 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark ps-5 h-58"
-                                        name="asst_coordinator_3_id" id="asst_coordinator_3_id" value="{{ $course->asst_coordinator_3_id }}">
+                                        name="asst_coordinator_3_id" id="asst_coordinator_3_id"
+                                        value="{{ $course->asst_coordinator_3_id }}">
                                 </div>
                             </div>
                         </div>
@@ -184,7 +192,8 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark ps-5 h-58"
-                                        name="asst_coordinator_4_id" id="asst_coordinator_4_id" value="{{ $course->asst_coordinator_4_id }}">
+                                        name="asst_coordinator_4_id" id="asst_coordinator_4_id"
+                                        value="{{ $course->asst_coordinator_4_id }}">
                                 </div>
                             </div>
                         </div>
@@ -194,7 +203,8 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark ps-5 h-58"
-                                        name="asst_coordinator_5_id" id="asst_coordinator_5_id" value="{{ $course->asst_coordinator_5_id }}">
+                                        name="asst_coordinator_5_id" id="asst_coordinator_5_id"
+                                        value="{{ $course->asst_coordinator_5_id }}">
                                 </div>
                             </div>
                         </div>
@@ -214,10 +224,9 @@
                                 <div class="form-group position-relative">
                                     <select class="form-select form-control ps-5 h-58" name="course_type"
                                         id="course_type" required>
-                                        <option value="" class="text-dark" selected>Select Type</option>
-                                        <option value="1" class="text-dark">First</option>
-                                        <option value="2" class="text-dark">Second</option>
-                                        <option value="3" class="text-dark">Tgird</option>
+                                        <option value="1" class="text-dark" {{ $course->course_type == 1? 'selected' : '' }}>First</option>
+                                        <option value="2" class="text-dark" {{ $course->course_type == 2? 'selected' : '' }}>Second</option>
+                                        <option value="3" class="text-dark" {{ $course->course_type == 3? 'selected' : '' }}>Tgird</option>
                                     </select>
                                 </div>
                             </div>
@@ -229,10 +238,9 @@
                                 <div class="form-group position-relative">
                                     <select class="form-select form-control ps-5 h-58" name="venue_id" id="venue_id"
                                         required>
-                                        <option value="" class="text-dark" selected>Select Venue</option>
-                                        <option value="1" class="text-dark">First</option>
-                                        <option value="2" class="text-dark">Second</option>
-                                        <option value="3" class="text-dark">Tgird</option>
+                                        <option value="1" class="text-dark" {{ $course->venue_id == 1? 'selected' : '' }}>First</option>
+                                        <option value="2" class="text-dark" {{ $course->venue_id == 2? 'selected' : '' }}>Second</option>
+                                        <option value="3" class="text-dark" {{ $course->venue_id == 3? 'selected' : '' }}>Tgird</option>
                                     </select>
                                 </div>
                             </div>
@@ -264,16 +272,18 @@
                                 <div class="form-group position-relative">
                                     <select class="form-select form-control ps-5 h-58" name="page_status"
                                         id="page_status" required>
-                                        <option value="" class="text-dark" selected>Select Status</option>
-                                        <option value="1" class="text-dark"  {{ $course->page_status == 1 ? 'checked' : '' }}>Active</option>
-                                        <option value="0" class="text-dark"  {{ $course->page_status == 0 ? 'checked' : '' }}>Inactive</option>
+                                        <option value="1" class="text-dark"
+                                        {{ $course->page_status == 1? 'selected' : '' }}>Active</option>
+                                        <option value="0" class="text-dark"
+                                        {{ $course->page_status == 0? 'selected' : '' }}>Inactive</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div class="d-flex ms-sm-3 ms-md-0">
                             <button class="btn btn-success text-white fw-semibold" type="submit">Update</button>&nbsp;
-                            <a href="{{ route('admin.courses.index') }}" class="btn btn-primary text-white fw-semibold">Back</a>
+                            <a href="{{ route('admin.courses.index') }}"
+                                class="btn btn-secondary text-white fw-semibold">Back</a>
                         </div>
                     </div>
                 </form>
@@ -286,21 +296,21 @@
 
 <script>
 ClassicEditor
-.create( document.querySelector( '#meta_description' ) )
-.then( editor => {
-window.editor = editor;
-} )
-.catch( error => {
-console.error( error );
-} );
+    .create(document.querySelector('#meta_description'))
+    .then(editor => {
+        window.editor = editor;
+    })
+    .catch(error => {
+        console.error(error);
+    });
 
 ClassicEditor
-.create( document.querySelector( '#description' ) )
-.then( editor => {
-window.editor = editor;
-} )
-.catch( error => {
-console.error( error );
-} );
+    .create(document.querySelector('#description'))
+    .then(editor => {
+        window.editor = editor;
+    })
+    .catch(error => {
+        console.error(error);
+    });
 </script>
 @endsection

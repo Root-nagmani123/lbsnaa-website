@@ -21,7 +21,9 @@
     <div class="col-lg-12">
         <div class="card bg-white border-0 rounded-10 mb-4">
             <div class="card-body p-4">
-                <h4 class="fs-18 mb-4">Add New Slider</h4>
+            <div class="d-flex justify-content-between align-items-center border-bottom pb-20 mb-20">
+                    <h4 class="fw-semibold fs-18 mb-0">Add New Slider</h4>
+                </div>
                 @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -76,7 +78,8 @@
                             </div>
                         </div>
                         <div class="d-flex ms-sm-3 ms-md-0">
-                            <button class="btn btn-success text-white fw-semibold" type="submit">Add Slider</button>
+                            <button class="btn btn-success text-white fw-semibold" type="submit">Add Slider</button>&nbsp;
+                            <a href="{{ route('admin.slider_list') }}" class="btn btn-secondary text-white">Cancel</a>
                         </div>
                     </div>
                 </form>

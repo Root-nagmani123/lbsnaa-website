@@ -29,7 +29,7 @@
                 </button>
             </a>
         </div>
-              <div class="default-table-area members-list">
+        <div class="default-table-area members-list">
             <div class="table-responsive">
                 <table class="table align-middle" id="myTable">
                     <thead>
@@ -45,26 +45,30 @@
                     </thead>
                     <tbody>
                         @foreach($courses as $course)
-        <tr>
-        <td>{{ $loop->iteration }}</td> <!-- Auto-incrementing index -->
-            <td>{{ $course->course_name }}</td>
-            <td>{{ $course->abbreviation }}</td>
-            <td>{{ $course->language == 1 ? 'English' : 'Hindi' }}</td>
-            <td>{{ $course->coordinator_id }}</td>
+                        <tr>
+                            <td>{{ $loop->iteration }}</td> <!-- Auto-incrementing index -->
+                            <td>{{ $course->course_name }}</td>
+                            <td>{{ $course->abbreviation }}</td>
+                            <td>{{ $course->language == 1 ? 'English' : 'Hindi' }}</td>
+                            <td>{{ $course->coordinator_id }}</td>
                             <td>
                                 <a href="{{ route('admin.courses.edit', $course->id) }}"
                                     class="btn bg-success text-white btn-sm">Edit</a>
                                 <form action="{{ route('admin.courses.destroy', $course->id) }}" method="POST"
                                     style="display:inline;">
                                     @csrf
-                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-primary text-white" onclick="return confirm('Are you sure?')">Delete</button>
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-primary text-white"
+                                        onclick="return confirm('Are you sure?')">Delete</button>
                                 </form>
                             </td>
-                            <td><div class="form-check form-switch">
-            <input class="form-check-input status-toggle" type="checkbox" role="switch"  data-table="course" 
-            data-column="page_status" data-id="{{$course->id}}" {{$course->page_status ? 'checked' : ''}}>
-          </div></td>
+                            <td>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input status-toggle" type="checkbox" role="switch"
+                                        data-table="course" data-column="page_status" data-id="{{$course->id}}"
+                                        {{$course->page_status ? 'checked' : ''}}>
+                                </div>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>

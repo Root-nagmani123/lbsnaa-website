@@ -29,12 +29,12 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
-                                <label class="label" for="texttype">Type :</label>
+                                <label class="label" for="type">Type :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <select class="form-select form-control ps-5 h-58" name="type" id="type" required>
-                                        <option value="1" class="text-dark">Select</option>
-                                        <option value="0" class="text-dark">Academy Souvenir</option>
+                                        <option value="" class="text-dark" selected>Select</option>
+                                        <option value="Academy Souvenir" class="text-dark">Academy Souvenir</option>
                                     </select>
                                 </div>
                             </div>

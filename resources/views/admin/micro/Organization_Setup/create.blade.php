@@ -26,7 +26,7 @@
             <form action="{{ route('organization_setups.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
-                <div class="col-lg-6">
+                    <div class="col-lg-6">
                         <div class="form-group mb-4">
                             <label for="language" class="label">language</label>
                             <span class="star">*</span>
@@ -41,12 +41,12 @@
                             <label for="research_centre_id" class="label">Research Centre</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
-                            <select name="research_centre" id="research_centre_id" class="form-control" required>
-                <option value="">Select Research Centre</option>
-                @foreach ($researchCentres as $id => $name)
-                    <option value="{{ $id }}">{{ $name }}</option>
-                @endforeach
-            </select>
+                                <select name="research_centre" id="research_centre_id" class="form-control" required>
+                                    <option value="">Select Research Centre</option>
+                                    @foreach ($researchCentres as $id => $name)
+                                    <option value="{{ $id }}">{{ $name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -128,10 +128,10 @@
 <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
 
 <script>
-    ClassicEditor
-    .create( document.querySelector( '#program_description' ) )
-    .catch( error => {
-    console.error( error );
+ClassicEditor
+    .create(document.querySelector('#program_description'))
+    .catch(error => {
+        console.error(error);
     });
 </script>
 @endsection

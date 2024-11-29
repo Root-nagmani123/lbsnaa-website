@@ -30,10 +30,13 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
-                                <label class="type" for="texttype">Type :</label>
+                                <label class="label" for="type">Type :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58"  name="type" value="{{ $category->type }}" id="type" required>
+                                <select class="form-select form-control ps-5 h-58" name="type" id="type" required>
+                                        <option value="1" class="text-dark" {{ $category->type == 1 ? 'selected' : '' }}>Academy Souvenir</option>
+                                        <option value="2" class="text-dark" {{ $category->type == 2 ? 'selected' : '' }}>Life Academy Souvenir</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -63,13 +66,14 @@
                                 <div class="form-group position-relative">
                                     <select class="form-select form-control ps-5 h-58" name="status" id="status" required>
                                         <option value="1" class="text-dark" {{ $category->status == 1 ? 'selected' : '' }}>Active</option>
-                                        <option value="0" class="text-dark" {{ $category->status == 1 ? 'selected' : '' }}>Inactive</option>
+                                        <option value="0" class="text-dark" {{ $category->status == 0 ? 'selected' : '' }}>Inactive</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div class="d-flex ms-sm-3 ms-md-0">
                             <button class="btn btn-success text-white fw-semibold" type="submit">Update</button> &nbsp;
+                            <a href="{{ route('souvenir.index') }}" class="btn btn-secondary text-white">Back</a>
                         </div>
                     </div>
                 </form>

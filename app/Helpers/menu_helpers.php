@@ -28,9 +28,10 @@ if (!function_exists('renderMenu')) {
 
 
 if (!function_exists('renderMicroMenu')) {
-    function renderMicroMenu($menu, $indent = '')
+    function renderMicroMenu($menu, $indent = '', &$counter = 1)
     {
         $output = '<tr>';
+        $output .= '<td>' . $counter . '</td>'; // Use the counter for numbering
         $output .= '<td>' . $indent . htmlspecialchars($menu->menutitle) . '</td>';
         $output .= '<td>' . ($menu->parent_id ? htmlspecialchars(\App\Models\Admin\Micro\MicroMenu::find($menu->parent_id)->menutitle) : 'Root Category') . '</td>';
         $output .= '<td>' . getMenuType($menu->texttype) . '</td>';
@@ -40,9 +41,13 @@ if (!function_exists('renderMicroMenu')) {
             <input class="form-check-input status-toggle" type="checkbox" role="switch" data-table="micromenus" 
             data-column="menu_status" data-id="' . $menu->id . '" ' . ($menu->menu_status ? 'checked' : '') . '>
           </div></td>';
-        // Render child menus
+        $output .= '</tr>';
+
+        $counter++; // Increment the counter
+
+        // Render child menus, passing the counter
         foreach ($menu->children as $child) {
-            $output .= renderMicroMenu($child, $indent . '--- '); // Increase indent for child items
+            $output .= renderMicroMenu($child, $indent . '--- ', $counter);
         }
 
         return $output;

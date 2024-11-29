@@ -84,9 +84,8 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <select class="form-select form-control ps-5 h-58" name="page_status" id="page_status" required>
-                                        <option value="0" class="text-dark">Select</option>
-                                        <option value="1" class="text-dark" {{ $audio->page_status == '1' ? 'selected' : '' }}>Active</option>
-                                        <option value="2" class="text-dark" {{ $audio->page_status == '0' ? 'selected' : '' }}>Inactive</option>
+                                        <option value="1" class="text-dark" {{ $audio->page_status == 1? 'selected' : '' }}>Active</option>
+                                        <option value="0" class="text-dark" {{ $audio->page_status == 0? 'selected' : '' }}>Inactive</option>
                                     </select>
                                 </div>
                             </div>

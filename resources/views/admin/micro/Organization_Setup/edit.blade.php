@@ -118,10 +118,8 @@
                             <span class="star">*</span>
                             <div class="form-group position-relative">
                                 <select name="page_status" class="form-control text-dark ps-5 h-58" id="page_status">
-                                    <option value="" class="text-dark" selected>Select</option>
-                                    <option value="1" class="text-dark" {{ $organizationSetup->page_status == '1' ? 'selected' : '' }}>Draft</option>
-                                    <option value="2" class="text-dark" {{ $organizationSetup->page_status == '2' ? 'selected' : '' }}>Approval</option>
-                                    <option value="3" class="text-dark" {{ $organizationSetup->page_status == '3' ? 'selected' : '' }}>Publish</option>
+                                    <option value="1" class="text-dark" {{ $organizationSetup->page_status == 1? 'selected' : '' }}>Active</option>
+                                    <option value="0" class="text-dark" {{ $organizationSetup->page_status == 0? 'selected' : '' }}>Inactive</option>
                                 </select>
                             </div>
                         </div>

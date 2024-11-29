@@ -108,50 +108,70 @@
                         </div>
                     </div>
                     <div class="col-lg-6">
-                    <div class="form-group mb-4">
-                    <label class="label">Start Date</label>
-                    <span class="star">*</span>
-                    <input type="date" name="start_date" class="form-control" value="{{ $trainingProgram->start_date }}"
-                        required>
-                </div>
+                        <div class="form-group mb-4">
+                            <label class="label">Start Date</label>
+                            <span class="star">*</span>
+                            <div class="form-group position-relative">
+                                <input type="date" name="start_date" class="form-control text-dark ps-5 h-58"
+                                    value="{{ $trainingProgram->start_date }}" required>
+                            </div>
+                        </div>
                     </div>
+                    <div class="col-lg-6">
+                        <div class="form-group mb-4">
+                            <label class="label">End Date</label>
+                            <span class="star">*</span>
+                            <div class="form-group position-relative">
+                                <input type="date" name="end_date" class="form-control text-dark ps-5 h-58"
+                                    value="{{ $trainingProgram->end_date }}" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group mb-4">
+                            <label class="label">Important Links</label>
+                            <span class="star">*</span>
+                            <div class="form-group position-relative">
+                                <input type="text" name="important_links" class="form-control text-dark ps-5 h-58"
+                                    value="{{ $trainingProgram->important_links }}" required>
+                            </div>
 
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group mb-4">
+                            <label class="label">Registration Status</label>
+                            <span class="star">*</span>
+                            <div class="form-group position-relative">
+                                <select name="registration_status" id="registration_status"
+                                    class="form-control text-dark ps-5 h-58">
+                                    <option value="1" class="text-dark"
+                                        {{ $trainingProgram->registration_status == 1? 'selected' : '' }}>On</option>
+                                    <option value="2" class="text-dark"
+                                        {{ $trainingProgram->registration_status == 2? 'selected' : '' }}>Off</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group mb-4">
+                            <label class="label">Page Status</label>
+                            <span class="star">*</span>
+                            <div class="form-group position-relative">
+                                <select name="page_status" class="form-control text-dark ps-5 h-58" required>
+                                    <option value="1" {{ $trainingProgram->page_status == 1? 'selected' : '' }}>Active
+                                    </option>
+                                    <option value="0" {{ $trainingProgram->page_status == 0? 'selected' : '' }}>Inactive
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex ms-sm-3 ms-md-0">
+                            <button class="btn btn-success text-white fw-semibold" type="submit">Update</button> &nbsp;
+                            <a href="{{ route('training-programs.index') }}" class="btn btn-secondary text-white fw-semibold">Back</a>
+                        </div>
                 </div>
-
-               
-
-                <div class="form-group">
-                    <label>End Date *</label>
-                    <input type="date" name="end_date" class="form-control" value="{{ $trainingProgram->end_date }}"
-                        required>
-                </div>
-
-                <div class="form-group">
-                    <label>Important Links</label>
-                    <textarea name="important_links"
-                        class="form-control">{{ $trainingProgram->important_links }}</textarea>
-                </div>
-
-                <div class="form-group">
-                    <label>Registration Status *</label><br>
-                    <input type="radio" name="registration_status" value="1"
-                        {{ $trainingProgram->registration_status == '1' ? 'checked' : '' }} required> ON
-                    <input type="radio" name="registration_status" value="2"
-                        {{ $trainingProgram->registration_status == '2' ? 'checked' : '' }}> OFF
-                </div>
-
-                <div class="form-group">
-                    <label>Page Status *</label>
-                    <select name="page_status" class="form-control" required>
-                        <option value="1" {{ $trainingProgram->page_status == '1' ? 'selected' : '' }}>Active
-                        </option>
-                        <option value="0" {{ $trainingProgram->page_status == '0' ? 'selected' : '' }}>Inactive
-                        </option>
-                    </select>
-                </div>
-
-                <button type="submit" class="btn btn-primary">Update</button>
-                <a href="{{ route('training-programs.index') }}" class="btn btn-secondary">Cancel</a>
             </form>
         </div>
     </div>

@@ -52,8 +52,8 @@
                                 <label class="label" for="status">Status :</label>
                                 <span class="star">*</span>
                                 <select name="status" id="status" class="form-control" required>
-                                    <option value="1" {{ $footerImage->status ? 'checked' : '' }}>Active</option>
-                                    <option value="0" {{ $footerImage->status ? 'checked' : '' }}>Inactive</option>
+                                    <option value="1" {{ $footerImage->status == 1? 'selected' : '' }}>Active</option>
+                                    <option value="0" {{ $footerImage->status == 0? 'selected' : '' }}>Inactive</option>
                                 </select>
                             </div>
                         </div>

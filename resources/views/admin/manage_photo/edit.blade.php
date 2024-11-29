@@ -169,12 +169,12 @@
                                     @if(is_array($imageFiles) && count($imageFiles) > 0)
                                     @foreach($imageFiles as $file)
                                     <div class="file-group">
+                                        <!-- File input for updating image -->
+                                        <input type="file" name="image_files[]" class="form-control text-dark ps-5 h-58 mb-2" accept="image/*">
                                         <div class="image-preview mb-2">
                                             <!-- Display the image thumbnail -->
                                             <img src="{{ asset('storage/' . $file) }}" alt="image" width="100" height="100">
                                         </div>
-                                        <!-- File input for updating image -->
-                                        <input type="file" name="image_files[]" class="form-control text-dark ps-5 h-58 mb-2" accept="image/*">
                                         <button type="button" class="btn btn-primary remove-existing-file text-white mb-2" data-file="{{ $file }}">Remove</button>
                                     </div>
                                     @endforeach
@@ -482,7 +482,7 @@ document.addEventListener("DOMContentLoaded", function () {
         fileGroup.classList.add('file-group', 'mt-2');
         fileGroup.innerHTML = `
             <input type="file" name="image_files[]" class="form-control text-dark ps-5 h-58" accept="image/*">
-            <button type="button" class="btn btn-danger remove-file mt-2 text-white">Remove</button>
+            <button type="button" class="btn btn-primary remove-file mt-2 mb-2 text-white">Remove</button>
         `;
         fileContainer.appendChild(fileGroup);
 
