@@ -21,7 +21,8 @@
 
   <title>Home | Lal Bahadur Shastri National Academy of Administration</title>
 </head>
-<header>
+<body class="d-flex flex-column min-vh-100">
+<header class="d-none d-lg-block sticky-top">
   <nav class="navbar navbar-expand-lg">
     <div class="container px-0">
     <a href="#" class="d-block text-decoration-none">

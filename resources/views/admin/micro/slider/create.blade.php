@@ -134,14 +134,4 @@
 </div>
 
 
-<script src="https://cdn.ckeditor.com/4.20.2/standard/ckeditor.js"></script>
-<script>
-    // Attach CKEditor to the textarea
-    CKEDITOR.replace('editor', {
-        height: 300, // Customize editor height
-        filebrowserUploadUrl: "{{ route('ckeditor.upload', ['_token' => csrf_token()]) }}",
-        filebrowserUploadMethod: 'form'
-    });
-</script>
-
 @endsection

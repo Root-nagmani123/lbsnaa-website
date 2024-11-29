@@ -5,7 +5,7 @@
 <!-- quick link section -->
   <!-- card section end -->
   <!-- footer -->
-  <section class="py-4  bg-white">
+  <section class="py-4 bg-white mt-auto">
     <!-- container -->
     <div class="container">
       <div class="row">
@@ -23,9 +23,8 @@
         </div>
       </div>
     </div>
-  </section>
-  <!-- footer -->
-  <footer class="pt-2 pb-3 bg-white">
+      <!-- footer -->
+  <footer class="pt-2 pb-3">
     <div class="container">
       <div class="row justify-content-center text-center align-items-center">
         <div class="col-12 col-md-12 px-0">
@@ -90,6 +89,8 @@
       <!-- Links -->
     </div>
   </footer>
+  </section>
+
 
   <!-- Scroll top -->
   <div class="btn-scroll-top">
