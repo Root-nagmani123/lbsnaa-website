@@ -71,7 +71,7 @@
                                 <div class="form-group position-relative">
                                     <select class="form-select form-control ps-5 h-58" name="status" id="status" required>
                                         <option value="1" class="text-dark" {{ $category->status == 1? 'selected' : '' }}>Active</option>
-                                        <option value="0" class="text-dark" {{ $category->status == 2? 'selected' : '' }}>Inactive</option>
+                                        <option value="0" class="text-dark" {{ $category->status == 0? 'selected' : '' }}>Inactive</option>
                                     </select>
                                 </div>
                             </div>
