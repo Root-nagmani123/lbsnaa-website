@@ -63,7 +63,7 @@
     <div class="container">
         <!-- row -->
         <div class="row">
-            <div class="col-xl-3 col-lg-4 col-md-6 col-12">
+            <div class="col-4">
                 <!-- card -->
                 <div class="card mb-4 card-hover">
                     <!-- img -->
@@ -72,13 +72,13 @@
                     </div>
                     <!-- card body -->
                     <div class="card-body">
-                        <h3 class="mb-0 fw-semibold"><a href="#" class="text-inherit">Director's Message</a></h3>
+                        <h3 class="mb-0 fw-semibold">Director's Message</h3>
                         <p class="mb-3">Message</p>
                         <p class="mb-3">Previous Message</p>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-3 col-lg-4 col-md-6 col-12">
+            <div class="col-4">
                 <!-- card -->
                 <div class="card mb-4 card-hover">
                     <!-- img -->
@@ -93,7 +93,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-3 col-lg-4 col-md-6 col-12">
+            <div class="col-4">
                 <!-- card -->
                 <div class="card mb-4 card-hover">
                     <!-- img -->
@@ -108,7 +108,37 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-3 col-lg-4 col-md-6 col-12 d-lg-none d-xl-block">
+            <div class="col-4">
+                <!-- card -->
+                <div class="card mb-4 card-hover">
+                    <!-- img -->
+                    <div>
+                        <img src="{{ asset('assets/images/5.jpg')}}" alt="img" class="card-img-top">
+                    </div>
+                    <!-- card body -->
+                    <div class="card-body">
+                        <h3 class="mb-0 fw-semibold"><a href="#" class="text-inherit">Director's Message</a></h3>
+                        <p class="mb-3">Message</p>
+                        <p class="mb-3">Previous Message</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <!-- card -->
+                <div class="card mb-4 card-hover">
+                    <!-- img -->
+                    <div>
+                        <img src="{{ asset('assets/images/5.jpg')}}" alt="img" class="card-img-top">
+                    </div>
+                    <!-- card body -->
+                    <div class="card-body">
+                        <h3 class="mb-0 fw-semibold"><a href="#" class="text-inherit">Director's Message</a></h3>
+                        <p class="mb-3">Message</p>
+                        <p class="mb-3">Previous Message</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
                 <!-- card -->
                 <div class="card mb-4 card-hover">
                     <!-- img -->
@@ -150,14 +180,20 @@
                                         <div class="item tns-item">
                                             <div class="card card-lift h-100 text-center text-lg-start">
                                                 <div class="p-2">
-                                                    <a href="#"><img
-                                                            src="{{ asset('assets/images/4.jpg') }}"
-                                                            alt="" class="img-fluid rounded-3 w-100"></a>
+                                                <a href="#">
+                                                    <img
+                                                        src="{{ isset($slider->main_image) || !empty($slider->main_image) ? asset($slider->main_image) : asset('assets/images/4.jpg') }}"
+                                                        alt=""
+                                                        class="img-fluid rounded-3 w-100"
+                                                    >
+                                                </a>
+
                                                 </div>
                                                 <div class="card-body pt-2">
                                                     <h3><a class="text-inherit" href="#">{{ $slider->title }}</a></h3>
                                                     <p>{{ $slider->short_description }}</p>
-                                                    <small>Posted on:- {{ $slider->created_at }}</small> <br><br>
+                                                    <small>Posted On: {{ \Carbon\Carbon::parse($slider->created_at)->format('d F, Y') }}</small>
+                                                    <br><br>
                                                     <a href="{{ route('user.newsbyslug', $slider->title_slug) }}"
                                                         class="icon-link icon-link-hover link-primary fw-semibold">
                                                         <span>View Details</span>
@@ -194,9 +230,26 @@
                     <h3 class="fw-semibold text-white">Quick Links</h3>
                     <ul class="mt-2 mb-2 list-group list-group-flush">
                         @foreach($quick_links as $key => $quick_link)
-                        <li class="text-start list-group-item text-white">{{$quick_link->text}}</li>
+                            <li class="text-start list-group-item text-white">
+                                @if(!empty($quick_link->url))
+                                <a 
+                    href="{{ str_starts_with($quick_link->url, 'http://') || str_starts_with($quick_link->url, 'https://') ? $quick_link->url : 'http://' . $quick_link->url }}" 
+                    target="_blank" 
+                    class="text-white text-decoration-none"
+                >
+                    {{ $quick_link->text }}
+                </a>
+                                @elseif(!empty($quick_link->file))
+                                    <a href="{{ asset('quick-links-files/'.$quick_link->file) }}" target="_blank" class="text-white text-decoration-none">
+                                        {{ $quick_link->text }}
+                                    </a>
+                                @else
+                                    {{ $quick_link->text }}
+                                @endif
+                            </li>
                         @endforeach
                     </ul>
+
 
                 </div>
             </div>

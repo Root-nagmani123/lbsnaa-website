@@ -119,8 +119,8 @@
                                 <label for="multiple_images" class="label">Upload Multiple Image</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                       <input type="file" name="multiple_images" id="multiple_images" class="form-control text-dark ps-5 h-58">
-                                       <small>Current Images: 
+                                <input type="file" name="multiple_images[]" id="multiple_images" class="form-control text-dark ps-5 h-58" multiple>
+                                <small>Current Images: 
                                         @foreach (json_decode($news->multiple_images) as $image)
                                             <img src="{{ asset($image) }}" alt="Current Image" style="max-width: 150px; margin: 5px;">
                                         @endforeach

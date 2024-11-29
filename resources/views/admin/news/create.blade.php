@@ -118,8 +118,9 @@
                                 <label for="multiple_images" class="label">Upload Multiple Image</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                       <input type="file" name="multiple_images" id="multiple_images" class="form-control text-dark ps-5 h-58">
-                                </div>
+                                        <input type="file" name="multiple_images[]" id="multiple_images" class="form-control text-dark ps-5 h-58" multiple>
+                                    </div>
+
                             </div>
                         </div>
                         <div class="col-lg-6">

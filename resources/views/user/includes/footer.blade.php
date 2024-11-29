@@ -35,13 +35,29 @@
             </a>
           </div> -->
           <nav class="nav nav-footer justify-content-center">
-          @foreach($footer_links as $i => $footer_link)
-            @if($i > 0)
-              <span class="my-2 vr opacity-50"></span>   
-            @endif
-              <a class="nav-link" href="#">{{$footer_link->menutitle}}</a>
-          @endforeach 
-          </nav>
+    @foreach($footer_links as $i => $footer_link)
+        @if($i > 0)
+            <span class="my-2 vr opacity-50"></span>
+        @endif
+
+        @if($footer_link->texttype == 1) 
+            {{-- Content --}}
+            <a class="nav-link" href="{{ url('footer_menu/'.$footer_link->menu_slug) }}">{{ $footer_link->menutitle }}</a>
+        @elseif($footer_link->texttype == 2) 
+            {{-- PDF File Upload --}}
+            <a class="nav-link" href="{{ asset('uploads/menus/' . $footer_link->pdf_file) }}" target="_blank">{{ $footer_link->menutitle }}</a>
+        @elseif($footer_link->texttype == 3) 
+            {{-- Website URL --}}
+            <a class="nav-link" href="{{ str_starts_with($footer_link->website_url, 'http') ? $footer_link->website_url : 'http://' . $footer_link->website_url }}" target="_blank">
+                {{ $footer_link->menutitle }}
+            </a>
+        @else
+            {{-- Default or Unhandled Type --}}
+            <a class="nav-link" href="#">{{ $footer_link->menutitle }}</a>
+        @endif
+    @endforeach
+</nav>
+
         </div>
       </div>
       <!-- Desc -->
