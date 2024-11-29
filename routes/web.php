@@ -77,10 +77,38 @@ use App\Http\Controllers\User\HomeFrontController;
 |
 */
 
-Route::get('/', [HomeFrontController::class,'index']);
+Route::get('/', [HomeFrontController::class,'index'])->name('home');
 Route::get('/news/{slug}', [HomeFrontController::class,'get_news'])->name('user.newsbyslug');
 Route::get('/menu/{slug}', [HomeFrontController::class, 'get_navigation_pages'])->name('user.navigationpagesbyslug');
 Route::get('/footer_menu/{slug}', [HomeFrontController::class, 'footer_menu'])->name('user.footer_menu');
+Route::get('/updates/{slug}', [HomeFrontController::class, 'letest_updates'])->name('user.letest_updates');
+Route::get('/news-listing', [HomeFrontController::class, 'news_listing'])->name('user.news_listing');
+Route::get('/tenders', [HomeFrontController::class, 'tenders'])->name('user.tenders');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Route::middleware('auth')->group(function () {
     Route::get('/admin', [Controller::class, 'index'])->name('admin.index');
 });

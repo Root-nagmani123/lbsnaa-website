@@ -49,7 +49,7 @@
             <button class="btn btn-primary" id="basic-addon2" style="z-index: 1;">Latest Updates</button>
             <div class="animate-marquee d-flex gap-3">
                 @foreach($news_scrollers as $scroller)
-                <a href="#" class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border marquee-item">
+                <a href="{{ route('user.letest_updates', $scroller->menu_slug) }}" class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border marquee-item">
                     <div class="p-3">
                         <span class="text-gray-800">{{$scroller->menutitle}}</span>
                     </div>
@@ -70,7 +70,7 @@
                 <div class="card mb-4 card-hover">
                     <!-- img -->
                     <div>
-                        <img src="{{ asset('assets/images/4.jpg') }}" alt="img" class="card-img-top">
+                        <img src="{{ asset('assets/images/65044826c6957DirSirNew.jpeg') }}" alt="img" class="card-img-top">
                     </div>
                     <!-- card body -->
                     <div class="card-body">
@@ -85,13 +85,12 @@
                 <div class="card mb-4 card-hover">
                     <!-- img -->
                     <div>
-                        <img src="{{ asset('assets/images/2.jpg') }}" alt="img" class="card-img-top">
+                        <img src="{{ asset('assets/images/courses.png') }}" alt="img" class="card-img-top">
                     </div>
                     <!-- card body -->
                     <div class="card-body">
-                        <h3 class="mb-0 fw-semibold"><a href="#" class="text-inherit">Director's Message</a></h3>
-                        <p class="mb-3">Message</p>
-                        <p class="mb-3">Previous Message</p>
+                        <h3 class="mb-0 fw-semibold"><a href="#" class="text-inherit">Running Courses</a></h3>
+                        
                     </div>
                 </div>
             </div>
@@ -100,13 +99,12 @@
                 <div class="card mb-4 card-hover">
                     <!-- img -->
                     <div>
-                        <img src="{{ asset('assets/images/3.jpg') }}" alt="img" class="card-img-top">
+                        <img src="{{ asset('assets/images/up-comming.png') }}" alt="img" class="card-img-top">
                     </div>
                     <!-- card body -->
                     <div class="card-body">
-                        <h3 class="mb-0 fw-semibold"><a href="#" class="text-inherit">Director's Message</a></h3>
-                        <p class="mb-3">Message</p>
-                        <p class="mb-3">Previous Message</p>
+                        <h3 class="mb-0 fw-semibold"><a href="#" class="text-inherit">Upcoming Courses</a></h3>
+                       
                     </div>
                 </div>
             </div>
@@ -115,13 +113,12 @@
                 <div class="card mb-4 card-hover">
                     <!-- img -->
                     <div>
-                        <img src="{{ asset('assets/images/5.jpg')}}" alt="img" class="card-img-top">
+                        <img src="{{ asset('assets/images/training-cleaner.png')}}" alt="img" class="card-img-top">
                     </div>
                     <!-- card body -->
                     <div class="card-body">
-                        <h3 class="mb-0 fw-semibold"><a href="#" class="text-inherit">Director's Message</a></h3>
-                        <p class="mb-3">Message</p>
-                        <p class="mb-3">Previous Message</p>
+                        <h3 class="mb-0 fw-semibold"><a href="#" class="text-inherit">Training Calendar</a></h3>
+                    
                     </div>
                 </div>
             </div>
@@ -130,13 +127,12 @@
                 <div class="card mb-4 card-hover">
                     <!-- img -->
                     <div>
-                        <img src="{{ asset('assets/images/5.jpg')}}" alt="img" class="card-img-top">
+                        <img src="{{ asset('assets/images/life-at-academy.png')}}" alt="img" class="card-img-top">
                     </div>
                     <!-- card body -->
                     <div class="card-body">
-                        <h3 class="mb-0 fw-semibold"><a href="#" class="text-inherit">Director's Message</a></h3>
-                        <p class="mb-3">Message</p>
-                        <p class="mb-3">Previous Message</p>
+                        <h3 class="mb-0 fw-semibold"><a href="#" class="text-inherit">Life at Academy</a></h3>
+                       
                     </div>
                 </div>
             </div>
@@ -145,13 +141,12 @@
                 <div class="card mb-4 card-hover">
                     <!-- img -->
                     <div>
-                        <img src="{{ asset('assets/images/5.jpg')}}" alt="img" class="card-img-top">
+                        <img src="{{ asset('assets/images/academy.png')}}" alt="img" class="card-img-top">
                     </div>
                     <!-- card body -->
                     <div class="card-body">
-                        <h3 class="mb-0 fw-semibold"><a href="#" class="text-inherit">Director's Message</a></h3>
-                        <p class="mb-3">Message</p>
-                        <p class="mb-3">Previous Message</p>
+                        <h3 class="mb-0 fw-semibold"><a href="#" class="text-inherit">Academy Souvenir</a></h3>
+                       
                     </div>
                 </div>
             </div>
@@ -224,6 +219,7 @@
                                 <i class="fe fe-chevron-right"></i>
                             </li>
                         </ul>
+                        <div><a href="{{ route('user.news_listing') }}">View ALL</a></div>
                     </div>
                 </div>
             </div>

@@ -11,6 +11,11 @@ use App\Models\Admin\ManageAudit;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str; 
 
+
+use DOMDocument;
+
+
+
 class NewsController extends Controller
 {
     // List all news
@@ -55,7 +60,26 @@ class NewsController extends Controller
                 $multipleImages[] = 'news_images/' . basename($imagePath); // Save relative path
             }
             $news->multiple_images = json_encode($multipleImages); // Store as JSON string
+        } 
+
+
+        $description = $request->description;
+
+        $dom = new DOMDocument();
+        $dom->loadHTML($description,9);
+
+        $images = $dom->getElementsByTagName('img');
+
+        foreach ($images as $key => $img) {
+            $data = base64_decode(explode(',',explode(';',$img->getAttribute('src'))[1])[1]);
+            $image_name = "/ckupload/" . time(). $key.'.png';
+            file_put_contents(public_path().$image_name,$data);
+
+            $img->removeAttribute('src');
+            $img->setAttribute('src',$image_name);
         }
+        $description = $dom->saveHTML();
+
 
         // Set other news attributes
         $news->language = $request->language;
@@ -64,12 +88,12 @@ class NewsController extends Controller
         $news->meta_title = $request->meta_title;
         $news->meta_keywords = $request->meta_keyword;
         $news->meta_description = $request->meta_description;
-        $news->description = $request->description;
+        $news->description = $description;
         $news->start_date = $request->start_date;
         $news->end_date = $request->end_date;
         $news->status = $request->status;
 
-        // $news->title_slug = Str::slug($request->title, '-');
+        $news->title_slug = Str::slug($request->title, '-');
 
         // Save the news instance
         $news = $news->save();
@@ -144,6 +168,25 @@ class NewsController extends Controller
             $news->multiple_images = json_encode($multipleImages); // Store as JSON string
         }
 
+
+        $description = $request->description;
+
+        $dom = new DOMDocument();
+        $dom->loadHTML($description,9);
+
+        $images = $dom->getElementsByTagName('img');
+
+        foreach ($images as $key => $img) {
+            $data = base64_decode(explode(',',explode(';',$img->getAttribute('src'))[1])[1]);
+            $image_name = "/ckupload/" . time(). $key.'.png';
+            file_put_contents(public_path().$image_name,$data);
+
+            $img->removeAttribute('src');
+            $img->setAttribute('src',$image_name);
+        }
+        $description = $dom->saveHTML();
+
+
         // Update other news attributes
         $news->language = $request->language;
         $news->title = $request->title;
@@ -151,11 +194,11 @@ class NewsController extends Controller
         $news->meta_title = $request->meta_title;
         $news->meta_keywords = $request->meta_keywords;
         $news->meta_description = $request->meta_description;
-        $news->description = $request->description;
+        $news->description = $description;
         $news->start_date = $request->start_date;
         $news->end_date = $request->end_date;
         $news->status = $request->status;
-        // $news->title_slug = Str::slug($request->title, '-');
+        $news->title_slug = Str::slug($request->title, '-');
 
         // Save the updated news instance
         $news = $news->save();
