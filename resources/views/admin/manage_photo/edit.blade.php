@@ -141,10 +141,14 @@
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label">Image Title (English)</label>
+                                <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" name="image_title_english"
                                         value="{{ old('image_title_english', $gallery->image_title_english ?? '') }}"
                                         required class="form-control text-dark ps-5 h-58">
+                                    @error('job_title')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>

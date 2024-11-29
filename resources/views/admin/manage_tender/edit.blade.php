@@ -26,7 +26,7 @@
                     @method('PUT')
                     @include('admin.manage_tender.form')
                     <div class="d-flex ms-sm-3 ms-md-0">
-                        <button class="btn btn-success text-white fw-semibold" type="submit">Update Tender</button>&nbsp;
+                        <button class="btn btn-success text-white fw-semibold" type="submit">Update</button>&nbsp;
                         <a href="{{ route('manage_tender.index') }}" class="btn btn-primary text-white fw-semibold">Back</a>
                     </div>
                 </form>
@@ -35,11 +35,11 @@
     </div>
 </div>
 @endsection
-
+<!-- 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         let today = new Date().toISOString().split('T')[0];
         document.querySelector('input[name="publish_date"]').setAttribute('min', today);
         document.querySelector('input[name="expiry_date"]').setAttribute('min', today);
     });
-</script>
+</script> -->

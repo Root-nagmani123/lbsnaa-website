@@ -148,13 +148,31 @@ class MicroManageVacancyController extends Controller
     //     return redirect()->route('micro_manage_vacancy.index')->with('success', 'Vacancy deleted successfully');
     // }
 
-    public function destroy(MicroManageVacancy $manage_vacancy)
-    {
-        Log::info('Destroy method called for vacancy ID: ' . $manage_vacancy->id);
+    // public function destroy(MicroManageVacancy $manage_vacancy)
+    // {
+    //     // dd($manage_vacancy);
+    //     // Log::info('Destroy method called for vacancy ID: ' . $manage_vacancy->id);
 
-        $manage_vacancy->delete();
-        return redirect()->route('micro_manage_vacancy.index')->with('success', 'Vacancy deleted successfully');
-    }
+    //     // $manage_vacancy->delete();
+    //     DB::table('micro_manage_vacancies')->where('id', $manage_vacancy->id)->delete();
+
+    //     return redirect()->route('micro_manage_vacancy.index')->with('success', 'Vacancy deleted successfully');
+    // }
+
+public function destroy(MicroManageVacancy $manage_vacancy)
+{
+    Log::info('Deleting vacancy ID: ' . $manage_vacancy->id);
+    
+    // Attempt deletion
+    $manage_vacancy->delete();
+    
+    // Log if delete is successful
+    Log::info('Vacancy deleted successfully: ' . $manage_vacancy->id);
+
+    return redirect()->route('micro_manage_vacancy.index')->with('success', 'Vacancy deleted successfully');
+}
+
+
 
 
 }
