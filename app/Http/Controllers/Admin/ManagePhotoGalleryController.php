@@ -16,20 +16,18 @@ class ManagePhotoGalleryController extends Controller
 { 
     public function index() 
     {
-        // $galleries = DB::table('manage_photo_galleries as sub')
-        // ->leftJoin('courses as parent', 'sub.course_id', '=', 'parent.id') // Correct join
-        // ->leftJoin('courses as second_row', 'sub.related_training_program', '=', 'second_row.id') // Correct join
-        // ->select('sub.*', 'parent.id', 'parent.name','second_row.name as media_cat_name') // Select the necessary columns
-        // ->get(); 
-
         $galleries = DB::table('manage_photo_galleries as sub')
         ->leftJoin('courses as parent', 'sub.course_id', '=', 'parent.id') // Correct join
         ->leftJoin('courses as second_row', 'sub.related_training_program', '=', 'second_row.id') // Correct join
+        ->leftJoin('courses as third_row', 'sub.related_news', '=', 'third_row.id') // Correct join
+        ->leftJoin('courses as four_row', 'sub.related_events', '=', 'four_row.id') // Correct join
         ->select(
             'sub.*',                    // All columns from manage_photo_galleries
             'parent.id as course_id',   // Alias for parent.id to avoid overwriting sub.id
             'parent.name',              // Course name from parent
-            'second_row.name as media_cat_name' // Media category name
+            'second_row.name as media_cat_name', // Media category name
+            'third_row.name as related_news',
+            'four_row.name as related_events'
         )
         ->get();
         
@@ -40,54 +38,6 @@ class ManagePhotoGalleryController extends Controller
     {
         return view('admin.manage_photo.create'); 
     }
-
-
-    // public function store(Request $request)
-    // {
-    //     // Validate inputs
-    //     $request->validate([
-    //         'image_files' => 'required|array',
-    //         'image_files.*' => 'file|mimes:jpeg,png,jpg|max:2048',
-    //     ]);
-
-    //     // Ensure image files are provided
-    //     $imageFiles = $request->file('image_files');
-
-    //     if (!$imageFiles) {
-    //         return redirect()->back()->with('error', 'No images uploaded!');
-    //     }
-
-    //     // Collect data for all images
-    //     $data1 = [];
-    //     foreach ($imageFiles as $file) {
-    //         // Save image and get the path
-    //         $data1[] = $file->store('uploads/gallery', 'public');
-    //         if (!$data1) {
-    //             return redirect()->back()->with('error', 'Failed to upload file.');
-    //         }
-    //     }
-    //     // print_r( json_encode($data1));die;
-    //         // Prepare data for insertion
-    //     $data[] = [
-    //         'image_title_english' => $request->input('image_title_english', 'Default Title'),
-    //         'image_title_hindi' => $request->input('image_title_hindi'),
-    //         'status' => $request->input('status', 'Draft'),
-    //         'image_files' => json_encode($data1),
-    //         'course_id' => $request->input('course_id'),
-    //         'related_news' => $request->input('related_news'),
-    //         'related_training_program' => $request->input('related_training_program'),
-    //         'related_events' => $request->input('related_events'),
-    //         'created_at' => now(), // Add timestamp for created_at
-    //         'updated_at' => now(), // Add timestamp for updated_at
-    //     ];
-
-    //     // Insert all data in a single query
-    //     if (!empty($data)) {
-    //         ManagePhotoGallery::insert($data);
-    //     }
-
-    //     return redirect()->route('photo-gallery.index')->with('success', 'Gallery added successfully.');
-    // }
 
     public function store(Request $request)
     {

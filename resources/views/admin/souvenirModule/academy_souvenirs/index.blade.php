@@ -35,8 +35,8 @@
         <div class="alert alert-success">
             {{ session('success') }}
         </div>
-    @endif
-              <div class="default-table-area members-list">
+        @endif
+        <div class="default-table-area members-list">
             <div class="table-responsive">
                 <table class="table align-middle" id="myTable">
                     <thead>
@@ -46,6 +46,7 @@
                             <th class="col">Product Category</th>
                             <th class="col">Product Title</th>
                             <th class="col">Product Type</th>
+                            <th class="col">Option</th>
                             <th class="col">Actions</th>
                             <th class="col">Status</th>
                         </tr>
@@ -53,25 +54,49 @@
                     <tbody>
                         @foreach($souvenirs as $souvenir)
                         <tr>
-                        <td>{{ $loop->iteration }}</td> <!-- Auto-incrementing index -->
+                            <td>{{ $loop->iteration }}</td> <!-- Auto-incrementing index -->
                             <td>{{ $souvenir->language == 1 ? 'English' : 'Hindi' }}</td>
                             <td>{{ $souvenir->product_category }}</td>
                             <td>{{ $souvenir->product_title }}</td>
                             <td>{{ $souvenir->product_type }}</td>
+                            <td>
+                                <button type="button"
+                                    class="btn btn-outline-primary text-primary fw-semibold btn-sm view-slider"
+                                    data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+
+                                    data-product_category="{{ $souvenir->product_category }}"
+                                    data-product_title="{{ $souvenir->product_title }}"
+                                    data-product_type="{{ $souvenir->product_type }}"
+                                    data-product_price="{{ $souvenir->product_price }}"
+                                    data-product_discounted_price="{{ $souvenir->product_discounted_price }}"
+                                    data-contact_email_id="{{ $souvenir->contact_email_id }}"
+                                    data-document_upload="{{ asset( $souvenir->document_upload) }}"
+                                    data-upload_image="{{ asset($souvenir->upload_image) }}"
+                                    data-product_description="{{ $souvenir->product_description }}"
+                                    data-product_status="{{ $souvenir->product_status }}"
+                                    data-language="{{ $souvenir->language == 1 ? 'English' : 'Hindi' }}">
+                                    View
+                                </button>
+                            </td>
+
                             <td>
                                 <a href="{{ route('academy_souvenirs.edit', $souvenir->id) }}"
                                     class="btn bg-success text-white btn-sm">Edit</a>
                                 <form action="{{ route('academy_souvenirs.destroy', $souvenir->id) }}" method="POST"
                                     style="display:inline;">
                                     @csrf
-                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-primary text-white" onclick="return confirm('Are you sure?')">Delete</button>
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-primary text-white"
+                                        onclick="return confirm('Are you sure?')">Delete</button>
                                 </form>
                             </td>
-                            <td><div class="form-check form-switch">
-            <input class="form-check-input status-toggle" type="checkbox" role="switch"  data-table="academy_souvenirs" 
-            data-column="product_status" data-id="{{$souvenir->id}}" {{$souvenir->product_status ? 'checked' : ''}}>
-          </div></td>
+                            <td>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input status-toggle" type="checkbox" role="switch"
+                                        data-table="academy_souvenirs" data-column="product_status"
+                                        data-id="{{$souvenir->id}}" {{$souvenir->product_status ? 'checked' : ''}}>
+                                </div>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -80,4 +105,92 @@
         </div>
     </div>
 </div>
+
+<!-- modal start -->
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Souvenirs Details</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="sliderText">Title</label>
+                    <p id="sliderText"></p> <!-- Text will be injected here -->
+                </div>
+                <div class="form-group">
+                    <label for="sliderDescription">Type</label>
+                    <p id="sliderDescription"></p> <!-- Description will be injected here -->
+                </div>
+                <div class="form-group">
+                    <label for="sliderDescription">publish_date</label>
+                    <p id="sliderDescription"></p> <!-- Description will be injected here -->
+                </div>
+                <div class="form-group">
+                    <label for="sliderDescription">Type</label>
+                    <p id="sliderDescription"></p> <!-- Description will be injected here -->
+                </div>
+                <div class="form-group">
+                    <label for="sliderImage">Image</label>
+                    <img id="sliderImage" src="" width="100" /> <!-- Image will be injected here -->
+                </div>
+                <div class="form-group">
+                    <label for="sliderLanguage">Language</label>
+                    <p id="sliderLanguage"></p> <!-- Language will be injected here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const viewButtons = document.querySelectorAll('.view-slider');
+    const modalTitle = document.getElementById('staticBackdropLabel');
+    const modalBody = document.querySelector('.modal-body');
+
+    viewButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            // Extract data from the button
+            const product_category = this.dataset.product_category || 'N/A';
+            const product_title = this.dataset.product_title || 'N/A';
+            const product_type = this.dataset.product_type || 'N/A';
+            const product_price = this.dataset.product_price || 'N/A';
+            const product_discounted_price = this.dataset.product_discounted_price || 'N/A';
+            const contact_email_id = this.dataset.contact_email_id || 'N/A';
+            const document_upload = this.dataset.document_upload || '';
+            const upload_image = this.dataset.upload_image || '';
+            const product_description = this.dataset.product_description || 'N/A';
+            const product_status = this.dataset.product_status || 'N/A';
+            const language = this.dataset.language || 'N/A';
+
+            // Update modal content
+            modalTitle.textContent = 'Souvenirs Details';
+            modalBody.innerHTML = `
+                <div>
+                    <p><strong>Product Category:</strong> ${product_category}</p>
+                    <p><strong>Product Title:</strong> ${product_title}</p>
+                    <p><strong>Product Type:</strong> ${product_type}</p>
+                    <p><strong>Product Price:</strong> ${product_price}</p>
+                    <p><strong>Product Discounted Price:</strong> ${product_discounted_price}</p>
+                    <p><strong>Email:</strong> ${contact_email_id}</p>
+                    <p><strong>Product Description:</strong> ${product_description}</p>
+                    <p><strong>Product Status:</strong> ${product_status}</p>
+                    <p><strong>Language:</strong> ${language}</p>
+                    <p><strong>Document Upload:</strong></p>
+                    ${document_upload ? `<img src="${document_upload}" alt="Document Upload" style="max-width: 100%; height: auto;">` : '<p>No document uploaded</p>'}
+                    <p><strong>Upload Image:</strong></p>
+                    ${upload_image ? `<img src="${upload_image}" alt="Uploaded Image" style="max-width: 100%; height: auto;">` : '<p>No image uploaded</p>'}
+                </div>`;
+        });
+    });
+});
+
+</script>

@@ -28,25 +28,38 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="form-group mb-4">
-                            <label for="language" class="label">language</label>
+                            <label for="language" class="label">Page Language</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
-                                <input type="radio" name="language" value="1"> English
-                                <input type="radio" name="language" value="2"> Hindi
+                                <input type="radio" name="language" value="1" id="language_english"
+                                    {{ old('language') == '1' ? 'checked' : '' }}>
+                                <label for="language_english">English</label>
+
+                                <input type="radio" name="language" value="2" id="language_hindi"
+                                    {{ old('language') == '2' ? 'checked' : '' }}>
+                                <label for="language_hindi">Hindi</label>
                             </div>
+                            @error('language')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group mb-4">
-                            <label for="research_centre_id" class="label">Research Centre</label>
+                            <label for="research_centre_id" class="label">Select Research Centre</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
-                                <select name="research_centre" id="research_centre_id" class="form-control" required>
+                                <select name="research_centre" id="research_centre_id"
+                                    class="form-control text-dark ps-5 h-58">
                                     <option value="">Select Research Centre</option>
                                     @foreach ($researchCentres as $id => $name)
-                                    <option value="{{ $id }}">{{ $name }}</option>
+                                    <option value="{{ $id }}" {{ old('research_centre') == $id ? 'selected' : '' }}>
+                                        {{ $name }}</option>
                                     @endforeach
                                 </select>
+                                @error('research_centre')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -56,7 +69,10 @@
                             <span class="star">*</span>
                             <div class="form-group position-relative">
                                 <input type="text" name="employee_name" class="form-control text-dark ps-5 h-58"
-                                    id="employee_name" required>
+                                    id="employee_name" value="{{ old('employee_name') }}">
+                                @error('employee_name')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -66,17 +82,44 @@
                             <span class="star">*</span>
                             <div class="form-group position-relative">
                                 <input type="text" name="designation" class="form-control text-dark ps-5 h-58"
-                                    id="designation" required>
+                                    id="designation" value="{{ old('designation') }}">
+                                @error('designation')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6">
+                    <!-- <div class="col-lg-6">
                         <div class="form-group mb-4">
                             <label for="email" class="label">Email</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
                                 <input type="email" name="email" class="form-control text-dark ps-5 h-58" id="email"
-                                    required>
+                                    value="{{ old('email') }}">
+                                @error('email')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <div class="col-lg-6">
+                        <div class="form-group mb-4">
+                            <label for="email" class="label">Email</label>
+                            <span class="star">*</span>
+                            <div class="form-group position-relative">
+                                <input 
+                                    type="email" 
+                                    name="email" 
+                                    class="form-control text-dark ps-5 h-58" 
+                                    id="email" 
+                                    value="{{ old('email') }}"
+                                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}" 
+                                    title="Please enter a valid email address.">
+                                <small id="email-feedback" class="text-muted"></small>
+                                @error('email')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -86,20 +129,43 @@
                             <span class="star">*</span>
                             <div class="form-group position-relative">
                                 <textarea name="program_description" class="form-control text-dark ps-5 h-58"
-                                    required></textarea>
+                                    value="{{ old('program_description') }}"></textarea>
+                                @error('program_description')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                     </div>
+                    <!-- <div class="col-lg-6">
+                        <div class="form-group mb-4">
+                            <label for="main_image" class="label">Main Image</label>
+                            <span class="star">*</span>
+                            <div class="form-group position-relative">
+                                <input type="file" name="main_image" class="form-control text-dark ps-5 h-58"
+                                    id="main_image" value="{{ old('main_image') }}">
+                                @error('main_image')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div> -->
+
                     <div class="col-lg-6">
                         <div class="form-group mb-4">
                             <label for="main_image" class="label">Main Image</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
                                 <input type="file" name="main_image" class="form-control text-dark ps-5 h-58"
-                                    id="main_image" required>
+                                    id="main_image" accept=".jpg,.jpeg,.png">
+                                <small id="file-name" class="text-muted"></small>
+                                @error('main_image')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                     </div>
+
+
                     <div class="col-lg-6">
                         <div class="form-group mb-4">
                             <label for="page_status" class="label">Page Status</label>
@@ -107,9 +173,14 @@
                             <div class="form-group position-relative">
                                 <select name="page_status" class="form-control text-dark ps-5 h-58" id="page_status">
                                     <option value="" class="col">Select</option>
-                                    <option value="1" class="col">Active</option>
-                                    <option value="0" class="col">Inactive</option>
+                                    <option value="1" class="col" {{ old('page_status') == '1' ? 'selected' : '' }}>
+                                        Active</option>
+                                    <option value="0" class="col" {{ old('page_status') == '0' ? 'selected' : '' }}>
+                                        Inactive</option>
                                 </select>
+                                @error('page_status')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -124,14 +195,54 @@
         </div>
     </div>
 </div>
-<script src="{{ asset('admin_assets/js/ckeditor.js') }}"></script>
-<script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
-
 <script>
-ClassicEditor
-    .create(document.querySelector('#program_description'))
-    .catch(error => {
-        console.error(error);
+    const fileInput = document.getElementById('main_image');
+    const fileNameDisplay = document.getElementById('file-name');
+
+    // Allowed file types
+    const allowedExtensions = ['jpg', 'jpeg', 'png'];
+
+    // Display file name and validate file type
+    fileInput.addEventListener('change', function () {
+        const file = this.files[0];
+        if (file) {
+            const fileName = file.name;
+            const fileExtension = fileName.split('.').pop().toLowerCase();
+
+            if (!allowedExtensions.includes(fileExtension)) {
+                alert('Only JPG, JPEG, and PNG files are allowed.');
+                fileInput.value = ''; // Reset file input
+                fileNameDisplay.textContent = ''; // Clear display
+            } else {
+                fileNameDisplay.textContent = `Selected file: ${fileName}`;
+            }
+        } else {
+            fileNameDisplay.textContent = "No file chosen";
+        }
+    });
+</script>
+<script>
+    const emailInput = document.getElementById('email');
+    const emailFeedback = document.getElementById('email-feedback');
+
+    // Frontend validation for email format
+    emailInput.addEventListener('input', () => {
+        const emailValue = emailInput.value.trim();
+        const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i;
+
+        if (emailValue === '') {
+            emailFeedback.textContent = "Email is required.";
+            emailFeedback.classList.add('text-danger');
+            emailFeedback.classList.remove('text-muted');
+        } else if (!emailRegex.test(emailValue)) {
+            emailFeedback.textContent = "Please enter a valid email address.";
+            emailFeedback.classList.add('text-danger');
+            emailFeedback.classList.remove('text-muted');
+        } else {
+            emailFeedback.textContent = "Email looks good.";
+            emailFeedback.classList.add('text-muted');
+            emailFeedback.classList.remove('text-danger');
+        }
     });
 </script>
 @endsection

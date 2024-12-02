@@ -99,11 +99,10 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
-                                <label for="status" class="label">Status *</label>
+                                <label for="status" class="label">Status </label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <select name="status" id="status" class="form-control text-dark ps-5 h-58" required>
-                                        <option value="" selected>Select Status</option>
                                         <option value="1" {{ $slider->status == '1' ? 'selected' : '' }}>Active</option>
                                         <option value="0" {{ $slider->status == '0' ? 'selected' : '' }}>Inactive
                                         </option>

@@ -79,7 +79,8 @@
                                         style="display:inline;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-primary text-white" onclick="return confirm('Are you sure?')">Delete</button>
+                                        <button type="submit" class="btn btn-sm btn-primary text-white" 
+                                        onclick="return confirm('Are you sure you want to delete?')">Delete</button>
                                     </form>
                                 </td>
                                 <td>
@@ -152,7 +153,7 @@
                 modalTitle.textContent = 'Slider Details';
                 modalBody.innerHTML = `<div>
                     <p><strong>Text:</strong> ${text}</p>
-                    <p><strong>Slider Image:</strong><img src="${image}" alt="Slider Image" class="img-fluid mb-3" /></p>
+                    <p><strong>Slider Image:</strong><img src="${image}" alt="Slider Image" class="img-fluid mb-3" style="width:300px; height:300px;" /></p>
                     <p><strong>Description:</strong> ${description}</p>
                     <p><strong>Language:</strong> ${language}</p>
                     </div>`;

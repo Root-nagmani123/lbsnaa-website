@@ -20,11 +20,15 @@ class MicroManagePhotoGalleryController extends Controller
         $galleries = DB::table('micro_manage_photo_galleries as sub')
         ->leftJoin('courses as parent', 'sub.course_id', '=', 'parent.id') // Correct join
         ->leftJoin('courses as second_row', 'sub.related_training_program', '=', 'second_row.id') // Correct join
+        ->leftJoin('courses as third_row', 'sub.related_news', '=', 'third_row.id') // Correct join
+        ->leftJoin('courses as four_row', 'sub.related_events', '=', 'four_row.id') // Correct join
         ->select(
             'sub.*',                    // All columns from micro_manage_photo_galleries
             'parent.id as course_id',   // Alias for parent.id to avoid overwriting sub.id
             'parent.name',              // Course name from parent
-            'second_row.name as media_cat_name' // Media category name
+            'second_row.name as media_cat_name', // Media category name
+            'third_row.name as related_news',
+            'four_row.name as related_events'
         )
         ->get();
 
@@ -37,18 +41,31 @@ class MicroManagePhotoGalleryController extends Controller
         return view('admin.micro.manage_media_center.manage_photo.create'); 
     }
 
-
+ 
     public function store(Request $request)
     {
         // Validate inputs
         $request->validate([
-            'image_files' => 'required|array',
-            'image_files.*' => 'file|mimes:jpeg,png,jpg|max:2048',
+            'image_files' => 'required|array', // Ensure an array of images is provided
+            'image_files.*' => 'file|mimes:jpeg,png,jpg|max:2048', // Validate each file in the array
+            'image_title_english' => 'required|string|max:255', // Ensure the English title is provided
+            
+            'status' => 'required|integer|in:1,0', // Ensure status is one of the valid values
+            'course_id' => 'required|integer|exists:courses,id', // Ensure course ID exists in the database
+            
+        ], [
+            // Custom error messages
+            'image_files.required' => 'Please upload at least one image.',
+            'image_files.*.mimes' => 'Each image must be a file of type: jpeg, png, jpg.',
+            'image_files.*.max' => 'Each image must not exceed 2MB.',
+            'image_title_english.required' => 'Please enter the English title.',
+            'status.required' => 'Please select a valid status.',
+            'course_id.required' => 'Please select a course.',
+            'course_id.exists' => 'The selected course is invalid.',
         ]);
 
         // Ensure image files are provided
         $imageFiles = $request->file('image_files');
-
         if (!$imageFiles) {
             return redirect()->back()->with('error', 'No images uploaded!');
         }
@@ -57,17 +74,18 @@ class MicroManagePhotoGalleryController extends Controller
         $data1 = [];
         foreach ($imageFiles as $file) {
             // Save image and get the path
-            $data1[] = $file->store('uploads/gallery', 'public');
-            if (!$data1) {
+            $path = $file->store('uploads/gallery', 'public');
+            if (!$path) {
                 return redirect()->back()->with('error', 'Failed to upload file.');
             }
+            $data1[] = $path;
         }
-        // print_r( json_encode($data1));die;
-            // Prepare data for insertion
+
+        // Prepare data for insertion
         $data[] = [
-            'image_title_english' => $request->input('image_title_english', 'Default Title'),
+            'image_title_english' => $request->input('image_title_english'),
             'image_title_hindi' => $request->input('image_title_hindi'),
-            'status' => $request->input('status', 'Draft'),
+            'status' => $request->input('status'),
             'image_files' => json_encode($data1),
             'course_id' => $request->input('course_id'),
             'related_news' => $request->input('related_news'),
@@ -93,6 +111,7 @@ class MicroManagePhotoGalleryController extends Controller
 
         return redirect()->route('micro-photo-gallery.index')->with('success', 'Gallery added successfully.');
     }
+
 
 
     public function edit(Request $request, $id)
@@ -140,92 +159,28 @@ class MicroManagePhotoGalleryController extends Controller
         ]);
     }
 
-
-
-
-    // public function update(Request $request, $id)
-    // {
-    //     // Validate inputs
-    //     $request->validate([
-    //         'image_files' => 'nullable|array',
-    //         'image_files.*' => 'nullable|file|mimes:jpeg,png,jpg|max:2048',
-    //     ]);
-    
-    //     // Find the gallery by ID
-    //     $gallery = MicroManagePhotoGallery::findOrFail($id);
-    
-    //     // Get the old image paths (if any)
-    //     $oldImages = json_decode($gallery->image_files, true);
-    
-    //     // Remove old images from storage if they exist
-    //     if ($oldImages) {
-    //         foreach ($oldImages as $oldImage) {
-    //             $imagePath = storage_path('app/public/uploads/gallery/' . $oldImage);
-    
-    //             // Check if the file exists before attempting to delete
-    //             if (file_exists($imagePath)) {
-    //                 unlink($imagePath);
-    //                 Log::info("Old image removed: $imagePath");  // Log successful removal
-    //             } else {
-    //                 Log::warning("Old image not found: $imagePath");  // Log if file not found
-    //             }
-    //         }
-    //     } else {
-    //         Log::info("No old images to remove.");  // Log if no old images
-    //     }
-    
-    //     // Process new image files if they are uploaded
-    //     $imageFiles = $request->file('image_files');
-    //     $uploadedFiles = [];
-    
-    //     if ($imageFiles) {
-    //         foreach ($imageFiles as $file) {
-    //             // Store new files and get their paths
-    //             $uploadedFiles[] = $file->store('uploads/gallery', 'public');
-    //         }
-    //     }
-    
-    //     // If there are new images, save them in the database
-    //     if (count($uploadedFiles) > 0) {
-    //         // Merge old images with the newly uploaded ones (if any)
-    //         $updatedImages = array_merge($oldImages ?? [], $uploadedFiles);
-    //         $gallery->image_files = json_encode($updatedImages);
-    //     } else {
-    //         // If no new images are uploaded, keep the old images in the database
-    //         $gallery->image_files = json_encode($oldImages);
-    //     }
-    
-    //     // Update other fields
-    //     $gallery->image_title_english = $request->input('image_title_english', 'Default Title');
-    //     $gallery->image_title_hindi = $request->input('image_title_hindi');
-    //     $gallery->status = $request->input('status', 'Draft');
-    //     $gallery->course_id = $request->input('course_id');
-    //     $gallery->related_news = $request->input('related_news');
-    //     $gallery->related_training_program = $request->input('related_training_program');
-    //     $gallery->related_events = $request->input('related_events');
-    //     $gallery->updated_at = now();
-    
-    //     // Save the gallery
-    //     $gallery->save();
-    
-    //     MicroManageAudit::create([
-    //         'Module_Name' => 'Photo Gallery',
-    //         'Time_Stamp' => time(),
-    //         'Created_By' => null,
-    //         'Updated_By' => null,
-    //         'Action_Type' => 'Update',
-    //         'IP_Address' => $request->ip(),
-    //     ]);
-
-    //     return redirect()->route('micro-photo-gallery.index')->with('success', 'Gallery updated successfully.');
-    // }
-
     public function update(Request $request, $id)
     {
         // Validate inputs
         $request->validate([
             'image_files' => 'nullable|array',
-            'image_files.*' => 'nullable|file|mimes:jpeg,png,jpg|max:2048',
+            'image_files.*' => 'nullable|file|mimes:jpeg,png,jpg|max:2048', // Validate image files
+            'image_title_english' => 'required|string|max:255', // Validate English title
+            
+            'status' => 'required|integer|in:1,0', // Validate status (either 1 or 0)
+            'course_id' => 'required|integer|exists:courses,id', // Validate course ID exists
+            
+        ], [
+            // Custom error messages
+            'image_files.required' => 'Please upload at least one image.',
+            'image_files.*.mimes' => 'Each image must be a file of type: jpeg, png, jpg.',
+            'image_files.*.max' => 'Each image must not exceed 2MB.',
+            'image_title_english.required' => 'Please enter the English title.',
+            'status.required' => 'Please select a valid status.',
+            'status.in' => 'Status must be either 1 or 0.',
+            'course_id.required' => 'Please select a course.',
+            'course_id.exists' => 'The selected course is invalid.',
+            
         ]);
 
         // Find the gallery by ID
@@ -297,6 +252,7 @@ class MicroManagePhotoGalleryController extends Controller
 
         return redirect()->route('micro-photo-gallery.index')->with('success', 'Gallery updated successfully.');
     }
+
     
     public function destroy($id)
     {

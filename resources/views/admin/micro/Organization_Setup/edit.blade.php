@@ -30,7 +30,7 @@
                 <div class="row">
                 <div class="col-lg-6">
                         <div class="form-group mb-4">
-                            <label for="language" class="label">language</label>
+                            <label for="language" class="label">Language</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
                                 <input type="radio" name="language" value="1" {{ $organizationSetup->language == '1' ? 'checked' : '' }}> English
@@ -40,7 +40,7 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group mb-4">
-                            <label for="research_centre" class="label">research_centre</label>
+                            <label for="research_centre" class="label">Research Centre</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
                             <select class="form-select form-control ps-5 h-58" name="research_centre" id="research_centre" required>
@@ -59,7 +59,7 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group mb-4">
-                            <label for="employee_name" class="label">employee_name</label>
+                            <label for="employee_name" class="label">Employee Name</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
                                 <input type="text" name="employee_name" class="form-control text-dark ps-5 h-58"
@@ -69,7 +69,7 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group mb-4">
-                            <label for="designation" class="label">designation</label>
+                            <label for="designation" class="label">Designation</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
                                 <input type="text" name="designation" class="form-control text-dark ps-5 h-58"
@@ -79,17 +79,20 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group mb-4">
-                            <label for="email" class="label">email</label>
+                            <label for="email" class="label">Email</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
                                 <input type="email" name="email" class="form-control text-dark ps-5 h-58" id="email"
-                                    required value="{{ old('email', $organizationSetup->email) }}">
+                                    value="{{ old('email', $organizationSetup->email) }}">
+                                @error('email')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group mb-4">
-                            <label for="program_description" class="label">program_description</label>
+                            <label for="program_description" class="label">Program Description</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
                                 <textarea name="program_description" class="form-control text-dark ps-5 h-58"
@@ -99,7 +102,7 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group mb-4">
-                            <label for="main_image" class="label">main_image</label>
+                            <label for="main_image" class="label">Main Image</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
                                 <input type="file" name="main_image" class="form-control text-dark ps-5 h-58"
@@ -114,7 +117,7 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group mb-4">
-                            <label for="page_status" class="label">page_status</label>
+                            <label for="page_status" class="label">Page Status</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
                                 <select name="page_status" class="form-control text-dark ps-5 h-58" id="page_status">

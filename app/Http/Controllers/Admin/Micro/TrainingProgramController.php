@@ -27,6 +27,7 @@ class TrainingProgramController extends Controller
         return view('admin.micro.training_program.create',compact('researchCentres'));
     }
 
+
     public function store(Request $request)
     {
         $request->validate([
@@ -39,7 +40,19 @@ class TrainingProgramController extends Controller
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
             'registration_status' => 'required|integer|in:1,2',
-            'page_status' => 'required|integer|in:1,2,3',
+            'page_status' => 'required|integer|in:1,0',
+        ], [
+            'research_centre.required' => 'Please select research centre name.',
+            'language.required' => 'Please select a language.',
+            'language.in' => 'Invalid language selection.',
+            'program_name.required' => 'Please enter the program name.',
+            'venue.required' => 'Please enter the venue.',
+            'program_description.required' => 'Please enter a program description.',
+            'start_date.required' => 'Please select a start date.',
+            'end_date.required' => 'Please select an end date.',
+            'end_date.after_or_equal' => 'The end date must be after or equal to the start date.',
+            'registration_status.required' => 'Please select the registration status.',
+            'page_status.required' => 'Please select the page status.',
         ]);
 
         TrainingProgram::create($request->all());
@@ -53,8 +66,9 @@ class TrainingProgramController extends Controller
             'IP_Address' => $request->ip(), // Get IP address from request
         ]);
 
-        return redirect()->route('training-programs.index')->with('success', 'Program added successfully.');
+        return redirect()->route('training-programs.index')->with('success', 'Training Program added successfully.');
     }
+
 
 
     public function edit($id)
@@ -85,7 +99,7 @@ class TrainingProgramController extends Controller
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
             'registration_status' => 'required|integer|in:1,2',
-            'page_status' => 'required|integer|in:1,2,3',
+            'page_status' => 'required|integer|in:1,0',
         ]);
 
         $trainingProgram->update($request->all());

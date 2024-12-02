@@ -292,8 +292,6 @@ Route::prefix('admin')->group(function () {
     Route::resource('founders', ManageFoundersController::class);
     Route::resource('cadres', ManageCadresController::class);
     Route::resource('manage_tender', ManageTenderController::class);
-    // Route::resource('manage_vacancy', ManageVacancyController::class);
-    // Route::get('/manage_vacancy/{id}/edit', [ManageVacancyController::class, 'edit'])->name('manage_vacancy.edit');
     Route::resource('manage_events', ManageEventsController::class);
     Route::get('/manage_events/{id}/edit', [ManageEventsController::class, 'edit'])->name('manage_events.edit');
     Route::put('/manage_events/{id}', [ManageEventsController::class, 'update'])->name('manage_events.update');
@@ -345,7 +343,7 @@ Route::prefix('admin')->group(function () {
 
     Route::resource('micro_manage_vacancy', MicroManageVacancyController::class);
     Route::get('/micro_manage_vacancy/{id}/edit', [MicroManageVacancyController::class, 'edit'])->name('micro_manage_vacancy.edit');
-    Route::delete('/admin/micro_manage_vacancy/{id}', [MicroManageVacancyController::class, 'destroy'])->name('micro_manage_vacancy.destroy');
+    // Route::delete('/admin/micro_manage_vacancy/{id}', [MicroManageVacancyController::class, 'destroy'])->name('micro_manage_vacancy.destroy');
 
 
     Route::resource('micro-video-gallery', MicroVideoGalleryController::class);
@@ -366,7 +364,7 @@ Route::prefix('admin')->group(function () {
     Route::post('researchcentres/{id}/update', [ManageResearchCentreController::class, 'researchcentresUpdate'])->name('researchcentres.update');
     Route::post('researchcentres/{id}/delete', [ManageResearchCentreController::class, 'researchcentresDestroy'])->name('researchcentres.destroy');
 
-    Route::resource('micro-photo-gallery', MicroManagePhotoGalleryController::class);
+    // Route::resource('micro-photo-gallery', MicroManagePhotoGalleryController::class);
     // Manage micro news route
     Route::resource('Managenews', ManageNewsController::class);
 

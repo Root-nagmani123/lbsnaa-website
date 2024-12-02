@@ -20,61 +20,74 @@
     <div class="col-lg-12">
         <div class="card bg-white border-0 rounded-10 mb-4">
             <div class="card-body p-4">
-            <div class="d-sm-flex text-center justify-content-between align-items-center mb-4 border-bottom pb-20 mb-20">
-    <h4 class="fw-semibold fs-18 mb-sm-0">Add Video Gallery</h4>
-</div>
-                @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
+                <div
+                    class="d-sm-flex text-center justify-content-between align-items-center mb-4 border-bottom pb-20 mb-20">
+                    <h4 class="fw-semibold fs-18 mb-sm-0">Add Video Gallery</h4>
                 </div>
-                @endif
+
                 <form action="{{ route('micro-video-gallery.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label for="category_name">Category Name :</label>
-                                <select name="category_name" id="category_name" class="form-control" required>
+                                <span class="star">*</span>
+                                <select name="category_name" id="category_name" class="form-control">
                                     <option value="">Select</option>
-                                    <option value="Video">Video</option>
+                                    <option value="Video"  {{ old('category_name') == 'Video' ? 'selected' : '' }}>Video</option>
                                 </select>
+                                @error('category_name')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label for="video_title_en">Video Title (English) :</label>
-                                <input type="text" name="video_title_en" id="video_title_en" class="form-control" required>
+                                <span class="star">*</span>
+                                <input type="text" name="video_title_en" id="video_title_en" class="form-control"
+                                value="{{ old('video_title_en') }}">
+                                @error('video_title_en')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label for="video_title_hi">Video Title (Hindi) :</label>
-                                <input type="text" name="video_title_hi" id="video_title_hi" class="form-control">
+                                <input type="text" name="video_title_hi" id="video_title_hi" class="form-control" value="{{ old('video_title_hi') }}">
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label for="video_upload">Video Upload (.mp4 only) :</label>
-                                <input type="file" name="video_upload" id="video_upload" class="form-control" accept=".mp4" required>
+                                <span class="star">*</span>
+                                <input type="file" name="video_upload" id="video_upload" class="form-control"
+                                    accept=".mp4" value="{{ old('video_upload') }}">
+                                @error('video_upload')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label for="page_status">Page Status :</label>
-                                <select name="page_status" id="page_status" class="form-control" required>
-                                <option value="" class="text-dark" selected>Select</option>
-                                    <option value="1">Active</option>
-                                    <option value="0">Inactive</option>
+                                <span class="star">*</span>
+                                <select name="page_status" id="page_status" class="form-control">
+                                    <option value="" class="text-dark" selected>Select</option>
+                                    <option value="1" {{ old('page_status') == '1' ? 'selected' : '' }}>Active</option>
+                                    <option value="0" {{ old('page_status') == '0' ? 'selected' : '' }}>Inactive
+                                    </option>
                                 </select>
+                                @error('page_status')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                         <div class="d-flex ms-sm-3 ms-md-0">
                             <button class="btn btn-success text-white fw-semibold" type="submit">Submit</button> &nbsp;
-                            <a href="{{ route('manage_vacancy.index') }}" class="btn btn-secondary text-white">Cancel</a>
+                            <a href="{{ route('micro-video-gallery.index') }}"
+                                class="btn btn-secondary text-white">Cancel</a>
                         </div>
                     </div>
                 </form>

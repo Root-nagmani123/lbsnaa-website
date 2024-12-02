@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Micro;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\Micro\MicroManageMediaCategories;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\Admin\Micro\MicroManageAudit;
 use Illuminate\Support\Facades\Auth;
@@ -11,15 +12,29 @@ use Illuminate\Support\Facades\Auth;
 
 class MicroManageMediaCenterController extends Controller
 {
+
     public function index()
     {
-        $categories = MicroManageMediaCategories::all();
-        return view('admin.micro.manage_media_center.manage_categories.index', compact('categories'));
+        // Fetching categories along with research centre name
+        $categories = DB::table('micro_media_categories as tp')
+            ->leftJoin('research_centres as rc', 'tp.research_centre', '=', 'rc.id')
+            ->select('tp.*', 'rc.research_centre_name as research_centre_name')
+            ->get();
+
+        // Fetching all research centres (assuming you want to use them in your Blade view)
+        $researchCentres = DB::table('research_centres')->pluck('research_centre_name', 'id');
+
+        // Passing both categories and researchCentres to the view
+        return view('admin.micro.manage_media_center.manage_categories.index', compact('categories', 'researchCentres'));
     }
+
 
     public function create()
     {
-        return view('admin.micro.manage_media_center.manage_categories.create');
+        $researchCentres = DB::table('research_centres')->pluck('research_centre_name', 'id'); // Replace 'name' and 'id' with your actual column names.
+        return view('admin.micro.manage_media_center.manage_categories.create',compact('researchCentres'));
+
+        // return view('admin.micro.manage_media_center.manage_categories.create');
     }
 
     public function store(Request $request)
@@ -27,8 +42,9 @@ class MicroManageMediaCenterController extends Controller
         $validated = $request->validate([
             'media_gallery' => 'required|integer|in:1,2',
             'name' => 'required|string',
+            'research_centre' => 'required|string',
             'hindi_name' => 'nullable|string',
-            'status' => 'required|integer|in:1,2,3',
+            'status' => 'required|integer|in:1,0',
         ]);
 
         $media = MicroManageMediaCategories::create($validated);
@@ -59,7 +75,7 @@ class MicroManageMediaCenterController extends Controller
             'media_gallery' => 'required|integer|in:1,2',
             'name' => 'required|string',
             'hindi_name' => 'nullable|string',
-            'status' => 'required|integer|in:1,2,3',
+            'status' => 'required|integer|in:1,0',
         ]);
 
         $category = MicroManageMediaCategories::findOrFail($id);

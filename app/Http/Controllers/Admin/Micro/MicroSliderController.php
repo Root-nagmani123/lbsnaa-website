@@ -30,17 +30,43 @@ class MicroSliderController extends Controller
         return view('admin.micro.slider.create',compact('researchCentres'));
     }
 
+
     public function store(Request $request)
     {
+        // Define validation rules
         $validated = $request->validate([
-            'slider_image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'slider_image' => 'required|image|mimes:jpeg,png,jpg|max:10240',
             'slider_text' => 'required|string|max:255',
             'slider_description' => 'required|string',
             'research_centre' => 'required|string',
             'language' => 'required|integer|in:1,2',
-            'status' => 'required|integer|in:1,2,3',
+            'status' => 'required|integer|in:1,0',
+        ], [
+            // Custom validation messages
+            'slider_image.required' => 'Please upload a slider image.',
+            'slider_image.image' => 'The file must be an image.',
+            'slider_image.mimes' => 'Only jpeg, png, and jpg images are allowed.',
+            'slider_image.max' => 'The image size must be less than 10MB.',
+            
+            'slider_text.required' => 'Please enter the slider text.',
+            'slider_text.string' => 'The slider text must be a valid string.',
+            'slider_text.max' => 'The slider text cannot exceed 255 characters.',
+            
+            'slider_description.required' => 'Please enter a slider description.',
+            'slider_description.string' => 'The description must be a valid string.',
+            
+            'research_centre.required' => 'Please enter the research centre name.',
+            'research_centre.string' => 'The research centre name must be a valid string.',
+            
+            'language.required' => 'Please select a language.',
+            'language.integer' => 'The language must be a valid number.',
+            'language.in' => 'The selected language is invalid.',
+            
+            'status.required' => 'Please select a status.',
+            'status.integer' => 'The status must be a valid number.',
+            'status.in' => 'The selected status is invalid.',
         ]);
-    
+
         // Save the slider
         $slider = new MicroSlider();
         if ($request->hasFile('slider_image')) {
@@ -52,7 +78,8 @@ class MicroSliderController extends Controller
         $slider->language = $validated['language'];
         $slider->status = $validated['status'];
         $slider->save();
-    
+
+        // Log the action (audit trail)
         MicroManageAudit::create([
             'Module_Name' => 'Slider',
             'Time_Stamp' => time(),
@@ -64,6 +91,7 @@ class MicroSliderController extends Controller
 
         return redirect()->route('slider.index')->with('success', 'Slider created successfully!');
     }
+
     
 
     public function edit($id)
@@ -88,7 +116,7 @@ class MicroSliderController extends Controller
             'slider_description' => 'required|string',
             'research_centre' => 'required|string',
             'language' => 'required|integer|in:1,2',
-            'status' => 'required|integer|in:1,2,3',
+            'status' => 'required|integer|in:1,0',
         ]);
     
         $slider = MicroSlider::findOrFail($id);

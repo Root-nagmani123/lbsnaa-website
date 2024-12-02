@@ -5,7 +5,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin\Micro\MicroManageVacancy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 
 
 use App\Models\Admin\Micro\MicroManageAudit;
@@ -42,7 +41,7 @@ class MicroManageVacancyController extends Controller
             'content_type' => 'required|in:PDF,Website',
             'publish_date' => 'required|date',
             'expiry_date' => 'required|date|after_or_equal:publish_date',
-            'status' => 'required|integer|in:1,2,3',
+            'status' => 'required|integer|in:1,0',
         ];
 
         if ($request->content_type == 'PDF') {
@@ -51,9 +50,34 @@ class MicroManageVacancyController extends Controller
             $rules['website_link'] = 'required|url';
         }
 
-        $validatedData = $request->validate($rules);
+        // Custom messages
+        $messages = [
+            'language.required' => 'Please select a language.',
+            'research_centre.required' => 'Please select a research centre.',
+            'job_title.required' => 'Please enter a job title.',
+            'job_title.max' => 'The job title cannot exceed 255 characters.',
+            'job_description.required' => 'Please provide a job description.',
+            'content_type.required' => 'Please select a content type.',
+            'content_type.in' => 'Content type must be either PDF or Website.',
+            'publish_date.required' => 'Please provide a publish date.',
+            'publish_date.date' => 'Publish date must be a valid date.',
+            'expiry_date.required' => 'Please provide an expiry date.',
+            'expiry_date.date' => 'Expiry date must be a valid date.',
+            'expiry_date.after_or_equal' => 'Expiry date must be on or after the publish date.',
+            'status.required' => 'Please select a status.',
+            'status.in' => 'Status must be active or inactive.',
+            'document_upload.required' => 'Please upload a document.',
+            'document_upload.mimes' => 'The document must be a file of type: pdf, png, jpg, jpeg.',
+            'document_upload.max' => 'The document size may not exceed 2MB.',
+            'website_link.required' => 'Please provide a website link.',
+            'website_link.url' => 'The website link must be a valid URL.',
+        ];
+
+        // Validate request
+        $validatedData = $request->validate($rules, $messages);
+
+        // Create and save the vacancy
         $vacancy = new MicroManageVacancy($validatedData);
-        // dd($vacancy);
 
         if ($request->hasFile('document_upload')) {
             $vacancy->document_upload = $request->file('document_upload')->store('uploads', 'public');
@@ -61,6 +85,7 @@ class MicroManageVacancyController extends Controller
 
         $vacancy->save();
 
+        // Audit log
         MicroManageAudit::create([
             'Module_Name' => 'Vacancy Module',
             'Time_Stamp' => time(),
@@ -85,94 +110,61 @@ class MicroManageVacancyController extends Controller
             ->toArray();
         // Pass the variables to the Blade file
         return view('admin.micro.micro_manage_vacancy.edit', compact('vacancy', 'researchCentres'));
-    } 
+    }
 
     public function update(Request $request, MicroManageVacancy $manage_vacancy)
     {
-        // Base validation rules
         $rules = [
-            'language' => 'required|integer|in:1,2',	
-            'research_centre' => 'required|integer|exists:research_centres,id',	
+            'language' => 'required|integer|in:1,2',
+            'research_centre' => 'required|integer|exists:research_centres,id',
             'job_title' => 'required|string|max:255',
-            'job_description' => 'required',
+            'job_description' => 'required|string',
             'content_type' => 'required|in:PDF,Website',
             'publish_date' => 'required|date',
             'expiry_date' => 'required|date|after_or_equal:publish_date',
-            'status' => 'required|integer|in:1,2,3',
+            'status' => 'required|integer|in:1,0',
         ];
-
-        // Conditionally add validation for either document_upload or website_link
-        if ($request->content_type == 'PDF') {
-            $rules['document_upload'] = 'sometimes|mimes:pdf,png,jpg|max:2048'; // Allow PDF and image file types
-        } elseif ($request->content_type == 'Website') {
-            $rules['website_link'] = 'required_if:content_type,Website|url'; // Only required if Website is selected
+    
+        if ($request->content_type === 'PDF') {
+            $rules['document_upload'] = 'nullable|file|mimes:pdf|max:2048';
+        } elseif ($request->content_type === 'Website') {
+            $rules['website_link'] = 'required|url';
         }
-
-        // Validate the request with the updated rules
+    
         $validatedData = $request->validate($rules);
-
-        // Check if a file has been uploaded and handle it
+    
+        // Handle file upload
         if ($request->hasFile('document_upload')) {
-            // Delete the old document if it exists
-            if ($manage_vacancy->document_upload && \Storage::exists('public/' . $manage_vacancy->document_upload)) {
-                \Storage::delete('public/' . $manage_vacancy->document_upload); // Delete old file
+            // Delete old file if exists
+            if ($manage_vacancy->document_upload && \Storage::exists($manage_vacancy->document_upload)) {
+                \Storage::delete($manage_vacancy->document_upload);
             }
-
-            // Store the new document and update the path
-            $fileName = time() . '.' . $request->document_upload->extension(); // Generate new file name
-            $request->document_upload->storeAs('uploads', $fileName, 'public'); // Save the file
-
-            $validatedData['document_upload'] = 'uploads/' . $fileName; // Store the relative path
+            $fileName = time() . '.' . $request->document_upload->extension();
+            $validatedData['document_upload'] = $request->document_upload->storeAs('uploads', $fileName, 'public');
+        } else {
+            $validatedData['document_upload'] = $manage_vacancy->document_upload; // Retain old file if no new upload
         }
-        // dd($validatedData);
-        // Update the vacancy with the validated data
+    
         $manage_vacancy->update($validatedData);
-
-        // Create a new audit entry
+    
+        // Log the audit
         MicroManageAudit::create([
             'Module_Name' => 'Vacancy Module',
             'Time_Stamp' => time(),
-            'Created_By' => null, // Adjust this with the authenticated user's ID if needed
-            'Updated_By' => null, 
+            'Created_By' => auth()->id(),
+            'Updated_By' => auth()->id(),
             'Action_Type' => 'Update',
             'IP_Address' => $request->ip(),
         ]);
-
-        // Redirect with success message
-        return redirect()->route('micro_manage_vacancy.index')->with('success', 'Vacancy updated successfully');
+    
+        return redirect()->route('micro_manage_vacancy.index')->with('success', 'Vacancy updated successfully.');
     }
-
-    // public function destroy(MicroManageVacancy $manage_vacancy)
-    // {
-    //     $manage_vacancy->delete();
-    //     return redirect()->route('micro_manage_vacancy.index')->with('success', 'Vacancy deleted successfully');
-    // }
-
-    // public function destroy(MicroManageVacancy $manage_vacancy)
-    // {
-    //     // dd($manage_vacancy);
-    //     // Log::info('Destroy method called for vacancy ID: ' . $manage_vacancy->id);
-
-    //     // $manage_vacancy->delete();
-    //     DB::table('micro_manage_vacancies')->where('id', $manage_vacancy->id)->delete();
-
-    //     return redirect()->route('micro_manage_vacancy.index')->with('success', 'Vacancy deleted successfully');
-    // }
-
-public function destroy(MicroManageVacancy $manage_vacancy)
-{
-    Log::info('Deleting vacancy ID: ' . $manage_vacancy->id);
     
-    // Attempt deletion
-    $manage_vacancy->delete();
-    
-    // Log if delete is successful
-    Log::info('Vacancy deleted successfully: ' . $manage_vacancy->id);
 
-    return redirect()->route('micro_manage_vacancy.index')->with('success', 'Vacancy deleted successfully');
-}
-
-
-
-
+    public function destroy($id)
+    {
+        $media = MicroManageVacancy::findOrFail($id);
+        $media->delete();
+        return redirect()->route('micro_manage_vacancy.index')->with('success', 'Vacancy deleted successfully');
+    }
 }

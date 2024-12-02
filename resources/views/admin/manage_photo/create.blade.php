@@ -105,7 +105,7 @@
                             </div>
                         </div>
                         <!-- Dropdown to select related content for Related Events -->
-                        <div class="col-lg-6">
+                        <!-- <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="image_relate_with_events">Image Relate with Events :</label>
                                 <div class="form-group position-relative">
@@ -116,9 +116,9 @@
                                     </select>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- Placeholder for Events-related fields -->
-                        <div class="col-lg-6" id="related_events_field" style="display: none;">
+                        <!-- <div class="col-lg-6" id="related_events_field" style="display: none;">
                             <div class="form-group mb-4">
                                 <label class="label" for="event-search">Related Events :</label>
                                 <div class="form-group position-relative">
@@ -129,7 +129,7 @@
                                         style="display: none; position: relative;"></div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="image_title_english">Image Title (English) :</label>

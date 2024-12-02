@@ -42,31 +42,53 @@
                             <th class="col">Category Name</th>
                             <th class="col">Media Category</th>
                             <th class="col">Image Title (English)</th>
+                            <th class="col">Option</th>
                             <th class="col">Actions</th>
                             <th class="col">Status</th>
                         </tr>
                     </thead>
                     <tbody>
-                    <!-- <pre>{{ print_r($galleries) }}</pre> -->
-                        @foreach($galleries as $index => $gallery) <!-- Use $index to track the row number -->
+                        <!-- <pre>{{ print_r($galleries) }}</pre> -->
+                        @foreach($galleries as $index => $gallery)
+                        <!-- Use $index to track the row number -->
                         <tr>
-                        <!-- <pre>{{ print_r($gallery) }}</pre> -->
+                            <!-- <pre>{{ print_r($gallery) }}</pre> -->
                             <td class="text-center">{{ $index + 1 }}</td> <!-- Display index here -->
                             <td>{{ $gallery->name ?? 'N/A' }}</td>
                             <td>{{ $gallery->media_cat_name ?? 'N/A' }}</td>
                             <td>{{ $gallery->image_title_english }}</td>
                             <td>
-                                <a href="{{ route('micro-photo-gallery.edit', $gallery->id) }}" class="btn bg-success text-white btn-sm">Edit</a>
-                                <form action="{{ route('micro-photo-gallery.destroy', $gallery->id) }}" method="POST" style="display:inline;">
+                                <button type="button"
+                                    class="btn btn-outline-primary text-primary fw-semibold btn-sm view-slider"
+                                    data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                                    data-name="{{ $gallery->name }}"
+                                    data-media_cat_name="{{ $gallery->media_cat_name }}"
+                                    data-image_title_english="{{ $gallery->image_title_english }}"
+                                    data-image_title_hindi="{{ $gallery->image_title_hindi }}"
+                                    data-related_news="{{ $gallery->related_news }}"
+                                    data-related_events="{{ $gallery->related_events }}"
+                                    data-image_files="{{ $gallery->image_files }}">
+                                    View
+                                </button>
+                            </td>
+                            <td>
+                                <a href="{{ route('micro-photo-gallery.edit', $gallery->id) }}"
+                                    class="btn bg-success text-white btn-sm">Edit</a>
+                                <form action="{{ route('micro-photo-gallery.destroy', $gallery->id) }}" method="POST"
+                                    style="display:inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-primary text-white" onclick="return confirm('Are you sure?')">Delete</button>
+                                    <button type="submit" class="btn btn-sm btn-primary text-white"
+                                        onclick="return confirm('Are you sure you want to delete?')">Delete</button>
                                 </form>
                             </td>
-                            <td><div class="form-check form-switch">
-            <input class="form-check-input status-toggle" type="checkbox" role="switch"  data-table="micro_manage_photo_galleries" 
-            data-column="status" data-id="{{$gallery->id}}" {{$gallery->status ? 'checked' : ''}}>
-          </div></td>
+                            <td>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input status-toggle" type="checkbox" role="switch"
+                                        data-table="micro_manage_photo_galleries" data-column="status"
+                                        data-id="{{$gallery->id}}" {{$gallery->status ? 'checked' : ''}}>
+                                </div>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -75,4 +97,98 @@
         </div>
     </div>
 </div>
+
+<!-- modal start -->
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Tenders / Circulars Details</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="sliderText">Title</label>
+                    <p id="sliderText"></p> <!-- Text will be injected here -->
+                </div>
+                <div class="form-group">
+                    <label for="sliderDescription">Type</label>
+                    <p id="sliderDescription"></p> <!-- Description will be injected here -->
+                </div>
+                <div class="form-group">
+                    <label for="sliderDescription">publish_date</label>
+                    <p id="sliderDescription"></p> <!-- Description will be injected here -->
+                </div>
+                <div class="form-group">
+                    <label for="sliderDescription">Type</label>
+                    <p id="sliderDescription"></p> <!-- Description will be injected here -->
+                </div>
+                <div class="form-group">
+                    <label for="sliderImage">Image</label>
+                    <img id="sliderImage" src="" width="100" /> <!-- Image will be injected here -->
+                </div>
+                <div class="form-group">
+                    <label for="sliderLanguage">Language</label>
+                    <p id="sliderLanguage"></p> <!-- Language will be injected here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const viewButtons = document.querySelectorAll('.view-slider');
+    const modalTitle = document.getElementById('staticBackdropLabel');
+    const modalBody = document.querySelector('.modal-body');
+
+    viewButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Extract data from the button
+            const name = this.dataset.name;
+            const media_cat_name = this.dataset.media_cat_name;
+            const publish_date = this.dataset.publish_date;
+            const image_title_english = this.dataset.image_title_english;
+            const image_title_hindi = this.dataset.image_title_hindi;
+            const related_news = this.dataset.related_news;
+            const related_events = this.dataset.related_events;
+            const image_files = this.dataset.image_files;
+
+            // Parse the JSON string to get the array of image paths
+            let images = [];
+            try {
+                images = JSON.parse(image_files); // Decode JSON-encoded string
+            } catch (error) {
+                console.error("Error parsing image files:", error);
+            }
+            const baseUrl = `${window.location.protocol}//${window.location.hostname}:${window.location.port}`;
+            // Generate HTML for the images
+            let imagesHtml = '<div>';
+            images.forEach(image => {
+                imagesHtml +=
+                    `<img src="${baseUrl}/storage/${image}" alt="Image" style="max-width: 100px; margin-right: 10px;">`;
+            });
+            imagesHtml += '</div>';
+
+            // Update modal content
+            modalTitle.textContent = 'Photo Gallery Details';
+            modalBody.innerHTML = `
+                <div>
+                    <p><strong>Category Name:</strong> ${name}</p>
+                    <p><strong>Related Training Program:</strong> ${media_cat_name}</p>
+                    <p><strong>Related News:</strong> ${related_news}</p>
+                    <p><strong>Related Events:</strong> ${related_events}</p>
+                    <p><strong>Image Title (English):</strong> ${image_title_english}</p>
+                    <p><strong>Image TItle (Hindi):</strong> ${image_title_hindi}</p>
+                    <p><strong>Images:</strong></p>
+                    ${imagesHtml}
+                </div>`;
+        });
+    });
+});
+</script>

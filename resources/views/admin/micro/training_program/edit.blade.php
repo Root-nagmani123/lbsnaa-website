@@ -71,7 +71,10 @@
                             <span class="star">*</span>
                             <div class="form-group position-relative">
                                 <input type="text" name="program_name" class="form-control text-dark ps-5 h-58"
-                                    value="{{ $trainingProgram->program_name }}" required>
+                                    value="{{ $trainingProgram->program_name }}">
+                                @error('program_name')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -81,7 +84,10 @@
                             <span class="star">*</span>
                             <div class="form-group position-relative">
                                 <input type="text" name="venue" class="form-control text-dark ps-5 h-58"
-                                    value="{{ $trainingProgram->venue }}" required>
+                                    value="{{ $trainingProgram->venue }}">
+                                @error('venue')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
 
                         </div>
@@ -89,10 +95,9 @@
                     <div class="col-lg-6">
                         <div class="form-group mb-4">
                             <label class="label">Program Co-ordinator</label>
-                            <span class="star">*</span>
                             <div class="form-group position-relative">
                                 <input type="text" name="program_coordinator" class="form-control text-dark ps-5 h-58"
-                                    value="{{ $trainingProgram->program_coordinator }}" required>
+                                    value="{{ $trainingProgram->program_coordinator }}">
                             </div>
                         </div>
                     </div>
@@ -101,9 +106,11 @@
                             <label class="label">Program Description</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
-                                <textarea name="program_description" class="form-control text-dark ps-5 h-58"
-                                    required>{{ $trainingProgram->program_description }}</textarea>
-
+                                <textarea name="program_description" class="form-control text-dark ps-5 h-58">
+                                    {{ $trainingProgram->program_description }}</textarea>
+                                @error('program_description')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -113,7 +120,10 @@
                             <span class="star">*</span>
                             <div class="form-group position-relative">
                                 <input type="date" name="start_date" class="form-control text-dark ps-5 h-58"
-                                    value="{{ $trainingProgram->start_date }}" required>
+                                    value="{{ $trainingProgram->start_date }}">
+                                @error('start_date')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -123,17 +133,19 @@
                             <span class="star">*</span>
                             <div class="form-group position-relative">
                                 <input type="date" name="end_date" class="form-control text-dark ps-5 h-58"
-                                    value="{{ $trainingProgram->end_date }}" required>
+                                    value="{{ $trainingProgram->end_date }}">
+                                @error('end_date')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group mb-4">
                             <label class="label">Important Links</label>
-                            <span class="star">*</span>
                             <div class="form-group position-relative">
                                 <input type="text" name="important_links" class="form-control text-dark ps-5 h-58"
-                                    value="{{ $trainingProgram->important_links }}" required>
+                                    value="{{ $trainingProgram->important_links }}">
                             </div>
 
                         </div>
@@ -158,7 +170,7 @@
                             <label class="label">Page Status</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
-                                <select name="page_status" class="form-control text-dark ps-5 h-58" required>
+                                <select name="page_status" class="form-control text-dark ps-5 h-58">
                                     <option value="1" {{ $trainingProgram->page_status == 1? 'selected' : '' }}>Active
                                     </option>
                                     <option value="0" {{ $trainingProgram->page_status == 0? 'selected' : '' }}>Inactive
@@ -179,7 +191,7 @@
 
 @endsection
 
-<script>
+<!-- <script>
 document.addEventListener("DOMContentLoaded", function() {
     let today = new Date().toISOString().split('T')[0];
 
@@ -195,4 +207,4 @@ document.addEventListener("DOMContentLoaded", function() {
         endDateInput.setAttribute('min', this.value);
     });
 });
-</script>
+</script> -->

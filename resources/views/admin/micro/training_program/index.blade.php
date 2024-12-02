@@ -18,6 +18,9 @@
         </li>
     </ul>
 </div>
+@if (session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
 <div class="card bg-white border-0 rounded-10 mb-4">
     <div class="card-body p-4">
         <div class="d-sm-flex text-center justify-content-between align-items-center border-bottom pb-20 mb-20">
@@ -31,7 +34,7 @@
                 </button>
             </a>
         </div>
-              <div class="default-table-area members-list">
+        <div class="default-table-area members-list">
             <div class="table-responsive">
                 <table class="table align-middle" id="myTable">
                     <thead>
@@ -50,37 +53,41 @@
                     </thead>
                     <tbody>
                         @foreach ($programs as $program)
-                <tr>
-                <td>{{ $loop->iteration }}</td> <!-- Auto-incrementing index -->
+                        <tr>
+                            <td>{{ $loop->iteration }}</td> <!-- Auto-incrementing index -->
 
-                    <td>{{ $program->research_centre_name }}</td>
+                            <td>{{ $program->research_centre_name }}</td>
 
-                    <td>{{ $program->program_name }}</td>
-                    <td>{{ $program->venue }}</td>
-                    <td>{{ $program->program_coordinator }}</td>
-                    <td>{{ $program->start_date }}</td>
-                    <td>{{ $program->end_date }}</td>
-                    <td>
-                        @if ($program->language == 1)
-                            English
-                        @else ($program->language == 2)
-                            Hindi
-                        @endif
-                    </td>
+                            <td>{{ $program->program_name }}</td>
+                            <td>{{ $program->venue }}</td>
+                            <td>{{ $program->program_coordinator }}</td>
+                            <td>{{ $program->start_date }}</td>
+                            <td>{{ $program->end_date }}</td>
+                            <td>
+                                @if ($program->language == 1)
+                                English
+                                @else ($program->language == 2)
+                                Hindi
+                                @endif
+                            </td>
                             <td>
                                 <a href="{{ route('training-programs.edit', $program->id) }}"
                                     class="btn bg-success text-white btn-sm">Edit</a>
                                 <form action="{{ route('training-programs.destroy', $program->id) }}" method="POST"
                                     style="display:inline;">
                                     @csrf
-                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-primary text-white" onclick="return confirm('Are you sure?')">Delete</button>
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-primary text-white"
+                                    onclick="return confirm('Are you sure you want to delete?')">Delete</button>
                                 </form>
                             </td>
-                            <td><div class="form-check form-switch">
-            <input class="form-check-input status-toggle" type="checkbox" role="switch"  data-table="micro_manage_training_programs" 
-            data-column="page_status" data-id="{{$program->id}}" {{$program->page_status ? 'checked' : ''}}>
-          </div></td>
+                            <td>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input status-toggle" type="checkbox" role="switch"
+                                        data-table="micro_manage_training_programs" data-column="page_status"
+                                        data-id="{{$program->id}}" {{$program->page_status ? 'checked' : ''}}>
+                                </div>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>

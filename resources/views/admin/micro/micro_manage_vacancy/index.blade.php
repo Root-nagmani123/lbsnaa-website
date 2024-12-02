@@ -45,6 +45,7 @@
                             <th class="col">Publish Date</th>
                             <th class="col">Expiry Date</th>
                             <th class="col">Uploaded Document / Website Link</th> <!-- Column for document or link -->
+                            <th class="col">Option</th>
                             <th class="col">Actions</th>
                             <th class="col">Status</th>
                         </tr>
@@ -87,9 +88,25 @@
                                 @endif
                             </td>
                             <td>
+                                <button type="button"
+                                    class="btn btn-outline-primary text-primary fw-semibold btn-sm view-slider"
+                                    data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                                    data-job_title="{{ $vacancy->job_title }}"
+                                    data-content_type="{{ $vacancy->content_type }}"
+                                    data-publish_date="{{ $vacancy->publish_date }}"
+                                    data-expiry_date="{{ $vacancy->expiry_date }}"
+                                    data-job_description="{{ $vacancy->job_description }}"
+                                    data-image="{{ asset('/storage/' . $vacancy->document_upload) }}"
+                                    data-website_link="{{ $vacancy->website_link }}"
+                                    data-language="{{ $vacancy->language == 1 ? 'English' : 'Hindi' }}">
+                                    View
+                                </button>
+                            </td>
+                            <td>
                                 <a href="{{ route('micro_manage_vacancy.edit', $vacancy->id) }}"
                                     class="btn bg-success text-white btn-sm">Edit</a>
-                                <form action="{{ route('micro_manage_vacancy.destroy', $vacancy->id) }}" method="POST" style="display:inline;">
+                                <form action="{{ route('micro_manage_vacancy.destroy', $vacancy->id) }}" method="POST"
+                                    style="display:inline;">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-sm btn-primary text-white">Delete</button>
@@ -110,4 +127,98 @@
         </div>
     </div>
 </div>
+
+
+<!-- modal start -->
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Vacancies Details</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="sliderText">Title</label>
+                    <p id="sliderText"></p> <!-- Text will be injected here -->
+                </div>
+                <div class="form-group">
+                    <label for="sliderDescription">Type</label>
+                    <p id="sliderDescription"></p> <!-- Description will be injected here -->
+                </div>
+                <div class="form-group">
+                    <label for="sliderDescription">publish_date</label>
+                    <p id="sliderDescription"></p> <!-- Description will be injected here -->
+                </div>
+                <div class="form-group">
+                    <label for="sliderDescription">Type</label>
+                    <p id="sliderDescription"></p> <!-- Description will be injected here -->
+                </div>
+                <div class="form-group">
+                    <label for="sliderImage">Image</label>
+                    <img id="sliderImage" src="" width="100" /> <!-- Image will be injected here -->
+                </div>
+                <div class="form-group">
+                    <label for="sliderLanguage">Language</label>
+                    <p id="sliderLanguage"></p> <!-- Language will be injected here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const viewButtons = document.querySelectorAll('.view-slider');
+    const modalTitle = document.getElementById('staticBackdropLabel');
+    const modalBody = document.querySelector('.modal-body');
+
+    viewButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Extract data from the button
+            const job_title = this.dataset.job_title || 'N/A';
+            const content_type = this.dataset.content_type || 'N/A';
+            const publish_date = this.dataset.publish_date || 'N/A';
+            const expiry_date = this.dataset.expiry_date || 'N/A';
+            const image = this.dataset.image;
+            const website_link = this.dataset.website_link;
+            const job_description = this.dataset.job_description || 'N/A';
+            const language = this.dataset.language || 'N/A';
+
+            console.log('Image:', image);
+            console.log('Website Link:', website_link);
+
+            // Determine which to display: image or link
+            let fileContent = '';
+            if (image && image.trim() !== '' && image !== 'null') {
+                fileContent =
+                    `<p><strong>File:</strong><img src="${image}" alt="Vacancy Image" class="img-fluid mb-3" style="width:100px; height:100px;" /></p>`;
+            } else if (website_link && website_link.trim() !== '' && website_link !== 'null') {
+                fileContent =
+                    `<p><strong>Website Link:</strong> <a href="${website_link}" target="_blank">View Link</a></p>`;
+            } else {
+                fileContent = `<p><strong>File:</strong> Not available</p>`;
+            }
+
+            // Update modal content
+            modalTitle.textContent = 'Tenders / Circulars Details';
+            modalBody.innerHTML = `
+                <div>
+                    <p><strong>Job Title:</strong> ${job_title}</p>
+                    <p><strong>Content Type:</strong> ${content_type}</p>
+                    <p><strong>Publish Date:</strong> ${publish_date}</p>
+                    <p><strong>Expiry Date:</strong> ${expiry_date}</p>
+                    <p><strong>Description:</strong> ${job_description}</p>
+                    ${fileContent}
+                    <p><strong>Language:</strong> ${language}</p>
+                </div>`;
+        });
+    });
+});
+</script>

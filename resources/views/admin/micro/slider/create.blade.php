@@ -11,7 +11,7 @@
                 <span>Dashboard</span>
             </a>
         </li>
-        <li> 
+        <li>
             <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Home Banner - Micro</span>
         </li>
     </ul>
@@ -31,39 +31,53 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
-                                <label class="label">Page Language</label>
+                                <label for="language" class="label">Page Language</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="radio" name="language" value="1" required> English
-                                    <input type="radio" name="language" value="2"> Hindi
-                                </div>
+                                    <input type="radio" name="language" value="1" id="language_english"
+                                        {{ old('language') == '1' ? 'checked' : '' }}>
+                                    <label for="language_english">English</label>
 
+                                    <input type="radio" name="language" value="2" id="language_hindi"
+                                        {{ old('language') == '2' ? 'checked' : '' }}>
+                                    <label for="language_hindi">Hindi</label>
+                                </div>
+                                @error('language')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
+
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label for="research_centre_id" class="label">Select Research Centre</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <select name="research_centre" id="research_centre_id"
-                                        class="form-control text-dark ps-5 h-58" required>
+                                        class="form-control text-dark ps-5 h-58">
                                         <option value="">Select Research Centre</option>
                                         @foreach ($researchCentres as $id => $name)
-                                        <option value="{{ $id }}">{{ $name }}</option>
+                                        <option value="{{ $id }}" {{ old('research_centre') == $id ? 'selected' : '' }}>
+                                            {{ $name }}</option>
                                         @endforeach
                                     </select>
+                                    @error('research_centre')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label for="slider_image" class="label">Slider Image</label>
-                                <span class="star">
-                                    *
-                                </span>
+                                <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="file" name="slider_image" id="slider_image"
-                                        class="form-control text-dark ps-5 h-58" required>
+                                        class="form-control text-dark ps-5 h-58" value="{{ old('slider_image') }}">
+                                    @error('slider_image')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -73,39 +87,21 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" name="slider_text" id="slider_text"
-                                        class="form-control text-dark ps-5 h-58" required>
+                                        class="form-control text-dark ps-5 h-58" value="{{ old('slider_text') }}">
+                                    @error('slider_text')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="col-lg-6">
-                            <div class="form-group mb-4">
-                                <label for="slider_description" class="label">Slider Description</label>
-                                <span class="star">*</span>
-                                <div class="form-group position-relative">
-                                    <textarea name="slider_description" id="slider_description"
-                                        class="form-control text-dark ps-5 h-58" required></textarea>
-                                </div>
-                            </div>
-                        </div> -->
-
-                        <!-- <div class="col-lg-12">
-                            <div class="form-group mb-4">
-                                <label class="label">Description:</label>
-                                <div class="form-group position-relative">
-                                    <textarea class="form-control" id="slider_description" placeholder="Enter the Description" name="slider_description" rows="5">{{ old('slider_description', $manageTender->slider_description ?? '') ?? '' }}</textarea>
-                                    <textarea class="form-control" id="slider_description" placeholder="Enter the Description" name="slider_description" rows="5">
-                                        {{ old('slider_description', $manageTender->slider_description ?? '') }}
-                                    </textarea>
-                                </div>
-                                @error('slider_description')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div> -->
 
                         <div class="form-group">
                             <label for="slider_description">Description:</label>
-                            <textarea name="slider_description" id="editor" class="form-control">{{ old('slider_description') }}</textarea>
+                            <textarea name="slider_description" id="editor" class="form-control"
+                                value="{{ old('slider_description') }}">{{ old('slider_description') }}</textarea>
+                            @error('slider_description')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="col-lg-6">
@@ -113,17 +109,19 @@
                                 <label for="status" class="label">Status</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select name="status" id="status" class="form-control text-dark ps-5 h-58" required>
+                                    <select name="status" id="status" class="form-control text-dark ps-5 h-58">
                                         <option value="" selected>Select Status</option>
-                                        <option value="1">Active</option>
-                                        <option value="0">Inactive</option>
+                                        <option value="1" {{ old('status') == '1' ? 'selected' : '' }}>Active</option>
+                                        <option value="0" {{ old('status') == '0' ? 'selected' : '' }}>Inactive</option>
                                     </select>
+                                    @error('status')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
                         <div class="d-flex ms-sm-3 ms-md-0 mt-4">
-                            <button class="btn btn-success text-white fw-semibold"
-                                type="submit">Submit</button> &nbsp;
+                            <button class="btn btn-success text-white fw-semibold" type="submit">Submit</button> &nbsp;
                             <a href="{{ route('slider.index') }}" class="btn btn-secondary text-white">Cancel</a>
                         </div>
                     </div>

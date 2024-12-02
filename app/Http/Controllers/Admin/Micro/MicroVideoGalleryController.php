@@ -32,7 +32,7 @@ class MicroVideoGalleryController extends Controller
             'video_title_en' => 'required',
             'video_title_hi' => 'nullable',
             'video_upload' => 'required|mimes:mp4|max:20000',
-            'page_status' => 'required|in:1,2,3',
+            'page_status' => 'required|in:1,0',
         ]);
 
         $data = $request->all();
@@ -72,7 +72,7 @@ class MicroVideoGalleryController extends Controller
             'video_title_en' => 'required',
             'video_title_hi' => 'nullable',
             'video_upload' => 'nullable|mimes:mp4|max:20000',
-            'page_status' => 'required|in:1,2,3',
+            'page_status' => 'required|in:1,0',
         ]);
 
         $video = MicroVideoGallery::findOrFail($id);

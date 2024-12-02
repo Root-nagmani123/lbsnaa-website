@@ -36,7 +36,7 @@
                 <table class="table align-middle" id="myTable">
                     <thead>
                         <tr class="text-center">
-                            <th class="col">SNO</th>
+                            <th class="col">#</th>
                             <th class="col">Category Name</th>
                             <th class="col">Parent</th>
                             <th class="col">Language</th>

@@ -76,7 +76,7 @@
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-sm btn-primary text-white"
-                                        onclick="return confirm('Are you sure?')">Delete</button>
+                                    onclick="return confirm('Are you sure you want to delete?')">Delete</button>
                                 </form>
                             </td>
                             <td><div class="form-check form-switch">

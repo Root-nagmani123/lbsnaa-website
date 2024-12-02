@@ -16,8 +16,8 @@
                 </button>
             </a>
         </div>
-        @if(session('success'))
-            <p>{{ session('success') }}</p>
+        @if (session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
         @endif
         <div class="default-table-area members-list">
             <div class="table-responsive">

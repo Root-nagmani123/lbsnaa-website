@@ -47,39 +47,39 @@
                             <td>{{ $vacancy->language == 1 ? 'English' : 'Hindi' }}</td>
                             <td>
                                 @if($vacancy->content_type == 'PDF' && $vacancy->document_upload)
-                                    @php
-                                        $extension = pathinfo($vacancy->document_upload, PATHINFO_EXTENSION);
-                                    @endphp
-                                    @if(in_array($extension, ['jpg', 'jpeg', 'png']))
-                                        <!-- Display image -->
-                                        <img src="{{ asset('storage/' . $vacancy->document_upload) }}" alt="Document Image" 
-                                            style="width: 100px; height: auto;">
-                                    @elseif($extension === 'pdf')
-                                        <!-- Provide a link to view or download the PDF -->
-                                        <a href="{{ asset('storage/' . $vacancy->document_upload) }}" target="_blank">View PDF</a>
-                                    @else
-                                        <!-- Fallback if the document type is unsupported -->
-                                        Unsupported document format.
-                                    @endif
-                                @elseif($vacancy->content_type == 'Website' && $vacancy->website_link)
-                                    <!-- Display website link -->
-                                    <a href="{{ $vacancy->website_link }}" target="_blank">View Link</a>
+                                @php
+                                $extension = pathinfo($vacancy->document_upload, PATHINFO_EXTENSION);
+                                @endphp
+                                @if(in_array($extension, ['jpg', 'jpeg', 'png']))
+                                <!-- Display image -->
+                                <img src="{{ asset('storage/' . $vacancy->document_upload) }}" alt="Document Image"
+                                    style="width: 100px; height: auto;">
+                                @elseif($extension === 'pdf')
+                                <!-- Provide a link to view or download the PDF -->
+                                <a href="{{ asset('storage/' . $vacancy->document_upload) }}" target="_blank">View
+                                    PDF</a>
                                 @else
-                                    No document or link available.
+                                <!-- Fallback if the document type is unsupported -->
+                                Unsupported document format.
+                                @endif
+                                @elseif($vacancy->content_type == 'Website' && $vacancy->website_link)
+                                <!-- Display website link -->
+                                <a href="{{ $vacancy->website_link }}" target="_blank">View Link</a>
+                                @else
+                                No document or link available.
                                 @endif
                             </td>
                             <td>
                                 <button type="button"
                                     class="btn btn-outline-primary text-primary fw-semibold btn-sm view-slider"
                                     data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-
                                     data-job_title="{{ $vacancy->job_title }}"
                                     data-content_type="{{ $vacancy->content_type }}"
                                     data-publish_date="{{ $vacancy->publish_date }}"
                                     data-expiry_date="{{ $vacancy->expiry_date }}"
                                     data-job_description="{{ $vacancy->job_description }}"
                                     data-image="{{ asset('/storage/' . $vacancy->document_upload) }}"
-    data-website_link="{{ $vacancy->website_link }}"
+                                    data-website_link="{{ $vacancy->website_link }}"
                                     data-language="{{ $vacancy->language == 1 ? 'English' : 'Hindi' }}">
                                     View
                                 </button>
@@ -91,8 +91,8 @@
                                     style="display:inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-primary text-white" 
-                                    onclick="return confirm('Are you sure you want to delete?')">Delete</button>
+                                    <button type="submit" class="btn btn-sm btn-primary text-white"
+                                        onclick="return confirm('Are you sure you want to delete?')">Delete</button>
                                 </form>
                             </td>
                             <td>
@@ -154,7 +154,8 @@
 
 @endsection
 
-<!-- <script>
+
+<script>
 document.addEventListener('DOMContentLoaded', function() {
     const viewButtons = document.querySelectorAll('.view-slider');
     const modalTitle = document.getElementById('staticBackdropLabel');
@@ -162,41 +163,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     viewButtons.forEach(button => {
         button.addEventListener('click', function() {
-            // Extract data from the button
-            const job_title = this.dataset.job_title;
-            const content_type = this.dataset.content_type;
-            const publish_date = this.dataset.publish_date;
-            const expiry_date = this.dataset.expiry_date;
-            const image = this.dataset.image;
-            const website_link = this.dataset.website_link;
-            const job_description = this.dataset.job_description;
-            const language = this.dataset.language;
-            
-            // Update modal content
-            modalTitle.textContent = 'Tenders / Circulars Details';
-            modalBody.innerHTML = `<div>
-                    <p><strong>Job Title:</strong> ${job_title}</p>
-                    <p><strong>Content Type:</strong> ${content_type} </p>
-                    <p><strong>Publish Date:</strong> ${publish_date}</p>
-                    <p><strong>Expiry Date:</strong> ${expiry_date}</p>
-                    <p><strong>Description:</strong> ${job_description}</p>
-                    <p><strong>File:</strong><img src="${image}" alt="Vacany Image" class="img-fluid mb-3" style="width:100px; height:100px;" /> </p>
-                    <p><strong>Website Link:</strong> <a href="${website_link }" target="_blank">View Link</a> </p>
-                    <p><strong>Language:</strong> ${language}</p>
-                    </div>`;
-        });
-    });
-});
-</script> -->
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const viewButtons = document.querySelectorAll('.view-slider');
-    const modalTitle = document.getElementById('staticBackdropLabel');
-    const modalBody = document.querySelector('.modal-body');
-
-    viewButtons.forEach(button => {
-        button.addEventListener('click', function () {
             // Extract data from the button
             const job_title = this.dataset.job_title || 'N/A';
             const content_type = this.dataset.content_type || 'N/A';
@@ -213,9 +179,11 @@ document.addEventListener('DOMContentLoaded', function () {
             // Determine which to display: image or link
             let fileContent = '';
             if (image && image.trim() !== '' && image !== 'null') {
-                fileContent = `<p><strong>File:</strong><img src="${image}" alt="Vacancy Image" class="img-fluid mb-3" style="width:100px; height:100px;" /></p>`;
+                fileContent =
+                    `<p><strong>File:</strong><img src="${image}" alt="Vacancy Image" class="img-fluid mb-3" style="width:100px; height:100px;" /></p>`;
             } else if (website_link && website_link.trim() !== '' && website_link !== 'null') {
-                fileContent = `<p><strong>Website Link:</strong> <a href="${website_link}" target="_blank">View Link</a></p>`;
+                fileContent =
+                    `<p><strong>Website Link:</strong> <a href="${website_link}" target="_blank">View Link</a></p>`;
             } else {
                 fileContent = `<p><strong>File:</strong> Not available</p>`;
             }
@@ -235,7 +203,4 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
-
 </script>
-
-

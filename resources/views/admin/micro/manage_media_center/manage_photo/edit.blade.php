@@ -37,19 +37,26 @@
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label">Category Name:</label>
+                                <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" id="course-search" class="form-control text-dark ps-5 h-58"
                                         placeholder="Type to search for course..." value="{{ old('aaa', $aaa ?? '') }}">
                                     <!-- Hidden input to store the course_id -->
                                     <input type="hidden" name="course_id" id="selected-course-id"
                                         value="{{ old('course_id', $gallery->course_id ?? '') }}">
-                                    <!-- Dropdown for suggestions (optional, for searching courses dynamically) -->
+                                    <!-- Dropdown for suggestions -->
                                     <div id="course-suggestions" class="dropdown-menu"
                                         style="display: none; position: relative;">
+                                        @error('course_id')
+                                        <div class="text-danger">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+
+
                         <div class="col-lg-6" id="related_news_field">
                             <div class="form-group mb-4">
                                 <label for="related_news" class="label">Related News:</label>
@@ -100,10 +107,14 @@
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label">Image Title (English)</label>
+                                <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" name="image_title_english"
                                         value="{{ old('image_title_english', $gallery->image_title_english ?? '') }}"
-                                        required class="form-control text-dark ps-5 h-58">
+                                        class="form-control text-dark ps-5 h-58">
+                                    @error('image_title_english')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -120,6 +131,7 @@
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label">Image Files</label>
+                                <span class="star">*</span>
                                 <div id="file-container">
                                     @if($gallery->image_files)
                                     @php
@@ -130,11 +142,15 @@
                                     <div class="file-group">
                                         <div class="image-preview mb-2">
                                             <!-- Display the image thumbnail -->
-                                            <img src="{{ asset('storage/' . $file) }}" alt="image" width="100" height="100">
+                                            <img src="{{ asset('storage/' . $file) }}" alt="image" width="100"
+                                                height="100">
                                         </div>
                                         <!-- File input for updating image -->
-                                        <input type="file" name="image_files[]" class="form-control text-dark ps-5 h-58 mb-2" accept="image/*">
-                                        <button type="button" class="btn btn-primary remove-existing-file text-white mb-2" data-file="{{ $file }}">Remove</button>
+                                        <input type="file" name="image_files[]"
+                                            class="form-control text-dark ps-5 h-58 mb-2" accept="image/*">
+                                        <button type="button"
+                                            class="btn btn-primary remove-existing-file text-white mb-2"
+                                            data-file="{{ $file }}">Remove</button>
                                     </div>
                                     @endforeach
                                     @else
@@ -144,40 +160,38 @@
                                     <p>No images available.</p>
                                     @endif
                                 </div>
-                                    <button type="button" class="btn btn-success text-white" id="add-file">Add More</button>
-                                    <!-- Hidden input to track removed images -->
-                                    <input type="hidden" name="removed_files" id="removed-files" value="">
-                                </div>
+                                <button type="button" class="btn btn-success text-white" id="add-file">Add More</button>
+                                <!-- Hidden input to track removed images -->
+                                <input type="hidden" name="removed_files" id="removed-files" value="">
                             </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group mb-4">
-                                <label class="label">Status</label>
-                                <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="status" id="status"
-                                        required>
-                                        <option value="0" class="text-dark">Select</option>
-                                        <option value="1" class="text-dark"
-                                            {{ $gallery->status == '1' ? 'selected' : '' }}>Active</option>
-                                        <option value="2" class="text-dark"
-                                            {{ $gallery->status == '0' ? 'selected' : '' }}>Inactive</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-flex ms-sm-3 ms-md-0 mt-4">
-                            <button class="btn btn-success text-white fw-semibold"
-                                type="submit">Update</button> &nbsp;
-                                <a href="{{ route('micro-photo-gallery.index') }}" class="btn btn-secondary text-white fw-semibold">Cancel</a>
                         </div>
                     </div>
-                    
-                </form>
+                    <div class="col-lg-6">
+                        <div class="form-group mb-4">
+                            <label class="label">Status</label>
+                            <div class="form-group position-relative">
+                                <select class="form-select form-control ps-5 h-58" name="status" id="status">
+                                    <option value="1" class="text-dark" {{ $gallery->status == '1' ? 'selected' : '' }}>
+                                        Active</option>
+                                    <option value="2" class="text-dark" {{ $gallery->status == '0' ? 'selected' : '' }}>
+                                        Inactive</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex ms-sm-3 ms-md-0 mt-4">
+                        <button class="btn btn-success text-white fw-semibold" type="submit">Update</button> &nbsp;
+                        <a href="{{ route('micro-photo-gallery.index') }}"
+                            class="btn btn-secondary text-white fw-semibold">Cancel</a>
+                    </div>
             </div>
 
-
+            </form>
         </div>
+
+
     </div>
+</div>
 </div>
 </div>
 
@@ -447,42 +461,13 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
 
-<!-- <script>
-document.addEventListener("DOMContentLoaded", function() {
-    // Make sure the DOM is fully loaded before running the script
-
-    // Add event listener to "Add More" button
-    document.getElementById('add-file').addEventListener('click', function() {
-        // Create a new file input group
-        var fileGroup = document.createElement('div');
-        fileGroup.classList.add('file-group');
-        fileGroup.innerHTML = `
-                <input type="file" name="image_files[]" class="form-control text-dark ps-5 h-58" accept="image/*">
-                <button type="button" class="btn btn-primary remove-file mb-2 text-white">Remove</button>
-            `;
-
-        // Append the new file group to the container
-        document.getElementById('file-container').appendChild(fileGroup);
-
-        // Bind the event listener for the "Remove" button in the new file group
-        fileGroup.querySelector('.remove-file').addEventListener('click', function() {
-            // Remove the file group when the "Remove" button is clicked
-            fileGroup.remove();
-        });
-
-        // Make the "Remove" button visible for the newly added input
-        fileGroup.querySelector('.remove-file').style.display = 'inline-block';
-    });
-});
-</script> -->
-
 <script>
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function() {
     const removedFilesInput = document.getElementById('removed-files'); // Hidden input for removed files
     const fileContainer = document.getElementById('file-container'); // Container for all files
 
     // Event listener for dynamically adding new file inputs
-    document.getElementById('add-file').addEventListener('click', function () {
+    document.getElementById('add-file').addEventListener('click', function() {
         const fileGroup = document.createElement('div');
         fileGroup.classList.add('file-group', 'mt-2');
         fileGroup.innerHTML = `
@@ -492,13 +477,13 @@ document.addEventListener("DOMContentLoaded", function () {
         fileContainer.appendChild(fileGroup);
 
         // Attach remove event listener to the new "Remove" button
-        fileGroup.querySelector('.remove-file').addEventListener('click', function () {
+        fileGroup.querySelector('.remove-file').addEventListener('click', function() {
             fileGroup.remove();
         });
     });
 
     // Event delegation for removing existing images
-    fileContainer.addEventListener('click', function (event) {
+    fileContainer.addEventListener('click', function(event) {
         if (event.target.classList.contains('remove-existing-file')) {
             const fileGroup = event.target.closest('.file-group');
             const fileName = event.target.getAttribute('data-file');
@@ -513,5 +498,4 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
-
 </script>

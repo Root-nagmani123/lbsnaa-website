@@ -96,58 +96,7 @@ class ManageVacancyController extends Controller
 	    return view('admin.manage_vacancy.edit', compact('vacancy')); // Passes the $vacancy variable to the view
 	}
 
-    // public function update(Request $request, ManageVacancy $manage_vacancy)
-    // {
-    //     // Base validation rules
-    //     $rules = [
-    //         'language' => 'required',
-    //         'job_title' => 'required|string|max:255',
-    //         'job_description' => 'required',
-    //         'content_type' => 'required|in:PDF,Website',
-    //         'publish_date' => 'required|date',
-    //         'expiry_date' => 'required|date|after_or_equal:publish_date',
-    //         'status' => 'required|integer|in:1,2,3',
-    //     ];
 
-    //     // Conditionally add validation for either document_upload or website_link
-    //     if ($request->content_type == 'PDF') {
-    //         $rules['document_upload'] = 'nullable|mimes:pdf,png,jpg|max:2048'; // Allow null if no file change
-    //     } elseif ($request->content_type == 'Website') {
-    //         $rules['website_link'] = 'required_if:content_type,Website|url';
-    //     }
-
-    //     // Validate the request
-    //     $validatedData = $request->validate($rules);
-
-    //     // Handle file upload if content_type is PDF and a new file is uploaded
-    //     if ($request->hasFile('document_upload')) {
-    //         // Delete the old file if it exists
-    //         if ($manage_vacancy->document_upload && file_exists(public_path('uploads/' . $manage_vacancy->document_upload))) {
-    //             unlink(public_path('uploads/' . $manage_vacancy->document_upload));
-    //         }
-
-    //         // Store the new file
-    //         $fileName = time() . '.' . $request->document_upload->getClientOriginalExtension();
-    //         $request->document_upload->move(public_path('uploads'), $fileName);
-    //         $validatedData['document_upload'] = $fileName;
-    //     }
-
-    //     // Update the vacancy with validated data
-    //     $manage_vacancy->update($validatedData);
-
-    //     // Add an audit log
-    //     ManageAudit::create([
-    //         'Module_Name' => 'Vacancy Module',
-    //         'Time_Stamp' => time(), // Use Carbon to get the current timestamp
-    //         'Created_By' => NULL, // ID of the authenticated user
-    //         'Updated_By' => NULL, // ID of the authenticated user
-    //         'Action_Type' => 'Update',
-    //         'IP_Address' => $request->ip(),
-    //     ]);
-
-    //     // Redirect with success message
-    //     return redirect()->route('manage_vacancy.index')->with('success', 'Vacancy updated successfully');
-    // }
 
     public function update(Request $request, ManageVacancy $manage_vacancy)
     {
@@ -159,7 +108,7 @@ class ManageVacancyController extends Controller
             'content_type' => 'required|in:PDF,Website',
             'publish_date' => 'required|date',
             'expiry_date' => 'required|date|after_or_equal:publish_date',
-            'status' => 'required|integer|in:1,2,3',
+            'status' => 'required|integer|in:1,0',
         ];
 
         // Conditionally add validation for document_upload or website_link

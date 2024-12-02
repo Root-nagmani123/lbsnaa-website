@@ -34,11 +34,12 @@
                 <table class="table align-middle" id="myTable">
                     <thead>
                         <tr class="text-center">
-                            <th class="col">ID</th>
+                            <th class="col">#</th>
                             <th class="col">Course Name</th>
                             <th class="col">Abbreviation</th>
                             <th class="col">Language</th>
                             <th class="col">Coordinator</th>
+                            <th class="col">Option</th>
                             <th class="col">Actions</th>
                             <th class="col">Status</th>
                         </tr>
@@ -51,6 +52,25 @@
                             <td>{{ $course->abbreviation }}</td>
                             <td>{{ $course->language == 1 ? 'English' : 'Hindi' }}</td>
                             <td>{{ $course->coordinator_id }}</td>
+                            <td>
+                                <button type="button"
+                                    class="btn btn-outline-primary text-primary fw-semibold btn-sm view-slider"
+                                    data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+
+                                    data-course_name="{{ $course->course_name }}"
+                                    data-abbreviation="{{ $course->abbreviation }}"
+                                    data-coordinator_id="{{ $course->coordinator_id }}"
+                                    data-meta_keyword="{{ $course->meta_keyword }}"
+                                    data-meta_description="{{ $course->meta_description }}"
+                                    data-description="{{ $course->description }}"
+                                    data-course_start_date="{{ $course->course_start_date }}"
+                                    data-course_end_date="{{ $course->course_end_date }}"
+                                    data-support_section="{{ $course->support_section }}"
+                                    data-course_type="{{ $course->course_type }}"
+                                    data-language="{{ $course->language == 1 ? 'English' : 'Hindi' }}">
+                                    View
+                                </button>
+                            </td>
                             <td>
                                 <a href="{{ route('admin.courses.edit', $course->id) }}"
                                     class="btn bg-success text-white btn-sm">Edit</a>
@@ -77,4 +97,90 @@
         </div>
     </div>
 </div>
+
+<!-- modal start -->
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Vacancies Details</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="sliderText">Title</label>
+                    <p id="sliderText"></p> <!-- Text will be injected here -->
+                </div>
+                <div class="form-group">
+                    <label for="sliderDescription">Type</label>
+                    <p id="sliderDescription"></p> <!-- Description will be injected here -->
+                </div>
+                <div class="form-group">
+                    <label for="sliderDescription">publish_date</label>
+                    <p id="sliderDescription"></p> <!-- Description will be injected here -->
+                </div>
+                <div class="form-group">
+                    <label for="sliderDescription">Type</label>
+                    <p id="sliderDescription"></p> <!-- Description will be injected here -->
+                </div>
+                <div class="form-group">
+                    <label for="sliderImage">Image</label>
+                    <img id="sliderImage" src="" width="100" /> <!-- Image will be injected here -->
+                </div>
+                <div class="form-group">
+                    <label for="sliderLanguage">Language</label>
+                    <p id="sliderLanguage"></p> <!-- Language will be injected here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const viewButtons = document.querySelectorAll('.view-slider');
+    const modalTitle = document.getElementById('staticBackdropLabel');
+    const modalBody = document.querySelector('.modal-body');
+
+    viewButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Extract data from the button
+            const course_name = this.dataset.course_name || 'N/A';
+            const abbreviation = this.dataset.abbreviation || 'N/A';
+            const coordinator_id = this.dataset.coordinator_id || 'N/A';
+            const meta_keyword = this.dataset.meta_keyword || 'N/A';
+            const meta_description = this.dataset.meta_description || 'N/A';
+            const description = this.dataset.description || 'N/A';
+            const course_start_date = this.dataset.course_start_date || 'N/A';
+            const course_end_date = this.dataset.course_end_date;
+            const support_section = this.dataset.support_section || '';
+            const course_type = this.dataset.course_type || '';
+            const language = this.dataset.language || 'N/A';
+
+            
+            // Update modal content
+            modalTitle.textContent = 'News Details';
+            modalBody.innerHTML = `
+                <div>
+                    <p><strong>Course Name:</strong> ${course_name}</p>
+                    <p><strong>Abbreviation:</strong> ${abbreviation}</p>
+                    <p><strong>Coordinator ID:</strong> ${coordinator_id}</p>
+                    <p><strong>Meta Keyword:</strong> ${meta_keyword}</p>
+                    <p><strong>Meta Description:</strong> ${meta_description}</p>
+                    <p><strong>Description:</strong> ${description}</p>
+                    <p><strong>Course Start Date:</strong> ${course_start_date}</p>
+                    <p><strong>Course End Date:</strong> ${course_end_date}</p>
+                    <p><strong>Support Section:</strong> ${support_section}</p>
+                    <p><strong>Course Type:</strong> ${course_type}</p>
+                    <p><strong>Language:</strong> ${language}</p>
+                </div>`;
+        });
+    });
+});
+</script>

@@ -10,6 +10,7 @@ class MicroManageMediaCategories extends Model
     protected $table = 'micro_media_categories';
     protected $fillable = [
         'media_gallery',
+        'research_centre',
         'name',
         'hindi_name',
         'status',

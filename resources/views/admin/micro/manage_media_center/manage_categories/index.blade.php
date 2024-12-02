@@ -35,21 +35,43 @@
                     @method('PUT')
                     @endif
                     <div class="row">
+
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label for="research_centre_id" class="label">Select Research Centre</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <select name="research_centre" id="research_centre_id"
+                                        class="form-control text-dark ps-5 h-58">
+                                        <option value="">Select Research Centre</option>
+                                        @foreach ($researchCentres as $id => $name)
+                                        <option value="{{ $id }}" {{ old('research_centre') == $id ? 'selected' : '' }}>
+                                            {{ $name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('research_centre')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="media_gallery">Media Gallery :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <select class="form-select form-control ps-5 h-58" name="media_gallery"
-                                        id="media_gallery" required>
+                                        id="media_gallery">
                                         <option value="" class="text-dark">Select</option>
-                                        <option value="1" class="text-dark"
-                                            {{ isset($category) && $category->media_gallery == '1' ? 'selected' : '' }}>
+                                        <option value="1" class="text-dark" {{ isset($category) && $category->media_gallery == '1' ? 'selected' : '' }}>
                                             Photo Gallery</option>
-                                        <option value="2" class="text-dark"
-                                            {{ isset($category) && $category->media_gallery == '2' ? 'selected' : '' }}>
+                                        <option value="2" class="text-dark" {{ isset($category) && $category->media_gallery == '2' ? 'selected' : '' }}>
                                             Video Gallery</option>
                                     </select>
+                                    @error('media_gallery')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -60,13 +82,15 @@
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark ps-5 h-58" name="name" id="name"
                                         value="{{ old('name', $category->name ?? '') }}">
+                                    @error('name')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="hindi_name">Hindi Name :</label>
-                                <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark ps-5 h-58" name="hindi_name"
                                         id="hindi_name" value="{{ old('hindi_name', $category->hindi_name ?? '') }}">
@@ -78,27 +102,23 @@
                                 <label class="label" for="status">Status :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="status" id="status"
-                                        required>
+                                    <select class="form-select form-control ps-5 h-58" name="status" id="status">
                                         <option value="" class="text-dark">Select</option>
-                                        <option value="1" class="text-dark">Active
-                                        </option>
-                                        <option value="0" class="text-dark">
-                                            Inactive</option>
+                                        <option value="1" class="text-dark" {{ old('status') == '1' ? 'selected' : '' }}>Active</option>
+                                        <option value="0" class="text-dark" {{ old('status') == '0' ? 'selected' : '' }}>Inactive</option>
                                     </select>
+                                    @error('status')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
                         <div class="d-flex ms-sm-3 ms-md-0">
-                            <button class="btn btn-success text-white fw-semibold"
-                                type="submit">{{ isset($category) ? 'Update' : 'Submit' }}</button> &nbsp;
-                            <a href="{{ route('photovideogallery.index') }}"
-                                class="btn btn-secondary text-white">Cancel</a>
+                            <button class="btn btn-success text-white fw-semibold" type="submit">{{ isset($category) ? 'Update' : 'Submit' }}</button> &nbsp;
+                            <a href="{{ route('photovideogallery.index') }}" class="btn btn-secondary text-white">Cancel</a>
                         </div>
                     </div>
                 </form>
-
-
             </div>
         </div>
     </div>
@@ -143,7 +163,7 @@
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-sm btn-primary text-white"
-                                        onclick="return confirm('Are you sure?')">Delete</button>
+                                    onclick="return confirm('Are you sure you want to delete?')">Delete</button>
                                 </form>
                             </td>
                             <td>
