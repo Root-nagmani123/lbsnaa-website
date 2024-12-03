@@ -64,8 +64,12 @@ use App\Http\Controllers\Admin\Micro\MicroSliderController;
 
 //front data
 use App\Http\Controllers\User\HomeFrontController;
-/*
 
+//Micro-Sites 
+
+use App\Http\Controllers\User\HomeFrontmicroController;
+
+/*
 
 |--------------------------------------------------------------------------
 | Web Routes
@@ -87,19 +91,12 @@ Route::get('/tenders', [HomeFrontController::class, 'tenders'])->name('user.tend
 
 
 
+//micro 
+Route::get('/lbsnaa-sub', [HomeFrontmicroController::class,'index'])->name('user.micrositebyslug');
 
-
-
-
-
-
-
-
-
-
-
-
-
+// Route::get('/lbsnaa-sub', function () {
+//     return view('user.pages.microsites.index');
+// })->name('user.micrositebyslug');
 
 
 
