@@ -72,6 +72,9 @@
                                 <div class="form-group position-relative">
                                     <input type="file" class="form-control text-dark ps-5 h-58" name="video_upload"
                                         id="audio_upload" accept=".mp4,.mp3">
+                                    @error('video_upload')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>

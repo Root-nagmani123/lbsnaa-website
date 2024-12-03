@@ -112,53 +112,83 @@ class MicroManageVacancyController extends Controller
         return view('admin.micro.micro_manage_vacancy.edit', compact('vacancy', 'researchCentres'));
     }
 
-    public function update(Request $request, MicroManageVacancy $manage_vacancy)
+    // public function update(Request $request, MicroManageVacancy $manage_vacancy)
+    // {
+    //     $rules = [
+    //         'language' => 'required|integer|in:1,2',
+    //         'research_centre' => 'required|integer|exists:research_centres,id',
+    //         'job_title' => 'required|string|max:255',
+    //         'job_description' => 'required|string',
+    //         'content_type' => 'required|in:PDF,Website',
+    //         'publish_date' => 'required|date',
+    //         'expiry_date' => 'required|date|after_or_equal:publish_date',
+    //         'status' => 'required|integer|in:1,0',
+    //     ]; 
+    
+    //     if ($request->content_type === 'PDF') {
+    //         $rules['document_upload'] = 'nullable|file|mimes:pdf|max:2048';
+    //     } elseif ($request->content_type === 'Website') {
+    //         $rules['website_link'] = 'required|url';
+    //     }
+    
+    //     $validatedData = $request->validate($rules);
+        
+    //     // Handle file upload
+    //     if ($request->hasFile('document_upload')) {
+    //         // Delete old file if exists
+    //         if ($manage_vacancy->document_upload && \Storage::exists($manage_vacancy->document_upload)) {
+    //             \Storage::delete($manage_vacancy->document_upload);
+    //         }
+    //         $fileName = time() . '.' . $request->document_upload->extension();
+    //         $validatedData['document_upload'] = $request->document_upload->storeAs('uploads', $fileName, 'public');
+    //     } else {
+    //         $validatedData['document_upload'] = $manage_vacancy->document_upload; // Retain old file if no new upload
+    //     }
+    //     dd($validatedData);
+    //     $manage_vacancy->update($validatedData);
+    
+    //     // Log the audit
+    //     MicroManageAudit::create([
+    //         'Module_Name' => 'Vacancy Module',
+    //         'Time_Stamp' => time(),
+    //         'Created_By' => auth()->id(),
+    //         'Updated_By' => auth()->id(),
+    //         'Action_Type' => 'Update',
+    //         'IP_Address' => $request->ip(),
+    //     ]);
+    
+    //     return redirect()->route('micro_manage_vacancy.index')->with('success', 'Vacancy updated successfully.');
+    // }
+
+    public function update(Request $request, $id)
     {
-        $rules = [
-            'language' => 'required|integer|in:1,2',
-            'research_centre' => 'required|integer|exists:research_centres,id',
-            'job_title' => 'required|string|max:255',
-            'job_description' => 'required|string',
-            'content_type' => 'required|in:PDF,Website',
-            'publish_date' => 'required|date',
-            'expiry_date' => 'required|date|after_or_equal:publish_date',
-            'status' => 'required|integer|in:1,0',
-        ];
-    
-        if ($request->content_type === 'PDF') {
-            $rules['document_upload'] = 'nullable|file|mimes:pdf|max:2048';
-        } elseif ($request->content_type === 'Website') {
-            $rules['website_link'] = 'required|url';
-        }
-    
-        $validatedData = $request->validate($rules);
-    
+        // Fetch the record by ID
+        $vacancy = MicroManageVacancy::findOrFail($id);
+
+        // Get request data (no validation)
+        $data = $request->all();
+
         // Handle file upload
         if ($request->hasFile('document_upload')) {
-            // Delete old file if exists
-            if ($manage_vacancy->document_upload && \Storage::exists($manage_vacancy->document_upload)) {
-                \Storage::delete($manage_vacancy->document_upload);
+            // Remove old file
+            if ($vacancy->document_upload && \Storage::exists($vacancy->document_upload)) {
+                \Storage::delete($vacancy->document_upload);
             }
-            $fileName = time() . '.' . $request->document_upload->extension();
-            $validatedData['document_upload'] = $request->document_upload->storeAs('uploads', $fileName, 'public');
-        } else {
-            $validatedData['document_upload'] = $manage_vacancy->document_upload; // Retain old file if no new upload
+
+            // Save new file
+            $filePath = $request->file('document_upload')->store('uploads', 'public');
+            $data['document_upload'] = $filePath;
         }
-    
-        $manage_vacancy->update($validatedData);
-    
-        // Log the audit
-        MicroManageAudit::create([
-            'Module_Name' => 'Vacancy Module',
-            'Time_Stamp' => time(),
-            'Created_By' => auth()->id(),
-            'Updated_By' => auth()->id(),
-            'Action_Type' => 'Update',
-            'IP_Address' => $request->ip(),
-        ]);
-    
+
+        // Update record
+        $vacancy->update($data);
+
+        // Redirect back
         return redirect()->route('micro_manage_vacancy.index')->with('success', 'Vacancy updated successfully.');
     }
+
+    
+
     
 
     public function destroy($id)

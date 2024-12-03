@@ -174,14 +174,65 @@
 
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+// document.addEventListener('DOMContentLoaded', function() {
+//     const viewButtons = document.querySelectorAll('.view-slider');
+//     const modalTitle = document.getElementById('staticBackdropLabel');
+//     const modalBody = document.querySelector('.modal-body');
+
+//     viewButtons.forEach(button => {
+//         button.addEventListener('click', function() {
+//             // Extract data from the button
+//             const job_title = this.dataset.job_title || 'N/A';
+//             const content_type = this.dataset.content_type || 'N/A';
+//             const publish_date = this.dataset.publish_date || 'N/A';
+//             const expiry_date = this.dataset.expiry_date || 'N/A';
+//             const image = this.dataset.image;
+//             const website_link = this.dataset.website_link;
+//             const job_description = this.dataset.job_description || 'N/A';
+//             const language = this.dataset.language || 'N/A';
+
+//             console.log('Image:', image);
+//             console.log('Website Link:', website_link);
+
+//             // Determine which to display: image or link
+//             let fileContent = '';
+//             if (image && image.trim() !== '' && image !== 'null') {
+//                 fileContent =
+//                     `<p><strong>File:</strong><img src="${image}" alt="Vacancy Image" class="img-fluid mb-3" style="width:100px; height:100px;" /></p>`;
+//             } else if (website_link && website_link.trim() !== '' && website_link !== 'null') {
+//                 fileContent =
+//                     `<p><strong>Website Link:</strong> <a href="${website_link}" target="_blank">View Link</a></p>`;
+//             } else {
+//                 fileContent = `<p><strong>File:</strong> Not available</p>`;
+//             }
+
+//             // Update modal content
+//             modalTitle.textContent = 'Tenders / Circulars Details';
+//             modalBody.innerHTML = `
+//                 <div>
+//                     <p><strong>Job Title:</strong> ${job_title}</p>
+//                     <p><strong>Content Type:</strong> ${content_type}</p>
+//                     <p><strong>Publish Date:</strong> ${publish_date}</p>
+//                     <p><strong>Expiry Date:</strong> ${expiry_date}</p>
+//                     <p><strong>Description:</strong> ${job_description}</p>
+//                     ${fileContent}
+//                     <p><strong>Language:</strong> ${language}</p>
+//                 </div>`;
+//         });
+//     });
+// });
+
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
     const viewButtons = document.querySelectorAll('.view-slider');
     const modalTitle = document.getElementById('staticBackdropLabel');
     const modalBody = document.querySelector('.modal-body');
 
     viewButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            // Extract data from the button
+        button.addEventListener('click', function () {
+            // Extract data attributes with default fallback
             const job_title = this.dataset.job_title || 'N/A';
             const content_type = this.dataset.content_type || 'N/A';
             const publish_date = this.dataset.publish_date || 'N/A';
@@ -194,19 +245,28 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Image:', image);
             console.log('Website Link:', website_link);
 
-            // Determine which to display: image or link
+            // Dynamically build file content
             let fileContent = '';
             if (image && image.trim() !== '' && image !== 'null') {
-                fileContent =
-                    `<p><strong>File:</strong><img src="${image}" alt="Vacancy Image" class="img-fluid mb-3" style="width:100px; height:100px;" /></p>`;
+                fileContent = `
+                    <p>
+                        <strong>File:</strong>
+                        <img src="${image}" alt="Vacancy Image" 
+                             class="img-fluid mb-3" 
+                             style="width:100px; height:100px;" 
+                             onerror="this.onerror=null; this.src='placeholder.jpg';" />
+                    </p>`;
             } else if (website_link && website_link.trim() !== '' && website_link !== 'null') {
-                fileContent =
-                    `<p><strong>Website Link:</strong> <a href="${website_link}" target="_blank">View Link</a></p>`;
+                fileContent = `
+                    <p>
+                        <strong>Website Link:</strong>
+                        <a href="${website_link}" target="_blank">View Link</a>
+                    </p>`;
             } else {
                 fileContent = `<p><strong>File:</strong> Not available</p>`;
             }
 
-            // Update modal content
+            // Update modal title and body
             modalTitle.textContent = 'Tenders / Circulars Details';
             modalBody.innerHTML = `
                 <div>
@@ -221,4 +281,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
 </script>
+

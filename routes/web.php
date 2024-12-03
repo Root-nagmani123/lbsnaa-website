@@ -342,6 +342,7 @@ Route::prefix('admin')->group(function () {
     Route::resource('organization_setups', OrganizationSetupController::class);
 
     Route::resource('micro_manage_vacancy', MicroManageVacancyController::class);
+    Route::put('/micro-manage-vacancy/{id}', [MicroManageVacancyController::class, 'update'])->name('micro_manage_vacancy.update');
     Route::get('/micro_manage_vacancy/{id}/edit', [MicroManageVacancyController::class, 'edit'])->name('micro_manage_vacancy.edit');
     // Route::delete('/admin/micro_manage_vacancy/{id}', [MicroManageVacancyController::class, 'destroy'])->name('micro_manage_vacancy.destroy');
 
