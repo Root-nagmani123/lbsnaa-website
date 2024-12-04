@@ -28,11 +28,11 @@
                         <thead>
                             <tr class="text-center">
                                 <th class="col">ID</th>
-                                <th class="col">Employee Name</th>
+                                <th class="col">Category Name</th>
                                 <th class="col">Sub org.</th>
                                 <th class="col">Description</th>
-                                <th class="col">Status</th>
                                 <th class="col">Action</th>
+                                <th class="col">Status</th>
                             </tr>
                         </thead>
                         <tbody>

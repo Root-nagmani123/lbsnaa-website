@@ -60,7 +60,7 @@
                         <!-- Select Employee with Autocomplete -->
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
-                                <label class="label">Select Employee :</label>
+                                <label class="label">Select Category :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" id="employee_name" name="employee_name" value="{{ $record->employee_name }}" class="form-control text-dark ps-5 h-58">
@@ -69,7 +69,7 @@
                         </div>
 
                         <!-- CKEditor for Description -->
-                        <div class="col-lg-6">
+                        <!-- <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label">Description :</label>
                                 <span class="star">*</span>
@@ -77,14 +77,13 @@
                                     <textarea name="description" id="description" class="form-control ps-5 text-dark">{{ $record->description }}</textarea>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <!-- Page Status -->
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label">Page Status:</label>
                                 <select name="status" class="form-select form-control ps-5 h-58">
-                                    <option value="">Select</option>
                                     <option value="1" {{ $record->status == '1' ? 'selected' : '' }}>Active</option>
                                     <option value="0" {{ $record->status == '0' ? 'selected' : '' }}>Inactive</option>
                                 </select>

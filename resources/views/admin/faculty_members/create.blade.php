@@ -67,7 +67,6 @@
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="name_in_hindi">Name in Hindi :</label>
-                                <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark ps-5 h-58" name="name_in_hindi" id="name_in_hindi">
                                 </div>
@@ -85,7 +84,6 @@
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="image">Upload Image :</label>
-                                <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="file" class="form-control text-dark ps-5 h-58" name="image" id="image">
                                 </div>

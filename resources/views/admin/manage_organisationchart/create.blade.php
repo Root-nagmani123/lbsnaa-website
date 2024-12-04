@@ -59,7 +59,7 @@
                             <!-- Select Employee with Autocomplete -->
                             <div class="col-lg-6">
                                 <div class="form-group mb-4">
-                                    <label class="label" for="menutitle">Select Employee :</label>
+                                    <label class="label" for="menutitle">Select Category :</label>
                                     <span class="star">*</span>
                                     <div class="form-group position-relative">
                                         <input type="text" id="employee_name" name="employee_name" autocomplete="" class="form-control text-dark ps-5 h-58">
@@ -67,7 +67,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-6">
+                            <!-- <div class="col-lg-6">
                                 <div class="form-group mb-4">
                                     <label class="label">Description :</label>
                                     <span class="star">*</span>
@@ -75,7 +75,7 @@
                                         <textarea name="description" id="description" class="form-control ps-5 text-dark"></textarea>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
                             <!-- Page Status -->
                             <div class="col-lg-6">

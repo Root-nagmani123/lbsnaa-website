@@ -28,7 +28,7 @@
                 <form action="{{ route('admin.menus.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-lg-2">
                             <div class="form-group mb-4">
                                 <label class="label" for="menutitle">Page Language :</label>
                                 <span class="star">*</span>
@@ -38,7 +38,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-5">
                             <div class="form-group mb-4">
                                 <label class="label" for="menutitle">Menu Title :</label>
                                 <span class="star">*</span>
@@ -48,24 +48,23 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-5">
                             <div class="form-group mb-4">
                                 <label class="label" for="texttype">Menu Type :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58"
-                                        aria-label="Default select example" name="texttype" id="texttype"
-                                        autocomplete="off" onchange="addmenutype(this.value)" required>
-                                        <option selected class="text-dark">Select</option>
-                                        <option value="1" class="text-dark">Content</option>
-                                        <option value="2" class="text-dark">PDF file Upload</option>
-                                        <option value="3" class="text-dark">Web Site Url</option>
+                                    <select name="texttype" id="texttype" class="form-control text-dark ps-5 h-58"
+                                        required>
+                                        <option value="">Select</option>
+                                        <option value="1">Content</option>
+                                        <option value="2">PDF file Upload</option>
+                                        <option value="3">Website URL</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
-                        <div style="display: none;" id="additional-fields">
-                            <div class="row" id="content-field">
+                        <div id="content-field" style="display: none;">
+                            <div class="row">
                                 <div class="col-lg-12">
                                     <div class="form-group mb-4">
                                         <label class="label" for="content">Content :</label>
@@ -110,25 +109,24 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row" style="display: none;" id="pdf-upload-field">
-                                <div class="col-lg-12">
-                                    <div class="form-group mb-4">
-                                        <label class="label" for="pdf_file">Upload PDF</label>
-                                        <div class="form-control h-100 text-center position-relative p-4 p-lg-5">
-                                            <div class="product-upload">
-                                                <label for="file-upload" class="file-upload mb-0">
-                                                    <i class="ri-upload-cloud-2-line fs-2 text-gray-light"></i>
-                                                    <span class="d-block fw-semibold text-body">Drop files here or click
-                                                        to upload.</span>
-                                                </label>
-                                                <input id="file-upload" type="file" name="pdf_file" id="pdf_file"
-                                                    accept=".pdf">
-                                            </div>
-                                        </div>
+                        </div>
+                        <div class="col-lg-12" style="display: none;" id="pdf-upload-field">
+                            <div class="form-group mb-4">
+                                <label class="label" for="pdf_file">Upload PDF</label>
+                                <div class="form-control h-100 text-center position-relative p-4 p-lg-5">
+                                    <div class="product-upload">
+                                        <label for="file-upload" class="file-upload mb-0">
+                                            <i class="ri-upload-cloud-2-line fs-2 text-gray-light"></i>
+                                            <span class="d-block fw-semibold text-body">Drop files here or click
+                                                to upload.</span>
+                                        </label>
+                                        <input id="file-upload" type="file" name="pdf_file" id="pdf_file" accept=".pdf">
                                     </div>
                                 </div>
                             </div>
-                            <div class="row" id="website-url-field">
+                        </div>
+                        <div id="website-url-field" style="display: none;">
+                            <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group mb-4">
                                         <label class="label" for="website_url">Website URL:</label>
@@ -156,7 +154,7 @@
                             </div>
                         </div>
                         <div class="col-lg-6">
-                            <div class="form-group mb-4 mt-4">
+                            <div class="form-group mb-4">
                                 <label class="label" for="menucategory">Primary Link :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
@@ -169,7 +167,7 @@
                             </div>
                         </div>
                         <div class="col-lg-6">
-                            <div class="form-group mb-4 mt-4">
+                            <div class="form-group mb-4">
                                 <label class="label" for="txtpostion">Content Position :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
@@ -238,31 +236,12 @@
         </div>
     </div>
 </div>
-@endsection
 <script>
-function addmenutype(value) {
-    // Hide all additional fields initially
-    document.getElementById('additional-fields').style.display = 'block';
-    document.getElementById('content-field').style.display = 'none';
-    document.getElementById('pdf-upload-field').style.display = 'none';
-    document.getElementById('website-url-field').style.display = 'none';
-
-    // Show fields based on the selected menu type
-    if (value === '1') { // Content
-        document.getElementById('content-field').style.display = 'block';
-    } else if (value === '2') { // PDF file upload
-        document.getElementById('pdf-upload-field').style.display = 'block';
-    } else if (value === '3') { // Website URL
-        document.getElementById('website-url-field').style.display = 'block';
-    }
-}
-
-function showDateFields(value) {
-    const dateFields = document.getElementById('date-fields');
-    if (value === '7') { // Latest Updates
-        dateFields.style.display = 'block';
-    } else {
-        dateFields.style.display = 'none';
-    }
-}
+document.getElementById('texttype').addEventListener('change', function() {
+    const value = this.value;
+    document.getElementById('content-field').style.display = value === '1' ? 'block' : 'none';
+    document.getElementById('pdf-upload-field').style.display = value === '2' ? 'block' : 'none';
+    document.getElementById('website-url-field').style.display = value === '3' ? 'block' : 'none';
+});
 </script>
+@endsection
