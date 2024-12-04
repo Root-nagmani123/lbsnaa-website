@@ -10,22 +10,21 @@
     <!-- Favicon icon-->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/favicon.ico') }}">
 
-    <!-- darkmode js -->
-    <script src="{{ asset('assets/js/vendors/darkMode.js') }}"></script>
+  <!-- darkmode js -->
+  <script src="{{ asset('assets/js/vendors/darkMode.js') }}"></script>
 
-    <!-- Libs CSS -->
-    <link href="{{ asset('assets/fonts/feather/feather.css') }}" rel="stylesheet">
+  <!-- Libs CSS -->
+  <link href="{{ asset('assets/fonts/feather/feather.css') }}" rel="stylesheet">
+  <link href="{{ asset('assets/libs/bootstrap-icons/font/bootstrap-icons.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('assets/libs/simplebar/dist/simplebar.min.css') }}" rel="stylesheet">
 
-    <link href="{{ asset('assets/libs/bootstrap-icons/font/bootstrap-icons.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/libs/simplebar/dist/simplebar.min.css') }}" rel="stylesheet">
+  <!-- Theme CSS -->
+  <link rel="stylesheet" href="{{ asset('assets/css/theme.min.css') }}">
 
-    <!-- Theme CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/css/theme.min.css') }}">
-
-    <link rel="canonical" href="LBSNAA">
-    <link href="{{ asset('assets/libs/tiny-slider/dist/tiny-slider.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('assets/libs/glightbox/dist/css/glightbox.min.css') }}">
-    <title>Research Center | Lal Bahadur Shastri National Academy of Administration</title>
+  <link rel="canonical" href="LBSNAA">
+  <link href="{{ asset('assets/libs/tiny-slider/dist/tiny-slider.css') }}" rel="stylesheet">
+  <link rel="stylesheet" href="assets/libs/glightbox/dist/css/glightbox.min.css') }}">
+  <title>Research Center | Lal Bahadur Shastri National Academy of Administration</title>
 
 </head>
 

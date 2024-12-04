@@ -88,6 +88,37 @@
                         Rural Development, including Poverty Alleviation Programmes and generation of empirical data on
                         all these programmes by the IAS Officer Trainees during their district training.</p>
                 </div>
+
+
+                <div class="row pt15">
+                    <div class="col-md-4">
+                        <div class="event_box bg-red hvr-float-shadow">
+                            <a href="{{ route('mediagallery') }}" target="_blank">
+                                <span class=""><img src="images/gallery.png" alt="" title=""></span>
+                                <h3 class="text-center">Photo Gallery</h3>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="event_box bg-green hvr-float-shadow">
+                            <a href="{{ route('calendar') }}">
+                                <span class=""><img src="images/upcoming-event.png" alt="" title=""></span>
+                                <h3 class="text-center">Training Calender</h3>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="event_box bg-pink hvr-float-shadow">
+                            <a href="{{ route('news') }}">
+                                <span class=""><img src="images/latest.png" alt="" title=""></span>
+                                <h3 class="text-center">Latest News</h3>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+
+
             </div>
             <div class="col-4">
                 <div class="card card-hover border">

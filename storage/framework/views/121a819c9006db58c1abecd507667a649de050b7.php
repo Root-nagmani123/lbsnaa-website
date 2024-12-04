@@ -35,21 +35,21 @@
 
   <!-- Scripts -->
   <!-- Libs JS -->
-  <script src="{{ asset('assets/libs/%40popperjs/core/dist/umd/popper.min.js') }}"></script>
-  <script src="{{ asset('assets/libs/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-  <script src="{{ asset('assets/libs/simplebar/dist/simplebar.min.js') }}"></script>
+  <script src="<?php echo e(asset('assets/libs/%40popperjs/core/dist/umd/popper.min.js')); ?>"></script>
+  <script src="<?php echo e(asset('assets/libs/bootstrap/dist/js/bootstrap.min.js')); ?>"></script>
+  <script src="<?php echo e(asset('assets/libs/simplebar/dist/simplebar.min.js')); ?>"></script>
 
   <!-- Theme JS -->
-  <script src="{{ asset('assets/js/theme.min.js') }}"></script>
+  <script src="<?php echo e(asset('assets/js/theme.min.js')); ?>"></script>
 
 
-  <script src="{{ asset('assets/libs/tippy.js/dist/tippy-bundle.umd.min.js') }}"></script>
+  <script src="<?php echo e(asset('assets/libs/tippy.js/dist/tippy-bundle.umd.min.js')); ?>"></script>
 
-  <script src="{{ asset('assets/js/vendors/tooltip.js') }}"></script>
-  <script src="{{ asset('assets/libs/tiny-slider/dist/min/tiny-slider.js') }}"></script>
-  <script src="{{ asset('assets/js/vendors/tnsSlider.js') }}"></script>
-  <script src="{{ asset('assets/libs/glightbox/dist/js/glightbox.min.js') }}"></script>
-  <script src="{{ asset('assets/js/vendors/glight.js') }}"></script>
+  <script src="<?php echo e(asset('assets/js/vendors/tooltip.js')); ?>"></script>
+  <script src="<?php echo e(asset('assets/libs/tiny-slider/dist/min/tiny-slider.js')); ?>"></script>
+  <script src="<?php echo e(asset('assets/js/vendors/tnsSlider.js')); ?>"></script>
+  <script src="<?php echo e(asset('assets/libs/glightbox/dist/js/glightbox.min.js')); ?>"></script>
+  <script src="<?php echo e(asset('assets/js/vendors/glight.js')); ?>"></script>
 </body>
 
-</html>
+</html><?php /**PATH C:\xampp11\htdocs\lbsnaa-website\resources\views/user/pages/microsites/includes/footer.blade.php ENDPATH**/ ?>

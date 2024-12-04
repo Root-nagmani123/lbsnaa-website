@@ -66,8 +66,10 @@ use App\Http\Controllers\Admin\Micro\MicroSliderController;
 use App\Http\Controllers\User\HomeFrontController;
 
 //Micro-Sites 
-
 use App\Http\Controllers\User\HomeFrontmicroController;
+
+use App\Http\Controllers\User\HomePagesMicroController;
+
 
 /*
 
@@ -93,6 +95,30 @@ Route::get('/tenders', [HomeFrontController::class, 'tenders'])->name('user.tend
 //micro 
 Route::get('/lbsnaa-sub', [HomeFrontmicroController::class,'index'])->name('user.micrositebyslug');
 Route::get('/lbsnaa-sub/micromenu/{slug}', [HomeFrontmicroController::class, 'get_navigation_pages'])->name('user.navigationmenubyslug');
+ 
+
+//micro 
+Route::get('/lbsnaa-sub', [HomeFrontmicroController::class,'index'])->name('user.micrositebyslug');
+
+
+// Indrajeet Home page dynamic
+Route::get('/lbsnaa-sub/media_gallery', [HomePagesMicroController::class,'media_gallery'])->name('user.media_gallery');
+Route::get('/photo-galleries/filterGallery', [HomePagesMicroController::class, 'filterGallery'])->name('photoGalleries.filterGallery');
+Route::get('/lbsnaa-sub/calendar', [HomePagesMicroController::class, 'calendar'])->name('calendar');
+Route::get('/lbsnaa-sub/news', [HomePagesMicroController::class, 'news'])->name('news');
+Route::get('/lbsnaa-sub/news/{id}', [HomePagesMicroController::class, 'newsdetails'])->name('news.details');
+Route::get('/lbsnaa-sub/mediagallery', [HomePagesMicroController::class, 'mediagallery'])->name('mediagallery');
+Route::get('/lbsnaa-sub/video-gallery', [HomePagesMicroController::class, 'videoGallery'])->name('videoGallery');
+
+
+
+
+
+
+
+
+
+
 
 
 
