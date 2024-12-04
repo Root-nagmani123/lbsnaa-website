@@ -8,9 +8,49 @@ class HomeFrontmicroController extends Controller
 {
     public function index()
     {
-        $sliders =  DB::table('sliders')->where('status',1)->where('is_deleted',0)->get();
-        return view('user.pages.microsites.index', compact('sliders'));
+        $sliders =  DB::table('micro_sliders')->where('status',1)->get();
+        $quicklinks =  DB::table('micro_quick_links')->get();
+
+        return view('user.pages.microsites.index', compact('sliders','quicklinks'));
     } 
+
+    public function generateBreadcrumb($currentMenuSlug)
+    {
+        $breadcrumb = [];
+
+        // Find the current menu by its slug
+        $menu = DB::table('micromenus')
+            ->where('menu_slug', $currentMenuSlug)
+            ->where('menu_status', 1)
+            ->where('is_deleted', 0)
+            ->first();
+
+        // Traverse up the parent hierarchy to build the breadcrumb
+        while ($menu) {
+            $breadcrumb[] = [
+                'title' => $menu->menutitle,
+                'slug' => $menu->menu_slug,
+            ];
+
+            $menu = DB::table('micromenus')
+                ->where('id', $menu->parent_id)
+                ->where('menu_status', 1)
+                ->where('is_deleted', 0)
+                ->first();
+        }
+
+        // Reverse to get breadcrumb from top-level to current menu
+        return array_reverse($breadcrumb);
+    }
+
+    public function get_navigation_pages($slug)
+    {
+        $breadcrumb = $this->generateBreadcrumb($slug);
+        $quicklinks =  DB::table('micro_quick_links')->get();
+        // echo 'hi';die;
+        $nav_page =  DB::table('micromenus')->where('menu_status',1)->where('is_deleted',0)->where('menu_slug',$slug)->first();
+        return view('user.pages.microsites.navigationmenubyslug', compact('nav_page','breadcrumb','quicklinks'));
+    }
     
     
 }

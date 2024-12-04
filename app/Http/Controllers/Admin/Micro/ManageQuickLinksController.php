@@ -13,7 +13,6 @@ class ManageQuickLinksController extends Controller
 {
     public function quick_link_list()
     {
-
         $quick_links = DB::table('micro_quick_links')->get();
         return view('admin.micro.quick_links.index', compact('quick_links'));
     }
@@ -22,6 +21,7 @@ class ManageQuickLinksController extends Controller
     public function quick_link_create()
     {
         $researchCentres = DB::table('research_centres')->pluck('research_centre_name', 'id'); // Replace 'name' and 'id' with your actual column names.
+        
         return view('admin.micro.quick_links.create',compact('researchCentres'));
     }
 
@@ -48,7 +48,7 @@ class ManageQuickLinksController extends Controller
         // Handle file upload if present
         $pdfPath = null;
         if ($request->hasFile('pdf_file')) {
-            $pdfPath = $request->file('pdf_file')->store('uploads/pdf_files', 'public');
+            $pdfPath = $request->file('pdf_file')->store('uploads', 'public');
         }
 
 

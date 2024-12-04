@@ -2,118 +2,126 @@
 <html lang="en">
 
 <head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="author" content="Codescandy">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Codescandy">
 
-  <!-- Favicon icon-->
-  <link rel="shortcut icon" type="image/x-icon" href="assets/favicon.ico">
+    <!-- Favicon icon-->
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/favicon.ico') }}">
 
-  <!-- darkmode js -->
-  <script src="assets/js/vendors/darkMode.js"></script>
+    <!-- darkmode js -->
+    <script src="{{ asset('assets/js/vendors/darkMode.js') }}"></script>
 
-  <!-- Libs CSS -->
-  <link href="assets/fonts/feather/feather.css" rel="stylesheet">
-  <link href="assets/libs/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet">
-  <link href="assets/libs/simplebar/dist/simplebar.min.css" rel="stylesheet">
+    <!-- Libs CSS -->
+    <link href="{{ asset('assets/fonts/feather/feather.css') }}" rel="stylesheet">
 
-  <!-- Theme CSS -->
-  <link rel="stylesheet" href="assets/css/theme.min.css">
+    <link href="{{ asset('assets/libs/bootstrap-icons/font/bootstrap-icons.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/libs/simplebar/dist/simplebar.min.css') }}" rel="stylesheet">
 
-  <link rel="canonical" href="LBSNAA">
-  <link href="assets/libs/tiny-slider/dist/tiny-slider.css" rel="stylesheet">
-  <link rel="stylesheet" href="assets/libs/glightbox/dist/css/glightbox.min.css">
-  <title>Research Center | Lal Bahadur Shastri National Academy of Administration</title>
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/css/theme.min.css') }}">
+
+    <link rel="canonical" href="LBSNAA">
+    <link href="{{ asset('assets/libs/tiny-slider/dist/tiny-slider.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('assets/libs/glightbox/dist/css/glightbox.min.css') }}">
+    <title>Research Center | Lal Bahadur Shastri National Academy of Administration</title>
 
 </head>
 
 <body class="bg-white">
-  <nav class="navbar">
-    <div class="container px-0">
-      <a class="navbar-brand" href="#"><img src="{{ asset('assets/images/microsites/logo.png') }}" alt="logo" width="300"></a>
-      <!-- Button -->
-      <a class="navbar-brand" href="#"><img src="{{ asset('assets/images/microsites/crs.jpg') }}" alt="logo" width="500"></a>
-    </div>
-  </nav>
-  <nav class="navbar navbar-expand-lg">
-    
-      <!-- Collapse -->
-      <div class="collapse navbar-collapse" id="navbar-default">
-        <ul class="navbar-nav mx-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="#" id="navbarListing" data-bs-toggle="dropdown" aria-haspopup="true"
-                  aria-expanded="false">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="navbarListing" data-bs-toggle="dropdown" aria-haspopup="true"
-                  aria-expanded="false">Objectives</a>
-              </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarPages" data-bs-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false">Activities</a>
-            <ul class="dropdown-menu dropdown-menu-arrow dropdown-menu-end" aria-labelledby="navbarPages">
-              <li>
-                <a class="dropdown-item" href="#">Policy Suggestion</a>
-              </li>
-              <li class="dropdown-submenu dropend">
-                <a class="dropdown-item dropdown-list-group-item" href="#">Sensitization of Officer Trainees</a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="#">Research & Training</a>
-              </li>
+    <nav class="navbar">
+        <div class="container px-0">
+            <a class="navbar-brand" href="#"><img src="{{ asset('assets/images/microsites/logo.png') }}"
+                    alt="logo" width="300"></a>
+            <!-- Button -->
+            <a class="navbar-brand" href="#"><img src="{{ asset('assets/images/microsites/crs.jpg') }}"
+                    alt="logo" width="500"></a>
+        </div>
+    </nav>
+    <nav class="navbar navbar-expand-lg">
+
+        <!-- Collapse -->
+        <div class="collapse navbar-collapse" id="navbar-default">
+            <ul class="navbar-nav mx-auto">
+                @php
+
+                    $menus = DB::table('micromenus')
+                        ->where('menu_status', 1)
+                        ->where('is_deleted', 0)
+                        ->where('parent_id', 0)
+                        ->get();
+
+                    function renderMenuItems($parentId)
+                    {
+                        $submenus = DB::table('micromenus')
+                            ->where('menu_status', 1)
+                            ->where('is_deleted', 0)
+                            ->where('parent_id', $parentId)
+                            ->get();
+
+                        if ($submenus->isEmpty()) {
+                            return '';
+                        }
+
+                        $output = '<ul class="dropdown-menu dropdown-menu-arrow dropdown-menu-end">';
+                        foreach ($submenus as $submenu) {
+                            $hasChildren = DB::table('micromenus')
+                                ->where('menu_status', 1)
+                                ->where('is_deleted', 0)
+                                ->where('parent_id', $submenu->id)
+                                ->exists();
+
+                            $output .= '<li class="nav-item ' . ($hasChildren ? 'dropdown' : '') . '">';
+                            $output .=
+                                '<a class="nav-link ' .
+                                ($hasChildren ? 'dropdown-toggle' : '') .
+                                '"
+                        href="' .
+                                ($submenu->menutitle == 'Research Center'
+                                    ? '#'
+                                    : route('user.navigationmenubyslug', $submenu->menu_slug)) .
+                                '" ' .
+                                ($hasChildren
+                                    ? ' data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"'
+                                    : '') .
+                                '>' .
+                                $submenu->menutitle .
+                                '</a>';
+
+                            // Recursive call for child menus
+                            if ($hasChildren) {
+                                $output .= renderMenuItems($submenu->id);
+                            }
+
+                            $output .= '</li>';
+                        }
+                        $output .= '</ul>';
+
+                        return $output;
+                    }
+                @endphp
+
+                @foreach ($menus as $menu)
+                    @php
+                        $arrow = DB::table('micromenus')
+                            ->where('menu_status', 1)
+                            ->where('is_deleted', 0)
+                            ->where('parent_id', $menu->id)
+                            ->exists();
+                        $class = $arrow ? 'nav-link dropdown-toggle' : 'nav-link';
+                    @endphp
+                    <li class="nav-item dropdown">
+                        <a class="{{ $class }}"
+                            href="{{ $menu->menutitle == 'Research Center' ? '#' : route('user.navigationmenubyslug', $menu->menu_slug) }}"
+                            {{ $arrow ? 'data-bs-toggle=dropdown aria-haspopup=true aria-expanded=false' : '' }}>
+                            {{ $menu->menutitle }}
+                        </a>
+                        {!! renderMenuItems($menu->id) !!}
+                    </li>
+                @endforeach
+
             </ul>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarPages" data-bs-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false">Workshop & Seminar</a>
-            <ul class="dropdown-menu dropdown-menu-arrow dropdown-menu-end" aria-labelledby="navbarPages">
-              <li>
-                <a class="dropdown-item" href="#">Recommendations</a>
-              </li>
-              <li class="dropdown-submenu dropend">
-                <a class="dropdown-item dropdown-list-group-item" href="#">Workshop List</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarPages" data-bs-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false">Journals of Land & Rural Studies</a>
-            <ul class="dropdown-menu dropdown-menu-arrow dropdown-menu-end" aria-labelledby="navbarPages">
-              <li>
-                <a class="dropdown-item" href="#">Journal Submission Guideline</a>
-              </li>
-              <li class="dropdown-submenu dropend">
-                <a class="dropdown-item dropdown-list-group-item" href="#">LR Issues</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#" id="navbarListing" data-bs-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false">Organization</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarPages" data-bs-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false">Catalogue of Publications</a>
-            <ul class="dropdown-menu dropdown-menu-arrow dropdown-menu-end" aria-labelledby="navbarPages">
-              <li>
-                <a class="dropdown-item" href="#">Catalogue of Publications</a>
-              </li>
-              <li class="dropdown-submenu dropend">
-                <a class="dropdown-item dropdown-list-group-item" href="#">Publications by BNYCRS Faculty</a>
-              </li>
-              <li class="dropdown-submenu dropend">
-                <a class="dropdown-item dropdown-list-group-item" href="#">External Publication</a>
-              </li>
-              <li class="dropdown-submenu dropend">
-                <a class="dropdown-item dropdown-list-group-item" href="#">Internal Publication</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#" id="navbarListing" data-bs-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false">Documentation</a>
-          </li>
-        </ul>
-      </div>
-  </nav>
+
+        </div>
+    </nav>

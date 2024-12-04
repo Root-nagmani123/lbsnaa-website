@@ -90,19 +90,9 @@ Route::get('/news-listing', [HomeFrontController::class, 'news_listing'])->name(
 Route::get('/tenders', [HomeFrontController::class, 'tenders'])->name('user.tenders');
 
 
-
 //micro 
 Route::get('/lbsnaa-sub', [HomeFrontmicroController::class,'index'])->name('user.micrositebyslug');
-
-// Route::get('/lbsnaa-sub', function () {
-//     return view('user.pages.microsites.index');
-// })->name('user.micrositebyslug');
-
-
-
-
-
-
+Route::get('/lbsnaa-sub/micromenu/{slug}', [HomeFrontmicroController::class, 'get_navigation_pages'])->name('user.navigationmenubyslug');
 
 
 
