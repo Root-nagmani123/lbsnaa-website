@@ -215,12 +215,12 @@
                         <span class="title">Manage Vacancy</span>
                     </a>
                 </li>
-                <li class="menu-item">
+                <!-- <li class="menu-item">
                     <a href="#" class="menu-link">
                     <i class="material-icons menu-icon">person</i>
                         <span class="title">Manage RTI</span>
                     </a>
-                </li>
+                </li> -->
                
                 <li class="menu-item">
                     <a href="{{ route('socialmedia.index') }}" class="menu-link">
@@ -466,7 +466,7 @@
             </li> -->
         </ul>
     </aside>
-    <!-- <div class="bg-white z-1 admin">
+    <div class="bg-white z-1 admin">
             <div class="d-flex align-items-center admin-info border-top">
                 <div class="flex-shrink-0">
                     <a href="profile.html" class="d-block">
@@ -474,10 +474,10 @@
                     </a>
                 </div>
                 <div class="flex-grow-1 ms-3 info">
-                    <a href="profile.html" class="d-block name">Adison Jeck</a>
-                    <a href="logout.html">Log Out</a>
+                    <a href="{{ route('view-profile.index') }}" class="d-block name">Viru</a>
+                    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="d-block logout">Log Out</a>
                 </div>
             </div>
-        </div> -->
+        </div>
 
 </div>

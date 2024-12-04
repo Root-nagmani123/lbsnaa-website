@@ -21,10 +21,9 @@
     <div class="col-lg-12">
         <div class="card bg-white border-0 rounded-10 mb-4">
             <div class="card-body p-4">
-            <div class="card-body p-4">
                 <div class="d-flex justify-content-between align-items-center border-bottom pb-20 mb-20">
-                <h4 class="fw-semibold fs-18 mb-0">Add Menu</h4>
-            </div>
+                    <h4 class="fw-semibold fs-18 mb-0">Add Menu</h4>
+                </div>
 
                 <form action="{{ route('admin.menus.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
@@ -68,7 +67,7 @@
                         <div style="display: none;" id="additional-fields">
                             <div class="row" id="content-field">
                                 <div class="col-lg-12">
-                                    <div class="form-group mb-0">
+                                    <div class="form-group mb-4">
                                         <label class="label" for="content">Content :</label>
                                         <span class="star">*</span>
                                         <div class="form-group position-relative">
@@ -157,7 +156,7 @@
                             </div>
                         </div>
                         <div class="col-lg-6">
-                            <div class="form-group mb-4">
+                            <div class="form-group mb-4 mt-4">
                                 <label class="label" for="menucategory">Primary Link :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
@@ -170,7 +169,7 @@
                             </div>
                         </div>
                         <div class="col-lg-6">
-                            <div class="form-group mb-4">
+                            <div class="form-group mb-4 mt-4">
                                 <label class="label" for="txtpostion">Content Position :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
@@ -235,8 +234,6 @@
                         </div>
                     </div>
                 </form>
-
-
             </div>
         </div>
     </div>
