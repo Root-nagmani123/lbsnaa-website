@@ -56,7 +56,7 @@
                     </div>
                     <div class="card-body">
                         <ul class="mt-2 mb-2 list-group list-group-flush">
-                            @foreach($quicklinks as $link)
+                            @foreach($quickLinks as $link)
                                 <li class="text-start list-group-item">
                                     @if($link->website_url)
                                         <!-- For website URL -->
@@ -66,7 +66,7 @@
                                                     <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"></path>
                                                 </svg>
                                             </span>
-                                            {{ $link->txtename }} <!-- Display the name of the link -->
+                                            {{ $link->txtename }}
                                         </a>
                                     @elseif($link->pdf_file)
                                         <!-- For PDF URL -->
@@ -76,7 +76,7 @@
                                                     <path d="M9 1H3a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7l-5-6zm0 1.5V6h5L9 2.5zM4 2h5v4H4V2zM3 12V4h5v4h5v4H3z"/>
                                                 </svg>
                                             </span>
-                                            {{ $link->txtename }} <!-- Display the name of the link -->
+                                            {{ $link->txtename }}
                                         </a>
                                     @endif
                                 </li>
@@ -84,7 +84,11 @@
                         </ul>
                     </div>
                 </div>
+
             </div>
+            
+          
+            
         </div>
     </div>
 </section>

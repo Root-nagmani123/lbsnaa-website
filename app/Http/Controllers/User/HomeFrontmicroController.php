@@ -1,18 +1,20 @@
 <?php
 
 namespace App\Http\Controllers\User;
+
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB; 
+use Illuminate\Support\Facades\DB;
 use DOMDocument;
+
 class HomeFrontmicroController extends Controller
 {
     public function index()
     {
-        $sliders =  DB::table('micro_sliders')->where('status',1)->get();
-        $quicklinks =  DB::table('micro_quick_links')->get();
-
-        return view('user.pages.microsites.index', compact('sliders','quicklinks'));
-    } 
+        $sliders =  DB::table('micro_sliders')->where('status', 1)->get();
+        $whatsNew = DB::table('micro_quick_links')->where('categorytype', 1)->where('status', 1)->get();
+        $quickLinks = DB::table('micro_quick_links')->where('categorytype', 2)->where('status', 1)->get();
+        return view('user.pages.microsites.index', compact('sliders', 'quickLinks', 'whatsNew'));
+    }
 
     public function generateBreadcrumb($currentMenuSlug)
     {
@@ -38,7 +40,6 @@ class HomeFrontmicroController extends Controller
                 ->where('is_deleted', 0)
                 ->first();
         }
-
         // Reverse to get breadcrumb from top-level to current menu
         return array_reverse($breadcrumb);
     }
@@ -46,11 +47,8 @@ class HomeFrontmicroController extends Controller
     public function get_navigation_pages($slug)
     {
         $breadcrumb = $this->generateBreadcrumb($slug);
-        $quicklinks =  DB::table('micro_quick_links')->get();
-        // echo 'hi';die;
-        $nav_page =  DB::table('micromenus')->where('menu_status',1)->where('is_deleted',0)->where('menu_slug',$slug)->first();
-        return view('user.pages.microsites.navigationmenubyslug', compact('nav_page','breadcrumb','quicklinks'));
+        $quickLinks = DB::table('micro_quick_links')->where('categorytype', 2)->where('status', 1)->get();
+        $nav_page =  DB::table('micromenus')->where('menu_status', 1)->where('is_deleted', 0)->where('menu_slug', $slug)->first();
+        return view('user.pages.microsites.navigationmenubyslug', compact('nav_page', 'breadcrumb', 'quickLinks'));
     }
-    
-    
 }

@@ -202,6 +202,7 @@
         </div>
     </div>
 </div>
+
 <script>
 document.getElementById('menu_type').addEventListener('change', function() {
     const value = this.value;
@@ -211,3 +212,4 @@ document.getElementById('menu_type').addEventListener('change', function() {
 });
 </script>
 @endsection
+
