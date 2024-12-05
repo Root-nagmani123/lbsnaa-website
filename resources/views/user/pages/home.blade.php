@@ -66,7 +66,7 @@
     <div class="container">
         <div class="position-relative d-flex overflow-x-hidden py-lg-4 pt-4">
             <div class="d-flex gap-3">
-                <a href="./mentor-single.html"
+                <a href="#"
                     class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border"
                     style="width: 200px !important">
                     <!--img-->
@@ -76,12 +76,12 @@
                         <!--content-->
                         <div class="mt-3">
                             <h3 class="mb-0 h4">Director's Message</h3>
-                            <span class="text-gray-800">Message</span>
-                            <span class="text-gray-800">Previous Message</span>
+                            <span class="text-gray-800">Message</span><br>
+                            <span class="text-gray-800">Previous Directors</span>
                         </div>
                     </div>
                 </a>
-                <a href="./mentor-single.html"
+                <a href="#"
                     class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border"
                     style="width: 200px !important">
                     <!--img-->
@@ -93,7 +93,7 @@
                         </div>
                     </div>
                 </a>
-                <a href="./mentor-single.html"
+                <a href="#"
                     class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border"
                     style="width: 200px !important">
                     <!--img-->
@@ -105,7 +105,7 @@
                         </div>
                     </div>
                 </a>
-                <a href="./mentor-single.html"
+                <a href="#"
                     class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border"
                     style="width: 200px !important">
                     <!--img-->
@@ -117,7 +117,7 @@
                         </div>
                     </div>
                 </a>
-                <a href="./mentor-single.html"
+                <a href="#"
                     class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border"
                     style="width: 200px !important">
                     <!--img-->
@@ -130,7 +130,7 @@
                         </div>
                     </div>
                 </a>
-                <a href="./mentor-single.html"
+                <a href="#"
                     class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border"
                     style="width: 200px !important">
                     <!--img-->
@@ -160,7 +160,7 @@
                             </div>
                             <div class="col-6">
                                 <span style="float:right;"><a href="{{ route('user.news_listing') }}"
-                                        class="fw-semibold text-primary">View ALL</a></span>
+                                        class="fw-semibold text-primary">View All</a></span>
                             </div>
                         </div>
                     </div>
@@ -171,71 +171,87 @@
                                 <span class="current">6 to 7</span>
                                 of 5
                             </div>
-                            <div id="tns1-mw" class="tns-ovh d-flex align-items-stretch">
+                            <div id="tns1-mw" class="tns-ovh">
                                 <div class="tns-inner" id="tns1-iw">
                                     <div class="sliderTestimonialFourth tns-slider tns-carousel tns-subpixel tns-calc tns-horizontal"
                                         id="tns1">
                                         @foreach($news as $slider)
                                         <div class="item tns-item">
-                                                <!-- Card -->
-                                                <div class="card mb-4 shadow-lg card-lift">
+                                            <!-- Card -->
+                                            <div class="card mb-4 shadow-lg card-lift">
+                                                <div class="card-header" style="border:none;padding:0;">
                                                     <a href="#">
                                                         <!-- Img  -->
                                                         <img src="{{ isset($slider->main_image) || !empty($slider->main_image) ? asset($slider->main_image) : asset('assets/images/4.jpg') }}"
                                                             class="card-img-top" alt="blogpost ">
                                                     </a>
-                                                    <!-- Card body -->
-                                                    <div class="card-body d-flex flex-column">
-                                                        <a href="#"
-                                                            class="fs-5 mb-2 fw-semibold d-block text-success">{{ \Carbon\Carbon::parse($slider->created_at)->format('d F, Y') }}</a>
-                                                        <h3><a href="blog-single.html"
-                                                                class="text-inherit">{{ $slider->title }}</a></h3>
-                                                        <p>{{ $slider->short_description }}</p>
-                                                        <!-- Media content -->
-                                                        <div class="row align-items-center g-0 mt-4">
-                                                            <div class="col lh-1">
-                                                                <a href="{{ route('user.newsbyslug', $slider->title_slug) }}"
-                                                                    class="text-inherit text-primary">Read More</a>
-                                                            </div>
-                                                            <div class="col-auto">
-                                                                <p class="fs-6 mb-0">20 Min Read</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                </div>
+                                                <!-- Card body -->
+                                                <div class="card-body d-flex flex-column">
+                                                    <a href="#"
+                                                        class="fs-5 mb-2 fw-semibold d-block text-success">Posted On :-
+                                                        {{ \Carbon\Carbon::parse($slider->created_at)->format('d F, Y') }}</a>
+                                                    <h3><a href="blog-single.html"
+                                                            class="text-inherit">{{ $slider->title }}</a></h3>
+                                                    <p>{{ $slider->short_description }}</p>
+                                                    <!-- Media content -->
+                                                </div>
+                                                <div class="card-footer" style="border-top:none;">
+                                                    <a href="{{ route('user.newsbyslug', $slider->title_slug) }}"
+                                                        class="text-inherit text-primary">Read More</a>
                                                 </div>
                                             </div>
-                                            @endforeach
                                         </div>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
-                            <ul class="controls-testimonial controls justify-content-start"
-                                id="sliderTestimonialFourthControls" aria-label="Carousel Navigation" tabindex="0">
-                                <li class="prev ms-0" aria-controls="tns1" tabindex="-1" data-controls="prev">
-                                    <i class="fe fe-chevron-left"></i>
-                                </li>
-                                <li class="next ms-2" aria-controls="tns1" tabindex="-1" data-controls="next">
-                                    <i class="fe fe-chevron-right"></i>
-                                </li>
-                            </ul>
                         </div>
+                        <ul class="controls-testimonial controls justify-content-start"
+                            id="sliderTestimonialFourthControls" aria-label="Carousel Navigation" tabindex="0">
+                            <li class="prev ms-0" aria-controls="tns1" tabindex="-1" data-controls="prev">
+                                <i class="fe fe-chevron-left"></i>
+                            </li>
+                            <li class="next ms-2" aria-controls="tns1" tabindex="-1" data-controls="next">
+                                <i class="fe fe-chevron-right"></i>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-                <div class="col-xl-4 col-lg-6 col-12">
-                    <div
-                        class="bg-primary px-4 pt-4 rounded-3 position-relative d-flex flex-column justify-content-center">
-                        <h3 class="fw-semibold text-white">Quick Links</h3>
+            </div>
+            <div class="col-4">
+                <div class="card card-hover border">
+                    <div class="card-header" style="background-color: #af2910;">
+                        <h3 class="text-white">Quick Links</h3>
+                    </div>
+                    <div class="card-body" style="padding: 0;">
                         <ul class="mt-2 mb-2 list-group list-group-flush">
                             @foreach($quick_links as $key => $quick_link)
-                            <li class="text-start list-group-item text-white">
+                            <li class="text-start list-group-item">
                                 @if(!empty($quick_link->url))
                                 <a href="{{ str_starts_with($quick_link->url, 'http://') || str_starts_with($quick_link->url, 'https://') ? $quick_link->url : 'http://' . $quick_link->url }}"
-                                    target="_blank" class="text-white text-decoration-none">
+                                    target="_blank" class="text-decoration-none text-primary">
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                            fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd"
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z">
+                                            </path>
+                                        </svg>
+                                    </span>
                                     {{ $quick_link->text }}
                                 </a>
                                 @elseif(!empty($quick_link->file))
                                 <a href="{{ asset('quick-links-files/'.$quick_link->file) }}" target="_blank"
-                                    class="text-white text-decoration-none">
+                                    class="text-decoration-none text-primary">
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                            fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd"
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z">
+                                            </path>
+                                        </svg>
+                                    </span>
                                     {{ $quick_link->text }}
                                 </a>
                                 @else

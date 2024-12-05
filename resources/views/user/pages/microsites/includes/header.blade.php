@@ -28,10 +28,10 @@
 
 </head>
 
-<body class="bg-white">
+<body class="bg-white d-flex flex-column min-vh-100">
     <nav class="navbar">
         <div class="container px-0">
-            <a class="navbar-brand" href="#"><img src="{{ asset('assets/images/microsites/logo.png') }}"
+            <a class="navbar-brand" href="{{ route('home') }}"><img src="{{ asset('assets/images/microsites/logo.png') }}"
                     alt="logo" width="300"></a>
             <!-- Button -->
             <a class="navbar-brand" href="#"><img src="{{ asset('assets/images/microsites/crs.jpg') }}"

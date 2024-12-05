@@ -21,7 +21,7 @@ class NewsController extends Controller
     // List all news
     public function index()
     {
-        $news = News::where('status', 1)->get(); // You can filter for active news only
+        $news = News::all();
         return view('admin.news.index', compact('news'));
     }
 
@@ -224,6 +224,6 @@ class NewsController extends Controller
         $news->is_deleted = 1;
         $news->save();
 
-        return redirect()->route('admin.news.index')->with('success', 'News deleted successfully.');
+        return redirect()->route('admin.news.index')->with('danger', 'News deleted successfully.');
     }
 }
