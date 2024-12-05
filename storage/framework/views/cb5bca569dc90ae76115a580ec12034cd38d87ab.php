@@ -2,13 +2,13 @@
 <html lang="en">
 
 <head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="author" content="Codescandy">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Codescandy">
 
-  <!-- Favicon icon-->
-  <link rel="shortcut icon" type="image/x-icon" href="assets/favicon.ico">
+    <!-- Favicon icon-->
+    <link rel="shortcut icon" type="image/x-icon" href="<?php echo e(asset('assets/favicon.ico')); ?>">
 
   <!-- darkmode js -->
   <script src="<?php echo e(asset('assets/js/vendors/darkMode.js')); ?>"></script>
@@ -29,91 +29,50 @@
 </head>
 
 <body class="bg-white">
-  <nav class="navbar">
-    <div class="container px-0">
-      <a class="navbar-brand" href="#"><img src="<?php echo e(asset('assets/images/microsites/logo.png')); ?>" alt="logo" width="300"></a>
-      <!-- Button -->
-      <a class="navbar-brand" href="#"><img src="<?php echo e(asset('assets/images/microsites/crs.jpg')); ?>" alt="logo" width="500"></a>
-    </div>
-  </nav>
-  <nav class="navbar navbar-expand-lg">
-    
-      <!-- Collapse -->
-      <div class="collapse navbar-collapse" id="navbar-default">
-        <ul class="navbar-nav mx-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="#" id="navbarListing" data-bs-toggle="dropdown" aria-haspopup="true"
-                  aria-expanded="false">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" id="navbarListing" data-bs-toggle="dropdown" aria-haspopup="true"
-                  aria-expanded="false">Objectives</a>
-              </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarPages" data-bs-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false">Activities</a>
-            <ul class="dropdown-menu dropdown-menu-arrow dropdown-menu-end" aria-labelledby="navbarPages">
-              <li>
-                <a class="dropdown-item" href="#">Policy Suggestion</a>
-              </li>
-              <li class="dropdown-submenu dropend">
-                <a class="dropdown-item dropdown-list-group-item" href="#">Sensitization of Officer Trainees</a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="#">Research & Training</a>
-              </li>
+    <nav class="navbar">
+        <div class="container px-0">
+            <a class="navbar-brand" href="#"><img src="<?php echo e(asset('assets/images/microsites/logo.png')); ?>"
+                    alt="logo" width="300"></a>
+            <!-- Button -->
+            <a class="navbar-brand" href="#"><img src="<?php echo e(asset('assets/images/microsites/crs.jpg')); ?>"
+                    alt="logo" width="500"></a>
+        </div>
+    </nav>
+    <nav class="navbar navbar-expand-lg">
+
+        <!-- Collapse -->
+        <div class="collapse navbar-collapse" id="navbar-default">
+            <ul class="navbar-nav mx-auto">
+                <?php
+                    $menus = DB::table('micromenus')
+                        ->where('menu_status', 1)
+                        ->where('is_deleted', 0)
+                        ->where('parent_id', 0)
+                        ->get();
+                ?>
+
+                <?php $__currentLoopData = $menus; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $menu): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php
+                        $arrow = DB::table('micromenus')
+                            ->where('menu_status', 1)
+                            ->where('is_deleted', 0)
+                            ->where('parent_id', $menu->id)
+                            ->exists();
+                        $class = $arrow ? 'nav-link dropdown-toggle' : 'nav-link';
+                    ?>
+                    <li class="nav-item dropdown">
+                        <a class="<?php echo e($class); ?>"
+                            href="<?php echo e($menu->menutitle == 'Research Center' ? '#' : route('user.navigationmenubyslug', $menu->menu_slug)); ?>"
+                            <?php echo e($arrow ? 'data-bs-toggle=dropdown aria-haspopup=true aria-expanded=false' : ''); ?>>
+                            <?php echo e($menu->menutitle); ?>
+
+                        </a>
+                        <?php echo renderMicroMenuItems($menu->id); ?>
+
+                    </li>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </ul>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarPages" data-bs-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false">Workshop & Seminar</a>
-            <ul class="dropdown-menu dropdown-menu-arrow dropdown-menu-end" aria-labelledby="navbarPages">
-              <li>
-                <a class="dropdown-item" href="#">Recommendations</a>
-              </li>
-              <li class="dropdown-submenu dropend">
-                <a class="dropdown-item dropdown-list-group-item" href="#">Workshop List</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarPages" data-bs-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false">Journals of Land & Rural Studies</a>
-            <ul class="dropdown-menu dropdown-menu-arrow dropdown-menu-end" aria-labelledby="navbarPages">
-              <li>
-                <a class="dropdown-item" href="#">Journal Submission Guideline</a>
-              </li>
-              <li class="dropdown-submenu dropend">
-                <a class="dropdown-item dropdown-list-group-item" href="#">LR Issues</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#" id="navbarListing" data-bs-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false">Organization</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarPages" data-bs-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false">Catalogue of Publications</a>
-            <ul class="dropdown-menu dropdown-menu-arrow dropdown-menu-end" aria-labelledby="navbarPages">
-              <li>
-                <a class="dropdown-item" href="#">Catalogue of Publications</a>
-              </li>
-              <li class="dropdown-submenu dropend">
-                <a class="dropdown-item dropdown-list-group-item" href="#">Publications by BNYCRS Faculty</a>
-              </li>
-              <li class="dropdown-submenu dropend">
-                <a class="dropdown-item dropdown-list-group-item" href="#">External Publication</a>
-              </li>
-              <li class="dropdown-submenu dropend">
-                <a class="dropdown-item dropdown-list-group-item" href="#">Internal Publication</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#" id="navbarListing" data-bs-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false">Documentation</a>
-          </li>
-        </ul>
-      </div>
-  </nav><?php /**PATH C:\xampp11\htdocs\lbsnaa-website\resources\views/user/pages/microsites/includes/header.blade.php ENDPATH**/ ?>
+        </div>
+
+    </nav>
+<?php /**PATH C:\xampp11\htdocs\lbsnaa-website\resources\views/user/pages/microsites/includes/header.blade.php ENDPATH**/ ?>
