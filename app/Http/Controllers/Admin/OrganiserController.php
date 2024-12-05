@@ -72,7 +72,7 @@ class OrganiserController extends Controller
     
         // Prepare validated data for organizer creation
         $validatedData = $request->all();
-        $validatedData['status'] = $request->status === 'active' ? 1 : 2;
+        $validatedData['status'] = $request->status === 'active' ? 1 : 0;
     
         // Create the organizer
         $organizer = ManageOrganiser::create($validatedData);
@@ -110,7 +110,7 @@ class OrganiserController extends Controller
         ]);
 
 
-        $validated['status'] = $request->status === 'active' ? 1 : 2;
+        $validated['status'] = $request->status === 'active' ? 1 : 0;
         $organiser = ManageOrganiser::findOrFail($id);
         $organiser->update($request->all());
 

@@ -33,72 +33,68 @@
 
                 <!-- Collapse -->
                 <div class="collapse navbar-collapse" id="navbar-default">
-                @php
-if (!function_exists('renderMenuItems')) {
-    function renderMenuItems($parentId) {
-        $submenus = DB::table('menus')
-            ->where('menu_status', 1)
-            ->where('is_deleted', 0)
-            ->where('parent_id', $parentId)
-            ->get();
+                    <ul class="navbar-nav mx-auto">
+                        @php
+                      
+                        $menus = DB::table('menus')
+                        ->where('menu_status', 1)
+                        ->where('is_deleted', 0)
+                        ->where('txtpostion', 1)
+                        ->where('parent_id', 0)
+                        ->get();
 
-        if ($submenus->isEmpty()) {
-            return '';
-        }
+                    
+                        function renderMenuItems($parentId) {
+                        $submenus = DB::table('menus')
+                        ->where('menu_status', 1)
+                        ->where('is_deleted', 0)
+                        ->where('parent_id', $parentId)
+                        ->get();
 
-        $output = '<ul class="dropdown-menu dropdown-menu-arrow dropdown-menu-end">';
-        foreach ($submenus as $submenu) {
-            $hasChildren = DB::table('menus')
-                ->where('menu_status', 1)
-                ->where('is_deleted', 0)
-                ->where('parent_id', $submenu->id)
-                ->exists();
+                        if ($submenus->isEmpty()) {
+                        return '';
+                        }
 
-            $output .= '<li class="nav-item ' . ($hasChildren ? 'dropdown' : '') . '">';
-            $output .= '<a class="nav-link ' . ($hasChildren ? 'dropdown-toggle' : '') . '"
-                href="' .
-                ($submenu->menutitle == 'Research Center' ? '#' : route('user.navigationpagesbyslug', $submenu->menu_slug)) . '" ' .
-                ($hasChildren ? ' data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"' : '') . '>'
-                .
-                $submenu->menutitle . '</a>';
+                        $output = '<ul class="dropdown-menu dropdown-menu-arrow dropdown-menu-end">';
+                            foreach ($submenus as $submenu) {
+                            $hasChildren = DB::table('menus')
+                            ->where('menu_status', 1)
+                            ->where('is_deleted', 0)
+                            ->where('parent_id', $submenu->id)
+                            ->exists();
 
-            // Recursive call for child menus
-            if ($hasChildren) {
-                $output .= renderMenuItems($submenu->id);
-            }
+                            $output .= '<li class="nav-item ' . ($hasChildren ? 'dropdown' : '') . '">';
+                                $output .= '<a class="nav-link ' . ($hasChildren ? 'dropdown-toggle' : '') . '"
+                                    href="' . 
+                    ($submenu->menutitle == 'Research Center' ? '#' : route('user.navigationpagesbyslug', $submenu->menu_slug)) . '" ' . 
+                    ($hasChildren ? ' data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"' : '') . '>'
+                                    .
+                                    $submenu->menutitle . '</a>';
 
-            $output .= '</li>';
-        }
-        $output .= '</ul>';
+                                // Recursive call for child menus
+                                if ($hasChildren) {
+                                $output .= renderMenuItems($submenu->id);
+                                }
 
-        return $output;
-    }
-}
-@endphp
+                                $output .= '</li>';
+                            }
+                            $output .= '</ul>';
 
-<!-- Render Menu -->
-@php
-    $menus = DB::table('menus')
-        ->where('menu_status', 1)
-        ->where('is_deleted', 0)
-        ->where('txtpostion', 1)
-        ->where('parent_id', 0)
-        ->get();
-@endphp
+                        return $output;
+                        }
+                        @endphp
 
-<ul class="navbar-nav mx-auto">
-    @foreach($menus as $menu)
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle"
-               href="{{ $menu->menutitle == 'Research Center' ? '#' : route('user.navigationpagesbyslug', $menu->menu_slug) }}"
-               id="navbarListing" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {{ $menu->menutitle }}
-            </a>
-            {!! renderMenuItems($menu->id) !!}
-        </li>
-    @endforeach
-</ul>
-
+                        @foreach($menus as $menu)
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle"
+                                href="{{$menu->menutitle == 'Research Center' ? '#' : route('user.navigationpagesbyslug', $menu->menu_slug)}}"
+                                id="navbarListing" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{$menu->menutitle}}
+                            </a>
+                            {!! renderMenuItems($menu->id) !!}
+                        </li>
+                        @endforeach
+                    </ul>
 
                 </div>
             </div>
