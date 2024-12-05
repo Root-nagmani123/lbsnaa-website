@@ -36,7 +36,7 @@
                 </div>
             </div>
         </div>
-      
+        
         <p><?= $news->description;?></p>
     </div>
 </section>

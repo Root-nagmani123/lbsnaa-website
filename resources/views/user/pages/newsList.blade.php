@@ -24,48 +24,44 @@
     </div>
 </section>
 
-<section class="py-1">
+<section class="py-6">
     <div class="container">
-       
-                    <div class="row">
-                        @foreach($news as $slider)
-                        <div class="col-4">
-                            <!-- card -->
-                            <div class="card mb-4 card-hover">
-                                <!-- img -->
-                                <div>
-                                <a href="#">
-                                                    <img
-                                                        src="{{ isset($slider->main_image) || !empty($slider->main_image) ? asset($slider->main_image) : asset('assets/images/4.jpg') }}"
-                                                        alt=""
-                                                        class="img-fluid rounded-3 w-100"
-                                                    >
-                                                </a>
-                                </div>
-                                <!-- card body -->
-                                <div class="card-body pt-2">
-                                                    <h3><a class="text-inherit" href="#">{{ $slider->title }}</a></h3>
-                                                    <p>{{ $slider->short_description }}</p>
-                                                    <small>Posted On: {{ \Carbon\Carbon::parse($slider->created_at)->format('d F, Y') }}</small>
-                                                    <br><br>
-                                                    <a href="{{ route('user.newsbyslug', $slider->title_slug) }}"
-                                                        class="icon-link icon-link-hover link-primary fw-semibold">
-                                                        <span>View Details</span>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                                            fill="currentColor" class="bi bi-arrow-right"
-                                                            viewBox="0 0 16 16">
-                                                            <path fill-rule="evenodd"
-                                                                d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8">
-                                                            </path>
-                                                        </svg>
-                                                    </a>
-                                                </div>
-                            </div>
-                        </div>
-                        @endforeach
-                   
-        <p></p>
-    </div>
+
+        <div class="row">
+            @foreach($news as $slider)
+            <div class="col-xl-4 col-lg-4 col-md-6 col-12 mb-3 d-flex align-items-stretch">
+                <!-- Card -->
+                <div class="card mb-4 shadow-lg card-lift">
+                    <div class="card-header" style="border:none;padding:0;">
+                    <a href="#">
+                        <!-- Img  -->
+                        <img src="{{ isset($slider->main_image) || !empty($slider->main_image) ? asset($slider->main_image) : asset('assets/images/4.jpg') }}"
+                            class="card-img-top" alt="blogpost ">
+                    </a>
+                    </div>
+                    <!-- Card body -->
+                    <div class="card-body d-flex flex-column">
+                        <a href="#"
+                            class="fs-5 mb-2 fw-semibold d-block text-success">Posted On :- {{ \Carbon\Carbon::parse($slider->created_at)->format('d F, Y') }}</a>
+                        <h3><a href="blog-single.html" class="text-inherit">{{ $slider->title }}</a></h3>
+                        <p>{{ $slider->short_description }}</p>
+                        <!-- Media content -->
+                    </div>
+                    <div class="card-footer" style="border-top:none;">
+                    <a href="{{ route('user.newsbyslug', $slider->title_slug) }}" class="text-inherit text-primary" >Read More</a>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+            <!-- <div class="col-xl-12 col-lg-12 col-md-12 col-12 text-center mt-4">
+                <a href="#" class="btn btn-primary">
+                    <div class="spinner-border spinner-border-sm me-2" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    Load More
+                </a>
+            </div> -->
+        </div>
 </section>
 
 
