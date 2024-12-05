@@ -52,9 +52,9 @@
             <div class="col-4">
                 <div class="card card-hover border">
                     <div class="card-header" style="background-color: #af2910;">
-                        <h5 class="text-white">Quick Links</h5>
+                        <h3 class="text-white">Quick Links</h3>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body" style="padding: 0;">
                         <ul class="mt-2 mb-2 list-group list-group-flush">
                             @foreach($quickLinks as $link)
                                 <li class="text-start list-group-item">

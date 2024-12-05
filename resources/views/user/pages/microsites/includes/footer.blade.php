@@ -1,5 +1,5 @@
  <!-- footer -->
- <footer class="pt-5 pb-3">
+ <footer class="pt-5 pb-3  mt-auto">
     <div class="container">
 
       <!-- Desc -->
