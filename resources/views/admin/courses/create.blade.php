@@ -80,7 +80,9 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="meta_description">Meta Description:</label>
                                 <div class="form-group position-relative">
-                                <textarea class="form-control" id="meta_description" placeholder="Enter the Meta Description" name="meta_description" rows="5"></textarea>
+                                    <textarea class="form-control" id="meta_description"
+                                        placeholder="Enter the Meta Description" name="meta_description"
+                                        rows="5"></textarea>
                                 </div>
 
 
@@ -93,7 +95,8 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="description">Description:</label>
                                 <div class="form-group position-relative">
-                                <textarea class="form-control" id="description" placeholder="Enter the Description" name="description" rows="5"></textarea>
+                                    <textarea class="form-control" id="description" placeholder="Enter the Description"
+                                        name="description" rows="5"></textarea>
                                 </div>
 
 
@@ -130,9 +133,11 @@
                                     <select class="form-select form-control ps-5 h-58" name="support_section"
                                         id="support_section" required>
                                         <option value="" class="text-dark" selected>Select Section</option>
-                                        <option value="1" class="text-dark">First</option>
-                                        <option value="2" class="text-dark">Second</option>
-                                        <option value="3" class="text-dark">Tgird</option>
+                                        @foreach($section_category as $section)
+                                        <option value="{{ $section->id }}" class="text-dark">{{ $section->name }}
+                                        </option>
+
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -208,16 +213,21 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
-                                <label class="label" for="course_type">Course Type:</label>
+                                <label class="label" for="course_type">Course Type:*</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="course_type"
-                                        id="course_type" required>
-                                        <option value="" class="text-dark" selected>Select Type</option>
-                                        <option value="1" class="text-dark">First</option>
-                                        <option value="2" class="text-dark">Second</option>
-                                        <option value="3" class="text-dark">Tgird</option>
+                                   
+
+                                    <select name="course_type" class="form-control" id="course_type">
+                                        <option value="0">It is Root Category</option>
+                                        @foreach($tree as $category)
+                                        <option value="{{ $category->id }}"
+                                            {{ isset($selectedCategoryId) && $selectedCategoryId == $category->id ? 'selected' : '' }}>
+                                            {!! $category->name_with_prefix !!}
+                                        </option>
+                                        @endforeach
                                     </select>
+
                                 </div>
                             </div>
                         </div>
@@ -229,9 +239,11 @@
                                     <select class="form-select form-control ps-5 h-58" name="venue_id" id="venue_id"
                                         required>
                                         <option value="" class="text-dark" selected>Select Venue</option>
-                                        <option value="1" class="text-dark">First</option>
-                                        <option value="2" class="text-dark">Second</option>
-                                        <option value="3" class="text-dark">Tgird</option>
+                                        @foreach($manage_venues as $venues)
+                                        <option value="{{ $venues->id }}" class="text-dark">{{ $venues->venue_title }}
+                                        </option>
+
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -272,7 +284,8 @@
                         </div>
                         <div class="d-flex ms-sm-3 ms-md-0">
                             <button class="btn btn-success text-white fw-semibold" type="submit">Submit</button>&nbsp;
-                            <a href="{{ route('admin.courses.index') }}" class="btn btn-secondary text-white fw-semibold">Back</a>
+                            <a href="{{ route('admin.courses.index') }}"
+                                class="btn btn-secondary text-white fw-semibold">Back</a>
                         </div>
                     </div>
                 </form>
@@ -284,22 +297,22 @@
 <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
 
 <script>
-    ClassicEditor
-    .create( document.querySelector( '#meta_description' ) )
-    .then( editor => {
+ClassicEditor
+    .create(document.querySelector('#meta_description'))
+    .then(editor => {
         window.editor = editor;
-    } )
-    .catch( error => {
-        console.error( error );
-    } );
+    })
+    .catch(error => {
+        console.error(error);
+    });
 
-    ClassicEditor
-    .create( document.querySelector( '#description' ) )
-    .then( editor => {
+ClassicEditor
+    .create(document.querySelector('#description'))
+    .then(editor => {
         window.editor = editor;
-    } )
-    .catch( error => {
-        console.error( error );
-    } );
+    })
+    .catch(error => {
+        console.error(error);
+    });
 </script>
-     @endsection
+@endsection

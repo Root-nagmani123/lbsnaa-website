@@ -136,9 +136,14 @@
                                 <div class="form-group position-relative">
                                     <select class="form-select form-control ps-5 h-58" name="support_section"
                                         id="support_section" required>
-                                        <option value="1" class="text-dark" {{ $course->support_section == 1 ? 'selected' : '' }}>First</option>
-                                        <option value="2" class="text-dark" {{ $course->support_section == 2 ? 'selected' : '' }}>Second</option>
-                                        <option value="3" class="text-dark" {{ $course->support_section == 3 ? 'selected' : '' }}>Tgird</option>
+                                       
+                                            @foreach($section_category as $section)
+                                        <option value="{{ $section->id }}"  @if($section->id == $course->support_section)
+                                            selected
+                                            @endif  class="text-dark">{{ $section->name }}
+                                        </option>
+
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -224,9 +229,13 @@
                                 <div class="form-group position-relative">
                                     <select class="form-select form-control ps-5 h-58" name="course_type"
                                         id="course_type" required>
-                                        <option value="1" class="text-dark" {{ $course->course_type == 1? 'selected' : '' }}>First</option>
-                                        <option value="2" class="text-dark" {{ $course->course_type == 2? 'selected' : '' }}>Second</option>
-                                        <option value="3" class="text-dark" {{ $course->course_type == 3? 'selected' : '' }}>Tgird</option>
+                                        
+                                            @foreach($tree as $category)
+                                        <option value="{{ $category->id }}"  {{ $course->course_type == $category->id ? 'selected' : '' }}
+                                            {{ isset($selectedCategoryId) && $selectedCategoryId == $category->id ? 'selected' : '' }}>
+                                            {!! $category->name_with_prefix !!}
+                                        </option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -238,9 +247,16 @@
                                 <div class="form-group position-relative">
                                     <select class="form-select form-control ps-5 h-58" name="venue_id" id="venue_id"
                                         required>
-                                        <option value="1" class="text-dark" {{ $course->venue_id == 1? 'selected' : '' }}>First</option>
-                                        <option value="2" class="text-dark" {{ $course->venue_id == 2? 'selected' : '' }}>Second</option>
-                                        <option value="3" class="text-dark" {{ $course->venue_id == 3? 'selected' : '' }}>Tgird</option>
+                                        <option value="" class="text-dark" selected>Select Venue</option>
+                                        @foreach($manage_venues as $venues)
+                                        <option value="{{ $venues->id }}" @if($venues->id == $course->venue_id)
+                                            selected
+                                            @endif
+                                            class="text-dark">
+                                            {{ $venues->venue_title }}
+                                        </option>
+                                        @endforeach
+
                                     </select>
                                 </div>
                             </div>
@@ -273,9 +289,9 @@
                                     <select class="form-select form-control ps-5 h-58" name="page_status"
                                         id="page_status" required>
                                         <option value="1" class="text-dark"
-                                        {{ $course->page_status == 1? 'selected' : '' }}>Active</option>
+                                            {{ $course->page_status == 1? 'selected' : '' }}>Active</option>
                                         <option value="0" class="text-dark"
-                                        {{ $course->page_status == 0? 'selected' : '' }}>Inactive</option>
+                                            {{ $course->page_status == 0? 'selected' : '' }}>Inactive</option>
                                     </select>
                                 </div>
                             </div>

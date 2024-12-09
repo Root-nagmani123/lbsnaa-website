@@ -52,10 +52,10 @@ class ManageTenderController extends Controller
 
         // Handle the file upload
         if ($request->hasFile('file')) {
-            $filename = time() . '.' . $request->file->extension();
-            $request->file->move(storage_path('app/public/uploads'), $filename);
-            $validated['file'] = $filename;
-        }
+	        $filename = time() . '.' . $request->file->extension();
+	        $request->file->move(storage_path('app/public/uploads'), $filename);
+	        $validated['file'] = $filename;
+	    }
 
         // Save the tender
         $tender = ManageTender::create([
@@ -114,14 +114,7 @@ class ManageTenderController extends Controller
     
         // Handle file upload
         if ($request->hasFile('file')) {
-            // Delete the old file if it exists
-            if ($manageTender->file && \Storage::exists('public/uploads/' . $manageTender->file)) {
-                \Storage::delete('public/uploads/' . $manageTender->file);
-            }
-    
-            // Store the new file
-            $filename = time() . '.' . $request->file->extension();
-            $request->file->move(storage_path('app/public/uploads'), $filename);
+            $filename = $request->file->store('uploads', 'public');
         } else {
             // Keep the existing file if no new file is uploaded
             $filename = $manageTender->file;
