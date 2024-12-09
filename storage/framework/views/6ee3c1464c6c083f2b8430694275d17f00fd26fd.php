@@ -24,7 +24,7 @@
                 alt="<?php echo e($slider->text); ?>"
                 style="
   width: 100%;
-  height: 600px; background-size: cover; background-position: center; border-radius: 10px;background-repeat: no-repeat;">
+  height: 600px; background-size: cover; background-position: center; border-radius: 10px;background-repeat: no-repeat; object-fit: cover">
             <div class="carousel-caption d-none d-md-block">
                 <h3 class="text-white"><?php echo e($slider->text); ?></h3>
                 <!-- <p><?php echo e($slider->description); ?></p> -->
