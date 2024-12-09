@@ -31,15 +31,23 @@
                 </button>
             </a>
         </div>
+        @if (session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
+        @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+        @endif
         <div class="default-table-area members-list">
             <div class="table-responsive">
                 <table class="table align-middle" id="myTable">
                     <thead>
                         <tr class="text-center">
                             <th class="col">ID</th>
-                            <th class="col">Language</th>
                             <th class="col">Category Name</th>
                             <th class="col">Category Description</th>
+                            <th class="col">Language</th>
                             <th class="col">Action</th>
                             <th class="col">Status</th>
                         </tr>
@@ -48,25 +56,28 @@
                         @foreach($category as $cat)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $cat->language == 1 ? 'English' : 'Hindi' }}</td>
                             <td>{{ $cat->section_title }}</td>
                             <td>{{ $cat->category_description }}</td>
-
+                            <td>{{ $cat->language == 1 ? 'English' : 'Hindi' }}</td>
                             <!-- <td>{{ $cat->status ? 'Active' : 'Inactive' }}</td> -->
-                           
+
                             <td>
                                 <a href="{{ route('category.edit', $cat->id) }}"
                                     class="btn bg-success text-white btn-sm">Edit</a>
                                 <form action="{{ route('category.destroy', $cat->id) }}" method="POST"
                                     style="display:inline;">
                                     @csrf
-                                    <button type="submit" class="btn btn-sm btn-primary text-white">Delete</button>
+                                    <button type="submit" class="btn btn-sm btn-primary text-white"
+                                        onclick="return confirm('Are you sure you want to delete?')">Delete</button>
                                 </form>
                             </td>
-                            <td><div class="form-check form-switch">
-            <input class="form-check-input status-toggle" type="checkbox" role="switch"  data-table="manage_category" 
-            data-column="status" data-id="{{$cat->id}}" {{$cat->status ? 'checked' : ''}}>
-          </div></td>
+                            <td>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input status-toggle" type="checkbox" role="switch"
+                                        data-table="manage_category" data-column="status" data-id="{{$cat->id}}"
+                                        {{$cat->status ? 'checked' : ''}}>
+                                </div>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>

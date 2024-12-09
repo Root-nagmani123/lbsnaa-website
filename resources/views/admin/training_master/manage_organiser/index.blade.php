@@ -19,6 +19,11 @@
         @if (session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
         @endif
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
         <div class="default-table-area members-list">
             <div class="table-responsive">
                 <table class="table align-middle" id="myTable">

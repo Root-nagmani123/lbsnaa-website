@@ -80,7 +80,6 @@ class ManageOrganizationController extends Controller
             'Updated_By' => null, // No update on creation, so leave null
             'Action_Type' => 'Insert', // Static value
             'IP_Address' => $request->ip(), // Get IP address from request
-            'Current_State' => json_encode($facultyMember), // Save state as JSON
         ]);
 
         // Redirect with a success message
@@ -132,7 +131,6 @@ class ManageOrganizationController extends Controller
             'Updated_By' => null, // No update on creation, so leave null
             'Action_Type' => 'Update', // Static value
             'IP_Address' => $request->ip(), // Get IP address from request
-            'Current_State' => json_encode($facultyMember), // Save state as JSON
         ]);
 
         return redirect()->route('admin.faculty.index')->with('success', 'Faculty member updated successfully.');
@@ -158,35 +156,81 @@ class ManageOrganizationController extends Controller
         return view('admin.staff_members.create');
     }
 
+    // // Staff Store
+    // public function staffStore(Request $request)
+    // {
+       
+
+    //     $staffData = $request->all();
+
+    //     // Handling image upload
+    //     if ($request->hasFile('image')) {
+    //         $image = $request->file('image');
+    //         $imageName = time() . '.' . $image->getClientOriginalExtension();
+    //         $image->move(public_path('staff_images'), $imageName);
+    //         $staffData['image'] = 'staff_images/' . $imageName;
+    //     }
+    
+    //     $Staff = StaffMember::create($staffData);
+
+    //     ManageAudit::create([
+    //         'Module_Name' => 'Staff Module', // Static value
+    //         'Time_Stamp' => time(), // Current timestamp
+    //         'Created_By' => null, // ID of the authenticated user
+    //         'Updated_By' => null, // No update on creation, so leave null
+    //         'Action_Type' => 'Insert', // Static value
+    //         'IP_Address' => $request->ip(), // Get IP address from request
+    //     ]);
+
+    //     return redirect()->route('admin.staff.index')->with('success', 'Staff member created successfully!');
+    // }
+
     // Staff Store
     public function staffStore(Request $request)
     {
-       
+        // Validate input fields
+        $validated = $request->validate([
+            'language' => 'required|string|in:1,2', // Replace with your dropdown options
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:staff_members,email', // Ensure unique email
+            'designation' => 'required|string|max:255',
+            'mobile' => 'required|digits:10|unique:staff_members,mobile', // Ensure valid 10-digit mobile number
 
-        $staffData = $request->all();
+            // Optional fields with uniqueness and format validation
+            'phone_internal_office' => 'nullable|digits:10|unique:staff_members,phone_internal_office',
+            'phone_pt_office' => 'nullable|digits:10|unique:staff_members,phone_pt_office',
+            'phone_pt_residence' => 'nullable|digits:10|unique:staff_members,phone_pt_residence',
+            'phone_internal_residence' => 'nullable|digits:10|unique:staff_members,phone_internal_residence',
+        
+
+            'page_status' => 'required|in:1,0', // Replace with your dropdown options
+            'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048', // Optional image upload with size and format constraints
+        ]);
 
         // Handling image upload
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('staff_images'), $imageName);
-            $staffData['image'] = 'staff_images/' . $imageName;
+            $validated['image'] = 'staff_images/' . $imageName;
         }
-    
-        $Staff = StaffMember::create($staffData);
 
+        // Save the validated data into the database
+        $staff = StaffMember::create($validated);
+
+        // Audit log creation
         ManageAudit::create([
-            'Module_Name' => 'Staff Module', // Static value
-            'Time_Stamp' => time(), // Current timestamp
-            'Created_By' => null, // ID of the authenticated user
-            'Updated_By' => null, // No update on creation, so leave null
-            'Action_Type' => 'Insert', // Static value
-            'IP_Address' => $request->ip(), // Get IP address from request
-            'Current_State' => json_encode($Staff), // Save state as JSON
+            'Module_Name' => 'Staff Module',
+            'Time_Stamp' => time(),
+            'Created_By' => null,
+            'Updated_By' => null,
+            'Action_Type' => 'Insert',
+            'IP_Address' => $request->ip(),
         ]);
 
         return redirect()->route('admin.staff.index')->with('success', 'Staff member created successfully!');
     }
+
 
     // Staff Edit
     public function staffEdit($id)
@@ -200,13 +244,23 @@ class ManageOrganizationController extends Controller
     {
         $staff = StaffMember::findOrFail($id);
 
-        // $request->validate([
-        //     'name' => 'required|string|max:255',
-        //     'email' => 'required|email|unique:staff_members,email,' . $staff->id,
-        //     'mobile' => 'required|string|max:15|unique:staff_members,mobile,' . $staff->id,
-        //     'image' => 'nullable|image|max:2048',
-        //     'designation' => 'required|string|max:255',
-        // ]);
+       // Validate input fields
+       $validated = $request->validate([
+            'language' => 'required|string|in:1,2', // Replace with your dropdown options
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:staff_members,email', // Ensure unique email
+            'designation' => 'required|string|max:255',
+            // 'mobile' => 'required|digits:10|unique:staff_members,mobile', // Ensure valid 10-digit mobile number
+
+            // Optional fields with uniqueness and format validation
+            // 'phone_internal_office' => 'nullable|digits:10|unique:staff_members,phone_internal_office',
+            // 'phone_pt_office' => 'nullable|digits:10|unique:staff_members,phone_pt_office',
+            // 'phone_pt_residence' => 'nullable|digits:10|unique:staff_members,phone_pt_residence',
+            // 'phone_internal_residence' => 'nullable|digits:10|unique:staff_members,phone_internal_residence',
+        
+            'page_status' => 'required|in:1,0', // Replace with your dropdown options
+            'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048', // Optional image upload with size and format constraints
+        ]);
 
         $staffData = $request->all();
     
@@ -233,7 +287,6 @@ class ManageOrganizationController extends Controller
             'Updated_By' => null, // No update on creation, so leave null
             'Action_Type' => 'Update', // Static value
             'IP_Address' => $request->ip(), // Get IP address from request
-            'Current_State' => json_encode($Staff), // Save state as JSON
         ]);
 
         return redirect()->route('admin.staff.index')->with('success', 'Staff member updated successfully!');
@@ -270,6 +323,24 @@ class ManageOrganizationController extends Controller
     // Section store method to handle form submission for creating new section
     public function sectionStore(Request $request)
     {
+
+        // Validate the input data
+        $request->validate(
+            [
+                'language' => 'required|in:1,2', // Adjust the 'in' values to your available language options
+                'title' => 'required|string|max:255', // Title is required, must be a string, and max length is 255
+                'status' => 'required|in:1,0', // Status must be one of these options
+            ],
+            [
+                'language.required' => 'Please select a language.', // Custom message for language
+                'language.in' => 'Invalid language selected.', // Invalid language option message
+                'title.required' => 'Please enter a title.', // Custom message for title
+                'title.max' => 'Title must not exceed 255 characters.', // Custom message for max length
+                'status.required' => 'Please select a status.', // Custom message for status
+                'status.in' => 'Invalid status selected.', // Invalid status option message
+            ]
+        );
+        
         $sectionData = $request->all(); // No validation
 
         Section::create($sectionData);
@@ -299,17 +370,32 @@ class ManageOrganizationController extends Controller
     public function sectionDestroy($id)
     {
         $section = Section::findOrFail($id);
+        // Check if the status is 1 (Inactive), and if so, prevent deletion
+        if ($section->status == 1) {
+            return redirect()->route('sections.index')->with('error', 'Inactive section cannot be deleted.');
+        }
+
         $section->delete();
 
         return redirect()->route('sections.index')->with('success', 'Section deleted successfully');
     }
-    public function indexSectionCategory($id)
+    // public function indexSectionCategory($id)
+    // {
+    //     // dd('hi');
+    //     $sections =  DB::table('section_category')->select('name','description','officer_Incharge','status','id')->from('section_category')->get();
+    //     // print_r($data);die;
+    //     return view('admin.sections.section_category.index', compact('sections','id'));
+    // }
+
+    public function indexSectionCategory($id = null)
     {
-        // dd('hi');
-        $sections =  DB::table('section_category')->select('name','description','officer_Incharge','status','id')->from('section_category')->get();
-        // print_r($data);die;
-        return view('admin.sections.section_category.index', compact('sections','id'));
+        $sections = DB::table('section_category')
+                    ->select('name', 'description', 'officer_Incharge', 'status', 'id')
+                    ->get();
+
+        return view('admin.sections.section_category.index', compact('sections', 'id'));
     }
+
     public function createSectionCategory($id)
     {
         // Fetch sections using query builder
@@ -400,7 +486,7 @@ public function updateSectionCategory(Request $request, $id)
         'fax' => $request->fax,
         'email' => $validatedData['email'],
         'status' => $validatedData['status'],
-        'updated_at' => now(),
+        'updated_at' => now(), 
     ]);
 
     return redirect()->route('admin.section_category.index',$request->section_id)->with('success', 'Section Category updated successfully');

@@ -38,7 +38,7 @@ class ManageFoundersController extends Controller
         ]    
     );
 
-        $validated['status'] = $request->status === 'active' ? 1 : 2;
+        $validated['status'] = $request->status === 'active' ? 1 : 0;
         $founder = ManageFounders::create($request->all());
 
         ManageAudit::create([
@@ -70,7 +70,7 @@ class ManageFoundersController extends Controller
             'status' => 'required|string',
         ]);
 
-        $validated['status'] = $request->status === 'active' ? 1 : 2;
+        $validated['status'] = $request->status === 'active' ? 1 : 0;
         $founder = ManageFounders::findOrFail($id);
         $founder->update($request->all());
 
@@ -91,6 +91,10 @@ class ManageFoundersController extends Controller
     public function destroy($id)
     {
         $founder = ManageFounders::findOrFail($id);
+        // Check if the status is 1 (Inactive), and if so, prevent deletion
+        if ($founder->status == 1) {
+            return redirect()->route('founders.index')->with('error', 'Inactive founder cannot be deleted.');
+        }
         $founder->delete();
         return redirect()->route('founders.index')->with('success', 'Founder deleted successfully.');
     }

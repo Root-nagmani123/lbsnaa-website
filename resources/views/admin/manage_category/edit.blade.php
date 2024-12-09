@@ -22,30 +22,33 @@
         <div class="card bg-white border-0 rounded-10 mb-4">
             <div class="card-body p-4">
                 <div class="d-flex justify-content-between align-items-center border-bottom pb-20 mb-20">
-                <h4 class="fw-semibold fs-18 mb-0">Edit Category</h4>
-            </div>
+                    <h4 class="fw-semibold fs-18 mb-0">Edit Category</h4>
+                </div>
 
                 <form action="{{ route('category.update',$category->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
-        @method('post')
+                    @method('post')
                     <div class="row">
-                      <div class="col-lg-6">
-                      <div class="form-group mb-4">
-                            <label class="label" for="menutitle">Page Language :</label>
-                            <span class="star">*</span>
-                            <div class="form-group position-relative">
-                                <input type="radio" name="txtlanguage" value="1" {{ $category->language == 1 ? 'checked' : '' }}> English
-                                <input type="radio" name="txtlanguage" value="2" {{ $category->language == 2 ? 'checked' : '' }}> Hindi
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="menutitle">Page Language :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="radio" name="txtlanguage" value="1"
+                                        {{ $category->language == 1 ? 'checked' : '' }}> English
+                                    <input type="radio" name="txtlanguage" value="2"
+                                        {{ $category->language == 2 ? 'checked' : '' }}> Hindi
+                                </div>
                             </div>
                         </div>
-                      </div>
 
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="menutitle">Section Title :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="section_title" id="section_title" value="{{ $category->section_title }}" required>
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="section_title"
+                                        id="section_title" value="{{ $category->section_title }}" required>
                                 </div>
                             </div>
                         </div>
@@ -54,8 +57,9 @@
                                 <label class="label" for="texttype">Category Description :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="category_description"
-                                        id="category_description" value="{{ $category->category_description }}" required>
+                                    <input type="text" class="form-control text-dark ps-5 h-58"
+                                        name="category_description" id="category_description"
+                                        value="{{ $category->category_description }}" required>
                                 </div>
                             </div>
                         </div>
@@ -64,9 +68,12 @@
                                 <label class="label" for="texttype">Status :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="status" id="status" required>
-                                        <option value="1" class="text-dark" {{ $category->status == 1? 'selected' : '' }}>Active</option>
-                                        <option value="0" class="text-dark" {{ $category->status == 0? 'selected' : '' }}>Inactive</option>
+                                    <select class="form-select form-control ps-5 h-58" name="status" id="status"
+                                        required>
+                                        <option value="1" class="text-dark"
+                                            {{ $category->status == 1? 'selected' : '' }}>Active</option>
+                                        <option value="0" class="text-dark"
+                                            {{ $category->status == 0? 'selected' : '' }}>Inactive</option>
                                     </select>
                                 </div>
                             </div>
@@ -84,4 +91,3 @@
     </div>
 </div>
 @endsection
-

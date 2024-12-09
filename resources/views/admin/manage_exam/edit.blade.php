@@ -62,12 +62,13 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="exm_user_id">User ID :</label>
                                 <span class="star">*</span>
+                                <label class="label" for="exm_user_id">Accept numeric input only</label>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="exm_user_id" id="exm_user_id" value="{{ $exams->user_id }}" required>
+                                    <input type="number" class="form-control text-dark ps-5 h-58" name="exm_user_id" id="exm_user_id" value="{{ $exams->user_id }}" required>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <!-- <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="exm_date">Transaction Date :</label>
                                 <span class="star">*</span>
@@ -75,11 +76,29 @@
                                     <input type="text" class="form-control text-dark ps-5 h-58" name="exm_date" id="exm_date" value="{{ $exams->transaction_date }}">
                                 </div>
                             </div>
+                        </div> -->
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="exm_date">Transaction Date :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input 
+                                        type="text" 
+                                        class="form-control text-dark ps-5 h-58" 
+                                        name="exm_date" 
+                                        id="exm_date" 
+                                        placeholder="DD-MM-YYYY"  
+                                        value="{{ old('exm_date', \Carbon\Carbon::parse($exams->transaction_date)->format('d-m-Y')) }}">
+                                    @error('exm_date')
+                                        <div style="color: red;">{{ $message }}</div>  <!-- Display error if any -->
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
+
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label for="preliminary_flag" class="label">Preliminary Flag</label>
-                                <span class="star">*</span>
                                 <div class="form-group position-relative">
                                         <input class="form-check-input" type="radio" name="preliminary_flag" id="preliminary_flag" value="1" {{ $exams->preliminary_flag == 1 ? 'checked' : '' }}> Yes
                                         <input class="form-check-input" type="radio" name="preliminary_flag" id="preliminary_flag" value="0" {{ $exams->preliminary_flag == 0 ? 'checked' : '' }}> No
@@ -89,7 +108,6 @@
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label for="main_flag" class="label">Main Flag</label>
-                                <span class="star">*</span>
                                 <div class="form-group position-relative">
                                         <input class="form-check-input" type="radio" name="main_flag" id="main_flag" value="1" {{ $exams->main_flag == 1 ? 'checked' : '' }}> Yes
                                         <input class="form-check-input" type="radio" name="main_flag" id="main_flag" value="0" {{ $exams->main_flag == 0 ? 'checked' : '' }}> No

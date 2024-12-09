@@ -31,6 +31,14 @@
                 </button>
             </a>
         </div>
+        @if (session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
+        @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+        @endif
         <div class="default-table-area members-list">
             <div class="table-responsive">
                 <table class="table align-middle" id="myTable">
@@ -38,28 +46,34 @@
                         <tr class="text-center">
                             <th class="col">#</th>
                             <th class="col">District Name</th>
+                            <th class="col">Hindi Name</th>
                             <th class="col">Action</th>
                             <th class="col">Status</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($districts as $district)
-            <tr>
-            <td>{{ $loop->iteration }}</td> <!-- Auto-incrementing index -->
-                <td>{{ $district->district_name }}</td>
+                        <tr>
+                            <td>{{ $loop->iteration }}</td> <!-- Auto-incrementing index -->
+                            <td>{{ $district->district_name }}</td>
+                            <td>{{ $district->district_name_hindi }}</td>
                             <td>
                                 <a href="{{ route('district.edit', $district->id) }}"
                                     class="btn btn-success text-white fw-semibold btn-sm">Edit</a>
                                 <form action="{{ route('district.destroy', $district->id) }}" method="POST"
                                     style="display:inline;">
                                     @csrf
-                                    <button type="submit" class="btn btn-primary text-white fw-semibold btn-sm">Delete</button>
+                                    <button type="submit" class="btn btn-primary text-white fw-semibold btn-sm"
+                                        onclick="return confirm('Are you sure you want to delete?')">Delete</button>
                                 </form>
                             </td>
-                            <td><div class="form-check form-switch">
-            <input class="form-check-input status-toggle" type="checkbox" role="switch"  data-table="manage_district" 
-            data-column="status" data-id="{{$district->id}}" {{$district->status ? 'checked' : ''}}>
-          </div></td>
+                            <td>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input status-toggle" type="checkbox" role="switch"
+                                        data-table="manage_district" data-column="status" data-id="{{$district->id}}"
+                                        {{$district->status ? 'checked' : ''}}>
+                                </div>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>

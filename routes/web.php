@@ -173,7 +173,7 @@ Route::prefix('admin')->group(function () {
     Route::put('/faculty/{id}', [ManageOrganizationController::class, 'facultyUpdate'])->name('admin.faculty.update');
     Route::delete('/faculty/{id}', [ManageOrganizationController::class, 'facultyDestroy'])->name('admin.faculty.destroy');
 
-    // Staff Routes
+    // Staff Routes 
     Route::get('/staff', [ManageOrganizationController::class, 'staffIndex'])->name('admin.staff.index');
     Route::get('/staff/create', [ManageOrganizationController::class, 'staffCreate'])->name('admin.staff.create');
     Route::post('/staff', [ManageOrganizationController::class, 'staffStore'])->name('admin.staff.store');
@@ -189,6 +189,9 @@ Route::prefix('admin')->group(function () {
     Route::delete('sections/{id}', [ManageOrganizationController::class, 'sectionDestroy'])->name('sections.destroy');
 
     Route::get('/section_category', [ManageOrganizationController::class, 'indexSectionCategory'])->name('admin.section_category.index');
+
+    Route::get('/section-category/{id}', [ManageOrganizationController::class, 'indexSectionCategory'])->name('admin.section-category.index');
+
     Route::get('/section_category/create', [ManageOrganizationController::class, 'createSectionCategory'])->name('admin.section_category.create');
     Route::post('/section_category/store', [ManageOrganizationController::class, 'storeSectionCategory'])->name('admin.section_category.store');
     Route::get('/section_category/{id}/edit', [ManageOrganizationController::class, 'editSectionCategory'])->name('admin.section_category.edit');
@@ -234,6 +237,7 @@ Route::prefix('admin')->group(function () {
     Route::get('exam/{id}/edit', [TrainingManagementController::class, 'examEdit'])->name('exam.edit');
     Route::post('exam/{id}/update', [TrainingManagementController::class, 'examUpdate'])->name('exam.update');
     Route::post('exam/{id}/delete', [TrainingManagementController::class, 'examDestroy'])->name('exam.destroy');
+    
 
     // Manage Exam route
     Route::get('survey', [SurveyController::class, 'surveyIndex'])->name('survey.index');

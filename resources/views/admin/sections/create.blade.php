@@ -19,8 +19,11 @@
                                 <label class="label" for="menutitle">Page Language :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="radio" name="language" value="1">English
-                                    <input type="radio" name="language" value="2">Hindi
+                                    <input type="radio" name="language" value="1" {{ old('language') == '1' ? 'checked' : '' }}>English
+                                    <input type="radio" name="language" value="2" {{ old('language') == '2' ? 'checked' : '' }}>Hindi
+                                    @error('language')
+                                        <div style="color: red;">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -31,7 +34,10 @@
                                 <label class="label" for="title">Section Title :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="title" id="title">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="title" id="title" value="{{ old('title') }}">
+                                    @error('title')
+                                        <div style="color: red;">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -40,11 +46,14 @@
                                 <label class="label" for="status">Status :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="status" id="status" required>
+                                    <select class="form-select form-control ps-5 h-58" name="status" id="status">
                                     <option value="" class="text-dark" selected>Select</option>
                                         <option value="1" class="text-dark">Active</option>
                                         <option value="2" class="text-dark">Inactive</option>
                                     </select>
+                                    @error('status')
+                                        <div style="color: red;">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
