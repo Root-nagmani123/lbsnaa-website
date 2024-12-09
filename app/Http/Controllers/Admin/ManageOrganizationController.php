@@ -303,22 +303,29 @@ class ManageOrganizationController extends Controller
 
         return redirect()->route('sections.index')->with('success', 'Section deleted successfully');
     }
-    public function indexSectionCategory($id)
+    public function indexSectionCategory(REQUEST $request)
     {
         // dd('hi');
-        $sections =  DB::table('section_category')->select('name','description','officer_Incharge','status','id')->from('section_category')->get();
+        // Fetch sections using query builder
+        $id = $request->catid;
+        // $sections = DB::table('sections')->select('name','description','status','id')->from('sections')->get();
+        $sections = DB::table('section_category')->select('name','description','officer_Incharge','status','id')->where('section_id',$id)->get();
+
+
+        // $sections =  DB::table('section_category')->select('name','description','officer_Incharge','status','id')->from('section_category')->get();
         // print_r($data);die;
         return view('admin.sections.section_category.index', compact('sections','id'));
     }
-    public function createSectionCategory($id)
+    public function createSectionCategory(REQUEST $request)
     {
         // Fetch sections using query builder
-     
+        $id = $request->catid;
         return view('admin.sections.section_category.create', compact('id'));
     }
     
     public function storeSectionCategory(Request $request)
     {
+        // print_r($_POST)
       
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
@@ -333,11 +340,11 @@ class ManageOrganizationController extends Controller
             'name' => $validatedData['name'],
             'description' => $validatedData['description'],
             'officer_Incharge' => $validatedData['officer_Incharge'],
-            'alternative_Incharge_1st' => $request->alternative_Incharge_1st,
-            'alternative_Incharge_2st' => $request->alternative_Incharge_2st,
-            'alternative_Incharge_3st' => $request->alternative_Incharge_3st,
-            'alternative_Incharge_4st' => $request->alternative_Incharge_4st,
-            'alternative_Incharge_5st' => $request->alternative_Incharge_5st,
+            'alternative_Incharge_1st' => $request->alternative_incharge_1st,
+            'alternative_Incharge_2st' => $request->alternative_incharge_2st,
+            'alternative_Incharge_3st' => $request->alternative_incharge_3st,
+            'alternative_Incharge_4st' => $request->alternative_incharge_4st,
+            'alternative_Incharge_5st' => $request->alternative_incharge_5st,
             'section_head' => $request->section_head,
             'phone_internal_office' => $request->phone_internal_office,
             'phone_internal_residence' => $request->phone_internal_residence,
@@ -360,8 +367,8 @@ class ManageOrganizationController extends Controller
             'IP_Address' => $request->ip(), // Get IP address from request
         ]);
 
-        return redirect()->route('admin.section_category.index',$request->section_id)->with('success', 'Section Category created successfully');
-    }
+        return redirect()->route('admin.section_category.index', ['catid' => $request->section_id])->with('success', 'Section Category created successfully');
+}
     public function editSectionCategory($id)
 {
     // Fetch section category and sections using query builder
@@ -402,9 +409,9 @@ public function updateSectionCategory(Request $request, $id)
         'status' => $validatedData['status'],
         'updated_at' => now(),
     ]);
+    return redirect()->route('admin.section_category.index', ['catid' => $request->section_id])->with('success', 'Section Category updated successfully');
 
-    return redirect()->route('admin.section_category.index',$request->section_id)->with('success', 'Section Category updated successfully');
-}
+   }
 public function destroySectionCategory($id)
 {
     // Delete using query builder

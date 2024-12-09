@@ -84,6 +84,12 @@ Route::get('/footer_menu/{slug}', [HomeFrontController::class, 'footer_menu'])->
 Route::get('/updates/{slug}', [HomeFrontController::class, 'letest_updates'])->name('user.letest_updates');
 Route::get('/news-listing', [HomeFrontController::class, 'news_listing'])->name('user.news_listing');
 Route::get('/tenders', [HomeFrontController::class, 'tenders'])->name('user.tenders');
+Route::get('/faculty', [HomeFrontController::class, 'faculty'])->name('user.faculty');
+Route::get('/staff', [HomeFrontController::class, 'staff'])->name('user.staff');
+Route::get('/vacancy', [HomeFrontController::class, 'vacancy'])->name('user.vacancy');
+Route::get('/cms/training_cal', [HomeFrontController::class, 'training_cal'])->name('user.training_cal');
+Route::get('/course/{slug}', [HomeFrontController::class, 'get_navigation_pages'])->name('user.courseslug');
+
 
 
 

@@ -14,14 +14,14 @@
                             <a href="{{ route('home')}}" style="color: #af2910;">Home</a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="#" style="color: #af2910;">Tenders</a>
+                            <a href="#" style="color: #af2910;">Vacancy</a>
                         </li>
                     </ol>
                 </nav>
             </div>
         </div>
         <div class="col-md-12 content-area">
-            <h2 class="heading">Tenders</h2>
+            <h2 class="heading">Vacancy</h2>
             <p></p>
 
 
@@ -30,7 +30,7 @@
                 <thead>
                     <tr class="even">
                         <th width="5%">S. No.</th>
-                        <th width="20%">Tender Title</th>
+                        <th width="20%">Job Title</th>
                         <th width="20%">Publish Date</th>
                         <th width="20%">Last Date</th>
                         <th width="15%">Document</th>
@@ -41,12 +41,12 @@
                     @foreach($query as $key => $value)
                     <tr>
                         <td style="padding-left:10px;">{{ $loop->iteration }}</td>
-                        <td>{{ $value->title }}</td>
-                        <td>{{ \Carbon\Carbon::parse($value->publish_date)->format('d F, Y, H:i A') }}</td>
-                        <td>{{ \Carbon\Carbon::parse($value->expiry_date)->format('d F, Y, H:i A') }}</td>
+                        <td>{{ $value->job_title }}</td>
+                        <td>{{ \Carbon\Carbon::parse($value->publish_date)->format('d F, Y') }}</td>
+                        <td>{{ \Carbon\Carbon::parse($value->expiry_date)->format('d F, Y') }}</td>
                         <td>
-                            @if(!empty($value->file))
-                            <a href="{{ asset('tender/'.$value->file) }}" target="_blank">Download</a>
+                            @if(!empty($value->document_upload))
+                            <a href="{{ asset('uploads/' . $value->document_upload) }}" target="_blank">Download</a>
 
 
                             @else

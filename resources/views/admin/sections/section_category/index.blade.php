@@ -5,7 +5,8 @@
 @section('content')
 <div class="container"> 
     <h1>Sections</h1>
-    <a href="{{ route('admin.section_category.create',$id) }}" class="btn btn-primary">Add Section</a>
+    <a href="{{ route('admin.section_category.create',['catid' => $id]) }}" class="btn btn-primary">Add Section</a>
+   
     <table class="table">
         <thead>
             <tr>

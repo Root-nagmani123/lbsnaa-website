@@ -39,7 +39,7 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $section->title }}</td>
-                            <td><a href="{{ route('admin.section_category.index', $section->id) }}" class="">Click Here</a></td>
+                            <td><a href="{{ route('admin.section_category.index', ['catid' => $section->id]) }}" class="">Click Here</a></td>
                             <td>
                                 <a href="{{ route('sections.edit', $section->id) }}"
                                     class="btn btn-success text-white btn-sm">Edit</a>

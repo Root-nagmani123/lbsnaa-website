@@ -40,7 +40,7 @@ class ManageTenderController extends Controller
 
         if ($request->hasFile('file')) {
 	        $filename = time() . '.' . $request->file->extension();
-	        $request->file->move(storage_path('app/public/uploads'), $filename);
+	        $request->file->move(storage_path('app/public/tender/'), $filename);
 	        $validated['file'] = $filename;
 	    }
 
@@ -97,7 +97,7 @@ class ManageTenderController extends Controller
 
         // Handle file upload
         if ($request->hasFile('file')) {
-            $filename = $request->file->store('uploads', 'public');
+            $filename = $request->file->store('tender', 'public');
         } else {
             $filename = $manageTender->file;
         }

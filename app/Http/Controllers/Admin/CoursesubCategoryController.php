@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class CoursesubCategoryController extends Controller
 {
@@ -70,6 +71,7 @@ class CoursesubCategoryController extends Controller
             'status' => $request->input('status'),
             'created_at' => now(),
             'updated_at' => now(),
+            'slug' => Str::slug($request->category_name, '-'), 
         ]);
 
         return redirect()->route('subcategory.index')->with('success', 'Menu created successfully.');
@@ -110,6 +112,7 @@ class CoursesubCategoryController extends Controller
                 'description' => $request->input('description'),
                 'status' => $request->input('status'),
                 'updated_at' => now(),
+                'slug' => Str::slug($request->category_name, '-'), 
             ]);
 
         return redirect()->route('subcategory.index')->with('success', 'Menu updated successfully.');
