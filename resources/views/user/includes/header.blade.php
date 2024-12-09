@@ -66,7 +66,7 @@
             $output .= '<li class="nav-item ' . ($hasChildren ? 'dropdown' : '') . '">';
             $output .= '<a class="nav-link ' . ($hasChildren ? 'dropdown-toggle' : '') . '" 
                 href="' . 
-                ($submenu->menutitle === 'Research Center' ? '#' : route('user.navigationpagesbyslug', $submenu->menu_slug)) . '" ' . 
+                ($submenu->menutitle == 'RTI' ? '#' : route('user.navigationpagesbyslug', $submenu->menu_slug)) . '" ' . 
                 ($hasChildren ? 'data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"' : '') . '>' 
                 . $submenu->menutitle . '</a>';
 
@@ -131,17 +131,20 @@ $output .= '</li>';
 @endphp
 
 <ul class="navbar-nav mx-auto">
-    @foreach($menus as $menu)
-        <li class="nav-item {{ DB::table('menus')->where('parent_id', $menu->id)->exists() ? 'dropdown' : '' }}">
-            <a class="nav-link {{ DB::table('menus')->where('parent_id', $menu->id)->exists() || $menu->menutitle === 'Training' ? 'dropdown-toggle' : '' }}"
-               href="{{ $menu->menutitle === 'RTI' ? '#' : route('user.navigationpagesbyslug', $menu->menu_slug) }}"
-               id="navbarListing" {{ DB::table('menus')->where('parent_id', $menu->id)->exists() || $menu->menutitle === 'Training' ? 'data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"' : '' }}>
-                {{ $menu->menutitle }}
-            </a>
+@foreach($menus as $menu)
+    <li class="nav-item {{ DB::table('menus')->where('parent_id', $menu->id)->exists() && $menu->menutitle != 'RTI' ? 'dropdown' : '' }} ">
+        <a class="nav-link {{ $menu->menutitle == 'RTI' ? '' : 'dropdown-toggle' }} 
+           {{ DB::table('menus')->where('parent_id', $menu->id)->exists() && $menu->menutitle != 'RTI' ? 'dropdown-toggle' : '' }}"
+           href="{{ $menu->menutitle == 'RTI' ? route('user.navigationpagesbyslug', $menu->menu_slug) : route('user.navigationpagesbyslug', $menu->menu_slug) }}"
+           id="navbarListing"
+           {{ DB::table('menus')->where('parent_id', $menu->id)->exists() && $menu->menutitle != 'RTI' ? 'data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"' : '' }}>
+            {{ $menu->menutitle }}
+        </a>
 
-            {!! renderMenuItems($menu->id, $menu->menutitle === 'Training') !!}
-        </li>
-    @endforeach
+        {!! renderMenuItems($menu->id, $menu->menutitle === 'Training') !!}
+    </li>
+@endforeach
+
 </ul>
 
     </div>

@@ -12,9 +12,10 @@ class HomeFrontController extends Controller
         $sliders =  DB::table('sliders')->where('status',1)->where('is_deleted',0)->get();
         $news =  DB::table('news')->where('status',1)->get();
         $quick_links = DB::table('quick_links')->where('is_deleted',0)->where('status',1)->get();
+        $faculty_members = DB::table('faculty_members')->select('image')->where('designation','Director')->where('page_status',1)->first();
         $news_scrollers=  DB::table('menus')->where('txtpostion',7)->where('is_deleted',0)->where('menu_status',1)->get();
-
-        return view('user.pages.home', compact('sliders','news','quick_links','news_scrollers'));
+// print_r($faculty_members);die;
+        return view('user.pages.home', compact('sliders','news','quick_links','news_scrollers','faculty_members'));
     } 
     public function get_news($slug)
     {
@@ -54,12 +55,42 @@ class HomeFrontController extends Controller
         // Reverse to get breadcrumb from top-level to current menu
         return array_reverse($breadcrumb);
     }
-    public function get_navigation_pages($slug)
+    public function get_navigation_pages(Request $request, $slug)
     {
+        // echo $slug;die;
+        if($slug == 'faculty'){
+            $query = DB::table('faculty_members')->where('page_status', 1);
+
+            // Check if a search keyword is provided
+            if ($request->has('keywords') && !empty($request->keywords)) {
+                $query->where('name', 'LIKE', '%' . $request->keywords . '%');
+            }
+        
+            $faculty = $query->get();
+        
+            return view('user.pages.faculty', compact('faculty'));
+
+        }elseif ($slug == 'staff') {
+            $query = DB::table('staff_members')->where('page_status', 1);
+
+            // Check if a search keyword is provided
+            if ($request->has('keywords') && !empty($request->keywords)) {
+                $query->where('name', 'LIKE', '%' . $request->keywords . '%');
+            }
+
+            $staff = $query->get();
+
+         return view('user.pages.staff', compact('staff'));
+        }
         $breadcrumb = $this->generateBreadcrumb($slug);
-        // echo 'hi';die;
+       
         $nav_page =  DB::table('menus')->where('menu_status',1)->where('is_deleted',0)->where('menu_slug',$slug)->first();
-        return view('user.pages.navigationpagesbyslug', compact('nav_page','breadcrumb'));
+        $director_img = '';
+        if($slug == 'director-message' ){
+        $director_img = DB::table('faculty_members')->select('image')->where('designation','Director')->where('page_status',1)->first();
+
+        }
+        return view('user.pages.navigationpagesbyslug', compact('nav_page','breadcrumb','director_img'));
     }
     function footer_menu($slug){
         $nav_page =  DB::table('menus')->where('menu_status',1)->where('is_deleted',0)->where('menu_slug',$slug)->first();
@@ -183,6 +214,68 @@ public function training_cal()
 
     return view('user.pages.training_cal', compact('organizedCategories'));
 }
+public function get_course_list_pages(Request $request, $slug){
+    $currentDate = Carbon::now();
+
+    // Step 1: Fetch the subcategory
+    $subcategory = DB::table('courses_sub_categories')
+        ->where('slug', $slug)
+        ->where('status', 1)
+        ->select('id', 'category_name', 'color_theme','description')
+        ->first();
+
+    // Step 2: Fetch all courses related to this subcategory
+    $courses = [];
+    if ($subcategory) {
+        $courses = DB::table('course')
+            ->where('course_type', $subcategory->id)
+            ->select('id', 'course_name', 'course_start_date', 'course_end_date', 'course_type')
+            ->get();
+    }
+
+    // Step 3: Get the current course (ongoing course)
+    $currentCourse = DB::table('course')
+        ->where('course_type', $subcategory->id)
+        ->whereDate('course_start_date', '<=', $currentDate)
+        ->whereDate('course_end_date', '>=', $currentDate)
+        ->first();
+
+    return view('user.pages.course_list', compact('subcategory', 'currentCourse', 'courses'));
+}
+
+public function get_course_details_pages(Request $request, $slug)
+{
+    // Fetch the course based on the slug
+    $course = DB::table('course')
+                ->join('section_category', 'course.support_section', '=', 'section_category.id')
+                ->join('manage_venues', 'course.venue_id', '=', 'manage_venues.id')
+                ->where('course.id', '=', $slug) // Using 'slug' for matching
+                ->select(
+                    'course.*',
+                    'section_category.name as section_name',
+                    'manage_venues.venue_title'
+                )
+                ->first();
+
+    // Check if course exists, if not return a 404 error or a suitable response
+    if (!$course) {
+        return abort(404, 'Course not found');
+    }
+
+    // Fetch the subcategory that the course belongs to
+    $subcategory = DB::table('courses_sub_categories')
+                    ->where('id', $course->course_type) // Assuming 'course_type' relates to subcategory
+                    ->first();
+                    $courses_list = DB::table('course')
+                    ->where('course_type', $course->course_type)
+                    ->select('id', 'course_name', 'course_start_date', 'course_end_date', 'course_type')
+                    ->get();
+
+    // Pass the course and subcategory to the view
+    return view('user.pages.course_details', compact('course', 'subcategory','courses_list'));
+}
+
+
 
 
 
