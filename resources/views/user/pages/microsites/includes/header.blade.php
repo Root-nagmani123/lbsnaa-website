@@ -24,11 +24,14 @@
   <link rel="canonical" href="LBSNAA">
   <link href="{{ asset('assets/libs/tiny-slider/dist/tiny-slider.css') }}" rel="stylesheet">
   <link rel="stylesheet" href="assets/libs/glightbox/dist/css/glightbox.min.css') }}">
+  <link rel="icon" type="image/png" href="{{ asset('admin_assets/images/favicon.ico') }}">
+
   <title>Research Center | Lal Bahadur Shastri National Academy of Administration</title>
 
 </head>
 
-<body class="bg-white d-flex flex-column min-vh-100">
+<body class="d-flex flex-column min-vh-100">
+<header class="d-none d-lg-block sticky-top">
     <nav class="navbar">
         <div class="container px-0">
             <a class="navbar-brand" href="{{ route('home') }}"><img src="{{ asset('assets/images/microsites/logo.png') }}"
@@ -73,3 +76,4 @@
         </div>
 
     </nav>
+</header>

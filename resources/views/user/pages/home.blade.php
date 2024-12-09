@@ -66,8 +66,7 @@
     <div class="container">
         <div class="position-relative d-flex overflow-x-hidden py-lg-4 pt-4">
             <div class="d-flex gap-3">
-                <a href="#"
-                    class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border"
+                <a href="#" class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border"
                     style="width: 200px !important">
                     <!--img-->
                     <div class="p-3">
@@ -81,8 +80,7 @@
                         </div>
                     </div>
                 </a>
-                <a href="#"
-                    class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border"
+                <a href="#" class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border"
                     style="width: 200px !important">
                     <!--img-->
                     <div class="p-3">
@@ -93,8 +91,7 @@
                         </div>
                     </div>
                 </a>
-                <a href="#"
-                    class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border"
+                <a href="#" class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border"
                     style="width: 200px !important">
                     <!--img-->
                     <div class="p-3">
@@ -105,8 +102,7 @@
                         </div>
                     </div>
                 </a>
-                <a href="#"
-                    class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border"
+                <a href="#" class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border"
                     style="width: 200px !important">
                     <!--img-->
                     <div class="p-3">
@@ -117,8 +113,7 @@
                         </div>
                     </div>
                 </a>
-                <a href="#"
-                    class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border"
+                <a href="#" class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border"
                     style="width: 200px !important">
                     <!--img-->
                     <div class="p-3">
@@ -130,8 +125,7 @@
                         </div>
                     </div>
                 </a>
-                <a href="#"
-                    class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border"
+                <a href="#" class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border"
                     style="width: 200px !important">
                     <!--img-->
                     <div class="p-3">
@@ -151,7 +145,7 @@
 <section class="py-8 bg-light">
     <div class="container">
         <div class="row gy-4 gy-xl-0">
-            <div class="col-xl-8 col-lg-6 col-12">
+            <div class="col-8">
                 <div class="px-xl-8 my-lg-6">
                     <div class="mb-5">
                         <div class="row">
@@ -166,11 +160,11 @@
                     </div>
                     <div class="position-relative">
                         <div class="tns-outer" id="tns1-ow">
-                            <div class="tns-liveregion tns-visually-hidden" aria-live="polite" aria-atomic="true">
+                            <!-- <div class="tns-liveregion tns-visually-hidden" aria-live="polite" aria-atomic="true">
                                 slide
                                 <span class="current">6 to 7</span>
                                 of 5
-                            </div>
+                            </div> -->
                             <div id="tns1-mw" class="tns-ovh">
                                 <div class="tns-inner" id="tns1-iw">
                                     <div class="sliderTestimonialFourth tns-slider tns-carousel tns-subpixel tns-calc tns-horizontal"
@@ -187,7 +181,7 @@
                                                     </a>
                                                 </div>
                                                 <!-- Card body -->
-                                                <div class="card-body d-flex flex-column">
+                                                <div class="card-body">
                                                     <a href="#"
                                                         class="fs-5 mb-2 fw-semibold d-block text-success">Posted On :-
                                                         {{ \Carbon\Carbon::parse($slider->created_at)->format('d F, Y') }}</a>

@@ -1,4 +1,4 @@
-@include('user.pages.microsites.includes.header')
+<?php echo $__env->make('user.pages.microsites.includes.header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
 <!-- Page Content -->
 
@@ -29,31 +29,29 @@
 
                     <div class="carousel-indicators">
 
-                        @foreach ($sliders as $i => $slider)
-                        @if ($i == 0)
-                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to={{ $i }}
-                            class="active" aria-current="true" aria-label={{ $slider->slider_text }}></button>
-                        @endif
-                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ $i }}"
-                            aria-label={{ $slider->slider_text }}></button>
-                        @endforeach
+                        <?php $__currentLoopData = $sliders; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i => $slider): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <?php if($i == 0): ?>
+                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to=<?php echo e($i); ?>
+
+                            class="active" aria-current="true" aria-label=<?php echo e($slider->slider_text); ?>></button>
+                        <?php endif; ?>
+                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="<?php echo e($i); ?>"
+                            aria-label=<?php echo e($slider->slider_text); ?>></button>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </div>
 
                     <!-- Dynamic Slider -->
                     <div class="carousel-inner">
-                        @foreach ($sliders as $key => $slider)
-                        <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
-                            <img src="{{ asset('storage/' . $slider->slider_image) }}" class="d-block img-fluid"
-                                alt="{{ $slider->slider_text }}"
+                        <?php $__currentLoopData = $sliders; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $slider): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <div class="carousel-item <?php echo e($key == 0 ? 'active' : ''); ?>">
+                            <img src="<?php echo e(asset('storage/' . $slider->slider_image)); ?>" class="d-block img-fluid"
+                                alt="<?php echo e($slider->slider_text); ?>"
                                 style="
 width: 100%;
 height: 300px; background-size: content; background-position: center; border-radius: 10px;background-repeat: no-repeat; object-fit: cover">
-                            {{-- <div class="carousel-caption d-none d-md-block">
-                <h3 class="text-white">{{ $slider->slider_text }}</h3>
-                            <!-- <p>{{ $slider->slider_text }}</p> -->
-                        </div> --}}
+                            
                     </div>
-                    @endforeach
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </div>
 
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
@@ -75,11 +73,11 @@ height: 300px; background-size: content; background-position: center; border-rad
                 </div>
                 <div class="card-body">
                     <ul class="mt-2 mb-2 list-group list-group-flush">
-                        @foreach($whatsNew as $news)
+                        <?php $__currentLoopData = $whatsNew; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $news): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <li class="text-start list-group-item">
-                            @if($news->website_url)
+                            <?php if($news->website_url): ?>
                             <!-- For website URL -->
-                            <a href="{{ $news->website_url }}" class="text-primary" target="_blank">
+                            <a href="<?php echo e($news->website_url); ?>" class="text-primary" target="_blank">
                                 <span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                                         class="bi bi-arrow-right-short" viewBox="0 0 16 16">
@@ -88,11 +86,12 @@ height: 300px; background-size: content; background-position: center; border-rad
                                         </path>
                                     </svg>
                                 </span>
-                                {{ $news->txtename }}
+                                <?php echo e($news->txtename); ?>
+
                             </a>
-                            @elseif($news->pdf_file)
+                            <?php elseif($news->pdf_file): ?>
                             <!-- For PDF URL -->
-                            <a href="{{ asset('storage/' . $news->pdf_file) }}" class="text-primary" target="_blank">
+                            <a href="<?php echo e(asset('storage/' . $news->pdf_file)); ?>" class="text-primary" target="_blank">
                                 <span>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                                         class="bi bi-file-earmark-pdf" viewBox="0 0 16 16">
@@ -100,11 +99,12 @@ height: 300px; background-size: content; background-position: center; border-rad
                                             d="M9 1H3a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7l-5-6zm0 1.5V6h5L9 2.5zM4 2h5v4H4V2zM3 12V4h5v4h5v4H3z" />
                                     </svg>
                                 </span>
-                                {{ $news->txtename }}
+                                <?php echo e($news->txtename); ?>
+
                             </a>
-                            @endif
+                            <?php endif; ?>
                         </li>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </ul>
                 </div>
             </div>
@@ -143,33 +143,33 @@ height: 300px; background-size: content; background-position: center; border-rad
                 <div class="container">
                     <div class="position-relative d-flex overflow-x-hidden py-lg-4 pt-4">
                         <div class="d-flex gap-3">
-                            <a href="{{ route('mediagallery') }}"
+                            <a href="<?php echo e(route('mediagallery')); ?>"
                                 class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border"
                                 style="width: 200px !important">
                                 <div class="p-3">
-                                    <img src="{{ asset('assets/images/image (2).png') }}" alt="mentor 19"
+                                    <img src="<?php echo e(asset('assets/images/image (2).png')); ?>" alt="mentor 19"
                                         class="avatar avatar-xl">
                                 </div>
                                 <div class="mt-3">
                                     <h3 class="text-center">Photo Gallery</h3>
                                 </div>
                             </a>
-                            <a href="{{ route('calendar') }}"
+                            <a href="<?php echo e(route('calendar')); ?>"
                                 class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border"
                                 style="width: 200px !important">
                                 <div class="p-3">
-                                    <img src="{{ asset('assets/images/calendar (2).png') }}" alt="mentor 19"
+                                    <img src="<?php echo e(asset('assets/images/calendar (2).png')); ?>" alt="mentor 19"
                                         class="avatar avatar-xl">
                                 </div>
                                 <div class="mt-3">
                                     <h3 class="text-center">Training Calender</h3>
                                 </div>
                             </a>
-                            <a href="{{ route('news') }}"
+                            <a href="<?php echo e(route('news')); ?>"
                                 class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border"
                                 style="width: 200px !important">
                                 <div class="p-3">
-                                    <img src="{{ asset('assets/images/newspaper (1).png') }}" alt="mentor 19"
+                                    <img src="<?php echo e(asset('assets/images/newspaper (1).png')); ?>" alt="mentor 19"
                                         class="avatar avatar-xl">
                                 </div>
                                 <div class="mt-3">
@@ -187,11 +187,11 @@ height: 300px; background-size: content; background-position: center; border-rad
                     </div>
                     <div class="card-body">
                         <ul class="mt-2 mb-2 list-group list-group-flush">
-                            @foreach($quickLinks as $link)
+                            <?php $__currentLoopData = $quickLinks; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $link): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <li class="text-start list-group-item">
-                                @if($link->website_url)
+                                <?php if($link->website_url): ?>
                                 <!-- For website URL -->
-                                <a href="{{ $link->website_url }}" class="text-primary" target="_blank">
+                                <a href="<?php echo e($link->website_url); ?>" class="text-primary" target="_blank">
                                     <span>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                             fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
@@ -200,11 +200,12 @@ height: 300px; background-size: content; background-position: center; border-rad
                                             </path>
                                         </svg>
                                     </span>
-                                    {{ $link->txtename }}
+                                    <?php echo e($link->txtename); ?>
+
                                 </a>
-                                @elseif($link->pdf_file)
+                                <?php elseif($link->pdf_file): ?>
                                 <!-- For PDF URL -->
-                                <a href="{{ asset('storage/' . $link->pdf_file) }}" class="text-primary"
+                                <a href="<?php echo e(asset('storage/' . $link->pdf_file)); ?>" class="text-primary"
                                     target="_blank">
                                     <span>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
@@ -213,11 +214,12 @@ height: 300px; background-size: content; background-position: center; border-rad
                                                 d="M9 1H3a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7l-5-6zm0 1.5V6h5L9 2.5zM4 2h5v4H4V2zM3 12V4h5v4h5v4H3z" />
                                         </svg>
                                     </span>
-                                    {{ $link->txtename }}
+                                    <?php echo e($link->txtename); ?>
+
                                 </a>
-                                @endif
+                                <?php endif; ?>
                             </li>
-                            @endforeach
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </ul>
                     </div>
                 </div>
@@ -227,4 +229,4 @@ height: 300px; background-size: content; background-position: center; border-rad
     </div>
 </section>
 
-@include('user.pages.microsites.includes.footer')
+<?php echo $__env->make('user.pages.microsites.includes.footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\lbsnaa-website\resources\views/user/pages/microsites/index.blade.php ENDPATH**/ ?>
