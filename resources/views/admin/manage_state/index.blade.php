@@ -32,6 +32,14 @@
                 </button>
             </a>
         </div>
+        @if (session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
+        @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+        @endif
         <div class="default-table-area members-list">
             <div class="table-responsive">
                 <table class="table align-middle" id="myTable">
@@ -39,6 +47,7 @@
                         <tr class="text-center">
                             <th class="col">#</th>
                             <th class="col">State Name</th>
+                            <th class="col">State Name Hindi</th>
                             <th class="col">Action</th>
                             <th class="col">Status</th>
                         </tr>
@@ -46,22 +55,25 @@
                     <tbody>
                         @foreach($states as $state)
                         <tr>
-                        <td>{{ $loop->iteration }}</td> <!-- Auto-incrementing index -->
+                            <td>{{ $loop->iteration }}</td> <!-- Auto-incrementing index -->
                             <td>{{ $state->state_name }}</td>
-                            <!-- <td>{{ $state->status ? 'Active' : 'Inactive' }}</td> -->
+                            <td>{{ $state->state_name_hindi  }}</td>
                             <td>
                                 <a href="{{ route('state.edit', $state->id) }}"
                                     class="btn btn-success text-white btn-sm">Edit</a>
                                 <form action="{{ route('state.destroy', $state->id) }}" method="POST"
                                     style="display:inline;">
                                     @csrf
-                                    <button type="submit" class="btn btn-primary text-white btn-sm">Delete</button>
+                                    <button type="submit" class="btn btn-primary text-white btn-sm" onclick="return confirm('Are you sure you want to delete?')">Delete</button>
                                 </form>
                             </td>
-                            <td><div class="form-check form-switch">
-            <input class="form-check-input status-toggle" type="checkbox" role="switch"  data-table="manage_state" 
-            data-column="status" data-id="{{$state->id}}" {{$state->status ? 'checked' : ''}}>
-          </div></td>
+                            <td>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input status-toggle" type="checkbox" role="switch"
+                                        data-table="manage_state" data-column="status" data-id="{{$state->id}}"
+                                        {{$state->status ? 'checked' : ''}}>
+                                </div>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>

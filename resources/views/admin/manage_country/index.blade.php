@@ -19,7 +19,7 @@
     <div class="card-body p-4">
         <div class="d-sm-flex text-center justify-content-between align-items-center border-bottom pb-20 mb-20">
             <h4 class="fw-semibold fs-18 mb-sm-0">Country</h4>
-            
+
             <a href="{{ route('country.create') }}">
                 <button class="border-0 btn btn-success py-2 px-3 px-sm-4 text-white fs-14 fw-semibold rounded-3">
                     <span class="py-sm-1 d-block">
@@ -29,41 +29,52 @@
                 </button>
             </a>
         </div>
+        @if (session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
+        @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+        @endif
         <div class="default-table-area members-list">
-    <div class="table-responsive">
-        <table class="table align-middle" id="myTable">
-            <thead>
-                <tr class="text-center">
-                    <th class="col">ID</th>
-            <th class="col">Country Name</th>
-            <th class="col">Action</th>
-            <th class="col">Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($country as $cat)
-                <tr>
-                <td>{{ $loop->iteration }}</td>
-                    <td>{{ $cat->country_name }}</td>
-                    <!-- <td>{{ $cat->status ? 'Active' : 'Inactive' }}</td> -->
-                    <td>
-                        <a href="{{ route('country.edit', $cat->id) }}" class="btn btn-success text-white btn-sm">Edit</a>
-                        <form action="{{ route('country.destroy', $cat->id) }}" method="POST" style="display:inline;">
-                            @csrf
-                            <button type="submit" class="btn btn-primary text-white btn-sm">Delete</button>
-                        </form>
-                    </td>
-                    <td><div class="form-check form-switch">
-            <input class="form-check-input status-toggle" type="checkbox" role="switch"  data-table="manage_country" 
-            data-column="status" data-id="{{$cat->id}}" {{$cat->status ? 'checked' : ''}}>
-          </div></td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
-</div>
+            <div class="table-responsive">
+                <table class="table align-middle" id="myTable">
+                    <thead>
+                        <tr class="text-center">
+                            <th class="col">#</th>
+                            <th class="col">Country Name</th>
+                            <th class="col">Action</th>
+                            <th class="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($country as $cat)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $cat->country_name }}</td>
+                            <td>
+                                <a href="{{ route('country.edit', $cat->id) }}"
+                                    class="btn btn-success text-white btn-sm">Edit</a>
+                                <form action="{{ route('country.destroy', $cat->id) }}" method="POST"
+                                    style="display:inline;">
+                                    @csrf
+                                    <button type="submit" class="btn btn-primary text-white btn-sm" onclick="return confirm('Are you sure you want to delete?')">Delete</button>
+                                </form>
+                            </td>
+                            <td>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input status-toggle" type="checkbox" role="switch"
+                                        data-table="manage_country" data-column="status" data-id="{{$cat->id}}"
+                                        {{$cat->status ? 'checked' : ''}}>
+                                </div>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 @endsection
-

@@ -72,6 +72,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <select class="form-select form-control ps-5 h-58" name="status" id="status">
+                                        <option value="" class="text-dark">Select</option>
                                         <option value="1" class="text-dark" {{ $venue->status == '1' ? 'selected' : '' }}>Active</option>
                                         <option value="0" class="text-dark" {{ $venue->status == '0' ? 'selected' : '' }}>Inactive</option>
                                     </select>
@@ -80,7 +81,7 @@
                         </div>
                         <div class="d-flex ms-sm-3 ms-md-0">
                             <button class="btn btn-success text-white fw-semibold" type="submit">Update</button> &nbsp;
-                            <a href="{{ route('venues.index') }}" class="btn btn-secondary text-white">Cancel</a>
+                            <a href="{{ route('venues.index') }}" class="btn btn-secondary text-white">Back</a>
                         </div>
                     </div>
                 </form>

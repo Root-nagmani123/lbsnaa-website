@@ -16,7 +16,7 @@ class ManageVenueController extends Controller
     {
         return view('admin.training_master.venue.create'); // Adjust the path based on your views
     }
-
+ 
     // Store a newly created venue in storage
     public function store(Request $request)
     {
@@ -28,13 +28,13 @@ class ManageVenueController extends Controller
         ],
         [
             'page_language.required' => 'Please select language.', // Custom message for language
-            'venue_title.required' => 'Please enter venue.', // Custom message for language
+            'venue_title.required' => 'Please enter title.', // Custom message for language
             'venue_detail.required' => 'Please enter venue details.', // Custom message for organiser name
             'status.required' => 'Please select status.', // Custom message for status
         ]
     );
 
-        $validated['status'] = $request->status === 'active' ? 1 : 2;
+        $validated['status'] = $request->status === 'active' ? 1 : 0;
         $venue = ManageVenue::create($request->all());
 
         ManageAudit::create([
@@ -86,10 +86,23 @@ class ManageVenueController extends Controller
         return redirect()->route('venues.index')->with('success', 'Venue updated successfully.');
     }
 
+
     // Remove the specified venue from storage
-    public function destroy(ManageVenue $venue)
+    public function destroy($id)
     {
+        // Find the venue by ID
+        $venue = ManageVenue::findOrFail($id);
+
+        // Check if the status is 1 (Inactive), and if so, prevent deletion
+        if ($venue->status == 1) {
+            return redirect()->route('venues.index')->with('error', 'Inactive venues cannot be deleted.');
+        }
+
+        // Delete the venue
         $venue->delete();
+
         return redirect()->route('venues.index')->with('success', 'Venue deleted successfully.');
     }
+
+
 }

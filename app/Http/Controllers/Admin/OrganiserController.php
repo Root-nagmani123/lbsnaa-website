@@ -24,36 +24,6 @@ class OrganiserController extends Controller
         return view('admin.training_master.manage_organiser.create');
     }
 
-    // Store a new organiser
-    // public function store(Request $request)
-    // {
-    //     // Validate input data
-    //     $request->validate([
-    //         'language' => 'required',
-    //         'organiser_name' => 'required|string|max:255',
-    //         'status' => 'required|string',
-    //     ]);
-
-    //     // Prepare validated data for organizer creation
-    //     $validated['status'] = $request->status === 'active' ? 1 : 2;
-    //     $validatedData = $request->all();
-    //     // Create the organizer
-    //     $organizer = ManageOrganiser::create($validatedData);
-
-    //     // Log data to the audit table
-    //     ManageAudit::create([
-    //         'Module_Name' => 'Organiser Module', // Static value
-    //         'Time_Stamp' => time(), // Current timestamp
-    //         'Created_By' => null, // ID of the authenticated user
-    //         'Updated_By' => null, // No update on creation, so leave null
-    //         'Action_Type' => 'Insert', // Static value
-    //         'IP_Address' => $request->ip(), // Get IP address from request
-    //     ]);
-
-    //     // Redirect with success message
-    //     return redirect()->route('organisers.index')->with('success', 'Organiser created successfully.');
-    // }
-
     public function store(Request $request)
     {
         // Validate input data with custom error messages
@@ -69,14 +39,17 @@ class OrganiserController extends Controller
                 'status.required' => 'Please select status.', // Custom message for status
             ]
         );
-    
+
         // Prepare validated data for organizer creation
         $validatedData = $request->all();
-        $validatedData['status'] = $request->status === 'active' ? 1 : 0;
-    
+
+        // Set status to 1 if 'active', otherwise set to 0
+        $validatedData['status'] = $request->status === '0' ? 0 : 1; // Change logic to match "active = 0" and "inactive = 1"
+
         // Create the organizer
         $organizer = ManageOrganiser::create($validatedData);
-    
+
+        // Record the action in the audit log
         ManageAudit::create([
             'Module_Name' => 'Organiser Module', // Static value
             'Time_Stamp' => time(), // Current timestamp
@@ -85,6 +58,7 @@ class OrganiserController extends Controller
             'Action_Type' => 'Insert', // Static value
             'IP_Address' => $request->ip(), // Get IP address from request
         ]);
+
         // Redirect with success message
         return redirect()->route('organisers.index')->with('success', 'Organiser created successfully.');
     }
@@ -110,7 +84,8 @@ class OrganiserController extends Controller
         ]);
 
 
-        $validated['status'] = $request->status === 'active' ? 1 : 0;
+        // $validated['status'] = $request->status === 'active' ? 1 : 0;
+        $validated['status'] = $request->status === '0' ? 0 : 1;
         $organiser = ManageOrganiser::findOrFail($id);
         $organiser->update($request->all());
 
@@ -128,10 +103,21 @@ class OrganiserController extends Controller
     }
 
     // Delete an organiser
+
     public function destroy($id)
     {
+        // Find the organizer by ID
         $organiser = ManageOrganiser::findOrFail($id);
+
+        // Check if the status is 1 (Inactive), and if so, prevent deletion
+        if ($organiser->status == 1) {
+            return redirect()->route('organisers.index')->with('error', 'Inactive organisers cannot be deleted.');
+        }
+
+        // Proceed with the deletion if the status is not 1 (Inactive)
         $organiser->delete();
+
         return redirect()->route('organisers.index')->with('success', 'Organiser deleted successfully.');
     }
+
 }
