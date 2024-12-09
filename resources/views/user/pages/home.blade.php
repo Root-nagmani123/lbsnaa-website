@@ -66,16 +66,17 @@
     <div class="container">
         <div class="position-relative d-flex overflow-x-hidden py-lg-4 pt-4">
             <div class="d-flex gap-3">
-                <a href="#" class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border"
+                <a href="{{ url('menu/director-message') }}" class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border"
                     style="width: 200px !important">
                     <!--img-->
                     <div class="p-3">
-                        <img src="{{ asset('assets/images/65044826c6957DirSirNew.jpeg') }}" alt="mentor 19"
-                            class="avatar avatar-xl rounded-circle">
+                    <img src="{{ asset($faculty_members->image) }}" alt="mentor" class="avatar avatar-xl rounded-circle">
+       
                         <!--content-->
                         <div class="mt-3">
                             <h3 class="mb-0 h4">Director's Message</h3>
-                            <span class="text-gray-800">Message</span><br>
+                            <!-- <span><a href="{{ url('menu/director-message') }}" title="Message" class="text-gray-800">Message</a></span> -->
+                            <span class="text-gray-800">Message</span>
                             <span class="text-gray-800">Previous Directors</span>
                         </div>
                     </div>
@@ -102,7 +103,7 @@
                         </div>
                     </div>
                 </a>
-                <a href="#" class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border"
+                <a href="{{ url('cms/training_cal') }}" class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border"
                     style="width: 200px !important">
                     <!--img-->
                     <div class="p-3">

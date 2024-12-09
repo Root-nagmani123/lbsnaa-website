@@ -94,7 +94,8 @@ Route::get('/faculty', [HomeFrontController::class, 'faculty'])->name('user.facu
 Route::get('/staff', [HomeFrontController::class, 'staff'])->name('user.staff');
 Route::get('/vacancy', [HomeFrontController::class, 'vacancy'])->name('user.vacancy');
 Route::get('/cms/training_cal', [HomeFrontController::class, 'training_cal'])->name('user.training_cal');
-Route::get('/course/{slug}', [HomeFrontController::class, 'get_navigation_pages'])->name('user.courseslug');
+Route::get('/course_listing/{slug}', [HomeFrontController::class, 'get_course_list_pages'])->name('user.courseslug');
+Route::get('/course_full_destails/{slug}', [HomeFrontController::class, 'get_course_details_pages'])->name('user.courseDetailslug');
 
 
 //micro 

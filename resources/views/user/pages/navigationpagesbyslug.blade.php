@@ -37,6 +37,7 @@
 
 <section class="py-1">
     <div class="container">
+       
         <div class="row">
             <div class="col-xl-12 col-md-12 col-12">
                 <div class="mb-6 mb-lg-8">
@@ -46,6 +47,12 @@
                 </div>
             </div>
         </div>
+        @if ($director_img != '')
+        <div class="row">
+        <img src="{{ asset($director_img->image) }}" alt="mentor" class="avatar avatar-xl rounded-circle">
+
+            </div>
+            @endif
 
         <p><?= $nav_page->content ?></p>
     </div>
