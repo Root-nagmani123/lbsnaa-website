@@ -1,89 +1,244 @@
-
-
     <?php echo $__env->make('user.pages.microsites.includes.header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-
-    <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?php echo e(asset('css/calendar.css')); ?>">
-    <title>Calendar</title>
-    <style>
-        body { font-family: Arial, sans-serif; }
-        .calendar { width: 100%; max-width: 600px; margin: 20px auto; text-align: center; }
-        .calendar table { width: 100%; border-collapse: collapse; }
-        .calendar th, .calendar td { border: 1px solid #ddd; padding: 10px; text-align: center; }
-        .calendar th { background-color: #f4f4f4; }
-        .calendar td.empty { background-color: #eee; }
-        .calendar td.today { background-color: #ffeb3b; font-weight: bold; } /* Highlight for today's date */
-    </style>
-</head>
-<body>
-    <div class="calendar">
-        <h1>Calendar</h1>
-        <div>
-            <!-- Navigation Buttons -->
-            <a href="<?php echo e(route('calendar', ['month' => $month - 1, 'year' => $year])); ?>">&lt;&lt;</a>
-            <select onchange="window.location.href = this.value">
-                <?php for($i = 1; $i <= 12; $i++): ?>
-                    <option value="<?php echo e(route('calendar', ['month' => $i, 'year' => $year])); ?>" <?php echo e($i == $month ? 'selected' : ''); ?>>
-                        <?php echo e(\Carbon\Carbon::createFromDate(null, $i, 1)->format('F')); ?>
-
-                    </option>
-                <?php endfor; ?>
-            </select>
-            <select onchange="window.location.href = this.value">
-                <?php for($i = 2020; $i <= 2030; $i++): ?>
-                    <option value="<?php echo e(route('calendar', ['month' => $month, 'year' => $i])); ?>" <?php echo e($i == $year ? 'selected' : ''); ?>>
-                        <?php echo e($i); ?>
-
-                    </option>
-                <?php endfor; ?>
-            </select>
-            <a href="<?php echo e(route('calendar', ['month' => $month + 1, 'year' => $year])); ?>">&gt;&gt;</a>
-
-            <!-- Clear Button -->
-            <button onclick="window.location.href = '<?php echo e(route('calendar')); ?>'">Clear</button>
+    <section class="py-4">
+    <div class="container">
+        <div class="row align-items-center pb-lg-2">
+            <!-- Breadcrumb -->
+            <div class="mb-4 mb-lg-0 bg-gray-200 rounded-4 py-2">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb p-2">
+                        <li class="breadcrumb-item">
+                            <a href="<?php echo e(route('home')); ?>" style="color: #af2910;">Home</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">Training Calendar</li>
+                    </ol>
+                </nav>
+            </div>
         </div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Sun</th>
-                    <th>Mon</th>
-                    <th>Tue</th>
-                    <th>Wed</th>
-                    <th>Thu</th>
-                    <th>Fri</th>
-                    <th>Sat</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                    $currentDay = 1;
-                    $today = \Carbon\Carbon::now();
-                    $isToday = $today->format('Y-m') === "$year-$month";
-                ?>
-                <?php for($i = 0; $i < ceil(($daysInMonth + $startDay) / 7); $i++): ?>
-                    <tr>
-                        <?php for($j = 0; $j < 7; $j++): ?>
-                            <?php if(($i === 0 && $j < $startDay) || $currentDay > $daysInMonth): ?>
-                                <td class="empty"></td>
-                            <?php else: ?>
-                                <td class="<?php echo e($isToday && $currentDay == $today->day ? 'today' : ''); ?>">
-                                    <?php echo e($currentDay++); ?>
-
-                                </td>
-                            <?php endif; ?>
-                        <?php endfor; ?>
-                    </tr>
-                <?php endfor; ?>
-            </tbody>
-        </table>
     </div>
-</body>
-</html>
+</section>
+    
+    <section class="py-6">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                <div class="row">
+    <div class='col-6'>
+      <p>Test</p>
+    </div>
+    <div class='col-6'>
+      <div id='wrap'>
 
+        <div id='calendar'></div>
 
+        <div style='clear:both'></div>
+      </div>
+    </div>
+  </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<?php echo $__env->make('user.pages.microsites.includes.footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
-<?php echo $__env->make('user.pages.microsites.includes.footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\lbsnaa-website\resources\views/user/pages/microsites/calendar.blade.php ENDPATH**/ ?>
+<style>
+    #wrap {
+  width: 100%;
+  margin: 0 auto;
+}
+
+#external-events {
+  float: left;
+  width: 150px;
+  padding: 0 10px;
+  text-align: left;
+}
+
+#external-events h4 {
+  font-size: 16px;
+  margin-top: 0;
+  padding-top: 1em;
+}
+
+.external-event {
+  /* try to mimick the look of a real event */
+  margin: 10px 0;
+  padding: 2px 4px;
+  background: #3366cc;
+  color: #fff;
+  font-size: 0.85em;
+  cursor: pointer;
+}
+
+#external-events p {
+  margin: 1.5em 0;
+  font-size: 11px;
+  color: #666;
+}
+
+#external-events p input {
+  margin: 0;
+  vertical-align: middle;
+}
+
+#calendar {
+  /* 		float: right; */
+  margin: 0 auto;
+  width: 900px;
+  background-color: #ffffff;
+  border-radius: 6px;
+  box-shadow: 0 1px 2px #c3c3c3;
+}
+</style>
+<script>
+    $(document).ready(function() {
+  var date = new Date();
+  var d = date.getDate();
+  var m = date.getMonth();
+  var y = date.getFullYear();
+
+  /*  className colors
+
+		className: default(transparent), important(red), chill(pink), success(green), info(blue)
+
+		*/
+
+  /* initialize the external events
+		-----------------------------------------------------------------*/
+
+  $("#external-events div.external-event").each(function() {
+    // create an Event Object (https://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
+    // it doesn't need to have a start or end
+    var eventObject = {
+      title: $.trim($(this).text()) // use the element's text as the event title
+    };
+
+    // store the Event Object in the DOM element so we can get to it later
+    $(this).data("eventObject", eventObject);
+
+    // make the event draggable using jQuery UI
+    $(this).draggable({
+      zIndex: 999,
+      revert: true, // will cause the event to go back to its
+      revertDuration: 0 //  original position after the drag
+    });
+  });
+
+  /* initialize the calendar
+		-----------------------------------------------------------------*/
+
+  var calendar = $("#calendar").fullCalendar({
+    header: {
+      left: "title",
+      center: "agendaDay,agendaWeek,month",
+      right: "prev,next today"
+    },
+    editable: true,
+    firstDay: 1, //  1(Monday) this can be changed to 0(Sunday) for the USA system
+    selectable: true,
+    defaultView: "month",
+
+    axisFormat: "h:mm",
+    columnFormat: {
+      month: "ddd", // Mon
+      week: "ddd d", // Mon 7
+      day: "dddd M/d", // Monday 9/7
+      agendaDay: "dddd d"
+    },
+    titleFormat: {
+      month: "MMMM yyyy", // September 2009
+      week: "MMMM yyyy", // September 2009
+      day: "MMMM yyyy" // Tuesday, Sep 8, 2009
+    },
+    allDaySlot: false,
+    selectHelper: true,
+    select: function(start, end, allDay) {
+      var title = prompt("Event Title:");
+      if (title) {
+        calendar.fullCalendar(
+          "renderEvent",
+          {
+            title: title,
+            start: start,
+            end: end,
+            allDay: allDay
+          },
+          true // make the event "stick"
+        );
+      }
+      calendar.fullCalendar("unselect");
+    },
+    droppable: true, // this allows things to be dropped onto the calendar !!!
+    drop: function(date, allDay) {
+      // this function is called when something is dropped
+
+      // retrieve the dropped element's stored Event Object
+      var originalEventObject = $(this).data("eventObject");
+
+      // we need to copy it, so that multiple events don't have a reference to the same object
+      var copiedEventObject = $.extend({}, originalEventObject);
+
+      // assign it the date that was reported
+      copiedEventObject.start = date;
+      copiedEventObject.allDay = allDay;
+
+      // render the event on the calendar
+      // the last `true` argument determines if the event "sticks" (https://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
+      $("#calendar").fullCalendar("renderEvent", copiedEventObject, true);
+
+      // is the "remove after drop" checkbox checked?
+      if ($("#drop-remove").is(":checked")) {
+        // if so, remove the element from the "Draggable Events" list
+        $(this).remove();
+      }
+    },
+
+    events: [
+      {
+        title: "All Day Event",
+        start: new Date(y, m, 1)
+      },
+      {
+        id: 999,
+        title: "Repeating Event",
+        start: new Date(y, m, d - 3, 16, 0),
+        allDay: false,
+        className: "info"
+      },
+      {
+        id: 999,
+        title: "Repeating Event",
+        start: new Date(y, m, d + 4, 16, 0),
+        allDay: false,
+        className: "info"
+      },
+      {
+        title: "Meeting",
+        start: new Date(y, m, d, 10, 30),
+        allDay: false,
+        className: "important"
+      },
+      {
+        title: "Lunch",
+        start: new Date(y, m, d, 12, 0),
+        end: new Date(y, m, d, 14, 0),
+        allDay: false,
+        className: "important"
+      },
+      {
+        title: "Birthday Party",
+        start: new Date(y, m, d + 1, 19, 0),
+        end: new Date(y, m, d + 1, 22, 30),
+        allDay: false
+      },
+      {
+        title: "Click for Google",
+        start: new Date(y, m, 28),
+        end: new Date(y, m, 29),
+        url: "https://google.com/",
+        className: "success"
+      }
+    ]
+  });
+});
+
+</script><?php /**PATH C:\xampp\htdocs\lbsnaa-website\resources\views/user/pages/microsites/calendar.blade.php ENDPATH**/ ?>

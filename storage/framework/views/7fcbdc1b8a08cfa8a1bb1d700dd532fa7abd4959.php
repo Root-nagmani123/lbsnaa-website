@@ -1,6 +1,6 @@
 <!-- resources/views/user/pages/microsites/video_gallery.blade.php -->
 
-@include('user.pages.microsites.includes.header')
+<?php echo $__env->make('user.pages.microsites.includes.header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <section class="py-4">
     <div class="container">
         <div class="row align-items-center pb-lg-2">
@@ -9,7 +9,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb p-2">
                         <li class="breadcrumb-item">
-                            <a href="{{ route('home') }}" style="color: #af2910;">Home</a>
+                            <a href="<?php echo e(route('home')); ?>" style="color: #af2910;">Home</a>
                         </li>
                         <li class="breadcrumb-item">
                             <a href="#" style="color: #af2910;">Media Gallery</a>
@@ -23,29 +23,30 @@
 </section>
 <div class="container my-4">
     <div class="row g-4">
-        @foreach ($videos as $video)
+        <?php $__currentLoopData = $videos; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $video): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
         <div class="col-md-6 col-sm-12 d-flex align-items-stretch">
             <!-- Bootstrap Card -->
             <div class="card h-100 shadow-sm">
                 <!-- Card Image -->
                  <!-- Video Player -->
                     <video controls>
-                        <source src="{{ asset('storage/' . $video->video_upload) }}" type="video/mp4" style="object-fit: cover; height: 200px; width: 100%;">
+                        <source src="<?php echo e(asset('storage/' . $video->video_upload)); ?>" type="video/mp4" style="object-fit: cover; height: 200px; width: 100%;">
                         Your browser does not support the video tag.
                     </video>
                 <!-- Card Body -->
                 <div class="card-body d-flex flex-column">
                     <!-- Video Category -->
-                    <h5 class="card-title text-primary">{{ $video->category_name }}</h5>
+                    <h5 class="card-title text-primary"><?php echo e($video->category_name); ?></h5>
                     <!-- Video Titles -->
-                    <h6 class="text-muted">{{ $video->video_title_en }}</h6>
-                    <p class="text-muted">{{ $video->video_title_hi }}</p>
+                    <h6 class="text-muted"><?php echo e($video->video_title_en); ?></h6>
+                    <p class="text-muted"><?php echo e($video->video_title_hi); ?></p>
                 </div>
             </div>
         </div>
-        @endforeach
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     </div>
 </div>
 
 
-@include('user.pages.microsites.includes.footer')
+<?php echo $__env->make('user.pages.microsites.includes.footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<?php /**PATH C:\xampp\htdocs\lbsnaa-website\resources\views/user/pages/microsites/video_gallery.blade.php ENDPATH**/ ?>

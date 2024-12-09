@@ -39,6 +39,7 @@
                             <th class="col">#</th>
                             <th class="col">Name</th>
                             <th class="col">Title</th>
+                            <th class="col">Type</th>
                             <th class="col">Language</th>
                             <th class="col">Actions</th>
                             <th class="col">Status</th>
@@ -47,9 +48,10 @@
                     <tbody>
                         @foreach($quick_links as $links)
                         <tr>
-                           <td>{{ $loop->iteration}}</td>
-                           <td>{{ $links->txtename }}</td>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $links->txtename }}</td>
                             <td>{{ $links->meta_description }}</td>
+                            <td>{{ $links->categorytype == 1 ? 'Whats New' : 'Quick Link' }}</td>
                             <td>{{ $links->language == 1 ? 'English' : 'Hindi' }}</td>
                             <td>
                                 <a href="{{ route('microquicklinks.edit', $links->id) }}"
@@ -57,14 +59,18 @@
                                 <form action="{{ route('microquicklinks.destroy', $links->id) }}" method="POST"
                                     style="display:inline;">
                                     @csrf
-                                @method('DELETE')
-                                    <button type="submit" class="btn btn-primary text-white fw-semibold btn-sm" onclick="return confirm('Are you sure you want to delete this link ?')">Delete</button>
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-primary text-white fw-semibold btn-sm"
+                                        onclick="return confirm('Are you sure you want to delete this link ?')">Delete</button>
                                 </form>
                             </td>
-                            <td><div class="form-check form-switch">
-            <input class="form-check-input status-toggle" type="checkbox" role="switch"  data-table="micro_quick_links" 
-            data-column="status" data-id="{{$links->id}}" {{$links->status ? 'checked' : ''}}>
-          </div></td>
+                            <td>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input status-toggle" type="checkbox" role="switch"
+                                        data-table="micro_quick_links" data-column="status" data-id="{{ $links->id }}"
+                                        {{ $links->status ? 'checked' : '' }}>
+                                </div>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>

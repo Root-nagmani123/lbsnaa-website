@@ -31,74 +31,124 @@
                 </a>
                 <!-- Button -->
 
-                <!-- Collapse -->
-                <div class="collapse navbar-collapse" id="navbar-default">
-                    <ul class="navbar-nav mx-auto">
-                        <?php
-                      
-                        $menus = DB::table('menus')
-                        ->where('menu_status', 1)
-                        ->where('is_deleted', 0)
-                        ->where('txtpostion', 1)
-                        ->where('parent_id', 0)
-                        ->get();
+    <!-- Collapse -->
+    <div class="collapse navbar-collapse" id="navbar-default">
+        <ul class="navbar-nav mx-auto">
+        <?php
+    $menus = DB::table('menus')
+        ->where('menu_status', 1)
+        ->where('is_deleted', 0)
+        ->where('txtpostion', 1)
+        ->where('parent_id', 0)
+        ->get();
 
-                    
-                        function renderMenuItems($parentId) {
-                        $submenus = DB::table('menus')
-                        ->where('menu_status', 1)
-                        ->where('is_deleted', 0)
-                        ->where('parent_id', $parentId)
-                        ->get();
+    function renderMenuItems($parentId, $isTraining = false) {
+        // Fetch child menus
+        $submenus = DB::table('menus')
+            ->where('menu_status', 1)
+            ->where('is_deleted', 0)
+            ->where('parent_id', $parentId)
+            ->get();
 
-                        if ($submenus->isEmpty()) {
-                        return '';
-                        }
+        if ($submenus->isEmpty() && !$isTraining) {
+            return '';
+        }
 
-                        $output = '<ul class="dropdown-menu dropdown-menu-arrow dropdown-menu-end">';
-                            foreach ($submenus as $submenu) {
-                            $hasChildren = DB::table('menus')
-                            ->where('menu_status', 1)
-                            ->where('is_deleted', 0)
-                            ->where('parent_id', $submenu->id)
-                            ->exists();
+        $output = '<ul class="dropdown-menu dropdown-menu-arrow dropdown-menu-end">';
 
-                            $output .= '<li class="nav-item ' . ($hasChildren ? 'dropdown' : '') . '">';
-                                $output .= '<a class="nav-link ' . ($hasChildren ? 'dropdown-toggle' : '') . '"
-                                    href="' . 
-                    ($submenu->menutitle == 'Research Center' ? '#' : route('user.navigationpagesbyslug', $submenu->menu_slug)) . '" ' . 
-                    ($hasChildren ? ' data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"' : '') . '>'
-                                    .
-                                    $submenu->menutitle . '</a>';
+        foreach ($submenus as $submenu) {
+            $hasChildren = DB::table('menus')
+                ->where('menu_status', 1)
+                ->where('is_deleted', 0)
+                ->where('parent_id', $submenu->id)
+                ->exists();
 
-                                // Recursive call for child menus
-                                if ($hasChildren) {
-                                $output .= renderMenuItems($submenu->id);
-                                }
+            $output .= '<li class="nav-item ' . ($hasChildren ? 'dropdown' : '') . '">';
+            $output .= '<a class="nav-link ' . ($hasChildren ? 'dropdown-toggle' : '') . '" 
+                href="' . 
+                ($submenu->menutitle === 'Research Center' ? '#' : route('user.navigationpagesbyslug', $submenu->menu_slug)) . '" ' . 
+                ($hasChildren ? 'data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"' : '') . '>' 
+                . $submenu->menutitle . '</a>';
 
-                                $output .= '</li>';
-                            }
-                            $output .= '</ul>';
+            if ($hasChildren) {
+                $output .= renderMenuItems($submenu->id);
+            }
 
-                        return $output;
-                        }
-                        ?>
+            $output .= '</li>';
+        }
 
-                        <?php $__currentLoopData = $menus; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $menu): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle"
-                                href="<?php echo e($menu->menutitle == 'Research Center' ? '#' : route('user.navigationpagesbyslug', $menu->menu_slug)); ?>"
-                                id="navbarListing" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <?php echo e($menu->menutitle); ?>
+        if ($isTraining) {
+            // Replace Course Tree with a direct list of courses and subcourses
+            $subcategories = DB::table('courses_sub_categories as sub')
+                ->leftJoin('courses_sub_categories as parent', 'sub.parent_id', '=', 'parent.id')
+                ->select('sub.*', 'parent.category_name as parent_category_name')
+                ->get();
 
-                            </a>
-                            <?php echo renderMenuItems($menu->id); ?>
+            $categoryTree = buildCategoryTree($subcategories);
 
-                        </li>
-                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                    </ul>
+            foreach ($categoryTree as $category) {
+                $output .= '<li class="nav-item dropdown">';
+                $output .= '<a class="nav-link dropdown-toggle" href="' .route('user.courseslug', $category['category']->slug)  . '" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' . $category['category']->category_name . '</a>';
+                $output .= renderCourseTree($category['children']);
+                $output .= '</li>';
+            }
+        }
 
-                </div>
-            </div>
+        $output .= '</ul>';
+        return $output;
+    }
+
+    function buildCategoryTree($categories, $parentId = 0) {
+        $tree = [];
+        foreach ($categories as $category) {
+            if ($category->parent_id == $parentId) {
+                $children = buildCategoryTree($categories, $category->id);
+                $tree[] = ['category' => $category, 'children' => $children];
+            }
+        }
+        return $tree;
+    }
+
+    function renderCourseTree($tree) {
+        if (empty($tree)) {
+            return '';
+        }
+
+        $output = '<ul class="dropdown-menu dropdown-menu-arrow">';
+        foreach ($tree as $node) {
+            $output .= '<li>';
+$output .= '<a class="dropdown-item" href="' .route('user.courseslug', $node['category']->slug) . '">' . htmlspecialchars($node['category']->category_name) . '</a>';
+if (!empty($node['children'])) {
+    $output .= renderCourseTree($node['children']);
+}
+$output .= '</li>';
+
+        }
+        $output .= '</ul>';
+
+        return $output;
+    }
+?>
+
+<ul class="navbar-nav mx-auto">
+    <?php $__currentLoopData = $menus; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $menu): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        <li class="nav-item <?php echo e(DB::table('menus')->where('parent_id', $menu->id)->exists() ? 'dropdown' : ''); ?>">
+            <a class="nav-link <?php echo e(DB::table('menus')->where('parent_id', $menu->id)->exists() || $menu->menutitle === 'Training' ? 'dropdown-toggle' : ''); ?>"
+               href="<?php echo e($menu->menutitle === 'RTI' ? '#' : route('user.navigationpagesbyslug', $menu->menu_slug)); ?>"
+               id="navbarListing" <?php echo e(DB::table('menus')->where('parent_id', $menu->id)->exists() || $menu->menutitle === 'Training' ? 'data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"' : ''); ?>>
+                <?php echo e($menu->menutitle); ?>
+
+            </a>
+
+            <?php echo renderMenuItems($menu->id, $menu->menutitle === 'Training'); ?>
+
+        </li>
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+</ul>
+
+    </div>
+</div>
+
+
         </nav>
     </header><?php /**PATH C:\xampp\htdocs\lbsnaa-website\resources\views/user/includes/header.blade.php ENDPATH**/ ?>

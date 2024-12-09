@@ -39,6 +39,7 @@
                             <th class="col">#</th>
                             <th class="col">Name</th>
                             <th class="col">Title</th>
+                            <th class="col">Type</th>
                             <th class="col">Language</th>
                             <th class="col">Actions</th>
                             <th class="col">Status</th>
@@ -47,9 +48,10 @@
                     <tbody>
                         <?php $__currentLoopData = $quick_links; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $links): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <tr>
-                           <td><?php echo e($loop->iteration); ?></td>
-                           <td><?php echo e($links->txtename); ?></td>
+                            <td><?php echo e($loop->iteration); ?></td>
+                            <td><?php echo e($links->txtename); ?></td>
                             <td><?php echo e($links->meta_description); ?></td>
+                            <td><?php echo e($links->categorytype == 1 ? 'Whats New' : 'Quick Link'); ?></td>
                             <td><?php echo e($links->language == 1 ? 'English' : 'Hindi'); ?></td>
                             <td>
                                 <a href="<?php echo e(route('microquicklinks.edit', $links->id)); ?>"
@@ -57,14 +59,18 @@
                                 <form action="<?php echo e(route('microquicklinks.destroy', $links->id)); ?>" method="POST"
                                     style="display:inline;">
                                     <?php echo csrf_field(); ?>
-                                <?php echo method_field('DELETE'); ?>
-                                    <button type="submit" class="btn btn-primary text-white fw-semibold btn-sm" onclick="return confirm('Are you sure you want to delete this link ?')">Delete</button>
+                                    <?php echo method_field('DELETE'); ?>
+                                    <button type="submit" class="btn btn-primary text-white fw-semibold btn-sm"
+                                        onclick="return confirm('Are you sure you want to delete this link ?')">Delete</button>
                                 </form>
                             </td>
-                            <td><div class="form-check form-switch">
-            <input class="form-check-input status-toggle" type="checkbox" role="switch"  data-table="micro_quick_links" 
-            data-column="status" data-id="<?php echo e($links->id); ?>" <?php echo e($links->status ? 'checked' : ''); ?>>
-          </div></td>
+                            <td>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input status-toggle" type="checkbox" role="switch"
+                                        data-table="micro_quick_links" data-column="status" data-id="<?php echo e($links->id); ?>"
+                                        <?php echo e($links->status ? 'checked' : ''); ?>>
+                                </div>
+                            </td>
                         </tr>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </tbody>

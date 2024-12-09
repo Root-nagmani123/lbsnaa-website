@@ -31,7 +31,7 @@ class MicroManagePhotoGalleryController extends Controller
             'four_row.name as related_events'
         )
         ->get();
-
+        
         // print_r($galleries);
         return view('admin.micro.manage_media_center.manage_photo.index', compact('galleries'));
     }
