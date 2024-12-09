@@ -12,7 +12,7 @@ class ManageCadresController extends Controller
 {
     // Display the list of cadres
     public function index()
-    {
+    { 
         $cadres = ManageCadres::all();
         return view('admin.training_master.cadres.index', compact('cadres'));
     }
@@ -42,7 +42,7 @@ class ManageCadresController extends Controller
 
 
         // Convert status to integer
-        $validated['status'] = $request->status === 'active' ? 1 : 2;
+        $validated['status'] = $request->status === 'active' ? 1 : 0;
         $cadres = ManageCadres::create($request->all());
 
         ManageAudit::create([
@@ -75,7 +75,7 @@ class ManageCadresController extends Controller
         ]);
 
         // Convert status to integer
-        $validated['status'] = $request->status === 'active' ? 1 : 2;
+        $validated['status'] = $request->status === 'active' ? 1 : 0;
         $cadre = ManageCadres::find($id);
         $cadre->update($request->all());
 
@@ -94,7 +94,18 @@ class ManageCadresController extends Controller
     // Delete cadre
     public function destroy($id)
     {
-        ManageCadres::destroy($id);
-        return redirect()->route('cadres.index')->with('success', 'Cadre deleted successfully');
+        // Find the cadre by ID
+        $cadre = ManageCadres::findOrFail($id);
+
+        // Check if the status is 1 (Inactive), and if so, prevent deletion
+        if ($cadre->status == 1) {
+            return redirect()->route('cadres.index')->with('error', 'Inactive cadres cannot be deleted.');
+        }
+
+        // Delete the cadre
+        $cadre->delete();
+
+        return redirect()->route('cadres.index')->with('success', 'Cadre deleted successfully.');
     }
+
 }

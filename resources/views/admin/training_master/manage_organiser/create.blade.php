@@ -49,9 +49,9 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-4">
+                        <div class="col-lg-4"> 
                             <div class="form-group mb-4">
-                                <label class="label" for="texttype">Status :</label>
+                                <label class="label" for="status">Status:</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <select class="form-select form-control ps-5 h-58" name="status" id="status">
@@ -65,6 +65,7 @@
                                 </div>
                             </div>
                         </div>
+
 
                         <div class="d-flex ms-sm-3 ms-md-0">
                             <button class="btn btn-success text-white fw-semibold" type="submit">Submit</button> &nbsp;

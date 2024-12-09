@@ -36,7 +36,7 @@ class CoordinatorController extends Controller
         ]
     );
 
-        $validated['status'] = $request->status === 'active' ? 1 : 2;
+        $validated['status'] = $request->status === '0' ? 0 : 1;
         $coordinator = ManageCoordinator::create($request->all());
 
         ManageAudit::create([
@@ -65,7 +65,8 @@ class CoordinatorController extends Controller
             'status' => 'required|string',
         ]);
 
-        $validated['status'] = $request->status === 'active' ? 1 : 2;
+        
+        $validated['status'] = $request->status === '0' ? 0 : 1;
         $coordinator = ManageCoordinator::findOrFail($id);
         $coordinator->update($request->all());
 
@@ -84,6 +85,10 @@ class CoordinatorController extends Controller
     public function destroy($id)
     {
         $coordinator = ManageCoordinator::findOrFail($id);
+        // Check if the status is 1 (Inactive), and if so, prevent deletion
+        if ($coordinator->status == 1) {
+            return redirect()->route('coordinators.index')->with('error', 'Inactive organisers cannot be deleted.');
+        }
         $coordinator->delete();
         return redirect()->route('coordinators.index')->with('success', 'Coordinator deleted successfully.');
     }

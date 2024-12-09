@@ -80,7 +80,7 @@
                         </div>
                         <div class="d-flex ms-sm-3 ms-md-0">
                             <button class="btn btn-success text-white fw-semibold" type="submit">Update</button> &nbsp;
-                            <a href="{{ route('cadres.index') }}" class="btn btn-secondary text-white">Cancel</a>
+                            <a href="{{ route('cadres.index') }}" class="btn btn-secondary text-white">Back</a>
                         </div>
                     </div>
                 </form>

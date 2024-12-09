@@ -31,6 +31,14 @@
                 </button>
             </a>
         </div>
+        @if (session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
+        @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+        @endif
         <div class="default-table-area members-list">
             <div class="table-responsive">
                 <table class="table align-middle" id="myTable">
@@ -40,35 +48,43 @@
                             <th class="col">Exam Code</th>
                             <th class="col">Exam Description</th>
                             <th class="col">Transaction Date</th>
-                            <th class="col">Preliminary Flag</th>
-                            <th class="col">Main Flag</th>
+                            <!-- <th class="col">Preliminary Flag</th>
+                            <th class="col">Main Flag</th> -->
                             <th class="col">Actions</th>
                             <th class="col">Status</th>
-                            
+
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($exams as $exam)
                         <tr>
-                        <td>{{ $loop->iteration }}</td> <!-- Auto-incrementing index -->
+                            <td>{{ $loop->iteration }}</td> <!-- Auto-incrementing index -->
                             <td>{{ $exam->exam_code }}</td>
                             <td>{{ $exam->exam_description }}</td>
-                            <td>{{ $exam->transaction_date }}</td>
-                            <td>{{ $exam->preliminary_flag == 1 ? 'Yes' : 'No' }}</td>
-                            <td>{{ $exam->main_flag == 1 ? 'Yes' : 'No' }}</td>
+                            <td>{{ \Carbon\Carbon::parse($exam->transaction_date)->format('d-m-Y') }}</td>
+
+
+                            <!-- <td>{{ $exam->preliminary_flag == 1 ? 'Yes' : 'No' }}</td>
+                            <td>{{ $exam->main_flag == 1 ? 'Yes' : 'No' }}</td> -->
                             <td>
                                 <a href="{{ route('exam.edit', $exam->id) }}"
                                     class="btn btn-success text-white fw-semibold btn-sm">Edit</a>
-                                <form action="{{ route('exam.edit', $exam->id) }}" method="POST"
+
+                                <form action="{{ route('exam.destroy', $exam->id) }}" method="POST"
                                     style="display:inline;">
                                     @csrf
-                                    <button type="submit" class="btn btn-primary text-white fw-semibold btn-sm">Delete</button>
+                                    <button type="submit" class="btn btn-primary text-white fw-semibold btn-sm"
+                                        onclick="return confirm('Are you sure you want to delete?')">Delete</button>
                                 </form>
+
                             </td>
-                            <td><div class="form-check form-switch">
-            <input class="form-check-input status-toggle" type="checkbox" role="switch"  data-table="manage_exam" 
-            data-column="status" data-id="{{$exam->id}}" {{$exam->status ? 'checked' : ''}}>
-          </div></td>
+                            <td>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input status-toggle" type="checkbox" role="switch"
+                                        data-table="manage_exam" data-column="status" data-id="{{$exam->id}}"
+                                        {{$exam->status ? 'checked' : ''}}>
+                                </div>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
