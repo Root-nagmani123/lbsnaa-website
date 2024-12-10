@@ -65,7 +65,7 @@
         </div>
     </div>
 
-    <div class="col-lg-6">
+    <!-- <div class="col-lg-6">
         <div class="form-group mb-4">
             <label class="label">Upload File (PDF, PNG, JPG):</label>
             <span class="star">*</span>
@@ -90,7 +90,31 @@
             <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
+    </div> -->
+
+    <div class="col-lg-6">
+        <div class="form-group mb-4">
+            <label class="label">Upload File (PDF Only):</label>
+            <span class="star">*</span>
+            <div class="form-group position-relative">
+                <input type="file" name="file" class="form-control" accept=".pdf">
+            </div>
+
+            @if(isset($manageTender->file))
+            <div class="mt-2">
+                @if(pathinfo($manageTender->file, PATHINFO_EXTENSION) == 'pdf')
+                <label>Current File (PDF):</label><br>
+                <a href="{{ asset('storage/uploads/' . $manageTender->file) }}" target="_blank">View PDF</a>
+                @endif
+            </div>
+            @endif
+
+            @error('file')
+            <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
     </div>
+
 
     <div class="col-lg-6">
         <div class="form-group mb-4">

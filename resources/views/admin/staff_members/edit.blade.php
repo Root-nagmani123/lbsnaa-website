@@ -158,7 +158,7 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="phone_internal_office">Phone Internal Office :</label>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58"
+                                    <input type="number" class="form-control text-dark ps-5 h-58"
                                         name="phone_internal_office" id="phone_internal_office"
                                         value="{{ $staff->phone_internal_office }}">
                                     @error('phone_internal_office')
@@ -171,7 +171,7 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="phone_internal_residence">Phone Internal Residence :</label>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58"
+                                    <input type="number" class="form-control text-dark ps-5 h-58"
                                         name="phone_internal_residence" id="phone_internal_residence"
                                         value="{{ $staff->phone_internal_residence }}">
                                     @error('phone_internal_residence')
@@ -184,7 +184,7 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="phone_pt_office">Phone P&T Office :</label>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="phone_pt_office"
+                                    <input type="number" class="form-control text-dark ps-5 h-58" name="phone_pt_office"
                                         id="phone_pt_office" value="{{ $staff->phone_pt_office }}">
                                     @error('phone_pt_office')
                                         <div style="color: red;">{{ $message }}</div>  <!-- Display error if any -->
@@ -196,7 +196,7 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="phone_pt_residence">Phone P&T Residence :</label>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58"
+                                    <input type="number" class="form-control text-dark ps-5 h-58"
                                         name="phone_pt_residence" id="phone_pt_residence"
                                         value="{{ $staff->phone_pt_residence }}">
                                     @error('phone_pt_residence')
@@ -210,7 +210,7 @@
                                 <label class="label" for="mobile">Mobile :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="mobile"
+                                    <input type="number" class="form-control text-dark ps-5 h-58" name="mobile"
                                         id="mobile" value="{{ $staff->mobile }}">
                                     @error('mobile')
                                     <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
@@ -243,9 +243,9 @@
                                     <select class="form-select form-control ps-5 h-58" name="present_at_station"
                                         id="present_at_station">
                                         <option value="1" class="text-dark"
-                                            {{ $staff->present_station == 1 ? 'selected' : '' }}>Yes</option>
+                                            {{ $staff->present_at_station == 1 ? 'selected' : '' }}>Yes</option>
                                         <option value="0" class="text-dark"
-                                            {{ $staff->present_station == 0 ? 'selected' : '' }}>No</option>
+                                            {{ $staff->present_at_station == 0 ? 'selected' : '' }}>No</option>
                                     </select>
                                 </div>
                             </div>

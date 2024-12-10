@@ -1,13 +1,13 @@
-@extends('admin.layouts.master')
 
-@section('title', 'Admin Dashboard')
 
-@section('content')
+<?php $__env->startSection('title', 'Admin Dashboard'); ?>
+
+<?php $__env->startSection('content'); ?>
 <div class="d-sm-flex text-center justify-content-between align-items-center mb-4">
     <h3 class="mb-sm-0 mb-1 fs-18">Manage News</h3>
     <ul class="ps-0 mb-0 list-unstyled d-flex justify-content-center">
         <li>
-            <a href="{{ route('admin.index') }}" class="text-decoration-none">
+            <a href="<?php echo e(route('admin.index')); ?>" class="text-decoration-none">
                 <i class="ri-home-2-line" style="position: relative; top: -1px;"></i>
                 <span>Dashboard</span>
             </a>
@@ -22,7 +22,7 @@
         <div class="d-sm-flex text-center justify-content-between align-items-center border-bottom pb-20 mb-20">
             <h4 class="fw-semibold fs-18 mb-sm-0">News and Updates</h4>
 
-            <a href="{{ route('admin.news.create') }}">
+            <a href="<?php echo e(route('admin.news.create')); ?>">
                 <button class="border-0 btn btn-success py-2 px-3 px-sm-4 text-white fs-14 fw-semibold rounded-3">
                     <span class="py-sm-1 d-block">
                         <i class="ri-add-line text-white"></i>
@@ -31,14 +31,15 @@
                 </button>
             </a>
         </div>
-        @if (session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-        @endif
-        @if (session('error'))
+        <?php if(session('success')): ?>
+        <div class="alert alert-success"><?php echo e(session('success')); ?></div>
+        <?php endif; ?>
+        <?php if(session('error')): ?>
         <div class="alert alert-danger">
-            {{ session('error') }}
+            <?php echo e(session('error')); ?>
+
         </div>
-        @endif
+        <?php endif; ?>
         <div class="default-table-area members-list recent-orders">
             <div class="table-responsive">
                 <table class="table align-middle" id="myTable">
@@ -54,36 +55,36 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($news as $item)
+                        <?php $__currentLoopData = $news; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <tr>
-                            <td>{{ $loop->iteration }}</td> <!-- Auto-incrementing index -->
-                            <td>{{ $item->title }}</td>
-                            <td>{{ $item->start_date }}</td>
-                            <td>{{ $item->language == 1 ? 'English' : 'Hindi' }}</td>
+                            <td><?php echo e($loop->iteration); ?></td> <!-- Auto-incrementing index -->
+                            <td><?php echo e($item->title); ?></td>
+                            <td><?php echo e($item->start_date); ?></td>
+                            <td><?php echo e($item->language == 1 ? 'English' : 'Hindi'); ?></td>
                             <td>
                                 <button type="button"
                                     class="btn btn-outline-primary text-primary fw-semibold btn-sm view-slider"
                                     data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-                                    data-title="{{ $item->title }}"
-                                    data-meta_title="{{ $item->meta_title }}"
-                                    data-meta_keywords="{{ $item->meta_keywords }}"
-                                    data-meta_description="{{ $item->meta_description }}"
-                                    data-short_description="{{ $item->short_description }}"
-                                    data-start_date="{{ $item->start_date }}"
-                                    data-end_date="{{ $item->end_date }}"
-                                    data-main_image="{{ asset( $item->main_image) }}"
-                                    data-multiple_images="{{ asset( $item->multiple_images) }}"
-                                    data-language="{{ $item->language == 1 ? 'English' : 'Hindi' }}">
+                                    data-title="<?php echo e($item->title); ?>"
+                                    data-meta_title="<?php echo e($item->meta_title); ?>"
+                                    data-meta_keywords="<?php echo e($item->meta_keywords); ?>"
+                                    data-meta_description="<?php echo e($item->meta_description); ?>"
+                                    data-short_description="<?php echo e($item->short_description); ?>"
+                                    data-start_date="<?php echo e($item->start_date); ?>"
+                                    data-end_date="<?php echo e($item->end_date); ?>"
+                                    data-main_image="<?php echo e(asset( $item->main_image)); ?>"
+                                    data-multiple_images="<?php echo e(asset( $item->multiple_images)); ?>"
+                                    data-language="<?php echo e($item->language == 1 ? 'English' : 'Hindi'); ?>">
                                     View
                                 </button>
                             </td>
                             <td>
-                                <a href="{{ route('admin.news.edit', $item->id) }}"
+                                <a href="<?php echo e(route('admin.news.edit', $item->id)); ?>"
                                     class="btn btn-success text-white fw-semibold btn-sm">Edit</a>
-                                <form action="{{ route('admin.news.destroy', $item->id) }}" method="POST"
+                                <form action="<?php echo e(route('admin.news.destroy', $item->id)); ?>" method="POST"
                                     style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
+                                    <?php echo csrf_field(); ?>
+                                    <?php echo method_field('DELETE'); ?>
                                     <button type="submit" class="btn btn-primary text-white fw-semibold btn-sm"
                                         onclick="return confirm('Are you sure you want to delete this faculty member?')">Delete</button>
                                 </form>
@@ -91,12 +92,12 @@
                             <td>
                                 <div class="form-check form-switch">
                                     <input class="form-check-input status-toggle" type="checkbox" role="switch"
-                                        data-table="news" data-column="status" data-id="{{$item->id}}"
-                                        {{$item->status ? 'checked' : ''}}>
+                                        data-table="news" data-column="status" data-id="<?php echo e($item->id); ?>"
+                                        <?php echo e($item->status ? 'checked' : ''); ?>>
                                 </div>
                             </td>
                         </tr>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </tbody>
                 </table>
             </div>
@@ -145,7 +146,7 @@
     </div>
 </div>
 
-@endsection
+<?php $__env->stopSection(); ?>
 
 
 <!-- <script>
@@ -268,3 +269,5 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
+
+<?php echo $__env->make('admin.layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp11\htdocs\lbsnaa-website\resources\views/admin/news/index.blade.php ENDPATH**/ ?>

@@ -1,13 +1,13 @@
-@extends('admin.layouts.master')
 
-@section('title', 'Admin Dashboard')
 
-@section('content')
+<?php $__env->startSection('title', 'Admin Dashboard'); ?>
+
+<?php $__env->startSection('content'); ?>
 <div class="d-sm-flex text-center justify-content-between align-items-center mb-4">
     <h3 class="mb-sm-0 mb-1 fs-18">Manage Menu</h3>
     <ul class="ps-0 mb-0 list-unstyled d-flex justify-content-center">
         <li>
-            <a href="{{ route('admin.index') }}" class="text-decoration-none">
+            <a href="<?php echo e(route('admin.index')); ?>" class="text-decoration-none">
                 <i class="ri-home-2-line" style="position: relative; top: -1px;"></i>
                 <span>Dashboard</span>
             </a>
@@ -26,10 +26,10 @@
                         <h4 class="fw-semibold fs-18 mb-0">Edit Menu</h4>
                     </div>
 
-                    <form action="{{ route('admin.menus.update', $menu->id) }}" method="POST"
+                    <form action="<?php echo e(route('admin.menus.update', $menu->id)); ?>" method="POST"
                         enctype="multipart/form-data">
-                        @csrf
-                        @method('PUT')
+                        <?php echo csrf_field(); ?>
+                        <?php echo method_field('PUT'); ?>
                         <!-- Use PUT method for updating -->
 
                         <div class="row">
@@ -38,8 +38,8 @@
                                     <label class="label" for="txtlanguage">Page Language :</label>
                                     <span class="star">*</span>
                                     <div class="form-group position-relative">
-                                        <input type="radio" name="txtlanguage" value="1" {{ $menu->language == '1' ? 'checked' : '' }}> English
-                                        <input type="radio" name="txtlanguage" value="2"{{ $menu->language == '2' ? 'checked' : '' }}> Hindi
+                                        <input type="radio" name="txtlanguage" value="1" <?php echo e($menu->language == '1' ? 'checked' : ''); ?>> English
+                                        <input type="radio" name="txtlanguage" value="2"<?php echo e($menu->language == '2' ? 'checked' : ''); ?>> Hindi
                                     </div>
                                 </div>
                             </div>
@@ -49,7 +49,7 @@
                                     <span class="star">*</span>
                                     <div class="form-group position-relative">
                                         <input type="text" class="form-control text-dark ps-5 h-58" name="menutitle"
-                                            id="menutitle" value="{{ $menu->menutitle }}">
+                                            id="menutitle" value="<?php echo e($menu->menutitle); ?>">
                                     </div>
                                 </div>
                             </div>
@@ -62,17 +62,17 @@
                                             required>
                                             <option class="text-dark">Select</option>
                                             <option value="1" class="text-dark"
-                                                {{ $menu->texttype == 1 ? 'selected' : '' }}>Content</option>
+                                                <?php echo e($menu->texttype == 1 ? 'selected' : ''); ?>>Content</option>
                                             <option value="2" class="text-dark"
-                                                {{ $menu->texttype == 2 ? 'selected' : '' }}>PDF file Upload</option>
+                                                <?php echo e($menu->texttype == 2 ? 'selected' : ''); ?>>PDF file Upload</option>
                                             <option value="3" class="text-dark"
-                                                {{ $menu->texttype == 3 ? 'selected' : '' }}>Web Site Url</option>
+                                                <?php echo e($menu->texttype == 3 ? 'selected' : ''); ?>>Web Site Url</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
                             <div id="content-field"
-                                style="display: {{ $menu->texttype == 1 ? 'block' : 'none' }};">
+                                style="display: <?php echo e($menu->texttype == 1 ? 'block' : 'none'); ?>;">
                                 <div class="row">
                                 <div class="col-lg-12">
                                     <div class="form-group mb-4">
@@ -81,7 +81,7 @@
                                         <div class="form-group position-relative">
                                             <textarea class="form-control ps-5 text-dark"
                                                 placeholder="Some demo text ... " cols="30" rows="5" name="content"
-                                                id="content">{{ $menu->content }}</textarea>
+                                                id="content"><?php echo e($menu->content); ?></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -91,7 +91,7 @@
                                         <span class="star">*</span>
                                         <div class="form-group position-relative">
                                             <input type="text" class="form-control text-dark ps-5 h-58"
-                                                name="meta_title" id="meta_title" value="{{ $menu->meta_title }}">
+                                                name="meta_title" id="meta_title" value="<?php echo e($menu->meta_title); ?>">
                                         </div>
                                     </div>
                                 </div>
@@ -101,7 +101,7 @@
                                         <span class="star">*</span>
                                         <div class="form-group position-relative">
                                             <input type="text" class="form-control text-dark ps-5 h-58"
-                                                name="meta_keyword" id="meta_keyword" value="{{ $menu->meta_keyword }}">
+                                                name="meta_keyword" id="meta_keyword" value="<?php echo e($menu->meta_keyword); ?>">
                                         </div>
                                     </div>
                                 </div>
@@ -113,25 +113,25 @@
                                             <textarea class="form-control ps-5 text-dark"
                                                 placeholder="Some demo text ... " cols="30" rows="5"
                                                 name="meta_description"
-                                                id="meta_description">{{ $menu->meta_description }}</textarea>
+                                                id="meta_description"><?php echo e($menu->meta_description); ?></textarea>
                                         </div>
                                     </div>
                                 </div>
                                 </div>
                             </div>
                             <div class="col-lg-6" id="pdf-upload-field"
-                                style="display: {{ $menu->texttype == 2 ? 'block' : 'none' }};">
+                                style="display: <?php echo e($menu->texttype == 2 ? 'block' : 'none'); ?>;">
                                 <div class="form-group mb-4">
                                     <label class="label" for="pdf-upload-field">Upload PDF</label>
                                     <span class="star">*</span>
                                     <div class="form-group position-relative">
                                     <input id="pdf-upload-field" type="file" name="pdf_file" accept=".pdf" class="form-control text-dark ps-5 h-58">
-                                            <p>Current File: <a href="{{ asset($menu->pdf_file) }}"
-                                                    target="_blank">{{ $menu->pdf_file }}</a></p>
+                                            <p>Current File: <a href="<?php echo e(asset($menu->pdf_file)); ?>"
+                                                    target="_blank"><?php echo e($menu->pdf_file); ?></a></p>
                                     </div>
                                 </div>
                             </div>
-                            <div id="website-url-field" style="display: {{ $menu->texttype == 3 ? 'block' : 'none' }};">
+                            <div id="website-url-field" style="display: <?php echo e($menu->texttype == 3 ? 'block' : 'none'); ?>;">
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-group mb-4">
@@ -140,7 +140,7 @@
                                             <div class="form-group position-relative">
                                                 <input type="text" class="form-control text-dark ps-5 h-58"
                                                     name="website_url" id="website_url"
-                                                    value="{{ $menu->website_url }}">
+                                                    value="<?php echo e($menu->website_url); ?>">
                                             </div>
                                         </div>
                                     </div>
@@ -152,10 +152,11 @@
                                                 <select class="form-select form-control ps-5 h-58"
                                                     name="web_site_target" id="web_site_target" autocomplete="off">
                                                     <option class="text-dark"
-                                                        {{ $menu->menucategory == 0 ? 'selected' : '' }}>It is Root
+                                                        <?php echo e($menu->menucategory == 0 ? 'selected' : ''); ?>>It is Root
                                                         Category
                                                     </option>
-                                                    {!! $menuOptions !!}
+                                                    <?php echo $menuOptions; ?>
+
                                                 </select>
                                             </div>
                                         </div>
@@ -170,7 +171,8 @@
                                         <select class="form-select form-control ps-5 h-58" name="menucategory"
                                             id="menucategory" autocomplete="off">
                                             <option selected value="0" class="text-dark">It is Root Category</option>
-                                            {!! $menuOptions !!}
+                                            <?php echo $menuOptions; ?>
+
                                         </select>
                                     </div>
                                 </div>
@@ -184,21 +186,21 @@
                                             name="txtpostion" required>
                                             <option class="text-dark">Select</option>
                                             <option value="1" class="text-dark"
-                                                {{ $menu->txtpostion == 1 ? 'selected' : '' }}>Header Menu</option>
+                                                <?php echo e($menu->txtpostion == 1 ? 'selected' : ''); ?>>Header Menu</option>
                                             <option value="2" class="text-dark"
-                                                {{ $menu->txtpostion == 2 ? 'selected' : '' }}>Bottom Menu</option>
+                                                <?php echo e($menu->txtpostion == 2 ? 'selected' : ''); ?>>Bottom Menu</option>
                                             <option value="3" class="text-dark"
-                                                {{ $menu->txtpostion == 3 ? 'selected' : '' }}>Footer Menu</option>
+                                                <?php echo e($menu->txtpostion == 3 ? 'selected' : ''); ?>>Footer Menu</option>
                                             <option value="4" class="text-dark"
-                                                {{ $menu->txtpostion == 4 ? 'selected' : '' }}>Director Message Menu
+                                                <?php echo e($menu->txtpostion == 4 ? 'selected' : ''); ?>>Director Message Menu
                                             </option>
                                             <option value="5" class="text-dark"
-                                                {{ $menu->txtpostion == 5 ? 'selected' : '' }}>Life Academy Menu
+                                                <?php echo e($menu->txtpostion == 5 ? 'selected' : ''); ?>>Life Academy Menu
                                             </option>
                                             <option value="6" class="text-dark"
-                                                {{ $menu->txtpostion == 6 ? 'selected' : '' }}>Other Pages</option>
+                                                <?php echo e($menu->txtpostion == 6 ? 'selected' : ''); ?>>Other Pages</option>
                                             <option value="7" class="text-dark"
-                                                {{ $menu->txtpostion == 7 ? 'selected' : '' }}>Latest Updates</option>
+                                                <?php echo e($menu->txtpostion == 7 ? 'selected' : ''); ?>>Latest Updates</option>
                                         </select>
                                     </div>
                                 </div>
@@ -211,7 +213,7 @@
                                             <span class="star">*</span>
                                             <div class="form-group position-relative">
                                                 <input type="date" class="form-control text-dark ps-5 h-58"
-                                                    name="start_date" id="start_date" value="{{ $menu->start_date }}">
+                                                    name="start_date" id="start_date" value="<?php echo e($menu->start_date); ?>">
                                             </div>
                                         </div>
                                     </div>
@@ -222,7 +224,7 @@
                                             <div class="form-group position-relative">
                                                 <input type="text" class="form-control text-dark ps-5 h-58"
                                                     name="termination_date" id="termination_date"
-                                                    value="{{ $menu->termination_date }}">
+                                                    value="<?php echo e($menu->termination_date); ?>">
                                             </div>
                                         </div>
                                     </div>
@@ -236,9 +238,9 @@
                                         <select class="form-select form-control ps-5 h-58" id="menu_status"
                                             name="menu_status" required>
                                             <option value="1" class="text-dark"
-                                                {{ $menu->menu_status == 1 ? 'selected' : '' }}>Active</option>
+                                                <?php echo e($menu->menu_status == 1 ? 'selected' : ''); ?>>Active</option>
                                             <option value="0" class="text-dark"
-                                                {{ $menu->menu_status == 0 ? 'selected' : '' }}>Inactive</option>
+                                                <?php echo e($menu->menu_status == 0 ? 'selected' : ''); ?>>Inactive</option>
                                         </select>
                                     </div>
                                 </div>
@@ -246,7 +248,7 @@
                             <div class="d-flex ms-sm-3 ms-md-0">
                                 <button class="btn btn-success text-white fw-semibold"
                                     type="submit">Update</button>&nbsp;
-                                <a href="{{ route('admin.menus.index') }}"
+                                <a href="<?php echo e(route('admin.menus.index')); ?>"
                                     class="btn btn-secondary text-white">Cancel</a>
                             </div>
                         </div>
@@ -264,4 +266,5 @@ document.getElementById('texttype').addEventListener('change', function() {
     document.getElementById('website-url-field').style.display = value === '3' ? 'block' : 'none';
 });
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('admin.layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp11\htdocs\lbsnaa-website\resources\views/admin/menus/edit.blade.php ENDPATH**/ ?>

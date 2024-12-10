@@ -96,10 +96,57 @@ class MenuController extends Controller
         }
 
         return $options;
-    }
+    } 
 
     public function store(Request $request)
     {
+
+         // Validation rules
+        $request->validate([
+            'txtlanguage' => 'required|in:1,2',
+            'menutitle' => 'required|string|max:255',
+            'texttype' => 'required|integer|in:1,2,3', // Example values for texttype
+            'menucategory' => 'required|integer|min:1',
+            'txtpostion' => 'nullable|integer',
+            'meta_title' => 'nullable|string|max:255',
+            'meta_keyword' => 'nullable|string|max:255',
+            'meta_description' => 'nullable|string|max:500',
+            'web_site_target' => 'nullable|url',
+            'start_date' => 'nullable|date',
+            'termination_date' => 'nullable|date|after_or_equal:start_date',
+            'menu_status' => 'nullable|boolean',
+            'pdf_file' => 'nullable|file|mimes:pdf|max:2048', // Maximum 2MB file
+            'content' => 'nullable|string', // Only if texttype is 1
+            'website_url' => 'nullable|url', // Only if texttype is 3
+        ],
+        [
+            'txtlanguage.required' => 'Please select a language.',
+            'txtlanguage.in' => 'Invalid language selection.',
+            'menutitle.required' => 'Please enter the menu title.',
+            'menutitle.string' => 'The menu title must be a string.',
+            'menutitle.max' => 'The menu title must not exceed 255 characters.',
+            'texttype.required' => 'Please select a text type.',
+            'texttype.integer' => 'The text type must be a valid integer.',
+            'texttype.in' => 'Invalid text type selection.',
+            'menucategory.required' => 'Please select a menu category.',
+            'menucategory.integer' => 'The menu category must be a valid integer.',
+            'menucategory.min' => 'Please select a valid menu category.',
+            'txtpostion.integer' => 'The position must be a valid integer.',
+            'meta_title.max' => 'The meta title must not exceed 255 characters.',
+            'meta_keyword.max' => 'The meta keyword must not exceed 255 characters.',
+            'meta_description.max' => 'The meta description must not exceed 500 characters.',
+            'web_site_target.url' => 'Please enter a valid website URL.',
+            'start_date.date' => 'The start date must be a valid date.',
+            'termination_date.date' => 'The termination date must be a valid date.',
+            'termination_date.after_or_equal' => 'The termination date must be after or equal to the start date.',
+            'menu_status.boolean' => 'The menu status must be either true or false.',
+            'pdf_file.file' => 'The uploaded file must be a valid file.',
+            'pdf_file.mimes' => 'The uploaded file must be a PDF.',
+            'pdf_file.max' => 'The uploaded file size must not exceed 2MB.',
+            'content.string' => 'The content must be a valid string.',
+            'website_url.url' => 'The website URL must be valid.',
+        ]);
+
         $menu = new Menu();
         $menu->language = $request->txtlanguage;
         $menu->menutitle = $request->menutitle;
@@ -132,14 +179,14 @@ class MenuController extends Controller
 
         $menu->save();
 
-        // ManageAudit::create([
-        //     'Module_Name' => 'Menu Module',
-        //     'Time_Stamp' => now(),
-        //     'Created_By' => null,
-        //     'Updated_By' => null,
-        //     'Action_Type' => 'Insert',
-        //     'IP_Address' => $request->ip(),
-        // ]);
+        ManageAudit::create([
+            'Module_Name' => 'Menu Module',
+            'Time_Stamp' => time(),
+            'Created_By' => null,
+            'Updated_By' => null,
+            'Action_Type' => 'Insert',
+            'IP_Address' => $request->ip(),
+        ]);
 
         return redirect()->route('admin.menus.index')->with('success', 'Menu created successfully.');
     }
@@ -210,15 +257,33 @@ class MenuController extends Controller
         return redirect()->route('admin.menus.index')->with('success', 'Menu updated successfully.');
     }
 
+    // public function delete($id)
+    // {
+    //     $menu = Menu::findOrFail($id);
+
+    //     $menu->is_deleted = 1;
+    //     $menu->save();
+
+    //     return redirect()->route('admin.menus.index')->with('success', 'Menu marked as deleted successfully.');
+    // }
+
     public function delete($id)
     {
+        // Find the menu by its ID or fail if it doesn't exist
         $menu = Menu::findOrFail($id);
 
+        // Check if the menu status is inactive (status = 1) and prevent deletion
+        if ($menu->menu_status == 1) {
+            return redirect()->route('admin.menus.index')->with('error', 'Inactive menus cannot be deleted.');
+        }
+
+        // Mark the menu as deleted (soft delete)
         $menu->is_deleted = 1;
         $menu->save();
 
         return redirect()->route('admin.menus.index')->with('success', 'Menu marked as deleted successfully.');
     }
+
 
     public function toggleStatus(Request $request, $id)
     {
