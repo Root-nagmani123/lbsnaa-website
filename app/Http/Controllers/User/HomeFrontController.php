@@ -287,6 +287,28 @@ public function get_course_details_pages(Request $request, $slug)
     // Pass the course and subcategory to the view
     return view('user.pages.course_details', compact('course', 'subcategory','courses_list'));
 }
+public function souvenir(Request $request)
+{
+    // Fetch categories for the filter
+    $categories = DB::table('souvenircategory')->select('id', 'category_name')->get();
+
+    // Fetch products based on filters
+    $query = DB::table('academy_souvenirs');
+    if ($request->pro_category) {
+        $query->where('product_category', $request->pro_category);
+    }
+    if ($request->producttype) {
+        $query->where('product_type', $request->producttype);
+    }
+    if ($request->keywords) {
+        $query->where('product_title', 'LIKE', '%' . $request->keywords . '%');
+    }
+
+    $souvenir = $query->select('id', 'product_title', 'product_price', 'contact_email_id', 'upload_image', 'product_description')->get();
+
+    // Return to view
+    return view('user.pages.souvenir_list', compact('categories', 'souvenir'));
+}
 
 
 

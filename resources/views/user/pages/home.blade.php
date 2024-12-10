@@ -184,8 +184,8 @@
                           <h3 class="h4">
                           Academy Souvenir
                           </h3>
-                          <p class="text-secondary"><a href="#" class="text-inherit">Memorabilia</a></p>
-                          <p class="text-secondary"><a href="#" class="text-inherit">Apparel</a></p>
+                          <p class="text-secondary"><a href="{{ url('souvenir?pro_category=7')}}" class="text-inherit">Memorabilia</a></p>
+                          <p class="text-secondary"><a href="{{ url('souvenir?pro_category=6')}}" class="text-inherit">Apparel</a></p>
                                      </div>
                       </div>
                     </div>

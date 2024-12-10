@@ -116,7 +116,7 @@
                                     <span class="star">*</span>
                                     <div class="form-group position-relative">
                                         <input type="file" class="form-control text-dark ps-5 h-58" name="document_upload"
-                                            id="document_upload" required>
+                                            id="document_upload" >
                                     </div>
                                 </div>
                             </div>
@@ -127,7 +127,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="file" class="form-control text-dark ps-5 h-58" name="upload_image"
-                                        id="upload_image" required>
+                                        id="upload_image" >
                                 </div>
                             </div>
                         </div>
