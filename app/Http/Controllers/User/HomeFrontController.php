@@ -14,8 +14,21 @@ class HomeFrontController extends Controller
         $quick_links = DB::table('quick_links')->where('is_deleted',0)->where('status',1)->get();
         $faculty_members = DB::table('faculty_members')->select('image')->where('designation','Director')->where('page_status',1)->first();
         $news_scrollers=  DB::table('menus')->where('txtpostion',7)->where('is_deleted',0)->where('menu_status',1)->get();
-// print_r($faculty_members);die;
-        return view('user.pages.home', compact('sliders','news','quick_links','news_scrollers','faculty_members'));
+        // print_r($faculty_members);die;
+        $today = date('Y-m-d');
+        $current_course = DB::table('course')
+        ->select('id','course_name', 'coordinator_id', 'course_start_date', 'course_end_date')
+            ->where('course_start_date', '<=', $today)
+            ->where('course_end_date', '>=', $today)
+            ->get();
+
+        $upcoming_course = DB::table('course')
+        ->select('id','course_name', 'coordinator_id', 'course_start_date', 'course_end_date')
+            ->where('course_start_date', '>', $today)
+            ->get();
+            
+        // print_r($upcoming_course);die;
+        return view('user.pages.home', compact('sliders','news','quick_links','news_scrollers','faculty_members','current_course','upcoming_course'));
     } 
     public function get_news($slug)
     {
