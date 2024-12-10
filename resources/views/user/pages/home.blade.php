@@ -71,15 +71,47 @@
                   <div class="col-xl-4 col-md-6 col-12">
                     <div class="card card-lift">
                       <a href="#!">
-                        <img src="{{ asset('assets/images/icons/1.jpg') }}" alt="figma" class="img-fluid" style="margin: auto; object-fit: cover">
+                      @if ($faculty_members != null )
+                      <img src="{{ asset($faculty_members->image) }}" alt="figma" class="img-" style="margin: auto; object-fit: cover; height: 300px !important;">
+                      @else 
+                        <img src="{{ asset('assets/images/icons/4.jpg') }}" alt="figma" class="img-fluid" style="margin: auto; object-fit: cover">
+                        @endif
                       </a>
                       <div class="card-body d-flex flex-column gap-4" style="height:250px; overflow:hidden;">
                         <div class="d-flex flex-column gap-2">
                           <h3 class="h4">
                             Director's Message
                           </h3>
-                          <p class="text-secondary"><a href="#" class="text-inherit">Message</a></p>
-                          <p class="text-secondary"><a href="#" class="text-inherit">Previous Directors</a></p>
+                          <p class="text-secondary"><a href="{{ url('menu/director-message') }}" class="text-inherit">Message</a></p>
+                          <p class="text-secondary"><a href="{{ url('menu/previous-directors') }}" class="text-inherit">Previous Directors</a></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-4 col-md-6 col-12">
+                    <div class="card card-lift">
+                      <a href="#!">
+                        <img src="{{ asset('assets/images/icons/2.jpg') }}" alt="figma" class="img-fluid" style="margin: auto; object-fit: cover">
+                      </a>
+                      <div class="card-body d-flex flex-column gap-4" style="height:250px; overflow:scroll;">
+                        <div class="d-flex flex-column gap-2">
+                          <h3 class="h4">
+                          Running Courses
+                          </h3>
+                          <p class="text-secondary"> <ul>
+                          @foreach ($current_course as $course)
+                                            <li>
+                                                <strong>
+                                                    <a href="{{ route('user.courseDetailslug', ['slug' => $course->id]) }}">
+                                                        {{ $course->course_name }}
+                                                    </a>
+                                                </strong><br>
+                                                Course Coordinator: {{ $course->coordinator_id }}<br>
+                                                {{ date('d F, Y', strtotime($course->course_start_date)) }} to {{ date('d F, Y', strtotime($course->course_end_date)) }}
+                                            </li>
+                                        @endforeach
+
+                            </ul></p>
                         </div>
                       </div>
                     </div>
@@ -92,19 +124,19 @@
                       <div class="card-body d-flex flex-column gap-4" style="height:250px; overflow-y:scroll;">
                         <div class="d-flex flex-column gap-2">
                           <h3 class="h4">
-                          Running Courses
+                          Upcoming Courses
                           </h3>
-                          <p class="text-secondary"><a href="#" class="text-inherit">District Training Programme of IAS 2023 Batch</a></p>
-                          <small class="text-secondary">Course Coordinator: Shanmuga Priya Mishra</small>
-                          <small class="text-secondary">15 April, 2024 to 04 April, 2025</small>
-                        </div>
-                        <div class="d-flex flex-column gap-2">
-                          <h3 class="h4">
-                          Running Courses
-                          </h3>
-                          <p class="text-secondary"><a href="#" class="text-inherit">District Training Programme of IAS 2023 Batch</a></p>
-                          <small class="text-secondary">Course Coordinator: Shanmuga Priya Mishra</small>
-                          <small class="text-secondary">15 April, 2024 to 04 April, 2025</small>
+                          <p class="text-secondary"> <ul>
+                                @foreach ($upcoming_course as $course)
+                                    <li>
+                                        <strong> <a href="{{ route('user.courseDetailslug', ['slug' => $course->id]) }}">
+                                                        {{ $course->course_name }}
+                                                    </a></strong><br>
+                                        Course Coordinator: {{ $course->coordinator_id }}<br>
+                                        {{ date('d F, Y', strtotime($course->course_start_date)) }} to {{ date('d F, Y', strtotime($course->course_end_date)) }}
+                                    </li>
+                                @endforeach
+                            </ul></p>
                         </div>
                       </div>
                     </div>
@@ -112,7 +144,9 @@
                   <div class="col-xl-4 col-md-6 col-12">
                     <div class="card card-lift">
                       <a href="#!">
+                     
                         <img src="{{ asset('assets/images/icons/4.jpg') }}" alt="figma" class="img-fluid" style="margin: auto; object-fit: cover">
+                     
                       </a>
                       <div class="card-body d-flex flex-column gap-4"  style="height:250px; overflow-y:scroll;">
                         <div class="d-flex flex-column gap-2">
@@ -136,9 +170,8 @@
                           <h3 class="h4">
                           Training Calendar
                           </h3>
-                          <p class="text-secondary"><a href="#" class="text-inherit">Message</a></p>
-                          <p class="text-secondary"><a href="#" class="text-inherit">Previous Directors</a></p>
-                        </div>
+                          <p class="text-secondary"><a href="{{ url('cms/training_cal') }}" class="text-inherit">Training Calendar of LBSNAA</a></p>
+                           </div>
                       </div>
                     </div>
                   </div>
@@ -152,8 +185,8 @@
                           <h3 class="h4">
                           Life at Academy
                           </h3>
-                          <p class="text-secondary"><a href="#" class="text-inherit">Message</a></p>
-                          <p class="text-secondary"><a href="#" class="text-inherit">Previous Directors</a></p>
+                          <p class="text-secondary"><a href="{{ url('menu/the-academy-experience') }}" class="text-inherit">The Academy Experience</a></p>
+                          <p class="text-secondary"><a href="{{ url('menu/a-day-in-the-life-of-a-trainee') }}" class="text-inherit">A day in the life of a Trainee</a></p>
                         </div>
                       </div>
                     </div>
@@ -168,12 +201,9 @@
                           <h3 class="h4">
                           Academy Souvenir
                           </h3>
-                          <p class="text-secondary"><a href="#" class="text-inherit">Message</a></p>
-                          <p class="text-secondary"><a href="#" class="text-inherit">Previous Directors</a></p>
-                          <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Provident, ullam dignissimos? Totam fugiat eaque aliquid molestias libero adipisci suscipit quaerat, tempora iure sit, accusantium blanditiis quo. Nemo repudiandae eveniet distinctio!</p>
-
-                          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis dignissimos suscipit doloribus. Ipsum sit totam et aliquid numquam. Molestias adipisci nam est aut, mollitia distinctio ipsum nisi nobis, ipsa, id maiores perspiciatis repellat natus repudiandae laudantium. Architecto vero adipisci corporis soluta voluptatem dolores, quos libero ipsa quae debitis laborum, animi illum accusamus possimus saepe amet dolor nisi vel. In, impedit corrupti dolor expedita laborum enim culpa sapiente voluptates reiciendis quo! Ab rerum nisi officia in, accusantium vitae ut ex nobis amet dicta fuga libero laboriosam, excepturi dolorem possimus impedit similique quos commodi at? Temporibus fuga similique nisi consequuntur, blanditiis ratione!</p>
-                        </div>
+                          <p class="text-secondary"><a href="#" class="text-inherit">Memorabilia</a></p>
+                          <p class="text-secondary"><a href="#" class="text-inherit">Apparel</a></p>
+                                     </div>
                       </div>
                     </div>
                   </div>
