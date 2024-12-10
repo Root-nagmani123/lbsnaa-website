@@ -148,23 +148,6 @@
                         <img src="{{ asset('assets/images/icons/4.jpg') }}" alt="figma" class="img-fluid" style="margin: auto; object-fit: cover">
                      
                       </a>
-                      <div class="card-body d-flex flex-column gap-4"  style="height:250px; overflow-y:scroll;">
-                        <div class="d-flex flex-column gap-2">
-                          <h3 class="h4">
-                          Upcoming Courses
-                          </h3>
-                          <p class="text-secondary"><a href="#" class="text-inherit">District Training Programme of IAS 2023 Batch</a></p>
-                          <small class="text-secondary">Course Coordinator: Shanmuga Priya Mishra</small>
-                          <small class="text-secondary">15 April, 2024 to 04 April, 2025</small>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-xl-4 col-md-6 col-12">
-                    <div class="card card-lift">
-                      <a href="#!">
-                        <img src="{{ asset('assets/images/icons/2.jpg') }}" alt="figma" class="img-fluid" style="margin: auto; object-fit: cover">
-                      </a>
                       <div class="card-body d-flex flex-column gap-4" style="height:250px; overflow:hidden;">
                         <div class="d-flex flex-column gap-2">
                           <h3 class="h4">
