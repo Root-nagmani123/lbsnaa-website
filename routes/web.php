@@ -97,6 +97,8 @@ Route::get('/cms/training_cal', [HomeFrontController::class, 'training_cal'])->n
 Route::get('/course_listing/{slug}', [HomeFrontController::class, 'get_course_list_pages'])->name('user.courseslug');
 Route::get('/course_full_destails/{slug}', [HomeFrontController::class, 'get_course_details_pages'])->name('user.courseDetailslug');
 
+Route::get('/souvenir', [HomeFrontController::class, 'souvenir'])->name('user.souvenir');
+
 
 //micro 
 Route::get('/lbsnaa-sub', [HomeFrontmicroController::class,'index'])->name('user.micrositebyslug');
