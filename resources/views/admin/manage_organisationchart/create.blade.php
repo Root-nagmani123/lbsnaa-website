@@ -37,8 +37,11 @@
                                     <input type="radio" name="language" value="1"> English
                                     <input type="radio" name="language" value="2"> Hindi
                                 </div>
+                                @error('language')
+                                    <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
+                                @enderror
                             </div>
-                        </div>
+                        </div> 
 
                         <!-- Select Parent Employee -->
                         <div class="col-lg-6">
@@ -53,6 +56,9 @@
                                         <option value={{ $record->id }}>{{ $record->name }}</option>
                                         @endforeach
                                     </select>
+                                    @error('parentcategory')
+                                        <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -65,19 +71,12 @@
                                 <div class="form-group position-relative">
                                     <input type="text" id="employee_name" name="employee_name" autocomplete=""
                                         class="form-control text-dark ps-5 h-58">
+                                    @error('employee_name')
+                                        <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
+                                    @enderror
                                 </div>
                             </div>
                         </div>
-
-                        <!-- <div class="col-lg-6">
-                                <div class="form-group mb-4">
-                                    <label class="label">Description :</label>
-                                    <span class="star">*</span>
-                                    <div class="form-group position-relative">
-                                        <textarea name="description" id="description" class="form-control ps-5 text-dark"></textarea>
-                                    </div>
-                                </div>
-                            </div> -->
 
                         <!-- Page Status -->
                         <div class="col-lg-6">
@@ -88,6 +87,9 @@
                                     <option value="1" class="text-dark">Active</option>
                                     <option value="0" class="text-dark">Inactive</option>
                                 </select>
+                                @error('status')
+                                    <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
+                                @enderror
                             </div>
                         </div>
                     </div>

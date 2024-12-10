@@ -38,10 +38,8 @@
                                     <label class="label" for="txtlanguage">Page Language :</label>
                                     <span class="star">*</span>
                                     <div class="form-group position-relative">
-                                        <input type="radio" name="txtlanguage" value="1"
-                                            {{ $menu->txtlanguage == '1' ? 'checked' : '' }}> English
-                                        <input type="radio" name="txtlanguage" value="2"
-                                            {{ $menu->txtlanguage == '2' ? 'checked' : '' }}> Hindi
+                                        <input type="radio" name="txtlanguage" value="1" {{ $menu->language == '1' ? 'checked' : '' }}> English
+                                        <input type="radio" name="txtlanguage" value="2"{{ $menu->language == '2' ? 'checked' : '' }}> Hindi
                                     </div>
                                 </div>
                             </div>
@@ -127,7 +125,7 @@
                                     <label class="label" for="pdf-upload-field">Upload PDF</label>
                                     <span class="star">*</span>
                                     <div class="form-group position-relative">
-                                    <input id="pdf-upload-field" type="file" name="pdf-upload-field" accept=".pdf" class="form-control text-dark ps-5 h-58">
+                                    <input id="pdf-upload-field" type="file" name="pdf_file" accept=".pdf" class="form-control text-dark ps-5 h-58">
                                             <p>Current File: <a href="{{ asset($menu->pdf_file) }}"
                                                     target="_blank">{{ $menu->pdf_file }}</a></p>
                                     </div>

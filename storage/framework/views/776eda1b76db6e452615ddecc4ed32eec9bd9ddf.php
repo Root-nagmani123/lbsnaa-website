@@ -337,4 +337,4 @@
     /* Ensure content stays inside the container */
 }
 </style>
-<?php echo $__env->make('user.includes.footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\lbsnaa-website\resources\views/user/pages/home.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('user.includes.footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp11\htdocs\lbsnaa-website\resources\views/user/pages/home.blade.php ENDPATH**/ ?>

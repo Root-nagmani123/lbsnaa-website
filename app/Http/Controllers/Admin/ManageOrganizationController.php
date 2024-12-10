@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use App\Models\Admin\FacultyMember;
 use App\Models\Admin\StaffMember;
+use App\Models\Admin\Staff; // Import the Staff model
 use App\Models\Admin\Section;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -21,79 +22,218 @@ class ManageOrganizationController extends Controller
         return view('admin.faculty_members.index', compact('facultyMembers'));
     }
 
-    // Show form to create faculty member
     public function facultyCreate()
     {
-        return view('admin.faculty_members.create');
+        $startYear = 2000;
+        $currentYear = now()->year; // Get the current year
+        $years = range($startYear, $currentYear); // Create an array of years
+
+        // Fetch the codes from the manage_cadres table
+        $cadres = DB::table('manage_cadres')->pluck('code', 'id'); // Get id as key and code as value
+        return view('admin.faculty_members.create', compact('cadres','years'));
     }
 
     // Store a new faculty member
+    // public function facultyStore(Request $request)
+    // {
+    //     // Handle image upload
+    //     if ($request->hasFile('image')) {
+    //         $file = $request->file('image');
+    //         $imageName = time() . '_' . $file->getClientOriginalName();
+    //         $file->move(public_path('faculty_images/'), $imageName);
+    //         $imagePath = 'faculty_images/' . $imageName;
+    //     } else {
+    //         $imagePath = null; // Handle if no image is uploaded
+    //     }
+
+    //     // Insert the data into the database
+    //     $facultyMember = new FacultyMember();
+    //     $facultyMember->language = $request->input('txtlanguage');
+    //     $facultyMember->category = $request->input('category');
+    //     $facultyMember->name = $request->input('name');
+    //     $facultyMember->name_in_hindi = $request->input('name_in_hindi');
+    //     $facultyMember->email = $request->input('email');
+    //     $facultyMember->image = $imagePath; // Save the image path
+    //     $facultyMember->description = $request->input('description');
+    //     $facultyMember->description_in_hindi = $request->input('description_in_hindi');
+    //     $facultyMember->designation = $request->input('designation');
+    //     $facultyMember->designation_in_hindi = $request->input('designation_in_hindi');
+    //     $facultyMember->cadre = $request->input('cadre');
+    //     $facultyMember->batch = $request->input('batch');
+    //     $facultyMember->service = $request->input('service');
+    //     $facultyMember->country_code = $request->input('country_code');
+    //     $facultyMember->std_code = $request->input('std_code');
+    //     $facultyMember->phone_internal_office = $request->input('phone_internal_office');
+    //     $facultyMember->phone_internal_residence = $request->input('phone_internal_residence');
+    //     $facultyMember->phone_pt_office = $request->input('phone_pt_office');
+    //     $facultyMember->phone_pt_residence = $request->input('phone_pt_residence');
+    //     $facultyMember->mobile = $request->input('mobile');
+    //     $facultyMember->abbreviation = $request->input('abbreviation');
+    //     $facultyMember->rank = $request->input('rank');
+    //     $facultyMember->present_at_station = $request->input('present_at_station');
+    //     $facultyMember->acm_member = $request->input('acm_member');
+    //     $facultyMember->acm_status_in_committee = $request->input('acm_status_in_committee');
+    //     $facultyMember->co_opted_member = $request->input('co_opted_member');
+    //     $facultyMember->page_status = $request->input('page_status');
+    //     // print_r($facultyMember);die;
+    //     // Save the faculty member
+    //     $facultyMember->save();
+
+    //     ManageAudit::create([
+    //         'Module_Name' => 'Organization Module', // Static value
+    //         'Time_Stamp' => time(), // Current timestamp
+    //         'Created_By' => null, // ID of the authenticated user
+    //         'Updated_By' => null, // No update on creation, so leave null
+    //         'Action_Type' => 'Insert', // Static value
+    //         'IP_Address' => $request->ip(), // Get IP address from request
+    //     ]);
+
+    //     // Redirect with a success message
+    //     return redirect()->route('admin.faculty.index')->with('success', 'Faculty member added successfully.');
+    // }
+
+    // public function facultyStore(Request $request)
+    // {
+    //     // Validation rules
+    //     $validated = $request->validate([
+    //         'language' => 'required|in:1,2', // Replace with actual dropdown options
+    //         'category' => 'required|string|in:1,0', // Replace with actual dropdown options
+    //         'name' => 'required|string|max:255',
+    //         'email' => 'required|email|max:255|unique:faculty_members,email',
+    //         'designation' => 'required|string|max:255',
+    //         'page_status' => 'required|in:1,0', // Assuming 1 for active, 0 for inactive
+
+    //         // Optional fields
+    //         'name_in_hindi' => 'nullable|string|max:255',
+    //         'description' => 'nullable|string',
+    //         'description_in_hindi' => 'nullable|string',
+    //         'cadre' => 'nullable|string|max:255',
+    //         'batch' => 'nullable|string|max:255',
+    //         'service' => 'nullable|string|max:255',
+    //         'country_code' => 'nullable|string|max:10',
+    //         'std_code' => 'nullable|string|max:10',
+    //         'phone_internal_office' => 'nullable|string|max:15',
+    //         'phone_internal_residence' => 'nullable|string|max:15',
+    //         'phone_pt_office' => 'nullable|string|max:15',
+    //         'phone_pt_residence' => 'nullable|string|max:15',
+    //         'mobile' => 'nullable|string|max:15',
+    //         'abbreviation' => 'nullable|string|max:10',
+    //         'rank' => 'nullable|string|max:10',
+    //         'present_at_station' => 'nullable|string|max:255',
+    //         'acm_member' => 'nullable|string|max:255',
+    //         'acm_status_in_committee' => 'nullable|string|max:255',
+    //         'co_opted_member' => 'nullable|string|max:255',
+    //         'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048', // Optional image upload
+    //     ]);
+    //     // dd($validated);
+    //     // Handle image upload
+    //     if ($request->hasFile('image')) {
+    //         $file = $request->file('image');
+    //         $imageName = time() . '_' . $file->getClientOriginalName();
+    //         $file->move(public_path('faculty_images/'), $imageName);
+    //         $imagePath = 'faculty_images/' . $imageName;
+    //     } else {
+    //         $imagePath = null; // Handle if no image is uploaded
+    //     }
+
+    //     // Insert the data into the database
+    //     $facultyMember = new FacultyMember($validated);
+    //     // dd($facultyMember);
+    //     $facultyMember->image = $imagePath; // Save the image path
+    //     $facultyMember->save();
+
+    //     // Audit log
+    //     ManageAudit::create([
+    //         'Module_Name' => 'Organization Module', // Static value
+    //         'Time_Stamp' => time(), // Current timestamp
+    //         'Created_By' => null, // ID of the authenticated user
+    //         'Updated_By' => null, // No update on creation, so leave null
+    //         'Action_Type' => 'Insert', // Static value
+    //         'IP_Address' => $request->ip(), // Get IP address from request
+    //     ]);
+
+    //     // Redirect with a success message
+    //     return redirect()->route('admin.faculty.index')->with('success', 'Faculty member added successfully.');
+    // }
+
+
     public function facultyStore(Request $request)
     {
+        // Validate input fields
+        $validated = $request->validate([
+            'language' => 'required|in:1,2',
+            'category' => 'required|in:0,1',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:faculty_members,email',
+            'designation' => 'required|string|max:255',
+            'page_status' => 'required|in:0,1',
+
+            'phone_internal_office' => 'nullable|string|max:10',
+            'phone_internal_residence' => 'nullable|string|max:10',
+            'phone_pt_office' => 'nullable|string|max:10',
+            'phone_pt_residence' => 'nullable|string|max:10',
+            'mobile' => 'nullable|string|max:10',
+            
+        ]);
+    
         // Handle image upload
+        $imagePath = null;
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $imageName = time() . '_' . $file->getClientOriginalName();
             $file->move(public_path('faculty_images/'), $imageName);
             $imagePath = 'faculty_images/' . $imageName;
-        } else {
-            $imagePath = null; // Handle if no image is uploaded
         }
-
-        // Insert the data into the database
-        $facultyMember = new FacultyMember();
-        $facultyMember->language = $request->input('txtlanguage');
-        $facultyMember->category = $request->input('category');
-        $facultyMember->name = $request->input('name');
-        $facultyMember->name_in_hindi = $request->input('name_in_hindi');
-        $facultyMember->email = $request->input('email');
-        $facultyMember->image = $imagePath; // Save the image path
-        $facultyMember->description = $request->input('description');
-        $facultyMember->description_in_hindi = $request->input('description_in_hindi');
-        $facultyMember->designation = $request->input('designation');
-        $facultyMember->designation_in_hindi = $request->input('designation_in_hindi');
-        $facultyMember->cadre = $request->input('cadre');
-        $facultyMember->batch = $request->input('batch');
-        $facultyMember->service = $request->input('service');
-        $facultyMember->country_code = $request->input('country_code');
-        $facultyMember->std_code = $request->input('std_code');
-        $facultyMember->phone_internal_office = $request->input('phone_internal_office');
-        $facultyMember->phone_internal_residence = $request->input('phone_internal_residence');
-        $facultyMember->phone_pt_office = $request->input('phone_pt_office');
-        $facultyMember->phone_pt_residence = $request->input('phone_pt_residence');
-        $facultyMember->mobile = $request->input('mobile');
-        $facultyMember->abbreviation = $request->input('abbreviation');
-        $facultyMember->rank = $request->input('rank');
-        $facultyMember->present_at_station = $request->input('present_at_station');
-        $facultyMember->acm_member = $request->input('acm_member');
-        $facultyMember->acm_status_in_committee = $request->input('acm_status_in_committee');
-        $facultyMember->co_opted_member = $request->input('co_opted_member');
-        $facultyMember->page_status = $request->input('page_status');
-// print_r($facultyMember);die;
-        // Save the faculty member
-        $facultyMember->save();
-
-        ManageAudit::create([
-            'Module_Name' => 'Organization Module', // Static value
-            'Time_Stamp' => time(), // Current timestamp
-            'Created_By' => null, // ID of the authenticated user
-            'Updated_By' => null, // No update on creation, so leave null
-            'Action_Type' => 'Insert', // Static value
-            'IP_Address' => $request->ip(), // Get IP address from request
+    // dd($validated);
+        // Insert data into the database using Query Builder
+        DB::table('faculty_members')->insert([
+            'language' => $request->language,
+            'category' => $request->category,
+            'name' => $request->name,
+            'name_in_hindi' => $request->name_in_hindi,
+            'email' => $request->email,
+            'image' => $imagePath,
+            'description' => $request->description,
+            'description_in_hindi' => $request->description_in_hindi,
+            'designation' => $request->designation,
+            'designation_in_hindi' => $request->designation_in_hindi,
+            'cadre' => $request->cadre,
+            'batch' => $request->batch,
+            'service' => $request->service,
+            'country_code' => $request->country_code,
+            'std_code' => $request->std_code,
+            'phone_internal_office' => $request->phone_internal_office,
+            'phone_internal_residence' => $request->phone_internal_residence,
+            'phone_pt_office' => $request->phone_pt_office,
+            'phone_pt_residence' => $request->phone_pt_residence,
+            'mobile' => $request->mobile,
+            'abbreviation' => $request->abbreviation,
+            'rank' => $request->rank,
+            'present_at_station' => $request->present_at_station,
+            'page_status' => $request->page_status,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
-
-        // Redirect with a success message
+    
+        // Redirect with success message
         return redirect()->route('admin.faculty.index')->with('success', 'Faculty member added successfully.');
     }
+    
+
+
 
     // Show form to edit faculty member
     public function facultyEdit($id)
     {
+        $startYear = 2000;
+        $currentYear = now()->year; // Get the current year
+        $years = range($startYear, $currentYear); // Create an array of years
+
         // Find the faculty member by ID
         $faculty = FacultyMember::findOrFail($id);
-        
+        $cadres = DB::table('manage_cadres')->get();
         // Return the edit view with the faculty data
-        return view('admin.faculty_members.edit', compact('faculty'));
+        return view('admin.faculty_members.edit', compact('faculty','cadres','years'));
     }
 
     // Update faculty member
@@ -107,21 +247,34 @@ class ManageOrganizationController extends Controller
             'email' => 'required|email|unique:faculty_members,email,' . $facultyMember->id,
             'designation' => 'required',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+
+            'phone_internal_office' => 'nullable|digits:10',
+            'phone_internal_residence' => 'nullable|digits:10',
+            'phone_pt_office' => 'nullable|digits:10',
+            'phone_pt_residence' => 'nullable|digits:10',
+            'mobile' => 'nullable|digits:10',
         ]);
 
         $data = $request->all();
 
         if ($request->hasFile('image')) {
             // Delete old image if exists
-            if (file_exists(public_path($facultyMember->image))) {
-                unlink(public_path($facultyMember->image));
+            if (isset($facultyMember->image) && file_exists(public_path($facultyMember->image))) {
+                try {
+                    // Attempt to delete the old image
+                    unlink(public_path($facultyMember->image));
+                } catch (\Exception $e) {
+                    // Log the error if unlink fails
+                    \Log::error('Error deleting image: ' . $e->getMessage());
+                }
             }
-
+        
+            // Upload new image
             $imageName = time() . '.' . $request->image->extension();
             $request->image->move(public_path('faculty-images'), $imageName);
+        
             $data['image'] = 'faculty-images/' . $imageName;
         }
-
         $facultyMember->update($data);
 
         ManageAudit::create([
@@ -139,10 +292,19 @@ class ManageOrganizationController extends Controller
     // Delete faculty member
     public function facultyDestroy($id)
     {
+        // Find the faculty member by ID
         $facultyMember = FacultyMember::findOrFail($id);
-        $facultyMember->update(['page_status' => 0]);
+        // Check if the faculty member is already inactive (status = 1 or 0), and prevent deletion if necessary
+        if ($facultyMember->page_status == 1) {
+            return redirect()->route('admin.faculty.index')->with('error', 'Inactive faculty members cannot be deleted.');
+        }
+        // Permanently delete the faculty member from the database
+        $facultyMember->delete();
+        // Redirect back with a success message
         return redirect()->route('admin.faculty.index')->with('success', 'Faculty member deleted successfully.');
     }
+
+
 
     public function staffIndex()
     {
@@ -156,34 +318,6 @@ class ManageOrganizationController extends Controller
         return view('admin.staff_members.create');
     }
 
-    // // Staff Store
-    // public function staffStore(Request $request)
-    // {
-       
-
-    //     $staffData = $request->all();
-
-    //     // Handling image upload
-    //     if ($request->hasFile('image')) {
-    //         $image = $request->file('image');
-    //         $imageName = time() . '.' . $image->getClientOriginalExtension();
-    //         $image->move(public_path('staff_images'), $imageName);
-    //         $staffData['image'] = 'staff_images/' . $imageName;
-    //     }
-    
-    //     $Staff = StaffMember::create($staffData);
-
-    //     ManageAudit::create([
-    //         'Module_Name' => 'Staff Module', // Static value
-    //         'Time_Stamp' => time(), // Current timestamp
-    //         'Created_By' => null, // ID of the authenticated user
-    //         'Updated_By' => null, // No update on creation, so leave null
-    //         'Action_Type' => 'Insert', // Static value
-    //         'IP_Address' => $request->ip(), // Get IP address from request
-    //     ]);
-
-    //     return redirect()->route('admin.staff.index')->with('success', 'Staff member created successfully!');
-    // }
 
     // Staff Store
     public function staffStore(Request $request)
@@ -197,13 +331,16 @@ class ManageOrganizationController extends Controller
             'mobile' => 'required|digits:10|unique:staff_members,mobile', // Ensure valid 10-digit mobile number
 
             // Optional fields with uniqueness and format validation
-            'phone_internal_office' => 'nullable|digits:10|unique:staff_members,phone_internal_office',
-            'phone_pt_office' => 'nullable|digits:10|unique:staff_members,phone_pt_office',
-            'phone_pt_residence' => 'nullable|digits:10|unique:staff_members,phone_pt_residence',
-            'phone_internal_residence' => 'nullable|digits:10|unique:staff_members,phone_internal_residence',
+            'phone_internal_office' => 'nullable|digits:10',
+            'phone_pt_office' => 'nullable|digits:10',
+            'phone_pt_residence' => 'nullable|digits:10',
+            'phone_internal_residence' => 'nullable|digits:10',
         
 
             'page_status' => 'required|in:1,0', // Replace with your dropdown options
+            'present_at_station' => 'required|in:1,0', // Replace with your dropdown options
+            'acm_member' => 'required|in:1,0', // Replace with your dropdown options
+            'co_opted_member' => 'required|in:1,0', // Replace with your dropdown options
             'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048', // Optional image upload with size and format constraints
         ]);
 
@@ -244,41 +381,42 @@ class ManageOrganizationController extends Controller
     {
         $staff = StaffMember::findOrFail($id);
 
-       // Validate input fields
-       $validated = $request->validate([
+        // Validate input fields
+        $validated = $request->validate([
             'language' => 'required|string|in:1,2', // Replace with your dropdown options
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:staff_members,email', // Ensure unique email
+            'email' => 'required|email|unique:staff_members,email,' . $id, // Exclude current staff email
             'designation' => 'required|string|max:255',
-            // 'mobile' => 'required|digits:10|unique:staff_members,mobile', // Ensure valid 10-digit mobile number
+            'mobile' => 'required|digits:10|unique:staff_members,mobile,' . $id, // Exclude current mobile number
+            
+            // Optional fields without uniqueness checks
+            'phone_internal_office' => 'nullable|digits:10',
+            'phone_pt_office' => 'nullable|digits:10',
+            'phone_pt_residence' => 'nullable|digits:10',
+            'phone_internal_residence' => 'nullable|digits:10',
 
-            // Optional fields with uniqueness and format validation
-            // 'phone_internal_office' => 'nullable|digits:10|unique:staff_members,phone_internal_office',
-            // 'phone_pt_office' => 'nullable|digits:10|unique:staff_members,phone_pt_office',
-            // 'phone_pt_residence' => 'nullable|digits:10|unique:staff_members,phone_pt_residence',
-            // 'phone_internal_residence' => 'nullable|digits:10|unique:staff_members,phone_internal_residence',
-        
             'page_status' => 'required|in:1,0', // Replace with your dropdown options
             'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048', // Optional image upload with size and format constraints
         ]);
 
+
         $staffData = $request->all();
-    
+
         // Handling image update
         if ($request->hasFile('image')) {
             // Delete old image if it exists
             if ($staff->image && file_exists(public_path($staff->image))) {
                 unlink(public_path($staff->image));
             }
-    
+
             // Upload new image
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('staff_images'), $imageName);
             $staffData['image'] = 'staff_images/' . $imageName;
         }
-    
-        $Staff = $staff->update($staffData);
+
+        $staff->update($staffData);
 
         ManageAudit::create([
             'Module_Name' => 'Staff Module', // Static value
@@ -292,20 +430,33 @@ class ManageOrganizationController extends Controller
         return redirect()->route('admin.staff.index')->with('success', 'Staff member updated successfully!');
     }
 
-    // Staff Destroy
     public function staffDestroy($id)
     {
-        $staff = Staff::findOrFail($id);
-
+        // Fetch the staff member by ID
+        $staff = DB::table('staff_members')->where('id', $id)->first();
+    
+        // Check if the staff member exists
+        if (!$staff) {
+            return redirect()->route('admin.staff.index')->with('error', 'Staff member not found.');
+        }
+    
+        // Check if the status is 1 (Inactive), and if so, prevent deletion
+        if ($staff->page_status == 1) {
+            return redirect()->route('admin.staff.index')->with('error', 'Inactive staff members cannot be deleted.');
+        }
+    
         // Delete staff image if it exists
         if ($staff->image && file_exists(public_path($staff->image))) {
             unlink(public_path($staff->image));
         }
     
-        // Delete staff record from the database
-        $staff->delete();
+        // Delete the staff record from the database
+        DB::table('staff_members')->where('id', $id)->delete();
+    
         return redirect()->route('admin.staff.index')->with('success', 'Staff member deleted successfully!');
     }
+    
+
 
 
     public function sectionIndex()
@@ -497,6 +648,16 @@ public function destroySectionCategory($id)
 
     return redirect()->route('admin.section_category.index',$sectionCategory->section_id)->with('success', 'Section Category deleted successfully');
 }
+
+    // public function getYears()
+    // {
+    //     $startYear = 2000;
+    //     $currentYear = now()->year; // Get the current year
+    //     $years = range($startYear, $currentYear); // Create an array of years
+
+    //     return view('admin.faculty', compact('years'));
+    // }
+
 
     
 }

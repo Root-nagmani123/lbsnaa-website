@@ -20,7 +20,7 @@ class ManageTenderController extends Controller
     public function create()
     {
         return view('admin.manage_tender.create');
-    }
+    } 
 
     public function store(Request $request)
     {
@@ -30,7 +30,7 @@ class ManageTenderController extends Controller
             'type' => 'required|string|max:255',    // Ensure type is entered
             'title' => 'required|string|max:255',   // Ensure title is entered
             'description' => 'required|string',    // Ensure description is entered
-            'file' => 'required|mimes:pdf,png,jpg|max:2048', // Validate file type and size
+            'file' => 'required|mimes:pdf|max:20480', // Allow only PDFs with a maximum size of 20 MB
             'publish_date' => 'required|date',     // Ensure publish_date is a valid date
             'expiry_date' => 'required|date|after_or_equal:publish_date', // expiry_date must be after or on publish_date
             'status' => 'required|integer|in:1,0', // Ensure status is one of the valid options
@@ -41,8 +41,8 @@ class ManageTenderController extends Controller
             'title.required' => 'Please enter a title.',
             'description.required' => 'Please provide a description.',
             'file.required' => 'Please upload a file.',
-            'file.mimes' => 'The file must be a PDF, PNG, or JPG.',
-            'file.max' => 'The file size must not exceed 2 MB.',
+            'file.mimes' => 'Only PDF files are allowed.',
+            'file.max' => 'File size must not exceed 20 MB.',
             'publish_date.required' => 'Please select a publish date.',
             'expiry_date.required' => 'Please select a expiry date.',
             'expiry_date.after_or_equal' => 'The expiry date must be on or after the publish date.',
@@ -147,10 +147,24 @@ class ManageTenderController extends Controller
     
 
 
+    // // Delete the tender
+    // public function destroy(ManageTender $manageTender)
+    // {
+    //     $manageTender->delete();
+    //     return redirect()->route('manage_tender.index')->with('success', 'Tender deleted successfully.');
+    // }
+
     // Delete the tender
     public function destroy(ManageTender $manageTender)
     {
+        // Check if the status is 1 (Inactive), and if so, prevent deletion
+        if ($manageTender->status == 1) {
+            return redirect()->route('manage_tender.index')->with('error', 'Inactive tenders cannot be deleted.');
+        }
+
+        // Proceed with deletion if status is not inactive
         $manageTender->delete();
         return redirect()->route('manage_tender.index')->with('success', 'Tender deleted successfully.');
     }
+
 }

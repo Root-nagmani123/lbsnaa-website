@@ -36,6 +36,16 @@
                                     <input type="radio" name="txtlanguage" value="1"> English
                                     <input type="radio" name="txtlanguage" value="2"> Hindi
                                 </div>
+                                <?php $__errorArgs = ['txtlanguage'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                    <div style="color: red;"><?php echo e($message); ?></div> <!-- Display error if any -->
+                                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                             </div>
                         </div>
                         <div class="col-lg-5">
@@ -45,6 +55,16 @@
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark ps-5 h-58" name="menutitle"
                                         id="menutitle">
+                                    <?php $__errorArgs = ['menutitle'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                        <div style="color: red;"><?php echo e($message); ?></div> <!-- Display error if any -->
+                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                 </div>
                             </div>
                         </div>
@@ -53,13 +73,29 @@
                                 <label class="label" for="texttype">Menu Type :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select name="texttype" id="texttype" class="form-control text-dark ps-5 h-58"
-                                        required>
+                                    <!-- <select name="texttype" id="texttype" class="form-control text-dark ps-5 h-58">
                                         <option value="">Select</option>
                                         <option value="1">Content</option>
                                         <option value="2">PDF file Upload</option>
                                         <option value="3">Website URL</option>
+                                    </select> -->
+                                    <select name="texttype" id="texttype" class="form-control text-dark ps-5 h-58">
+                                        <option value="" <?php echo e(old('texttype') == '' ? 'selected' : ''); ?>>Select</option>
+                                        <option value="1" <?php echo e(old('texttype') == '1' ? 'selected' : ''); ?>>Content</option>
+                                        <option value="2" <?php echo e(old('texttype') == '2' ? 'selected' : ''); ?>>PDF file Upload</option>
+                                        <option value="3" <?php echo e(old('texttype') == '3' ? 'selected' : ''); ?>>Website URL</option>
                                     </select>
+
+                                    <?php $__errorArgs = ['texttype'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                        <div style="color: red;"><?php echo e($message); ?></div> <!-- Display error if any -->
+                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                 </div>
                             </div>
                         </div>
@@ -72,6 +108,16 @@
                                         <div class="form-group position-relative">
                                             <textarea class="form-control ps-5 text-dark" rows="5" name="content"
                                                 id="content"></textarea>
+                                            <?php $__errorArgs = ['content'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                                <div style="color: red;"><?php echo e($message); ?></div> <!-- Display error if any -->
+                                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                         </div>
                                     </div>
                                 </div>
@@ -83,6 +129,16 @@
                                             <div class="form-group position-relative">
                                                 <input type="text" class="form-control text-dark ps-5 h-58"
                                                     name="meta_title" id="meta_title">
+                                                <?php $__errorArgs = ['meta_title'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                                    <div style="color: red;"><?php echo e($message); ?></div> <!-- Display error if any -->
+                                                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                             </div>
                                         </div>
                                     </div>
@@ -93,6 +149,16 @@
                                             <div class="form-group position-relative">
                                                 <input type="text" class="form-control text-dark ps-5 h-58"
                                                     name="meta_keyword" id="meta_keyword">
+                                                    <?php $__errorArgs = ['meta_keyword'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                                        <div style="color: red;"><?php echo e($message); ?></div> <!-- Display error if any -->
+                                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                             </div>
                                         </div>
                                     </div>
@@ -105,6 +171,16 @@
                                             <textarea class="form-control ps-5 text-dark"
                                                 placeholder="Some demo text ... " cols="30" rows="5"
                                                 name="meta_description" id="meta_description"></textarea>
+                                                <?php $__errorArgs = ['meta_description'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                                    <div style="color: red;"><?php echo e($message); ?></div> <!-- Display error if any -->
+                                                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                         </div>
                                     </div>
                                 </div>
@@ -117,11 +193,22 @@
                                     <div class="product-upload">
                                         <label for="file-upload" class="file-upload mb-0">
                                             <i class="ri-upload-cloud-2-line fs-2 text-gray-light"></i>
-                                            <span class="d-block fw-semibold text-body">Drop files here or click
-                                                to upload.</span>
+                                            <span class="d-block fw-semibold text-body">Drop files here or click to upload.</span>
                                         </label>
-                                        <input id="file-upload" type="file" name="pdf_file" id="pdf_file" accept=".pdf">
+                                        <input id="file-upload" type="file" name="pdf_file" accept=".pdf" onchange="displayFileName()">
+                                        <?php $__errorArgs = ['pdf_file'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                            <div style="color: red;"><?php echo e($message); ?></div> <!-- Display error if any -->
+                                        <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                     </div>
+                                    <!-- Display the selected file name -->
+                                    <div id="file-name" class="mt-2" style="color: #333; display: none;"></div>
                                 </div>
                             </div>
                         </div>
@@ -134,6 +221,16 @@
                                         <div class="form-group position-relative">
                                             <input type="text" class="form-control text-dark ps-5 h-58"
                                                 name="website_url" id="website_url">
+                                            <?php $__errorArgs = ['website_url'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                                <div style="color: red;"><?php echo e($message); ?></div> <!-- Display error if any -->
+                                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                         </div>
                                     </div>
                                 </div>
@@ -148,12 +245,22 @@
                                                 <option value="1" class="text-dark">Internal Link</option>
                                                 <option value="2" class="text-dark">External Link</option>
                                             </select>
+                                            <?php $__errorArgs = ['web_site_target'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                                <div style="color: red;"><?php echo e($message); ?></div> <!-- Display error if any -->
+                                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <!-- <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="menucategory">Primary Link :</label>
                                 <span class="star">*</span>
@@ -164,16 +271,54 @@
                                         <?php echo $menuOptions; ?>
 
                                     </select>
+                                    <?php $__errorArgs = ['menucategory'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                        <div style="color: red;"><?php echo e($message); ?></div> 
+                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="menucategory">Primary Link :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <select class="form-select form-control ps-5 h-58" name="menucategory" id="menucategory" autocomplete="off">
+                                        <option value="0" class="text-dark" <?php echo e(old('menucategory', 0) == 0 ? 'selected' : ''); ?>>
+                                            It is Root Category
+                                        </option>
+                                        <?php echo $menuOptions; ?>
+
+                                    </select>
+                                    <?php $__errorArgs = ['menucategory'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                        <div style="color: red;"><?php echo e($message); ?></div> <!-- Display error if any -->
+                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                 </div>
                             </div>
                         </div>
+
+
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="txtpostion">Content Position :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <select class="form-select form-control ps-5 h-58" id="txtpostion"
-                                        autocomplete="off" autocomplete="off" name="txtpostion" required
+                                        autocomplete="off" autocomplete="off" name="txtpostion"
                                         onchange="showDateFields(this.value)">
                                         <option selected class="text-dark">Select</option>
                                         <option value="1" class="text-dark">Header Menu</option>
@@ -184,6 +329,16 @@
                                         <option value="6" class="text-dark">Other Pages</option>
                                         <option value="7" class="text-dark">Latest Updates</option>
                                     </select>
+                                    <?php $__errorArgs = ['txtpostion'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                        <div style="color: red;"><?php echo e($message); ?></div> <!-- Display error if any -->
+                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                 </div>
                             </div>
                         </div>
@@ -197,6 +352,16 @@
                                             <input type="date" class="form-control text-dark ps-5 h-58"
                                                 name="start_date" id="start_date" onfocus="(this.type='date')"
                                                 onblur="(this.type='text')">
+                                                <?php $__errorArgs = ['start_date'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                                    <div style="color: red;"><?php echo e($message); ?></div> <!-- Display error if any -->
+                                                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                         </div>
                                     </div>
                                 </div>
@@ -208,6 +373,16 @@
                                             <input type="text" class="form-control text-dark ps-5 h-58"
                                                 name="termination_date" id="termination_date" placeholder="dd/mm/yyyy"
                                                 onfocus="(this.type='date')" onblur="(this.type='text')">
+                                            <?php $__errorArgs = ['termination_date'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                                <div style="color: red;"><?php echo e($message); ?></div> <!-- Display error if any -->
+                                            <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                         </div>
                                     </div>
                                 </div>
@@ -219,11 +394,21 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <select class="form-select form-control ps-5 h-58" id="menu_status"
-                                        name="menu_status" required>
+                                        name="menu_status">
                                         <option class="text-dark">Select</option>
                                         <option value="1" class="text-dark">Active</option>
-                                        <option value="2" class="text-dark">Inactive</option>
+                                        <option value="0" class="text-dark">Inactive</option>
                                     </select>
+                                    <?php $__errorArgs = ['menu_status'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                        <div style="color: red;"><?php echo e($message); ?></div> <!-- Display error if any -->
+                                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                                 </div>
                             </div>
                         </div>
@@ -245,5 +430,20 @@ document.getElementById('texttype').addEventListener('change', function() {
     document.getElementById('website-url-field').style.display = value === '3' ? 'block' : 'none';
 });
 </script>
+
+<script>
+    function displayFileName() {
+        const fileInput = document.getElementById('file-upload');
+        const fileNameDiv = document.getElementById('file-name');
+
+        if (fileInput.files && fileInput.files[0]) {
+            const fileName = fileInput.files[0].name;
+            fileNameDiv.textContent = 'Selected file: ' + fileName;
+            fileNameDiv.style.display = 'block'; // Show the file name
+        } else {
+            fileNameDiv.style.display = 'none'; // Hide if no file is selected
+        }
+    }
+</script>
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('admin.layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\lbsnaa-website\resources\views/admin/menus/create.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('admin.layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp11\htdocs\lbsnaa-website\resources\views/admin/menus/create.blade.php ENDPATH**/ ?>

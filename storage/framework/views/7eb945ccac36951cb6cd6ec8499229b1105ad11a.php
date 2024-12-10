@@ -96,9 +96,14 @@
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </ul>
             </div>
+<<<<<<< HEAD:storage/framework/views/39c512615fcf4160e40faeacad950dcb6f8396bd.php
         </div>
     </nav>
 </header>
 
 
 <?php /**PATH C:\xampp\htdocs\lbsnaa-website\resources\views/user/includes/header.blade.php ENDPATH**/ ?>
+=======
+        </nav>
+    </header><?php /**PATH C:\xampp11\htdocs\lbsnaa-website\resources\views/user/includes/header.blade.php ENDPATH**/ ?>
+>>>>>>> 35f726b (bug fixes):storage/framework/views/7eb945ccac36951cb6cd6ec8499229b1105ad11a.php

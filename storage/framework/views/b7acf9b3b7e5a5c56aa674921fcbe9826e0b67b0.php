@@ -138,4 +138,4 @@
 
 </body>
 </html>
-<?php /**PATH C:\xampp\htdocs\lbsnaa-website\resources\views/user/includes/footer.blade.php ENDPATH**/ ?>
+<?php /**PATH C:\xampp11\htdocs\lbsnaa-website\resources\views/user/includes/footer.blade.php ENDPATH**/ ?>

@@ -42,18 +42,21 @@
                 </button>
             </a>
         </div> -->
-        @if(session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-            @endif
+        @if (session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
+        @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+        @endif
         <div class="default-table-area members-list recent-orders">
             <div class="table-responsive">
                 <table class="table align-middle" id="myTable">
                     <thead>
                         <tr class="text-center">
                             <th class="col">#</th>
-                       
+
                             <th class="col">Name</th>
                             <th class="col">Email</th>
                             <th class="col">Designation</th>
@@ -66,25 +69,30 @@
                         @foreach($facultyMembers as $faculty)
                         <tr style="overflow-x: scroll">
                             <td>{{ $loop->iteration }}</td>
-                           
+
                             <td>{{ $faculty->name }}</td>
                             <td>{{ $faculty->email }}</td>
                             <td>{{ $faculty->designation }}</td>
-                            <td>{{ $faculty->category }}</td>
+                            <!-- <td>{{ $faculty->category }}</td> -->
+                            <td>{{ $faculty->category == 1 ? 'Inhouse' : 'Visiting' }}</td>
                             <td>
                                 <a href="{{ route('admin.faculty.edit', $faculty->id) }}"
                                     class="btn btn-success text-white btn-sm">Edit</a>
                                 <form action="{{ route('admin.faculty.destroy', $faculty->id) }}" method="POST"
                                     style="display:inline;">
                                     @csrf
-                                @method('DELETE')
-                                    <button type="submit" class="btn btn-primary text-white btn-sm" onclick="return confirm('Are you sure you want to delete this faculty member?')">Delete</button>
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-primary text-white btn-sm"
+                                        onclick="return confirm('Are you sure you want to delete this faculty member?')">Delete</button>
                                 </form>
                             </td>
-                            <td><div class="form-check form-switch">
-            <input class="form-check-input status-toggle" type="checkbox" role="switch"  data-table="faculty_members" 
-            data-column="page_status" data-id="{{$faculty->id}}" {{$faculty->page_status ? 'checked' : ''}}>
-          </div></td>
+                            <td>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input status-toggle" type="checkbox" role="switch"
+                                        data-table="faculty_members" data-column="page_status"
+                                        data-id="{{$faculty->id}}" {{$faculty->page_status ? 'checked' : ''}}>
+                                </div>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -94,4 +102,3 @@
     </div>
 </div>
 @endsection
-

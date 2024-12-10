@@ -37,9 +37,9 @@ class EmployeeController extends Controller
             'employee_name' => 'required',
             'description' => 'nullable|string',
             'category' => 'nullable',
-            'status' => 'required',
+            'status' => 'required|in:0,1',
         ]);
-
+        // dd($sss);
 
 
         DB::table('organisation_chart')->insert([
@@ -75,24 +75,33 @@ class EmployeeController extends Controller
 
         $record = DB::table('organisation_chart')->where('id', $id)->first();
         $faculty = DB::table('faculty_members')->get();
-
+        // dd($record);
         return view('admin.manage_organisationchart.edit', compact('record', 'faculty'));
     }
 
-    // Category update method to handle form submission for updating section details
     public function organisation_chartUpdate(Request $request, $id)
     {
+        // Validate the request data
         $request->validate([
             'language' => 'required',
             'parentcategory' => 'required',
             'employee_name' => 'required',
             'description' => 'nullable|string',
             'category' => 'nullable',
-            'status' => 'required',
+            'status' => 'required|in:0,1',
         ]);
 
+        // Check if the record exists
+        $organisationChart = DB::table('organisation_chart')->where('id', $id)->first();
+
+        if (!$organisationChart) {
+            return redirect()->route('organisation_chart.index')->with('error', 'Record not found');
+        }
+
+        // Set category based on the condition
         $category = ($id == 1) ? 0 : 1;
-        dd($request->parent_id);
+
+        // Prepare data for update
         $data = [
             'language' => $request->language,
             'faculty_id' => $request->parentcategory,
@@ -101,9 +110,10 @@ class EmployeeController extends Controller
             'description' => $request->description,
             'category' => $category,
             'status' => $request->status,
-            'updated_at' => now(),
+            'updated_at' => now(), // Manually setting the updated_at timestamp
         ];
 
+        // Log the update in the ManageAudit table
         ManageAudit::create([
             'Module_Name' => 'Organisation Chart', // Static value
             'Time_Stamp' => time(), // Current timestamp
@@ -113,17 +123,49 @@ class EmployeeController extends Controller
             'IP_Address' => $request->ip(), // Get IP address from request
         ]);
 
-        // Update the record using the query builder
-        DB::table('organisation_chart')->where('id', $id)->update($data);
-        return redirect()->route('organisation_chart.index')->with('success', 'updated successfully');
+        // Perform the update in the database using the query builder
+        $updated = DB::table('organisation_chart')->where('id', $id)->update($data);
+
+        // Check if the update was successful
+        if ($updated) {
+            return redirect()->route('organisation_chart.index')->with('success', 'Updated successfully');
+        } else {
+            return redirect()->route('organisation_chart.index')->with('error', 'Failed to update record');
+        }
     }
 
+
     // Category destroy method to delete a section
+    // public function organisation_chartDestroy($id)
+    // {
+    //     DB::table('organisation_chart')->where('id', $id)->delete();
+    //     return redirect()->route('organisation_chart.index')->with('success', 'deleted successfully');
+    // }
+
     public function organisation_chartDestroy($id)
     {
-        DB::table('organisation_chart')->where('id', $id)->delete();
-        return redirect()->route('organisation_chart.index')->with('success', 'deleted successfully');
+        // Retrieve the record to ensure it exists and to check its status
+        $organisationChart = DB::table('organisation_chart')->where('id', $id)->first();
+
+        if (!$organisationChart) {
+            return redirect()->route('organisation_chart.index')->with('error', 'Record not found');
+        }
+
+        // Check if the status is 1 (Inactive)
+        if ($organisationChart->status == 1) {
+            return redirect()->route('organisation_chart.index')->with('error', 'Inactive organisation charts cannot be deleted.');
+        }
+
+        // Perform the delete operation
+        $deleted = DB::table('organisation_chart')->where('id', $id)->delete();
+
+        if ($deleted) {
+            return redirect()->route('organisation_chart.index')->with('success', 'Deleted successfully');
+        } else {
+            return redirect()->route('organisation_chart.index')->with('error', 'Failed to delete the record');
+        }
     }
+
 
     public function autocompleteEmployees(Request $request)
     {

@@ -26,7 +26,7 @@
                 <form action="{{ route('organisation_chart.update', $record->id) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-
+                        <input type="hidden" name="parent_id" value="{{ $record->parent_id }}">
                         <!-- Page Language -->
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
@@ -39,6 +39,24 @@
                             </div>
                         </div>
 
+                        <!-- Select Parent Employee
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label">Select Parent Employee :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <select name="parentcategory" id="parentcategory" class="form-select form-control ps-5 h-58">
+                                        <option value="" class="text-dark">Select Employee</option>
+                                        @foreach ($faculty as $parent)
+                                            <option class="text-dark" value="{{ $parent->id }} {{ $record->faculty_id == $parent->id ? 'selected' : '' }}">
+                                                {{ $parent->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div> -->
+
                         <!-- Select Parent Employee -->
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
@@ -48,7 +66,7 @@
                                     <select name="parentcategory" id="parentcategory" class="form-select form-control ps-5 h-58">
                                         <option value="" class="text-dark">Select Employee</option>
                                         @foreach ($faculty as $parent)
-                                            <option class="text-dark" value={{ $parent->id }} {{ $record->faculty_id == $parent->id ? 'selected' : '' }}>
+                                            <option class="text-dark" value="{{ $parent->id }}" {{ $record->faculty_id == $parent->id ? 'selected' : '' }}>
                                                 {{ $parent->name }}
                                             </option>
                                         @endforeach
@@ -56,6 +74,7 @@
                                 </div>
                             </div>
                         </div>
+
 
                         <!-- Select Employee with Autocomplete -->
                         <div class="col-lg-6">
@@ -84,8 +103,8 @@
                             <div class="form-group mb-4">
                                 <label class="label">Page Status:</label>
                                 <select name="status" class="form-select form-control ps-5 h-58">
-                                    <option value="1" {{ $record->status == '1' ? 'selected' : '' }}>Active</option>
-                                    <option value="0" {{ $record->status == '0' ? 'selected' : '' }}>Inactive</option>
+                                    <option value="1" {{ $record->status == 1 ? 'selected' : '' }}>Active</option>
+                                    <option value="0" {{ $record->status == 0 ? 'selected' : '' }}>Inactive</option>
                                 </select>
                             </div>
                         </div>
