@@ -1,4 +1,4 @@
-@include('user.includes.header')
+<?php echo $__env->make('user.includes.header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
 <!-- Page Content -->
 <!-- slider start -->
@@ -6,31 +6,31 @@
 
     <div class="carousel-indicators">
 
-        @foreach($sliders as $i => $slider)
-        @if($i == 0)
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to={{$i}} class="active"
-            aria-current="true" aria-label={{$slider->text}}></button>
-        @endif
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{$i}}"
-            aria-label={{$slider->text}}></button>
-        @endforeach
+        <?php $__currentLoopData = $sliders; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $i => $slider): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        <?php if($i == 0): ?>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to=<?php echo e($i); ?> class="active"
+            aria-current="true" aria-label=<?php echo e($slider->text); ?>></button>
+        <?php endif; ?>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="<?php echo e($i); ?>"
+            aria-label=<?php echo e($slider->text); ?>></button>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     </div>
 
     <!-- Dynamic Slider -->
     <div class="carousel-inner">
-        @foreach($sliders as $key => $slider)
-        <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
-            <img src="{{ asset('slider-images/' . $slider->image) }}" class="d-block img-fluid"
-                alt="{{ $slider->text }}"
+        <?php $__currentLoopData = $sliders; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $slider): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        <div class="carousel-item <?php echo e($key == 0 ? 'active' : ''); ?>">
+            <img src="<?php echo e(asset('slider-images/' . $slider->image)); ?>" class="d-block img-fluid"
+                alt="<?php echo e($slider->text); ?>"
                 style="
   width: 100%;
   height: 600px; background-size: cover; background-position: center; border-radius: 10px;background-repeat: no-repeat; object-fit: cover">
             <div class="carousel-caption d-none d-md-block">
-                <h3 class="text-white">{{ $slider->text }}</h3>
-                <!-- <p>{{ $slider->description }}</p> -->
+                <h3 class="text-white"><?php echo e($slider->text); ?></h3>
+                <!-- <p><?php echo e($slider->description); ?></p> -->
             </div>
         </div>
-        @endforeach
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     </div>
 
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
@@ -49,14 +49,14 @@
         <div class="position-relative d-flex overflow-hidden pt-4 gap-3">
             <button class="btn btn-primary" id="basic-addon2" style="z-index: 1;">Latest Updates</button>
             <div class="animate-marquee d-flex gap-3">
-                @foreach($news_scrollers as $scroller)
-                <a href="{{ route('user.letest_updates', $scroller->menu_slug) }}"
+                <?php $__currentLoopData = $news_scrollers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $scroller): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <a href="<?php echo e(route('user.letest_updates', $scroller->menu_slug)); ?>"
                     class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border marquee-item">
                     <div class="p-3">
-                        <span class="text-gray-800">{{$scroller->menutitle}}</span>
+                        <span class="text-gray-800"><?php echo e($scroller->menutitle); ?></span>
                     </div>
                 </a>
-                @endforeach
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>
         </div>
     </div>
@@ -71,7 +71,7 @@
                   <div class="col-xl-4 col-md-6 col-12">
                     <div class="card card-lift">
                       <a href="#!">
-                        <img src="{{ asset('assets/images/icons/1.jpg') }}" alt="figma" class="img-fluid" style="margin: auto; object-fit: cover">
+                        <img src="<?php echo e(asset('assets/images/icons/1.jpg')); ?>" alt="figma" class="img-fluid" style="margin: auto; object-fit: cover">
                       </a>
                       <div class="card-body d-flex flex-column gap-4" style="height:250px; overflow:hidden;">
                         <div class="d-flex flex-column gap-2">
@@ -87,7 +87,7 @@
                   <div class="col-xl-4 col-md-6 col-12">
                     <div class="card card-lift">
                       <a href="#!">
-                        <img src="{{ asset('assets/images/icons/3.jpg') }}" alt="figma" class="img-fluid" style="margin: auto; object-fit: cover">
+                        <img src="<?php echo e(asset('assets/images/icons/3.jpg')); ?>" alt="figma" class="img-fluid" style="margin: auto; object-fit: cover">
                       </a>
                       <div class="card-body d-flex flex-column gap-4" style="height:250px; overflow-y:scroll;">
                         <div class="d-flex flex-column gap-2">
@@ -112,7 +112,7 @@
                   <div class="col-xl-4 col-md-6 col-12">
                     <div class="card card-lift">
                       <a href="#!">
-                        <img src="{{ asset('assets/images/icons/4.jpg') }}" alt="figma" class="img-fluid" style="margin: auto; object-fit: cover">
+                        <img src="<?php echo e(asset('assets/images/icons/4.jpg')); ?>" alt="figma" class="img-fluid" style="margin: auto; object-fit: cover">
                       </a>
                       <div class="card-body d-flex flex-column gap-4"  style="height:250px; overflow-y:scroll;">
                         <div class="d-flex flex-column gap-2">
@@ -129,7 +129,7 @@
                   <div class="col-xl-4 col-md-6 col-12">
                     <div class="card card-lift">
                       <a href="#!">
-                        <img src="{{ asset('assets/images/icons/2.jpg') }}" alt="figma" class="img-fluid" style="margin: auto; object-fit: cover">
+                        <img src="<?php echo e(asset('assets/images/icons/2.jpg')); ?>" alt="figma" class="img-fluid" style="margin: auto; object-fit: cover">
                       </a>
                       <div class="card-body d-flex flex-column gap-4" style="height:250px; overflow:hidden;">
                         <div class="d-flex flex-column gap-2">
@@ -145,7 +145,7 @@
                   <div class="col-xl-4 col-md-6 col-12">
                     <div class="card card-lift">
                       <a href="#!">
-                        <img src="{{ asset('assets/images/icons/5.jpg') }}" alt="figma" class="img-fluid" style="margin: auto; object-fit: cover">
+                        <img src="<?php echo e(asset('assets/images/icons/5.jpg')); ?>" alt="figma" class="img-fluid" style="margin: auto; object-fit: cover">
                       </a>
                       <div class="card-body d-flex flex-column gap-4" style="height:250px; overflow:hidden;">
                         <div class="d-flex flex-column gap-2">
@@ -161,7 +161,7 @@
                   <div class="col-xl-4 col-md-6 col-12">
                     <div class="card card-lift">
                       <a href="#!">
-                        <img src="{{ asset('assets/images/icons/6.jpg') }}" alt="figma" class="img-fluid" style="margin: auto; object-fit: cover">
+                        <img src="<?php echo e(asset('assets/images/icons/6.jpg')); ?>" alt="figma" class="img-fluid" style="margin: auto; object-fit: cover">
                       </a>
                       <div class="card-body d-flex flex-column gap-4"  style="height:250px; overflow-y:scroll;">
                         <div class="d-flex flex-column gap-2">
@@ -195,7 +195,7 @@
                                 <h3 class="fw-semibold text-primary">LBSNAA Academy News</h3>
                             </div>
                             <div class="col-6">
-                                <span style="float:right;"><a href="{{ route('user.news_listing') }}"
+                                <span style="float:right;"><a href="<?php echo e(route('user.news_listing')); ?>"
                                         class="fw-semibold text-primary">View All</a></span>
                             </div>
                         </div>
@@ -211,14 +211,14 @@
                                 <div class="tns-inner" id="tns1-iw">
                                     <div class="sliderTestimonialFourth tns-slider tns-carousel tns-subpixel tns-calc tns-horizontal"
                                         id="tns1">
-                                        @foreach($news as $slider)
+                                        <?php $__currentLoopData = $news; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $slider): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <div class="item tns-item">
                                             <!-- Card -->
                                             <div class="card mb-4 shadow-lg card-lift">
                                                 <div class="card-header" style="border:none;padding:0;">
                                                     <a href="#">
                                                         <!-- Img  -->
-                                                        <img src="{{ isset($slider->main_image) || !empty($slider->main_image) ? asset($slider->main_image) : asset('assets/images/4.jpg') }}"
+                                                        <img src="<?php echo e(isset($slider->main_image) || !empty($slider->main_image) ? asset($slider->main_image) : asset('assets/images/4.jpg')); ?>"
                                                             class="card-img-top" alt="blogpost ">
                                                     </a>
                                                 </div>
@@ -226,19 +226,19 @@
                                                 <div class="card-body">
                                                     <a href="#"
                                                         class="fs-5 mb-2 fw-semibold d-block text-success">Posted On :-
-                                                        {{ \Carbon\Carbon::parse($slider->created_at)->format('d F, Y') }}</a>
+                                                        <?php echo e(\Carbon\Carbon::parse($slider->created_at)->format('d F, Y')); ?></a>
                                                     <h3><a href="blog-single.html"
-                                                            class="text-inherit">{{ $slider->title }}</a></h3>
-                                                    <p>{{ $slider->short_description }}</p>
+                                                            class="text-inherit"><?php echo e($slider->title); ?></a></h3>
+                                                    <p><?php echo e($slider->short_description); ?></p>
                                                     <!-- Media content -->
                                                 </div>
                                                 <div class="card-footer" style="border-top:none;">
-                                                    <a href="{{ route('user.newsbyslug', $slider->title_slug) }}"
+                                                    <a href="<?php echo e(route('user.newsbyslug', $slider->title_slug)); ?>"
                                                         class="text-inherit text-primary">Read More</a>
                                                 </div>
                                             </div>
                                         </div>
-                                        @endforeach
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </div>
                                 </div>
                             </div>
@@ -262,10 +262,10 @@
                     </div>
                     <div class="card-body" style="padding: 0;">
                         <ul class="mt-2 mb-2 list-group list-group-flush">
-                            @foreach($quick_links as $key => $quick_link)
+                            <?php $__currentLoopData = $quick_links; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $quick_link): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <li class="text-start list-group-item">
-                                @if(!empty($quick_link->url))
-                                <a href="{{ str_starts_with($quick_link->url, 'http://') || str_starts_with($quick_link->url, 'https://') ? $quick_link->url : 'http://' . $quick_link->url }}"
+                                <?php if(!empty($quick_link->url)): ?>
+                                <a href="<?php echo e(str_starts_with($quick_link->url, 'http://') || str_starts_with($quick_link->url, 'https://') ? $quick_link->url : 'http://' . $quick_link->url); ?>"
                                     target="_blank" class="text-decoration-none text-primary">
                                     <span>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
@@ -275,10 +275,11 @@
                                             </path>
                                         </svg>
                                     </span>
-                                    {{ $quick_link->text }}
+                                    <?php echo e($quick_link->text); ?>
+
                                 </a>
-                                @elseif(!empty($quick_link->file))
-                                <a href="{{ asset('quick-links-files/'.$quick_link->file) }}" target="_blank"
+                                <?php elseif(!empty($quick_link->file)): ?>
+                                <a href="<?php echo e(asset('quick-links-files/'.$quick_link->file)); ?>" target="_blank"
                                     class="text-decoration-none text-primary">
                                     <span>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
@@ -288,13 +289,15 @@
                                             </path>
                                         </svg>
                                     </span>
-                                    {{ $quick_link->text }}
+                                    <?php echo e($quick_link->text); ?>
+
                                 </a>
-                                @else
-                                {{ $quick_link->text }}
-                                @endif
+                                <?php else: ?>
+                                <?php echo e($quick_link->text); ?>
+
+                                <?php endif; ?>
                             </li>
-                            @endforeach
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </ul>
 
 
@@ -334,4 +337,4 @@
     /* Ensure content stays inside the container */
 }
 </style>
-@include('user.includes.footer')
+<?php echo $__env->make('user.includes.footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\lbsnaa-website\resources\views/user/pages/home.blade.php ENDPATH**/ ?>

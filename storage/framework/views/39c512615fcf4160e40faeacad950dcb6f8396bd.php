@@ -7,17 +7,17 @@
     <meta name="author" content="Codescandy">
 
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/favicon.ico') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="<?php echo e(asset('assets/favicon.ico')); ?>">
 
     <!-- CSS Assets -->
-    <link href="{{ asset('assets/fonts/feather/feather.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/libs/bootstrap-icons/font/bootstrap-icons.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/libs/simplebar/dist/simplebar.min.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('assets/css/theme.min.css') }}">
+    <link href="<?php echo e(asset('assets/fonts/feather/feather.css')); ?>" rel="stylesheet">
+    <link href="<?php echo e(asset('assets/libs/bootstrap-icons/font/bootstrap-icons.min.css')); ?>" rel="stylesheet">
+    <link href="<?php echo e(asset('assets/libs/simplebar/dist/simplebar.min.css')); ?>" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo e(asset('assets/css/theme.min.css')); ?>">
     <link rel="canonical" href="LBSNAA">
-    <link href="{{ asset('assets/libs/tiny-slider/dist/tiny-slider.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('assets/libs/glightbox/dist/css/glightbox.min.css') }}">
-    <link rel="icon" type="image/png" href="{{ asset('admin_assets/images/favicon.ico') }}">
+    <link href="<?php echo e(asset('assets/libs/tiny-slider/dist/tiny-slider.css')); ?>" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo e(asset('assets/libs/glightbox/dist/css/glightbox.min.css')); ?>">
+    <link rel="icon" type="image/png" href="<?php echo e(asset('admin_assets/images/favicon.ico')); ?>">
 
     <title>Home | Lal Bahadur Shastri National Academy of Administration</title>
 </head>
@@ -26,15 +26,15 @@
 <header class="d-none d-lg-block sticky-top">
     <nav class="navbar navbar-expand-lg">
         <div class="container px-0">
-            <a href="{{ route('home') }}" class="d-block text-decoration-none">
-                <img src="{{ asset('admin_assets/images/logo.png') }}" alt="logo-icon" style="width: 300px;">
+            <a href="<?php echo e(route('home')); ?>" class="d-block text-decoration-none">
+                <img src="<?php echo e(asset('admin_assets/images/logo.png')); ?>" alt="logo-icon" style="width: 300px;">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-default">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbar-default">
                 <ul class="navbar-nav mx-auto">
-                    @php
+                    <?php
                     $menus = DB::table('menus')
                         ->where('menu_status', 1)
                         ->where('is_deleted', 0)
@@ -77,21 +77,23 @@
                         $output .= '</ul>';
                         return $output;
                     }
-                    @endphp
+                    ?>
 
-                    @foreach($menus as $menu)
-                    @php
+                    <?php $__currentLoopData = $menus; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $menu): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php
                     $hasChildren = DB::table('menus')->where('parent_id', $menu->id)->exists();
-                    @endphp
-                    <li class="nav-item {{ $hasChildren ? 'dropdown' : '' }}">
-                        <a class="nav-link {{ $hasChildren ? 'dropdown-toggle' : '' }}" 
-                           href="{{ $menu->menutitle == 'RTI' ? '#' : route('user.navigationpagesbyslug', $menu->menu_slug) }}" 
-                           {{ $hasChildren ? 'data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"' : '' }}>
-                            {{ $menu->menutitle }}
+                    ?>
+                    <li class="nav-item <?php echo e($hasChildren ? 'dropdown' : ''); ?>">
+                        <a class="nav-link <?php echo e($hasChildren ? 'dropdown-toggle' : ''); ?>" 
+                           href="<?php echo e($menu->menutitle == 'RTI' ? '#' : route('user.navigationpagesbyslug', $menu->menu_slug)); ?>" 
+                           <?php echo e($hasChildren ? 'data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"' : ''); ?>>
+                            <?php echo e($menu->menutitle); ?>
+
                         </a>
-                        {!! $hasChildren ? renderMenuItems($menu->id) : '' !!}
+                        <?php echo $hasChildren ? renderMenuItems($menu->id) : ''; ?>
+
                     </li>
-                    @endforeach
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </ul>
             </div>
         </div>
@@ -99,3 +101,4 @@
 </header>
 
 
+<?php /**PATH C:\xampp\htdocs\lbsnaa-website\resources\views/user/includes/header.blade.php ENDPATH**/ ?>

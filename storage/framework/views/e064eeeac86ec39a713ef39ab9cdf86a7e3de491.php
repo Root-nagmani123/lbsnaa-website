@@ -1,4 +1,4 @@
-@include('user.includes.header')
+<?php echo $__env->make('user.includes.header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
 
 
@@ -11,7 +11,7 @@
                 <nav aria-label="breadcrumb ">
                     <ol class="breadcrumb p-2">
                         <li class="breadcrumb-item">
-                            <a href="{{ route('home')}}" style="color: #af2910;">Home</a>
+                            <a href="<?php echo e(route('home')); ?>" style="color: #af2910;">Home</a>
                         </li>
                         <li class="breadcrumb-item">
                             <a href="#" style="color: #af2910;">Staff</a>
@@ -26,10 +26,10 @@
             <div class="d-flex justify-content-between align-items-center pb-20 mb-20 mb-2">
                     <h3 class="fw-semibold fs-18 mb-0">Staff</h3>
                     <div class="contsearch">
-                <form id="form2" action="{{ url()->current() }}" method="GET">
+                <form id="form2" action="<?php echo e(url()->current()); ?>" method="GET">
                     <fieldset>
                         <label for="keywords">
-                            <input type="text" id="Keywords" name="keywords" value="{{ request('keywords') }}"
+                            <input type="text" id="Keywords" name="keywords" value="<?php echo e(request('keywords')); ?>"
                                 placeholder="Search Staff" fdprocessedid="79mcc" class="form-control form-control-sm">
                         </label>
 
@@ -57,22 +57,22 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            @if(count($staff) > 0)
-                    @foreach($staff as $key => $value)
+                            <?php if(count($staff) > 0): ?>
+                    <?php $__currentLoopData = $staff; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $value->name }}</td>
-                        <td>{{ $value->designation }}</td>
-                        <td>{{ $value->email }}</td>
-                        <td>{{ $value->mobile }}</td>
-                        <td>{{ $value->phone_internal_residence }}</td>
+                        <td><?php echo e($loop->iteration); ?></td>
+                        <td><?php echo e($value->name); ?></td>
+                        <td><?php echo e($value->designation); ?></td>
+                        <td><?php echo e($value->email); ?></td>
+                        <td><?php echo e($value->mobile); ?></td>
+                        <td><?php echo e($value->phone_internal_residence); ?></td>
                     </tr>
-                    @endforeach
-                    @else
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    <?php else: ?>
                     <tr>
                         <td colspan="5" class="text-center">No records found</td>
                     </tr>
-                    @endif
+                    <?php endif; ?>
                             </tbody>
                         </table>
                     </div>
@@ -86,4 +86,4 @@
 
 
 
-@include('user.includes.footer')
+<?php echo $__env->make('user.includes.footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\lbsnaa-website\resources\views/user/pages/staff.blade.php ENDPATH**/ ?>
