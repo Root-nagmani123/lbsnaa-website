@@ -72,9 +72,9 @@
                     <div class="card card-lift">
                       <a href="#!">
                       @if ($faculty_members != null )
-                      <img src="{{ asset($faculty_members->image) }}" alt="figma" class="img-" style="margin: auto; object-fit: cover; height: 300px !important;">
+                      <img src="{{ asset($faculty_members->image) }}" alt="figma" class="img-fluid" style="margin: auto; object-fit: cover; height: 300px !important;">
                       @else 
-                        <img src="{{ asset('assets/images/icons/4.jpg') }}" alt="figma" class="img-fluid" style="margin: auto; object-fit: cover">
+                        <img src="{{ asset('assets/images/icons/1.jpg') }}" alt="figma" class="img-fluid" style="margin: auto; object-fit: cover">
                         @endif
                       </a>
                       <div class="card-body d-flex flex-column gap-4" style="height:250px; overflow:hidden;">
@@ -91,7 +91,7 @@
                   <div class="col-xl-4 col-md-6 col-12">
                     <div class="card card-lift">
                       <a href="#!">
-                        <img src="{{ asset('assets/images/icons/2.jpg') }}" alt="figma" class="img-fluid" style="margin: auto; object-fit: cover">
+                        <img src="{{ asset('assets/images/icons/3.jpg') }}" alt="figma" class="img-fluid" style="margin: auto; object-fit: cover">
                       </a>
                       <div class="card-body d-flex flex-column gap-4" style="height:250px; overflow:scroll;">
                         <div class="d-flex flex-column gap-2">
@@ -119,7 +119,7 @@
                   <div class="col-xl-4 col-md-6 col-12">
                     <div class="card card-lift">
                       <a href="#!">
-                        <img src="{{ asset('assets/images/icons/3.jpg') }}" alt="figma" class="img-fluid" style="margin: auto; object-fit: cover">
+                        <img src="{{ asset('assets/images/icons/4.jpg') }}" alt="figma" class="img-fluid" style="margin: auto; object-fit: cover">
                       </a>
                       <div class="card-body d-flex flex-column gap-4" style="height:250px; overflow-y:scroll;">
                         <div class="d-flex flex-column gap-2">
@@ -145,7 +145,7 @@
                     <div class="card card-lift">
                       <a href="#!">
                      
-                        <img src="{{ asset('assets/images/icons/4.jpg') }}" alt="figma" class="img-fluid" style="margin: auto; object-fit: cover">
+                        <img src="{{ asset('assets/images/icons/2.jpg') }}" alt="figma" class="img-fluid" style="margin: auto; object-fit: cover">
                      
                       </a>
                       <div class="card-body d-flex flex-column gap-4" style="height:250px; overflow:hidden;">
@@ -225,7 +225,7 @@
                                     <div class="sliderTestimonialFourth tns-slider tns-carousel tns-subpixel tns-calc tns-horizontal"
                                         id="tns1">
                                         @foreach($news as $slider)
-                                        <div class="item tns-item">
+                                        <div class="item tns-item cars-deck">
                                             <!-- Card -->
                                             <div class="card mb-4 shadow-lg card-lift">
                                                 <div class="card-header" style="border:none;padding:0;">
@@ -246,8 +246,14 @@
                                                     <!-- Media content -->
                                                 </div>
                                                 <div class="card-footer" style="border-top:none;">
-                                                    <a href="{{ route('user.newsbyslug', $slider->title_slug) }}"
-                                                        class="text-inherit text-primary">Read More</a>
+                                                        <a href="{{ route('user.newsbyslug', $slider->title_slug) }}" class="icon-link icon-link-hover link-primary fw-semibold">
+                              <span>Read More</span>
+
+                              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8">
+                                </path>
+                              </svg>
+                            </a>
                                                 </div>
                                             </div>
                                         </div>
@@ -345,6 +351,11 @@
 .overflow-hidden {
     overflow: hidden;
     /* Ensure content stays inside the container */
+}
+.card-deck {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
 }
 </style>
 @include('user.includes.footer')

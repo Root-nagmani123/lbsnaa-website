@@ -29,7 +29,7 @@
                     @include('admin.manage_tender.form')
                     <div class="d-flex ms-sm-3 ms-md-0">
                         <button class="btn btn-success text-white fw-semibold" type="submit">Submit</button>&nbsp;
-                        <a href="{{ route('manage_tender.index') }}" class="btn btn-primary text-white fw-semibold">Cancel</a>
+                        <a href="{{ route('manage_tender.index') }}" class="btn btn-secondary text-white fw-semibold">Back</a>
                     </div>
                 </form>
             </div>

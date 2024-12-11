@@ -78,7 +78,7 @@
                             <td>{{ ($tender->language == 1) ? 'English' : 'Hindi' }}</td>
                             <td>
                                 <button type="button"
-                                    class="btn btn-outline-primary text-primary fw-semibold btn-sm view-slider"
+                                    class="btn btn-outline-primary fw-semibold btn-sm view-slider"
                                     data-bs-toggle="modal" data-bs-target="#staticBackdrop"
 
                                     data-title="{{ $tender->title }}"
