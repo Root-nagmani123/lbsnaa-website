@@ -24,7 +24,7 @@
 <div class="container my-4">
     <div class="row g-4">
         @foreach ($videos as $video)
-        <div class="col-md-6 col-sm-12 d-flex align-items-stretch">
+        <div class="col-md-4 col-sm-12 d-flex align-items-stretch">
             <!-- Bootstrap Card -->
             <div class="card h-100 shadow-sm">
                 <!-- Card Image -->
