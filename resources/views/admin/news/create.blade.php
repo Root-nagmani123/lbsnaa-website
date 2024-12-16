@@ -142,20 +142,17 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <!-- <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label for="multiple_images" class="label">Upload Multiple Image</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="file" name="multiple_images[]" id="multiple_images"
                                         class="form-control text-dark ps-5 h-58" multiple>
-                                        @error('multiple_images')
-                                        <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                    @enderror
                                 </div>
 
                             </div>
-                        </div>
+                        </div> -->
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label for="start_date" class="label">Start Date</label>

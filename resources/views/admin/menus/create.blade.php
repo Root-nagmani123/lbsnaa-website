@@ -80,19 +80,6 @@
                         </div>
                         <div id="content-field" style="display: none;">
                             <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="form-group mb-4">
-                                        <label class="label" for="content">Content :</label>
-                                        <span class="star">*</span>
-                                        <div class="form-group position-relative">
-                                            <textarea class="form-control ps-5 text-dark" rows="5" name="content"
-                                                id="content"></textarea>
-                                            @error('content')
-                                                <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="row mt-4">
                                     <div class="col-lg-6">
                                         <div class="form-group mb-4">
@@ -118,6 +105,19 @@
                                                         <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
                                                     @enderror
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group mb-4">
+                                        <label class="label" for="content">Description :</label>
+                                        <span class="star">*</span>
+                                        <div class="form-group position-relative">
+                                            <textarea class="form-control ps-5 text-dark" rows="5" name="content"
+                                                id="content"></textarea>
+                                            @error('content')
+                                                <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
