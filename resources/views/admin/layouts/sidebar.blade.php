@@ -235,6 +235,12 @@
                     </a>
                 </li>
                 <li class="menu-item">
+                    <a href="{{ route('admin.feedback_list') }}" class="menu-link">
+                    <i class="material-icons menu-icon">person</i>
+                        <span class="title">Feedback List</span>
+                    </a>
+                </li>
+                <li class="menu-item">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="material-icons menu-icon">mediation</i>
                         <span class="title">Manage Media Center</span>

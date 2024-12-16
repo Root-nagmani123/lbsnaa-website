@@ -94,7 +94,12 @@ class HomeFrontController extends Controller
             $staff = $query->get();
 
          return view('user.pages.staff', compact('staff'));
+        }elseif ($slug == 'organization') {
+            // echo 'joining';die;
+           return redirect('organization');
+        
         }
+
         $breadcrumb = $this->generateBreadcrumb($slug);
        
         $nav_page =  DB::table('menus')->where('menu_status',1)->where('is_deleted',0)->where('menu_slug',$slug)->first();
@@ -106,6 +111,9 @@ class HomeFrontController extends Controller
         return view('user.pages.navigationpagesbyslug', compact('nav_page','breadcrumb','director_img'));
     }
     function footer_menu($slug){
+        if($slug == 'feedback'){
+            return view('user.pages.feedback');
+        }
         $nav_page =  DB::table('menus')->where('menu_status',1)->where('is_deleted',0)->where('menu_slug',$slug)->first();
         return view('user.pages.footer_details_page', compact('nav_page'));
     }
@@ -309,6 +317,176 @@ public function souvenir(Request $request)
     // Return to view
     return view('user.pages.souvenir_list', compact('categories', 'souvenir'));
 }
+function rti_main_page(Request $request) {
+    $slug = 'rti';
+
+    // Generate breadcrumb
+    $breadcrumb = $this->generateBreadcrumb($slug);
+       
+    // Fetch navigation page
+    $nav_page = DB::table('menus')
+        ->where('menu_status', 1)
+        ->where('is_deleted', 0)
+        ->where('menu_slug', $slug)
+        ->first();
+
+    // Get menu items
+    $menuItems = $this->getMenuHierarchy($parentId = 0,$slug);
+    // dd($menuItems);
+    // print_r($menuItems);  // Shows the structure of $menuItems collection
+    // die();  // Stop the script for debugging
+
+    return view('user.pages.rti_page', compact('menuItems', 'nav_page', 'breadcrumb'));
+}
+
+
+
+private function getMenuHierarchy($parentId = 0, $slug = null) {
+    // echo $slug;die;
+    $query = DB::table('menus')
+        ->where('menu_status', 1)
+        ->where('is_deleted', 0)
+        ->where('parent_id', $parentId);
+
+    if ($slug !== null) {
+        $query->where('menu_slug', $slug);
+    }
+
+    $menus = $query->orderBy('id')->get();
+
+    foreach ($menus as $menu) {
+        $menu->children = $this->getMenuHierarchy($menu->id); // Recursive call without slug
+    }
+
+    return $menus;
+}
+
+function get_rti_page_details(Request $request,$slug){
+    $breadcrumb = $this->generateBreadcrumb($slug);
+       
+    // Fetch navigation page
+    $nav_page = DB::table('menus')
+        ->where('menu_status', 1)
+        ->where('is_deleted', 0)
+        ->where('menu_slug', $slug)
+        ->first();
+
+    // Get menu items
+    $menuItems = $this->getMenuHierarchy($nav_page->parent_id,$slug);
+    // dd($menuItems);
+    // print_r($menuItems);  // Shows the structure of $menuItems collection
+    // die();  // Stop the script for debugging
+
+    return view('user.pages.rti_page', compact('menuItems', 'nav_page', 'breadcrumb'));
+}
+function feedback(Request $request){
+    return view('user.pages.feedback');
+}
+
+    public function storeFeedback(Request $request)
+    {
+        // Validate the request
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'mobile' => 'required|regex:/^[6-9]\d{9}$/',
+            'email' => 'required|email|max:255',
+            'category' => 'required|integer',
+            'comments' => 'required|string|max:500',
+        ]);
+
+        // Use Query Builder to insert the data
+        DB::table('feedback')->insert([
+            'name' => $validated['name'],
+            'mobile' => $validated['mobile'],
+            'email' => $validated['email'],
+            'category' => $validated['category'],
+            'comments' => $validated['comments'],
+            'created_at' => now(),
+        ]);
+
+        // Redirect with success message
+        return redirect()->back()->with('success', 'Feedback submitted successfully!');
+    }
+function mediagallery(){
+    return view('user.pages.mediagallery');
+}
+function photogallery(Request $request){
+    $keywords = $request->input('keywords');
+    $category = $request->input('txtcategory');
+    $year = $request->input('year');
+
+    $media_cat = DB::table('manage_media_categories')
+        ->when($keywords, function ($query, $keywords) {
+            return $query->where('name', 'LIKE', '%' . $keywords . '%');
+        })
+        ->when($category, function ($query, $category) {
+            return $query->where('id', $category);
+        })
+        ->when($year, function ($query, $year) {
+            return $query->whereYear('created_at', $year);
+        })
+        ->where('media_gallery', 'Photo Gallery')
+        ->get();
+
+    return view('user.pages.photogallery', compact('media_cat'));
+}
+function view_all_photogallery(Request $request){
+    
+    $catid = $request->input('glrid');
+
+    $media_d = DB::table('manage_photo_galleries')
+    ->leftjoin('manage_media_categories', 'manage_photo_galleries.media_categories', '=', 'manage_media_categories.id')
+        ->where('media_categories', $catid)
+        ->where('manage_photo_galleries.status', 1)
+        ->select('manage_photo_galleries.id','manage_photo_galleries.image_title_english','manage_photo_galleries.image_files','manage_media_categories.name')
+        ->get();
+    return view('user.pages.all_photogallery', compact('media_d'));
+}
+public function organization(Request $request)
+{
+    // Fetch organization chart with faculty designations
+    $orgChart = DB::table('organisation_chart')
+        ->leftJoin('faculty_members as faculty', 'organisation_chart.faculty_id', '=', 'faculty.id')
+        ->select(
+            'organisation_chart.id',
+            'organisation_chart.employee_name',
+            'organisation_chart.parent_id',
+            'faculty.designation as designation' // Fetch designation from faculty_members table
+        )
+        ->where('organisation_chart.status', 1)
+
+        ->orderBy('organisation_chart.id')
+
+        ->get();
+
+    // Convert to an array for recursive manipulation
+    $orgChart = $orgChart->toArray();
+
+    // Build a hierarchy using a recursive function
+    $hierarchy = $this->buildHierarchy($orgChart);
+// print_r($hierarchy);die;
+    return view('user.pages.organization', compact('hierarchy'));
+}
+
+// Recursive function to build the hierarchy
+private function buildHierarchy($elements, $parentId = null)
+{
+    $branch = [];
+
+    foreach ($elements as $element) {
+        if ($element->parent_id == $parentId) {
+            // Recursively fetch children
+            $children = $this->buildHierarchy($elements, $element->id);
+            if ($children) {
+                $element->children = $children;
+            }
+            $branch[] = $element;
+        }
+    }
+
+    return $branch;
+}
+
 
 
 
