@@ -96,8 +96,16 @@ Route::get('/vacancy', [HomeFrontController::class, 'vacancy'])->name('user.vaca
 Route::get('/cms/training_cal', [HomeFrontController::class, 'training_cal'])->name('user.training_cal');
 Route::get('/course_listing/{slug}', [HomeFrontController::class, 'get_course_list_pages'])->name('user.courseslug');
 Route::get('/course_full_destails/{slug}', [HomeFrontController::class, 'get_course_details_pages'])->name('user.courseDetailslug');
+Route::get('/rti', [HomeFrontController::class, 'rti_main_page'])->name('user.get_rti_page');
+Route::get('/rti/{slug}', [HomeFrontController::class, 'get_rti_page_details'])->name('user.get_rti_page_details');
 
 Route::get('/souvenir', [HomeFrontController::class, 'souvenir'])->name('user.souvenir');
+Route::get('/feedback', [HomeFrontController::class, 'feedback'])->name('user.feedback');
+Route::get('/mediagallery', [HomeFrontController::class, 'mediagallery'])->name('user.mediagallery');
+Route::get('/photogallery', [HomeFrontController::class, 'photogallery'])->name('user.photogallery');
+Route::get('/view_all_photogallery', [HomeFrontController::class, 'view_all_photogallery'])->name('user.view_all_photogallery');
+Route::get('/organization', [HomeFrontController::class, 'organization'])->name('user.organization');
+Route::POST('/feedback_store', [HomeFrontController::class, 'storeFeedback'])->name('feedback.store');
 
 
 //micro 
@@ -133,6 +141,9 @@ Route::get('/lbsnaa-sub/video-gallery', [HomePagesMicroController::class, 'video
 Route::middleware('auth')->group(function () {
     Route::get('/admin', [Controller::class, 'index'])->name('admin.index');
 });
+
+Route::get('/admin/feedback-list', [MenuController::class, 'feedback_list'])->name('admin.feedback_list');
+
 
 Route::get('/admin/menu', [MenuController::class, 'index'])->name('admin.menus.index');
 Route::get('/admin/menu/create', [MenuController::class, 'create'])->name('admin.menus.create');
