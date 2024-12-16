@@ -74,7 +74,7 @@ class SocialmediaController extends Controller
             'IP_Address' => $request->ip(), // Get IP address from request
         ]);
 
-        return redirect()->route('socialmedia.index')->with('success', 'Social Media added successfully');
+        return redirect()->route('socialmedia.index')->with('success', 'Social Media Updated successfully');
 
     }
 }

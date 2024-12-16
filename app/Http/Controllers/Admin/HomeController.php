@@ -7,6 +7,7 @@ use App\Models\Admin\Slider;
 use App\Models\Admin\HomeFooterImage;
 use App\Models\Admin\QuickLink;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\Admin\ManageAudit;
 use Illuminate\Support\Facades\Auth;
@@ -26,26 +27,33 @@ class HomeController extends Controller
         return view('admin.home.slider_create');
     }
 
-    // Store a newly created slider in the database
+
     public function slider_store(Request $request)
     {
-        // $request->validate([
-        //     'image' => 'required|image|mimes:jpeg,png,jpg,gif',
-        //     'text' => 'required',
-        //     'description' => 'required',
-        // ]);
+        $request->validate([
+            'language' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif',
+            'text' => 'required',
+            'description' => 'required',
+            'status' => 'required|in:0,1', // Status should be either 0 or 1
+        ]);
+
+        // Default value for 'language' if it's not provided
+        // $language = $request->language ?? '1';
 
         // Save image
         $imageName = time() . '.' . $request->image->extension();
         $request->image->move(public_path('slider-images'), $imageName);
 
-        // Create slider
-        Slider::create([
+        // Insert the validated data into the database
+        DB::table('sliders')->insert([
+            'language' => $request['language'],
             'image' => $imageName,
-            'text' => $request->text,
-            'description' => $request->description,
-            'status' => $request->status ?? 0,
-            'is_deleted' => 0
+            'text' => $request['text'] ?? '', // Default to empty string if color_theme is not provided
+            'is_deleted' => 0, // Default to 0 if parent_id is not provided
+            'description' => $request['description'] ?? '', // Default to empty string if description is not provided
+            'status' => $request['status'],
+            
         ]);
 
         ManageAudit::create([
@@ -60,6 +68,7 @@ class HomeController extends Controller
         return redirect()->route('admin.slider_list')->with('success', 'Slider created successfully.');
     }
 
+
     // Show the form for editing an existing slider
     public function slider_edit($id)
     {
@@ -70,11 +79,13 @@ class HomeController extends Controller
     // Update an existing slider in the database
     public function slider_update(Request $request, $id)
     {
-        // $request->validate([
-        //     'image' => 'image|mimes:jpeg,png,jpg,gif',
-        //     'text' => 'required',
-        //     'description' => 'required',
-        // ]);
+        $request->validate([
+            'language' => 'required',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif',
+            'text' => 'required',
+            'description' => 'required',
+            'status' => 'required|in:0,1', // Status should be either 0 or 1
+        ]);
 
         $slider = Slider::findOrFail($id);
 
@@ -86,9 +97,11 @@ class HomeController extends Controller
         }
 
         // Update slider data
+        $slider->language = $request->language;
         $slider->text = $request->text;
         $slider->description = $request->description;
         $slider->status = $request->status ?? 0;
+
         $slider->save();
 
         ManageAudit::create([
@@ -137,9 +150,11 @@ public function footer_image_create()
 // Store a newly created footer image in the database
 public function footer_image_store(Request $request)
 {
-    // $request->validate([
-    //     'image' => 'required|image|mimes:jpeg,png,jpg,gif',
-    // ]);
+    $request->validate([
+        'language' => 'required',
+        'image' => 'required|image|mimes:jpeg,png,jpg,gif',
+        'status' => 'required|in:0,1',
+    ]);
 
     // Save image
     $imageName = time() . '.' . $request->image->extension();
@@ -205,15 +220,27 @@ public function footer_image_update(Request $request, $id)
     return redirect()->route('admin.footer_images.index')->with('success', 'Footer image updated successfully.');
 }
 
-// Soft delete a footer image (setting deleted_on)
+
 public function footer_image_destroy($id)
 {
+    // Find the footer image by ID or fail if not found
     $footerImage = HomeFooterImage::findOrFail($id);
+
+    // Check if the status is 1 (Inactive), and prevent deletion
+    if ($footerImage->status == 1) {
+        return redirect()->route('admin.footer_images.index')
+            ->with('error', 'Inactive footer images cannot be deleted.');
+    }
+
+    // Perform a soft delete by marking it with the current timestamp
     $footerImage->deleted_on = now();
     $footerImage->save();
 
-    return redirect()->route('admin.footer_images.index')->with('success', 'Footer image deleted successfully.');
+    // Redirect back with a success message
+    return redirect()->route('admin.footer_images.index')
+        ->with('success', 'Footer image deleted successfully.');
 }
+
 public function footer_images_status_update(Request $request, $id)
 {
     $slider = HomeFooterImage::findOrFail($id);

@@ -31,7 +31,17 @@
                 </button>
             </a>
         </div>
-              <div class="default-table-area members-list">
+
+        @if (session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
+        @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+        @endif
+
+        <div class="default-table-area members-list">
             <div class="table-responsive">
                 <table class="table align-middle" id="myTable">
                     <thead>
@@ -45,25 +55,29 @@
                         </tr>
                     </thead>
                     <tbody>
-                    @foreach ($researchCentres as $centre)
-                <tr>
-                    <td>{{ $loop->iteration }}</td>
-                <td>{{ $centre->language == 1 ? 'English' : 'Hindi' }}</td>
-                <td>{{ $centre->research_centre_name }}</td>
-                <td>{{ $centre->description }}</td>
+                        @foreach ($researchCentres as $centre)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $centre->language == 1 ? 'English' : 'Hindi' }}</td>
+                            <td>{{ $centre->research_centre_name }}</td>
+                            <td>{{ $centre->description }}</td>
                             <td>
                                 <a href="{{ route('researchcentres.edit', $centre->id) }}"
                                     class="btn bg-success text-white btn-sm">Edit</a>
                                 <form action="{{ route('researchcentres.destroy', $centre->id) }}" method="POST"
                                     style="display:inline;">
                                     @csrf
-                                    <button type="submit" class="btn btn-sm btn-primary text-white" onclick="return confirm('Are you sure?')">Delete</button>
+                                    <button type="submit" class="btn btn-sm btn-primary text-white"
+                                        onclick="return confirm('Are you sure?')">Delete</button>
                                 </form>
                             </td>
-                            <td><div class="form-check form-switch">
-            <input class="form-check-input status-toggle" type="checkbox" role="switch"  data-table="research_centres" 
-            data-column="status" data-id="{{$centre->id}}" {{$centre->status ? 'checked' : ''}}>
-          </div></td>
+                            <td>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input status-toggle" type="checkbox" role="switch"
+                                        data-table="research_centres" data-column="status" data-id="{{$centre->id}}"
+                                        {{$centre->status ? 'checked' : ''}}>
+                                </div>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>

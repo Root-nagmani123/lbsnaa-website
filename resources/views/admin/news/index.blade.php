@@ -145,61 +145,6 @@
 
 @endsection
 
-
-<!-- <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const viewButtons = document.querySelectorAll('.view-slider');
-        const modalTitle = document.getElementById('staticBackdropLabel');
-        const modalBody = document.querySelector('.modal-body');
-
-        viewButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                // Extract data from the button
-                const title = this.dataset.title || 'N/A';
-                const meta_title = this.dataset.meta_title || 'N/A';
-                const meta_keywords = this.dataset.meta_keywords || 'N/A';
-                const meta_description = this.dataset.meta_description || 'N/A';
-                const short_description = this.dataset.short_description || 'N/A';
-                const start_date = this.dataset.start_date || 'N/A';
-                const end_date = this.dataset.end_date || 'N/A';
-                const main_image = this.dataset.main_image;
-                const multiple_images = this.dataset.multiple_images || '';
-                const language = this.dataset.language || 'N/A';
-
-                // Parse multiple images
-                let imagesHTML = '';
-                if (multiple_images) {
-                    const images = multiple_images.split(','); // Assuming images are comma-separated
-                    images.forEach(image => {
-                        const trimmedImage = image.trim(); // Remove any extra spaces
-                        imagesHTML += `<img src="${trimmedImage}" alt="Image" style="max-width: 100px; margin: 5px;">`;
-                    });
-                }
-
-                // Debug: Log the parsed images array
-                console.log('Parsed Images:', multiple_images.split(',').map(img => img.trim()));
-
-                // Update modal content
-                modalTitle.textContent = 'News Details';
-                modalBody.innerHTML = `
-                    <div>
-                        <p><strong>Title:</strong> ${title}</p>
-                        <p><strong>Meta Title:</strong> ${meta_title}</p>
-                        <p><strong>Meta Keywords:</strong> ${meta_keywords}</p>
-                        <p><strong>Meta Description:</strong> ${meta_description}</p>
-                        <p><strong>Short Description:</strong> ${short_description}</p>
-                        <p><strong>Start Date:</strong> ${start_date}</p>
-                        <p><strong>End Date:</strong> ${end_date}</p>
-                        <p><strong>Language:</strong> ${language}</p>
-                        <p><strong>Main Image:</strong> <img src="${main_image}" alt="Main Image" style="max-width: 200px;"></p>
-                        <p><strong>Multiple Images:</strong></p>
-                        <div>${imagesHTML}</div>
-                    </div>`;
-            });
-        });
-    });
-</script> -->
-
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const viewButtons = document.querySelectorAll('.view-slider');

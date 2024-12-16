@@ -174,28 +174,32 @@
 
 
                         <div class="col-lg-6">
-    <div class="form-group mb-4">
-        <label class="label">Image Files:</label>
-        <div class="form-group position-relative">
-            <input type="file" name="image_files[]" class="form-control text-dark ps-5 h-58" accept="image/*">
-            <button type="button" class="btn btn-outline-danger text-danger remove-file mt-2" style="display: none;">Remove</button>
-        </div>
-    </div>
-    <button type="button" class="btn btn-secondary text-white mt-2" id="add-file">Add More</button>
-    <div id="file-container"></div>
+                            <div class="form-group mb-4">
+                                <label class="label">Image Files:</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="file" name="image_files[]" class="form-control text-dark ps-5 h-58" accept="image/*">
+                                    @error('image_files')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                    <button type="button" class="btn btn-outline-danger text-danger remove-file mt-2" style="display: none;">Remove</button>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-secondary text-white mt-2" id="add-file">Add More</button>
+                            <div id="file-container"></div>
 
-    <!-- If there are any files uploaded previously, show them -->
-    @if (old('image_files'))
-        <div class="uploaded-files">
-            @foreach(old('image_files') as $file)
-                <div class="file-preview">
-                    <img src="{{ asset('storage/'.$file) }}" alt="Uploaded Image" class="img-thumbnail" width="100">
-                    <button type="button" class="btn btn-outline-danger text-danger remove-file mt-2">Remove</button>
-                </div>
-            @endforeach
-        </div>
-    @endif
-</div>
+                            <!-- If there are any files uploaded previously, show them -->
+                            @if (old('image_files'))
+                                <div class="uploaded-files">
+                                    @foreach(old('image_files') as $file)
+                                        <div class="file-preview">
+                                            <img src="{{ asset('storage/'.$file) }}" alt="Uploaded Image" class="img-thumbnail" width="100">
+                                            <button type="button" class="btn btn-outline-danger text-danger remove-file mt-2">Remove</button>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @endif
+                        </div>
 
 
 
@@ -217,7 +221,7 @@
                         </div>
                         <div class="d-flex ms-sm-3 ms-md-0 mt-4">
                             <button class="btn btn-success text-white fw-semibold" type="submit">Submit</button> &nbsp;
-                            <a href="{{ route('photo-gallery.index') }}" class="btn btn-secondary text-white">Cancel</a>
+                            <a href="{{ route('photo-gallery.index') }}" class="btn btn-secondary text-white">Back</a>
                         </div>
                     </div>
                 </form>

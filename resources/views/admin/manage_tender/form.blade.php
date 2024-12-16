@@ -42,6 +42,7 @@
     <div class="col-lg-12">
         <div class="form-group mb-4">
             <label class="label">Title:</label>
+            <span class="star">*</span>
             <div class="form-group positive-relative">
                 <input type="text" name="title" class="form-control"
                     value="{{ old('title', $manageTender->title ?? '') }}">
@@ -55,6 +56,7 @@
     <div class="col-lg-12">
         <div class="form-group mb-4">
             <label class="label">Description:</label>
+            <span class="star">*</span>
             <div class="form-group position-relative">
                 <textarea class="form-control" id="description" placeholder="Enter the Description" name="description"
                     rows="5">{{ old('description', $manageTender->description ?? '') ?? '' }}</textarea>
@@ -64,33 +66,6 @@
             @enderror
         </div>
     </div>
-
-    <!-- <div class="col-lg-6">
-        <div class="form-group mb-4">
-            <label class="label">Upload File (PDF, PNG, JPG):</label>
-            <span class="star">*</span>
-            <div class="form-group position-relative">
-                <input type="file" name="file" class="form-control">
-            </div>
-
-            @if(isset($manageTender->file))
-            <div class="mt-2">
-                @if(in_array(pathinfo($manageTender->file, PATHINFO_EXTENSION), ['jpg', 'png', 'jpeg']))
-                <label>Current File (Image):</label><br>
-                <img src="{{ asset('storage/uploads/' . $manageTender->file) }}" alt="Uploaded Image"
-                    style="width: 150px; height: auto;">
-                @elseif(pathinfo($manageTender->file, PATHINFO_EXTENSION) == 'pdf')
-                <label>Current File (PDF):</label><br>
-                <a href="{{ asset('storage/uploads/' . $manageTender->file) }}" target="_blank">View PDF</a>
-                @endif
-            </div>
-            @endif
-
-            @error('file')
-            <div class="text-danger">{{ $message }}</div>
-            @enderror
-        </div>
-    </div> -->
 
     <div class="col-lg-6">
         <div class="form-group mb-4">
@@ -116,13 +91,15 @@
     </div>
 
 
+
     <div class="col-lg-6">
         <div class="form-group mb-4">
-            <label class="label">Publish Date:</label>
+            <label class="label">Publish Date & Time:</label>
             <span class="star">*</span>
             <div class="form-group position-relative">
-                <input type="date" name="publish_date" class="form-control"
-                    value="{{ old('publish_date', $manageTender->publish_date ?? '') }}">
+                <input type="datetime-local" id="publish_date" name="publish_date" class="form-control"
+                    value="{{ old('publish_date', isset($manageTender->publish_date) ? date('Y-m-d\TH:i', strtotime($manageTender->publish_date)) : '') }}"
+                    min="{{ now()->format('Y-m-d\TH:i') }}">
             </div>
             @error('publish_date')
             <div class="text-danger">{{ $message }}</div>
@@ -132,17 +109,20 @@
 
     <div class="col-lg-6">
         <div class="form-group mb-4">
-            <label class="label">Expiry Date:</label>
+            <label class="label">Expiry Date & Time:</label>
             <span class="star">*</span>
             <div class="form-group position-relative">
-                <input type="date" name="expiry_date" class="form-control"
-                    value="{{ old('expiry_date', $manageTender->expiry_date ?? '') }}">
+                <input type="datetime-local" id="expiry_date" name="expiry_date" class="form-control"
+                    value="{{ old('expiry_date', isset($manageTender->expiry_date) ? date('Y-m-d\TH:i', strtotime($manageTender->expiry_date)) : '') }}"
+                    min="{{ now()->format('Y-m-d\TH:i') }}">
             </div>
             @error('expiry_date')
             <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
     </div>
+
+
 
     <div class="col-lg-6">
         <div class="form-group mb-4">
@@ -164,3 +144,35 @@
     </div>
 
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const publishDateInput = document.getElementById('publish_date');
+    const expiryDateInput = document.getElementById('expiry_date');
+    const now = new Date().toISOString().slice(0, 16); // Get current datetime in YYYY-MM-DDTHH:mm format
+
+    // Set the minimum date to prevent selecting past dates
+    publishDateInput.setAttribute('min', now);
+    expiryDateInput.setAttribute('min', now);
+
+    // Ensure expiry date is always after or equal to publish date
+    publishDateInput.addEventListener('change', function() {
+        const publishDate = publishDateInput.value;
+        if (publishDate) {
+            // Set expiry_date min to publish_date value
+            expiryDateInput.setAttribute('min', publishDate);
+        } else {
+            // Reset to current date if publish date is cleared
+            expiryDateInput.setAttribute('min', now);
+        }
+    });
+
+    // Ensure users cannot set old dates manually in publish_date field
+    publishDateInput.addEventListener('blur', function() {
+        if (publishDateInput.value < now) {
+            alert("Publish date cannot be in the past!");
+            publishDateInput.value = now; // Reset to current date
+        }
+    });
+});
+</script>

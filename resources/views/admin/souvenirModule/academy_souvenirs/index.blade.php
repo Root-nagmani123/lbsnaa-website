@@ -42,10 +42,10 @@
                     <thead>
                         <tr class="text-center">
                             <th class="col">#</th>
-                            <th class="col">Language</th>
-                            <th class="col">Product Category</th>
                             <th class="col">Product Title</th>
+                            <th class="col">Product Category</th>
                             <th class="col">Product Type</th>
+                            <th class="col">Language</th>
                             <th class="col">Option</th>
                             <th class="col">Actions</th>
                             <th class="col">Status</th>
@@ -55,10 +55,10 @@
                         @foreach($souvenirs as $souvenir)
                         <tr>
                             <td>{{ $loop->iteration }}</td> <!-- Auto-incrementing index -->
-                            <td>{{ $souvenir->language == 1 ? 'English' : 'Hindi' }}</td>
-                            <td>{{ $souvenir->product_category }}</td>
                             <td>{{ $souvenir->product_title }}</td>
+                            <td>{{ $souvenir->product_category }}</td>
                             <td>{{ $souvenir->product_type }}</td>
+                            <td>{{ $souvenir->language == 1 ? 'English' : 'Hindi' }}</td>
                             <td>
                                 <button type="button"
                                     class="btn btn-outline-primary text-primary fw-semibold btn-sm view-slider"
@@ -70,8 +70,8 @@
                                     data-product_price="{{ $souvenir->product_price }}"
                                     data-product_discounted_price="{{ $souvenir->product_discounted_price }}"
                                     data-contact_email_id="{{ $souvenir->contact_email_id }}"
-                                    data-document_upload="{{ asset( $souvenir->document_upload) }}"
-                                    data-upload_image="{{ asset($souvenir->upload_image) }}"
+                                    data-document_upload="{{ asset('AcademySouvenir/documents/' . $souvenir->document_upload) }}"
+                                    data-upload_image="{{ asset('AcademySouvenir/images/' . $souvenir->upload_image) }}"
                                     data-product_description="{{ $souvenir->product_description }}"
                                     data-product_status="{{ $souvenir->product_status }}"
                                     data-language="{{ $souvenir->language == 1 ? 'English' : 'Hindi' }}">
@@ -185,7 +185,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     <p><strong>Product Status:</strong> ${product_status}</p>
                     <p><strong>Language:</strong> ${language}</p>
                     <p><strong>Document Upload:</strong></p>
-                    ${document_upload ? `<img src="${document_upload}" alt="Document Upload" style="max-width: 100%; height: auto;">` : '<p>No document uploaded</p>'}
+                    <a href="{{ asset('AcademySouvenir/documents/' . $souvenir->document_upload) }}" target="_blank">
+                        View Document
+                    </a>
+                    
                     <p><strong>Upload Image:</strong></p>
                     ${upload_image ? `<img src="${upload_image}" alt="Uploaded Image" style="max-width: 100%; height: auto;">` : '<p>No image uploaded</p>'}
                 </div>`;

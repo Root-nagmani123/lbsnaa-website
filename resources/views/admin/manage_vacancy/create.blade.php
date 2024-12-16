@@ -101,7 +101,6 @@
                         <div class="col-lg-6" id="document_upload" style="display:none;">
                             <div class="form-group mb-4">
                                 <label class="label" for="document_upload">Document Upload :</label>
-                                <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="file" class="form-control text-dark ps-5 h-58" name="document_upload"
                                         id="document_upload"  value="{{ old('document_upload') }}">
@@ -115,7 +114,6 @@
                         <div class="col-lg-6" id="website_link" style="display:none;">
                             <div class="form-group mb-4">
                                 <label class="label" for="website_link">Website Link :</label>
-                                <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="url" class="form-control text-dark ps-5 h-58" name="website_link"
                                         id="website_link"   value="{{ old('website_link') }}">
@@ -174,7 +172,7 @@
                         <div class="d-flex ms-sm-3 ms-md-0">
                             <button class="btn btn-success text-white fw-semibold" type="submit">Submit</button> &nbsp;
                             <a href="{{ route('manage_vacancy.index') }}"
-                                class="btn btn-secondary text-white">Cancel</a>
+                                class="btn btn-secondary text-white">Back</a>
                         </div>
                     </div>
                 </form>

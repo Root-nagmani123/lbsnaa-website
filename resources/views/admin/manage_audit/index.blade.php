@@ -41,7 +41,11 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td> <!-- Auto-incrementing index -->
                             <td>{{ $audit->Module_Name }}</td>
-                            <td>{{ date('Y-m-d', $audit["Time_Stamp"]) }}</td>
+                            <td> {{ $audit->timestamps == 1 ? 'N/A' : $audit->timestamps }}
+
+</td>
+
+                            
                             <td>{{ $audit->Created_By }}</td>
                             <td>{{ $audit->Updated_By }}</td>
                             <td>{{ $audit->Action_Type }}</td>

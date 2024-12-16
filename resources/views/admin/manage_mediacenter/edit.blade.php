@@ -104,6 +104,9 @@
                                     </div>
                                 @endif
                             </div>
+                            @error('audio_upload')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                         </div>
 
 

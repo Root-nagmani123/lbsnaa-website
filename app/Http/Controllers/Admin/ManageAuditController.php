@@ -17,3 +17,4 @@ class ManageAuditController extends Controller
         return view('admin.manage_audit.index', compact('audits'));
     }
 }
+  

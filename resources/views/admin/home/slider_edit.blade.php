@@ -24,7 +24,7 @@
             <div class="d-flex justify-content-between align-items-center border-bottom pb-20 mb-20">
                     <h4 class="fw-semibold fs-18 mb-0">Edit Slider</h4>
                 </div>
-                @if ($errors->any())
+                <!-- @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
                         @foreach ($errors->all() as $error)
@@ -32,11 +32,22 @@
                         @endforeach
                     </ul>
                 </div>
-                @endif
+                @endif -->
                 <form action="{{ route('admin.slider_update', $slider->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label for="language" class="label">Page Language :</label>
+                                <div class="form-group position-relative">
+                                    <input type="radio" name="language" value="1"
+                                        {{ $slider->language == '1' ? 'checked' : '' }}> English
+                                    <input type="radio" name="language" value="2"
+                                        {{ $slider->language == '2' ? 'checked' : '' }}> Hindi
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="image">Slider Image :</label>

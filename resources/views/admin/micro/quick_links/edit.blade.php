@@ -47,8 +47,7 @@
                                 <label for="research_centre_id" class="label">Select Research Centre</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select name="research_centre_id" id="research_centre_id" class="form-control"
-                                        required>
+                                    <select name="research_centre_id" id="research_centre_id" class="form-control">
                                         <option value="">Select Research Centre</option>
                                         @foreach ($researchCentres as $id => $name)
                                         <option value="{{ $id }}"
@@ -70,7 +69,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <select name="categorytype" id="categorytype"
-                                        class="form-control text-dark ps-5 h-58" required>
+                                        class="form-control text-dark ps-5 h-58">
                                         <option value="">Select Category</option>
                                         <option value="1" {{ $quickLink->categorytype == 1 ? 'selected' : '' }}>What's
                                             New
@@ -89,8 +88,10 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" name="txtename" id="txtename"
-                                        class="form-control text-dark ps-5 h-58" value="{{ $quickLink->txtename }}"
-                                        required>
+                                        class="form-control text-dark ps-5 h-58" value="{{ $quickLink->txtename }}">
+                                        @error('txtename')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -100,8 +101,7 @@
                                 <label for="menu_type" class="label">Menu Type</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select name="menu_type" id="menu_type" class="form-control text-dark ps-5 h-58"
-                                        required>
+                                    <select name="menu_type" id="menu_type" class="form-control text-dark ps-5 h-58">
                                         <option value="">Select</option>
                                         <option value="1" {{ $quickLink->menu_type == 1 ? 'selected' : '' }}>Content
                                         </option>
@@ -111,6 +111,9 @@
                                         <option value="3" {{ $quickLink->menu_type == 3 ? 'selected' : '' }}>Website URL
                                         </option>
                                     </select>
+                                    @error('menu_type')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -124,25 +127,26 @@
                                         <div class="form-group position-relative">
                                             <input type="text" name="meta_title" id="meta_title"
                                                 class="form-control text-dark ps-5 h-58"
-                                                value="{{ $quickLink->meta_title }}" required>
+                                                value="{{ $quickLink->meta_title }}">
+                                                @error('meta_title')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group mb-4">
                                         <label for="meta_keyword" class="label">Meta Keyword</label>
-                                        <span class="star">*</span>
                                         <div class="form-group position-relative">
                                             <input type="text" name="meta_keyword" id="meta_keyword"
                                                 class="form-control text-dark ps-5 h-58"
-                                                value="{{ $quickLink->meta_keyword }}" required>
+                                                value="{{ $quickLink->meta_keyword }}">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group mb-4">
                                         <label for="meta_description" class="label">Meta Description</label>
-                                        <span class="star">*</span>
                                         <div class="form-group position-relative">
                                             <textarea name="meta_description" id="meta_description" class="form-control"
                                                 rows="5">{{ $quickLink->meta_description }}</textarea>
@@ -183,8 +187,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="url" name="website_url" id="website_url"
-                                        class="form-control text-dark ps-5 h-58" value="{{ $quickLink->website_url }}"
-                                        required>
+                                        class="form-control text-dark ps-5 h-58" value="{{ $quickLink->website_url }}">
                                 </div>
                             </div>
                         </div>
@@ -194,23 +197,27 @@
                                 <label for="start_date" class="label">Start Date</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="date" name="start_date" id="start_date"
-                                        class="form-control text-dark ps-5 h-58" value="{{ $quickLink->start_date }}"
-                                        required>
+                                    <input type="text" name="start_date" id="start_date"
+                                        class="form-control text-dark ps-5 h-58"
+                                        value="{{ old('start_date', $startDate) }}">
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label for="termination_date" class="label">Termination Date</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="date" name="termination_date" id="termination_date"
+                                    <input type="text" name="termination_date" id="termination_date"
                                         class="form-control text-dark ps-5 h-58"
-                                        value="{{ $quickLink->termination_date }}" required>
+                                        value="{{ old('termination_date', $terminationDate) }}">
                                 </div>
                             </div>
                         </div>
+
+
+
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label for="status" class="label">Page Status</label>
@@ -227,8 +234,7 @@
                         </div>
                         <div class="d-flex ms-sm-3 ms-md-0 mt-4">
                             <button class="btn btn-success text-white fw-semibold" type="submit">Update</button> &nbsp;
-                            <a href="{{ route('microquicklinks.index') }}"
-                                class="btn btn-secondary text-white">Cancel</a>
+                            <a href="{{ route('microquicklinks.index') }}" class="btn btn-secondary text-white">Back</a>
                         </div>
                     </div>
                 </form>
@@ -236,6 +242,30 @@
         </div>
     </div>
 </div>
+<!-- jQuery (needed for Bootstrap Datepicker) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Bootstrap Datepicker -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker.min.css">
+
+<script>
+$(document).ready(function() {
+    // Initialize start_date and termination_date inputs with the datepicker
+    $('#start_date').datepicker({
+        format: 'dd-mm-yyyy', // Set format to DD-MM-YYYY
+        autoclose: true // Auto-close the picker when a date is selected
+    });
+
+    $('#termination_date').datepicker({
+        format: 'dd-mm-yyyy', // Set format to DD-MM-YYYY
+        autoclose: true // Auto-close the picker when a date is selected
+    });
+});
+</script>
+
+
 
 <script>
 document.getElementById('menu_type').addEventListener('change', function() {

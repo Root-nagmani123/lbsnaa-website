@@ -51,12 +51,91 @@ class CourseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    // public function store(Request $request)
+    // {
+         
+    //     //
+    //     $course = DB::table('course')->insert($request->except('_token'));
+
+    //     ManageAudit::create([
+    //         'Module_Name' => 'Course Module', // Static value
+    //         'Time_Stamp' => time(), // Current timestamp
+    //         'Created_By' => null, // ID of the authenticated user
+    //         'Updated_By' => null, // No update on creation, so leave null
+    //         'Action_Type' => 'Insert', // Static value
+    //         'IP_Address' => $request->ip(), // Get IP address from request
+    //     ]);
+
+
+    //     return redirect()->route('admin.courses.index')->with('success', 'Course created successfully');
+    
+    // }
+
+    // public function store(Request $request)
+    // {
+    //     // Validate the input data
+    //     $validatedData = $request->validate([
+    //         'language' => 'required', // Language is required and must be a valid ID from languages table
+    //         'course_name' => 'required|string|max:255', // Course name is required, must be a string, and max length of 255
+    //         'abbreviation' => 'required|string|max:50', // Abbreviation is required, must be a string, and max length of 50
+    //         'meta_title' => 'required|string|max:255', // Meta title is optional, must be a string, and max length of 255
+    //         'meta_keyword' => 'nullable|string|max:255', // Meta keyword is optional, must be a string, and max length of 255
+    //         'course_start_date' => 'required|date|after_or_equal:today', // Start date is required, must be a date and today or in the future
+    //         'course_end_date' => 'required|date|after:course_start_date', // End date is required, must be a date, and after the start date
+    //         'support_section' => 'required', // Support section is required and must be a valid ID from support_sections table
+    //         'venue_id' => 'required', // Venue is required and must be a valid ID from venues table
+    //         'registration_on' => 'required', // Venue is required and must be a valid ID from venues table
+    //         'page_status' => 'required|in:0,1', // Venue is required and must be a valid ID from venues table
+    //     ]);
+
+    //     // Insert the validated data into the database
+    //     DB::table('course')->insert($validatedData);
+
+    //     // Log the action in the ManageAudit table
+    //     ManageAudit::create([
+    //         'Module_Name' => 'Course Module', // Static value
+    //         'Time_Stamp' => time(), // Current timestamp
+    //         'Created_By' => null, // ID of the authenticated user
+    //         'Updated_By' => null, // No update on creation, so leave null
+    //         'Action_Type' => 'Insert', // Static value
+    //         'IP_Address' => $request->ip(), // Get IP address from request
+    //     ]);
+
+    //     // Redirect back to the courses index page with a success message
+    //     return redirect()->route('admin.courses.index')->with('success', 'Course created successfully');
+    // }
+
     public function store(Request $request)
     {
-        
-        //
-        $course = DB::table('course')->insert($request->except('_token'));
+        // Validate the input data
+        $validatedData = $request->validate([
+            'language' => 'required', // Language is required
+            'course_name' => 'required|string|max:255', // Course name is required, must be a string, and max length of 255
+            'abbreviation' => 'required|string|max:50', // Abbreviation is required, must be a string, and max length of 50
+            'meta_title' => 'required', // Meta title is optional, must be a string, and max length of 255
+            'meta_keyword' => 'nullable|string|max:255', // Meta keyword is optional, must be a string, and max length of 255
+            // 'meta_description' => 'nullable|string|max:255', // Meta description is optional
+            // 'description' => 'nullable|string', // Description is optional and can have any length
+            'coordinator_id' => 'nullable|exists:users,id', // Optional field, must be a valid user ID from the users table
+            'asst_coordinator_1_id' => 'nullable|exists:users,id', // Optional field, must be a valid user ID from the users table
+            'asst_coordinator_2_id' => 'nullable|exists:users,id', // Optional field, must be a valid user ID from the users table
+            'asst_coordinator_3_id' => 'nullable|exists:users,id', // Optional field, must be a valid user ID from the users table
+            'asst_coordinator_4_id' => 'nullable|exists:users,id', // Optional field, must be a valid user ID from the users table
+            'asst_coordinator_5_id' => 'nullable|exists:users,id', // Optional field, must be a valid user ID from the users table
+            'important_links' => 'nullable|array', // Optional field that should be an array
+            'course_type' => 'nullable|string|max:255', // Optional field for course type, should be a string
+            'course_start_date' => 'required|date|after_or_equal:today', // Start date is required, must be a date and today or in the future
+            'course_end_date' => 'required|date|after:course_start_date', // End date is required, must be a date, and after the start date
+            'support_section' => 'required', // Support section is required
+            'venue_id' => 'required', // Venue is required
+            'registration_on' => 'required', // Optional field with boolean validation
+            'page_status' => 'required|in:0,1', // Venue is required and must be either 0 or 1
+        ]);
 
+        // Insert the validated data into the database
+        DB::table('course')->insert($validatedData);
+
+        // Log the action in the ManageAudit table
         ManageAudit::create([
             'Module_Name' => 'Course Module', // Static value
             'Time_Stamp' => time(), // Current timestamp
@@ -66,10 +145,11 @@ class CourseController extends Controller
             'IP_Address' => $request->ip(), // Get IP address from request
         ]);
 
-
+        // Redirect back to the courses index page with a success message
         return redirect()->route('admin.courses.index')->with('success', 'Course created successfully');
-    
     }
+
+
 
     public function edit($id)
     {

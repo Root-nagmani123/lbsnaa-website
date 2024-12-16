@@ -24,7 +24,7 @@
             <div class="d-flex justify-content-between align-items-center border-bottom pb-20 mb-20">
                     <h4 class="fw-semibold fs-18 mb-0">Add New Slider</h4>
                 </div>
-                @if ($errors->any())
+                <!-- @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
                         @foreach ($errors->all() as $error)
@@ -32,16 +32,32 @@
                         @endforeach
                     </ul>
                 </div>
-                @endif
+                @endif -->
                 <form action="{{ route('admin.slider_store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <div class="row">
+                    <div class="row"> 
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="menutitle">Page Language :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="radio" name="language" value="1"> English
+                                    <input type="radio" name="language" value="2"> Hindi
+                                </div>
+                                @error('language')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="image">Slider Image :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="file" class="form-control text-dark ps-5 h-58" name="image" id="image">
+                                    @error('image')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -51,6 +67,9 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark ps-5 h-58" name="text" id="text">
+                                    @error('text')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -61,6 +80,9 @@
                                 <div class="form-group position-relative">
                                     <textarea class="form-control ps-5 text-dark"
                                         name="description"></textarea>
+                                        @error('description')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -69,17 +91,20 @@
                                 <label class="label" for="status">Status :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="status" id="status"
-                                        required>
+                                    <select class="form-select form-control ps-5 h-58" name="status" id="status">
+                                        <option value="" class="text-dark">Select</option>
                                         <option value="1" class="text-dark">Active</option>
                                         <option value="0" class="text-dark">Inactive</option>
                                     </select>
+                                    @error('status')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
                         <div class="d-flex ms-sm-3 ms-md-0">
                             <button class="btn btn-success text-white fw-semibold" type="submit">Add Slider</button>&nbsp;
-                            <a href="{{ route('admin.slider_list') }}" class="btn btn-secondary text-white">Cancel</a>
+                            <a href="{{ route('admin.slider_list') }}" class="btn btn-secondary text-white">Back</a>
                         </div>
                     </div>
                 </form>
