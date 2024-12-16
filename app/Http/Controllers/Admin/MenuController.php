@@ -108,15 +108,15 @@ class MenuController extends Controller
             'texttype' => 'required|integer|in:1,2,3', // Example values for texttype
             'menucategory' => 'required|integer|min:1',
             'txtpostion' => 'nullable|integer',
-            'meta_title' => 'nullable|string|max:255',
-            'meta_keyword' => 'nullable|string|max:255',
-            'meta_description' => 'nullable|string|max:500',
-            'web_site_target' => 'nullable|url',
+            // 'meta_title' => 'nullable|string|max:255',
+            // 'meta_keyword' => 'nullable|string|max:255',
+            // 'meta_description' => 'nullable|string|max:500',
+            // 'web_site_target' => 'nullable|url',
             'start_date' => 'nullable|date',
             'termination_date' => 'nullable|date|after_or_equal:start_date',
             'menu_status' => 'nullable|boolean',
-            'pdf_file' => 'nullable|file|mimes:pdf|max:2048', // Maximum 2MB file
-            'content' => 'nullable|string', // Only if texttype is 1
+            // 'pdf_file' => 'nullable|file|mimes:pdf|max:2048', // Maximum 2MB file
+            // 'content' => 'nullable|string', // Only if texttype is 1
             'website_url' => 'nullable|url', // Only if texttype is 3
         ],
         [

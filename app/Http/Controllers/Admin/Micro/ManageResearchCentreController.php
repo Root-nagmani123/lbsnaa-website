@@ -27,7 +27,7 @@ class ManageResearchCentreController extends Controller
         $validatedData = $request->validate([
             'language' => 'required|in:1,2',
             'research_centre_name' => 'required|string|max:255',
-            'description' => 'nullable|string',
+            'description' => 'required|string',
             'status' => 'required|boolean',
         ]);
 
@@ -87,10 +87,32 @@ class ManageResearchCentreController extends Controller
         return redirect()->route('researchcentres.index')->with('success', 'Research Centre updated successfully!');
     }
 
+    // public function researchcentresDestroy($id)
+    // {
+    //     DB::table('research_centres')->where('id', $id)->delete();
+
+    //     return redirect()->route('researchcentres.index')->with('success', 'Research Centre deleted successfully!');
+    // }
+
     public function researchcentresDestroy($id)
     {
+        // Fetch the research center by ID
+        $researchCentre = DB::table('research_centres')->where('id', $id)->first();
+
+        // Check if the record exists
+        if (!$researchCentre) {
+            return redirect()->route('researchcentres.index')->with('error', 'Research Centre not found.');
+        }
+
+        // Check if the status is 1 (Inactive)
+        if ($researchCentre->status == 1) {
+            return redirect()->route('researchcentres.index')->with('error', 'Inactive Research Centres cannot be deleted.');
+        }
+
+        // Proceed with deletion
         DB::table('research_centres')->where('id', $id)->delete();
 
         return redirect()->route('researchcentres.index')->with('success', 'Research Centre deleted successfully!');
     }
+
 }

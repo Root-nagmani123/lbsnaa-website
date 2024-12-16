@@ -36,6 +36,9 @@
                                     <input type="radio" name="language" value="1"> English
                                     <input type="radio" name="language" value="2"> Hindi
                                 </div>
+                                @error('language')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                             </div>
                         </div>
                         <div class="col-lg-4">
@@ -43,23 +46,28 @@
                                 <label class="label" for="product_category">Product Category :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="product_category" id="product_category"
-                                        required>
-                                        <option value="1" class="text-dark" selected>Select Category</option>
+                                    <select class="form-select form-control ps-5 h-58" name="product_category" id="product_category">
+                                        <option value="" class="text-dark" selected>Select Category</option>
                                         @foreach ($categories as $category)
                                         <option value="{{ $category->id }}" class="text-dark">{{ $category->category_name }}</option>
                                         @endforeach
                                     </select>
+                                    @error('product_category')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4">
+                        <div class="col-lg-4"> 
                             <div class="form-group mb-4">
                                 <label class="label" for="product_title">Product Title :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark ps-5 h-58" name="product_title"
-                                        id="product_title" value="{{ old('product_title') }}" required>
+                                        id="product_title" value="{{ old('product_title') }}">
+                                        @error('product_title')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -68,12 +76,14 @@
                                 <label class="label" for="product_type">Product Type :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="product_type" id="product_type"
-                                        required>
+                                    <select class="form-select form-control ps-5 h-58" name="product_type" id="product_type">
                                         <option value="" class="text-dark">Select</option>
                                         <option value="Sale" class="text-dark">Sale</option>
                                         <option value="Download" class="text-dark">Download</option>
                                     </select>
+                                    @error('product_type')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -85,16 +95,21 @@
                                     <div class="form-group position-relative">
                                         <input type="number" class="form-control text-dark ps-5 h-58" name="product_price"
                                             id="product_price" step="0.01" >
+                                            @error('product_price')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group mb-4">
                                     <label class="label" for="product_discounted_price">Product Discounted Price :</label>
-                                    <span class="star">*</span>
                                     <div class="form-group position-relative">
                                         <input type="number" class="form-control text-dark ps-5 h-58" name="product_discounted_price"
                                             id="product_discounted_price" step="0.01" >
+                                            @error('product_discounted_price')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                     </div>
                                 </div>
                             </div>
@@ -105,6 +120,9 @@
                                     <div class="form-group position-relative">
                                         <input type="email" class="form-control text-dark ps-5 h-58" name="contact_email_id"
                                             id="contact_email_id" >
+                                            @error('contact_email_id')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                     </div>
                                 </div>
                             </div>
@@ -116,7 +134,10 @@
                                     <span class="star">*</span>
                                     <div class="form-group position-relative">
                                         <input type="file" class="form-control text-dark ps-5 h-58" name="document_upload"
-                                            id="document_upload" required>
+                                            id="document_upload">
+                                            @error('document_upload')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                     </div>
                                 </div>
                             </div>
@@ -127,16 +148,18 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="file" class="form-control text-dark ps-5 h-58" name="upload_image"
-                                        id="upload_image" required>
+                                        id="upload_image">
+                                    @error('upload_image')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="product_description">Product Description :</label>
-                                <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                        <textarea name="product_description" id="product_description" rows="3" required class="form-control text-dark"></textarea>
+                                        <textarea name="product_description" id="product_description" rows="3" class="form-control text-dark"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -145,12 +168,14 @@
                                 <label class="label" for="product_status">Product Status :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="product_status" id="product_status"
-                                        required>
+                                    <select class="form-select form-control ps-5 h-58" name="product_status" id="product_status">
                                         <option value="" class="text-dark" selected>Select</option>
                                         <option value="1" class="text-dark">Active</option>
                                         <option value="0" class="text-dark">Inactive</option>
                                     </select>
+                                    @error('product_status')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>

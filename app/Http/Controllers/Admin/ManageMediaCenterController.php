@@ -17,7 +17,7 @@ class ManageMediaCenterController extends Controller
         return view('admin.manage_mediacenter.index', compact('audios'));
     }
 
-    // Show form for adding a new audio
+    // Show form for adding a new audio 
     public function create()
     {
         return view('admin.manage_mediacenter.create');
@@ -78,7 +78,7 @@ class ManageMediaCenterController extends Controller
             'audio_title_en.required' => 'Enter the English audio title.',
             'audio_upload.required' => 'Please upload an audio file.',
             'audio_upload.mimes' => 'Only MP3 and MP4 files are allowed.',
-            'audio_upload.max' => 'The audio file size must not exceed 2MB.',
+            'audio_upload.max' => 'The audio file size must not exceed 15MB.',
             'page_status.required' => 'Select the page status.',
             'page_status.in' => 'The page status must be either active (1) or inactive (0).',
         ];
@@ -129,7 +129,7 @@ class ManageMediaCenterController extends Controller
             'category_name' => 'required|string',
             'audio_title_en' => 'required|string',
             'audio_title_hi' => 'nullable|string',
-            'audio_upload' => 'nullable|mimes:mp3,mp4|max:2048',  // Accept .mp4 and audio formats
+            'audio_upload' => 'nullable|mimes:mp3,mp4|max:15360',  // Accept .mp4 and audio formats
             'page_status' => 'required|integer|in:1,0',
         ]);
 
@@ -160,15 +160,47 @@ class ManageMediaCenterController extends Controller
         return redirect()->route('media-center.index')->with('success', 'Audio updated successfully');
     }
 
+    // // Delete an audio
+    // public function destroy($id)
+    // {
+    //     $audio = ManageMediaCenter::findOrFail($id);
+    //     if ($audio->audio_upload && file_exists(public_path('uploads/audios/' . $audio->audio_upload))) {
+    //         unlink(public_path('uploads/audios/' . $audio->audio_upload));
+    //     }
+    //     $audio->delete();
+    //     return redirect()->route('media-center.index')->with('success', 'Audio deleted successfully');
+    // }
+
     // Delete an audio
     public function destroy($id)
     {
-        $audio = ManageMediaCenter::findOrFail($id);
-        if ($audio->audio_upload && file_exists(public_path('uploads/audios/' . $audio->audio_upload))) {
-            unlink(public_path('uploads/audios/' . $audio->audio_upload));
+        try {
+            // Find the audio record by ID
+            $audio = ManageMediaCenter::findOrFail($id);
+
+            // Check if the status is 1 (Inactive), and if so, prevent deletion
+            if ($audio->status == 1) {
+                return redirect()->route('media-center.index')->with('error', 'Inactive audios cannot be deleted.');
+            }
+
+            // Check and delete the associated audio file
+            if ($audio->audio_upload && file_exists(public_path('uploads/audios/' . $audio->audio_upload))) {
+                unlink(public_path('uploads/audios/' . $audio->audio_upload));
+                Log::info('Deleted audio file: ' . $audio->audio_upload);
+            } else {
+                Log::warning('Audio file not found: ' . $audio->audio_upload);
+            }
+
+            // Delete the audio record from the database
+            $audio->delete();
+
+            // Redirect with a success message
+            return redirect()->route('media-center.index')->with('success', 'Audio deleted successfully.');
+        } catch (\Exception $e) {
+            // Handle errors gracefully and return an error message
+            return redirect()->route('media-center.index')->with('error', 'Error deleting audio: ' . $e->getMessage());
         }
-        $audio->delete();
-        return redirect()->route('media-center.index')->with('success', 'Audio deleted successfully');
     }
+
     
 }

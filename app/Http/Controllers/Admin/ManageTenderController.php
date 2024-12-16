@@ -106,7 +106,7 @@ class ManageTenderController extends Controller
             'type' => 'required',
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'file' => 'nullable|mimes:pdf,png,jpg,jpeg|max:2048',
+            'file' => 'required|mimes:pdf|max:20480', // Allow only PDFs with a maximum size of 20 MB
             'publish_date' => 'required|date',
             'expiry_date' => 'required|date|after_or_equal:publish_date',
             'status' => 'required|integer|in:1,0',
@@ -145,15 +145,6 @@ class ManageTenderController extends Controller
         return redirect()->route('manage_tender.index')->with('success', 'Tender updated successfully.');
     }
     
-
-
-    // // Delete the tender
-    // public function destroy(ManageTender $manageTender)
-    // {
-    //     $manageTender->delete();
-    //     return redirect()->route('manage_tender.index')->with('success', 'Tender deleted successfully.');
-    // }
-
     // Delete the tender
     public function destroy(ManageTender $manageTender)
     {

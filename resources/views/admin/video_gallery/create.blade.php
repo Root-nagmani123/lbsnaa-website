@@ -20,7 +20,7 @@
     <div class="col-lg-12">
         <div class="card bg-white border-0 rounded-10 mb-4 p-4">
             <div class="d-sm-flex text-center justify-content-between align-items-center border-bottom pb-20 mb-20">
-                <h4 class="fw-semibold fs-18 mb-sm-0">Edit Video Gallery</h4>
+                <h4 class="fw-semibold fs-18 mb-sm-0">Add Video Gallery</h4>
             </div>
             <!-- @if ($errors->any())
             <div class="alert alert-danger">
@@ -104,7 +104,7 @@
                     <div class="d-flex ms-sm-3 ms-md-0">
                         <button class="btn btn-success text-white fw-semibold" type="submit">Submit</button>
                         &nbsp;
-                        <a href="{{ route('video_gallery.index') }}" class="btn btn-secondary text-white">Cancel</a>
+                        <a href="{{ route('video_gallery.index') }}" class="btn btn-secondary text-white">Back</a>
                     </div>
                 </div>
             </form>

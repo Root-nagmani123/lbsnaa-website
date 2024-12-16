@@ -18,7 +18,7 @@ class CoursesubCategoryController extends Controller
             ->get();
 
         $categoryTree = $this->buildCategoryTree($subcategories);
-
+ 
 
         return view('admin.manage_coursesubcategories.index', compact('subcategories', 'categoryTree'));
     }
@@ -51,31 +51,36 @@ class CoursesubCategoryController extends Controller
             return view('admin.manage_coursesubcategories.create', compact('subcategories'));
     }
 
+
     public function store(Request $request)
     {
-        $request->validate([
-            'language' => 'required',
-            'category_name' => 'required',
-            'color_theme' => 'nullable|string',
-            'parent_id' => 'nullable',
-            'description' => 'nullable|string',
-            'status' => 'required|in:1,2,3',
+        // Validate the input data
+        $validatedData = $request->validate([
+            'language' => 'required', // Ensure 'language' exists in the 'languages' table
+            'category_name' => 'required|string|max:255', // Category name should be a string and have a max length
+            'color_theme' => 'nullable|string|max:50', // Color theme is optional but should be a string with max length
+            'parent_id' => 'nullable|exists:courses_sub_categories,id', // Ensure parent_id exists in the same table
+            'description' => 'required|string|max:500', // Description is optional but should be a string with max length
+            'status' => 'required|in:0,1', // Status should be either 0 or 1
         ]);
 
+        // Insert the validated data into the database
         DB::table('courses_sub_categories')->insert([
-            'language' => $request->input('language'),
-            'category_name' => $request->input('category_name'),
-            'color_theme' => $request->input('color_theme'),
-            'parent_id' => !empty($request->input('parent_id')) ? $request->input('parent_id') : 0,
-            'description' => $request->input('description'),
-            'status' => $request->input('status'),
+            'language' => $validatedData['language'],
+            'category_name' => $validatedData['category_name'],
+            'color_theme' => $validatedData['color_theme'] ?? '', // Default to empty string if color_theme is not provided
+            'parent_id' => $validatedData['parent_id'] ?? 0, // Default to 0 if parent_id is not provided
+            'description' => $validatedData['description'] ?? '', // Default to empty string if description is not provided
+            'status' => $validatedData['status'],
             'created_at' => now(),
             'updated_at' => now(),
-            'slug' => Str::slug($request->category_name, '-'), 
+            'slug' => Str::slug($validatedData['category_name'], '-'), // Generate a slug based on category_name
         ]);
 
+        // Redirect to the subcategory index page with a success message
         return redirect()->route('subcategory.index')->with('success', 'Menu created successfully.');
     }
+
 
     public function edit($id)
     {
@@ -99,7 +104,7 @@ class CoursesubCategoryController extends Controller
             'color_theme' => 'nullable|string',
             'parent_id' => 'nullable',
             'description' => 'nullable|string',
-            'status' => 'required|in:1,2,3',
+            'status' => 'required|in:0,1',
         ]);
 
         DB::table('courses_sub_categories')
@@ -118,10 +123,26 @@ class CoursesubCategoryController extends Controller
         return redirect()->route('subcategory.index')->with('success', 'Menu updated successfully.');
     }
 
-
     public function delete($id)
     {
+        // Retrieve the record first
+        $subcategory = DB::table('courses_sub_categories')->where('id', $id)->first();
+
+        // Check if the record exists
+        if (!$subcategory) {
+            return redirect()->route('subcategory.index')->with('error', 'Subcategory not found.');
+        }
+
+        // Check if the status is 1 (Inactive), and prevent deletion if true
+        if ($subcategory->status == 1) {
+            return redirect()->route('subcategory.index')->with('error', 'Inactive subcategories cannot be deleted.');
+        }
+
+        // Proceed with deletion
         DB::table('courses_sub_categories')->where('id', $id)->delete();
-        return redirect()->route('subcategory.index')->with('success', 'Category deleted successfully');
+
+        // Redirect with a success message
+        return redirect()->route('subcategory.index')->with('success', 'Subcategory deleted successfully.');
     }
+
 }

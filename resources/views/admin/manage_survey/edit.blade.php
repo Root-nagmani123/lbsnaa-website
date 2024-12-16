@@ -30,12 +30,14 @@
                                 <label class="label" for="menutitle">Page Language :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="radio" name="language" value="1" {{ $survey->language == '1' ? 'checked' : '' }}> English
-                                    <input type="radio" name="language" value="2" {{ $survey->language == '2' ? 'checked' : '' }}> Hindi
+                                    <input type="radio" name="language" value="1"
+                                        {{ $survey->language == '1' ? 'checked' : '' }}> English
+                                    <input type="radio" name="language" value="2"
+                                        {{ $survey->language == '2' ? 'checked' : '' }}> Hindi
                                 </div>
                                 @error('survey_title')
                                 <div class="text-danger">{{ $message }}</div>
-                            @enderror
+                                @enderror
                             </div>
                         </div>
                         <div class="col-lg-6">
@@ -47,8 +49,8 @@
                                         id="survey_title" value="{{ old('survey_title', $survey->survey_title) }}">
                                 </div>
                                 @error('survey_title')
-        <div class="text-danger">{{ $message }}</div>
-    @enderror
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-lg-6">
@@ -60,8 +62,8 @@
                                         id="startdate" value="{{ old('startdate', $survey->start_date) }}">
                                 </div>
                                 @error('startdate')
-        <div class="text-danger">{{ $message }}</div>
-    @enderror
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-lg-6">
@@ -73,8 +75,8 @@
                                         id="expairydate" value="{{ old('expairydate', $survey->end_date) }}">
                                 </div>
                                 @error('expairydate')
-        <div class="text-danger">{{ $message }}</div>
-    @enderror
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-lg-6">
@@ -82,21 +84,23 @@
                                 <label class="label" for="status">Status :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="status"
-                                        id="status" required>
+                                    <select class="form-select form-control ps-5 h-58" name="status" id="status">
                                         <option value="" class="text-dark" selected>Select Status</option>
-                                        <option value="1" class="text-dark" {{ $survey->status == 1 ? 'selected' : '' }}>Active</option>
-                                        <option value="0" class="text-dark" {{ $survey->status == 0 ? 'selected' : '' }}>Inactive</option>
+                                        <option value="1" class="text-dark"
+                                            {{ $survey->status == 1 ? 'selected' : '' }}>Active</option>
+                                        <option value="0" class="text-dark"
+                                            {{ $survey->status == 0 ? 'selected' : '' }}>Inactive</option>
                                     </select>
                                 </div>
-                                @error('txt_status')
-        <div class="text-danger">{{ $message }}</div>
-    @enderror
+                                @error('status')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
                         <div class="d-flex ms-sm-3 ms-md-0">
                             <button class="btn btn-success text-white fw-semibold" type="submit">Update</button>&nbsp;
-                            <a href="{{ route('survey.index') }}" class="btn btn-primary text-white fw-semibold">Back</a>
+                            <a href="{{ route('survey.index') }}"
+                                class="btn btn-primary text-white fw-semibold">Back</a>
                         </div>
                     </div>
                 </form>

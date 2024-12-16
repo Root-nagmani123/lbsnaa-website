@@ -27,16 +27,16 @@
                         <i class="ri-add-line text-white"></i>
                         <span>Add New Tender/Circular</span>
                     </span>
-                </button> 
+                </button>
             </a>
         </div>
         @if (session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
         @endif
         @if (session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
         @endif
         <div class="default-table-area members-list recent-orders">
             <div class="table-responsive">
@@ -46,7 +46,7 @@
                             <th class="col">#</th> <!-- Index column -->
                             <th class="col">Tender Name</th>
                             <th class="col">File</th> <!-- Add a column for the file -->
-                            
+
                             <th class="col">Publish Date</th>
                             <th class="col">Expiry Date</th>
                             <th class="col">Language</th>
@@ -65,10 +65,10 @@
                                 <!-- Display image if the file exists -->
                                 @if($tender->file && in_array(pathinfo($tender->file, PATHINFO_EXTENSION), ['png',
                                 'jpg', 'jpeg']))
-                                <img src="{{ asset('/storage/uploads/' . $tender->file) }}" alt="Uploaded File"
+                                <img src="{{ asset('/storage/tender/' . $tender->file) }}" alt="Uploaded File"
                                     width="100">
                                 @elseif($tender->file)
-                                <a href="{{ asset('/storage/uploads/' . $tender->file) }}" target="_blank">View File</a>
+                                <a href="{{ asset('/storage/tender/' . $tender->file) }}" target="_blank">View File</a>
                                 @else
                                 No file uploaded
                                 @endif
@@ -80,13 +80,11 @@
                                 <button type="button"
                                     class="btn btn-outline-primary text-primary fw-semibold btn-sm view-slider"
                                     data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-
-                                    data-title="{{ $tender->title }}"
-                                    data-type="{{ $tender->type }}"
-                                    data-publish_date="{{ $tender->publish_date }}"
-                                    data-expiry_date="{{ $tender->expiry_date }}"
+                                    data-title="{{ $tender->title }}" data-type="{{ $tender->type }}"
+                                    data-publish_date="{{ date('Y-m-d h:i A', strtotime($tender->publish_date)) }}"
+                                    data-expiry_date="{{ date('Y-m-d h:i A', strtotime($tender->expiry_date)) }}"
                                     data-description="{{ $tender->description }}"
-                                    data-image="{{ asset('/storage/uploads/' . $tender->file) }}"
+                                    data-image="{{ asset('/storage/tender/' . $tender->file) }}"
                                     data-language="{{ $tender->language == 1 ? 'English' : 'Hindi' }}">
                                     View
                                 </button>
@@ -178,7 +176,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const image = this.dataset.image;
             const description = this.dataset.description;
             const language = this.dataset.language;
-            
+
             // Update modal content
             modalTitle.textContent = 'Tenders / Circulars Details';
             modalBody.innerHTML = `<div>

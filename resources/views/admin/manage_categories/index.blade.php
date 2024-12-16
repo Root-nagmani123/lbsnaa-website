@@ -23,9 +23,14 @@
                 <div class="d-flex justify-content-between align-items-center border-bottom pb-20 mb-20">
                     <h4 class="fw-semibold fs-18 mb-sm-0">Manage Media Categories</h4>
                 </div>
-                @if (session('success'))
-                <div class="alert alert-success">{{ session('success') }}</div>
-                @endif
+        @if (session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
+        @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+        @endif
                 <form
                     action="{{ isset($category) ? route('media-categories.update', $category->id) : route('media-categories.store') }}"
                     method="POST" enctype="multipart/form-data">
@@ -105,7 +110,7 @@
                             <button class="btn btn-success text-white fw-semibold"
                                 type="submit">{{ isset($category) ? 'Update' : 'Submit' }}</button> &nbsp;
                             <a href="{{ route('media-categories.index') }}"
-                                class="btn btn-secondary text-white">Cancel</a>
+                                class="btn btn-secondary text-white">Back</a>
                         </div>
                     </div>
                 </form>

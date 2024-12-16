@@ -112,7 +112,7 @@
                                         required>
                                         <option value="1" class="text-dark"
                                             {{ $subcategory->status == '1' ? 'selected' : '' }}>Active</option>
-                                        <option value="2" class="text-dark"
+                                        <option value="0" class="text-dark"
                                             {{ $subcategory->status == '0' ? 'selected' : '' }}>Inactive</option>
                                     </select>
                                 </div>

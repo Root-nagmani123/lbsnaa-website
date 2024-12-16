@@ -25,7 +25,7 @@
                     <h4 class="fw-semibold fs-18 mb-0">Add Academy Souvenir</h4>
                 </div>
 
-                <form action="{{ route('academy_souvenirs.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('academy_souvenirs.update',$souvenir->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="col-lg-4">
@@ -43,9 +43,8 @@
                                 <label class="label" for="product_category">Product Category :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="product_category" id="product_category"
-                                        required>
-                                        <option value="1" class="text-dark" selected>Select Category</option>
+                                    <select class="form-select form-control ps-5 h-58" name="product_category" id="product_category">
+                                        <option value="" class="text-dark" selected>Select Category</option>
                                         @foreach ($categories as $category)
                                         <option value="{{ $category->id }}" class="text-dark" {{ $souvenir->product_category == $category->id ? 'selected' : '' }}>{{ $category->category_name }}</option>
                                         @endforeach
@@ -59,7 +58,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark ps-5 h-58" name="product_title"
-                                        id="product_title" value="{{ $souvenir->product_title }}" required>
+                                        id="product_title" value="{{ $souvenir->product_title }}">
                                 </div>
                             </div>
                         </div>
@@ -68,8 +67,7 @@
                                 <label class="label" for="product_type">Product Type :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="product_type" id="product_type"
-                                        required>
+                                    <select class="form-select form-control ps-5 h-58" name="product_type" id="product_type">
                                         <option value="" class="text-dark">Select</option>
                                         <option value="Sale" class="text-dark" {{ $souvenir->product_type == 'Sale' ? 'selected' : '' }}>Sale</option>
                                         <option value="Download" class="text-dark" {{ $souvenir->product_type == 'Download' ? 'selected' : '' }}>Download</option>
@@ -91,7 +89,6 @@
                             <div class="col-lg-6">
                                 <div class="form-group mb-4">
                                     <label class="label" for="product_discounted_price">Product Discounted Price :</label>
-                                    <span class="star">*</span>
                                     <div class="form-group position-relative">
                                         <input type="number" class="form-control text-dark ps-5 h-58" name="product_discounted_price"
                                             id="product_discounted_price" step="0.01" value="{{ $souvenir->product_discounted_price }}">
@@ -116,8 +113,12 @@
                                     <span class="star">*</span>
                                     <div class="form-group position-relative">
                                         <input type="file" class="form-control text-dark ps-5 h-58" name="document_upload"
-                                            id="document_upload" required value="{{ $souvenir->document_upload }}">
-                                            <img src="{{ asset('AcademySouvenir/documents/' . $souvenir->document_upload) }}" alt="Souvenir Image" width="100" height="100">
+                                            id="document_upload" value="{{ $souvenir->document_upload }}">
+                                            <!-- <img src="{{ asset('AcademySouvenir/documents/' . $souvenir->document_upload) }}" alt="Souvenir Image" width="100" height="100"> -->
+                                            <a href="{{ asset('AcademySouvenir/documents/' . $souvenir->document_upload) }}" target="_blank">
+                                                View Document
+                                            </a>
+
                                     </div>
                                 </div>
                             </div>
@@ -128,7 +129,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="file" class="form-control text-dark ps-5 h-58" name="upload_image"
-                                        id="upload_image" required value="{{ $souvenir->upload_image }}">
+                                        id="upload_image" value="{{ $souvenir->upload_image }}">
                                         <img src="{{ asset('AcademySouvenir/images/' . $souvenir->upload_image) }}" alt="Souvenir Image" width="100" height="100">
                                 </div>
                             </div>
@@ -136,9 +137,8 @@
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="product_description">Product Description :</label>
-                                <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                        <textarea name="product_description" id="product_description" rows="3" required class="form-control text-dark">{{ $souvenir->product_description }}</textarea>
+                                        <textarea name="product_description" id="product_description" rows="3" class="form-control text-dark">{{ $souvenir->product_description }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -147,8 +147,7 @@
                                 <label class="label" for="product_status">Product Status :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="product_status" id="product_status"
-                                        required>
+                                    <select class="form-select form-control ps-5 h-58" name="product_status" id="product_status">
                                         <option value="1" class="text-dark" {{ $souvenir->product_status == 1 ? 'selected' : '' }}>Active</option>
                                         <option value="0" class="text-dark" {{ $souvenir->product_status == 0 ? 'selected' : '' }}>Inactive</option>
                                     </select>

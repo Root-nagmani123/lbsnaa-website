@@ -31,6 +31,14 @@
                 </button>
             </a>
         </div>
+        @if (session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
+        @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+        @endif
         <div class="default-table-area members-list recent-orders">
             <div class="table-responsive">
                 <table class="table align-middle" id="myTable">
@@ -38,8 +46,6 @@
                         <tr class="text-center">
                             <th class="col">#</th>
                             <th class="col">Name</th>
-                            <th class="col">Title</th>
-                            <th class="col">Type</th>
                             <th class="col">Language</th>
                             <th class="col">Actions</th>
                             <th class="col">Status</th>
@@ -50,8 +56,6 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $links->txtename }}</td>
-                            <td>{{ $links->meta_description }}</td>
-                            <td>{{ $links->categorytype == 1 ? 'Whats New' : 'Quick Link' }}</td>
                             <td>{{ $links->language == 1 ? 'English' : 'Hindi' }}</td>
                             <td>
                                 <a href="{{ route('microquicklinks.edit', $links->id) }}"

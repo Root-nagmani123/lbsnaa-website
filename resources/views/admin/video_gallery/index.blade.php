@@ -31,7 +31,12 @@
             </a>
         </div>
         @if (session('success'))
-            <div class="alert alert-success">{{ session('success') }}</div>
+        <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
+        @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
         @endif
         <div class="default-table-area members-list">
             <div class="table-responsive">
@@ -39,7 +44,6 @@
                     <thead>
                         <tr class="text-center">
                             <th class="col">#</th> <!-- Index column header -->
-                            <th class="col">Category Name</th>
                             <th class="col">Name</th>
                             <th class="col">Media Category</th>
                             <th class="col">Option</th>
@@ -51,7 +55,6 @@
                         @foreach ($media as $item)
                         <tr>
                             <td>{{ $loop->iteration }}</td> <!-- Display row number here -->
-                            <td>{{ $item->category_name }}</td>
                             <td>{{ $item->audio_title_en }}</td>
                             <td><a href="{{ $item->video_upload }}" target="_blank">Play Video</a></td>
                             <td>

@@ -45,8 +45,9 @@
                         <tr class="text-center">
                             <th class="col">#</th>
                             <th class="col">Image</th>
-                            <th class="col">Text</th>
-                            <th class="col">Description</th>
+                            <th class="col">Name</th>
+                            <th class="col">Banner Title</th>
+                            <th class="col">Language</th>
                             <th class="col">Option</th>
                             <th class="col">Action</th>
                             <th class="col">Status</th>
@@ -60,13 +61,15 @@
                             <td><img src="{{ asset('slider-images/' . $slider->image) }}" alt="slider image"
                                     class="img-fluid" width="100"></td>
                             <td>{{ $slider->text }}</td>
+                            
                             <td>{{ $slider->description }}</td>
-
+                            <td>{{ $slider->language == 1 ? 'English': 'Hindi'}}</td>
                             <td>
                                 <button type="button"
                                     class="btn btn-outline-primary text-primary fw-semibold btn-sm view-slider"
                                     data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-                                    data-text="{{ $slider->text }}" 
+                                    data-text="{{ $slider->text }}"
+                                    data-language="{{ $slider->language == 1 ? 'English': 'Hindi'}}" 
                                     data-description="{{ $slider->description }}"
                                     data-image="{{ asset('slider-images/' . $slider->image) }}">
                                     View
@@ -154,6 +157,7 @@ document.addEventListener('DOMContentLoaded', function() {
         button.addEventListener('click', function() {
             // Extract data from the button
             const text = this.dataset.text || 'N/A';
+            const language = this.dataset.language || 'N/A';
             const description = this.dataset.description || 'N/A';
             const image = this.dataset.image || 'N/A';
 
@@ -163,6 +167,7 @@ document.addEventListener('DOMContentLoaded', function() {
             modalBody.innerHTML = `
                 <div>
                     <p><strong>Text:</strong> ${text}</p>
+                    <p><strong>Language:</strong> ${language}</p>
                     <p><strong>Description:</strong> ${description}</p>
                     <p><strong>Slider:</strong> <img src="${image}" alt="Main Image" style="max-width: 200px;"></p>
                 </div>`;

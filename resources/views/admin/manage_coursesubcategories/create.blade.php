@@ -36,6 +36,9 @@
                                     <input type="radio" name="language" value="1"> English
                                     <input type="radio" name="language" value="2"> Hindi
                                 </div>
+                                @error('language')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
 
@@ -45,7 +48,10 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark ps-5 h-58" name="category_name"
-                                        id="category_name" required>
+                                        id="category_name">
+                                        @error('category_name')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -56,8 +62,10 @@
                                         <!-- Color Picker Input -->
                                         <label for="color_theme" class="label">Choose Color:</label>
                                         <input type="color" class="form-control text-dark ps-5 h-58" name="color_theme"
-                                            id="color_theme"
-                                            required>
+                                            id="color_theme">
+                                            @error('color_theme')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                     </div>
                                     <div class="col-6">
                                         <!-- Hex Code Display -->
@@ -65,6 +73,9 @@
                                             Selected Color:
                                             <input type="text" class="text-muted form-control mt-2" id="color_hex"
                                                 name="color_theme">
+                                                @error('color_theme')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                         </p>
                                     </div>
                                 </div>
@@ -77,11 +88,13 @@
                                 <label class="label" for="parent_id">Parent Category :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="parent_id" id="parent_id"
-                                        required>
+                                    <select class="form-select form-control ps-5 h-58" name="parent_id" id="parent_id">
                                         <option value="0" class="text-dark">It is Root Category</option>
                                         {!! buildCategoryOptions($subcategories) !!}
                                     </select>
+                                    @error('parent_id')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -90,7 +103,10 @@
                                 <label class="label" for="description">Description :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                        <textarea name="description" id="description" rows="3" required class="form-control text-dark"></textarea>
+                                        <textarea name="description" id="description" rows="3" class="form-control text-dark"></textarea>
+                                        @error('description')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -99,12 +115,14 @@
                                 <label class="label" for="status">Product Status :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="status" id="status"
-                                        required>
+                                    <select class="form-select form-control ps-5 h-58" name="status" id="status">
                                         <option value="" class="text-dark" selected>Select</option>
                                         <option value="1" class="text-dark">Active</option>
                                         <option value="0" class="text-dark">Inactive</option>
                                     </select>
+                                    @error('status')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>

@@ -37,6 +37,9 @@
                                         <option value="1" class="text-dark" {{ $category->type == 1 ? 'selected' : '' }}>Academy Souvenir</option>
                                         <option value="2" class="text-dark" {{ $category->type == 2 ? 'selected' : '' }}>Life Academy Souvenir</option>
                                     </select>
+                                    @error('type')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -46,6 +49,9 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark ps-5 h-58" name="category_name" id="category_name" value="{{ $category->category_name }}">
+                                    @error('category_name')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -55,6 +61,9 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark ps-5 h-58" name="category_name_hindi" id="category_name_hindi" value="{{ $category->category_name_hindi }}">
+                                    @error('category_name_hindi')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             

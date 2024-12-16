@@ -33,6 +33,11 @@
         @if (session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
         @endif
+        @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+        @endif
         <div class="default-table-area members-list">
             <div class="table-responsive">
                 <table class="table align-middle" id="myTable">
@@ -182,7 +187,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <p><strong>Category Name:</strong> ${name}</p>
                     <p><strong>Related Training Program:</strong> ${media_cat_name}</p>
                     <p><strong>Related News:</strong> ${related_news}</p>
-                    <p><strong>Related Events:</strong> ${related_events}</p>
+                    
                     <p><strong>Image Title (English):</strong> ${image_title_english}</p>
                     <p><strong>Image TItle (Hindi):</strong> ${image_title_hindi}</p>
                     <p><strong>Images:</strong></p>

@@ -21,50 +21,54 @@
     <div class="col-lg-12">
         <div class="card bg-white border-0 rounded-10 mb-4 p-4">
             <div class="d-sm-flex text-center justify-content-between align-items-center border-bottom pb-20 mb-20">
-            <h4 class="fw-semibold fs-18 mb-sm-0">Edit Footer Image</h4>
-        </div>
-                <form action="{{ route('admin.footer_images.update', $footerImage->id) }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    @method('PUT')
-                    <div class="row">
-                        <div class="col-lg-2">
-<div class="form-group mb-4">
-<label for="language" class="label">Page Language :</label>
+                <h4 class="fw-semibold fs-18 mb-sm-0">Edit Footer Image</h4>
+            </div>
+            <form action="{{ route('admin.footer_images.update', $footerImage->id) }}" method="POST"
+                enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
+                <div class="row">
+                    <div class="col-lg-2">
+                        <div class="form-group mb-4">
+                            <label for="language" class="label">Page Language :</label>
                             <div class="form-group position-relative">
-                            <input type="radio" name="language" value="1" {{ $footerImage->language == '1' ? 'checked' : '' }}> English
-                            <input type="radio" name="language" value="2" {{ $footerImage->language == '2' ? 'checked' : '' }}> Hindi
+                                <input type="radio" name="language" value="1"
+                                    {{ $footerImage->language == '1' ? 'checked' : '' }}> English
+                                <input type="radio" name="language" value="2"
+                                    {{ $footerImage->language == '2' ? 'checked' : '' }}> Hindi
                             </div>
-</div>
-                        </div>
-
-                        <div class="col-lg-5">
-                            <div class="form-group mb-4">
-                                <label class="label" for="image">Image :</label>
-                                <span class="star">*</span>
-                                <div class="form-group position-relative">
-                                    <input type="file" class="form-control text-dark ps-5 h-58" id="image" name="image" required>
-                                    <img src="{{ asset('footer-images/' . $footerImage->image) }}" width="100" class="mt-3">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-5">
-                            <div class="form-group mb-4">
-                                <label class="label" for="status">Status :</label>
-                                <span class="star">*</span>
-                                <select name="status" id="status" class="form-control" required>
-                                    <option value="1" {{ $footerImage->status == 1? 'selected' : '' }}>Active</option>
-                                    <option value="0" {{ $footerImage->status == 0? 'selected' : '' }}>Inactive</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="d-flex ms-sm-3 ms-md-0">
-                            <button class="btn btn-success text-white fw-semibold" type="submit">Update</button>
-                            &nbsp;
-                            <a href="{{ route('admin.footer_images.index') }}" class="btn btn-secondary text-white">Cancel</a>
                         </div>
                     </div>
-                </form>
-            </div>
+
+                    <div class="col-lg-5">
+                        <div class="form-group mb-4">
+                            <label class="label" for="image">Image :</label>
+                            <span class="star">*</span>
+                            <div class="form-group position-relative">
+                                <input type="file" class="form-control text-dark ps-5 h-58" id="image" name="image">
+                                <img src="{{ asset('footer-images/' . $footerImage->image) }}" width="100" class="mt-3">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="form-group mb-4">
+                            <label class="label" for="status">Status :</label>
+                            <span class="star">*</span>
+                            <select name="status" id="status" class="form-control" required>
+                                <option value="1" {{ $footerImage->status == 1? 'selected' : '' }}>Active</option>
+                                <option value="0" {{ $footerImage->status == 0? 'selected' : '' }}>Inactive</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="d-flex ms-sm-3 ms-md-0">
+                        <button class="btn btn-success text-white fw-semibold" type="submit">Update</button>
+                        &nbsp;
+                        <a href="{{ route('admin.footer_images.index') }}"
+                            class="btn btn-secondary text-white">Back</a>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
+</div>
 @endsection

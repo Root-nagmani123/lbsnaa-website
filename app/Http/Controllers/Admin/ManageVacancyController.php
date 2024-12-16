@@ -31,7 +31,7 @@ class ManageVacancyController extends Controller
             'language' => 'required',
             'job_title' => 'required|string|max:255',
             'job_description' => 'required',
-            'content_type' => 'required|in:PDF,Website',
+            'content_type' => 'required|in:PDF,Website', 
             'publish_date' => 'required|date',
             'expiry_date' => 'required|date|after_or_equal:publish_date',
             'status' => 'required|integer|in:1,0',
@@ -147,9 +147,23 @@ class ManageVacancyController extends Controller
 
 
 
+    // public function destroy(ManageVacancy $manage_vacancy)
+    // {
+    //     $manage_vacancy->delete();
+    //     return redirect()->route('manage_vacancy.index')->with('success', 'Vacancy deleted successfully');
+    // }
+
     public function destroy(ManageVacancy $manage_vacancy)
     {
+        // Check if the status is 1 (Inactive), and if so, prevent deletion
+        if ($manage_vacancy->status == 1) {
+            return redirect()->route('manage_vacancy.index')->with('error', 'Inactive vacancies cannot be deleted.');
+        }
+
+        // Proceed with deletion if status is not 1
         $manage_vacancy->delete();
-        return redirect()->route('manage_vacancy.index')->with('success', 'Vacancy deleted successfully');
+
+        return redirect()->route('manage_vacancy.index')->with('success', 'Vacancy deleted successfully.');
     }
+
 }

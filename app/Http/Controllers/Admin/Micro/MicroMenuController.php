@@ -76,11 +76,18 @@ class MicroMenuController extends Controller
 
     public function create()
     {
-        $researchCentres = DB::table('research_centres')->pluck('research_centre_name', 'id'); // Replace 'name' and 'id' with your actual column names.
+        // Filter research centres where state equals 1
+        $researchCentres = DB::table('research_centres')
+                            ->where('status', 1)
+                            ->pluck('research_centre_name', 'id'); // Replace 'name' and 'id' with your actual column names.
+
+        // Build menu options
         $menuOptions = $this->buildMenuOptions();
 
-        return view('admin.micro.manage_micromenus.create', compact('menuOptions','researchCentres'));
+        // Return view with filtered research centres and menu options
+        return view('admin.micro.manage_micromenus.create', compact('menuOptions', 'researchCentres'));
     }
+
 
     private function buildMenuOptions($parentId = null, $spacing = '')
     {
@@ -99,10 +106,75 @@ class MicroMenuController extends Controller
         return $options;
     }
 
+    // public function store(Request $request)
+    // {
+    //     $menu = new micromenu();
+    //     $menu->language = $request->txtlanguage;
+    //     $menu->research_centreid = $request->research_centre;
+    //     $menu->menutitle = $request->menutitle;
+    //     $menu->texttype = $request->texttype;
+    //     $menu->menucategory = $request->menucategory;
+    //     $menu->parent_id = $request->menucategory;
+    //     $menu->txtpostion = $request->txtpostion;
+    //     $menu->meta_title = $request->input('meta_title');
+    //     $menu->meta_keyword = $request->input('meta_keyword');
+    //     $menu->meta_description = $request->input('meta_description');
+    //     $menu->web_site_target = $request->input('web_site_target');
+    //     $menu->start_date = $request->input('start_date');
+    //     $menu->termination_date = $request->input('termination_date');
+    //     $menu->menu_status = $request->input('menu_status');
+
+    //     if ($request->hasFile('pdf_file')) {
+    //         $file = $request->file('pdf_file');
+    //         $filename = time() . '_' . $file->getClientOriginalName();
+    //         $destinationPath = public_path('pdfs');
+    //         $file->move($destinationPath, $filename);
+    //         $menu->pdf_file = 'pdfs/' . $filename;
+    //     }
+
+    //     if ($request->texttype == 1) {
+    //         $menu->content = $request->content;
+    //     } elseif ($request->texttype == 3) {
+    //         $menu->website_url = $request->website_url;
+    //     }
+
+    //     $menu->save();
+       
+    //     MicroManageAudit::create([
+    //         'Module_Name' => 'Menu', // Static value
+    //         'Time_Stamp' => time(), // Current timestamp
+    //         'Created_By' => null, // ID of the authenticated user
+    //         'Updated_By' => null, // No update on creation, so leave null
+    //         'Action_Type' => 'Insert', // Static value
+    //         'IP_Address' => $request->ip(), // Get IP address from request
+    //     ]);
+
+    //     return redirect()->route('micromenus.index')->with('success', 'Menu created successfully.');
+    // }
+
     public function store(Request $request)
     {
+        // dd($request);
+        // Validate the incoming request data
+        $validatedData = $request->validate([
+            'language' => 'required',
+            'research_centre' => 'required',
+            'menutitle' => 'required|string|max:255',
+            'texttype' => 'required',
+            'menucategory' => 'required',
+            'txtpostion' => 'required',            
+            'menu_status' => 'required|in:1,0',
+            
+        ]);
+        // dd($request->all());
+        // Check if 'web_site_target' has a valid integer value, or redirect back if invalid
+        if ($request->input('web_site_target') == 'Select') {
+            return redirect()->back()->with('error', 'Please select a valid website target.');
+        }
+
+        // Create new menu entry
         $menu = new micromenu();
-        $menu->language = $request->txtlanguage;
+        $menu->language = $request->language;
         $menu->research_centreid = $request->research_centre;
         $menu->menutitle = $request->menutitle;
         $menu->texttype = $request->texttype;
@@ -112,11 +184,10 @@ class MicroMenuController extends Controller
         $menu->meta_title = $request->input('meta_title');
         $menu->meta_keyword = $request->input('meta_keyword');
         $menu->meta_description = $request->input('meta_description');
-        $menu->web_site_target = $request->input('web_site_target');
-        $menu->start_date = $request->input('start_date');
-        $menu->termination_date = $request->input('termination_date');
-        $menu->menu_status = $request->input('menu_status', 0);
+        $menu->web_site_target = $request->input('web_site_target'); // Store web_site_target as integer
+        $menu->menu_status = $request->menu_status;
 
+        // Handle file upload
         if ($request->hasFile('pdf_file')) {
             $file = $request->file('pdf_file');
             $filename = time() . '_' . $file->getClientOriginalName();
@@ -125,25 +196,30 @@ class MicroMenuController extends Controller
             $menu->pdf_file = 'pdfs/' . $filename;
         }
 
+        // Handle content based on texttype
         if ($request->texttype == 1) {
             $menu->content = $request->content;
         } elseif ($request->texttype == 3) {
             $menu->website_url = $request->website_url;
         }
-
-        $menu->save();
        
+        // Save the menu to the database
+        $menu->save();
+
+        // Audit logging
         MicroManageAudit::create([
-            'Module_Name' => 'Menu', // Static value
-            'Time_Stamp' => time(), // Current timestamp
-            'Created_By' => null, // ID of the authenticated user
-            'Updated_By' => null, // No update on creation, so leave null
-            'Action_Type' => 'Insert', // Static value
-            'IP_Address' => $request->ip(), // Get IP address from request
+            'Module_Name' => 'Menu',
+            'Time_Stamp' => time(),
+            'Created_By' => null,
+            'Updated_By' => null,
+            'Action_Type' => 'Insert',
+            'IP_Address' => $request->ip(),
         ]);
 
+        // Redirect with success message
         return redirect()->route('micromenus.index')->with('success', 'Menu created successfully.');
     }
+
 
     public function edit($id)
     {
@@ -217,13 +293,20 @@ class MicroMenuController extends Controller
 
     public function delete($id)
     {
+        // Retrieve the menu from the database
         $menu = micromenu::findOrFail($id);
-
+        // Check if the menu's status is 1 (Inactive)
+        if ($menu->menu_status == 1) {
+            // If the status is inactive, prevent deletion and show an error message
+            return redirect()->route('micromenus.index')->with('error', 'Inactive menus cannot be deleted.');
+        }
+        // If the menu is not inactive, mark it as deleted (soft delete)
         $menu->is_deleted = 1;
         $menu->save();
-
+        // Redirect with a success message
         return redirect()->route('micromenus.index')->with('success', 'Menu marked as deleted successfully.');
     }
+
 
     public function toggleStatus(Request $request, $id)
     {

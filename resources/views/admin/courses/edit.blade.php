@@ -47,6 +47,9 @@
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark ps-5 h-58" name="course_name"
                                         id="course_name" value="{{ $course->course_name }}">
+                                        @error('course_name')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -57,6 +60,9 @@
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark ps-5 h-58" name="abbreviation"
                                         id="abbreviation" value="{{ $course->abbreviation }}">
+                                        @error('abbreviation')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -67,13 +73,15 @@
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark ps-5 h-58" name="meta_title"
                                         id="meta_title" value="{{ $course->meta_title }}">
+                                        @error('meta_title')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="meta_keyword">Meta Keyword :</label>
-                                <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark ps-5 h-58" name="meta_keyword"
                                         id="meta_keyword" value="{{ $course->meta_keyword }}">
@@ -88,9 +96,7 @@
                                         placeholder="Enter the Meta Description" name="meta_description"
                                         rows="5">{{ $course->meta_description }}</textarea>
                                 </div>
-
-
-                                @error('description')
+                                @error('meta_description')
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -98,12 +104,11 @@
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="description">Description:</label>
+                                <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <textarea class="form-control" id="description" placeholder="Enter the Description"
                                         name="description" rows="5">{{ $course->description }}</textarea>
                                 </div>
-
-
                                 @error('description')
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror
@@ -116,6 +121,9 @@
                                 <div class="form-group position-relative">
                                     <input type="date" class="form-control text-dark ps-5 h-58" name="course_start_date"
                                         id="course_start_date" value="{{ $course->course_start_date }}">
+                                        @error('course_start_date')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -126,6 +134,9 @@
                                 <div class="form-group position-relative">
                                     <input type="date" class="form-control text-dark ps-5 h-58" name="course_end_date"
                                         id="course_end_date" value="{{ $course->course_end_date }}">
+                                        @error('course_end_date')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -135,15 +146,18 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <select class="form-select form-control ps-5 h-58" name="support_section"
-                                        id="support_section" required>
+                                        id="support_section">
                                        
                                             @foreach($section_category as $section)
                                         <option value="{{ $section->id }}"  @if($section->id == $course->support_section)
                                             selected
                                             @endif  class="text-dark">{{ $section->name }}
                                         </option>
-
                                         @endforeach
+
+                                        @error('support_section')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                     </select>
                                 </div>
                             </div>
@@ -151,7 +165,6 @@
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="coordinator_id">Coordinator ID :</label>
-                                <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark ps-5 h-58" name="coordinator_id"
                                         id="coordinator_id" value="{{ $course->coordinator_id }}">
@@ -161,7 +174,6 @@
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="asst_coordinator_1_id">1st Asst. Co-ordinator :</label>
-                                <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark ps-5 h-58"
                                         name="asst_coordinator_1_id" id="asst_coordinator_1_id"
@@ -172,7 +184,6 @@
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="asst_coordinator_2_id">2nd Asst. Co-ordinator :</label>
-                                <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark ps-5 h-58"
                                         name="asst_coordinator_2_id" id="asst_coordinator_2_id"
@@ -183,7 +194,6 @@
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="asst_coordinator_3_id">3rd Asst. Co-ordinator :</label>
-                                <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark ps-5 h-58"
                                         name="asst_coordinator_3_id" id="asst_coordinator_3_id"
@@ -194,7 +204,6 @@
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="asst_coordinator_4_id">4th Asst. Co-ordinator :</label>
-                                <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark ps-5 h-58"
                                         name="asst_coordinator_4_id" id="asst_coordinator_4_id"
@@ -205,7 +214,6 @@
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="asst_coordinator_5_id">5th Asst. Co-ordinator :</label>
-                                <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark ps-5 h-58"
                                         name="asst_coordinator_5_id" id="asst_coordinator_5_id"
@@ -215,7 +223,7 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group mb-0">
-                                <label class="label" for="important_links">Order Notes :</label>
+                                <label class="label" for="important_links">Important Links :</label>
                                 <div class="form-group position-relative">
                                     <textarea class="form-control ps-5 text-dark" id="important_links"
                                         name="important_links">{{ $course->important_links }}</textarea>
@@ -228,7 +236,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <select class="form-select form-control ps-5 h-58" name="course_type"
-                                        id="course_type" required>
+                                        id="course_type">
                                         
                                             @foreach($tree as $category)
                                         <option value="{{ $category->id }}"  {{ $course->course_type == $category->id ? 'selected' : '' }}
@@ -256,7 +264,9 @@
                                             {{ $venues->venue_title }}
                                         </option>
                                         @endforeach
-
+                                        @error('venue_id')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                     </select>
                                 </div>
                             </div>
@@ -287,7 +297,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <select class="form-select form-control ps-5 h-58" name="page_status"
-                                        id="page_status" required>
+                                        id="page_status">
                                         <option value="1" class="text-dark"
                                             {{ $course->page_status == 1? 'selected' : '' }}>Active</option>
                                         <option value="0" class="text-dark"
