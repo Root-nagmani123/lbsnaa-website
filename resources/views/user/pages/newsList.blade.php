@@ -38,23 +38,23 @@
             @foreach($news as $slider)
             <div class="col-xl-4 col-lg-4 col-md-6 col-12 mb-3 d-flex align-items-stretch">
                 <!-- Card -->
-                <div class="card mb-4 shadow-lg card-lift">
+                <div class="card mb-4 shadow-lg card-lift" style="height:450px;width:400px;">
                     <div class="card-header" style="border:none;padding:0;">
                     <a href="#">
                         <!-- Img  -->
                         <img src="{{ isset($slider->main_image) || !empty($slider->main_image) ? asset($slider->main_image) : asset('assets/images/4.jpg') }}"
-                            class="card-img-top" alt="blogpost ">
+                            class="card-img-top" alt="blogpost " style="height:200px; object-fit: cover">
                     </a>
                     </div>
                     <!-- Card body -->
-                    <div class="card-body d-flex flex-column">
+                    <div class="card-body d-flex flex-column" style=" height:200px; overflow-y:hidden;">
                         <a href="#"
                             class="fs-5 mb-2 fw-semibold d-block text-success">Posted On :- {{ \Carbon\Carbon::parse($slider->created_at)->format('d F, Y') }}</a>
                         <h3><a href="{{ route('user.newsbyslug', $slider->title_slug) }}" class="text-inherit">{{ $slider->title }}</a></h3>
                         <p>{{ $slider->short_description }}</p>
                         <!-- Media content -->
                     </div>
-                    <div class="card-footer" style="border-top:none;">
+                    <div class="card-footer" style="border-top:none;height:50px;">
                     <a href="{{ route('user.newsbyslug', $slider->title_slug) }}" class="text-inherit text-primary" >Read More</a>
                     </div>
                 </div>
