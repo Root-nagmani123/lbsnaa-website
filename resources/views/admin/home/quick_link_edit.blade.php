@@ -65,6 +65,16 @@
                                     <small class="text-muted">Provide a URL if you're not uploading a document.</small>
                                 </div>
                             </div>
+                            <div class="form-group mb-4">
+                                <label for="url_data" class="label">URL type</label>
+                                <div class="form-group position-relative">
+                                    <select name="url_type" id="url_type" class="form-control h-58 text-dark ps-5">
+                                        <option value="" selected>Select</option>
+                                        <option value="internal" {{ $quickLink->url_type == "internal" ? 'selected' : '' }}>Internal Link</option>
+                                        <option value="external" {{ $quickLink->url_type == 'external' ? 'selected' : '' }}>External Link</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-lg-6" id="file_input" style="display: none;">
                             <!-- File upload field -->

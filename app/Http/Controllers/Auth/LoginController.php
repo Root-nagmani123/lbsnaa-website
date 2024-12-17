@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use Illuminate\Validation\ValidationException;
 
@@ -30,6 +31,12 @@ class LoginController extends Controller
 
     // Use Hash::check() to verify the password
     if ($user && Hash::check($request->password, $user->password)) {
+        DB::table('user_login_details')->insert([
+            'user_id' =>$user->id,
+            'login_time' => now(),
+            'action' => 'Login',
+            'ip_address' => $request->ip(),
+        ]);
         // Manually log the user in
         Auth::login($user);
 
@@ -48,6 +55,14 @@ class LoginController extends Controller
 
         // Redirect to the intended route or a default page
         return redirect()->intended('admin');
+    }
+    if($user){
+        DB::table('user_login_details')->insert([
+            'user_id' =>$user->id,
+            'login_time' => now(),
+            'action' => 'Login failed',
+            'ip_address' => $request->ip(),
+        ]);
     }
 
     // Throw an error if authentication fails

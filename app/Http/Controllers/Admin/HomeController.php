@@ -253,6 +253,7 @@ public function footer_images_status_update(Request $request, $id)
     QuickLink::create([
         'text' => $request->text,
         'url' => $request->url ?? null,
+        'url_type' => $request->url_type ?? null,
         'file' => $fileName ?? null,
         'status' => $request->status ?? 0,
         'is_deleted' => 0,
@@ -297,6 +298,7 @@ public function footer_images_status_update(Request $request, $id)
         // Update quick link data
         $quickLink->text = $request->text;
         $quickLink->url = $request->url ?? null;
+        $quickLink->url_type = $request->url_type ?? null;
         $quickLink->status = $request->status ?? 0;
         $quickLink->save();
 

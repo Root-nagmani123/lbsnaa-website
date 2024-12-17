@@ -58,8 +58,18 @@
                                 <label for="url" class="label">URL</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="test" name="url" class="form-control text-dark ps-5 h-58">
+                                    <input type="text" name="url" class="form-control text-dark ps-5 h-58">
                                     <small class="text-muted">Provide a URL if you're not uploading a document.</small>
+                                </div>
+                            </div>
+                            <div class="form-group mb-4">
+                                <label for="url_data" class="label">URL type</label>
+                                <div class="form-group position-relative">
+                                    <select name="url_type" id="url_type" class="form-control h-58 text-dark ps-5">
+                                        <option value="" selected>Select</option>
+                                        <option value="internal">Internal Link</option>
+                                        <option value="external">External Link</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
