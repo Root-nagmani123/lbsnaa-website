@@ -39,7 +39,7 @@
     <div class="container">
         <div class="row gy-4 gy-xl-0">
           
-            <div class="col-xl-9 col-lg-6 col-12">
+            <div class="col-12">
                 <!-- Additional content for the second column -->
                 <div class="mb-6 mb-lg-8">
                     <h2 class="h1 fw-bold text-primary">
