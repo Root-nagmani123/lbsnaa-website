@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\DB;
 
 use App\Models\Admin\Micro\MicroManageAudit;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+
 
 class ManageResearchCentreController extends Controller
 {
@@ -34,6 +36,7 @@ class ManageResearchCentreController extends Controller
         DB::table('research_centres')->insert([
             'language' => $validatedData['language'],
             'research_centre_name' => $validatedData['research_centre_name'],
+            'research_centre_slug' => Str::slug($validatedData['research_centre_name'], '-'),
             'description' => $validatedData['description'],
             'status' => $validatedData['status'],
             'created_at' => now(),
@@ -70,6 +73,7 @@ class ManageResearchCentreController extends Controller
         DB::table('research_centres')->where('id', $id)->update([
             'language' => $validatedData['language'],
             'research_centre_name' => $validatedData['research_centre_name'],
+            'research_centre_slug' => Str::slug($validatedData['research_centre_name'], '-'),
             'description' => $validatedData['description'],
             'status' => $validatedData['status'],
             'updated_at' => now(),

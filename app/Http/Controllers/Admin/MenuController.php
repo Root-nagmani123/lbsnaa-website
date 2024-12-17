@@ -106,7 +106,7 @@ class MenuController extends Controller
             'txtlanguage' => 'required|in:1,2',
             'menutitle' => 'required|string|max:255',
             'texttype' => 'required|integer|in:1,2,3', // Example values for texttype
-            'menucategory' => 'required|integer|min:1',
+            // 'menucategory' => 'required|integer|min:1',
             'txtpostion' => 'nullable|integer',
             // 'meta_title' => 'nullable|string|max:255',
             // 'meta_keyword' => 'nullable|string|max:255',
@@ -128,9 +128,7 @@ class MenuController extends Controller
             'texttype.required' => 'Please select a text type.',
             'texttype.integer' => 'The text type must be a valid integer.',
             'texttype.in' => 'Invalid text type selection.',
-            'menucategory.required' => 'Please select a menu category.',
-            'menucategory.integer' => 'The menu category must be a valid integer.',
-            'menucategory.min' => 'Please select a valid menu category.',
+            
             'txtpostion.integer' => 'The position must be a valid integer.',
             'meta_title.max' => 'The meta title must not exceed 255 characters.',
             'meta_keyword.max' => 'The meta keyword must not exceed 255 characters.',

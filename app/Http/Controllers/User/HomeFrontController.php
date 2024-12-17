@@ -20,11 +20,13 @@ class HomeFrontController extends Controller
         ->select('id','course_name', 'coordinator_id', 'course_start_date', 'course_end_date')
             ->where('course_start_date', '<=', $today)
             ->where('course_end_date', '>=', $today)
+            ->where('page_status', 1)
             ->get();
 
         $upcoming_course = DB::table('course')
         ->select('id','course_name', 'coordinator_id', 'course_start_date', 'course_end_date')
             ->where('course_start_date', '>', $today)
+            ->where('page_status', 1)
             ->get();
             
         // print_r($upcoming_course);die;
@@ -268,8 +270,8 @@ public function get_course_details_pages(Request $request, $slug)
 {
     // Fetch the course based on the slug
     $course = DB::table('course')
-                ->join('section_category', 'course.support_section', '=', 'section_category.id')
-                ->join('manage_venues', 'course.venue_id', '=', 'manage_venues.id')
+                ->leftjoin('section_category', 'course.support_section', '=', 'section_category.id')
+                ->leftjoin('manage_venues', 'course.venue_id', '=', 'manage_venues.id')
                 ->where('course.id', '=', $slug) // Using 'slug' for matching
                 ->select(
                     'course.*',

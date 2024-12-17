@@ -56,6 +56,29 @@
                         </div>
                         <div class="col-lg-5">
                             <div class="form-group mb-4">
+                                <label class="label" for="txtpostion">Content Position :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <select class="form-select form-control ps-5 h-58" id="txtpostion"
+                                        autocomplete="off" autocomplete="off" name="txtpostion"
+                                         onchange="updateMenuTypeOptions(this.value)">
+                                        <option selected class="text-dark">Select</option>
+                                        <option value="1" class="text-dark">Header Menu</option>
+                                        <option value="2" class="text-dark">Bottom Menu</option>
+                                        <option value="3" class="text-dark">Footer Menu</option>
+                                        <option value="4" class="text-dark">Director Message Menu</option>
+                                        <option value="5" class="text-dark">Life Academy Menu</option>
+                                        <option value="6" class="text-dark">Other Pages</option>
+                                        <option value="7" class="text-dark">Latest Updates</option>
+                                    </select>
+                                    @error('txtpostion')
+                                        <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="form-group mb-4">
                                 <label class="label" for="texttype">Menu Type :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
@@ -226,29 +249,7 @@
                         </div>
 
 
-                        <div class="col-lg-6">
-                            <div class="form-group mb-4">
-                                <label class="label" for="txtpostion">Content Position :</label>
-                                <span class="star">*</span>
-                                <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" id="txtpostion"
-                                        autocomplete="off" autocomplete="off" name="txtpostion"
-                                        onchange="showDateFields(this.value)">
-                                        <option selected class="text-dark">Select</option>
-                                        <option value="1" class="text-dark">Header Menu</option>
-                                        <option value="2" class="text-dark">Bottom Menu</option>
-                                        <option value="3" class="text-dark">Footer Menu</option>
-                                        <option value="4" class="text-dark">Director Message Menu</option>
-                                        <option value="5" class="text-dark">Life Academy Menu</option>
-                                        <option value="6" class="text-dark">Other Pages</option>
-                                        <option value="7" class="text-dark">Latest Updates</option>
-                                    </select>
-                                    @error('txtpostion')
-                                        <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
+                        
                         <div id="date-fields" style="display: none;">
                             <div class="row">
                                 <div class="col-lg-6">
@@ -318,6 +319,27 @@ document.getElementById('texttype').addEventListener('change', function() {
 </script>
 
 <script>
+     function updateMenuTypeOptions(selectedValue) {
+        // Get the second dropdown element
+        const menuTypeDropdown = document.getElementById("texttype");
+
+        // Enable all options by default
+        for (let i = 0; i < menuTypeDropdown.options.length; i++) {
+            menuTypeDropdown.options[i].disabled = false;
+        }
+
+        // If "Header Menu" or "Bottom Menu" is selected
+        if (selectedValue === "1" || selectedValue === "2") {
+            // Disable "PDF file Upload" and "Website URL"
+            menuTypeDropdown.options[2].disabled = true; // PDF file Upload
+            menuTypeDropdown.options[3].disabled = true; // Website URL
+
+            // Reset the selection to "Select" if the currently selected option is disabled
+            if (menuTypeDropdown.value === "2" || menuTypeDropdown.value === "3") {
+                menuTypeDropdown.value = "";
+            }
+        }
+    }
     function displayFileName() {
         const fileInput = document.getElementById('file-upload');
         const fileNameDiv = document.getElementById('file-name');
