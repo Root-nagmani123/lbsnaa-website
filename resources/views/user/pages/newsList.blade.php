@@ -50,7 +50,7 @@
                     <div class="card-body d-flex flex-column">
                         <a href="#"
                             class="fs-5 mb-2 fw-semibold d-block text-success">Posted On :- {{ \Carbon\Carbon::parse($slider->created_at)->format('d F, Y') }}</a>
-                        <h3><a href="blog-single.html" class="text-inherit">{{ $slider->title }}</a></h3>
+                        <h3>{{ $slider->title }}</h3>
                         <p>{{ $slider->short_description }}</p>
                         <!-- Media content -->
                     </div>
