@@ -65,12 +65,12 @@
     <div class="container">
         <div class="row gy-4 gy-xl-0">
             <div class="col-xl-3 col-md-6 col-12 mb-4">
-                <div class="card card-lift h-100 text-center text-lg-start">
+                <div class="card card-lift text-center text-lg-start" style="height:400px;">
                     <div class="p-2">
                         <a href="#"><img src="{{ asset('assets/images/icons/1.jpg') }}" alt=""
-                                class="img-fluid rounded-3 w-100"></a>
+                                class="img-fluid rounded-3 w-100 " style="object-fit: cover; height: 200px"></a>
                     </div>
-                    <div class="card-body pt-2">
+                    <div class="card-body pt-2" style=" height: 190px;">
                         <h3><a class="text-inherit" href="#!">Director Message</a></h3>
                         <a href="{{ url('menu/director-message') }}"
                             class="icon-link icon-link-hover link-primary fw-semibold">
@@ -95,15 +95,18 @@
                             </svg>
                         </a>
                     </div>
+                    <div class="card-footer" style="border:none;height:10px;">
+
+                    </div>
                 </div>
             </div>
             <div class="col-xl-3 col-md-6 col-12 mb-4">
-                <div class="card card-lift h-100 text-center text-lg-start">
+                <div class="card card-lift text-center text-lg-start" style="height:400px;">
                     <div class="p-2">
                         <a href="#"><img src="{{ asset('assets/images/icons/3.jpg') }}" alt=""
-                                class="img-fluid rounded-3 w-100" style="object-fit: cover"></a>
+                                class="img-fluid rounded-3 w-100" style="object-fit: cover; height: 200px"></a>
                     </div>
-                    <div class="card-body pt-2" style="overflow-y:scroll">
+                    <div class="card-body pt-2" style="overflow-y:scroll; height: 190px;">
                         <h3><a class="text-inherit" href="#!">Runing Courses</a></h3>
                         <ul>
                             @foreach ($current_course as $course)
@@ -121,41 +124,47 @@
 
                         </ul>
                     </div>
+                    <div class="card-footer" style="border:none;height:10px;">
+
+                    </div>
                 </div>
             </div>
             <div class="col-xl-3 col-md-6 col-12 mb-4">
-                <div class="card card-lift h-100 text-center text-lg-start">
+                <div class="card card-lift text-center text-lg-start mb-2" style="height:400px;">
                     <div class="p-2">
                         <a href="#"><img src="{{ asset('assets/images/icons/4.jpg') }}" alt=""
-                                class="img-fluid rounded-3 w-100"></a>
+                                class="img-fluid rounded-3 w-100" style="object-fit: cover; height: 200px "></a>
                     </div>
-                    <div class="card-body pt-2" style="overflow-y:scroll" >
+                    <div class="card-body pt-2 pb-2" style="overflow-y:scroll" style=" height: 190px;">
                         <h3><a class="text-inherit" href="#!">Upcoming Courses</a></h3>
                         <ul>
-                                            @foreach ($upcoming_course as $course)
-                                            <li>
-                                                <strong> <a
-                                                        href="{{ route('user.courseDetailslug', ['slug' => $course->id]) }}">
-                                                        {{ $course->course_name }}
-                                                    </a></strong><br>
-                                                Course Coordinator: {{ $course->coordinator_id }}<br>
-                                                {{ date('d F, Y', strtotime($course->course_start_date)) }} to
-                                                {{ date('d F, Y', strtotime($course->course_end_date)) }}
-                                            </li>
-                                            @endforeach
-                                        </ul>
+                            @foreach ($upcoming_course as $course)
+                            <li>
+                                <strong> <a href="{{ route('user.courseDetailslug', ['slug' => $course->id]) }}">
+                                        {{ $course->course_name }}
+                                    </a></strong><br>
+                                Course Coordinator: {{ $course->coordinator_id }}<br>
+                                {{ date('d F, Y', strtotime($course->course_start_date)) }} to
+                                {{ date('d F, Y', strtotime($course->course_end_date)) }}
+                            </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    <div class="card-footer" style="border:none;height:10px;">
+
                     </div>
                 </div>
             </div>
             <div class="col-xl-3 col-md-6 col-12 mb-4">
-                <div class="card card-lift h-100 text-center text-lg-start">
+                <div class="card card-lift text-center text-lg-start" style="height:400px;">
                     <div class="p-2">
                         <a href="#"><img src="{{ asset('assets/images/icons/2.jpg') }}" alt=""
-                                class="img-fluid rounded-3 w-100"></a>
+                                class="img-fluid rounded-3 w-100" style="object-fit: cover; height: 200px"></a>
                     </div>
-                    <div class="card-body pt-2">
+                    <div class="card-body pt-2" style="height:190px;">
                         <h3><a class="text-inherit" href="#!">Training Calendar</a></h3>
-                        <a href="{{ url('cms/training_cal') }}" class="icon-link icon-link-hover link-primary fw-semibold">
+                        <a href="{{ url('cms/training_cal') }}"
+                            class="icon-link icon-link-hover link-primary fw-semibold">
                             <span>Training Calendar of LBSNAA</span>
 
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor"
@@ -166,17 +175,21 @@
                             </svg>
                         </a>
                     </div>
+                    <div class="card-footer" style="border:none;height:10px;">
+
+                    </div>
                 </div>
             </div>
             <div class="col-xl-3 col-md-6 col-12 mb-4">
-                <div class="card card-lift h-100 text-center text-lg-start">
+                <div class="card card-lift text-center text-lg-start" style="height:400px;">
                     <div class="p-2">
                         <a href="#"><img src="{{ asset('assets/images/icons/5.jpg') }}" alt=""
-                                class="img-fluid rounded-3 w-100"></a>
+                                class="img-fluid rounded-3 w-100" style="object-fit: cover; height: 200px"></a>
                     </div>
-                    <div class="card-body pt-2">
+                    <div class="card-body pt-2" style="height:190px;">
                         <h3><a class="text-inherit" href="#!">Life at Academy</a></h3>
-                        <a href="{{ url('menu/the-academy-experience') }}" class="icon-link icon-link-hover link-primary fw-semibold">
+                        <a href="{{ url('menu/the-academy-experience') }}"
+                            class="icon-link icon-link-hover link-primary fw-semibold">
                             <span>The Academy Experience</span>
 
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor"
@@ -185,8 +198,9 @@
                                     d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8">
                                 </path>
                             </svg>
-                        </a><br>  
-                        <a href="{{ url('menu/a-day-in-the-life-of-a-trainee') }}" class="icon-link icon-link-hover link-primary fw-semibold">
+                        </a><br>
+                        <a href="{{ url('menu/a-day-in-the-life-of-a-trainee') }}"
+                            class="icon-link icon-link-hover link-primary fw-semibold">
                             <span>A day in the life of a Trainee</span>
 
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor"
@@ -197,17 +211,21 @@
                             </svg>
                         </a>
                     </div>
+                    <div class="card-footer" style="border:none;height:10px;">
+
+                    </div>
                 </div>
             </div>
             <div class="col-xl-3 col-md-6 col-12 mb-4">
-                <div class="card card-lift h-100 text-center text-lg-start">
+                <div class="card card-lift text-center text-lg-start" style="height:400px;">
                     <div class="p-2">
                         <a href="#"><img src="{{ asset('assets/images/icons/6.jpg') }}" alt=""
-                                class="img-fluid rounded-3 w-100"></a>
+                                class="img-fluid rounded-3 w-100" style="object-fit: cover; height: 200px"></a>
                     </div>
-                    <div class="card-body pt-2">
+                    <div class="card-body pt-2" style="height:190px;">
                         <h3><a class="text-inherit" href="#!">Academy Souvenir</a></h3>
-                        <a href="{{ url('souvenir?pro_category=7')}}" class="icon-link icon-link-hover link-primary fw-semibold">
+                        <a href="{{ url('souvenir?pro_category=7')}}"
+                            class="icon-link icon-link-hover link-primary fw-semibold">
                             <span>Memorabilia</span>
 
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor"
@@ -217,7 +235,8 @@
                                 </path>
                             </svg>
                         </a><br>
-                        <a href="{{ url('souvenir?pro_category=6')}}" class="icon-link icon-link-hover link-primary fw-semibold">
+                        <a href="{{ url('souvenir?pro_category=6')}}"
+                            class="icon-link icon-link-hover link-primary fw-semibold">
                             <span>Apparel</span>
 
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor"
@@ -227,6 +246,9 @@
                                 </path>
                             </svg>
                         </a>
+                    </div>
+                    <div class="card-footer" style="border:none;height:10px;">
+
                     </div>
                 </div>
             </div>
@@ -238,80 +260,81 @@
     <div class="container">
         <div class="row gy-4 gy-xl-0">
             <div class="col-8">
-            <div class="mb-5">
-                        <div class="row">
-                            <div class="col-6">
-                                <h3 class="fw-semibold text-primary">LBSNAA Academy News</h3>
-                            </div>
-                            <div class="col-6">
-                                <span style="float:right;"><a href="{{ route('user.news_listing') }}"
-                                        class="fw-semibold text-primary">View All</a></span>
-                            </div>
+                <div class="mb-5">
+                    <div class="row">
+                        <div class="col-6">
+                            <h3 class="fw-semibold text-primary">LBSNAA Academy News</h3>
+                        </div>
+                        <div class="col-6">
+                            <span style="float:right;"><a href="{{ route('user.news_listing') }}"
+                                    class="fw-semibold text-primary">View All</a></span>
                         </div>
                     </div>
-                    <div class="position-relative">
-                        <div class="tns-outer" id="tns1-ow">
-                            <!-- <div class="tns-liveregion tns-visually-hidden" aria-live="polite" aria-atomic="true">
+                </div>
+                <div class="position-relative">
+                    <div class="tns-outer" id="tns1-ow">
+                        <!-- <div class="tns-liveregion tns-visually-hidden" aria-live="polite" aria-atomic="true">
                                 slide
                                 <span class="current">6 to 7</span>
                                 of 5
                             </div> -->
-                            <div id="tns1-mw" class="tns-ovh">
-                                <div class="tns-inner" id="tns1-iw">
-                                    <div class="sliderTestimonialFourth tns-slider tns-carousel tns-subpixel tns-calc tns-horizontal"
-                                        id="tns1">
-                                        @foreach($news as $slider)
-                                        <div class="item tns-item cars-deck">
-                                            <!-- Card -->
-                                            <div class="card mb-4 shadow-lg card-lift" style="height:450px;width:400px;">
-                                                <div class="card-header" style="border:none;padding:0;">
-                                                    <a href="#">
-                                                        <!-- Img  -->
-                                                        <img src="{{ isset($slider->main_image) || !empty($slider->main_image) ? asset($slider->main_image) : asset('assets/images/4.jpg') }}"
-                                                            class="card-img-top" alt="blogpost " style="object-fit: cover; height: 200px">
-                                                    </a>
-                                                </div>
-                                                <!-- Card body -->
-                                                <div class="card-body" style="height: 200px; overflow-y:hidden;">
-                                                    <a href="#"
-                                                        class="fs-5 mb-2 fw-semibold d-block text-success">Posted On :-
-                                                        {{ \Carbon\Carbon::parse($slider->created_at)->format('d F, Y') }}</a>
-                                                    <h3><a href="{{ route('user.newsbyslug', $slider->title_slug) }}"
-                                                            class="text-inherit">{{ $slider->title }}</a></h3>
-                                                    <p>{{ $slider->short_description }}</p>
-                                                    <!-- Media content -->
-                                                </div>
-                                                <div class="card-footer" style="border-top:none;height:50px">
-                                                    <a href="{{ route('user.newsbyslug', $slider->title_slug) }}"
-                                                        class="icon-link icon-link-hover link-primary fw-semibold">
-                                                        <span>Read More</span>
+                        <div id="tns1-mw" class="tns-ovh">
+                            <div class="tns-inner" id="tns1-iw">
+                                <div class="sliderTestimonialFourth tns-slider tns-carousel tns-subpixel tns-calc tns-horizontal"
+                                    id="tns1">
+                                    @foreach($news as $slider)
+                                    <div class="item tns-item cars-deck">
+                                        <!-- Card -->
+                                        <div class="card mb-4 shadow-lg card-lift" style="height:450px;width:400px;">
+                                            <div class="card-header" style="border:none;padding:0;">
+                                                <a href="#">
+                                                    <!-- Img  -->
+                                                    <img src="{{ isset($slider->main_image) || !empty($slider->main_image) ? asset($slider->main_image) : asset('assets/images/4.jpg') }}"
+                                                        class="card-img-top" alt="blogpost "
+                                                        style="object-fit: cover; height: 200px">
+                                                </a>
+                                            </div>
+                                            <!-- Card body -->
+                                            <div class="card-body" style="height: 200px; overflow-y:hidden;">
+                                                <a href="#" class="fs-5 mb-2 fw-semibold d-block text-success">Posted On
+                                                    :-
+                                                    {{ \Carbon\Carbon::parse($slider->created_at)->format('d F, Y') }}</a>
+                                                <h3><a href="{{ route('user.newsbyslug', $slider->title_slug) }}"
+                                                        class="text-inherit">{{ $slider->title }}</a></h3>
+                                                <p>{{ $slider->short_description }}</p>
+                                                <!-- Media content -->
+                                            </div>
+                                            <div class="card-footer" style="border-top:none;height:50px">
+                                                <a href="{{ route('user.newsbyslug', $slider->title_slug) }}"
+                                                    class="icon-link icon-link-hover link-primary fw-semibold">
+                                                    <span>Read More</span>
 
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                                            fill="currentColor" class="bi bi-arrow-right"
-                                                            viewBox="0 0 16 16">
-                                                            <path fill-rule="evenodd"
-                                                                d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8">
-                                                            </path>
-                                                        </svg>
-                                                    </a>
-                                                </div>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                        fill="currentColor" class="bi bi-arrow-right"
+                                                        viewBox="0 0 16 16">
+                                                        <path fill-rule="evenodd"
+                                                            d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8">
+                                                        </path>
+                                                    </svg>
+                                                </a>
                                             </div>
                                         </div>
-                                        @endforeach
                                     </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
-                        <ul class="controls-testimonial controls justify-content-start"
-                            id="sliderTestimonialFourthControls" aria-label="Carousel Navigation" tabindex="0">
-                            <li class="prev ms-0" aria-controls="tns1" tabindex="-1" data-controls="prev">
-                                <i class="fe fe-chevron-left"></i>
-                            </li>
-                            <li class="next ms-2" aria-controls="tns1" tabindex="-1" data-controls="next">
-                                <i class="fe fe-chevron-right"></i>
-                            </li>
-                        </ul>
                     </div>
+                    <ul class="controls-testimonial controls justify-content-start" id="sliderTestimonialFourthControls"
+                        aria-label="Carousel Navigation" tabindex="0">
+                        <li class="prev ms-0" aria-controls="tns1" tabindex="-1" data-controls="prev">
+                            <i class="fe fe-chevron-left"></i>
+                        </li>
+                        <li class="next ms-2" aria-controls="tns1" tabindex="-1" data-controls="next">
+                            <i class="fe fe-chevron-right"></i>
+                        </li>
+                    </ul>
+                </div>
             </div>
             <div class="col-4">
                 <div class="card card-hover border">
