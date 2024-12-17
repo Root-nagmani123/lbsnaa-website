@@ -24,7 +24,7 @@
 </section>
 
 <section class="p-2">
-    <div class="container-fluid">
+    <div class="container">
     <div class="card bg-white border-0 rounded-10 mb-4">
     <div class="card-body p-4">
       <div class="default-table-area members-list">
