@@ -36,18 +36,19 @@
                 </tr>
             </thead>
             <tbody>
-               
-                        <tr>
-                            <td>1</td> <!-- Auto-incrementing index -->
-                            <td>Nibhash</td>
-                            <td>Admin</td>
-                            <td>22/11/2024</td>
-                            <td>Login</td>
-                            <td>127.0.0.1</td>
-                        </tr>
-
-                       
-            </tbody>
+                @php $i = 1;@endphp
+        @foreach($recentLogins as $login)
+            <tr>
+                <td>{{ $i }}</td>
+                <td>{{ $login->user_name }}</td>
+                <td>{{ $login->login_id }}</td>
+                <td>{{ \Carbon\Carbon::parse($login->login_time)->format('d-m-Y H:i:s') }}</td>
+                <td>{{ $login->action }}</td>
+                <td>{{ $login->ip_address }}</td>
+            </tr>
+            @php $i++;@endphp
+        @endforeach
+    </tbody>
         </table>
     </div>
 </div>
