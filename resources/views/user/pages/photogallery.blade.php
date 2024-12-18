@@ -21,21 +21,9 @@
         </div>
     </div>
 </section>
-<section class="py-5">
+<section class="py-2">
     <!-- container -->
     <div class="container">
-        <div class="row">
-            <!-- cols -->
-            <div class="col-md-12 col-lg-5">
-                <div class="mb-2">
-                    <!-- title -->
-                    <h1 class="display-4 mb-3 fw-bold">Photo Gallery</h1>
-                    <!-- text -->
-
-                </div>
-            </div>
-        </div>
-        <hr class="my-4">
         <!-- form -->
         @if(session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -44,53 +32,55 @@
         </div>
         @endif
 
-        <div class="row">
-    <div class="contsearch">
-        <form id="form2" action="{{ route('user.photogallery') }}" method="GET">
-            <fieldset>
-                <label class="txt">Search:</label>
-                <label for="keywords">
-                    <input type="text" id="Keywords" name="keywords" value="" placeholder="Keyword Search" style="height: 27px;">
-                </label>
+        <div class="row mb-4">
+            <div class="contsearch">
+                <form id="form2" action="{{ route('user.photogallery') }}" method="GET">
+                    <fieldset>
+                        <label class="txt">Search:</label>
+                        <label for="keywords">
+                            <input type="text" id="Keywords" name="keywords" value="" placeholder="Keyword Search"
+                                class="txt input form-control">
+                        </label>
 
-                <label for="category">
-                    <select name="txtcategory" id="txtcategory" autocomplete="off" style="height: 27px;">
-                        <option value="">Select</option>
-                        @foreach($media_cat as $media)
-                            <option value="{{ $media->id }}">{{ $media->media_gallery }}</option>
-                        @endforeach
-                    </select>
-                </label>
+                        <label for="category">
+                            <select name="txtcategory" id="txtcategory" autocomplete="off"
+                                class="txt input form-control">
+                                <option value="">Select</option>
+                                @foreach($media_cat as $media)
+                                <option value="{{ $media->id }}">{{ $media->media_gallery }}</option>
+                                @endforeach
+                            </select>
+                        </label>
 
-                <label for="year">
-                    <select name="year" id="year" style="height: 27px;">
-                        @for($i = date('Y'); $i >= 2011; $i--)
-                            <option value="{{ $i }}">{{ $i }}</option>
-                        @endfor
-                    </select>
-                </label>
+                        <label for="year">
+                            <select name="year" id="year" class="txt input form-control">
+                                @for($i = date('Y'); $i >= 2011; $i--)
+                                <option value="{{ $i }}">{{ $i }}</option>
+                                @endfor
+                            </select>
+                        </label>
 
-                <label for="btn2">
-                    <input id="btn2" type="submit" value="Submit" class="btn">
-                    <input type="hidden" name="action" value="submit">
-                </label>
-            </fieldset>
-        </form>
-    </div>
-</div>
+                        <label for="btn2">
+                            <input id="btn2" type="submit" value="Submit" class="btn btn-outline-primary fw-bold">
+                            <input type="hidden" name="action" value="submit">
+                        </label>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
 
         <div class="row">
             @if(count($media_cat) > 0)
             @foreach($media_cat as $media)
             <div class="col-md-4">
                 <div class="galleryimges">
-                  
-                <a href="{{ url('view_all_photogallery') }}?glrid={{ $media->id }}">
-                    <img src="https://www.lbsnaa.gov.in/upload/photogallery/media/65a53a922cd00A03A7707.JPG"
+
+                    <a href="{{ url('view_all_photogallery') }}?glrid={{ $media->id }}">
+                        <img src="https://www.lbsnaa.gov.in/upload/photogallery/media/65a53a922cd00A03A7707.JPG"
                             width="250" height="220" alt="Inaugural Function of 30th Joint Civil Military Program"
-                            border="0"></a>
+                            border="0" class="img-fluid rounded-10"></a>
                     <div class="form-field">
-                        <p>{{ $media->name }}</p>
+                        <h3>{{ $media->name }}</h3>
                     </div>
                 </div>
             </div>

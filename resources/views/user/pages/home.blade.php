@@ -271,7 +271,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="position-relative">
+                <div class="position-relative mb-5">
                     <div class="tns-outer" id="tns1-ow">
                         <!-- <div class="tns-liveregion tns-visually-hidden" aria-live="polite" aria-atomic="true">
                                 slide
