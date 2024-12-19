@@ -24714,3 +24714,13 @@ a.fc-event:hover {
 .choices__placeholder {
   opacity: 0.75;
 }
+.carousel-item img{
+    width: 100%;
+    height: 600px;
+    object-fit: cover;
+}
+@media (max-width: 640px) {
+  .carousel-item img{
+    height: 200px;
+  }
+}
