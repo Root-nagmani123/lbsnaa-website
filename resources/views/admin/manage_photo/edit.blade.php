@@ -49,38 +49,41 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6" style="display: none;">
+
+
+                        <div class="col-lg-6">
                             <div class="form-group mb-4">
-                                <label class="label">Image Relate With News</label>
+                                <label class="label">Select Category Centre</label>
                                 <div class="form-group position-relative">
-                                    <select name="image_relate_with_news" id="image_relate_with_news"
-                                        class="form-control text-dark ps-5 h-58">
-                                        <option value="">Select News</option>
-                                        <option value="News"
-                                            {{ (old('image_relate_with_news', $gallery->image_relate_with_news) == 'News') ? 'selected' : '' }}>
-                                            News</option>
-                                    </select>
+                                <select name="media_categories" id="media_categories" class="form-control text-dark ps-5 h-58">
+                                    <option value="">Select Category Centre</option>
+                                    @foreach ($mediaCategories as $id => $name)
+                                        <option value="{{ $id }}" {{ old('media_categories', $gallery->media_categories ?? '') == $id ? 'selected' : '' }}>
+                                            {{ $name }}
+                                        </option>
+                                    @endforeach
+                                </select>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6" id="related_news_field">
+                        <!-- <div class="col-lg-6" id="related_news_field">
                             <div class="form-group mb-4">
                                 <label for="related_news" class="label">Related News:</label>
                                 <div class="form-group position-relative">
-                                    <!-- Searchable input field -->
+                                    
                                     <input type="text" id="news-search" class="form-control text-dark ps-5 h-58"
                                         placeholder="Type to search for courses..."
                                         value="{{ old('bbb', $bbb ?? '') }}">
-                                    <!-- Store the selected course ID -->
+                                    
                                     <input type="hidden" name="related_news" id="selected-news-id"
                                         value="{{ old('related_news', $gallery->related_news) }}">
-                                    <!-- Dropdown for suggestions -->
+                                    
                                     <div id="news-suggestions" class="dropdown-menu"
                                         style="display: none; position: relative;">
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="col-lg-6" style="display: none;">
                             <div class="form-group mb-4">
                                 <label class="label">Image Relate With Training Programme</label>
@@ -111,7 +114,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6" style="display: none;">
+                        <!-- <div class="col-lg-6" style="display: none;">
                             <div class="form-group mb-4">
                                 <label class="label">Image Relate With Events</label>
                                 <div class="form-grroup position-relative">
@@ -124,8 +127,8 @@
                                     </select>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-6" id="related_events_field">
+                        </div> -->
+                        <!-- <div class="col-lg-6" id="related_events_field">
                             <div class="form-group mb-4">
                                 <label class="label">Related Events:</label>
                                 <div class="form-group position-relative">
@@ -137,7 +140,7 @@
                                         style="display: none; position: relative;"></div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label">Image Title (English)</label>
@@ -162,6 +165,8 @@
                                 </div>
                             </div>
                         </div>
+
+
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label">Image Files</label>
@@ -171,29 +176,31 @@
                                     $imageFiles = json_decode($gallery->image_files);
                                     @endphp
                                     @if(is_array($imageFiles) && count($imageFiles) > 0)
-                                    @foreach($imageFiles as $file)
-                                    <div class="file-group">
-                                        <!-- File input for updating image -->
-                                        <input type="file" name="image_files[]" class="form-control text-dark ps-5 h-58 mb-2" accept="image/*">
+                                    @foreach($imageFiles as $index => $file)
+                                    <div class="file-group mb-3">
+                                        <!-- File input for replacing image -->
+                                        <input type="file" name="image_files[{{ $index }}]" class="form-control text-dark ps-5 h-58 mb-2 file-input" accept="image/*" data-index="{{ $index }}">
+                                        
+                                        <!-- Hidden input to track replaced files -->
+                                        <input type="hidden" name="replaced_files[{{ $index }}]" class="replaced-file" value="">
+
                                         <div class="image-preview mb-2">
-                                            <!-- Display the image thumbnail -->
                                             <img src="{{ asset('storage/' . $file) }}" alt="image" width="100" height="100">
                                         </div>
-                                        <button type="button" class="btn btn-primary remove-existing-file text-white mb-2" data-file="{{ $file }}">Remove</button>
+                                        <button type="button" class="btn btn-danger remove-file text-white mb-2" data-index="{{ $index }}" data-file="{{ $file }}">Remove</button>
                                     </div>
                                     @endforeach
-                                    @else
-                                    <p>No images available.</p>
                                     @endif
-                                    @else
-                                    <p>No images available.</p>
                                     @endif
                                 </div>
                                 <button type="button" class="btn btn-success text-white" id="add-file">Add More</button>
-                                <!-- Hidden input to track removed images -->
-                                <input type="hidden" name="removed_files" id="removed-files" value="">
                             </div>
                         </div>
+
+
+
+
+                        
 
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
@@ -203,7 +210,7 @@
                                         <option value="1"
                                             {{ (old('status', $gallery->status) == '1') ? 'selected' : '' }}>
                                             Active</option>
-                                        <option value="2"
+                                        <option value="0"
                                             {{ (old('status', $gallery->status) == '0') ? 'selected' : '' }}>
                                             Inactive</option>
                                     </select>
@@ -221,24 +228,11 @@
     </div>
 </div>
 <script>
-    // Event listener for the News dropdown
-    document.getElementById('image_relate_with_news').addEventListener('change', function() {
-        // Show related News fields if 'News' is selected, hide otherwise
-        document.getElementById('related_news_field').style.display = this.value === 'News' ? 'block' : 'none';
-    });
-
     // Event listener for the Training Programme dropdown
     document.getElementById('image_relate_with_training').addEventListener('change', function() {
         // Show related Training Programme fields if 'Training Programme' is selected, hide otherwise
         document.getElementById('related_training_field').style.display = this.value === 'Training Programme' ?
             'block' : 'none';
-    });
-
-    // Event listener for the Events dropdown
-    document.getElementById('image_relate_with_events').addEventListener('change', function() {
-        // Show related Events fields if 'Related Events' is selected, hide otherwise
-        document.getElementById('related_events_field').style.display = this.value === 'Related Events' ? 'block' :
-            'none';
     });
 </script>
 
@@ -475,7 +469,7 @@
     });
 </script>
 
-<script>
+<!-- <script>
 document.addEventListener("DOMContentLoaded", function () {
     const removedFilesInput = document.getElementById('removed-files'); // Hidden input for removed files
     const fileContainer = document.getElementById('file-container'); // Container for all files
@@ -513,5 +507,55 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+</script> -->
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const fileContainer = document.getElementById('file-container');
+
+    // Track image replacement
+    fileContainer.addEventListener('change', function (event) {
+        if (event.target.classList.contains('file-input')) {
+            const index = event.target.dataset.index;
+            const replacedFileInput = fileContainer.querySelector(`input[name="replaced_files[${index}]"]`);
+            replacedFileInput.value = "true"; // Mark this file as replaced
+        }
+    });
+
+    // Handle removing an image
+    fileContainer.addEventListener('click', function (event) {
+        if (event.target.classList.contains('remove-file')) {
+            const fileGroup = event.target.closest('.file-group');
+            const index = event.target.dataset.index;
+
+            // Clear file inputs
+            fileGroup.querySelector(`input[name="image_files[${index}]"]`).value = "";
+            fileGroup.querySelector(`input[name="replaced_files[${index}]"]`).value = "true"; // Mark for removal
+
+            // Optionally remove the file group from DOM
+            fileGroup.remove();
+        }
+    });
+
+    // Add new file inputs dynamically
+    document.getElementById('add-file').addEventListener('click', function () {
+        const fileGroup = document.createElement('div');
+        fileGroup.classList.add('file-group', 'mt-2');
+        fileGroup.innerHTML = `
+            <input type="file" name="image_files[new][]" class="form-control text-dark ps-5 h-58 mb-2" accept="image/*">
+            <button type="button" class="btn btn-danger remove-new-file text-white mb-2">Remove</button>
+        `;
+        fileContainer.appendChild(fileGroup);
+
+        // Handle removal of newly added files
+        fileGroup.querySelector('.remove-new-file').addEventListener('click', function () {
+            fileGroup.remove();
+        });
+    });
+});
+
+
+
 </script>
+
 @endsection

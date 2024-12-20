@@ -12,6 +12,7 @@ class ManageMediaCategories extends Model
         'media_gallery',
         'name',
         'hindi_name',
+        'category_image',
         'status',
     ];
 }

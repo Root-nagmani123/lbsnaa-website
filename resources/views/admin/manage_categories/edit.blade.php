@@ -3,7 +3,7 @@
 
 @section('content')
 <div class="d-sm-flex text-center justify-content-between align-items-center mb-4">
-    <h3 class="mb-sm-0 mb-1 fs-18">Manage Media Centetr</h3>
+    <h3 class="mb-sm-0 mb-1 fs-18">Manage Media Center</h3>
     <ul class="ps-0 mb-0 list-unstyled d-flex justify-content-center">
         <li>
             <a href="{{ route('admin.index') }}" class="text-decoration-none">
@@ -75,6 +75,22 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="category_image">Category Image:</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="file" class="form-control text-dark ps-5 h-58" name="category_image" id="category_image" accept="image/*">
+                                    @error('category_image')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                @if($category->category_image)
+                                    <img src="{{ asset('uploads/category_images/' . $category->category_image) }}" alt="Category Image" class="img-thumbnail mt-2" style="width: 150px; height: auto;">
+                                @endif
+                            </div>
+                        </div>
+
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="status">Status :</label>

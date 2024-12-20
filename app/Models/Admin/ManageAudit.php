@@ -16,6 +16,7 @@ class ManageAudit extends Model
         'Created_By',
         'Updated_By',
         'Action_Type',
+        'timestamps',
         'IP_Address',
     ];
 }

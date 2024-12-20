@@ -36,16 +36,22 @@ class ManagePhotoGalleryController extends Controller
 
     public function create()
     {
-        return view('admin.manage_photo.create'); 
+        $mediaCategories = DB::table('manage_media_categories')
+            ->where('status', 1)
+            ->get(); // Retrieve records with status == 1
+        return view('admin.manage_photo.create', compact('mediaCategories'));
     }
+    
+
 
     public function store(Request $request)
     {
-        // Validate inputs
+        // Validate inputs 
         $request->validate([
             'image_title_english' => 'required|string|max:255', // Ensure image title (English) is provided
             'status' => 'required|in:1,0', // Ensure status is required and can only be 1 or 2 (or change these values based on your needs)
             'image_files' => 'required|array', // Image files are not required
+            'media_categories' => 'required', // Image files are not required
             'image_files.*' => 'file|mimes:jpeg,png,jpg|max:10240', // Ensure file is an image and max 10MB (10MB = 10240 KB)
         ]);
 
@@ -74,6 +80,7 @@ class ManagePhotoGalleryController extends Controller
             'related_news' => $request->input('related_news'),
             'related_training_program' => $request->input('related_training_program'),
             'related_events' => $request->input('related_events'),
+            'media_categories'=> $request->input('media_categories'),
             'created_at' => now(), // Add timestamp for created_at
             'updated_at' => now(), // Add timestamp for updated_at
         ];
@@ -86,7 +93,6 @@ class ManagePhotoGalleryController extends Controller
         return redirect()->route('photo-gallery.index')->with('success', 'Gallery added successfully.');
     }
 
-
     public function edit(Request $request, $id)
     {
         // Fetch the specific gallery with its associated course
@@ -97,28 +103,36 @@ class ManagePhotoGalleryController extends Controller
             abort(404, 'Gallery not found');
         }
 
-        // Fetch related courses
-        $related_news = ManagePhotoGallery::select('id', 'related_news')->where('related_news', $gallery->related_news)->first();
-        $related_training_program = ManagePhotoGallery::select('id', 'related_training_program')->where('related_training_program', $gallery->related_training_program)->first();
-        $related_events = ManagePhotoGallery::select('id', 'related_events')->where('related_events', $gallery->related_events)->first();
+        // Fetch active media categories
+        $mediaCategories = DB::table('manage_media_categories')
+                            ->where('status', 1)
+                            ->pluck('name', 'id'); // Use pluck for a key-value array
 
         // Fetch the course associated with the gallery
-        $allCourses = Course::select('id', 'name')->where('id', $gallery->course_id)->first();
+        $allCourses = Course::select('id', 'name')->find($gallery->course_id);
 
-        // Fetch the related courses (check if they exist before accessing)
-        $bbb = $related_news ? Course::select('id', 'name')->where('id', $related_news->related_news)->first() : null;
-        $ccc = $related_training_program ? Course::select('id', 'name')->where('id', $related_training_program->related_training_program)->first() : null;
-        $ddd = $related_events ? Course::select('id', 'name')->where('id', $related_events->related_events)->first() : null;
+        // Fetch related courses
+        $relatedNews = ManagePhotoGallery::select('related_news')
+                        ->where('related_news', $gallery->related_news)
+                        ->first();
 
-        // If courses are not found, you can provide fallback names (or handle accordingly)
+        $relatedTrainingProgram = ManagePhotoGallery::select('related_training_program')
+                                ->where('related_training_program', $gallery->related_training_program)
+                                ->first();
+
+        $relatedEvents = ManagePhotoGallery::select('related_events')
+                        ->where('related_events', $gallery->related_events)
+                        ->first();
+
+        // Fetch course names (simplified)
         $aaa = $allCourses ? $allCourses->name : 'No Course Found';
-        $bbb = $bbb ? $bbb->name : 'No Related News Course';
-        $ccc = $ccc ? $ccc->name : 'No Related Training Program';
-        $ddd = $ddd ? $ddd->name : 'No Related Event Course';
+        $bbb = $relatedNews ? Course::where('id', $relatedNews->related_news)->value('name') : 'No Related News Course';
+        $ccc = $relatedTrainingProgram ? Course::where('id', $relatedTrainingProgram->related_training_program)->value('name') : 'No Related Training Program';
+        $ddd = $relatedEvents ? Course::where('id', $relatedEvents->related_events)->value('name') : 'No Related Event Course';
 
         return view('admin.manage_photo.edit', [
             'gallery' => $gallery,
-            'allCourses' => $allCourses,
+            'mediaCategories' => $mediaCategories, // Pass categories as key-value
             'aaa' => $aaa,
             'bbb' => $bbb,
             'ccc' => $ccc,
@@ -129,57 +143,59 @@ class ManagePhotoGalleryController extends Controller
 
     // public function update(Request $request, $id)
     // {
+
     //     // Validate inputs
     //     $request->validate([
     //         'image_files' => 'nullable|array',
     //         'image_files.*' => 'nullable|file|mimes:jpeg,png,jpg|max:2048',
+    //         'image_title_english' => 'required|string|max:255',
+    //         'image_title_hindi' => 'nullable|string|max:255',
+    //         'status' => 'required',
+    //         'course_id' => 'nullable|integer',
+    //         'related_training_program' => 'nullable|string|max:255',
     //     ]);
 
-    //     // Find the gallery by ID
     //     $gallery = ManagePhotoGallery::findOrFail($id);
 
-    //     // Get the old image paths (if any)
-    //     $oldImages = json_decode($gallery->image_files, true) ?? [];
+    //     // Decode existing image files
+    //     $existingImages = json_decode($gallery->image_files, true) ?? [];
 
-    //     // Handle removed images
-    //     if ($request->has('removed_files')) {
-    //         $removedFiles = json_decode($request->input('removed_files'), true) ?? [];
+    //     // Initialize updated image list
+    //     $updatedImages = [];
 
-    //         // Delete removed images from storage
-    //         foreach ($removedFiles as $removedFile) {
-    //             $imagePath = storage_path('app/public/' . $removedFile);
+    //     // Handle replaced files
+    //     if ($request->has('replaced_files')) {
+    //         foreach ($request->input('replaced_files') as $index => $isReplaced) {
+    //             if ($isReplaced === "true") {
+    //                 // Remove the old file from storage
+    //                 if (isset($existingImages[$index])) {
+    //                     $oldFile = $existingImages[$index];
+    //                     $filePath = storage_path('app/public/' . $oldFile);
+    //                     if (file_exists($filePath)) {
+    //                         unlink($filePath); // Delete old file
+    //                     }
+    //                 }
 
-    //             if (file_exists($imagePath)) {
-    //                 unlink($imagePath);
-    //                 Log::info("Removed image: $imagePath");
+    //                 // Add the new uploaded file
+    //                 if ($request->hasFile("image_files.{$index}")) {
+    //                     $updatedImages[$index] = $request->file("image_files.{$index}")->store('uploads/gallery', 'public');
+    //                 }
     //             } else {
-    //                 Log::warning("Image not found for removal: $imagePath");
+    //                 // Retain the old file if not replaced
+    //                 $updatedImages[$index] = $existingImages[$index] ?? null;
     //             }
-
-    //             // Remove the file from the old images array
-    //             $oldImages = array_filter($oldImages, function ($file) use ($removedFile) {
-    //                 return $file !== $removedFile;
-    //             });
     //         }
     //     }
 
-    //     // Process new image files if they are uploaded
-    //     $imageFiles = $request->file('image_files');
-    //     $uploadedFiles = [];
-
-    //     if ($imageFiles) {
-    //         foreach ($imageFiles as $file) {
-    //             // Store new files and get their paths
-    //             $uploadedFiles[] = $file->store('uploads/gallery', 'public');
+    //     // Handle new files added dynamically
+    //     if ($request->hasFile('image_files.new')) {
+    //         foreach ($request->file('image_files.new') as $newFile) {
+    //             $updatedImages[] = $newFile->store('uploads/gallery', 'public');
     //         }
     //     }
 
-    //     // Merge remaining old images with newly uploaded images
-    //     $updatedImages = array_merge($oldImages, $uploadedFiles);
-
-    //     // Update the gallery with the new image data
-    //     $gallery->image_files = json_encode($updatedImages);
-
+    //     // Save updated image list
+    //     $gallery->image_files = json_encode(array_values($updatedImages));
     //     // Update other fields
     //     $gallery->image_title_english = $request->input('image_title_english', 'Default Title');
     //     $gallery->image_title_hindi = $request->input('image_title_hindi');
@@ -188,15 +204,16 @@ class ManagePhotoGalleryController extends Controller
     //     $gallery->related_news = $request->input('related_news');
     //     $gallery->related_training_program = $request->input('related_training_program');
     //     $gallery->related_events = $request->input('related_events');
+    //     $gallery->media_categories = $request->input('media_categories');
     //     $gallery->updated_at = now();
-
-    //     // Save the gallery
+    //     // dd($gallery);
     //     $gallery->save();
 
+    //     // Log the update action in the audit table
     //     ManageAudit::create([
     //         'Module_Name' => 'Photo Gallery',
     //         'Time_Stamp' => time(),
-    //         'Created_By' => null,
+    //         'Created_By' =>  null,
     //         'Updated_By' => null,
     //         'Action_Type' => 'Update',
     //         'IP_Address' => $request->ip(),
@@ -205,115 +222,92 @@ class ManagePhotoGalleryController extends Controller
     //     return redirect()->route('photo-gallery.index')->with('success', 'Gallery updated successfully.');
     // }
 
-
     public function update(Request $request, $id)
-    {
-        // Validate inputs
-        // $request->validate([
-        //     'image_files' => 'nullable|array',
-        //     'image_files.*' => 'nullable|file|mimes:jpeg,png,jpg|max:2048',
-        //     'image_title_english' => 'required|string|max:255',
-        //     'image_title_hindi' => 'nullable|string|max:255',
-        //     'status' => 'required|in:Draft,Published',
-        //     'course_id' => 'nullable|integer',
-        //     'related_news' => 'nullable|string|max:255',
-        //     'related_training_program' => 'nullable|string|max:255',
-        //     'related_events' => 'nullable|string|max:255',
-        // ]);
-    
-        // Find the gallery by ID
-        $gallery = ManagePhotoGallery::findOrFail($id);
-    
-        // Get the old images (if any)
-        $oldImages = json_decode($gallery->image_files, true) ?? [];
-    
-        // Handle removed images
-        if ($request->has('removed_files')) {
-            $removedFiles = json_decode($request->input('removed_files'), true) ?? [];
-    
-            foreach ($removedFiles as $removedFile) {
-                $imagePath = storage_path('app/public/' . $removedFile);
-    
-                if (file_exists($imagePath)) {
-                    unlink($imagePath); // Delete the file from storage
-                    Log::info("Removed image: $imagePath");
-                } else {
-                    Log::warning("Image not found for removal: $imagePath");
+{
+    // Validate inputs
+    $request->validate([
+        'image_files' => 'nullable|array',
+        'image_files.*' => 'nullable|file|mimes:jpeg,png,jpg|max:2048',
+        'image_title_english' => 'required|string|max:255',
+        'image_title_hindi' => 'nullable|string|max:255',
+        'status' => 'required',
+        'course_id' => 'nullable|integer',
+        'related_training_program' => 'nullable|string|max:255',
+        'related_news' => 'nullable|string|max:255',
+        'related_events' => 'nullable|string|max:255',
+        'media_categories' => 'nullable|string|max:255',
+    ]);
+
+    $gallery = ManagePhotoGallery::findOrFail($id);
+
+    // Decode existing image files
+    $existingImages = json_decode($gallery->image_files, true) ?? [];
+
+    // Initialize updated image list
+    $updatedImages = [];
+
+    // Handle replaced files
+    if ($request->has('replaced_files')) {
+        foreach ($request->input('replaced_files') as $index => $isReplaced) {
+            if ($isReplaced === "true") {
+                // Remove the old file from storage
+                if (isset($existingImages[$index])) {
+                    $oldFile = $existingImages[$index];
+                    $filePath = storage_path('app/public/' . $oldFile);
+                    if (file_exists($filePath)) {
+                        unlink($filePath); // Delete old file
+                    }
                 }
-    
-                // Remove the file from the old images array
-                $oldImages = array_filter($oldImages, function ($file) use ($removedFile) {
-                    return $file !== $removedFile;
-                });
+
+                // Add the new uploaded file
+                if ($request->hasFile("image_files.{$index}")) {
+                    $updatedImages[$index] = $request->file("image_files.{$index}")->store('uploads/gallery', 'public');
+                }
+            } else {
+                // Retain the old file if not replaced
+                $updatedImages[$index] = $existingImages[$index] ?? null;
             }
         }
-    
-        // Process new image files if they are uploaded
-        $newImages = [];
-        if ($request->hasFile('image_files')) {
-            foreach ($request->file('image_files') as $file) {
-                $uploadedFilePath = $file->store('uploads/gallery', 'public');
-                if ($uploadedFilePath) {
-                    $newImages[] = $uploadedFilePath;
-                    Log::info("Uploaded new image: $uploadedFilePath");
-                } else {
-                    Log::error("Failed to upload file: " . $file->getClientOriginalName());
-                }
-            }
-        }
-    
-        // Merge old images (remaining after removal) with new images
-        $updatedImages = array_merge($oldImages, $newImages);
-    
-        // Update the gallery with the merged image list
-        $gallery->image_files = json_encode($updatedImages);
-    
-        // Update other fields
-        $gallery->image_title_english = $request->input('image_title_english', 'Default Title');
-        $gallery->image_title_hindi = $request->input('image_title_hindi');
-        $gallery->status = $request->input('status', 'Draft');
-        $gallery->course_id = $request->input('course_id');
-        $gallery->related_news = $request->input('related_news');
-        $gallery->related_training_program = $request->input('related_training_program');
-        $gallery->related_events = $request->input('related_events');
-        $gallery->updated_at = now();
-    
-        // Save the updated gallery
-        $gallery->save();
-    
-        // Log the update action in the audit table
-        ManageAudit::create([
-            'Module_Name' => 'Photo Gallery',
-            'Time_Stamp' => time(),
-            'Created_By' =>  null,
-            'Updated_By' => null,
-            'Action_Type' => 'Update',
-            'IP_Address' => $request->ip(),
-        ]);
-    
-        // Redirect with a success message
-        return redirect()->route('photo-gallery.index')->with('success', 'Gallery updated successfully.');
     }
+
+    // Handle new files added dynamically
+    if ($request->hasFile('image_files.new')) {
+        foreach ($request->file('image_files.new') as $newFile) {
+            $updatedImages[] = $newFile->store('uploads/gallery', 'public');
+        }
+    }
+
+    // Save updated image list
+    $gallery->image_files = json_encode(array_values($updatedImages));
+
+    // Update other fields, allowing null or blank values
+    $gallery->image_title_english = $request->input('image_title_english', 'Default Title');
+    $gallery->image_title_hindi = $request->input('image_title_hindi') ?: null; // Set null if blank
+    $gallery->status = $request->input('status', 'Draft');
+    $gallery->course_id = $request->input('course_id') ?: null; // Set null if blank
+    $gallery->related_news = $request->input('related_news') ?: null;
+    $gallery->related_training_program = $request->input('related_training_program') ?: null;
+    $gallery->related_events = $request->input('related_events') ?: null;
+    $gallery->media_categories = $request->input('media_categories') ?: null;
+    $gallery->updated_at = now();
+
+    $gallery->save();
+
+    // Log the update action in the audit table
+    ManageAudit::create([
+        'Module_Name' => 'Photo Gallery',
+        'Time_Stamp' => time(),
+        'Created_By' => null,
+        'Updated_By' => null,
+        'Action_Type' => 'Update',
+        'IP_Address' => $request->ip(),
+    ]);
+
+    return redirect()->route('photo-gallery.index')->with('success', 'Gallery updated successfully.');
+}
+
     
-
-
-
-
-    // public function destroy($id)
-    // {
-    //     try {
-    //         // Fetch the record using the ID and delete it
-    //         $gallery = ManagePhotoGallery::findOrFail($id); // Assuming 'ManagePhotoGallery' is your model
-    //         $gallery->delete();
-
-    //         return redirect()->route('photo-gallery.index')->with('success', 'Photo Gallery deleted successfully.');
-    //     } catch (\Exception $e) {
-    //         return redirect()->route('photo-gallery.index')->with('error', 'Error deleting Photo Gallery: ' . $e->getMessage());
-    //     }
-    // }
-
-    public function destroy($id)
-    {
+    public function destroy($id){
         try {
             // Fetch the record using the ID
             $gallery = ManagePhotoGallery::findOrFail($id);
@@ -346,18 +340,13 @@ class ManagePhotoGalleryController extends Controller
         }
     }
 
-
-
-    public function searchCourses(Request $request)
-    {
+    public function searchCourses(Request $request) {
         $query = $request->query('query');
         $courses = Course::where('name', 'LIKE', '%' . $query . '%')->limit(10)->get(['id', 'name']);
         return response()->json($courses);
     }
 
-
-    public function show($id)
-    {
+    public function show($id) {
         $photos = ManagePhotoGallery::where('gallery_id', $id)->get();  // Returns a collection
         return view('admin.manage_photo.edit', compact('photos'));
     }

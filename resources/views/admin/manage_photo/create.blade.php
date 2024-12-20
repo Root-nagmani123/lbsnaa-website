@@ -52,6 +52,27 @@
                         <!-- Dropdown to select related content for News -->
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
+                                <label for="media_categories" class="label">Select Category Center</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <select name="media_categories" id="media_categories" class="form-control text-dark ps-5 h-58">
+                                        <option value="">Select Category Center</option>
+                                        @foreach ($mediaCategories as $category)
+                                        <option value="{{ $category->id }}" {{ old('media_categories') == $category->id ? 'selected' : '' }}>
+                                            {{ $category->name }}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                    @error('media_categories')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- <div class="col-lg-6">
+                            <div class="form-group mb-4">
                                 <label class="label" for="image_relate_with_news">Image Relate With News</label>
                                 <div class="form-group position-relative">
                                     <select class="form-select form-control ps-5 h-58" name="image_relate_with_news"
@@ -61,9 +82,12 @@
                                     </select>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
+
+
+
                         <!-- Placeholder for News-related fields -->
-                        <div class="col-lg-6" id="related_news_field" style="display: none;">
+                        <!-- <div class="col-lg-6" id="related_news_field" style="display: none;">
                             <div class="form-group mb-4">
                                 <label class="label" for="news-search">Related News :</label>
                                 <div class="form-group position-relative">
@@ -74,7 +98,7 @@
                                         style="display: none; position: relative;"></div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <!-- Dropdown to select related content for Training Programme -->
 
@@ -155,24 +179,6 @@
                             </div>
                         </div>
 
-                        <!-- for image -->
-<!-- 
-                        <div class="col-lg-6">
-                            <div class="form-group mb-4">
-                                <label class="label">Image Files:</label>
-                                <div class="form-group position-relative">
-                                    <input type="file" name="image_files[]" class="form-control text-dark ps-5 h-58"
-                                        accept="image/*" value="{{ old('image_files') }}">
-                                    <button type="button" class="btn btn-outline-danger text-danger remove-file mt-2"
-                                        style="display: none;">Remove</button>
-                                </div>
-                            </div>
-                            <button type="button" class="btn btn-secondary text-white mt-2" id="add-file">Add
-                                More</button>
-                            <div id="file-container"></div>
-                        </div> -->
-
-
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label">Image Files:</label>
@@ -234,10 +240,10 @@
 
 <script>
     // Event listener for the News dropdown
-    document.getElementById('image_relate_with_news').addEventListener('change', function() {
-        // Show related News fields if 'News' is selected, hide otherwise
-        document.getElementById('related_news_field').style.display = this.value === 'News' ? 'block' : 'none';
-    });
+    // document.getElementById('image_relate_with_news').addEventListener('change', function() {
+    //     // Show related News fields if 'News' is selected, hide otherwise
+    //     document.getElementById('related_news_field').style.display = this.value === 'News' ? 'block' : 'none';
+    // });
 
     // Event listener for the Training Programme dropdown
     document.getElementById('image_relate_with_training').addEventListener('change', function() {
@@ -247,11 +253,11 @@
     });
 
     // Event listener for the Events dropdown
-    document.getElementById('image_relate_with_events').addEventListener('change', function() {
-        // Show related Events fields if 'Related Events' is selected, hide otherwise
-        document.getElementById('related_events_field').style.display = this.value === 'Related Events' ? 'block' :
-            'none';
-    });
+    // document.getElementById('image_relate_with_events').addEventListener('change', function() {
+    //     // Show related Events fields if 'Related Events' is selected, hide otherwise
+    //     document.getElementById('related_events_field').style.display = this.value === 'Related Events' ? 'block' :
+    //         'none';
+    // });
 </script>
 
 @endsection

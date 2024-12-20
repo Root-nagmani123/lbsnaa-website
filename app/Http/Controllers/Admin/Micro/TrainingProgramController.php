@@ -20,12 +20,15 @@ class TrainingProgramController extends Controller
         return view('admin.micro.training_program.index', compact('programs'));
     }
 
-
     public function create()
     {
-        $researchCentres = DB::table('research_centres')->pluck('research_centre_name', 'id'); // Replace 'name' and 'id' with your actual column names.
-        return view('admin.micro.training_program.create',compact('researchCentres'));
+        $researchCentres = DB::table('research_centres')
+            ->where('status', 1) // Add the condition to filter by status
+            ->pluck('research_centre_name', 'id'); // Replace 'research_centre_name' and 'id' with your actual column names.
+        
+        return view('admin.micro.training_program.create', compact('researchCentres'));
     }
+
 
 
     public function store(Request $request)
@@ -118,7 +121,14 @@ class TrainingProgramController extends Controller
 
     public function destroy(TrainingProgram $trainingProgram)
     {
+        // Check if the status is 1 (Inactive) and prevent deletion
+        if ($trainingProgram->page_status == 1) {
+            return redirect()->route('training-programs.index')->with('error', 'Inactive programs cannot be deleted.');
+        }
+
+        // Proceed with deletion if the status is not 1
         $trainingProgram->delete();
         return redirect()->route('training-programs.index')->with('success', 'Program deleted successfully.');
     }
+
 }

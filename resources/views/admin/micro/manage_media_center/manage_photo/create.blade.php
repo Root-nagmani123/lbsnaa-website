@@ -26,7 +26,7 @@
                 @if (session('success'))
                 <div class="alert alert-success">{{ session('success') }}</div>
                 @endif
-                <form
+                <form 
                     action="{{ isset($gallery) ? route('micro-photo-gallery.update', $gallery->id) : route('micro-photo-gallery.store') }}"
                     method="POST" enctype="multipart/form-data">
                     @csrf
@@ -64,7 +64,7 @@
 
 
                         <!-- Dropdown to select related content for News -->
-                        <div class="col-lg-6">
+                        <!-- <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="image_relate_with_news">Image Relate With News</label>
                                 <div class="form-group position-relative">
@@ -77,26 +77,26 @@
                                     </select>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <!-- Placeholder for News-related fields -->
-                        <div class="col-lg-6" id="related_news_field" style="display: none;">
+                        <!-- <div class="col-lg-6" id="related_news_field" style="display: none;">
                             <div class="form-group mb-4">
                                 <label class="label" for="news-search">Related News :</label>
                                 <div class="form-group position-relative">
-                                    <!-- Text Input -->
+                                    
                                     <input type="text" class="form-control text-dark ps-5 h-58" name="news-search"
                                         id="news-search" placeholder="Type to search for news..."
                                         value="{{ old('news-search') }}">
-                                    <!-- Hidden Field -->
+                                    
                                     <input type="hidden" name="related_news" id="selected-news-id"
                                         value="{{ old('related_news') }}">
-                                    <!-- Dropdown Suggestions -->
+                                    
                                     <div id="news-suggestions" class="dropdown-menu"
                                         style="display: none; position: relative;"></div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
 
 
@@ -138,7 +138,7 @@
                         </div>
 
                         <!-- Dropdown to select related content for Related Events -->
-                        <div class="col-lg-6">
+                        <!-- <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="image_relate_with_events">Image Relate with Events :</label>
                                 <div class="form-group position-relative">
@@ -151,27 +151,45 @@
                                     </select>
                                 </div>
                             </div>
+                        </div> -->
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label for="media_categories" class="label">Select Category Centre</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <select name="media_categories" id="media_categories" class="form-control text-dark ps-5 h-58">
+                                        <option value="">Select Category Center</option>
+                                        @foreach ($mediaCategories as $category)
+                                        <option value="{{ $category->id }}" {{ old('media_categories') == $category->id ? 'selected' : '' }}>
+                                            {{ $category->name }}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                    @error('media_categories')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
-
                         <!-- Placeholder for Events-related fields -->
-                        <div class="col-lg-6" id="related_events_field" style="display: none;">
+                        <!-- <div class="col-lg-6" id="related_events_field" style="display: none;">
                             <div class="form-group mb-4">
                                 <label class="label" for="event-search">Related Events :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <!-- Text Input -->
+                                    
                                     <input type="text" id="event-search" class="form-control text-dark ps-5 h-58"
                                         name="event-search" placeholder="Type to search for events..."
                                         value="{{ old('event-search') }}">
-                                    <!-- Hidden Field -->
+                                    
                                     <input type="hidden" name="related_events" id="selected-event-id"
                                         value="{{ old('related_events') }}">
-                                    <!-- Dropdown Suggestions -->
+                                    
                                     <div id="event-suggestions" class="dropdown-menu"
                                         style="display: none; position: relative;"></div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
@@ -240,7 +258,7 @@
                         <div class="d-flex ms-sm-3 ms-md-0 mt-4">
                             <button class="btn btn-success text-white fw-semibold" type="submit">Submit</button> &nbsp;
                             <a href="{{ route('micro-photo-gallery.index') }}"
-                                class="btn btn-secondary text-white">Cancel</a>
+                                class="btn btn-secondary text-white">Back</a>
                         </div>
                     </div>
                 </form>
@@ -253,10 +271,10 @@
 
 <script>
 // Event listener for the News dropdown
-document.getElementById('image_relate_with_news').addEventListener('change', function() {
-    // Show related News fields if 'News' is selected, hide otherwise
-    document.getElementById('related_news_field').style.display = this.value === 'News' ? 'block' : 'none';
-});
+// document.getElementById('image_relate_with_news').addEventListener('change', function() {
+//     // Show related News fields if 'News' is selected, hide otherwise
+//     document.getElementById('related_news_field').style.display = this.value === 'News' ? 'block' : 'none';
+// });
 
 // Event listener for the Training Programme dropdown
 document.getElementById('image_relate_with_training').addEventListener('change', function() {
@@ -266,11 +284,11 @@ document.getElementById('image_relate_with_training').addEventListener('change',
 });
 
 // Event listener for the Events dropdown
-document.getElementById('image_relate_with_events').addEventListener('change', function() {
-    // Show related Events fields if 'Related Events' is selected, hide otherwise
-    document.getElementById('related_events_field').style.display = this.value === 'Related Events' ? 'block' :
-        'none';
-});
+// document.getElementById('image_relate_with_events').addEventListener('change', function() {
+//     // Show related Events fields if 'Related Events' is selected, hide otherwise
+//     document.getElementById('related_events_field').style.display = this.value === 'Related Events' ? 'block' :
+//         'none';
+// });
 
 
 // News

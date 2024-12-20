@@ -36,6 +36,11 @@
             {{ session('success') }}
         </div>
         @endif
+        @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+        @endif
         <div class="default-table-area members-list">
             <div class="table-responsive">
                 <table class="table align-middle" id="myTable">
@@ -63,7 +68,6 @@
                                 <button type="button"
                                     class="btn btn-outline-primary text-primary fw-semibold btn-sm view-slider"
                                     data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-
                                     data-product_category="{{ $souvenir->product_category }}"
                                     data-product_title="{{ $souvenir->product_title }}"
                                     data-product_type="{{ $souvenir->product_type }}"
@@ -151,13 +155,13 @@
 
 
 <script>
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function() {
     const viewButtons = document.querySelectorAll('.view-slider');
     const modalTitle = document.getElementById('staticBackdropLabel');
     const modalBody = document.querySelector('.modal-body');
 
     viewButtons.forEach(button => {
-        button.addEventListener('click', function () {
+        button.addEventListener('click', function() {
             // Extract data from the button
             const product_category = this.dataset.product_category || 'N/A';
             const product_title = this.dataset.product_title || 'N/A';
@@ -195,5 +199,4 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
-
 </script>

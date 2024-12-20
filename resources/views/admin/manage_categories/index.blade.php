@@ -3,7 +3,7 @@
 
 @section('content')
 <div class="d-sm-flex text-center justify-content-between align-items-center mb-4">
-    <h3 class="mb-sm-0 mb-1 fs-18">Manage Media Centetr</h3>
+    <h3 class="mb-sm-0 mb-1 fs-18">Manage Media Center</h3>
     <ul class="ps-0 mb-0 list-unstyled d-flex justify-content-center">
         <li>
             <a href="{{ route('admin.index') }}" class="text-decoration-none">
@@ -23,14 +23,14 @@
                 <div class="d-flex justify-content-between align-items-center border-bottom pb-20 mb-20">
                     <h4 class="fw-semibold fs-18 mb-sm-0">Manage Media Categories</h4>
                 </div>
-        @if (session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-        @endif
-        @if (session('error'))
-        <div class="alert alert-danger">
-            {{ session('error') }}
-        </div>
-        @endif
+                @if (session('success'))
+                <div class="alert alert-success">{{ session('success') }}</div>
+                @endif
+                @if (session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+                @endif
                 <form
                     action="{{ isset($category) ? route('media-categories.update', $category->id) : route('media-categories.store') }}"
                     method="POST" enctype="multipart/form-data">
@@ -84,6 +84,20 @@
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="category_image">Category Image:</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="file" class="form-control text-dark ps-5 h-58" name="category_image"
+                                        id="category_image" accept="image/*">
+                                    @error('category_image')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
                             </div>
                         </div>
                         <div class="col-lg-6">
@@ -153,7 +167,7 @@
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-sm btn-primary text-white"
-                                    onclick="return confirm('Are you sure you want to delete?')">Delete</button>
+                                        onclick="return confirm('Are you sure you want to delete?')">Delete</button>
                                 </form>
                             </td>
                             <td>

@@ -23,10 +23,11 @@
             <div class="card-body p-4">
                 <div class="d-flex justify-content-between align-items-center border-bottom pb-20 mb-20">
                     <h4 class="fw-semibold fs-18 mb-0">Add Academy Souvenir</h4>
-                </div>
-
+                </div> 
+    
                 <form action="{{ route('academy_souvenirs.update',$souvenir->id) }}" method="POST" enctype="multipart/form-data">
-                    @csrf
+                @csrf
+                @method('PUT')
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="form-group mb-4">

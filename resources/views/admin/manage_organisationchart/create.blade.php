@@ -82,6 +82,7 @@
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label">Page Status:</label>
+                                <span class="star">*</span>
                                 <select name="status" class="form-select form-control ps-5 h-58">
                                     <option value="" class="text-dark" selected>Select</option>
                                     <option value="1" class="text-dark">Active</option>
@@ -96,9 +97,11 @@
                     <!-- Submit Button -->
                     <div class="d-flex ms-sm-3 ms-md-0">
                         <button class="btn btn-success text-white fw-semibold" type="submit">Submit</button>&nbsp;
-                        <a href="{{ route('organisation_chart.index') }}"
-                            class="btn btn-secondary text-white">Cancel</a>
-                    </div>
+                        
+                        <a href="{{ route('organisation-chart.sub-org', ['parent_id' => $parent_id]) }}" class="btn btn-secondary text-white">Back</a>
+
+
+                    </div>              
             </div>
 
             </form>

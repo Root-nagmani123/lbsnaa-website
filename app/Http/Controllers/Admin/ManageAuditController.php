@@ -11,8 +11,8 @@ class ManageAuditController extends Controller
     public function index()
     {
         // Fetch data from the manage_audit table, ordered by timestamp
-        $audits = ManageAudit::orderBy('Time_Stamp', 'desc')->get();
-
+        $audits = ManageAudit::orderBy('timestamps', 'desc')->get();
+        // dd($audits);
         // Pass data to the view
         return view('admin.manage_audit.index', compact('audits'));
     }

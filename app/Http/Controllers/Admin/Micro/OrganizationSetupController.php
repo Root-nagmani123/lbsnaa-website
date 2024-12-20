@@ -23,10 +23,15 @@ class OrganizationSetupController extends Controller
         return view('admin.micro.Organization_Setup.index', compact('organizations'));
     }
 
+
     public function create()
     {
-        $researchCentres = DB::table('research_centres')->pluck('research_centre_name', 'id'); // Replace 'name' and 'id' with your actual column names.
-        return view('admin.micro.Organization_Setup.create',compact('researchCentres'));
+        // Fetch only research centres with status == 1 (active)
+        $researchCentres = DB::table('research_centres')
+            ->where('status', 1) // Add the condition for status
+            ->pluck('research_centre_name', 'id'); // Fetch the name and id
+
+        return view('admin.micro.Organization_Setup.create', compact('researchCentres'));
     }
 
 

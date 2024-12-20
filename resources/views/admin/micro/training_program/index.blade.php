@@ -21,6 +21,12 @@
 @if (session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
         @endif
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+
 <div class="card bg-white border-0 rounded-10 mb-4">
     <div class="card-body p-4">
         <div class="d-sm-flex text-center justify-content-between align-items-center border-bottom pb-20 mb-20">
@@ -40,12 +46,9 @@
                     <thead>
                         <tr class="text-center">
                             <th class="col">ID</th>
-                            <th class="col">Research Centre</th>
                             <th class="col">Program Title</th>
                             <th class="col">Venue</th>
                             <th class="col">Co-ordinator</th>
-                            <th class="col">Start Date</th>
-                            <th class="col">End Date</th>
                             <th class="col">Language</th>
                             <th class="col">Page Status</th>
                             <th class="col">Actions</th>
@@ -55,14 +58,9 @@
                         @foreach ($programs as $program)
                         <tr>
                             <td>{{ $loop->iteration }}</td> <!-- Auto-incrementing index -->
-
-                            <td>{{ $program->research_centre_name }}</td>
-
                             <td>{{ $program->program_name }}</td>
                             <td>{{ $program->venue }}</td>
                             <td>{{ $program->program_coordinator }}</td>
-                            <td>{{ $program->start_date }}</td>
-                            <td>{{ $program->end_date }}</td>
                             <td>
                                 @if ($program->language == 1)
                                 English
