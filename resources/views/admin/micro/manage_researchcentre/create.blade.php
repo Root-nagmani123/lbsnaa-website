@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="d-sm-flex text-center justify-content-between align-items-center mb-4">
-    <h3 class="mb-sm-0 mb-1 fs-18">Research Centres</h3>
+    <h3 class="mb-sm-0 mb-1 fs-18">Research Centers</h3>
     <ul class="ps-0 mb-0 list-unstyled d-flex justify-content-center">
         <li>
             <a href="{{ route('admin.index') }}" class="text-decoration-none">
@@ -21,7 +21,7 @@
     <div class="col-lg-12">
         <div class="card bg-white border-0 rounded-10 mb-4 p-4">
             <div class="d-sm-flex text-center justify-content-between align-items-center border-bottom pb-20 mb-20">
-                <h4 class="fw-semibold fs-18 mb-sm-0">Add Research Centre</h4>
+                <h4 class="fw-semibold fs-18 mb-sm-0">Add Research Center</h4>
             </div>
             <form action="{{ route('researchcentres.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -43,7 +43,7 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="form-group mb-4">
-                            <label for="research_centre_name" class="label">Research centre name</label>
+                            <label for="research_centre_name" class="label">Research center name</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
                                 <input type="text" name="research_centre_name" id="research_centre_name"

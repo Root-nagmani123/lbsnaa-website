@@ -282,8 +282,10 @@ Route::prefix('admin')->group(function () {
     Route::get('/academy-souvenirs/create', [ManageSouvenirController::class, 'createAcademySouvenir'])->name('academy_souvenirs.create');
     Route::post('/academy-souvenirs/store', [ManageSouvenirController::class, 'storeAcademySouvenir'])->name('academy_souvenirs.store');
     Route::get('/academy-souvenirs/edit/{id}', [ManageSouvenirController::class, 'editAcademySouvenir'])->name('academy_souvenirs.edit');
-    Route::PUT('/academy-souvenirs/update/{id}', [ManageSouvenirController::class, 'updateAcademySouvenir'])->name('academy_souvenirs.update');
     Route::delete('/academy-souvenirs/destroy/{id}', [ManageSouvenirController::class, 'destroyAcademySouvenir'])->name('academy_souvenirs.destroy');
+    Route::put('academy-souvenirs/update/{id}', [AcademySouvenirController::class, 'updateAcademySouvenir'])->name('academy_souvenirs.update');
+
+
 
     //view profile route
     Route::get('view-profile', [ViewprofileController::class, 'index'])->name('view-profile.index');
@@ -308,10 +310,12 @@ Route::prefix('admin')->group(function () {
     Route::post('organisation_chart/store', [EmployeeController::class, 'organisation_chartStore'])->name('organisation_chart.store');
     Route::get('organisation_chart/{id}/edit', [EmployeeController::class, 'organisation_chartEdit'])->name('organisation_chart.edit');
     Route::post('organisation_chart/{id}/update', [EmployeeController::class, 'organisation_chartUpdate'])->name('organisation_chart.update');
-    Route::post('organisation_chart/{id}/delete', [EmployeeController::class, 'organisation_chartDestroy'])->name('organisation_chart.destroy');
+    Route::post('organisation_chart/{id}/delete', [EmployeeController::class, 'organisation_chartDestroy'])->name('organisation-chart.destroy');
     Route::get('/autocomplete-employees', [EmployeeController::class, 'autocompleteEmployees'])->name('employee.autocomplete');
     // Add this route for the sub-organisation page
-    Route::get('organisation-chart/sub-org/{parent_id}', [EmployeeController::class, 'showSubOrg'])->name('organisation_chart.sub_org');
+    // Route::get('organisation-chart/sub-org/{parent_id}', [EmployeeController::class, 'showSubOrg'])->name('organisation_chart.sub_org');
+    Route::get('organisation-chart/sub-org/{parent_id}', [EmployeeController::class, 'showSubOrg'])->name('organisation-chart.sub-org');
+
 
     // manage course subcategory
     Route::get('subcategory', [CoursesubCategoryController::class, 'index'])->name('subcategory.index');

@@ -36,16 +36,21 @@
                         </tr>
                     </thead>
                     <tbody>
+
                         @foreach($audits as $index => $audit)
+
                         <!-- Use $index for the incrementing index -->
                         <tr>
                             <td>{{ $loop->iteration }}</td> <!-- Auto-incrementing index -->
                             <td>{{ $audit->Module_Name }}</td>
-                            <td> {{ $audit->timestamps == 1 ? 'N/A' : $audit->timestamps }}
 
-</td>
-
-                            
+                            <td>
+                                @if ($audit->created_at && strtotime($audit->created_at))
+                                {{ \Carbon\Carbon::parse($audit->created_at)->format('d-m-Y H:i') }}
+                                @else
+                                N/A
+                                @endif
+                            </td>
                             <td>{{ $audit->Created_By }}</td>
                             <td>{{ $audit->Updated_By }}</td>
                             <td>{{ $audit->Action_Type }}</td>

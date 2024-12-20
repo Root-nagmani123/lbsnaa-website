@@ -60,7 +60,7 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $centre->language == 1 ? 'English' : 'Hindi' }}</td>
                             <td>{{ $centre->research_centre_name }}</td>
-                            <td>{{ $centre->description }}</td>
+                            <td>{{ str_replace(['<p>', '</p>'], '', $centre->description) }}</td>
                             <td>
                                 <a href="{{ route('researchcentres.edit', $centre->id) }}"
                                     class="btn bg-success text-white btn-sm">Edit</a>

@@ -65,19 +65,22 @@ class EmployeeController extends Controller
         
 
         // Redirect back to the same URL
-        return redirect()->route('organisation_chart.sub_org', ['parent_id' => $request->input('parent_id')])
-            ->with('success', 'Employee added successfully');
+        return redirect()->route('organisation-chart.sub-org', ['parent_id' => $request->input('parent_id')])
+            ->with('success', 'Employee added successfully'); 
     }
 
     // Category edit method to show the edit form for a specific section
+
     public function organisation_chartEdit($id)
     {
-
         $record = DB::table('organisation_chart')->where('id', $id)->first();
         $faculty = DB::table('faculty_members')->get();
-        // dd($record);
-        return view('admin.manage_organisationchart.edit', compact('record', 'faculty'));
+        $parent_id = $record->parent_id; // Retrieve parent_id from the record
+
+        // Pass $parent_id to the view
+        return view('admin.manage_organisationchart.edit', compact('record', 'faculty', 'parent_id'));
     }
+
 
     public function organisation_chartUpdate(Request $request, $id)
     {
@@ -128,41 +131,39 @@ class EmployeeController extends Controller
 
         // Check if the update was successful
         if ($updated) {
-            return redirect()->route('organisation_chart.index')->with('success', 'Updated successfully');
+            return redirect()->route('organisation-chart.sub-org', ['parent_id' => $request->input('parent_id')])
+            ->with('success', 'Employee Updated successfully'); 
+
+            // return redirect()->route('organisation-chart.index')->with('success', 'Updated successfully');
         } else {
-            return redirect()->route('organisation_chart.index')->with('error', 'Failed to update record');
+            return redirect()->route('organisation-chart.index')->with('error', 'Failed to update record');
         }
     }
 
-
-    // Category destroy method to delete a section
-    // public function organisation_chartDestroy($id)
-    // {
-    //     DB::table('organisation_chart')->where('id', $id)->delete();
-    //     return redirect()->route('organisation_chart.index')->with('success', 'deleted successfully');
-    // }
-
     public function organisation_chartDestroy($id)
     {
+        // dd($id);
         // Retrieve the record to ensure it exists and to check its status
         $organisationChart = DB::table('organisation_chart')->where('id', $id)->first();
 
         if (!$organisationChart) {
-            return redirect()->route('organisation_chart.index')->with('error', 'Record not found');
+            return redirect()->route('organisation-chart.sub-org', ['parent_id' => $parent_id])->with('error', 'Record not found');
         }
 
         // Check if the status is 1 (Inactive)
         if ($organisationChart->status == 1) {
-            return redirect()->route('organisation_chart.index')->with('error', 'Inactive organisation charts cannot be deleted.');
+            return redirect()->route('organisation-chart.sub-org', ['parent_id' => $parent_id])->with('error', 'Inactive organisation charts cannot be deleted.');
         }
 
         // Perform the delete operation
         $deleted = DB::table('organisation_chart')->where('id', $id)->delete();
 
         if ($deleted) {
-            return redirect()->route('organisation_chart.index')->with('success', 'Deleted successfully');
+            // return redirect()->route('organisation_chart.sub_org', ['parent_id' => $request->input('parent_id')])
+            // ->with('success', 'Employee Deleted successfully');
+            return redirect()->route('organisation-chart.sub-org', ['parent_id' => $parent_id])->with('success', 'Deleted successfully');
         } else {
-            return redirect()->route('organisation_chart.index')->with('error', 'Failed to delete the record');
+            return redirect()->route('organisation-chart.sub-org', ['parent_id' => $parent_id])->with('error', 'Failed to delete the record');
         }
     }
 

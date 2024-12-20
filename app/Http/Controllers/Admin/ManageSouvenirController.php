@@ -137,51 +137,6 @@ class ManageSouvenirController extends Controller
         return view('admin.souvenirModule.academy_souvenirs.create', compact('categories'));
     }
 
-    // // Store a new Academy Souvenir
-    // public function storeAcademySouvenir(Request $request)
-    // {
-    //     $document_name = '';
-    //     if ($request->hasFile('document_upload')) {
-    //         $document_upload = $request->file('document_upload');
-    //         $document_name = $document_upload->getClientOriginalName();
-    //         $documentPath = $document_upload->move(public_path('AcademySouvenir/documents'), $document_upload->getClientOriginalName());
-    //     }
-
-    //     if ($request->hasFile('upload_image')) {
-    //         $upload_image = $request->file('upload_image');
-    //         $upload_name = $upload_image->getClientOriginalName();
-    //         $imagePath = $upload_image->move(public_path('AcademySouvenir/images'), $upload_image->getClientOriginalName());
-    //     }
-
-    //     // Insert Academy Souvenir using Query Builder
-    //     $AcademySouvenir = DB::table('academy_souvenirs')->insert([
-    //         'language' => $request->input('language'),
-    //         'product_category' => $request->input('product_category'),
-    //         'product_title' => $request->input('product_title'),
-    //         'product_type' => $request->input('product_type'),
-    //         'product_price' => $request->input('product_price'),
-    //         'product_discounted_price' => $request->input('product_discounted_price'),
-    //         'contact_email_id' => $request->input('contact_email_id'),
-    //         'document_upload' => $document_name,
-    //         'upload_image' => $upload_name,
-    //         'product_description' => $request->input('product_description'),
-    //         'product_status' => $request->input('product_status'),
-    //         'created_at' => now(),
-    //         'updated_at' => now()
-    //     ]);
-
-    //     ManageAudit::create([
-    //         'Module_Name' => 'Academy Souvenir Module', // Static value
-    //         'Time_Stamp' => time(), // Current timestamp
-    //         'Created_By' => null, // ID of the authenticated user
-    //         'Updated_By' => null, // No update on creation, so leave null
-    //         'Action_Type' => 'Insert', // Static value
-    //         'IP_Address' => $request->ip(), // Get IP address from request
-    //     ]);
-
-    //     return redirect()->route('academy_souvenirs.index')->with('success', 'Academy Souvenir created successfully.');
-    // }
-
     public function storeAcademySouvenir(Request $request)
     {
         // Validate the input fields
@@ -255,100 +210,24 @@ class ManageSouvenirController extends Controller
     }
 
     // Update Academy Souvenir
-    // public function updateAcademySouvenir(Request $request, $id)
-    // {
-    //     // Handle file uploads
-    //     $document_upload = $request->input('old_document_upload'); // default to old document if no new file
-    //     if ($request->hasFile('document_upload')) {
-    //         // Move the new document to the public/assets/documents folder
-    //         $document_upload_file = $request->file('document_upload');
-    //         $document_name = time() . '_' . $document_upload_file->getClientOriginalName();
-    //         $document_upload_file->move(public_path('AcademySouvenir/documents'), $document_name);
-    //         $document_upload = $document_name; // set new document name to save in the DB
 
-    //         // Optionally: delete the old document if it exists
-    //         if ($request->input('old_document_upload')) {
-    //             $oldDocumentPath = public_path('AcademySouvenir/documents/' . $request->input('old_document_upload'));
-    //             if (file_exists($oldDocumentPath)) {
-    //                 unlink($oldDocumentPath);
-    //             }
-    //         }
-    //     }
-
-    //     $upload_image = $request->input('old_upload_image'); // default to old image if no new file
-    //     if ($request->hasFile('upload_image')) {
-    //         // Move the new image to the public/assets/images folder
-    //         $image_upload_file = $request->file('upload_image');
-    //         $image_name = time() . '_' . $image_upload_file->getClientOriginalName();
-    //         $image_upload_file->move(public_path('AcademySouvenir/images'), $image_name);
-    //         $upload_image = $image_name; // set new image name to save in the DB
-
-    //         // Optionally: delete the old image if it exists
-    //         if ($request->input('old_upload_image')) {
-    //             $oldImagePath = public_path('AcademySouvenir/images/' . $request->input('old_upload_image'));
-    //             if (file_exists($oldImagePath)) {
-    //                 unlink($oldImagePath);
-    //             }
-    //         }
-    //     }
-
-    //     // Update Academy Souvenir using Query Builder
-    //     $AcademySouvenir = DB::table('academy_souvenirs')->where('id', $id)->update([
-    //         'language' => $request->input('language'),
-    //         'product_category' => $request->input('product_category'),
-    //         'product_title' => $request->input('product_title'),
-    //         'product_type' => $request->input('product_type'),
-    //         'product_price' => $request->input('product_price'),
-    //         'product_discounted_price' => $request->input('product_discounted_price'),
-    //         'contact_email_id' => $request->input('contact_email_id'),
-    //         'document_upload' => $document_upload,
-    //         'upload_image' => $upload_image,
-    //         'product_description' => $request->input('product_description'),
-    //         'product_status' => $request->input('product_status'),
-    //         'updated_at' => now()
-    //     ]);
-
-    //     ManageAudit::create([
-    //         'Module_Name' => 'Academy Souvenir Module', // Static value
-    //         'Time_Stamp' => time(), // Current timestamp
-    //         'Created_By' => null, // ID of the authenticated user
-    //         'Updated_By' => null, // No update on creation, so leave null
-    //         'Action_Type' => 'Update', // Static value
-    //         'IP_Address' => $request->ip(), // Get IP address from request
-    //     ]);
-
-    //     return redirect()->route('academy_souvenirs.index')->with('success', 'Academy Souvenir updated successfully.');
-    // }
-
-    // Update Academy Souvenir
     public function updateAcademySouvenir(Request $request, $id)
     {
-        // Validate input fields
-        $request->validate([
-            'language' => 'required|string',
-            'product_category' => 'required|string',
-            'product_title' => 'required|string|max:255',
-            'product_type' => 'required|string',
-            // 'product_price' => 'required|numeric|min:0',
-            // 'product_discounted_price' => 'nullable|numeric|min:0',
-            // 'contact_email_id' => 'required|email',
-            // 'document_upload' => 'nullable|file|mimes:pdf,doc,docx|max:2048', // Example validation
-            // 'upload_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // Example validation
-            // 'product_description' => 'nullable|string',
-            // 'product_status' => 'required|in:0,1',
-        ]);
-        dd($request);
-        // Handle document file upload
-        $document_upload = $request->input('old_document_upload'); // Default to old document
-        if ($request->hasFile('document_upload')) {
-            $document_file = $request->file('document_upload');
-            $document_name = time() . '_' . $document_file->getClientOriginalName();
-            $document_file->move(public_path('AcademySouvenir/documents'), $document_name);
-            $document_upload = $document_name;
+        // Fetch current records to ensure we don't overwrite missing fields
+        $currentSouvenir = DB::table('academy_souvenirs')->where('id', $id)->first();
 
-            // Delete old document if it exists
-            if ($request->input('old_document_upload')) {
-                $oldDocumentPath = public_path('AcademySouvenir/documents/' . $request->input('old_document_upload'));
+        // Handle document file upload
+        $document_upload = $request->input('document_upload', $currentSouvenir->document_upload); // Use old document if no new file
+        if ($request->hasFile('document_upload')) {
+            // Move the new document to the public/assets/documents folder
+            $document_upload_file = $request->file('document_upload');
+            $document_name = time() . '_' . $document_upload_file->getClientOriginalName();
+            $document_upload_file->move(public_path('AcademySouvenir/documents'), $document_name);
+            $document_upload = $document_name; // Set new document name to save in the DB
+
+            // Optionally: delete the old document if it exists
+            if ($currentSouvenir->document_upload) {
+                $oldDocumentPath = public_path('AcademySouvenir/documents/' . $currentSouvenir->document_upload);
                 if (file_exists($oldDocumentPath)) {
                     unlink($oldDocumentPath);
                 }
@@ -356,24 +235,25 @@ class ManageSouvenirController extends Controller
         }
 
         // Handle image file upload
-        $upload_image = $request->input('old_upload_image'); // Default to old image
+        $upload_image = $request->input('upload_image', $currentSouvenir->upload_image); // Use old image if no new file
         if ($request->hasFile('upload_image')) {
-            $image_file = $request->file('upload_image');
-            $image_name = time() . '_' . $image_file->getClientOriginalName();
-            $image_file->move(public_path('AcademySouvenir/images'), $image_name);
-            $upload_image = $image_name;
+            // Move the new image to the public/assets/images folder
+            $image_upload_file = $request->file('upload_image');
+            $image_name = time() . '_' . $image_upload_file->getClientOriginalName();
+            $image_upload_file->move(public_path('AcademySouvenir/images'), $image_name);
+            $upload_image = $image_name; // Set new image name to save in the DB
 
-            // Delete old image if it exists
-            if ($request->input('old_upload_image')) {
-                $oldImagePath = public_path('AcademySouvenir/images/' . $request->input('old_upload_image'));
+            // Optionally: delete the old image if it exists
+            if ($currentSouvenir->upload_image) {
+                $oldImagePath = public_path('AcademySouvenir/images/' . $currentSouvenir->upload_image);
                 if (file_exists($oldImagePath)) {
                     unlink($oldImagePath);
                 }
             }
         }
-        // dd($updateResult);
-        // Perform update operation
-        $updateResult = DB::table('academy_souvenirs')->where('id', $id)->update([
+
+        // Update Academy Souvenir using Query Builder
+        DB::table('academy_souvenirs')->where('id', $id)->update([
             'language' => $request->input('language'),
             'product_category' => $request->input('product_category'),
             'product_title' => $request->input('product_title'),
@@ -381,8 +261,8 @@ class ManageSouvenirController extends Controller
             'product_price' => $request->input('product_price'),
             'product_discounted_price' => $request->input('product_discounted_price'),
             'contact_email_id' => $request->input('contact_email_id'),
-            'document_upload' => $document_upload,
-            'upload_image' => $upload_image,
+            'document_upload' => $document_upload, // Keep old document if no new file uploaded
+            'upload_image' => $upload_image, // Keep old image if no new file uploaded
             'product_description' => $request->input('product_description'),
             'product_status' => $request->input('product_status'),
             'updated_at' => now()
@@ -393,25 +273,28 @@ class ManageSouvenirController extends Controller
             'Module_Name' => 'Academy Souvenir Module', // Static value
             'Time_Stamp' => time(), // Current timestamp
             'Created_By' => null, // ID of the authenticated user
-            'Updated_By' => null, // ID of the authenticated user
-            'Action_Type' => 'Update', // Corrected action type
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Update', // Static value
             'IP_Address' => $request->ip(), // Get IP address from request
         ]);
 
-        // Redirect based on update result
-        if ($updateResult) {
-            return redirect()->route('academy_souvenirs.index')->with('success', 'Academy Souvenir updated successfully.');
-        } else {
-            return redirect()->back()->with('error', 'Failed to update Academy Souvenir. Please try again.');
-        }
+        return redirect()->route('academy_souvenirs.index')->with('success', 'Academy Souvenir updated successfully.');
     }
-
-
 
     // Delete an Academy Souvenir
     public function destroyAcademySouvenir($id)
     {
+        // Fetch the souvenir record
+        $souvenir = DB::table('academy_souvenirs')->where('id', $id)->first();
+
+        // Check if the status is 1 (Inactive), and if so, prevent deletion
+        if ($souvenir->product_status == 1) {
+            return redirect()->route('academy_souvenirs.index')->with('error', 'Inactive academy souvenirs cannot be deleted.');
+        }
+
+        // Proceed with deletion if the status is not 1
         DB::table('academy_souvenirs')->where('id', $id)->delete();
         return redirect()->route('academy_souvenirs.index')->with('success', 'Academy Souvenir deleted successfully.');
     }
+
 }

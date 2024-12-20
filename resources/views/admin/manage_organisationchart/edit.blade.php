@@ -39,23 +39,6 @@
                             </div>
                         </div>
 
-                        <!-- Select Parent Employee
-                        <div class="col-lg-6">
-                            <div class="form-group mb-4">
-                                <label class="label">Select Parent Employee :</label>
-                                <span class="star">*</span>
-                                <div class="form-group position-relative">
-                                    <select name="parentcategory" id="parentcategory" class="form-select form-control ps-5 h-58">
-                                        <option value="" class="text-dark">Select Employee</option>
-                                        @foreach ($faculty as $parent)
-                                            <option class="text-dark" value="{{ $parent->id }} {{ $record->faculty_id == $parent->id ? 'selected' : '' }}">
-                                                {{ $parent->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                        </div> -->
 
                         <!-- Select Parent Employee -->
                         <div class="col-lg-6">
@@ -87,16 +70,6 @@
                             </div>
                         </div>
 
-                        <!-- CKEditor for Description -->
-                        <!-- <div class="col-lg-6">
-                            <div class="form-group mb-4">
-                                <label class="label">Description :</label>
-                                <span class="star">*</span>
-                                <div class="form-group position-relative">
-                                    <textarea name="description" id="description" class="form-control ps-5 text-dark">{{ $record->description }}</textarea>
-                                </div>
-                            </div>
-                        </div> -->
 
                         <!-- Page Status -->
                         <div class="col-lg-6">
@@ -113,7 +86,10 @@
                     <!-- Submit Button -->
                     <div class="d-flex ms-sm-3 ms-md-0">
                             <button class="btn btn-success text-white fw-semibold" type="submit">Update</button>&nbsp;
-                            <a href="{{ route('organisation_chart.index') }}" class="btn btn-secondary text-white">Cancel</a>
+                        <a href="{{ route('organisation-chart.sub-org', ['parent_id' => $parent_id]) }}" 
+                        class="btn btn-secondary text-white">Back</a>
+
+                            <!-- <a href="{{ route('organisation_chart.index') }}" class="btn btn-secondary text-white">Back</a> -->
                         </div>
                 </form>
             </div>

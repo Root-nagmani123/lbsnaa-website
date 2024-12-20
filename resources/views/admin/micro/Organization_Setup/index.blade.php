@@ -38,7 +38,6 @@
                     <thead>
                         <tr class="text-center">
                             <th class="col">ID</th> <!-- Index Column -->
-                            <th class="col">Research Centre</th>
                             <th class="col">Employee Name</th>
                             <th class="col">Designation</th>
                             <th class="col">Email</th>
@@ -52,7 +51,6 @@
                         @foreach ($organizations as $loopIndex => $org)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $org->research_centre_name }}</td>
                             <td>{{ $org->employee_name }}</td> 
                             <td>{{ $org->designation }}</td>
                             <td>{{ $org->email }}</td>

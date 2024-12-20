@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Auth;
 class MicroManagePhotoGalleryController extends Controller
 { 
     public function index()
-    {
+    { 
 
         $galleries = DB::table('micro_manage_photo_galleries as sub')
         ->leftJoin('courses as parent', 'sub.course_id', '=', 'parent.id') // Correct join
@@ -38,9 +38,11 @@ class MicroManagePhotoGalleryController extends Controller
 
     public function create()
     {
-        return view('admin.micro.manage_media_center.manage_photo.create'); 
+        $mediaCategories = DB::table('micro_media_categories')
+            ->where('status', 1)
+            ->get(); // Retrieve records with status == 1        
+        return view('admin.micro.manage_media_center.manage_photo.create', compact('mediaCategories')); 
     }
-
  
     public function store(Request $request)
     {
@@ -52,6 +54,7 @@ class MicroManagePhotoGalleryController extends Controller
             
             'status' => 'required|integer|in:1,0', // Ensure status is one of the valid values
             'course_id' => 'required|integer|exists:courses,id', // Ensure course ID exists in the database
+            'media_categories' => 'required', // Ensure course ID exists in the database
             
         ], [
             // Custom error messages
@@ -91,6 +94,7 @@ class MicroManagePhotoGalleryController extends Controller
             'related_news' => $request->input('related_news'),
             'related_training_program' => $request->input('related_training_program'),
             'related_events' => $request->input('related_events'),
+            'media_categories'=> $request->input('media_categories'),
             'created_at' => now(), // Add timestamp for created_at
             'updated_at' => now(), // Add timestamp for updated_at
         ];
@@ -129,6 +133,11 @@ class MicroManagePhotoGalleryController extends Controller
             abort(404, 'Gallery not found');
         }
 
+        // Fetch active media categories
+        $mediaCategories = DB::table('micro_media_categories')
+                            ->where('status', 1)
+                            ->pluck('name', 'id'); // Use pluck for a key-value array
+
         // Fetch related data only if the fields are not null
         $related_news = $gallery->related_news 
             ? MicroManagePhotoGallery::select('id', 'related_news')->where('related_news', $gallery->related_news)->first()
@@ -152,6 +161,7 @@ class MicroManagePhotoGalleryController extends Controller
         return view('admin.micro.manage_media_center.manage_photo.edit', [
             'gallery' => $gallery,
             'allCourses' => $allCourses,
+            'mediaCategories' => $mediaCategories, // Pass categories as key-value
             'aaa' => $allCourses ? $allCourses->name : null,
             'bbb' => $bbb ? $bbb->name : null,
             'ccc' => $ccc ? $ccc->name : null,
@@ -236,6 +246,7 @@ class MicroManagePhotoGalleryController extends Controller
         $gallery->related_news = $request->input('related_news');
         $gallery->related_training_program = $request->input('related_training_program');
         $gallery->related_events = $request->input('related_events');
+        $gallery->media_categories = $request->input('media_categories');
         $gallery->updated_at = now();
 
         // Save the gallery
@@ -254,18 +265,43 @@ class MicroManagePhotoGalleryController extends Controller
     }
 
     
+    // public function destroy($id)
+    // {
+    //     try {
+    //         // Fetch the record using the ID and delete it
+    //         $gallery = MicroManagePhotoGallery::findOrFail($id); // Assuming 'MicroManagePhotoGallery' is your model
+    //         $gallery->delete();
+
+    //         return redirect()->route('micro-photo-gallery.index')->with('success', 'Photo Gallery deleted successfully.');
+    //     } catch (\Exception $e) {
+    //         return redirect()->route('micro-photo-gallery.index')->with('error', 'Error deleting Photo Gallery: ' . $e->getMessage());
+    //     }
+    // }
+
     public function destroy($id)
     {
         try {
-            // Fetch the record using the ID and delete it
-            $gallery = MicroManagePhotoGallery::findOrFail($id); // Assuming 'MicroManagePhotoGallery' is your model
+            // Fetch the record using the ID
+            $gallery = MicroManagePhotoGallery::findOrFail($id);
+
+            // Check if the status is 1 (Inactive), and prevent deletion
+            if ($gallery->status == 1) {
+                return redirect()->route('micro-photo-gallery.index')
+                    ->with('error', 'Inactive photo galleries cannot be deleted.');
+            }
+
+            // Delete the record if the status is not 1
             $gallery->delete();
 
-            return redirect()->route('micro-photo-gallery.index')->with('success', 'Photo Gallery deleted successfully.');
+            return redirect()->route('micro-photo-gallery.index')
+                ->with('success', 'Photo Gallery deleted successfully.');
         } catch (\Exception $e) {
-            return redirect()->route('micro-photo-gallery.index')->with('error', 'Error deleting Photo Gallery: ' . $e->getMessage());
+            // Handle exceptions and return an error message
+            return redirect()->route('micro-photo-gallery.index')
+                ->with('error', 'Error deleting Photo Gallery: ' . $e->getMessage());
         }
     }
+
 
     public function searchCourses(Request $request)
     {

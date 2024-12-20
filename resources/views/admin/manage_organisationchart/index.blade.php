@@ -53,14 +53,13 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $record->employee_name }}</td>
-                            <td><a href="{{ route('organisation_chart.sub_org', ['parent_id' => $record->id]) }}"
+                            <td><a href="{{ route('organisation-chart.sub-org', ['parent_id' => $record->id]) }}"
                                     class="btn btn-secondary btn-sm text-white">click here</a></td>
                             <td>{{ $record->description }}</td>
                             <td>
-                                <a href="{{ route('organisation_chart.edit', $record->id) }}"
-                                    class="btn bg-success text-white btn-sm">Edit</a>
+                                <a href="{{ route('organisation_chart.edit', $record->id) }}" class="btn bg-success text-white btn-sm">Edit</a>
                                 @if ($record->id != 1)
-                                <form action="{{ route('organisation_chart.destroy', $record->id) }}" method="POST"
+                                <form action="{{ route('organisation_chart.destroy',['parent_id' => $record->id], $record->id) }}" method="POST"
                                     style="display:inline;">
                                     @csrf
                                     <button type="submit" class="btn btn-sm btn-primary text-white">Delete</button>

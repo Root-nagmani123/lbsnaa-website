@@ -123,6 +123,7 @@ class NewsController extends Controller
         ManageAudit::create([
             'Module_Name' => 'News Module',
             'Time_Stamp' => time(),
+            // 'Time_Stamp' => date('Y-m-d H:i:s', time()),
             'Created_By' => null,
             'Updated_By' => null,
             'Action_Type' => 'Insert',
@@ -247,7 +248,8 @@ class NewsController extends Controller
 
         ManageAudit::create([
             'Module_Name' => 'News Module', // Static value
-            'Time_Stamp' => time(), // Current timestamp
+            // 'Time_Stamp' => time(), // Current timestamp
+            'Time_Stamp' => date('Y-m-d H:i:s', time()),
             'Created_By' => null, // ID of the authenticated user
             'Updated_By' => null, // No update on creation, so leave null
             'Action_Type' => 'Update', // Static value

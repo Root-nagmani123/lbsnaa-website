@@ -21,43 +21,44 @@ class ManageMediaCategoriesController extends Controller
         return view('manage_categories.create');
     }
 
+
     public function store(Request $request)
     {
-        // Validate the incoming request with custom error messages
+        // Validate the incoming request
         $validated = $request->validate([
             'media_gallery' => 'required|in:Photo Gallery,Video Gallery',
             'name' => 'required|string',
             'hindi_name' => 'required|string',
             'status' => 'required|integer|in:1,0',
-        ], [
-            // Custom validation messages
-            'media_gallery.required' => 'Please select a gallery type.',
-            'media_gallery.in' => 'Please select either Photo Gallery or Video Gallery.',
-            'name.required' => 'Please enter the name.',
-            'name.string' => 'The name must be a valid string.',
-            'hindi_name.string' => 'The Hindi name must be a valid string.',
-            'status.required' => 'Please select a status.',
-            'status.integer' => 'The status must be a valid integer.',
-            'status.in' => 'The status must be one of the following: Active, Inactive.',
+            'category_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Allow nullable
         ]);
-
-        // Create a new media category entry
+    
+        if ($request->hasFile('category_image')) {
+            $image = $request->file('category_image');
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('uploads/category_images'), $imageName);
+            $validated['category_image'] = $imageName;
+        } else {
+            $validated['category_image'] = null; // Explicitly set null
+        }
+        
+    
+        // Save media category
         $media = ManageMediaCategories::create($validated);
-
-        // Create a new audit record
+    
+        // Audit log
         ManageAudit::create([
-            'Module_Name' => 'Media Module', // Static value
-            'Time_Stamp' => now(), // Current timestamp
-            'Created_By' => null, // ID of the authenticated user
-            'Updated_By' => null, // No update on creation, so leave null
-            'Action_Type' => 'Insert', // Static value
-            'IP_Address' => $request->ip(), // Get IP address from request
+            'Module_Name' => 'Media Module',
+            'Time_Stamp' => time(),
+            'Created_By' => null,
+            'Updated_By' => null,
+            'Action_Type' => 'Insert',
+            'IP_Address' => $request->ip(),
         ]);
-
-        // Redirect back to the media categories index with success message
+    
         return redirect()->route('media-categories.index')->with('success', 'Category added successfully.');
     }
-
+    
 
     public function edit($id)
     {
@@ -73,10 +74,13 @@ class ManageMediaCategoriesController extends Controller
             'name' => 'required|string',
             'hindi_name' => 'nullable|string',
             'status' => 'required|integer|in:1,0',
+            'category_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Validate image
         ], [
             'media_gallery.required' => 'Please select a gallery type.',
             'name.required' => 'Please enter the name.',
             'status.required' => 'Please select a status.',
+            'category_image.image' => 'The uploaded file must be an image (JPEG, PNG, JPG, or GIF).',
+            'category_image.max' => 'The image size must not exceed 2MB.',
         ]);
 
         // Find the category by ID or fail if not found
@@ -85,22 +89,39 @@ class ManageMediaCategoriesController extends Controller
         // Store the current state before updating for auditing purposes
         $currentState = $category->toArray(); // Convert the current category data to an array for auditing
 
+        // Handle image upload if a new image is provided
+        if ($request->hasFile('category_image')) {
+            // Retrieve the uploaded file
+            $image = $request->file('category_image');
+            $imageName = time() . '_' . $image->getClientOriginalName(); // Generate a unique file name
+            $image->move(public_path('uploads/category_images'), $imageName); // Save the image in public/uploads/category_images
+
+            // Delete the old image file if it exists
+            if ($category->category_image && file_exists(public_path('uploads/category_images/' . $category->category_image))) {
+                unlink(public_path('uploads/category_images/' . $category->category_image));
+            }
+
+            // Update the validated data with the new image name
+            $validated['category_image'] = $imageName;
+        }
+
         // Update the category with validated data
         $category->update($validated);
 
         // Create a new audit record
         ManageAudit::create([
-            'Module_Name' => 'Media Module', // Static value
-            'Time_Stamp' => time(), // Current timestamp
-            'Created_By' => null, // ID of the authenticated user (optional, if needed)
-            'Updated_By' => null, // Update with authenticated user's ID if logged in
-            'Action_Type' => 'Update', // Static value
-            'IP_Address' => $request->ip(), // IP address of the user performing the update
+            'Module_Name' => 'Media Module',
+            'Time_Stamp' => time(), // Use current timestamp
+            'Created_By' => null, // Update with the ID of the authenticated user if available
+            'Updated_By' => null, // Add authenticated user's ID
+            'Action_Type' => 'Update', // Indicate the action performed
+            'IP_Address' => $request->ip(), // Get the IP address of the request
         ]);
 
         // Redirect with success message
         return redirect()->route('media-categories.index')->with('success', 'Category updated successfully.');
     }
+
 
     public function destroy($id)
     {

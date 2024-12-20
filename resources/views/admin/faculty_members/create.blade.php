@@ -124,7 +124,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark ps-5 h-58" name="designation"
-                                        id="designation" value="{{ old('category')}}">
+                                        id="designation" value="{{ old('designation')}}">
                                     @error('designation')
                                     <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
                                     @enderror

@@ -57,24 +57,24 @@
 
 
 
-                        <div class="col-lg-6" id="related_news_field">
+                        <!-- <div class="col-lg-6" id="related_news_field">
                             <div class="form-group mb-4">
                                 <label for="related_news" class="label">Related News:</label>
                                 <div class="form-group position-relative">
-                                    <!-- Searchable input field -->
+                                     
                                     <input type="text" id="news-search" class="form-control text-dark ps-5 h-58"
                                         placeholder="Type to search for courses..."
                                         value="{{ old('bbb', $bbb ?? '') }}">
-                                    <!-- Store the selected course ID -->
+                                    
                                     <input type="hidden" name="related_news" id="selected-news-id"
                                         value="{{ old('related_news', $gallery->related_news) }}">
-                                    <!-- Dropdown for suggestions -->
+                                     
                                     <div id="news-suggestions" class="dropdown-menu"
                                         style="display: none; position: relative;">
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="col-lg-6" id="related_training_field">
                             <div class="form-group mb-4">
                                 <label for="related_training_program" class="label">Related Training Programme:</label>
@@ -91,7 +91,22 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6" id="related_events_field">
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label">Select Category Centre</label>
+                                <div class="form-group position-relative">
+                                <select name="media_categories" id="media_categories" class="form-control text-dark ps-5 h-58">
+                                    <option value="">Select Category Centre</option>
+                                    @foreach ($mediaCategories as $id => $name)
+                                        <option value="{{ $id }}" {{ old('media_categories', $gallery->media_categories ?? '') == $id ? 'selected' : '' }}>
+                                            {{ $name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="col-lg-6" id="related_events_field">
                             <div class="form-group mb-4">
                                 <label for="related_events" class="label">Related Events:</label>
                                 <div class="form-group position-relative">
@@ -103,7 +118,7 @@
                                         style="display: none; position: relative;"></div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label">Image Title (English)</label>
@@ -173,7 +188,7 @@
                                 <select class="form-select form-control ps-5 h-58" name="status" id="status">
                                     <option value="1" class="text-dark" {{ $gallery->status == '1' ? 'selected' : '' }}>
                                         Active</option>
-                                    <option value="2" class="text-dark" {{ $gallery->status == '0' ? 'selected' : '' }}>
+                                    <option value="0" class="text-dark" {{ $gallery->status == '0' ? 'selected' : '' }}>
                                         Inactive</option>
                                 </select>
                             </div>
@@ -182,7 +197,7 @@
                     <div class="d-flex ms-sm-3 ms-md-0 mt-4">
                         <button class="btn btn-success text-white fw-semibold" type="submit">Update</button> &nbsp;
                         <a href="{{ route('micro-photo-gallery.index') }}"
-                            class="btn btn-secondary text-white fw-semibold">Cancel</a>
+                            class="btn btn-secondary text-white fw-semibold">Back</a>
                     </div>
             </div>
 
@@ -198,10 +213,10 @@
 
 <script>
 // Event listener for the News dropdown
-document.getElementById('image_relate_with_news').addEventListener('change', function() {
-    // Show related News fields if 'News' is selected, hide otherwise
-    document.getElementById('related_news_field').style.display = this.value === 'News' ? 'block' : 'none';
-});
+// document.getElementById('image_relate_with_news').addEventListener('change', function() {
+//     // Show related News fields if 'News' is selected, hide otherwise
+//     document.getElementById('related_news_field').style.display = this.value === 'News' ? 'block' : 'none';
+// });
 
 // Event listener for the Training Programme dropdown
 document.getElementById('image_relate_with_training').addEventListener('change', function() {
@@ -211,11 +226,11 @@ document.getElementById('image_relate_with_training').addEventListener('change',
 });
 
 // Event listener for the Events dropdown
-document.getElementById('image_relate_with_events').addEventListener('change', function() {
-    // Show related Events fields if 'Related Events' is selected, hide otherwise
-    document.getElementById('related_events_field').style.display = this.value === 'Related Events' ? 'block' :
-        'none';
-});
+// document.getElementById('image_relate_with_events').addEventListener('change', function() {
+//     // Show related Events fields if 'Related Events' is selected, hide otherwise
+//     document.getElementById('related_events_field').style.display = this.value === 'Related Events' ? 'block' :
+//         'none';
+// });
 </script>
 
 @endsection

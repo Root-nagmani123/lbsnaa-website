@@ -188,7 +188,7 @@
                         <button class="btn btn-success text-white fw-semibold" type="submit">Submit</button>
                         &nbsp;
                         <a href="{{ route('organization_setups.index') }}"
-                            class="btn btn-secondary text-white">Cancel</a>
+                            class="btn btn-secondary text-white">Back</a>
                     </div>
                 </div>
             </form>

@@ -185,9 +185,7 @@ document.addEventListener('DOMContentLoaded', function() {
             modalBody.innerHTML = `
                 <div>
                     <p><strong>Category Name:</strong> ${name}</p>
-                    <p><strong>Related Training Program:</strong> ${media_cat_name}</p>
-                    <p><strong>Related News:</strong> ${related_news}</p>
-                    
+                    <p><strong>Related Training Program:</strong> ${media_cat_name}</p>                    
                     <p><strong>Image Title (English):</strong> ${image_title_english}</p>
                     <p><strong>Image TItle (Hindi):</strong> ${image_title_hindi}</p>
                     <p><strong>Images:</strong></p>
