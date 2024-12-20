@@ -157,6 +157,15 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
+                                <label class="label" for="organised">Organised By :</label>
+                                <div class="form-group position-relative">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="organised"
+                                        id="organised">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
                                 <label class="label" for="coordinator_id">Coordinator ID :</label>
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark ps-5 h-58" name="coordinator_id"
@@ -211,7 +220,7 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group mb-0">
-                                <label class="label" for="important_links">Order Notes :</label>
+                                <label class="label" for="important_links">Important Links :</label>
                                 <div class="form-group position-relative">
                                     <textarea class="form-control ps-5 text-dark" id="important_links"
                                         name="important_links"></textarea>
@@ -252,6 +261,15 @@
                                     @error('venue_id')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-0">
+                                <label class="label" for="funded">Funded By :</label>
+                                <div class="form-group position-relative">
+                                    <textarea class="form-control ps-5 text-dark" id="funded"
+                                        name="funded"></textarea>
                                 </div>
                             </div>
                         </div>
