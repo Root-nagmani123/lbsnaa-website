@@ -3,100 +3,203 @@
 @section('title', 'Admin Dashboard')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <h2>Create Section Category</h2>
-            <form action="{{ route('admin.section_category.store') }}" method="POST">
-                @csrf
- 
-                <div class="form-group">
-                    <label for="name">Name *</label>
-                    <input type="text" name="name" class="form-control" required>
+<div class="d-sm-flex text-center justify-content-between align-items-center mb-4">
+    <h3 class="mb-sm-0 mb-1 fs-18">Manage Organization Module</h3>
+    <ul class="ps-0 mb-0 list-unstyled d-flex justify-content-center">
+        <li>
+            <a href="{{ route('admin.index') }}" class="text-decoration-none">
+                <i class="ri-home-2-line" style="position: relative; top: -1px;"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        <li>
+            <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Manage Sections</span>
+        </li>
+    </ul>
+</div>
+<div class="row justify-content-center">
+    <div class="col-lg-12">
+        <div class="card bg-white border-0 rounded-10 mb-4">
+            <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-center border-bottom pb-20 mb-20">
+                    <h4 class="fw-semibold fs-18 mb-0">Create Section Category</h4>
                 </div>
-                <input type="hidden" name="section_id" value="{{ $id }}">
-                <div class="form-group">
-                    <label for="description">Description</label>
-                    <textarea name="description" class="form-control"></textarea>
-                </div>
+                <form action="{{ route('admin.section_category.store') }}" method="POST">
+                    @csrf
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="language">Page Language :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="radio" name="language" value="1"> English
+                                    <input type="radio" name="language" value="2"> Hindi
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label for="name" class="label">Name</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="text" name="name" class="form-control text-dark ps-5 h-58" required>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="section_id" value="{{ $id }}">
+                        <div class="col-lg-12">
+                            <div class="form-group mb-4">
+                                <label for="descripption" class="label">Description</label>
+                                <div class="form-group position-relative">
+                                    <textarea name="description" class="form-control ps-5 text-dark" id="descripption"
+                                        rows="5"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label for="officer_incharge" class="label">Officer Incharge</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="text" name="officer_Incharge" class="form-control text-dark ps-5 h-58">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label for="alternative_incharge_1st" class="label">Alternative Incharge 1st</label>
+                                <div class="form-group position-relative">
+                                    <input type="text" name="alternative_incharge_1st"
+                                        class="form-control text-dark ps-5 h-58">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label for="alternative_incharge_2st" class="label">Alternative Incharge 2nd</label>
+                                <div class="form-group position-relative">
+                                    <input type="text" name="alternative_incharge_2st"
+                                        class="form-control text-dark ps-5 h-58">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label for="alternative_incharge_3st" class="label">Alternative Incharge 3rd</label>
+                                <div class="form-group position-relative">
+                                    <input type="text" name="alternative_incharge_3st"
+                                        class="form-control text-dark ps-5 h-58">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label for="alternative_incharge_4st" class="label">Alternative Incharge 4th</label>
+                                <div class="form-group postion-relative">
+                                    <input type="text" name="alternative_incharge_4st"
+                                        class="form-control text-dark ps-5 h-58">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label for="alternative_incharge_5st" class="label">Alternative Incharge 5th</label>
+                                <div class="form-group postion-relative">
+                                    <input type="text" name="alternative_incharge_5st"
+                                        class="form-control text-dark ps-5 h-58">
+                                </div>
+                            </div>
 
-                <div class="form-group">
-                    <label for="officer_incharge">Officer Incharge</label>
-                    <input type="text" name="officer_Incharge" class="form-control">
-                </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label for="section_head" class="label">Section Head</label>
+                                <div class="form-group postion-relative">
+                                    <input type="text" name="section_head" class="form-control text-dark ps-5 h-58">
+                                </div>
+                            </div>
 
-                <div class="form-group">
-                    <label for="alternative_incharge_1st">Alternative Incharge 1st</label>
-                    <input type="text" name="alternative_incharge_1st" class="form-control">
-                </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label for="phone_internal_office" class="label">Phone Internal Office</label>
+                                <div class="form-group postion-relative">
+                                    <input type="text" name="phone_internal_office"
+                                        class="form-control text-dark ps-5 h-58">
+                                </div>
+                            </div>
 
-                <div class="form-group">
-                    <label for="alternative_incharge_2st">Alternative Incharge 2nd</label>
-                    <input type="text" name="alternative_incharge_2st" class="form-control">
-                </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label for="phone_internal_residence" class="label">Phone Internal Residence</label>
+                                <div class="form-group postion-relative">
+                                    <input type="text" name="phone_internal_residence"
+                                        class="form-control text-dark ps-5 h-58">
+                                </div>
 
-                <div class="form-group">
-                    <label for="alternative_incharge_3st">Alternative Incharge 3rd</label>
-                    <input type="text" name="alternative_incharge_3st" class="form-control">
-                </div>
+                            </div>
 
-                <div class="form-group">
-                    <label for="alternative_incharge_4st">Alternative Incharge 4th</label>
-                    <input type="text" name="alternative_incharge_4st" class="form-control">
-                </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label for="phone_p_t_office" class="label">Phone P&T Office</label>
+                                <div class="form-group postion-relative">
+                                    <input type="text" name="phone_p_t_office" class="form-control text-dark ps-5 h-58">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label for="phone_p_t_residence" class="label">Phone P&T Residence</label>
+                                <div class="form-group position-relative">
+                                    <input type="text" name="phone_p_t_residence"
+                                        class="form-control text-dark ps-5 h-58">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label for="fax" class="label">Fax</label>
+                                <div class="form-group position-relative">
+                                    <input type="text" name="fax" class="form-control text-dark ps-5 h-58">
+                                </div>
 
-                <div class="form-group">
-                    <label for="alternative_incharge_5st">Alternative Incharge 5th</label>
-                    <input type="text" name="alternative_incharge_5st" class="form-control">
-                </div>
+                            </div>
 
-                <div class="form-group">
-                    <label for="section_head">Section Head</label>
-                    <input type="text" name="section_head" class="form-control">
-                </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label for="email" class="label">Email</label>
+                                <div class="form-group position-relative">
+                                    <input type="email" name="email" class="form-control text-dark ps-5 h-58">
+                                </div>
 
-                <div class="form-group">
-                    <label for="phone_internal_office">Phone Internal Office</label>
-                    <input type="text" name="phone_internal_office" class="form-control">
-                </div>
+                            </div>
 
-                <div class="form-group">
-                    <label for="phone_internal_residence">Phone Internal Residence</label>
-                    <input type="text" name="phone_internal_residence" class="form-control">
-                </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label for="status" class="label">Status</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <select name="status" class="form-control text-dark ps-5 h-58" required>
+                                        <option value="" class="text-dark" selected>Select</option>
+                                        <option value="1">Active</option>
+                                        <option value="0">Inactive</option>
+                                    </select>
+                                </div>
 
-                <div class="form-group">
-                    <label for="phone_p_t_office">Phone P&T Office</label>
-                    <input type="text" name="phone_p_t_office" class="form-control">
-                </div>
+                            </div>
 
-                <div class="form-group">
-                    <label for="phone_p_t_residence">Phone P&T Residence</label>
-                    <input type="text" name="phone_p_t_residence" class="form-control">
-                </div>
-
-                <div class="form-group">
-                    <label for="fax">Fax</label>
-                    <input type="text" name="fax" class="form-control">
-                </div>
-
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" name="email" class="form-control">
-                </div>
-
-                <div class="form-group">
-                    <label for="status">Status *</label>
-                    <select name="status" class="form-control" required>
-                    <option value="" class="text-dark" selected>Select</option>
-                        <option value="1">Active</option>
-                        <option value="0">Inactive</option>
-                    </select>
-                </div>
-
-
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+                        </div>
+                        <div class="d-flex ms-sm-3 ms-md-0">
+                            <button class="btn btn-success text-white fw-semibold" type="submit">Submit</button>&nbsp;
+                            <a href="{{ route('sections.index') }}" class="btn btn-secondary text-white">Back</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
