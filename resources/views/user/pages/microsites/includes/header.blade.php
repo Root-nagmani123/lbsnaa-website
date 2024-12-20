@@ -30,7 +30,7 @@
 
 </head>
 
-<body class="d-flex flex-column min-vh-100">
+<body class="d-flex flex-column min-vh-100 bg-white">
 <header class="d-none d-lg-block sticky-top">
     <nav class="navbar">
         <div class="container px-0">

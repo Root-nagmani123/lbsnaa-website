@@ -23,7 +23,7 @@
 </head>
 
 <body class="d-flex flex-column min-vh-100 bg-white">
-    <nav class="navbar navbar-expand-lg shadow-none">
+    <nav class="navbar navbar-expand-lg shadow-none sticky-top">
         <div class="container px-0">
             <!-- Logo -->
             <a href="{{ route('home') }}" class="navbar-brand">
