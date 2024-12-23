@@ -3,15 +3,11 @@
 @section('title', 'Admin Dashboard')
 
 @section('content')
-<!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet"> -->
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<!-- here this code use for the editer css-->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+<!-- here this code use end of editer css-->
 
-<!-- include summernote css/js -->
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-
-
+ 
 
 <div class="d-sm-flex text-center justify-content-between align-items-center mb-4">
     <h3 class="mb-sm-0 mb-1 fs-18">Manage News</h3>
@@ -213,13 +209,18 @@
     </div>
 </div>
 </div>
+<!-- here this code use for the editer js -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <script>
 $('#description').summernote({
     placeholder: 'description...',
     tabsize: 2,
     height: 300
 });
-</script>
+</script>  
+<!-- here this code end of the editer js -->
+
 <script>
     // JavaScript to allow only today's date and future dates
     document.addEventListener('DOMContentLoaded', function () {
