@@ -7,7 +7,7 @@ $footer_links = DB::table('menus')->where('txtpostion',3)->where('menu_status',1
 <!-- footer -->
 <section class="py-4 bg-white mt-auto">
     <!-- container -->
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="offset-xl-1 col-xl-10 col-md-12 col-12">
                 <!-- row -->
@@ -127,6 +127,7 @@ $footer_links = DB::table('menus')->where('txtpostion',3)->where('menu_status',1
 
 <!-- Theme JS -->
 <script src="{{ asset('assets/js/theme.min.js') }}"></script>
+<script src="{{ asset('assets/js/orgchart.js') }}"></script>
 
 <script src="{{ asset('assets/libs/tippy.js/dist/tippy-bundle.umd.min.js') }}"></script>
 

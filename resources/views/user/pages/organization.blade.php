@@ -17,7 +17,7 @@
         </div>
     </div>
 </section>
-<section class="py-5">
+<section class="py-5 bg-light">
     <div class="container">
         <div class="tree">
             @if (!empty($hierarchy))
