@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\CourseController;
 
 
 use App\Http\Controllers\Admin\ManageSouvenirController;
+use App\Http\Controllers\Admin\UserManagementController;
 
 
 use App\Http\Controllers\Admin\TrainingManagementController;
@@ -157,6 +158,12 @@ Route::post('/admin/menus/{id}/toggle-status', [MenuController::class, 'toggleSt
 
 Route::prefix('admin')->group(function () {
 
+    Route::get('permissions', [UserManagementController::class, 'index'])->name('UserManagement.permissions');
+  Route::post('/permissions', [UserManagementController::class, 'store'])->name('permissions.store');
+Route::post('/permissions/{id}', [UserManagementController::class, 'update'])->name('permissions.update');
+Route::delete('/permissions/{id}', [UserManagementController::class, 'destroy'])->name('permissions.destroy');
+
+
     Route::get('sliders', [HomeController::class, 'slider_list'])->name('admin.slider_list');
     Route::get('sliders/create', [HomeController::class, 'slider_create'])->name('admin.slider_create');
     Route::post('sliders', [HomeController::class, 'slider_store'])->name('admin.slider_store');
@@ -183,7 +190,7 @@ Route::prefix('admin')->group(function () {
     Route::put('footer-images/{id}/status', [HomeController::class, 'quick_link_status_update'])->name('admin.quick_links.status');
 
 
-
+ 
     // faculty routes
     Route::get('/faculty', [ManageOrganizationController::class, 'facultyIndex'])->name('admin.faculty.index');
     Route::get('/faculty/create', [ManageOrganizationController::class, 'facultyCreate'])->name('admin.faculty.create');
