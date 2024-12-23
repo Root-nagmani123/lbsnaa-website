@@ -57,7 +57,7 @@
 </section>
 
 <section class="py-lg-8 py-5">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row gy-4 gy-xl-0">
             <div class="col-md-2 col-12 mb-4">
                 <div class="card card-lift text-center text-lg-start h-100">
@@ -235,9 +235,9 @@
 </section>
 
 <section class="py-8 bg-light">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row gy-4">
-            <div class="col-12 col-md-8">
+            <div class="col-12 col-md-9">
                 <div class="mb-5">
                     <div class="row">
                         <div class="col-6">
@@ -305,7 +305,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-12 col-md-4">
+            <div class="col-12 col-md-3">
                 <div class="card card-hover border">
                     <div class="card-header bg-danger">
                         <h3 class="text-white">Quick Links</h3>
