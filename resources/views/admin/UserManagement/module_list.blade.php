@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container mt-5">
-    <h1>Permissions Management</h1>
+    <h1>Modules Management</h1>
 
     <!-- Success Message -->
     @if(session('success'))
@@ -12,7 +12,7 @@
     @endif
 
     <!-- Add Permission Form -->
-    <form action="{{ route('permissions.store') }}" method="POST" class="mb-3">
+    <form action="{{ route('module.store') }}" method="POST" class="mb-3">
         @csrf
         <div class="row">
             <div class="col-md-5">
@@ -45,7 +45,7 @@
                 <td>{{ $permission->description }}</td>
                 <td>
                     <!-- Edit Form -->
-                    <form action="{{ route('permissions.update', $permission->id) }}" method="POST" class="d-inline">
+                    <form action="{{ route('module.update', $permission->id) }}" method="POST" class="d-inline">
                         @csrf
                         <input type="text" name="name" value="{{ $permission->name }}" required>
                         <input type="text" name="description" value="{{ $permission->description }}">
@@ -53,7 +53,7 @@
                     </form>
 
                     <!-- Delete Form -->
-                    <form action="{{ route('permissions.destroy', $permission->id) }}" method="POST" class="d-inline">
+                    <form action="{{ route('module.destroy', $permission->id) }}" method="POST" class="d-inline">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger btn-sm">Delete</button>

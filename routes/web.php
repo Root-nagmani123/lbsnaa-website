@@ -158,10 +158,25 @@ Route::post('/admin/menus/{id}/toggle-status', [MenuController::class, 'toggleSt
 
 Route::prefix('admin')->group(function () {
 
-    Route::get('permissions', [UserManagementController::class, 'index'])->name('UserManagement.permissions');
-  Route::post('/permissions', [UserManagementController::class, 'store'])->name('permissions.store');
-Route::post('/permissions/{id}', [UserManagementController::class, 'update'])->name('permissions.update');
-Route::delete('/permissions/{id}', [UserManagementController::class, 'destroy'])->name('permissions.destroy');
+    Route::get('module', [UserManagementController::class, 'index'])->name('UserManagement.module');
+  Route::post('/module', [UserManagementController::class, 'store'])->name('module.store');
+Route::post('/module/{id}', [UserManagementController::class, 'update'])->name('module.update');
+Route::delete('/module/{id}', [UserManagementController::class, 'destroy'])->name('module.destroy');
+
+
+Route::get('/users', [UserManagementController::class, 'users_index'])->name('users.index'); // List users
+Route::get('/users/add', [UserManagementController::class, 'users_create'])->name('users.create'); // Show add form
+Route::post('/users/store', [UserManagementController::class, 'users_store'])->name('users.store'); // Add user
+Route::get('/users/edit/{id}', [UserManagementController::class, 'users_edit'])->name('users.edit'); // Show edit form
+Route::post('/users/update/{id}', [UserManagementController::class, 'users_update'])->name('users.update'); // Update user
+Route::post('/users/delete/{id}', [UserManagementController::class, 'users_destroy'])->name('users.delete'); // Delete user
+Route::post('/users/updateStatus/{id}', [UserManagementController::class, 'updateStatus'])->name('users.updateStatus');
+
+
+Route::get('/users/permissions/{id}', [UserManagementController::class, 'permissions'])->name('users.permissions');
+Route::post('/users/permissions/update', [UserManagementController::class, 'updatePermissions'])->name('users.permissions.update');
+
+
 
 
     Route::get('sliders', [HomeController::class, 'slider_list'])->name('admin.slider_list');
