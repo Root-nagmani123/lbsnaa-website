@@ -70,36 +70,6 @@
                             </div>
                         </div>
 
-
-                        <!-- <div class="col-lg-6">
-                            <div class="form-group mb-4">
-                                <label class="label" for="image_relate_with_news">Image Relate With News</label>
-                                <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="image_relate_with_news"
-                                        id="image_relate_with_news">
-                                        <option value="">Select News</option>
-                                        <option value="News">News</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div> -->
-
-
-
-                        <!-- Placeholder for News-related fields -->
-                        <!-- <div class="col-lg-6" id="related_news_field" style="display: none;">
-                            <div class="form-group mb-4">
-                                <label class="label" for="news-search">Related News :</label>
-                                <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="news-search"
-                                        id="news-search" placeholder="Type to search for news...">
-                                    <input type="hidden" name="related_news" id="selected-news-id">
-                                    <div id="news-suggestions" class="dropdown-menu"
-                                        style="display: none; position: relative;"></div>
-                                </div>
-                            </div>
-                        </div> -->
-
                         <!-- Dropdown to select related content for Training Programme -->
 
                         <div class="col-lg-6">
@@ -128,32 +98,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Dropdown to select related content for Related Events -->
-                        <!-- <div class="col-lg-6">
-                            <div class="form-group mb-4">
-                                <label class="label" for="image_relate_with_events">Image Relate with Events :</label>
-                                <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="image_relate_with_events"
-                                        id="image_relate_with_events">
-                                        <option value="" class="text-dark">Select Events</option>
-                                        <option value="Related Events" class="text-dark">Related Events</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div> -->
-                        <!-- Placeholder for Events-related fields -->
-                        <!-- <div class="col-lg-6" id="related_events_field" style="display: none;">
-                            <div class="form-group mb-4">
-                                <label class="label" for="event-search">Related Events :</label>
-                                <div class="form-group position-relative">
-                                    <input type="text" id="event-search" class="form-control text-dark ps-5 h-58"
-                                        placeholder="Type to search for events...">
-                                    <input type="hidden" name="related_events" id="selected-event-id">
-                                    <div id="event-suggestions" class="dropdown-menu"
-                                        style="display: none; position: relative;"></div>
-                                </div>
-                            </div>
-                        </div> -->
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="image_title_english">Image Title (English) :</label>
@@ -191,16 +135,16 @@
                                     <button type="button" class="btn btn-outline-danger text-danger remove-file mt-2" style="display: none;">Remove</button>
                                 </div>
                             </div>
-                            <button type="button" class="btn btn-secondary text-white mt-2" id="add-file">Add More</button>
+                            <button type="button" class="btn btn-secondary text-white mt-2 mb-2" id="add-file">Add More</button>
                             <div id="file-container"></div>
 
                             <!-- If there are any files uploaded previously, show them -->
                             @if (old('image_files'))
-                                <div class="uploaded-files">
+                                <div class="uploaded-files m-2">
                                     @foreach(old('image_files') as $file)
                                         <div class="file-preview">
                                             <img src="{{ asset('storage/'.$file) }}" alt="Uploaded Image" class="img-thumbnail" width="100">
-                                            <button type="button" class="btn btn-outline-danger text-danger remove-file mt-2">Remove</button>
+                                            <button type="button" class="btn btn-outline-danger text-danger remove-file mt-2 mb-2">Remove</button>
                                         </div>
                                     @endforeach
                                 </div>
@@ -513,7 +457,7 @@ document.addEventListener("DOMContentLoaded", function() {
             var fileGroup = document.createElement('div');
             fileGroup.classList.add('file-group');
             fileGroup.innerHTML = `
-                    <input type="file" name="image_files[]" class="form-control text-dark ps-5 h-58" accept="image/*">
+                    <input type="file" name="image_files[]" class="form-control text-dark ps-5 h-58 mb-2 mt-2" accept="image/*">
                     <button type="button" class="btn btn-primary remove-file mb-2 text-white">Remove</button>
                 `;
 
