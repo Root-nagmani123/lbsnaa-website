@@ -61,31 +61,34 @@
                             <td><img src="{{ asset('slider-images/' . $slider->image) }}" alt="slider image"
                                     class="img-fluid" width="100"></td>
                             <td>{{ $slider->text }}</td>
-                            
+
                             <td>{{ $slider->description }}</td>
                             <td>{{ $slider->language == 1 ? 'English': 'Hindi'}}</td>
                             <td>
-                                <button type="button"
-                                    class="btn btn-outline-primary text-primary fw-semibold btn-sm view-slider"
+                                <button type="button" class="btn btn-outline-primary fw-semibold btn-sm view-slider"
                                     data-bs-toggle="modal" data-bs-target="#staticBackdrop"
                                     data-text="{{ $slider->text }}"
-                                    data-language="{{ $slider->language == 1 ? 'English': 'Hindi'}}" 
+                                    data-language="{{ $slider->language == 1 ? 'English': 'Hindi'}}"
                                     data-description="{{ $slider->description }}"
                                     data-image="{{ asset('slider-images/' . $slider->image) }}">
                                     View
                                 </button>
                             </td>
-
                             <td>
-                                <a href="{{ route('admin.slider_edit', $slider->id) }}"
-                                    class="btn bg-success text-white btn-sm">Edit</a>
-                                <form action="{{ route('admin.slider_destroy', $slider->id) }}" method="POST"
-                                    style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-primary text-white"
-                                        onclick="return confirm('Are you sure?')">Delete</button>
-                                </form>
+                                <div class="d-flex flex-column flex-sm-row gap-2">
+                                    <a href="{{ route('admin.slider_edit', $slider->id) }}"
+                                        class="btn bg-success text-white btn-sm w-auto d-flex align-items-center justify-content-center mb-2 mb-sm-0"
+                                        style="height: 30px;">Edit</a>
+                                    <form action="{{ route('admin.slider_destroy', $slider->id) }}" method="POST"
+                                        style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                            class="btn btn-sm btn-primary text-white w-auto d-flex align-items-center justify-content-center"
+                                            style="height: 30px;"
+                                            onclick="return confirm('Are you sure?')">Delete</button>
+                                    </form>
+                                </div>
                             </td>
                             <td>
                                 <div class="form-check form-switch">

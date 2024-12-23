@@ -81,19 +81,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="col-lg-6">
-                            <div class="form-group mb-4">
-                                <label class="label" for="exm_date">Transaction Date :</label>
-                                <span class="star">*</span>
-                                <div class="form-group position-relative">
-                                    <input type="date" class="form-control text-dark ps-5 h-58" name="exm_date"
-                                        id="exm_date">
-                                        @error('exm_date')
-                                        <div style="color: red;">{{ $message }}</div> 
-                                    @enderror
-                                </div>
-                            </div>
-                        </div> -->
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="exm_date">Transaction Date :</label>
@@ -157,6 +144,16 @@
         </div>
     </div>
 </div>
+<!-- here this code use for the editer js -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<script>
+$('#exm_desc').summernote({
+    tabsize: 2,
+    height: 300
+});
+</script>  
+<!-- here this code end of the editer js -->
 @endsection
 
 <!-- Include Flatpickr CSS -->

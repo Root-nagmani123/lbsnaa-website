@@ -37,7 +37,7 @@
                     @csrf
                     @method('PUT')
                     <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-lg-2">
                             <div class="form-group mb-4">
                                 <label class="label" for="language">Page Language :</label>
                                 <span class="star">*</span>
@@ -50,7 +50,7 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-6">
+                        <div class="col-lg-5">
                             <div class="form-group mb-4">
                                 <label class="label" for="job_title">Job Title :</label>
                                 <span class="star">*</span>
@@ -63,14 +63,32 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- New Dropdown for Research Centre -->
+                        <div class="col-lg-5">
+                            <div class="form-group mb-4">
+                                <label for="research_centre_id" class="label">Select Research Centre</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <select name="research_centre" id="research_centre_id"
+                                        class="form-control text-dark ps-5 h-58">
+                                        <option value="">Select Research Centre</option>
+                                        @foreach ($researchCentres as $id => $name)
+                                        <option value="{{ $id }}" {{ old('research_centre') == $id ? 'selected' : '' }}>
+                                            {{ $name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('research_centre')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-lg-12">
                             <div class="form-group mb-4">
                                 <label class="label" for="job_description">Job Description :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <textarea class="form-control" id="job_description"
-                                        placeholder="Enter the Job Description" name="job_description"
-                                        rows="5">{{ old('job_description', $vacancy->job_description) }}</textarea>
+                                    <textarea class="form-control" id="job_description" name="job_description">{{ old('job_description', $vacancy->job_description) }}</textarea>
                                     @error('job_description')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -179,16 +197,16 @@
         </div>
     </div>
 </div>
-<script src="{{ asset('admin_assets/js/ckeditor.js') }}"></script>
-<script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
-
+<!-- here this code use for the editer js -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <script>
-ClassicEditor
-    .create(document.querySelector('#job_description'))
-    .catch(error => {
-        console.error(error);
-    });
-</script>
+$('#job_description').summernote({
+    tabsize: 2,
+    height: 300
+});
+</script>  
+<!-- here this code end of the editer js -->
 
 <script>
 document.getElementById('content_type').addEventListener('change', function() {

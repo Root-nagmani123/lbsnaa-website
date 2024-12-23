@@ -25,7 +25,7 @@
                 <form action="{{ route('admin.courses.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-                        <div class="col-lg-2">
+                        <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="menutitle">Page Language :</label>
                                 <span class="star">*</span>
@@ -39,7 +39,7 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-5">
+                        <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="course_name">Course Name :</label>
                                 <span class="star">*</span>
@@ -52,7 +52,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-5">
+                        <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="abbreviation">Abbreviation :</label>
                                 <span class="star">*</span>
@@ -90,13 +90,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-12">
+                        <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="meta_description">Meta Description:</label>
                                 <div class="form-group position-relative">
-                                    <textarea class="form-control" id="meta_description"
-                                        placeholder="Enter the Meta Description" name="meta_description"
-                                        rows="5"></textarea>
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="meta_description" id="meta_description">
                                 </div>
                             </div>
                         </div>
@@ -323,26 +321,14 @@
         </div>
     </div>
 </div>
-<script src="{{ asset('admin_assets/js/ckeditor.js') }}"></script>
-<script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
-
+<!-- here this code use for the editer js -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <script>
-ClassicEditor
-    .create(document.querySelector('#meta_description'))
-    .then(editor => {
-        window.editor = editor;
-    })
-    .catch(error => {
-        console.error(error);
-    });
-
-ClassicEditor
-    .create(document.querySelector('#description'))
-    .then(editor => {
-        window.editor = editor;
-    })
-    .catch(error => {
-        console.error(error);
-    });
-</script>
+$('#description').summernote({
+    tabsize: 2,
+    height: 300
+});
+</script>  
+<!-- here this code end of the editer js -->
 @endsection

@@ -125,7 +125,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-12">
                             <div class="form-group mb-4">
                                 <label for="meta_description" class="label">Meta Description</label>
                                 <span class="star">*</span>
@@ -245,19 +245,18 @@
         </div>
     </div>
 </div>
-<script src="{{ asset('admin_assets/js/ckeditor.js') }}"></script>
-<script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
-
+<!-- here this code use for the editer js -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <script>
-ClassicEditor
-    .create(document.querySelector('#meta_description'))
-    .catch(error => {
-        console.error(error);
-    });
-ClassicEditor
-    .create(document.querySelector('#description'))
-    .catch(error => {
-        console.error(error);
-    });
-</script>
+$('#description').summernote({
+    tabsize: 2,
+    height: 300
+});
+$('#meta_description').summernote({
+    tabsize: 2,
+    height: 300
+});
+</script>  
+<!-- here this code end of the editer js -->
 @endsection

@@ -182,16 +182,16 @@
         </div>
     </div>
 </div>
-<script src="{{ asset('admin_assets/js/ckeditor.js') }}"></script>
-<script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
-
+<!-- here this code use for the editer js -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <script>
-ClassicEditor
-    .create(document.querySelector('#job_description'))
-    .catch(error => {
-        console.error(error);
-    });
-</script>
+$('#job_description').summernote({
+    tabsize: 2,
+    height: 300
+});
+</script>  
+<!-- here this code end of the editer js -->
 
 <script>
 document.getElementById('content_type').addEventListener('change', function() {

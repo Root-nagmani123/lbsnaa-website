@@ -1,22 +1,23 @@
 <div class="sidebar-area" id="sidebar-area">
-        <div class="logo position-relative">
-            <a href="#!" class="d-block text-decoration-none">
-                <img src="{{ asset('admin_assets/images/logo.png') }}" alt="logo-icon" width="220">
-            </a>
-            <button
-                class="sidebar-burger-menu bg-transparent p-0 border-0 opacity-0 z-n1 position-absolute top-50 end-0 translate-middle-y"
-                id="sidebar-burger-menu">
-                <i data-feather="x"></i>
-            </button>
-        </div>
-        
-        <aside id="layout-menu" class="layout-menu menu-vertical menu" data-simplebar="">
-            <ul class="menu-inner">
-                <li class="menu-title small text-uppercase">
-                    <span class="menu-title-text">Main Website</span>
-                </li>
-                <li class="menu-item open">
-                    <a href="{{ route('admin.index') }}" class="menu-link {{ Request::routeIs('admin.index') ? 'active' : '' }}">
+    <div class="logo position-relative">
+        <a href="#!" class="d-block text-decoration-none">
+            <img src="{{ asset('admin_assets/images/logo.png') }}" alt="logo-icon" width="220">
+        </a>
+        <button
+            class="sidebar-burger-menu bg-transparent p-0 border-0 opacity-0 z-n1 position-absolute top-50 end-0 translate-middle-y"
+            id="sidebar-burger-menu">
+            <i data-feather="x"></i>
+        </button>
+    </div>
+
+    <aside id="layout-menu" class="layout-menu menu-vertical menu" data-simplebar="">
+        <ul class="menu-inner">
+            <li class="menu-title small text-uppercase">
+                <span class="menu-title-text">Main Website</span>
+            </li>
+            <li class="menu-item open">
+                <a href="{{ route('admin.index') }}"
+                    class="menu-link {{ Request::routeIs('admin.index') ? 'active' : '' }}">
                     <i class="material-icons menu-icon">dashboard</i>
                     <span class="title">Dashboard</span>
                 </a>
@@ -153,11 +154,11 @@
                 </a>
             </li>
             <li class="menu-item">
-                    <a href="{{ route('admin.quick_links.index') }}" class="menu-link">
+                <a href="{{ route('admin.quick_links.index') }}" class="menu-link">
                     <i class="material-icons menu-icon">add_linka</i>
-                        <span class="title">Quick Links</span>
-                    </a>
-                </li>
+                    <span class="title">Quick Links</span>
+                </a>
+            </li>
             <li class="menu-item">
                 <a href="{{ route('manage_tender.index') }}"
                     class="menu-link {{ Request::routeIs('manage_tender.index') ? 'active' : '' }}">
@@ -169,321 +170,217 @@
             <li class="menu-item {{ Request::routeIs('souvenir.index') ? 'open' : '' }}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="material-icons menu-icon">description</i>
-                        <span class="title">Manage Souvenir Module</span>
-                    </a>
-                    <ul class="menu-sub">
-                        <li class="menu-item">
-                            <a href="{{ route('souvenir.index') }}" class="menu-link {{ Request::routeIs('souvenir.index') ? 'active' : '' }}">
-                                Manage Master Categories
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="{{ route('academy_souvenirs.index') }}" class="menu-link {{ Request::routeIs('academy_souvenirs.index') ? 'active' : '' }}">
-                                Manage Academy Souvenir
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="menu-item">
-                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <span class="title">Manage Souvenir Module</span>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item">
+                        <a href="{{ route('souvenir.index') }}"
+                            class="menu-link {{ Request::routeIs('souvenir.index') ? 'active' : '' }}">
+                            Manage Master Categories
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{{ route('academy_souvenirs.index') }}"
+                            class="menu-link {{ Request::routeIs('academy_souvenirs.index') ? 'active' : '' }}">
+                            Manage Academy Souvenir
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="menu-item">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="material-icons menu-icon">task</i>
-                        <span class="title">Manage Course Module</span>
-                    </a>
-                    <ul class="menu-sub">
-                        <li class="menu-item">
-                            <a href="{{ route('subcategory.index')}}" class="menu-link">
-                                Manage Course Category/Subcategory
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="{{ route('admin.courses.index')}}" class="menu-link">
-                                Manage Course
-                            </a>
-                        </li>
-                       
-                    </ul>
-                </li>
-                <li class="menu-item">
-                    <a href="{{ route('survey.index') }}" class="menu-link">
+                    <span class="title">Manage Course Module</span>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item">
+                        <a href="{{ route('subcategory.index')}}" class="menu-link">
+                            Manage Course Category/Subcategory
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{{ route('admin.courses.index')}}" class="menu-link">
+                            Manage Course
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+            <li class="menu-item">
+                <a href="{{ route('survey.index') }}" class="menu-link">
                     <i class="material-icons menu-icon">inventory</i>
-                        <span class="title">Manage Survey List</span>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="{{ route('manage_vacancy.index') }}" class="menu-link">
+                    <span class="title">Manage Survey List</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="{{ route('manage_vacancy.index') }}" class="menu-link">
                     <i class="material-icons menu-icon">assignment_ind</i>
-                        <span class="title">Manage Vacancy</span>
-                    </a>
-                </li>
-                <!-- <li class="menu-item">
+                    <span class="title">Manage Vacancy</span>
+                </a>
+            </li>
+            <!-- <li class="menu-item">
                     <a href="#" class="menu-link">
                     <i class="material-icons menu-icon">person</i>
                         <span class="title">Manage RTI</span>
                     </a>
                 </li> -->
-               
-                <li class="menu-item">
-                    <a href="{{ route('socialmedia.index') }}" class="menu-link">
+
+            <li class="menu-item">
+                <a href="{{ route('socialmedia.index') }}" class="menu-link">
                     <i class=" material-icons menu-icon">subscriptions</i>
-                        <span class="title">Manage Social Media</span>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="{{ route('admin.footer_images.index') }}" class="menu-link">
+                    <span class="title">Manage Social Media</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="{{ route('admin.footer_images.index') }}" class="menu-link">
                     <i class="material-icons menu-icon">person</i>
-                        <span class="title">Manage Logo</span>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="{{ route('admin.feedback_list') }}" class="menu-link">
-                    <i class="material-icons menu-icon">person</i>
-                        <span class="title">Feedback List</span>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <span class="title">Manage Logo</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="{{ route('admin.feedback_list') }}" class="menu-link">
+                    <i class="material-icons menu-icon">chat</i>
+                    <span class="title">Feedback List</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="material-icons menu-icon">mediation</i>
-                        <span class="title">Manage Media Center</span>
-                    </a>
-                    <ul class="menu-sub">
-                        <li class="menu-item">
-                            <a href="{{ route('admin.slider_list') }}" class="menu-link">
-                                Home Banner
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="{{ route('media-center.index') }}" class="menu-link">
-                                Audio Gallery
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="{{ route('photo-gallery.index') }}" class="menu-link">
-                                Photo Gallery
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="{{ route('video_gallery.index') }}" class="menu-link">
-                                Video Gallery
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                                Photo Gallery/ Video Gallery
-                            </a>
-                            <ul class="menu-sub">
-                        <li class="menu-item">
-                            <a href="{{ route('media-categories.index') }}" class="menu-link">
-                                Add Category
-                            </a>
-                        </li>
-                    </ul>
-                        </li>
-                    </ul>
-                </li>
-                <li class="menu-item">
-                    <a href="{{ route('manage_audit.index') }}" class="menu-link">
-                    <i class="material-icons menu-icon">list</i>
-                        <span class="title">Manage Audit</span>
-                    </a>
-                </li>
-                <li class="menu-title small text-uppercase">
-                    <span class="menu-title-text">Micro-Website</span>
-                </li>
-                <li class="menu-item">
-                    <a href="{{ route('researchcentres.index') }}" class="menu-link">
-                    <i class="material-icons menu-icon">hub</i>
-                        <span class="title">Research Center</span>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <i class="material-icons menu-icon">wysiwyg</i>
-                        <span class="title">CMS Page</span>
-                    </a>
-                    <ul class="menu-sub">
-                        <li class="menu-item">
-                            <a href="{{ route('micromenus.index') }}" class="menu-link">
-                                Manage Menu
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="menu-item">
-                    <a href="{{ route('microquicklinks.index') }}" class="menu-link">
-                    <i class="material-icons menu-icon">add_linka</i>
-                        <span class="title">Manage What's New / Quick Links</span>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="{{ route('Managenews.index') }}" class="menu-link">
-                    <i class="material-icons menu-icon">newspaper</i>
-                        <span class="title">Manage News</span>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="{{ route('training-programs.index') }}" class="menu-link">
-                    <i class="material-icons menu-icon">model_training</i>
-                        <span class="title">Manage Training Programs</span>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="{{ route('organization_setups.index') }}" class="menu-link">
-                    <i class="material-icons menu-icon">corporate_fare</i>
-                        <span class="title">Manage Organization Setup</span>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="{{ route('micro_manage_vacancy.index') }}" class="menu-link">
-                    <i class="material-icons menu-icon">assignment_ind</i>
-                        <span class="title">Manage Vacancy</span>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <i class="material-icons menu-icon">mediation</i>
-                        <span class="title">Manage Media Center</span>
-                    </a>
-                    <ul class="menu-sub">
-                        <li class="menu-item">
-                            <a href="{{ route('slider.index') }}" class="menu-link">
-                                Home Banner
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="{{ route('micro-photo-gallery.index') }}" class="menu-link">
-                                Photo Gallery
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="{{ route('micro-video-gallery.index') }}" class="menu-link">
-                                Video Gallery
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                                Photo Gallery/ Video Gallery
-                            </a>
-                            <ul class="menu-sub">
-                        <li class="menu-item">
-                            <a href="{{ route('photovideogallery.index') }}" class="menu-link">
-                                Add Category
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                    <span class="title">Manage Media Center</span>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item">
+                        <a href="{{ route('admin.slider_list') }}" class="menu-link">
+                            Home Banner
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{{ route('media-center.index') }}" class="menu-link">
+                            Audio Gallery
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{{ route('photo-gallery.index') }}" class="menu-link">
+                            Photo Gallery
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{{ route('video_gallery.index') }}" class="menu-link">
+                            Video Gallery
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="javascript:void(0);" class="menu-link menu-toggle">
+                            Photo Gallery/ Video Gallery
+                        </a>
+                        <ul class="menu-sub">
+                            <li class="menu-item">
+                                <a href="{{ route('media-categories.index') }}" class="menu-link">
+                                    Add Category
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
-                <li class="menu-item">
-                    <a href="{{ route('micro_manage_audit.index') }}" class="menu-link">
-                    <i class="material-icons menu-icon">list</i>
-                        <span class="title">Manage Audit</span>
-                    </a>
-                </li>
-                <!-- <li class="menu-title small text-uppercase">
-                    <span class="menu-title-text">Micro-Website</span>
-                </li>
-                <li class="menu-item">
-                    <a href="{{ route('researchcentres.index') }}" class="menu-link">
-                    <i class="material-icons menu-icon">hub</i>
-                        <span class="title">Research Center</span>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <i class="material-icons menu-icon">wysiwyg</i>
-                        <span class="title">CMS Page</span>
-                    </a>
-                    <ul class="menu-sub">
-                        <li class="menu-item">
-                            <a href="{{ route('micromenus.index') }}" class="menu-link">
-                                Manage Menu
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="menu-item">
-                    <a href="{{ route('microquicklinks.index') }}" class="menu-link">
-                    <i class="material-icons menu-icon">add_linka</i>
-                        <span class="title">Manage What's New / Quick Links</span>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="{{ route('Managenews.index') }}" class="menu-link">
-                    <i class="material-icons menu-icon">newspaper</i>
-                        <span class="title">Manage News</span>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="{{ route('training-programs.index') }}" class="menu-link">
-                    <i class="material-icons menu-icon">model_training</i>
-                        <span class="title">Manage Training Programs</span>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="{{ route('organization_setups.index') }}" class="menu-link">
-                    <i class="material-icons menu-icon">corporate_fare</i>
-                        <span class="title">Manage Organization Setup</span>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="{{ route('micro_manage_vacancy.index') }}" class="menu-link">
-                    <i class="material-icons menu-icon">assignment_ind</i>
-                        <span class="title">Manage Vacancy</span>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <i class="material-icons menu-icon">mediation</i>
-                        <span class="title">Manage Media Center</span>
-                    </a>
-                    <ul class="menu-sub">
-                        <li class="menu-item">
-                            <a href="{{ route('slider.index') }}" class="menu-link">
-                                Home Banner
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="{{ route('micro-photo-gallery.index') }}" class="menu-link">
-                                Photo Gallery
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="{{ route('micro-video-gallery.index') }}" class="menu-link">
-                                Video Gallery
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                                Photo Gallery/ Video Gallery
-                            </a>
-                            <ul class="menu-sub">
-                        <li class="menu-item">
-                            <a href="{{ route('photovideogallery.index') }}" class="menu-link">
-                                Add Category
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                </ul>
-                <li class="menu-item">
-                    <a href="{{ route('micro_manage_audit.index') }}" class="menu-link">
+            </li>
+            <li class="menu-item">
+                <a href="{{ route('manage_audit.index') }}" class="menu-link">
                     <i class="material-icons menu-icon">list</i>
                     <span class="title">Manage Audit</span>
                 </a>
-            </li> -->
+            </li>
+            <li class="menu-title small text-uppercase">
+                <span class="menu-title-text">Micro-Website</span>
+            </li>
+            <li class="menu-item">
+                <a href="{{ route('researchcentres.index') }}" class="menu-link">
+                    <i class="material-icons menu-icon">hub</i>
+                    <span class="title">Research Center</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <i class="material-icons menu-icon">wysiwyg</i>
+                    <span class="title">CMS Page</span>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item">
+                        <a href="{{ route('micromenus.index') }}" class="menu-link">
+                            Manage Menu
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="menu-item">
+                <a href="{{ route('microquicklinks.index') }}" class="menu-link">
+                    <i class="material-icons menu-icon">add_linka</i>
+                    <span class="title">Manage What's New / Quick Links</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="{{ route('Managenews.index') }}" class="menu-link">
+                    <i class="material-icons menu-icon">newspaper</i>
+                    <span class="title">Manage News</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="{{ route('training-programs.index') }}" class="menu-link">
+                    <i class="material-icons menu-icon">model_training</i>
+                    <span class="title">Manage Training Programs</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="{{ route('organization_setups.index') }}" class="menu-link">
+                    <i class="material-icons menu-icon">corporate_fare</i>
+                    <span class="title">Manage Organization Setup</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="{{ route('micro_manage_vacancy.index') }}" class="menu-link">
+                    <i class="material-icons menu-icon">assignment_ind</i>
+                    <span class="title">Manage Vacancy</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <i class="material-icons menu-icon">mediation</i>
+                    <span class="title">Manage Media Center</span>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item">
+                        <a href="{{ route('slider.index') }}" class="menu-link">
+                            Home Banner
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{{ route('micro-photo-gallery.index') }}" class="menu-link">
+                            Photo Gallery
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{{ route('micro-video-gallery.index') }}" class="menu-link">
+                            Video Gallery
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="javascript:void(0);" class="menu-link menu-toggle">
+                            Photo Gallery/ Video Gallery
+                        </a>
+                        <ul class="menu-sub">
+                            <li class="menu-item">
+                                <a href="{{ route('photovideogallery.index') }}" class="menu-link">
+                                    Add Category
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            <li class="menu-item">
+                <a href="{{ route('micro_manage_audit.index') }}" class="menu-link">
+                    <i class="material-icons menu-icon">list</i>
+                    <span class="title">Manage Audit</span>
+                </a>
+            </li>
         </ul>
     </aside>
-    <div class="bg-white z-1 admin">
-            <div class="d-flex align-items-center admin-info border-top">
-                <div class="flex-shrink-0">
-                    <a href="profile.html" class="d-block">
-                        <img src="{{ asset('admin_assets/images/avatar-14.jpg') }}" class="rounded-circle wh-54" alt="admin">
-                    </a>
-                </div>
-                <div class="flex-grow-1 ms-3 info">
-                    <a href="{{ route('view-profile.index') }}" class="d-block name">Viru</a>
-                    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="d-block logout">Log Out</a>
-                </div>
-            </div>
-        </div>
-
 </div>

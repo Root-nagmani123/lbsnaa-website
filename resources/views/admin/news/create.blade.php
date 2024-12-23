@@ -3,12 +3,6 @@
 @section('title', 'Admin Dashboard')
 
 @section('content')
-<!-- here this code use for the editer css-->
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-<!-- here this code use end of editer css-->
-
- 
-
 <div class="d-sm-flex text-center justify-content-between align-items-center mb-4">
     <h3 class="mb-sm-0 mb-1 fs-18">Manage News</h3>
     <ul class="ps-0 mb-0 list-unstyled d-flex justify-content-center">

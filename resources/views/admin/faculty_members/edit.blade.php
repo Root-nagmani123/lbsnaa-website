@@ -108,7 +108,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-12">
                             <div class="form-group mb-4">
                                 <label for="description" class="label">Description</label>
                                 <div class="form-group position-relative">
@@ -117,7 +117,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-12">
                             <div class="form-group mb-4">
                                 <label for="description_in_hindi" class="label">Description in Hindi</label>
                                 <div class="form-group position-relative">
@@ -362,8 +362,7 @@
                             </div>
                         </div>
                         <div class="d-flex ms-sm-3 ms-md-0">
-                            <button class="btn btn-success text-white fw-semibold" type="submit">Update Faculty
-                                Member</button>
+                            <button class="btn btn-success text-white fw-semibold" type="submit">Update</button>
                             &nbsp;
                             <a href="{{ route('admin.faculty.index') }}"
                                 class="btn btn-secondary text-white fw-semibold">Back</a>
@@ -376,5 +375,18 @@
         </div>
     </div>
 </div>
-
+<!-- here this code use for the editer js -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<script>
+$('#description').summernote({
+    tabsize: 2,
+    height: 300
+});
+$('#description_in_hindi').summernote({
+    tabsize: 2,
+    height: 300
+});
+</script>  
+<!-- here this code end of the editer js -->
 @endsection

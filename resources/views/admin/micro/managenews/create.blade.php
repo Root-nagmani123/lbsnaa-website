@@ -227,35 +227,19 @@
         </div>
     </div>
 </div>
-<script src="{{ asset('admin_assets/js/ckeditor.js') }}"></script>
-<script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
-<!-- Include flatpickr CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-
-<!-- Include flatpickr JS -->
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
+<!-- here this code use for the editer js -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <script>
-ClassicEditor
-    .create(document.querySelector('#meta_description'))
-    .catch(error => {
-        console.error(error);
-    });
-ClassicEditor
-    .create(document.querySelector('#description'))
-    .catch(error => {
-        console.error(error);
-    });
-</script>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        flatpickr("#start_date", {
-            dateFormat: "d-m-Y",  // DD-MM-YYYY format
-        });
-        flatpickr("#end_date", {
-            dateFormat: "d-m-Y",  // DD-MM-YYYY format
-        });
-    });
-</script>
+$('#description').summernote({
+    tabsize: 2,
+    height: 300
+});
+$('#meta_description').summernote({
+    tabsize: 2,
+    height: 300
+});
+</script>  
+<!-- here this code end of the editer js -->
 
 @endsection

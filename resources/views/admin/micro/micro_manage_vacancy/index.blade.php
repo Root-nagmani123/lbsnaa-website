@@ -88,8 +88,7 @@
                                 @endif
                             </td>
                             <td>
-                                <button type="button"
-                                    class="btn btn-outline-primary text-primary fw-semibold btn-sm view-slider"
+                                <button type="button" class="btn btn-outline-primary fw-semibold btn-sm view-slider"
                                     data-bs-toggle="modal" data-bs-target="#staticBackdrop"
                                     data-job_title="{{ $vacancy->job_title }}"
                                     data-content_type="{{ $vacancy->content_type }}"
@@ -103,15 +102,22 @@
                                 </button>
                             </td>
                             <td>
-                                <a href="{{ route('micro_manage_vacancy.edit', $vacancy->id) }}"
-                                    class="btn bg-success text-white btn-sm">Edit</a>
-                                <form action="{{ route('micro_manage_vacancy.destroy', $vacancy->id) }}" method="POST"
-                                    style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-primary text-white">Delete</button>
-                                </form>
+                                <div class="d-flex flex-column flex-sm-row gap-2">
+                                    <a href="{{ route('micro_manage_vacancy.edit', $vacancy->id) }}"
+                                        class="btn bg-success text-white btn-sm w-auto d-flex align-items-center justify-content-center mb-2 mb-sm-0"
+                                        style="height: 30px;">Edit</a>
+                                    <form action="{{ route('micro_manage_vacancy.destroy', $vacancy->id) }}"
+                                        method="POST" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                            class="btn btn-sm btn-primary text-white w-auto d-flex align-items-center justify-content-center"
+                                            style="height: 30px;"
+                                            onclick="return confirm('Are you sure?')">Delete</button>
+                                    </form>
+                                </div>
                             </td>
+
                             <td>
                                 <div class="form-check form-switch">
                                     <input class="form-check-input status-toggle" type="checkbox" role="switch"
@@ -225,13 +231,13 @@
 
 
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function() {
     const viewButtons = document.querySelectorAll('.view-slider');
     const modalTitle = document.getElementById('staticBackdropLabel');
     const modalBody = document.querySelector('.modal-body');
 
     viewButtons.forEach(button => {
-        button.addEventListener('click', function () {
+        button.addEventListener('click', function() {
             // Extract data attributes with default fallback
             const job_title = this.dataset.job_title || 'N/A';
             const content_type = this.dataset.content_type || 'N/A';
@@ -281,6 +287,4 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
-
 </script>
-

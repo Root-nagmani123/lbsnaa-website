@@ -32,64 +32,70 @@
         @if (session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
         @endif
-            <div class="default-table-area members-list">
+        <div class="default-table-area members-list">
             <div class="table-responsive">
                 <table class="table align-middle" id="myTable">
                     <thead>
                         <tr class="text-center">
-                        <th class="col">#</th>
-                        <th class="col">Image</th>
-                        <th class="col">Text</th>
-                        <th class="col">Description</th>
-                        <th class="col">Language</th>
-                        <th class="col">Option</th>
-                        <th class="col">Actions</th>
-                        <th class="col">Status</th>
+                            <th class="col">#</th>
+                            <th class="col">Image</th>
+                            <th class="col">Text</th>
+                            <th class="col">Description</th>
+                            <th class="col">Language</th>
+                            <th class="col">Option</th>
+                            <th class="col">Actions</th>
+                            <th class="col">Status</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($sliders as $slider)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td> <!-- Auto-incrementing index -->
-                                <td><img src="{{ asset('storage/' . $slider->slider_image) }}" width="100"></td>
-                                <td>{{ $slider->slider_text }}</td>
-                                <td>{{ html_entity_decode(strip_tags($slider->slider_description)) }}</td>
-                                <td>
-                                    @if ($slider->language == 1)
-                                        English
-                                    @elseif ($slider->language == 2)
-                                        Hindi
-                                    @endif
-                                </td>
-                                <td>
-                                    <button type="button" class="btn btn-outline-primary text-primary fw-semibold btn-sm view-slider" 
-                                        data-bs-toggle="modal" 
-                                        data-bs-target="#staticBackdrop" 
-                                        data-text="{{ $slider->slider_text }}" 
-                                        data-description="{{ $slider->slider_description }}" 
-                                        data-image="{{ asset('storage/' . $slider->slider_image) }}" 
-                                        data-language="{{ $slider->language == 1 ? 'English' : 'Hindi' }}">
-                                        View
-                                    </button>
-                                </td>
-                                <td>
+                        <tr>
+                            <td>{{ $loop->iteration }}</td> <!-- Auto-incrementing index -->
+                            <td><img src="{{ asset('storage/' . $slider->slider_image) }}" width="100"></td>
+                            <td>{{ $slider->slider_text }}</td>
+                            <td>{{ html_entity_decode(strip_tags($slider->slider_description)) }}</td>
+                            <td>
+                                @if ($slider->language == 1)
+                                English
+                                @elseif ($slider->language == 2)
+                                Hindi
+                                @endif
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-outline-primary fw-semibold btn-sm view-slider"
+                                    data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                                    data-text="{{ $slider->slider_text }}"
+                                    data-description="{{ $slider->slider_description }}"
+                                    data-image="{{ asset('storage/' . $slider->slider_image) }}"
+                                    data-language="{{ $slider->language == 1 ? 'English' : 'Hindi' }}">
+                                    View
+                                </button>
+                            </td>
+                            <td>
+                                <div class="d-flex flex-column flex-sm-row gap-2">
                                     <a href="{{ route('slider.edit', $slider->id) }}"
-                                        class="btn bg-success text-white btn-sm">Edit</a>
+                                        class="btn bg-success text-white btn-sm w-auto d-flex align-items-center justify-content-center mb-2 mb-sm-0"
+                                        style="height: 30px;">Edit</a>
                                     <form action="{{ route('slider.destroy', $slider->id) }}" method="POST"
                                         style="display:inline;">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-primary text-white" 
-                                        onclick="return confirm('Are you sure you want to delete?')">Delete</button>
+                                        <button type="submit"
+                                            class="btn btn-sm btn-primary text-white w-auto d-flex align-items-center justify-content-center"
+                                            style="height: 30px;"
+                                            onclick="return confirm('Are you sure?')">Delete</button>
                                     </form>
-                                </td>
-                                <td>
-                                    <div class="form-check form-switch">
-                                        <input class="form-check-input status-toggle" type="checkbox" role="switch"  data-table="micro_sliders" 
-                                        data-column="status" data-id="{{$slider->id}}" {{$slider->status ? 'checked' : ''}}>
-                                    </div>
-                                </td>
-                            </tr>
+                                </div>
+                            </td>
+
+                            <td>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input status-toggle" type="checkbox" role="switch"
+                                        data-table="micro_sliders" data-column="status" data-id="{{$slider->id}}"
+                                        {{$slider->status ? 'checked' : ''}}>
+                                </div>
+                            </td>
+                        </tr>
                         @endforeach
                     </tbody>
                 </table>
@@ -101,7 +107,8 @@
 <!-- modal start -->
 
 <!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -111,19 +118,19 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label for="sliderText">Text</label>
-                    <p id="sliderText"></p>  <!-- Text will be injected here -->
+                    <p id="sliderText"></p> <!-- Text will be injected here -->
                 </div>
                 <div class="form-group">
                     <label for="sliderDescription">Description</label>
-                    <p id="sliderDescription"></p>  <!-- Description will be injected here -->
+                    <p id="sliderDescription"></p> <!-- Description will be injected here -->
                 </div>
                 <div class="form-group">
                     <label for="sliderImage">Image</label>
-                    <img id="sliderImage" src="" width="100" />  <!-- Image will be injected here -->
+                    <img id="sliderImage" src="" width="100" /> <!-- Image will be injected here -->
                 </div>
                 <div class="form-group">
                     <label for="sliderLanguage">Language</label>
-                    <p id="sliderLanguage"></p>  <!-- Language will be injected here -->
+                    <p id="sliderLanguage"></p> <!-- Language will be injected here -->
                 </div>
             </div>
             <!-- <div class="modal-footer">
@@ -136,29 +143,28 @@
 @endsection
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const viewButtons = document.querySelectorAll('.view-slider');
-        const modalTitle = document.getElementById('staticBackdropLabel');
-        const modalBody = document.querySelector('.modal-body');
+document.addEventListener('DOMContentLoaded', function() {
+    const viewButtons = document.querySelectorAll('.view-slider');
+    const modalTitle = document.getElementById('staticBackdropLabel');
+    const modalBody = document.querySelector('.modal-body');
 
-        viewButtons.forEach(button => {
-            button.addEventListener('click', function () {
-                // Extract data from the button
-                const text = this.dataset.text;
-                const description = this.dataset.description;
-                const image = this.dataset.image;
-                const language = this.dataset.language;
+    viewButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Extract data from the button
+            const text = this.dataset.text;
+            const description = this.dataset.description;
+            const image = this.dataset.image;
+            const language = this.dataset.language;
 
-                // Update modal content
-                modalTitle.textContent = 'Slider Details';
-                modalBody.innerHTML = `<div>
+            // Update modal content
+            modalTitle.textContent = 'Slider Details';
+            modalBody.innerHTML = `<div>
                     <p><strong>Text:</strong> ${text}</p>
                     <p><strong>Slider Image:</strong><img src="${image}" alt="Slider Image" class="img-fluid mb-3" style="width:300px; height:300px;" /></p>
                     <p><strong>Description:</strong> ${description}</p>
                     <p><strong>Language:</strong> ${language}</p>
                     </div>`;
-            });
         });
     });
+});
 </script>
-

@@ -77,7 +77,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-5">
+                        <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="texttype">Menu Type :</label>
                                 <span class="star">*</span>
@@ -160,23 +160,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-12" style="display: none;" id="pdf-upload-field">
+                        <div class="col-lg-6" style="display: none;" id="pdf-upload-field">
                             <div class="form-group mb-4">
                                 <label class="label" for="pdf_file">Upload PDF</label>
-                                <div class="form-control h-100 text-center position-relative p-4 p-lg-5">
-                                    <div class="product-upload">
-                                        <label for="file-upload" class="file-upload mb-0">
-                                            <i class="ri-upload-cloud-2-line fs-2 text-gray-light"></i>
-                                            <span class="d-block fw-semibold text-body">Drop files here or click to upload.</span>
-                                        </label>
-                                        <input id="file-upload" type="file" name="pdf_file" accept=".pdf" onchange="displayFileName()">
-                                        @error('pdf_file')
-                                            <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                        @enderror
-                                    </div>
-                                    <!-- Display the selected file name -->
-                                    <div id="file-name" class="mt-2" style="color: #333; display: none;"></div>
-                                </div>
+                               <div class="fomr-group position-relative">
+                                   <input id="pdf_file" type="file" name="pdf_file" accept=".pdf" class="form-control text-dark ps-5 h-58">
+                                   @error('pdf_file')
+                                       <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
+                                   @enderror
+                               </div>
                             </div>
                         </div>
                         <div id="website-url-field" style="display: none;">
@@ -213,22 +205,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="col-lg-6">
-                            <div class="form-group mb-4">
-                                <label class="label" for="menucategory">Primary Link :</label>
-                                <span class="star">*</span>
-                                <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="menucategory"
-                                        id="menucategory" autocomplete="off">
-                                        <option selected value="0" class="text-dark">It is Root Category</option>
-                                        {!! $menuOptions !!}
-                                    </select>
-                                    @error('menucategory')
-                                        <div style="color: red;">{{ $message }}</div> 
-                                    @enderror
-                                </div>
-                            </div>
-                        </div> -->
 
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
@@ -309,6 +285,20 @@
         </div>
     </div>
 </div>
+<!-- here this code use for the editer js -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<script>
+$('#content').summernote({
+    tabsize: 2,
+    height: 300
+});
+$('#meta_description').summernote({
+    tabsize: 2,
+    height: 300
+});
+</script>  
+<!-- here this code end of the editer js -->
 <script>
 document.getElementById('texttype').addEventListener('change', function() {
     const value = this.value;

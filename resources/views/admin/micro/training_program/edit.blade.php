@@ -101,12 +101,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-12">
                         <div class="form-group mb-4">
                             <label class="label">Program Description</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
-                                <textarea name="program_description" class="form-control text-dark ps-5 h-58">
+                                <textarea name="program_description" class="form-control text-dark ps-5 h-58" id="program_description">
                                     {{ $trainingProgram->program_description }}</textarea>
                                 @error('program_description')
                                     <div class="text-danger">{{ $message }}</div>
@@ -140,12 +140,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-12">
                         <div class="form-group mb-4">
                             <label class="label">Important Links</label>
                             <div class="form-group position-relative">
                                 <input type="text" name="important_links" class="form-control text-dark ps-5 h-58"
-                                    value="{{ $trainingProgram->important_links }}">
+                                    value="{{ $trainingProgram->important_links }}" id="important_links">
                             </div>
 
                         </div>
@@ -188,5 +188,18 @@
         </div>
     </div>
 </div>
-
+<!-- here this code use for the editer js -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<script>
+$('#program_description').summernote({
+    tabsize: 2,
+    height: 300
+});
+$('#important_links').summernote({
+    tabsize: 2,
+    height: 300
+});
+</script>  
+<!-- here this code end of the editer js -->
 @endsection

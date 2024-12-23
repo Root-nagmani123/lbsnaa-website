@@ -76,7 +76,7 @@
                             </td>
                             <td>
                                 <button type="button"
-                                    class="btn btn-outline-primary text-primary fw-semibold btn-sm view-slider"
+                                    class="btn btn-outline-primary fw-semibold btn-sm view-slider"
                                     data-bs-toggle="modal" data-bs-target="#staticBackdrop"
                                     data-job_title="{{ $vacancy->job_title }}"
                                     data-content_type="{{ $vacancy->content_type }}"

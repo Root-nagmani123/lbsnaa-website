@@ -16,6 +16,7 @@
         </li>
     </ul>
 </div>
+
 <div class="card bg-white border-0 rounded-10 mb-4">
     <div class="card-body p-4">
         <div class="d-sm-flex text-center justify-content-between align-items-center border-bottom pb-20 mb-20">
@@ -29,6 +30,7 @@
                 </button>
             </a>
         </div>
+
         <div class="default-table-area members-list">
             <div class="table-responsive">
                 <table class="table align-middle" id="myTable">
@@ -53,10 +55,8 @@
                             <td>{{ $course->language == 1 ? 'English' : 'Hindi' }}</td>
                             <td>{{ $course->coordinator_id }}</td>
                             <td>
-                                <button type="button"
-                                    class="btn btn-outline-primary text-primary fw-semibold btn-sm view-slider"
+                                <button type="button" class="btn btn-outline-primary fw-semibold btn-sm view-slider"
                                     data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-
                                     data-course_name="{{ $course->course_name }}"
                                     data-abbreviation="{{ $course->abbreviation }}"
                                     data-coordinator_id="{{ $course->coordinator_id }}"
@@ -72,16 +72,24 @@
                                 </button>
                             </td>
                             <td>
-                                <a href="{{ route('admin.courses.edit', $course->id) }}"
-                                    class="btn bg-success text-white btn-sm">Edit</a>
-                                <form action="{{ route('admin.courses.destroy', $course->id) }}" method="POST"
-                                    style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-primary text-white"
-                                        onclick="return confirm('Are you sure?')">Delete</button>
-                                </form>
+                                <div class="d-flex flex-column flex-sm-row gap-2">
+                                    <a href="{{ route('admin.courses.edit', $course->id) }}"
+                                        class="btn bg-success text-white btn-sm w-auto d-flex align-items-center justify-content-center mb-2 mb-sm-0"
+                                        style="height: 36px;">Edit</a>
+                                    <form action="{{ route('admin.courses.destroy', $course->id) }}" method="POST"
+                                        style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                            class="btn btn-sm btn-primary text-white w-auto d-flex align-items-center justify-content-center"
+                                            style="height: 36px;"
+                                            onclick="return confirm('Are you sure?')">Delete</button>
+                                    </form>
+                                </div>
                             </td>
+
+
+
                             <td>
                                 <div class="form-check form-switch">
                                     <input class="form-check-input status-toggle" type="checkbox" role="switch"
@@ -97,8 +105,6 @@
         </div>
     </div>
 </div>
-
-<!-- modal start -->
 
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -119,12 +125,12 @@
                     <p id="sliderDescription"></p> <!-- Description will be injected here -->
                 </div>
                 <div class="form-group">
-                    <label for="sliderDescription">publish_date</label>
-                    <p id="sliderDescription"></p> <!-- Description will be injected here -->
+                    <label for="sliderDescription">Publish Date</label>
+                    <p id="sliderDescription"></p> <!-- Publish date will be injected here -->
                 </div>
                 <div class="form-group">
                     <label for="sliderDescription">Type</label>
-                    <p id="sliderDescription"></p> <!-- Description will be injected here -->
+                    <p id="sliderDescription"></p> <!-- Type will be injected here -->
                 </div>
                 <div class="form-group">
                     <label for="sliderImage">Image</label>
@@ -138,6 +144,7 @@
         </div>
     </div>
 </div>
+
 
 @endsection
 
@@ -163,7 +170,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const course_type = this.dataset.course_type || '';
             const language = this.dataset.language || 'N/A';
 
-            
+
             // Update modal content
             modalTitle.textContent = 'News Details';
             modalBody.innerHTML = `

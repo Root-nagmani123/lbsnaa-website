@@ -160,15 +160,20 @@
                             <td>{{ $item->name }}</td>
                             <td>{{ $item->hindi_name }}</td>
                             <td>
-                                <a href="{{ route('media-categories.edit', $item->id) }}"
-                                    class="btn bg-success text-white btn-sm">Edit</a>
-                                <form action="{{ route('media-categories.destroy', $item->id) }}" method="POST"
-                                    style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-primary text-white"
-                                        onclick="return confirm('Are you sure you want to delete?')">Delete</button>
-                                </form>
+                                <div class="d-flex flex-column flex-sm-row gap-2">
+                                    <a href="{{ route('media-categories.edit', $item->id) }}"
+                                        class="btn bg-success text-white btn-sm w-auto d-flex align-items-center justify-content-center mb-2 mb-sm-0"
+                                        style="height: 30px;">Edit</a>
+                                    <form action="{{ route('media-categories.destroy', $item->id) }}" method="POST"
+                                        style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                            class="btn btn-sm btn-primary text-white w-auto d-flex align-items-center justify-content-center"
+                                            style="height: 30px;"
+                                            onclick="return confirm('Are you sure?')">Delete</button>
+                                    </form>
+                                </div>
                             </td>
                             <td>
                                 <div class="form-check form-switch">

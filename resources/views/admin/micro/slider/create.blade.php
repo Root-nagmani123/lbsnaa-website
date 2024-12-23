@@ -95,13 +95,15 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="slider_description">Description:</label>
-                            <textarea name="slider_description" id="editor" class="form-control"
+                        <div class="col-lg-12">
+                        <div class="form-group mb-4">
+                            <label for="slider_description" class="label">Description:</label>
+                            <textarea name="slider_description" id="slider_description" class="form-control"
                                 value="{{ old('slider_description') }}">{{ old('slider_description') }}</textarea>
                             @error('slider_description')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
+                        </div>
                         </div>
 
                         <div class="col-lg-6">
@@ -131,5 +133,14 @@
     </div>
 </div>
 
-
+<!-- here this code use for the editer js -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<script>
+$('#slider_description').summernote({
+    tabsize: 2,
+    height: 300
+});
+</script>  
+<!-- here this code end of the editer js -->
 @endsection

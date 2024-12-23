@@ -58,10 +58,8 @@
                             <td>{{ $item->audio_title_en }}</td>
                             <td><a href="{{ $item->video_upload }}" target="_blank">Play Video</a></td>
                             <td>
-                                <button type="button"
-                                    class="btn btn-outline-primary text-primary fw-semibold btn-sm view-slider"
+                                <button type="button" class="btn btn-outline-primary fw-semibold btn-sm view-slider"
                                     data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-
                                     data-category_name="{{ $item->category_name }}"
                                     data-audio_title_en="{{ $item->audio_title_en }}"
                                     data-audio_title_hi="{{ $item->audio_title_hi }}"
@@ -71,16 +69,22 @@
                                 </button>
                             </td>
                             <td>
-                                <a href="{{ route('video_gallery.edit', $item->id) }}"
-                                    class="btn bg-success text-white btn-sm">Edit</a>
-                                <form action="{{ route('video_gallery.destroy', $item->id) }}" method="POST"
-                                    style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-primary text-white"
-                                        onclick="return confirm('Are you sure you want to delete?')">Delete</button>
-                                </form>
+                                <div class="d-flex flex-column flex-sm-row gap-2">
+                                    <a href="{{ route('video_gallery.edit', $item->id) }}"
+                                        class="btn bg-success text-white btn-sm w-auto d-flex align-items-center justify-content-center mb-2 mb-sm-0"
+                                        style="height: 30px;">Edit</a>
+                                    <form action="{{ route('video_gallery.destroy', $item->id) }}" method="POST"
+                                        style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                            class="btn btn-sm btn-primary text-white w-auto d-flex align-items-center justify-content-center"
+                                            style="height: 30px;"
+                                            onclick="return confirm('Are you sure?')">Delete</button>
+                                    </form>
+                                </div>
                             </td>
+
                             <td>
                                 <div class="form-check form-switch">
                                     <input class="form-check-input status-toggle" type="checkbox" role="switch"
@@ -153,10 +157,11 @@ document.addEventListener('DOMContentLoaded', function() {
             const audio_title_hi = this.dataset.audio_title_hi;
             const video_upload = this.dataset.video_upload;
 
-             // Extract YouTube video ID from the URL
-             const youtubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*\?v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+            // Extract YouTube video ID from the URL
+            const youtubeRegex =
+                /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*\?v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
             const matches = video_upload.match(youtubeRegex);
-            const videoId = matches ? matches[1] : null;  // Extract the YouTube video ID
+            const videoId = matches ? matches[1] : null; // Extract the YouTube video ID
 
 
             // Update modal content

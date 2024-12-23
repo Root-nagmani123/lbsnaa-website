@@ -16,7 +16,9 @@
     <link rel="stylesheet" href="{{ asset('admin_assets/css/style.css') }}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
-
+<!-- here this code use for the editer css-->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+<!-- here this code use end of editer css-->
     <link rel="icon" type="image/png" href="{{ asset('admin_assets/images/favicon.ico') }}">
     
     

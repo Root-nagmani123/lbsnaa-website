@@ -337,8 +337,7 @@
                             </div>
                         </div>
                         <div class="d-flex ms-sm-3 ms-md-0">
-                            <button class="btn btn-success text-white fw-semibold" type="submit">Add Faculty
-                                Member</button>&nbsp;
+                            <button class="btn btn-success text-white fw-semibold" type="submit">Submit</button>&nbsp;
                             <a href="{{ route('admin.faculty.index') }}"
                                 class="btn btn-secondary text-white fw-semibold">Back</a>
                         </div>
@@ -350,72 +349,19 @@
         </div>
     </div>
 </div>
-<script src="{{ asset('admin_assets/js/ckeditor.js') }}"></script>
-<script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
-
-<!-- <script>
-    ClassicEditor
-    .create( document.querySelector( '#description_in_hindi' ) )
-    .catch( error => {
-    console.error( error );
-    });
-    ClassicEditor
-    .create( document.querySelector( '#description' ) )
-    .catch( error => {
-    console.error( error );
-    });
-</script> -->
-
+<!-- here this code use for the editer js -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <script>
-ClassicEditor
-    .create(document.querySelector('#description_in_hindi'), {
-        toolbar: ['bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'imageUpload', 'undo',
-            'redo'
-        ],
-        ckfinder: {
-            uploadUrl: '/upload-image-endpoint', // Ensure this route matches your Laravel route
-        },
-    })
-    .catch(error => console.error(error));
-
-
-ClassicEditor
-    .create(document.querySelector('#description'), {
-        toolbar: ['bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'imageUpload', 'undo',
-            'redo'
-        ],
-        ckfinder: {
-            uploadUrl: '/upload-image-endpoint', // Ensure this route matches your Laravel route
-        },
-    })
-    .catch(error => console.error(error));
-</script>
-
-<?php
-if (isset($_FILES['upload'])) {
-    $file = $_FILES['upload'];
-    $filename = $file['name'];
-    $targetDir = "uploads/";
-    $targetFile = $targetDir . basename($filename);
-
-    $fileType = $file['type'];
-    $fileSize = $file['size'];
-    $allowedTypes = ['image/png', 'image/jpeg', 'image/gif'];
-    $allowedSize = 5000000;
-
-    if (in_array($fileType, $allowedTypes) && $fileSize < $allowedSize) {
-        if (move_uploaded_file($file['tmp_name'], $targetFile)) {
-            $url = "/uploads/" . $filename;
-            echo json_encode(['url' => $url]);
-        } else {
-            http_response_code(400);
-            echo json_encode(['error' => 'File upload failed.']);
-        }
-    } else {
-        http_response_code(400);
-        echo json_encode(['error' => 'Only PNG, JPEG, GIF images are allowed and file size should be less than 5MB.']);
-    }
-}
-?>
+$('#description').summernote({
+    tabsize: 2,
+    height: 300
+});
+$('#description_in_hindi').summernote({
+    tabsize: 2,
+    height: 300
+});
+</script>  
+<!-- here this code end of the editer js -->
 
 @endsection

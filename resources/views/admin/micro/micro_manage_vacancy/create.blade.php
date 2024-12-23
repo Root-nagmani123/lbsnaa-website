@@ -36,7 +36,7 @@
                     @csrf
                     <div class="row">
 
-                        <div class="col-lg-6">
+                        <div class="col-lg-2">
                             <div class="form-group mb-4">
                                 <label for="language" class="label">Page Language</label>
                                 <span class="star">*</span>
@@ -55,7 +55,7 @@
                             </div>
                         </div>
                         <!-- New Dropdown for Research Centre -->
-                        <div class="col-lg-6">
+                        <div class="col-lg-5">
                             <div class="form-group mb-4">
                                 <label for="research_centre_id" class="label">Select Research Centre</label>
                                 <span class="star">*</span>
@@ -205,33 +205,16 @@
     </div>
 </div>
 
-
+<!-- here this code use for the editer js -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <script>
-document.getElementById('content_type').addEventListener('change', function() {
-    var contentType = this.value;
-
-    if (contentType === 'PDF') {
-        document.getElementById('document_upload').style.display = 'block';
-        document.getElementById('website_link').style.display = 'none';
-    } else if (contentType === 'Website') {
-        document.getElementById('website_link').style.display = 'block';
-        document.getElementById('document_upload').style.display = 'none';
-    } else {
-        document.getElementById('document_upload').style.display = 'none';
-        document.getElementById('website_link').style.display = 'none';
-    }
+$('#job_description').summernote({
+    tabsize: 2,
+    height: 300
 });
-</script>
-<script src="{{ asset('admin_assets/js/ckeditor.js') }}"></script>
-<script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
-
-<script>
-ClassicEditor
-    .create(document.querySelector('#job_description'))
-    .catch(error => {
-        console.error(error);
-    });
-</script>
+</script>  
+<!-- here this code end of the editer js -->
 
 @endsection
 
