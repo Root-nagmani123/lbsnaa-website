@@ -1,13 +1,13 @@
-@extends('admin.layouts.master')
 
-@section('title', 'Admin Dashboard')
 
-@section('content')
+<?php $__env->startSection('title', 'Admin Dashboard'); ?>
+
+<?php $__env->startSection('content'); ?>
 <div class="d-sm-flex text-center justify-content-between align-items-center mb-4">
     <h3 class="mb-sm-0 mb-1 fs-18">Manage Organization Module</h3>
     <ul class="ps-0 mb-0 list-unstyled d-flex justify-content-center">
         <li>
-            <a href="{{ route('admin.index') }}" class="text-decoration-none">
+            <a href="<?php echo e(route('admin.index')); ?>" class="text-decoration-none">
                 <i class="ri-home-2-line" style="position: relative; top: -1px;"></i>
                 <span>Dashboard</span>
             </a>
@@ -21,7 +21,7 @@
     <div class="card-body p-4">
         <div class="d-sm-flex text-center justify-content-between align-items-center border-bottom pb-20 mb-20">
             <h4 class="fw-semibold fs-18 mb-sm-0">Manage Sections</h4>
-            <a href="{{ route('admin.section_category.create',['catid' => $id]) }}">
+            <a href="<?php echo e(route('admin.section_category.create',['catid' => $id])); ?>">
                 <button class="border-0 btn btn-success py-2 px-3 px-sm-4 text-white fs-14 fw-semibold rounded-3">
                     <span class="py-sm-1 d-block">
                         <i class="ri-add-line text-white"></i>
@@ -44,24 +44,24 @@
                         </tr>
                     </thead>
                     <tbody>
-                    @if($sections->isEmpty())
+                    <?php if($sections->isEmpty()): ?>
                 <tr>
                     <td colspan="5" class="text-center">No Data Found</td>
                 </tr>
-            @else
-                        @foreach($sections as $section)
+            <?php else: ?>
+                        <?php $__currentLoopData = $sections; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $section): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <tr>
-                            <td>{{ $loop->iteration }}</td> <!-- Display Index -->
-                            <td>{{ $section->name }}</td>
-                <td>{{ $section->description }}</td>
-                <td>{{ $section->officer_Incharge }}</td>
+                            <td><?php echo e($loop->iteration); ?></td> <!-- Display Index -->
+                            <td><?php echo e($section->name); ?></td>
+                <td><?php echo e($section->description); ?></td>
+                <td><?php echo e($section->officer_Incharge); ?></td>
                             <td>
-                                <a href="{{ route('admin.section_category.edit', $section->id) }}"
+                                <a href="<?php echo e(route('admin.section_category.edit', $section->id)); ?>"
                                     class="btn bg-success text-white btn-sm">Edit</a>
-                                <form action="{{ route('admin.section_category.destroy', $section->id, $id) }}" method="POST"
+                                <form action="<?php echo e(route('admin.section_category.destroy', $section->id, $id)); ?>" method="POST"
                                     style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
+                                    <?php echo csrf_field(); ?>
+                                    <?php echo method_field('DELETE'); ?>
                                     <button type="submit" class="btn btn-sm btn-primary text-white"
                                         onclick="return confirm('Are you sure?')">Delete</button>
                                 </form>
@@ -69,17 +69,19 @@
                             <td>
                                 <div class="form-check form-switch">
                                     <input class="form-check-input status-toggle" type="checkbox" role="switch"
-                                        data-table="section_category" data-column="status" data-id="{{$section->id}}"
-                                        {{$section->status ? 'checked' : ''}}>
+                                        data-table="section_category" data-column="status" data-id="<?php echo e($section->id); ?>"
+                                        <?php echo e($section->status ? 'checked' : ''); ?>>
                                 </div>
                             </td>
                         </tr>
-                        @endforeach
-                        @endif
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <?php endif; ?>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('admin.layouts.master', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp11\htdocs\lbsnaa-website\resources\views/admin/sections/section_category/index.blade.php ENDPATH**/ ?>
