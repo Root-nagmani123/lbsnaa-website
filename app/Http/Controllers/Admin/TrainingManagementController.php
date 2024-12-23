@@ -27,28 +27,6 @@ class TrainingManagementController extends Controller
         return view('admin.manage_category.create');
     }
 
-    // // Category store method to handle form submission for creating new section
-    // public function categoryStore(Request $request)
-    // {
-    //     $category = DB::table('manage_category')->insert([
-    //         'language' => $request->txtlanguage,
-    //         'section_title' => $request->section_title,
-    //         'category_description' => $request->category_description,
-    //         'status' => $request->status,
-    //     ]);
-
-    //     ManageAudit::create([
-    //         'Module_Name' => 'Category Module', // Static value
-    //         'Time_Stamp' => time(), // Current timestamp
-    //         'Created_By' => null, // ID of the authenticated user
-    //         'Updated_By' => null, // No update on creation, so leave null
-    //         'Action_Type' => 'Insert', // Static value
-    //         'IP_Address' => $request->ip(), // Get IP address from request
-    //     ]);
-
-    //     return redirect()->route('category.index')->with('success', 'Category added successfully');
-    // }
-
 
     // Category store method to handle form submission for creating new section
     public function categoryStore(Request $request)
@@ -155,28 +133,6 @@ class TrainingManagementController extends Controller
         return view('admin.manage_country.create');
     }
 
-    // country store method to handle form submission for creating new section
-    // public function countryStore(Request $request)
-    // {
-
-    //     $country = DB::table('manage_country')->insert([
-    //         'country_name' => $request->country_name,
-    //         'country_name_hindi' => $request->country_name_hindi,
-    //         'status' => $request->status,
-    //     ]);
-
-    //     ManageAudit::create([
-    //         'Module_Name' => 'Country Module', // Static value
-    //         'Time_Stamp' => time(), // Current timestamp
-    //         'Created_By' => null, // ID of the authenticated user
-    //         'Updated_By' => null, // No update on creation, so leave null
-    //         'Action_Type' => 'Insert', // Static value
-    //         'IP_Address' => $request->ip(), // Get IP address from request
-    //     ]);
-
-    //     return redirect()->route('country.index')->with('success', 'country added successfully');
-    // }
-
     public function countryStore(Request $request)
     {
         // Validate the incoming request
@@ -220,27 +176,6 @@ class TrainingManagementController extends Controller
         $country = DB::table('manage_country')->where('id', $id)->first();
         return view('admin.manage_country.edit', compact('country'));
     }
-
-    // // country update method to handle form submission for updating section details
-    // public function countryUpdate(Request $request, $id)
-    // {
-    //     $country = DB::table('manage_country')->where('id', $id)->update([
-    //         'country_name' => $request->country_name,
-    //         'country_name_hindi' => $request->country_name_hindi,
-    //         'status' => $request->status,
-    //     ]);
-
-    //     ManageAudit::create([
-    //         'Module_Name' => 'Country Module', // Static value
-    //         'Time_Stamp' => time(), // Current timestamp
-    //         'Created_By' => null, // ID of the authenticated user
-    //         'Updated_By' => null, // No update on creation, so leave null
-    //         'Action_Type' => 'Update', // Static value
-    //         'IP_Address' => $request->ip(), // Get IP address from request
-    //     ]);
-
-    //     return redirect()->route('country.index')->with('success', 'country updated successfully');
-    // }
 
     public function countryUpdate(Request $request, $id)
     {
@@ -419,28 +354,6 @@ class TrainingManagementController extends Controller
         return view('admin.manage_district.create', compact('statenames'));
     }
 
-    // // state store method to handle form submission for creating new section
-    // public function districtStore(Request $request)
-    // {
-
-    //     $district = DB::table('manage_district')->insert([
-    //         'state_id' => $request->state_name,
-    //         'district_name' => $request->district_name,
-    //         'status' => $request->status,
-    //     ]);
-
-    //     ManageAudit::create([
-    //         'Module_Name' => 'District Module', // Static value
-    //         'Time_Stamp' => time(), // Current timestamp
-    //         'Created_By' => null, // ID of the authenticated user
-    //         'Updated_By' => null, // No update on creation, so leave null
-    //         'Action_Type' => 'Insert', // Static value
-    //         'IP_Address' => $request->ip(), // Get IP address from request
-    //     ]);
-
-    //     return redirect()->route('district.index')->with('success', 'District added successfully');
-    // }
-
     // district store method to handle form submission for creating new district
     public function districtStore(Request $request)
     {
@@ -535,31 +448,6 @@ class TrainingManagementController extends Controller
         return view('admin.manage_exam.create', compact('exams'));
     }
 
-    // state store method to handle form submission for creating new section
-    // public function examStore(Request $request)
-    // {
-    //     $exam = DB::table('manage_exam')->insert([
-    //         'language' => $request->txtlanguage, // Exam language
-    //         'exam_code' => $request->exm_code, // Exam Code
-    //         'exam_description' => $request->exm_desc, // Exam Description (nullable)
-    //         'user_id' => $request->exm_user_id, // User ID
-    //         'transaction_date' => $request->exm_date, // Transaction Date
-    //         'preliminary_flag' => $request->preliminary_flag, // Preliminary Flag
-    //         'main_flag' => $request->main_flag, // Main Flag
-    //         'status' => $request->status, // Status
-    //     ]);
-
-    //     ManageAudit::create([
-    //         'Module_Name' => 'Exam Module', // Static value
-    //         'Time_Stamp' => time(), // Current timestamp
-    //         'Created_By' => null, // ID of the authenticated user
-    //         'Updated_By' => null, // No update on creation, so leave null
-    //         'Action_Type' => 'Insert', // Static value
-    //         'IP_Address' => $request->ip(), // Get IP address from request
-    //     ]);
-
-    //     return redirect()->route('exam.index')->with('success', 'Exams added successfully');
-    // }
 
     public function examStore(Request $request)
     {
@@ -567,7 +455,6 @@ class TrainingManagementController extends Controller
         $request->validate([
             'txtlanguage' => 'required|string|max:255',       // Language (required, string, max length 255)
             'exm_code' => 'required|string|max:50',            // Exam Code (required, string, max length 50)
-            'exm_desc' => 'required|string|max:500',           // Exam Description (optional, string, max length 500)
             'exm_user_id' => 'required', // User ID (required, integer, must exist in the users table)
             'exm_date' => 'required|date_format:d-m-Y', // Ensure the date is in the correct format
             'status' => 'required|boolean',                    // Status (required, boolean)

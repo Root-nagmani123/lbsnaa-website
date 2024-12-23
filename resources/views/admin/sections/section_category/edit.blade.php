@@ -97,6 +97,8 @@
                 <input type="hidden" name="section_id" class="form-control" value="{{ old('fax', $sectionCategory->section_id) }}">
 
                 <button type="submit" class="btn btn-primary">Update</button>
+                <a href="{{ route('admin.section_category', ['catid' => $sectionCategory->section_id]) }}" class="btn btn-secondary text-white">Back</a>
+
             </form>
         </div>
     </div>

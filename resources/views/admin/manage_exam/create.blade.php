@@ -16,7 +16,7 @@
             <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Exam</span>
         </li>
     </ul>
-</div>
+</div> 
 <div class="row justify-content-center">
     <div class="col-lg-12">
         <div class="card bg-white border-0 rounded-10 mb-4">
@@ -57,13 +57,9 @@
                         <div class="col-lg-12">
                             <div class="form-group mb-4">
                                 <label class="label" for="exm_desc">Exam Description :</label>
-                                <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark ps-5 h-58" name="exm_desc"
                                         id="exm_desc"  value="{{ old('exm_desc') }}">
-                                    @error('exm_desc')
-                                        <div style="color: red;">{{ $message }}</div>  <!-- Display error if any -->
-                                    @enderror
                                 </div>
                             </div>
                         </div>

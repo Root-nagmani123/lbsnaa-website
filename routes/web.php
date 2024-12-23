@@ -217,6 +217,13 @@ Route::prefix('admin')->group(function () {
     Route::put('/section_category/{id}', [ManageOrganizationController::class, 'updateSectionCategory'])->name('admin.section_category.update');
     Route::delete('/section_category/{id}', [ManageOrganizationController::class, 'destroySectionCategory'])->name('admin.section_category.destroy');
 
+
+    // Route::get('/admin/section_category/{catid}', [ManageOrganizationController::class, 'index'])->name('admin.section_category');
+
+    Route::get('/admin/section_category', [ManageOrganizationController::class, 'indexSectionCategory'])->name('admin.section_category');
+
+
+
     // Manage category route
     Route::get('category', [TrainingManagementController::class, 'categoryIndex'])->name('category.index');
     Route::get('category/create', [TrainingManagementController::class, 'categoryCreate'])->name('category.create');

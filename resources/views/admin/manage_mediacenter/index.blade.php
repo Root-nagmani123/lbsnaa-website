@@ -16,7 +16,8 @@
         </li>
     </ul>
 </div>
-<div class="d-sm-flex text-center justify-content-between align-items-center mb-4">
+
+<!-- <div class="d-sm-flex text-center justify-content-between align-items-center mb-4">
     <h4 class="fw-semibold fs-18 mb-sm-0">Audio Gallery</h4>
 
     <a href="{{ route('media-center.create') }}">
@@ -27,20 +28,13 @@
             </span>
         </button>
     </a>
-</div>
-@if (session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-        @endif
-        @if (session('error'))
-        <div class="alert alert-danger">
-            {{ session('error') }}
-        </div>
-        @endif
+</div> -->
+
 <div class="card bg-white border-0 rounded-10 mb-4">
     <div class="card-body p-4">
-    <div class="d-sm-flex text-center justify-content-between align-items-center border-bottom pb-20 mb-20">
+        <div class="d-sm-flex text-center justify-content-between align-items-center border-bottom pb-20 mb-20">
             <h4 class="fw-semibold fs-18 mb-sm-0">Audio Gallery</h4>
-            <a href="#">
+            <a href="{{ route('media-center.create') }}">
                 <button class="border-0 btn btn-success py-2 px-3 px-sm-4 text-white fs-14 fw-semibold rounded-3">
                     <span class="py-sm-1 d-block">
                         <i class="ri-add-line text-white"></i>
@@ -49,6 +43,14 @@
                 </button>
             </a>
         </div>
+        @if (session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
+        @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+        @endif
         <div class="default-table-area members-list">
             <div class="table-responsive">
                 <table class="table align-middle" id="myTable">
@@ -67,12 +69,10 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td> <!-- Auto-incrementing index -->
                             <td>{{ $audio->audio_title_en }}</td>
-                            <td>{{ $audio->category_name }}</td>                            
+                            <td>{{ $audio->category_name }}</td>
                             <td>
-                                <button type="button"
-                                    class="btn btn-outline-primary fw-semibold btn-sm view-slider"
+                                <button type="button" class="btn btn-outline-primary fw-semibold btn-sm view-slider"
                                     data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-
                                     data-category_name="{{ $audio->category_name }}"
                                     data-audio_title_en="{{ $audio->audio_title_en }}"
                                     data-audio_title_hi="{{ $audio->audio_title_hi }}"
@@ -82,12 +82,14 @@
                             </td>
 
                             <td>
-                                <a href="{{ route('media-center.edit', $audio->id) }}" class="btn bg-success text-white btn-sm">Edit</a>
+                                <a href="{{ route('media-center.edit', $audio->id) }}"
+                                    class="btn bg-success text-white btn-sm">Edit</a>
                                 <form action="{{ route('media-center.destroy', $audio->id) }}" method="POST"
                                     style="display:inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-primary text-white" onclick="return confirm('Are you sure you want to delete?')">Delete</button>
+                                    <button type="submit" class="btn btn-sm btn-primary text-white"
+                                        onclick="return confirm('Are you sure you want to delete?')">Delete</button>
                                 </form>
                             </td>
                             <td>
@@ -162,7 +164,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const audio_title_en = this.dataset.audio_title_en;
             const audio_title_hi = this.dataset.audio_title_hi;
             const audio_upload = this.dataset.audio_upload;
-            
+
             // Update modal content
             modalTitle.textContent = 'Tenders / Circulars Details';
             modalBody.innerHTML = `<div>

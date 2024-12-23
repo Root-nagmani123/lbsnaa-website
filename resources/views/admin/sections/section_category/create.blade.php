@@ -96,6 +96,7 @@
 
 
                 <button type="submit" class="btn btn-primary">Submit</button>
+                <a href="{{ route('admin.section_category', ['catid' => $id]) }}" class="btn btn-secondary text-white">Back</a>
             </form>
         </div>
     </div>
