@@ -208,6 +208,7 @@
                         <input type="hidden" name="section_id" class="form-control"
                             value="{{ old('fax', $sectionCategory->section_id) }}">
 
+<<<<<<< HEAD
                         <div class="d-flex ms-sm-3 ms-md-0">
                             <button class="btn btn-success text-white fw-semibold" type="submit">Update</button>&nbsp;
                             <a href="{{ route('sections.index') }}" class="btn btn-secondary text-white">Back</a>
@@ -215,6 +216,47 @@
                     </div>
                 </form>
             </div>
+=======
+                <div class="form-group">
+                    <label for="phone_internal_residence">Phone Internal Residence</label>
+                    <input type="text" name="phone_internal_residence" class="form-control" value="{{ old('phone_internal_residence', $sectionCategory->phone_internal_residence) }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone_p_t_office">Phone P&T Office</label>
+                    <input type="text" name="phone_p_t_office" class="form-control" value="{{ old('phone_p_t_office', $sectionCategory->phone_p_t_office) }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone_p_t_residence">Phone P&T Residence</label>
+                    <input type="text" name="phone_p_t_residence" class="form-control" value="{{ old('phone_p_t_residence', $sectionCategory->phone_p_t_residence) }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="fax">Fax</label>
+                    <input type="text" name="fax" class="form-control" value="{{ old('fax', $sectionCategory->fax) }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" class="form-control" value="{{ old('email', $sectionCategory->email) }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="status">Status *</label>
+                    <select name="status" class="form-control" required>
+                        <option value="1" {{ $sectionCategory->status == 1 ? 'selected' : '' }}>Active</option>
+                        <option value="0" {{ $sectionCategory->status == 0 ? 'selected' : '' }}>Inactive</option>
+                    </select>
+                </div>
+
+                <input type="hidden" name="section_id" class="form-control" value="{{ old('fax', $sectionCategory->section_id) }}">
+
+                <button type="submit" class="btn btn-primary">Update</button>
+                <a href="{{ route('admin.section_category', ['catid' => $sectionCategory->section_id]) }}" class="btn btn-secondary text-white">Back</a>
+
+            </form>
+>>>>>>> 70095e6971d9f39a7229eb5403d8aeb69d7c8871
         </div>
     </div>
 </div>

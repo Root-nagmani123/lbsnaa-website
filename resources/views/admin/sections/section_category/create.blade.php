@@ -192,6 +192,7 @@
 
                             </div>
 
+<<<<<<< HEAD
                         </div>
                         <div class="d-flex ms-sm-3 ms-md-0">
                             <button class="btn btn-success text-white fw-semibold" type="submit">Submit</button>&nbsp;
@@ -200,6 +201,36 @@
                     </div>
                 </form>
             </div>
+=======
+                <div class="form-group">
+                    <label for="phone_p_t_residence">Phone P&T Residence</label>
+                    <input type="text" name="phone_p_t_residence" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="fax">Fax</label>
+                    <input type="text" name="fax" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" class="form-control">
+                </div>
+
+                <div class="form-group">
+                    <label for="status">Status *</label>
+                    <select name="status" class="form-control" required>
+                    <option value="" class="text-dark" selected>Select</option>
+                        <option value="1">Active</option>
+                        <option value="0">Inactive</option>
+                    </select>
+                </div>
+
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <a href="{{ route('admin.section_category', ['catid' => $id]) }}" class="btn btn-secondary text-white">Back</a>
+            </form>
+>>>>>>> 70095e6971d9f39a7229eb5403d8aeb69d7c8871
         </div>
     </div>
 </div>
