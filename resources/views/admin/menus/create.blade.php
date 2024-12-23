@@ -120,13 +120,9 @@
                                     <div class="col-lg-6">
                                         <div class="form-group mb-4">
                                             <label class="label" for="meta_keyword">Meta Keyword :</label>
-                                            <span class="star">*</span>
                                             <div class="form-group position-relative">
                                                 <input type="text" class="form-control text-dark ps-5 h-58"
                                                     name="meta_keyword" id="meta_keyword">
-                                                    @error('meta_keyword')
-                                                        <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                                    @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -147,14 +143,10 @@
                                 <div class="col-lg-12">
                                     <div class="form-group mb-4">
                                         <label class="label" for="meta_description">Meta Description :</label>
-                                        <span class="star">*</span>
                                         <div class="form-group position-relative">
                                             <textarea class="form-control ps-5 text-dark"
                                                 placeholder="Some demo text ... " cols="30" rows="5"
                                                 name="meta_description" id="meta_description"></textarea>
-                                                @error('meta_description')
-                                                    <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                                @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -189,7 +181,6 @@
                                 <div class="col-lg-6">
                                     <div class="form-group mb-4">
                                         <label class="label" for="web_site_target">Web Site Target :</label>
-                                        <span class="star">*</span>
                                         <div class="form-group position-relative">
                                             <select class="form-select form-control ps-5 h-58" name="web_site_target"
                                                 id="web_site_target" autocomplete="off">
@@ -197,9 +188,6 @@
                                                 <option value="1" class="text-dark">Internal Link</option>
                                                 <option value="2" class="text-dark">External Link</option>
                                             </select>
-                                            @error('web_site_target')
-                                                <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                            @enderror
                                         </div>
                                     </div>
                                 </div>

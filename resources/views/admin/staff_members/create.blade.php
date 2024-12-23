@@ -57,7 +57,7 @@
                                     @error('email')
                                         <div style="color: red;">{{ $message }}</div>  <!-- Display error if any -->
                                     @enderror
-                                </div>
+                                </div> 
                             </div>
                         </div>
                         <div class="col-lg-6">

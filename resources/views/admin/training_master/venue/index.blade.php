@@ -45,8 +45,8 @@
                         <tr class="text-center">
                             <th class="col">#</th> <!-- Index column for auto-incrementing -->
                             <th class="col">Venue Title</th>
+                            <th class="col">Venue Detail</th>                            
                             <th class="col">Page Language</th>
-                            <th class="col">Venue Detail</th>
                             <th class="col">Actions</th>
                             <th class="col">Status</th>
 
@@ -58,8 +58,9 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td> <!-- Auto-incrementing index -->
                             <td>{{ $venue->venue_title }}</td>
-                            <td>{{ $venue->page_language == 1 ? 'English' : 'Hindi' }}</td>
                             <td>{{ $venue->venue_detail }}</td>
+                            <td>{{ $venue->page_language == 1 ? 'English' : 'Hindi' }}</td>
+                            
                             <td>
                                 <a href="{{ route('venues.edit', $venue->id) }}"
                                     class="btn bg-success text-white btn-sm">Edit</a>

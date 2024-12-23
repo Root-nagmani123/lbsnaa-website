@@ -77,7 +77,7 @@
                                     <select class="form-select form-control ps-5 h-58"
                                         aria-label="Default select example" name="texttype" id="texttype"
                                         autocomplete="off" onchange="addmenutype(this.value)">
-                                        <option selected class="text-dark">Select</option>
+                                        <option selected value="" class="text-dark">Select</option>
                                         <option value="1" class="text-dark">Content</option>
                                         <option value="2" class="text-dark">PDF file Upload</option>
                                         <option value="3" class="text-dark">Web Site Url</option>
@@ -161,7 +161,9 @@
                                         <div class="form-group position-relative">
                                             <input type="text" class="form-control text-dark ps-5 h-58"
                                                 name="website_url" id="website_url">
-                                           
+                                                @error('website_url')
+                                            <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
+                                        @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -191,7 +193,7 @@
                                 <div class="form-group position-relative">
                                     <select class="form-select form-control ps-5 h-58" name="menucategory"
                                         id="menucategory" autocomplete="off">
-                                        <option value="0" selected class="text-dark">It is Root Category</option>
+                                        <option value="" selected class="text-dark">It is Root Category</option>
                                         {!! $menuOptions !!}
                                     </select>
                                     @error('menucategory')
@@ -208,7 +210,7 @@
                                     <select class="form-select form-control ps-5 h-58" id="txtpostion"
                                         autocomplete="off" autocomplete="off" name="txtpostion"
                                         onchange="showDateFields(this.value)">
-                                        <option selected class="text-dark">Select</option>
+                                        <option selected value="" class="text-dark">Select</option>
                                         <option value="1" class="text-dark">Header Menu</option>
                                         <option value="2" class="text-dark">Bottom Menu</option>
                                         <option value="3" class="text-dark">Footer Menu</option>

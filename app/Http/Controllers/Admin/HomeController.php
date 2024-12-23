@@ -67,7 +67,7 @@ class HomeController extends Controller
 
         return redirect()->route('admin.slider_list')->with('success', 'Slider created successfully.');
     }
-
+ 
 
     // Show the form for editing an existing slider
     public function slider_edit($id)
@@ -152,6 +152,9 @@ public function footer_image_store(Request $request)
 {
     $request->validate([
         'language' => 'required',
+        'title' => 'required',
+        'link' => 'required',
+        'description' => 'required',
         'image' => 'required|image|mimes:jpeg,png,jpg,gif',
         'status' => 'required|in:0,1',
     ]);
@@ -190,9 +193,13 @@ public function footer_image_edit($id)
 // Update an existing footer image in the database
 public function footer_image_update(Request $request, $id)
 {
-    // $request->validate([
-    //     'image' => 'image|mimes:jpeg,png,jpg,gif',
-    // ]);
+    $request->validate([
+        'language' => 'required',
+        'title' => 'required',
+        'link' => 'required',
+        'description' => 'required',
+        'status' => 'required|in:0,1',
+    ]);
 
     $footerImage = HomeFooterImage::findOrFail($id);
 

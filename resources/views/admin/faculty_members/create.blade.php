@@ -49,8 +49,8 @@
                                 <div class="form-group position-relative">
                                     <select class="form-select form-control ps-5 h-58" name="category" id="category">
                                         <option value="" class="text-dark" selected>Select Category</option>
-                                        <option value="1" class="text-dark" {{ old('category') == '1' ? 'checked' : '' }}>Inhouse</option>
-                                        <option value="0" class="text-dark" {{ old('category') == '0' ? 'checked' : '' }}>Visiting</option>
+                                        <option value="1" class="text-dark" {{ old('category') == '1' ? 'selected' : '' }}>Inhouse</option>
+                                        <option value="0" class="text-dark" {{ old('category') == '0' ? 'selected' : '' }}>Visiting</option>
                                     </select>
                                     @error('category')
                                     <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
@@ -327,8 +327,8 @@
                                     <select class="form-select form-control ps-5 h-58" name="page_status"
                                         id="page_status">
                                         <option value="" class="text-dark" selected>Select</option>
-                                        <option value="1" class="text-dark">Active</option>
-                                        <option value="0" class="text-dark">Inactive</option>
+                                        <option value="1" class="text-dark"  {{ old('page_status') == '1' ? 'selected' : '' }}>Active</option>
+                                        <option value="0" class="text-dark"  {{ old('page_status') == '0' ? 'selected' : '' }}>Inactive</option>
                                     </select>
                                     @error('page_status')
                                     <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->

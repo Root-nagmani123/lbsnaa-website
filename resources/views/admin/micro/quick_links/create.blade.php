@@ -122,27 +122,19 @@
                                 <div class="col-lg-6">
                                     <div class="form-group mb-4">
                                         <label for="meta_keyword" class="label">Meta Keyword</label>
-                                        <span class="star">*</span>
                                         <div class="form-group position-relative">
                                             <input type="text" name="meta_keyword" id="meta_keyword"
                                                 class="form-control text-dark ps-5 h-58">
-                                            @error('meta_keyword')
-                                            <div class="text-danger">{{ $message }}</div>
-                                            @enderror
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group mb-4">
                                         <label for="meta_description" class="label">Meta Description</label>
-                                        <span class="star">*</span>
                                         <div class="form-group position-relative">
                                             <textarea class="form-control" id="meta_description"
                                                 placeholder="Enter the Meta Description" name="meta_description"
                                                 rows="5"></textarea>
-                                            @error('meta_description')
-                                            <div class="text-danger">{{ $message }}</div>
-                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -217,30 +209,32 @@
                         </div> -->
 
                         <div class="col-lg-6">
-    <div class="form-group mb-4">
-        <label for="start_date" class="label">Start Date</label>
-        <span class="star">*</span>
-        <div class="form-group position-relative">
-            <input type="text" name="start_date" id="start_date" class="form-control text-dark ps-5 h-58">
-            @error('start_date')
-            <div class="text-danger">{{ $message }}</div>
-            @enderror
-        </div>
-    </div>
-</div>
+                            <div class="form-group mb-4">
+                                <label for="start_date" class="label">Start Date</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="text" name="start_date" id="start_date"
+                                        class="form-control text-dark ps-5 h-58">
+                                    @error('start_date')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
 
-<div class="col-lg-6">
-    <div class="form-group mb-4">
-        <label for="termination_date" class="label">Termination Date</label>
-        <span class="star">*</span>
-        <div class="form-group position-relative">
-            <input type="text" name="termination_date" id="termination_date" class="form-control text-dark ps-5 h-58">
-            @error('termination_date')
-            <div class="text-danger">{{ $message }}</div>
-            @enderror
-        </div>
-    </div>
-</div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label for="termination_date" class="label">Termination Date</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="text" name="termination_date" id="termination_date"
+                                        class="form-control text-dark ps-5 h-58">
+                                    @error('termination_date')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
 
 
                         <div class="col-lg-6">
@@ -261,8 +255,7 @@
                         </div>
                         <div class="d-flex ms-sm-3 ms-md-0 mt-4">
                             <button class="btn btn-success text-white fw-semibold" type="submit">Submit</button> &nbsp;
-                            <a href="{{ route('microquicklinks.index') }}"
-                                class="btn btn-secondary text-white">Back</a>
+                            <a href="{{ route('microquicklinks.index') }}" class="btn btn-secondary text-white">Back</a>
                         </div>
                     </div>
                 </form>
@@ -283,7 +276,7 @@ document.getElementById('menu_type').addEventListener('change', function() {
 
 
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function() {
     flatpickr("#start_date", {
         dateFormat: "d-m-Y", // DD-MM-YYYY format
     });
@@ -291,7 +284,6 @@ document.addEventListener('DOMContentLoaded', function () {
         dateFormat: "d-m-Y", // DD-MM-YYYY format
     });
 });
-
 </script>
 
 

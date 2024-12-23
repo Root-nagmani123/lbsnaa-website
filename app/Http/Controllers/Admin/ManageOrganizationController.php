@@ -34,129 +34,6 @@ class ManageOrganizationController extends Controller
     }
 
     // Store a new faculty member
-    // public function facultyStore(Request $request)
-    // {
-    //     // Handle image upload
-    //     if ($request->hasFile('image')) {
-    //         $file = $request->file('image');
-    //         $imageName = time() . '_' . $file->getClientOriginalName();
-    //         $file->move(public_path('faculty_images/'), $imageName);
-    //         $imagePath = 'faculty_images/' . $imageName;
-    //     } else {
-    //         $imagePath = null; // Handle if no image is uploaded
-    //     }
-
-    //     // Insert the data into the database
-    //     $facultyMember = new FacultyMember();
-    //     $facultyMember->language = $request->input('txtlanguage');
-    //     $facultyMember->category = $request->input('category');
-    //     $facultyMember->name = $request->input('name');
-    //     $facultyMember->name_in_hindi = $request->input('name_in_hindi');
-    //     $facultyMember->email = $request->input('email');
-    //     $facultyMember->image = $imagePath; // Save the image path
-    //     $facultyMember->description = $request->input('description');
-    //     $facultyMember->description_in_hindi = $request->input('description_in_hindi');
-    //     $facultyMember->designation = $request->input('designation');
-    //     $facultyMember->designation_in_hindi = $request->input('designation_in_hindi');
-    //     $facultyMember->cadre = $request->input('cadre');
-    //     $facultyMember->batch = $request->input('batch');
-    //     $facultyMember->service = $request->input('service');
-    //     $facultyMember->country_code = $request->input('country_code');
-    //     $facultyMember->std_code = $request->input('std_code');
-    //     $facultyMember->phone_internal_office = $request->input('phone_internal_office');
-    //     $facultyMember->phone_internal_residence = $request->input('phone_internal_residence');
-    //     $facultyMember->phone_pt_office = $request->input('phone_pt_office');
-    //     $facultyMember->phone_pt_residence = $request->input('phone_pt_residence');
-    //     $facultyMember->mobile = $request->input('mobile');
-    //     $facultyMember->abbreviation = $request->input('abbreviation');
-    //     $facultyMember->rank = $request->input('rank');
-    //     $facultyMember->present_at_station = $request->input('present_at_station');
-    //     $facultyMember->acm_member = $request->input('acm_member');
-    //     $facultyMember->acm_status_in_committee = $request->input('acm_status_in_committee');
-    //     $facultyMember->co_opted_member = $request->input('co_opted_member');
-    //     $facultyMember->page_status = $request->input('page_status');
-    //     // print_r($facultyMember);die;
-    //     // Save the faculty member
-    //     $facultyMember->save();
-
-    //     ManageAudit::create([
-    //         'Module_Name' => 'Organization Module', // Static value
-    //         'Time_Stamp' => time(), // Current timestamp
-    //         'Created_By' => null, // ID of the authenticated user
-    //         'Updated_By' => null, // No update on creation, so leave null
-    //         'Action_Type' => 'Insert', // Static value
-    //         'IP_Address' => $request->ip(), // Get IP address from request
-    //     ]);
-
-    //     // Redirect with a success message
-    //     return redirect()->route('admin.faculty.index')->with('success', 'Faculty member added successfully.');
-    // }
-
-    // public function facultyStore(Request $request)
-    // {
-    //     // Validation rules
-    //     $validated = $request->validate([
-    //         'language' => 'required|in:1,2', // Replace with actual dropdown options
-    //         'category' => 'required|string|in:1,0', // Replace with actual dropdown options
-    //         'name' => 'required|string|max:255',
-    //         'email' => 'required|email|max:255|unique:faculty_members,email',
-    //         'designation' => 'required|string|max:255',
-    //         'page_status' => 'required|in:1,0', // Assuming 1 for active, 0 for inactive
-
-    //         // Optional fields
-    //         'name_in_hindi' => 'nullable|string|max:255',
-    //         'description' => 'nullable|string',
-    //         'description_in_hindi' => 'nullable|string',
-    //         'cadre' => 'nullable|string|max:255',
-    //         'batch' => 'nullable|string|max:255',
-    //         'service' => 'nullable|string|max:255',
-    //         'country_code' => 'nullable|string|max:10',
-    //         'std_code' => 'nullable|string|max:10',
-    //         'phone_internal_office' => 'nullable|string|max:15',
-    //         'phone_internal_residence' => 'nullable|string|max:15',
-    //         'phone_pt_office' => 'nullable|string|max:15',
-    //         'phone_pt_residence' => 'nullable|string|max:15',
-    //         'mobile' => 'nullable|string|max:15',
-    //         'abbreviation' => 'nullable|string|max:10',
-    //         'rank' => 'nullable|string|max:10',
-    //         'present_at_station' => 'nullable|string|max:255',
-    //         'acm_member' => 'nullable|string|max:255',
-    //         'acm_status_in_committee' => 'nullable|string|max:255',
-    //         'co_opted_member' => 'nullable|string|max:255',
-    //         'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048', // Optional image upload
-    //     ]);
-    //     // dd($validated);
-    //     // Handle image upload
-    //     if ($request->hasFile('image')) {
-    //         $file = $request->file('image');
-    //         $imageName = time() . '_' . $file->getClientOriginalName();
-    //         $file->move(public_path('faculty_images/'), $imageName);
-    //         $imagePath = 'faculty_images/' . $imageName;
-    //     } else {
-    //         $imagePath = null; // Handle if no image is uploaded
-    //     }
-
-    //     // Insert the data into the database
-    //     $facultyMember = new FacultyMember($validated);
-    //     // dd($facultyMember);
-    //     $facultyMember->image = $imagePath; // Save the image path
-    //     $facultyMember->save();
-
-    //     // Audit log
-    //     ManageAudit::create([
-    //         'Module_Name' => 'Organization Module', // Static value
-    //         'Time_Stamp' => time(), // Current timestamp
-    //         'Created_By' => null, // ID of the authenticated user
-    //         'Updated_By' => null, // No update on creation, so leave null
-    //         'Action_Type' => 'Insert', // Static value
-    //         'IP_Address' => $request->ip(), // Get IP address from request
-    //     ]);
-
-    //     // Redirect with a success message
-    //     return redirect()->route('admin.faculty.index')->with('success', 'Faculty member added successfully.');
-    // }
-
-
     public function facultyStore(Request $request)
     {
         // Validate input fields
@@ -184,7 +61,6 @@ class ManageOrganizationController extends Controller
             $file->move(public_path('faculty_images/'), $imageName);
             $imagePath = 'faculty_images/' . $imageName;
         }
-    // dd($validated);
         // Insert data into the database using Query Builder
         DB::table('faculty_members')->insert([
             'language' => $request->language,
@@ -326,22 +202,40 @@ class ManageOrganizationController extends Controller
         $validated = $request->validate([
             'language' => 'required|string|in:1,2', // Replace with your dropdown options
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:staff_members,email', // Ensure unique email
+            'email' => [
+                'required',
+                'email:rfc,dns',
+                'unique:staff_members,email',
+                function ($attribute, $value, $fail) {
+                    if (preg_match('/^[\.\,\/\!\@\#\$\%\^\~\@\d]/', $value)) {
+                        $fail("The {$attribute} must not start with special characters or numbers.");
+                    }
+                },
+            ],
             'designation' => 'required|string|max:255',
             'mobile' => 'required|digits:10|unique:staff_members,mobile', // Ensure valid 10-digit mobile number
-
+        
             // Optional fields with uniqueness and format validation
             'phone_internal_office' => 'nullable|digits:10',
             'phone_pt_office' => 'nullable|digits:10',
             'phone_pt_residence' => 'nullable|digits:10',
             'phone_internal_residence' => 'nullable|digits:10',
         
-
             'page_status' => 'required|in:1,0', // Replace with your dropdown options
             'present_at_station' => 'required|in:1,0', // Replace with your dropdown options
             'acm_member' => 'required|in:1,0', // Replace with your dropdown options
             'co_opted_member' => 'required|in:1,0', // Replace with your dropdown options
             'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048', // Optional image upload with size and format constraints
+        ], [
+            // Custom error messages
+            'email.required' => 'The email field is mandatory.',
+            'email.email' => 'Please provide a valid email address.',
+            'email.unique' => 'This email is already in use. Please use another one.',
+            'mobile.required' => 'The mobile number is mandatory.',
+            'mobile.unique' => 'This mobile number is already registered.',
+            'image.image' => 'The uploaded file must be an image.',
+            'image.mimes' => 'Only JPG, PNG, and JPEG formats are allowed.',
+            'image.max' => 'The image size should not exceed 2MB.',
         ]);
 
         // Handling image upload
@@ -456,9 +350,6 @@ class ManageOrganizationController extends Controller
         return redirect()->route('admin.staff.index')->with('success', 'Staff member deleted successfully!');
     }
     
-
-
-
     public function sectionIndex()
     {
         $sections = Section::all();
@@ -474,7 +365,6 @@ class ManageOrganizationController extends Controller
     // Section store method to handle form submission for creating new section
     public function sectionStore(Request $request)
     {
-
         // Validate the input data
         $request->validate(
             [
@@ -530,19 +420,30 @@ class ManageOrganizationController extends Controller
 
         return redirect()->route('sections.index')->with('success', 'Section deleted successfully');
     }
-    public function indexSectionCategory(REQUEST $request)
+    // public function indexSectionCategory(REQUEST $request)
+    // {
+    //     // Fetch sections using query builder
+    //     $id = $request->catid;
+    //     $sections = DB::table('section_category')->select('name','description','officer_Incharge','status','id')->where('section_id',$id)->get();
+    //     return view('admin.sections.section_category.index', compact('sections','id'));
+    // }
+    public function indexSectionCategory(Request $request)
     {
-        // dd('hi');
-        // Fetch sections using query builder
+        // Get the catid from the query string
         $id = $request->catid;
-        // $sections = DB::table('sections')->select('name','description','status','id')->from('sections')->get();
-        $sections = DB::table('section_category')->select('name','description','officer_Incharge','status','id')->where('section_id',$id)->get();
 
+        // Fetch sections using the query builder
+        $sections = DB::table('section_category')
+            ->select('name', 'description', 'officer_Incharge', 'status', 'id')
+            ->where('section_id', $id)
+            ->get();
 
-        // $sections =  DB::table('section_category')->select('name','description','officer_Incharge','status','id')->from('section_category')->get();
-        // print_r($data);die;
-        return view('admin.sections.section_category.index', compact('sections','id'));
+        // Return the view with the sections and id
+        return view('admin.sections.section_category.index', compact('sections', 'id'));
     }
+
+
+
     public function createSectionCategory(REQUEST $request)
     {
         // Fetch sections using query builder
@@ -552,8 +453,6 @@ class ManageOrganizationController extends Controller
     
     public function storeSectionCategory(Request $request)
     {
-        // print_r($_POST)
-      
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
@@ -595,68 +494,54 @@ class ManageOrganizationController extends Controller
         ]);
 
         return redirect()->route('admin.section_category.index', ['catid' => $request->section_id])->with('success', 'Section Category created successfully');
-}
+    }
     public function editSectionCategory($id)
-{
-    // Fetch section category and sections using query builder
-    $sectionCategory = DB::table('section_category')->where('id', $id)->first();
-   
-    
-    return view('admin.sections.section_category.edit', compact('sectionCategory'));
-}
+    {
+        // Fetch section category and sections using query builder
+        $sectionCategory = DB::table('section_category')->where('id', $id)->first();
+        // dd($sectionCategory->section_id);
+        return view('admin.sections.section_category.edit', compact('sectionCategory'));
+    }
 
-public function updateSectionCategory(Request $request, $id)
-{
-    // print_r($_POST);die;
-    $validatedData = $request->validate([
-        'name' => 'required|string|max:255',
-        'description' => 'nullable|string',
-        'officer_Incharge' => 'nullable|string',
-        'email' => 'nullable|email',
-        'status' => 'required|boolean',
-    ]);
+    public function updateSectionCategory(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'officer_Incharge' => 'nullable|string',
+            'email' => 'nullable|email',
+            'status' => 'required|boolean',
+        ]);
 
-    // Update data using query builder
-    DB::table('section_category')->where('id', $id)->update([
-        'name' => $validatedData['name'],
-        'description' => $validatedData['description'],
-        'officer_Incharge' => $validatedData['officer_Incharge'],
-        'alternative_Incharge_1st' => $request->alternative_Incharge_1st,
-        'alternative_Incharge_2st' => $request->alternative_Incharge_2st,
-        'alternative_Incharge_3st' => $request->alternative_Incharge_3st,
-        'alternative_Incharge_4st' => $request->alternative_Incharge_4st,
-        'alternative_Incharge_5st' => $request->alternative_Incharge_5st,
-        'section_head' => $request->section_head,
-        'phone_internal_office' => $request->phone_internal_office,
-        'phone_internal_residence' => $request->phone_internal_residence,
-        'phone_p_t_office' => $request->phone_p_t_office,
-        'phone_p_t_residence' => $request->phone_p_t_residence,
-        'fax' => $request->fax,
-        'email' => $validatedData['email'],
-        'status' => $validatedData['status'],
-        'updated_at' => now(), 
-    ]);
-    return redirect()->route('admin.section_category.index', ['catid' => $request->section_id])->with('success', 'Section Category updated successfully');
-
-   }
-public function destroySectionCategory($id)
-{
-    // Delete using query builder
-    $sectionCategory = DB::table('section_category')->select('section_id')->where('id', $id)->first();
-    
-    DB::table('section_category')->where('id', $id)->delete();
-
-    return redirect()->route('admin.section_category.index',$sectionCategory->section_id)->with('success', 'Section Category deleted successfully');
-}
-
-    // public function getYears()
-    // {
-    //     $startYear = 2000;
-    //     $currentYear = now()->year; // Get the current year
-    //     $years = range($startYear, $currentYear); // Create an array of years
-
-    //     return view('admin.faculty', compact('years'));
-    // }
+        // Update data using query builder
+        DB::table('section_category')->where('id', $id)->update([
+            'name' => $validatedData['name'],
+            'description' => $validatedData['description'],
+            'officer_Incharge' => $validatedData['officer_Incharge'],
+            'alternative_Incharge_1st' => $request->alternative_Incharge_1st,
+            'alternative_Incharge_2st' => $request->alternative_Incharge_2st,
+            'alternative_Incharge_3st' => $request->alternative_Incharge_3st,
+            'alternative_Incharge_4st' => $request->alternative_Incharge_4st,
+            'alternative_Incharge_5st' => $request->alternative_Incharge_5st,
+            'section_head' => $request->section_head,
+            'phone_internal_office' => $request->phone_internal_office,
+            'phone_internal_residence' => $request->phone_internal_residence,
+            'phone_p_t_office' => $request->phone_p_t_office,
+            'phone_p_t_residence' => $request->phone_p_t_residence,
+            'fax' => $request->fax,
+            'email' => $validatedData['email'],
+            'status' => $validatedData['status'],
+            'updated_at' => now(), 
+        ]);
+        return redirect()->route('admin.section_category.index', ['catid' => $request->section_id])->with('success', 'Section Category updated successfully');
+    }
+    public function destroySectionCategory($id)
+    {
+        // Delete using query builder
+        $sectionCategory = DB::table('section_category')->select('section_id')->where('id', $id)->first();        
+        DB::table('section_category')->where('id', $id)->delete();
+        return redirect()->route('admin.section_category.index',$sectionCategory->section_id)->with('success', 'Section Category deleted successfully');
+    }
 
 
     

@@ -106,52 +106,6 @@ class MicroMenuController extends Controller
         return $options;
     }
 
-    // public function store(Request $request)
-    // {
-    //     $menu = new micromenu();
-    //     $menu->language = $request->txtlanguage;
-    //     $menu->research_centreid = $request->research_centre;
-    //     $menu->menutitle = $request->menutitle;
-    //     $menu->texttype = $request->texttype;
-    //     $menu->menucategory = $request->menucategory;
-    //     $menu->parent_id = $request->menucategory;
-    //     $menu->txtpostion = $request->txtpostion;
-    //     $menu->meta_title = $request->input('meta_title');
-    //     $menu->meta_keyword = $request->input('meta_keyword');
-    //     $menu->meta_description = $request->input('meta_description');
-    //     $menu->web_site_target = $request->input('web_site_target');
-    //     $menu->start_date = $request->input('start_date');
-    //     $menu->termination_date = $request->input('termination_date');
-    //     $menu->menu_status = $request->input('menu_status');
-
-    //     if ($request->hasFile('pdf_file')) {
-    //         $file = $request->file('pdf_file');
-    //         $filename = time() . '_' . $file->getClientOriginalName();
-    //         $destinationPath = public_path('pdfs');
-    //         $file->move($destinationPath, $filename);
-    //         $menu->pdf_file = 'pdfs/' . $filename;
-    //     }
-
-    //     if ($request->texttype == 1) {
-    //         $menu->content = $request->content;
-    //     } elseif ($request->texttype == 3) {
-    //         $menu->website_url = $request->website_url;
-    //     }
-
-    //     $menu->save();
-       
-    //     MicroManageAudit::create([
-    //         'Module_Name' => 'Menu', // Static value
-    //         'Time_Stamp' => time(), // Current timestamp
-    //         'Created_By' => null, // ID of the authenticated user
-    //         'Updated_By' => null, // No update on creation, so leave null
-    //         'Action_Type' => 'Insert', // Static value
-    //         'IP_Address' => $request->ip(), // Get IP address from request
-    //     ]);
-
-    //     return redirect()->route('micromenus.index')->with('success', 'Menu created successfully.');
-    // }
-
     public function store(Request $request)
     {
         // dd($request);
