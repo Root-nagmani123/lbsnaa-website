@@ -28,13 +28,13 @@ class UserManagementController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|unique:modules,name',
-            'description' => 'nullable|string',
+            'parent' => 'required|unique:modules,parent',
+            'child' => 'nullable|string',
         ]);
 
         DB::table('modules')->insert([
-            'name' => $request->name,
-            'description' => $request->description,
+            'parent' => $request->parent,
+            'child' => $request->child,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -46,13 +46,13 @@ class UserManagementController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required|unique:modules,name,' . $id,
-            'description' => 'nullable|string',
+            'parent' => 'required|unique:modules,parent,' . $id,
+            'child' => 'nullable|string',
         ]);
 
         DB::table('modules')->where('id', $id)->update([
-            'name' => $request->name,
-            'description' => $request->description,
+            'parent' => $request->parent,
+            'child' => $request->child,
             'updated_at' => now(),
         ]);
 
