@@ -87,7 +87,7 @@ class CoordinatorController extends Controller
         $coordinator = ManageCoordinator::findOrFail($id);
         // Check if the status is 1 (Inactive), and if so, prevent deletion
         if ($coordinator->status == 1) {
-            return redirect()->route('coordinators.index')->with('error', 'Inactive organisers cannot be deleted.');
+            return redirect()->route('coordinators.index')->with('error', 'Active organisers cannot be deleted.');
         }
         $coordinator->delete();
         return redirect()->route('coordinators.index')->with('success', 'Coordinator deleted successfully.');

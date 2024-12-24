@@ -264,19 +264,6 @@ class MicroManagePhotoGalleryController extends Controller
         return redirect()->route('micro-photo-gallery.index')->with('success', 'Gallery updated successfully.');
     }
 
-    
-    // public function destroy($id)
-    // {
-    //     try {
-    //         // Fetch the record using the ID and delete it
-    //         $gallery = MicroManagePhotoGallery::findOrFail($id); // Assuming 'MicroManagePhotoGallery' is your model
-    //         $gallery->delete();
-
-    //         return redirect()->route('micro-photo-gallery.index')->with('success', 'Photo Gallery deleted successfully.');
-    //     } catch (\Exception $e) {
-    //         return redirect()->route('micro-photo-gallery.index')->with('error', 'Error deleting Photo Gallery: ' . $e->getMessage());
-    //     }
-    // }
 
     public function destroy($id)
     {
@@ -287,7 +274,7 @@ class MicroManagePhotoGalleryController extends Controller
             // Check if the status is 1 (Inactive), and prevent deletion
             if ($gallery->status == 1) {
                 return redirect()->route('micro-photo-gallery.index')
-                    ->with('error', 'Inactive photo galleries cannot be deleted.');
+                    ->with('error', 'Active photo galleries cannot be deleted.');
             }
 
             // Delete the record if the status is not 1

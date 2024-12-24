@@ -66,7 +66,6 @@ class SurveyController extends Controller
         return view('admin.manage_survey.edit', compact('survey'));
     }
 
-    // Category update method to handle form submission for updating section details
    // Update method to handle form submission for updating an existing survey
     public function surveyUpdate(Request $request, $id)
     {
@@ -109,7 +108,7 @@ class SurveyController extends Controller
 
         // Check if the status is 1 (Inactive), and if so, prevent deletion
         if ($survey && $survey->status == 1) {
-            return redirect()->route('survey.index')->with('error', 'Inactive surveys cannot be deleted.');
+            return redirect()->route('survey.index')->with('error', 'Active surveys cannot be deleted.');
         }
 
         // Proceed with deletion if status is not 1

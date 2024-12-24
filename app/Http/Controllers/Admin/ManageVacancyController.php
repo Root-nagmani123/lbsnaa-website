@@ -157,7 +157,7 @@ class ManageVacancyController extends Controller
     {
         // Check if the status is 1 (Inactive), and if so, prevent deletion
         if ($manage_vacancy->status == 1) {
-            return redirect()->route('manage_vacancy.index')->with('error', 'Inactive vacancies cannot be deleted.');
+            return redirect()->route('manage_vacancy.index')->with('error', 'Active vacancies cannot be deleted.');
         }
 
         // Proceed with deletion if status is not 1

@@ -152,7 +152,7 @@ class EmployeeController extends Controller
 
         // Check if the status is 1 (Inactive)
         if ($organisationChart->status == 1) {
-            return redirect()->route('organisation-chart.sub-org', ['parent_id' => $parent_id])->with('error', 'Inactive organisation charts cannot be deleted.');
+            return redirect()->route('organisation-chart.sub-org', ['parent_id' => $parent_id])->with('error', 'Active organisation charts cannot be deleted.');
         }
 
         // Perform the delete operation

@@ -135,7 +135,7 @@ class CoursesubCategoryController extends Controller
 
         // Check if the status is 1 (Inactive), and prevent deletion if true
         if ($subcategory->status == 1) {
-            return redirect()->route('subcategory.index')->with('error', 'Inactive subcategories cannot be deleted.');
+            return redirect()->route('subcategory.index')->with('error', 'Active subcategories cannot be deleted.');
         }
 
         // Proceed with deletion

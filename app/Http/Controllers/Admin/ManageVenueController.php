@@ -95,7 +95,7 @@ class ManageVenueController extends Controller
 
         // Check if the status is 1 (Inactive), and if so, prevent deletion
         if ($venue->status == 1) {
-            return redirect()->route('venues.index')->with('error', 'Inactive venues cannot be deleted.');
+            return redirect()->route('venues.index')->with('error', 'Active venues cannot be deleted.');
         }
 
         // Delete the venue

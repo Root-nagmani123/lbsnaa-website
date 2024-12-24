@@ -122,7 +122,7 @@ class TrainingProgramController extends Controller
     {
         // Check if the status is 1 (Inactive) and prevent deletion
         if ($trainingProgram->page_status == 1) {
-            return redirect()->route('training-programs.index')->with('error', 'Inactive programs cannot be deleted.');
+            return redirect()->route('training-programs.index')->with('error', 'Active programs cannot be deleted.');
         }
 
         // Proceed with deletion if the status is not 1

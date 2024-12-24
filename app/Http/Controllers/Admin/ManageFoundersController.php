@@ -93,7 +93,7 @@ class ManageFoundersController extends Controller
         $founder = ManageFounders::findOrFail($id);
         // Check if the status is 1 (Inactive), and if so, prevent deletion
         if ($founder->status == 1) {
-            return redirect()->route('founders.index')->with('error', 'Inactive founder cannot be deleted.');
+            return redirect()->route('founders.index')->with('error', 'Active founder cannot be deleted.');
         }
         $founder->delete();
         return redirect()->route('founders.index')->with('success', 'Founder deleted successfully.');

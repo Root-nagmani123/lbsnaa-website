@@ -183,7 +183,7 @@ class ManageQuickLinksController extends Controller
         // Check if the status is 1 (Inactive)
         if ($quickLink && $quickLink->status == 1) {
             // If the status is inactive, prevent deletion and show an error message
-            return redirect()->route('microquicklinks.index')->with('error', 'Inactive quick links cannot be deleted.');
+            return redirect()->route('microquicklinks.index')->with('error', 'Active quick links cannot be deleted.');
         }
 
         // Proceed with deletion if the status is not 1 (Inactive)

@@ -134,7 +134,7 @@ class ManageMediaCenterController extends Controller
 
             // Check if the status is 1 (Inactive), and if so, prevent deletion
             if ($audio->status == 1) {
-                return redirect()->route('media-center.index')->with('error', 'Inactive audios cannot be deleted.');
+                return redirect()->route('media-center.index')->with('error', 'Active audios cannot be deleted.');
             }
  
             // Check and delete the associated audio file

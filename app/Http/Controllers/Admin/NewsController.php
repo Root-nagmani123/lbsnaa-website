@@ -265,7 +265,7 @@ class NewsController extends Controller
         $news = News::findOrFail($id);
     
         if ($news->status == 1) {
-            return redirect()->route('admin.news.index')->with('error', 'Inactive news items cannot be deleted.');
+            return redirect()->route('admin.news.index')->with('error', 'Active news items cannot be deleted.');
         }
     
         $news->delete(); // Permanently deletes the record

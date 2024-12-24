@@ -110,7 +110,7 @@ class TrainingManagementController extends Controller
         }
         // Check if the status is 1 (Inactive), and if so, prevent deletion
         if ($category->status == 1) {
-            return redirect()->route('category.index')->with('error', 'Inactive categories cannot be deleted.');
+            return redirect()->route('category.index')->with('error', 'Active categories cannot be deleted.');
         }
         // Delete the category
         DB::table('manage_category')->where('id', $id)->delete();
@@ -219,7 +219,7 @@ class TrainingManagementController extends Controller
 
         // Check if the country exists and the status is 1 (Inactive)
         if ($country && $country->status == 1) {
-            return redirect()->route('country.index')->with('error', 'Inactive countries cannot be deleted.');
+            return redirect()->route('country.index')->with('error', 'Active countries cannot be deleted.');
         }
 
         // Proceed to delete the country if not inactive
@@ -331,7 +331,7 @@ class TrainingManagementController extends Controller
         $state = DB::table('manage_state')->where('id', $id)->first();
         // Check if the status is 1 (Inactive), and if so, prevent deletion
         if ($state->status == 1) {
-            return redirect()->route('state.index')->with('error', 'Inactive states cannot be deleted.');
+            return redirect()->route('state.index')->with('error', 'Active states cannot be deleted.');
         }
         // Proceed with deletion if the state is active
         DB::table('manage_state')->where('id', $id)->delete();
@@ -424,7 +424,7 @@ class TrainingManagementController extends Controller
         $district = DB::table('manage_district')->where('id', $id)->first();
         // Check if the status is 1 (Inactive), and if so, prevent deletion
         if ($district && $district->status == 1) {
-            return redirect()->route('district.index')->with('error', 'Inactive districts cannot be deleted.');
+            return redirect()->route('district.index')->with('error', 'Active districts cannot be deleted.');
         }
         // Proceed with deleting the district if the status is not 1 (Active)
         DB::table('manage_district')->where('id', $id)->delete();
@@ -544,7 +544,7 @@ class TrainingManagementController extends Controller
 
         // Check if the exam is inactive (status == 1) and prevent deletion
         if ($exam && $exam->status == 1) {
-            return redirect()->route('exam.index')->with('error', 'Inactive exams cannot be deleted.');
+            return redirect()->route('exam.index')->with('error', 'Active exams cannot be deleted.');
         }
 
         // Proceed to delete the record if the status check passes

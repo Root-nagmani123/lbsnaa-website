@@ -124,45 +124,6 @@ class OrganizationSetupController extends Controller
         return view('admin.micro.Organization_Setup.edit', compact('organizationSetup', 'researchCentres'));
     }
 
-    // public function update(Request $request, OrganizationSetup $organizationSetup)
-    // {
-    //     $request->validate([
-    //         'research_centre' => 'required',
-    //         'language' => 'required|integer|in:1,2',
-    //         'employee_name' => 'required',
-    //         'designation' => 'required',
-    //         'email' => 'required|email|unique:mirco_organization_setups,email,' . $organizationSetup->id,
-    //         'program_description' => 'required',
-    //         'main_image' => 'image|mimes:jpeg,png,jpg', // optional if no image is uploaded
-    //         'page_status' => 'required|integer|in:1,0',
-    //     ]);
-    
-    //     $data = $request->all();
-    
-    //     // Handle file upload
-    //     if ($request->hasFile('main_image')) {
-    //         $image = $request->file('main_image');
-    //         $imageName = time() . '.' . $image->getClientOriginalExtension();
-    //         $image->move(public_path('images'), $imageName);
-    
-    //         // Update image path in $data
-    //         $data['main_image'] = 'images/' . $imageName;
-    //     }
-    
-    //     $organizationSetup->update($data);
-    
-    //     MicroManageAudit::create([
-    //         'Module_Name' => 'Organization Setup', // Static value
-    //         'Time_Stamp' => time(), // Current timestamp
-    //         'Created_By' => null, // ID of the authenticated user
-    //         'Updated_By' => null, // No update on creation, so leave null
-    //         'Action_Type' => 'Update', // Static value
-    //         'IP_Address' => $request->ip(), // Get IP address from request
-    //     ]);
-
-    //     return redirect()->route('organization_setups.index')->with('success', 'Organization setup updated successfully.');
-    // }
-
     public function update(Request $request, OrganizationSetup $organizationSetup)
     {
         // Define validation rules

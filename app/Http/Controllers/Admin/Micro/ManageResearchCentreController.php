@@ -91,13 +91,6 @@ class ManageResearchCentreController extends Controller
         return redirect()->route('researchcentres.index')->with('success', 'Research Centre updated successfully!');
     }
 
-    // public function researchcentresDestroy($id)
-    // {
-    //     DB::table('research_centres')->where('id', $id)->delete();
-
-    //     return redirect()->route('researchcentres.index')->with('success', 'Research Centre deleted successfully!');
-    // }
-
     public function researchcentresDestroy($id)
     {
         // Fetch the research center by ID
@@ -110,7 +103,7 @@ class ManageResearchCentreController extends Controller
 
         // Check if the status is 1 (Inactive)
         if ($researchCentre->status == 1) {
-            return redirect()->route('researchcentres.index')->with('error', 'Inactive Research Centres cannot be deleted.');
+            return redirect()->route('researchcentres.index')->with('error', 'Active Research Centres cannot be deleted.');
         }
 
         // Proceed with deletion
