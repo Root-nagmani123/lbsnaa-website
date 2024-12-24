@@ -99,7 +99,7 @@ class ManageCadresController extends Controller
 
         // Check if the status is 1 (Inactive), and if so, prevent deletion
         if ($cadre->status == 1) {
-            return redirect()->route('cadres.index')->with('error', 'Inactive cadres cannot be deleted.');
+            return redirect()->route('cadres.index')->with('error', 'Active cadres cannot be deleted.');
         }
 
         // Delete the cadre

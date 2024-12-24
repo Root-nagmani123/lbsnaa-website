@@ -314,7 +314,7 @@ class ManagePhotoGalleryController extends Controller
 
             // Check if the status is 1 (Inactive), and if so, prevent deletion
             if ($gallery->status == 1) {
-                return redirect()->route('photo-gallery.index')->with('error', 'Inactive galleries cannot be deleted.');
+                return redirect()->route('photo-gallery.index')->with('error', 'Active galleries cannot be deleted.');
             }
 
             // Delete associated images from storage

@@ -40,43 +40,6 @@ class MicroManageMediaCenterController extends Controller
         // return view('admin.micro.manage_media_center.manage_categories.create');
     }
 
-    // public function store(Request $request)
-    // {
-    //     $validated = $request->validate([
-    //         'media_gallery' => 'required|integer|in:1,2',
-    //         'name' => 'required|string',
-    //         'research_centre' => 'required|string',
-    //         'hindi_name' => 'nullable|string',
-    //         'status' => 'required|integer|in:1,0',
-    //         'category_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Allow nullable
-    //     ]);
-
-
-    //     if ($request->hasFile('category_image')) {
-    //         $image = $request->file('category_image');
-    //         $imageName = time() . '_' . $image->getClientOriginalName();
-    //         $image->move(public_path('uploads/category_images'), $imageName);
-    //         $validated['category_image'] = $imageName;
-    //     } else {
-    //         $validated['category_image'] = null; // Explicitly set null
-    //     }
-    //     // dd($validated);
-    //     $media = MicroManageMediaCategories::create($validated);
-
-        
-    //     MicroManageAudit::create([
-    //         'Module_Name' => 'Media Photo Video', // Static value
-    //         'Time_Stamp' => time(), // Current timestamp
-    //         'Created_By' => null, // ID of the authenticated user
-    //         'Updated_By' => null, // No update on creation, so leave null
-    //         'Action_Type' => 'Insert', // Static value
-    //         'IP_Address' => $request->ip(), // Get IP address from request
-    //         // 'Current_State' => json_encode($media), // Save state as JSON
-    //     ]);
-
-    //     return redirect()->route('photovideogallery.index')->with('success', 'Category added successfully.');
-    // }
-
     public function store(Request $request)
     {
         // Validate inputs
@@ -133,8 +96,6 @@ class MicroManageMediaCenterController extends Controller
     
         return redirect()->route('photovideogallery.index')->with('success', 'Category added successfully.');
     }
-    
-    
 
 
     public function edit($id)
@@ -142,38 +103,6 @@ class MicroManageMediaCenterController extends Controller
         $category = MicroManageMediaCategories::findOrFail($id);
         return view('admin.micro.manage_media_center.manage_categories.edit', compact('category'));
     }
-
-    // public function update(Request $request, $id)
-    // {
-    //     // Validate the incoming request with custom error messages
-    //     $validated = $request->validate([
-    //         'media_gallery' => 'required|in:Photo Gallery,Video Gallery',
-    //         'name' => 'required|string',
-    //         'hindi_name' => 'nullable|string',
-    //         'status' => 'required|integer|in:1,0',
-    //         'category_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Validate image
-    //     ], [
-    //         'media_gallery.required' => 'Please select a gallery type.',
-    //         'name.required' => 'Please enter the name.',
-    //         'status.required' => 'Please select a status.',
-    //         'category_image.image' => 'The uploaded file must be an image (JPEG, PNG, JPG, or GIF).',
-    //         'category_image.max' => 'The image size must not exceed 2MB.',
-    //     ]);
-
-    //     $category = MicroManageMediaCategories::findOrFail($id);
-    //     $category->update($validated);
-
-    //     MicroManageAudit::create([
-    //         'Module_Name' => 'Media Photo Video', // Static value
-    //         'Time_Stamp' => time(), // Current timestamp
-    //         'Created_By' => null, // ID of the authenticated user
-    //         'Updated_By' => null, // No update on creation, so leave null
-    //         'Action_Type' => 'Update', // Static value
-    //         'IP_Address' => $request->ip(), // Get IP address from request
-    //     ]);
-
-    //     return redirect()->route('photovideogallery.index')->with('success', 'Category updated successfully.');
-    // }
 
     public function update(Request $request, $id)
     {
@@ -228,15 +157,6 @@ class MicroManageMediaCenterController extends Controller
         return redirect()->route('photovideogallery.index')->with('success', 'Category updated successfully.');
     }
 
-
-    // public function destroy($id)
-    // {
-    //     $category = MicroManageMediaCategories::findOrFail($id);
-    //     $category->delete();
-
-    //     return redirect()->route('photovideogallery.index')->with('success', 'Category deleted successfully.');
-    // }
-
     public function destroy($id)
     {
         // Fetch the category record
@@ -245,7 +165,7 @@ class MicroManageMediaCenterController extends Controller
         // Check if status is 1 (inactive)
         if ($category->status == 1) {
             return redirect()->route('photovideogallery.index')
-                ->with('error', 'Inactive categories cannot be deleted.');
+                ->with('error', 'Active categories cannot be deleted.');
         }
 
         // Proceed to delete if status is not 1

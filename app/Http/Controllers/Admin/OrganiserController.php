@@ -111,7 +111,7 @@ class OrganiserController extends Controller
 
         // Check if the status is 1 (Inactive), and if so, prevent deletion
         if ($organiser->status == 1) {
-            return redirect()->route('organisers.index')->with('error', 'Inactive organisers cannot be deleted.');
+            return redirect()->route('organisers.index')->with('error', 'Active organisers cannot be deleted.');
         }
 
         // Proceed with the deletion if the status is not 1 (Inactive)

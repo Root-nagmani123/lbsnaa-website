@@ -108,15 +108,9 @@ class MenuController extends Controller
             'texttype' => 'required|integer|in:1,2,3', // Example values for texttype
             // 'menucategory' => 'required|integer|min:1',
             'txtpostion' => 'nullable|integer',
-            // 'meta_title' => 'nullable|string|max:255',
-            // 'meta_keyword' => 'nullable|string|max:255',
-            // 'meta_description' => 'nullable|string|max:500',
-            // 'web_site_target' => 'nullable|url',
             'start_date' => 'nullable|date',
             'termination_date' => 'nullable|date|after_or_equal:start_date',
             'menu_status' => 'nullable|boolean',
-            // 'pdf_file' => 'nullable|file|mimes:pdf|max:2048', // Maximum 2MB file
-            // 'content' => 'nullable|string', // Only if texttype is 1
             'website_url' => 'nullable|url', // Only if texttype is 3
         ],
         [
@@ -255,16 +249,6 @@ class MenuController extends Controller
         return redirect()->route('admin.menus.index')->with('success', 'Menu updated successfully.');
     }
 
-    // public function delete($id)
-    // {
-    //     $menu = Menu::findOrFail($id);
-
-    //     $menu->is_deleted = 1;
-    //     $menu->save();
-
-    //     return redirect()->route('admin.menus.index')->with('success', 'Menu marked as deleted successfully.');
-    // }
-
     public function delete($id)
     {
         // Find the menu by its ID or fail if it doesn't exist
@@ -272,7 +256,7 @@ class MenuController extends Controller
 
         // Check if the menu status is inactive (status = 1) and prevent deletion
         if ($menu->menu_status == 1) {
-            return redirect()->route('admin.menus.index')->with('error', 'Inactive menus cannot be deleted.');
+            return redirect()->route('admin.menus.index')->with('error', 'Active menus cannot be deleted.');
         }
 
         // Mark the menu as deleted (soft delete)
@@ -293,48 +277,48 @@ class MenuController extends Controller
     }
     
     public function toggle_status(Request $request)
-{
-    $id = $request->id;
-    $table = $request->table;
-    $column = $request->column;
-    $status = $request->status;
+    {
+        $id = $request->id;
+        $table = $request->table;
+        $column = $request->column;
+        $status = $request->status;
 
-    try {
-        // Validate inputs
-       
+        try {
+            // Validate inputs
+        
 
-        // Update the status dynamically
-        DB::table($table)
-            ->where('id', $id)
-            ->update([$column => $status]);
+            // Update the status dynamically
+            DB::table($table)
+                ->where('id', $id)
+                ->update([$column => $status]);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Status updated successfully.',
-        ]);
-    } catch (\Exception $e) {
-        return response()->json([
-            'success' => false,
-            'message' => $e->getMessage(),
-        ]);
+            return response()->json([
+                'success' => true,
+                'message' => 'Status updated successfully.',
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ]);
+        }
     }
-}
-public function feedback_list()
-{
-    // Fetch feedback data
-    $feedbacks = DB::table('feedback')->orderBy('created_at', 'desc')->get();
+    public function feedback_list()
+    {
+        // Fetch feedback data
+        $feedbacks = DB::table('feedback')->orderBy('created_at', 'desc')->get();
 
-    // Define category mapping
-    $categories = [
-        1 => 'Signup/Login',
-        2 => 'Task',
-        3 => 'Discussion',
-        4 => 'LBSNAA Content',
-        5 => 'Others'
-    ];
+        // Define category mapping
+        $categories = [
+            1 => 'Signup/Login',
+            2 => 'Task',
+            3 => 'Discussion',
+            4 => 'LBSNAA Content',
+            5 => 'Others'
+        ];
 
-    // Pass data and categories to the view
-    return view('admin.feedback_list', compact('feedbacks', 'categories'));
-}
+        // Pass data and categories to the view
+        return view('admin.feedback_list', compact('feedbacks', 'categories'));
+    }
 
 }

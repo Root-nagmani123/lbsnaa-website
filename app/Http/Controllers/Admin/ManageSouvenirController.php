@@ -113,7 +113,7 @@ class ManageSouvenirController extends Controller
         }
         // Check if the status is inactive (1)
         if ($category->status == 1) {
-            return redirect()->route('souvenir.index')->with('error', 'Inactive categories cannot be deleted.');
+            return redirect()->route('souvenir.index')->with('error', 'Active categories cannot be deleted.');
         }
         // Proceed to delete the category
         DB::table('souvenircategory')->where('id', $id)->delete();
@@ -289,7 +289,7 @@ class ManageSouvenirController extends Controller
 
         // Check if the status is 1 (Inactive), and if so, prevent deletion
         if ($souvenir->product_status == 1) {
-            return redirect()->route('academy_souvenirs.index')->with('error', 'Inactive academy souvenirs cannot be deleted.');
+            return redirect()->route('academy_souvenirs.index')->with('error', 'Active academy souvenirs cannot be deleted.');
         }
 
         // Proceed with deletion if the status is not 1

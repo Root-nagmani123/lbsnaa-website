@@ -150,7 +150,7 @@ class ManageTenderController extends Controller
     {
         // Check if the status is 1 (Inactive), and if so, prevent deletion
         if ($manageTender->status == 1) {
-            return redirect()->route('manage_tender.index')->with('error', 'Inactive tenders cannot be deleted.');
+            return redirect()->route('manage_tender.index')->with('error', 'Active tenders cannot be deleted.');
         }
 
         // Proceed with deletion if status is not inactive

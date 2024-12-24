@@ -208,14 +208,6 @@ class ManageVideoController extends Controller
     }
 
 
-    // // Delete the specified media
-    // public function destroy($id)
-    // {
-    //     $media = ManageVideoCenter::findOrFail($id);
-    //     $media->delete();
-    //     return redirect()->route('video_gallery.index')->with('success', 'Media deleted successfully.');
-    // }
-
     // Delete the specified media
     public function destroy($id)
     {
@@ -225,7 +217,7 @@ class ManageVideoController extends Controller
 
             // Check if the status is 1 (Inactive), and if so, prevent deletion
             if ($media->page_status == 1) {
-                return redirect()->route('video_gallery.index')->with('error', 'Inactive media cannot be deleted.');
+                return redirect()->route('video_gallery.index')->with('error', 'Active media cannot be deleted.');
             }
 
             // Delete the media record

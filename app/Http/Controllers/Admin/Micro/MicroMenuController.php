@@ -252,7 +252,7 @@ class MicroMenuController extends Controller
         // Check if the menu's status is 1 (Inactive)
         if ($menu->menu_status == 1) {
             // If the status is inactive, prevent deletion and show an error message
-            return redirect()->route('micromenus.index')->with('error', 'Inactive menus cannot be deleted.');
+            return redirect()->route('micromenus.index')->with('error', 'Active menus cannot be deleted.');
         }
         // If the menu is not inactive, mark it as deleted (soft delete)
         $menu->is_deleted = 1;

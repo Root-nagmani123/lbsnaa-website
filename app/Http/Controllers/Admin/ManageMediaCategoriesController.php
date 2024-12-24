@@ -131,7 +131,7 @@ class ManageMediaCategoriesController extends Controller
 
             // Check if the status is 1 (Inactive), and if so, prevent deletion
             if ($category->status == 1) {
-                return redirect()->route('media-categories.index')->with('error', 'Inactive categories cannot be deleted.');
+                return redirect()->route('media-categories.index')->with('error', 'Active categories cannot be deleted.');
             }
 
             // Delete the category

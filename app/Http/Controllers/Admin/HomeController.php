@@ -236,7 +236,7 @@ public function footer_image_destroy($id)
     // Check if the status is 1 (Inactive), and prevent deletion
     if ($footerImage->status == 1) {
         return redirect()->route('admin.footer_images.index')
-            ->with('error', 'Inactive footer images cannot be deleted.');
+            ->with('error', 'Active footer images cannot be deleted.');
     }
 
     // Perform a soft delete by marking it with the current timestamp

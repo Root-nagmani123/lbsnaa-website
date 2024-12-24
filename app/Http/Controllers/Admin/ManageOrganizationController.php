@@ -172,7 +172,7 @@ class ManageOrganizationController extends Controller
         $facultyMember = FacultyMember::findOrFail($id);
         // Check if the faculty member is already inactive (status = 1 or 0), and prevent deletion if necessary
         if ($facultyMember->page_status == 1) {
-            return redirect()->route('admin.faculty.index')->with('error', 'Inactive faculty members cannot be deleted.');
+            return redirect()->route('admin.faculty.index')->with('error', 'Active faculty members cannot be deleted.');
         }
         // Permanently delete the faculty member from the database
         $facultyMember->delete();
@@ -336,7 +336,7 @@ class ManageOrganizationController extends Controller
     
         // Check if the status is 1 (Inactive), and if so, prevent deletion
         if ($staff->page_status == 1) {
-            return redirect()->route('admin.staff.index')->with('error', 'Inactive staff members cannot be deleted.');
+            return redirect()->route('admin.staff.index')->with('error', 'Active staff members cannot be deleted.');
         }
     
         // Delete staff image if it exists
@@ -413,20 +413,14 @@ class ManageOrganizationController extends Controller
         $section = Section::findOrFail($id);
         // Check if the status is 1 (Inactive), and if so, prevent deletion
         if ($section->status == 1) {
-            return redirect()->route('sections.index')->with('error', 'Inactive section cannot be deleted.');
+            return redirect()->route('sections.index')->with('error', 'Active section cannot be deleted.');
         }
 
         $section->delete();
 
         return redirect()->route('sections.index')->with('success', 'Section deleted successfully');
     }
-    // public function indexSectionCategory(REQUEST $request)
-    // {
-    //     // Fetch sections using query builder
-    //     $id = $request->catid;
-    //     $sections = DB::table('section_category')->select('name','description','officer_Incharge','status','id')->where('section_id',$id)->get();
-    //     return view('admin.sections.section_category.index', compact('sections','id'));
-    // }
+
     public function indexSectionCategory(Request $request)
     {
         // Get the catid from the query string
