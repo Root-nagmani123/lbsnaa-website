@@ -141,7 +141,7 @@ Route::get('/lbsnaa-sub/video-gallery', [HomePagesMicroController::class, 'video
 
 Route::middleware('auth')->group(function () {
     Route::get('/admin', [Controller::class, 'index'])->name('admin.index');
-});
+
 
 Route::get('/admin/feedback-list', [MenuController::class, 'feedback_list'])->name('admin.feedback_list');
 
@@ -479,7 +479,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
 Route::post('/admin/toggle-status', [MenuController::class, 'toggle_status'])->name('admin.toggle-status');
 
-
+});
 
 // login wrok here mayank
 Route::get('/login', [LoginController::class, 'login'])->name('login');

@@ -59,16 +59,16 @@ input:checked + .slider:before {
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>Module</th>
-                    <th>Module D</th>
+                    <th>Parent</th>
+                    <th>Child</th>
                     <th>Permission</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($modules as $module)
                 <tr>
-                    <td>{{ $module->name }}</td>
-                    <td>{{ $module->description }}</td>
+                    <td>{{ $module->parent }}</td>
+                    <td>{{ $module->child }}</td>
                     <td>
                         <label class="switch">
                             <input type="checkbox" name="permissions[{{ $module->id }}]" value="1"

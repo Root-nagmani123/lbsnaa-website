@@ -16,14 +16,14 @@
             <span class="fs-14 heading-font text-dark ms-2">> User Management</span>
         </li>
         <li>
-            <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Manage Role</span>
+            <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Manage Module</span>
         </li>
     </ul>
 </div>
 <div class="card bg-white border-0 rounded-10 mb-4">
     <div class="card-body p-4">
         <div class="d-sm-flex text-center justify-content-between align-items-center border-bottom pb-20 mb-20">
-            <h4 class="fw-semibold fs-18 mb-sm-0">Manage Role</h4>
+            <h4 class="fw-semibold fs-18 mb-sm-0">Manage Module</h4>
             <button type="button" class="btn btn btn-success py-2 px-4 fw-semibold rounded-3 text-white"
                 data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Add Module
@@ -102,11 +102,19 @@
                                 <div class="fomr-group position-relative">
                                     <select name="parent" id="parent" class="form-control text-dark ps-5 h-58">
                                         <option value="" selected>Select Module</option>
+                                        <option value="User Management">User Management</option>
                                         <option value="Manage CMS">Manage CMS</option>
                                         <option value="Manage Organization Module">Manage Organization Module</option>
                                         <option value="Training Master Management">Training Master Management</option>
-                                        <option value="Manage News">Manage News</option>
+                                        <option value="Manage Course Module">Manage Course Module</option>
                                         <option value="Quick Link">Quick Link</option>
+                                        <option value="Manage News">Manage News</option>
+                                       
+                                       
+                                        <option value="Manage Training Programs">Manage Training Programs</option>
+                                        <option value="Manage Media Center">Manage Media Center</option>
+                                        <option value="Research Center">Research Center</option>
+                                        <option value="Mirco Manage Media Center">Mirco Manage Media Center</option>
                                     </select>
                                 </div>
                             </div>
@@ -118,11 +126,55 @@
                                 <div class="fomr-group position-relative">
                                     <select name="child" id="child" class="form-control text-dark ps-5 h-58">
                                         <option value="" selected>Select Sub-Module</option>
-                                        <option value="Manage CMS">Manage CMS</option>
-                                        <option value="Manage Organization Module">Manage Organization Module</option>
-                                        <option value="Training Master Management">Training Master Management</option>
+                                        
+                                        <option value="Manage User">Manage User</option>
+                                        <option value="Manage Module">Manage Module</option>
+                                        <option value="Manage Menu">Manage Menu</option>
+                                        <option value="Manage Organization Chart">Manage Organization Chart</option>
+                                        <option value="Manage Faculty">Manage Faculty</option>
+                                        <option value="Manage Staff">Manage Staff</option>
+                                        <option value="Manage Sections">Manage Sections</option>
+                                        <option value="Manage Organiser">Manage Organiser</option>
+                                        <option value="Manage Coordinator">Manage Coordinator</option>
+                                        <option value="Manage Venue">Manage Venue</option>
+                                        <option value="Manage Founder">Manage Founder</option>
+                                        <option value="Manage Cadre">Manage Cadre</option>
+                                        <option value="Manage Category">Manage Category</option>
+                                        <option value="Manage Country">Manage Country</option>
+                                        <option value="Manage State">Manage State</option>
+                                        <option value="Manage Districts">Manage Districts</option>
+                                        <option value="Manage Exam">Manage Exam</option>
                                         <option value="Manage News">Manage News</option>
-                                        <option value="Quick Link">Quick Link</option>
+                                        <option value="Quick Links">Quick Links</option>
+                                        <option value="Manage Tender">Manage Tender</option>
+                                        <option value="Manage Master Categories">Manage Master Categories</option>
+                                        <option value="Manage Academy Souvenir">Manage Academy Souvenir</option>
+                                        <option value="Manage Course Category/Subcategory">Manage Course Category/Subcategory</option>
+                                        <option value="Manage Course">Manage Course</option>
+                                        <option value="Manage Survey List">Manage Survey List</option>
+                                        <option value="Manage Vacancy">Manage Vacancy</option>
+                                        <option value="Manage Social Media">Manage Social Media</option>
+                                        <option value="Manage Logo">Manage Logo</option>
+                                        <option value="Feedback List">Feedback List</option>
+                                        <option value="Home Banner">Home Banner</option>
+                                        <option value="Audio Gallery">Audio Gallery</option>
+                                        <option value="Photo Gallery">Photo Gallery</option>
+                                        <option value="Video Gallery">Video Gallery</option>
+                                        <option value="Add Category">Add Category</option>
+                                        <option value="Manage Audit">Manage Audit</option>
+                                        <option value="Research Center">Research Center</option>
+                                        <option value="Mirco Manage Menu">Mirco Manage Menu</option>
+                                        <option value="Micro Quick Links">Micro Quick Links</option>
+                                        <option value="Mirco Manage News">Mirco Manage News</option>
+                                        <option value="Manage Training Programs">Manage Training Programs</option>
+                                        <option value="Manage Organization Setup">Manage Organization Setup</option>
+                                        <option value="Mirco Manage Vacancy">Mirco Manage Vacancy</option>
+                                        <option value="Mirco Home Banner">Mirco Home Banner</option>
+                                        <option value="Mirco Photo Gallery">Mirco Photo Gallery</option>
+                                        <option value="Mirco Video Gallery">Mirco Video Gallery</option>
+                                        <option value="Mirco Add Category">Mirco Add Category</option>
+                                        <option value="Micro Manage Audit">Micro Manage Audit</option>
+                                       
                                     </select>
                                 </div>
                             </div>
