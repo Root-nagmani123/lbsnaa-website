@@ -30,11 +30,13 @@ class UserManagementController extends Controller
         $request->validate([
             'parent' => 'required|unique:modules,parent',
             'child' => 'nullable|string',
+            'status' => 'required|in:0,1',
         ]);
 
         DB::table('modules')->insert([
             'parent' => $request->parent,
             'child' => $request->child,
+            'status' => $request->input('status'),
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -53,6 +55,7 @@ class UserManagementController extends Controller
         DB::table('modules')->where('id', $id)->update([
             'parent' => $request->parent,
             'child' => $request->child,
+            'status' => $request->status,
             'updated_at' => now(),
         ]);
 
