@@ -47,24 +47,31 @@
                     @csrf
                     <div class="card bg-white border-0 rounded-10 mb-4" style="width: 500px;">
                         <div class="d-flex align-items-center gap-4 mb-3 justify-content-center border-bottom">
-                            <a href="index.html">
+                            <a href="#!">
                                 <img src="{{ asset('admin_assets/images/logo.png')}}" alt="logo" width="300"
                                     style="padding: 20px; text-align: center;" class="img-fluid">
                             </a>
                         </div>
                         <div class="card-body p-4">
                             <div class="form-group mb-4">
-                                <label class="label">Email</label>
+                                <label class="label">Email *</label>
                                 <input type="email" name="email" class="form-control h-58" required>
-                                    @error('email')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
+                                @error('email')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div class="form-group mb-4">
-                                <label class="label">Password</label>
+                                <label class="label">Password *</label>
                                 <div class="password-wrapper position-relative">
                                     <input type="password" name="password" class="form-control h-58 text-dark" required>
                                 </div>
+                            </div>
+                            <!-- Add reCAPTCHA -->
+                            <div class="form-group mb-4">
+                                {!! NoCaptcha::display() !!}
+                                @error('g-recaptcha-response')
+                                <span class="text-danger">{{ $message }}</span>
+                                @enderror
                             </div>
                             <button type="submit"
                                 class="btn btn-primary fs-16 fw-semibold text-dark heading-fornt py-2 py-md-3 px-4 text-white w-100">
@@ -73,11 +80,11 @@
                         </div>
                     </div>
                 </form>
-
             </div>
 
         </div>
     </div>
+
 
 
     <script src="{{ asset('admin_assets/js/bootstrap.bundle.min.js') }}"></script>

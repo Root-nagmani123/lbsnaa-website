@@ -90,7 +90,7 @@ $footer_links = DB::table('menus')->where('txtpostion',3)->where('menu_status',1
                         </a>
                         <!--Twitter-->
                         <a href="{{ $social_media_links[0]->twitter_url; }}" class="me-2" target="_blank">
-                            <i class="bi bi-twitter" style="color: #af2910;"></i>
+                            <i class="bi bi-twitter-x" style="color: #af2910;"></i>
                         </a>
 
                         <!--GitHub-->

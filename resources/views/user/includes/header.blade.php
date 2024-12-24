@@ -196,3 +196,24 @@
         </div>
     </div>
 </nav>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const dropdowns = document.querySelectorAll('.dropdown-submenu');
+
+    dropdowns.forEach(function (dropdown) {
+        dropdown.addEventListener('mouseover', function () {
+            const menu = this.querySelector('.dropdown-menu');
+            if (menu) {
+                const rect = menu.getBoundingClientRect();
+                if (rect.right > window.innerWidth) {
+                    menu.classList.add('drop-left'); // Add class to open left
+                } else {
+                    menu.classList.remove('drop-left'); // Remove if not overflowing
+                }
+            }
+        });
+    });
+});
+
+</script>
