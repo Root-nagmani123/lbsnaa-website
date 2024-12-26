@@ -109,8 +109,6 @@
                                         <option value="Manage Course Module">Manage Course Module</option>
                                         <option value="Quick Link">Quick Link</option>
                                         <option value="Manage News">Manage News</option>
-                                       
-                                       
                                         <option value="Manage Training Programs">Manage Training Programs</option>
                                         <option value="Manage Media Center">Manage Media Center</option>
                                         <option value="Research Center">Research Center</option>
@@ -126,7 +124,6 @@
                                 <div class="fomr-group position-relative">
                                     <select name="child" id="child" class="form-control text-dark ps-5 h-58">
                                         <option value="" selected>Select Sub-Module</option>
-                                        
                                         <option value="Manage User">Manage User</option>
                                         <option value="Manage Module">Manage Module</option>
                                         <option value="Manage Menu">Manage Menu</option>

@@ -37,7 +37,6 @@
                                             <div class="flex-grow-1 ms-3">
                                                 <div class="d-flex align-items-center justify-content-between">
                                                     <div class="d-none d-xxl-block">
-                                                        <span class="degeneration">Super Admin</span>
                                                         <div class="d-flex align-content-center">
                                                             <h3>Viru</h3>
                                                             <div class="down">
