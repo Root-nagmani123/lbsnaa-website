@@ -66,13 +66,7 @@
                                     <input type="password" name="password" class="form-control h-58 text-dark" required>
                                 </div>
                             </div>
-                            <!-- Add reCAPTCHA -->
-                            <div class="form-group mb-4">
-                                {!! NoCaptcha::display() !!}
-                                @error('g-recaptcha-response')
-                                <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
+                          
                             <button type="submit"
                                 class="btn btn-primary fs-16 fw-semibold text-dark heading-fornt py-2 py-md-3 px-4 text-white w-100">
                                 Login
