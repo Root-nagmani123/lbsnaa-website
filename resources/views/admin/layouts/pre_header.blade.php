@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="{{ asset('admin_assets/css/flaticon.css') }}">
     <link rel="stylesheet" href="{{ asset('admin_assets/css/sidebar-menu.css') }}">
     <link rel="stylesheet" href="{{ asset('admin_assets/css/simplebar.css') }}">
-    <link rel="stylesheet" href="{{ asset('admin_assets/css/apexcharts.css') }}">
     <link rel="stylesheet" href="{{ asset('admin_assets/css/prism.css') }}">
     <link rel="stylesheet" href="{{ asset('admin_assets/css/rangeslider.css') }}">
     <link rel="stylesheet" href="{{ asset('admin_assets/css/sweetalert.min.css') }}">

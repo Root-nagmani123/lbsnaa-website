@@ -35,46 +35,40 @@
     </button>
 
     <!-- Play/Pause Button -->
-    <button id="playPauseBtn1" class="btn btn-secondary mt-2" style="position: absolute; bottom: 20px; right: 20px;">
+    <!-- <button id="playPauseBtn1" class="btn btn-secondary mt-2" style="position: absolute; bottom: 20px; right: 20px;">
         <i class="material-icons menu-icon">pause</i>
-    </button>
+    </button> -->
 </div>
 
 <!-- floating notification start -->
-<section class="py-2">
+<section class="py-3">
     <div class="container-fluid">
-        <div class="position-relative d-flex overflow-hidden pt-4 gap-3">
-            <button class="btn btn-primary" id="basic-addon2" style="z-index: 1;">Latest Updates</button>
-            <div class="animate-marquee d-flex gap-3"> 
-            @foreach($news_scrollers as $scroller)
-                @if(!empty($scroller->texttype == 3))
-                    <a href="{{ $scroller->web_site_target == '2' ? (str_starts_with($scroller->website_url, 'http') ? $scroller->website_url : 'http://' . $scroller->website_url) : url($scroller->website_url) }}"
-                        target="_blank" class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border marquee-item text-decoration-none text-primary">
-                        <div class="p-3">
-                            <span class="text-gray-800">{{ $scroller->menutitle }}</span>
-                        </div>
-                    </a>
-                @elseif(!empty($scroller->texttype == 2))
-                    <a href="{{ asset($scroller->pdf_file) }}" 
-                        target="_blank" class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border marquee-item text-decoration-none text-primary">
-                        <div class="p-3">
-                            <span class="text-gray-800">{{ $scroller->menutitle }}</span>
-                        </div>
-                    </a>
-                @else
-                    <div class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border marquee-item">
-                        <div class="p-3">
-                            <span class="text-gray-800">{{ $scroller->menutitle }}</span>
-                        </div>
+        <div>
+            <div class="position-relative d-flex overflow-x-hidden align-items-center">
+                <!-- Latest Updates Button -->
+                <button class="btn btn-primary btn-sm me-2 rounded py-2" id="basic-addon2" style="z-index: 999;width: 200px;">Latest Updates</button>
+                <!-- Marquee Section -->
+                <div id="marqueeWrapper" class="w-100 overflow-hidden">
+                    <div id="marqueeContainer" class="d-flex gap-3">
+                        @foreach($news_scrollers as $scroller)
+                        <a href="{{ route('user.letest_updates', $scroller->menu_slug) }}"
+                            class="text-center card-lift" style="width: 500px; max-width: 100%;">
+                            <div class="py-3 gap-3">
+                                <h6 class="mb-0">{{$scroller->menutitle}}</h6>
+                            </div>
+                        </a>
+                        @endforeach
                     </div>
-                @endif
-                @endforeach
-
+                </div>
+                <!-- Play/Pause Button -->
+                <button class="btn btn-secondary btn-sm me-2 rounded" id="playPauseBtn" style="z-index: 999;">
+                    <i class="material-icons menu-icon">pause</i>
+                </button>
             </div>
         </div>
     </div>
 </section>
-<section class="py-lg-8 py-5">
+<section class="py-3">
     <div class="container-fluid">
         <div class="row gy-4 gy-xl-0">
             <div class="col-md-2 col-12 mb-4">
@@ -252,20 +246,20 @@
     </div>
 </section>
 
-<section class="py-5 bg-light">
+<section class="py-5 bg-light" id="news">
     <div class="container">
         <div class="row gy-4">
             <div class="col-12 col-md-9">
                 <div class="mb-3">
                     <div class="card card-hover border">
                         <div class="card-header bg-danger">
-                            <h3 class="text-white">Quick Links <span class="float-end"><a
+                            <h3 class="text-white">LBSNAA Academy News <span class="float-end"><a
                                         href="{{ route('user.news_listing') }}" class="text-white"
                                         style="text-decoration: none;font-size:14px">View All</a></span></h3>
                         </div>
                     </div>
                 </div>
-                <div class="position-relative py-5">
+                <div class="position-relative py-2">
                     <div class="tns-outer" id="tns1-ow">
                         <div id="tns1-mw" class="tns-ovh">
                             <div class="tns-inner" id="tns1-iw">
@@ -328,7 +322,7 @@
                     <div class="card-header bg-danger">
                         <h3 class="text-white">Quick Links</h3>
                     </div>
-                    <div class="card-body p-0">
+                    <div class="card-body p-0" style="height: 480px; overflow-y: scroll;">
                         <ul class="mt-2 mb-2 list-group list-group-flush">
                             @foreach($quick_links as $key => $quick_link)
                             <li class="text-start list-group-item">
@@ -371,107 +365,17 @@
     </div>
 </section>
 <style>
-#marqueeWrapper {
-    position: relative;
-    overflow: hidden;
-    white-space: nowrap;
-}
+    #marqueeWrapper {
+        position: relative;
+        overflow: hidden;
+        white-space: nowrap;
+    }
 
-#marqueeContainer {
-    display: inline-flex;
-    white-space: nowrap;
-    will-change: transform;
-}
+    #marqueeContainer {
+        display: inline-flex;
+        white-space: nowrap;
+        will-change: transform;
+    }
 </style>
-
-<script>
-// JavaScript to handle marquee play/pause
-const marqueeContainer = document.getElementById('marqueeContainer');
-const playPauseBtn = document.getElementById('playPauseBtn');
-let isPaused = false;
-let animationFrame;
-let currentTransform = 0; // Keep track of the current position
-
-// Marquee function
-function startMarquee() {
-    const marqueeSpeed = 2; // Speed in pixels per frame
-
-    function animate() {
-        currentTransform -= marqueeSpeed;
-
-        // Reset position when the entire content scrolls out
-        if (Math.abs(currentTransform) >= marqueeContainer.scrollWidth) {
-            currentTransform = marqueeContainer.offsetWidth;
-        }
-
-        marqueeContainer.style.transform = `translateX(${currentTransform}px)`;
-
-        if (!isPaused) {
-            animationFrame = requestAnimationFrame(animate);
-        }
-    }
-
-    animate();
-}
-
-// Start marquee on page load
-startMarquee();
-
-// Play/Pause functionality
-playPauseBtn.addEventListener('click', () => {
-    if (isPaused) {
-        isPaused = false;
-        playPauseBtn.innerHTML = '<i class="material-icons menu-icon">pause</i>';
-        startMarquee();
-    } else {
-        isPaused = true;
-        playPauseBtn.innerHTML = '<i class="material-icons menu-icon">play_arrow</i>';
-        cancelAnimationFrame(animationFrame);
-    }
-});
-</script>
-<script>
-// JavaScript to control play/pause of the carousel
-const carousel = new bootstrap.Carousel('#carouselExampleCaptions', {
-    interval: 3000, // Time in milliseconds between slides
-    ride: 'carousel'
-});
-
-const playPauseBtn = document.getElementById('playPauseBtn1');
-let isPaused = false;
-
-playPauseBtn.addEventListener('click', () => {
-    if (isPaused) {
-        carousel.cycle(); // Resume the carousel
-        playPauseBtn.innerHTML = '<i class="material-icons menu-icon">pause</i>';
-    } else {
-        carousel.pause(); // Pause the carousel
-        playPauseBtn.innerHTML = '<i class="material-icons menu-icon">play_arrow</i>';
-    }
-    isPaused = !isPaused;
-});
-</script>
-<script>
-// Tiny Slider Configuration for Two Items per Row
-const slider = tns({
-    container: '.sliderTestimonialFourth',
-    items: 2, // Display two items at a time
-    slideBy: 1,
-    autoplay: true,
-    autoplayTimeout: 3000,
-    autoplayButtonOutput: false,
-    controlsContainer: "#sliderTestimonialFourthControls",
-    nav: false,
-    gutter: 16, // Spacing between cards
-    responsive: {
-        0: {
-            items: 1 // One item for small screens
-        },
-        768: {
-            items: 2 // Two items for medium and larger screens
-        }
-    }
-});
-</script>
 
 @include('user.includes.footer')
