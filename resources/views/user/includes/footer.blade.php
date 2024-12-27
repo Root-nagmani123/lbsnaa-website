@@ -119,6 +119,75 @@ $footer_links = DB::table('menus')->where('txtpostion',3)->where('menu_status',1
     </svg>
 </div>
 
+<script>
+    // JavaScript to handle marquee play/pause
+    const marqueeContainer = document.getElementById('marqueeContainer');
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    let isPaused = false;
+    let animationFrame;
+    let currentTransform = 0; // Keep track of the current position
+
+    // Marquee function
+    function startMarquee() {
+        const marqueeSpeed = 2; // Speed in pixels per frame
+
+        function animate() {
+            currentTransform -= marqueeSpeed;
+
+            // Reset position when the entire content scrolls out
+            if (Math.abs(currentTransform) >= marqueeContainer.scrollWidth) {
+                currentTransform = marqueeContainer.offsetWidth;
+            }
+
+            marqueeContainer.style.transform = `translateX(${currentTransform}px)`;
+
+            if (!isPaused) {
+                animationFrame = requestAnimationFrame(animate);
+            }
+        }
+
+        animate();
+    }
+
+    // Start marquee on page load
+    startMarquee();
+
+    // Play/Pause functionality
+    playPauseBtn.addEventListener('click', () => {
+        if (isPaused) {
+            isPaused = false;
+            playPauseBtn.innerHTML = '<i class="material-icons menu-icon">pause</i>';
+            startMarquee();
+        } else {
+            isPaused = true;
+            playPauseBtn.innerHTML = '<i class="material-icons menu-icon">play_arrow</i>';
+            cancelAnimationFrame(animationFrame);
+        }
+    });
+</script>
+<script>
+// Tiny Slider Configuration for Two Items per Row
+const slider = tns({
+    container: '.sliderTestimonialFourth',
+    items: 2, // Display two items at a time
+    slideBy: 1,
+    autoplay: true,
+    autoplayTimeout: 3000,
+    autoplayButtonOutput: false,
+    controlsContainer: "#sliderTestimonialFourthControls",
+    nav: false,
+    gutter: 16, // Spacing between cards
+    responsive: {
+        0: {
+            items: 1 // One item for small screens
+        },
+        768: {
+            items: 2 // Two items for medium and larger screens
+        }
+    }
+});
+</script>
+
 <!-- Scripts -->
 <!-- Libs JS -->
 <script src="{{ asset('assets/libs/%40popperjs/core/dist/umd/popper.min.js') }}"></script>
