@@ -123,7 +123,7 @@ class MenuController extends Controller
             'texttype.integer' => 'The text type must be a valid integer.',
             'texttype.in' => 'Invalid text type selection.',
             
-            'txtpostion.integer' => 'The position must be a valid integer.',
+            'txtpostion.integer' => 'Please select any content Position.',
             'meta_title.max' => 'The meta title must not exceed 255 characters.',
             'meta_keyword.max' => 'The meta keyword must not exceed 255 characters.',
             'meta_description.max' => 'The meta description must not exceed 500 characters.',
@@ -131,7 +131,7 @@ class MenuController extends Controller
             'start_date.date' => 'The start date must be a valid date.',
             'termination_date.date' => 'The termination date must be a valid date.',
             'termination_date.after_or_equal' => 'The termination date must be after or equal to the start date.',
-            'menu_status.boolean' => 'The menu status must be either true or false.',
+            'menu_status.boolean' => 'Please select any status.',
             'pdf_file.file' => 'The uploaded file must be a valid file.',
             'pdf_file.mimes' => 'The uploaded file must be a PDF.',
             'pdf_file.max' => 'The uploaded file size must not exceed 2MB.',
@@ -263,7 +263,7 @@ class MenuController extends Controller
         $menu->is_deleted = 1;
         $menu->save();
 
-        return redirect()->route('admin.menus.index')->with('success', 'Menu marked as deleted successfully.');
+        return redirect()->route('admin.menus.index')->with('success', 'Menu deleted successfully.');
     }
 
 

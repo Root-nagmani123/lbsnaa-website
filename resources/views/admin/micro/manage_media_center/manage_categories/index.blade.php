@@ -17,7 +17,7 @@
     </ul>
 </div>
 
-<div class="row justify-content-center">
+<div class="row justify-content-center"> 
     <div class="col-lg-12">
         <div class="card bg-white border-0 rounded-10 mb-4">
             <div class="card-body p-4">
@@ -110,15 +110,19 @@
                                 <label class="label" for="category_image">Category Image:</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="file" class="form-control text-dark ps-5 h-58" name="category_image"
-                                        id="category_image" accept="image/*">
+                                    <input type="file" 
+                                        class="form-control text-dark ps-5 h-58" 
+                                        name="category_image" 
+                                        id="category_image" 
+                                        accept="image/*" 
+                                        value="{{ old('category_image') }}">
                                     @error('category_image')
-                                    <div class="text-danger">{{ $message }}</div>
+                                        <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-
                             </div>
                         </div>
+
 
                         <div class="col-lg-6">
                             <div class="form-group mb-4">

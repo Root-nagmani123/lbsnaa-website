@@ -30,7 +30,7 @@
                     @method('PUT')
                     <!-- This will force the form to send a PUT request -->
                     <div class="row">
-                        <div class="col-lg-6">
+                        <!-- <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="category_name">Category Name :</label>
                                 <span class="star">*</span>
@@ -42,7 +42,30 @@
                                     </select>
                                 </div>
                             </div>
+                        </div> -->
+
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label for="category_name" class="label">Category Name</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <select name="category_name" id="category_name" class="form-control text-dark ps-5 h-58">
+                                        <option value="">Select Category Name</option>
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}" 
+                                                {{ (old('category_name', $video->category_name) == $category->id) ? 'selected' : '' }}>
+                                                {{ $category->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('category_name')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
+
+
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="video_title_en">Video Title (English) :</label>
@@ -110,7 +133,7 @@
                         <div class="d-flex ms-sm-3 ms-md-0">
                             <button class="btn btn-success text-white fw-semibold" type="submit">Update</button> &nbsp;
                             <a href="{{ route('micro-video-gallery.index') }}"
-                                class="btn btn-secondary text-white">Cancel</a>
+                                class="btn btn-secondary text-white">Back</a>
                         </div>
                     </div>
                 </form>

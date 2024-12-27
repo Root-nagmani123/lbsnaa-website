@@ -13,6 +13,7 @@ class MicroManageMediaCategories extends Model
         'research_centre',
         'name',
         'hindi_name',
+        'category_images',
         'status',
     ];
 }

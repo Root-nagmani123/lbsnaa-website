@@ -46,13 +46,33 @@ class ManageNewsController extends Controller
             'meta_title' => 'required',
             'description' => 'required',
             'main_image' => 'required|image|mimes:jpeg,png,jpg',
-            'start_date' => 'required|date_format:d-m-Y', // Expecting DD-MM-YYYY format
+            'start_date' => 'required|date', // Expecting DD-MM-YYYY format
             'status' => 'required',
-            'end_date' => 'required|date_format:d-m-Y', // Expecting DD-MM-YYYY format
-
+            'end_date' => 'required|after_or_equal:start_date', // Expecting DD-MM-YYYY format
             'multiple_images' => 'required|array',
-            'multiple_images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validate each file is an image
+            'multiple_images.*' => 'image|mimes:jpeg,png,jpg|max:10240', // max 10MB for each file
+        ], [
+            'language.required' => 'Please select a language.',
+            'research_centre.required' => 'Please select a research centre.',
+            'title.required' => 'Please fill this field.',
+            'short_description.required' => 'Please provide a short description.',
+            'meta_title.required' => 'Please enter a meta title.',
+            'description.required' => 'Please fill in the description field.',
+            'main_image.required' => 'Please upload a main image. MAX 5MB',
+            'main_image.image' => 'The main image must be a valid image file.',
+            'main_image.mimes' => 'The main image must be a file of type: jpeg, png, jpg.',
+            'start_date.required' => 'Please select a start date.',
+            'start_date.date_format' => 'The start date must be in the format DD-MM-YYYY.',
+            'status.required' => 'Please select the status.',
+            'end_date.required' => 'Please select an end date.',
+            'end_date.date_format' => 'The end date must be in the format DD-MM-YYYY.',
+            'multiple_images.required' => 'Please upload at least one image. MAX 10MB',
+            'multiple_images.array' => 'The multiple images field must be an array.',
+            'multiple_images.*.image' => 'Each uploaded file must be an image.',
+            'multiple_images.*.mimes' => 'Each image must be a file of type: jpeg, png, jpg, gif, svg.',
+            'multiple_images.*.max' => 'Each image must not exceed 2MB in size.',
         ]);
+        
 
         $news = new Managenews();
 
@@ -121,6 +141,21 @@ class ManageNewsController extends Controller
     // Update news
     public function update(Request $request, $id)
     {
+        // $request->validate([
+        //     'language' => 'required',
+        //     'research_centre' => 'required',
+        //     'title' => 'required',
+        //     'short_description' => 'required',
+        //     'meta_title' => 'required',
+        //     'description' => 'required',
+        //     // 'main_image' => 'required|image|mimes:jpeg,png,jpg',
+        //     // 'start_date' => 'required|date_format:d-m-Y', // Expecting DD-MM-YYYY format
+        //     'status' => 'required',
+        //     // 'end_date' => 'required|date_format:d-m-Y', // Expecting DD-MM-YYYY format
+
+        //     // 'multiple_images' => 'required|array',
+        //     // 'multiple_images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validate each file is an image
+        // ]);
         $request->validate([
             'language' => 'required',
             'research_centre' => 'required',
@@ -128,14 +163,26 @@ class ManageNewsController extends Controller
             'short_description' => 'required',
             'meta_title' => 'required',
             'description' => 'required',
-            'main_image' => 'required|image|mimes:jpeg,png,jpg',
-            'start_date' => 'required|date_format:d-m-Y', // Expecting DD-MM-YYYY format
             'status' => 'required',
-            'end_date' => 'required|date_format:d-m-Y', // Expecting DD-MM-YYYY format
-
-            'multiple_images' => 'required|array',
-            'multiple_images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validate each file is an image
+            // 'main_image' => 'required|image|mimes:jpeg,png,jpg|max:5120', // max 5MB for a single file
+            'multiple_images.*' => 'image|mimes:jpeg,png,jpg|max:10240', // max 10MB for each file
+        ], [
+            'language.required' => 'Please select a language.',
+            'research_centre.required' => 'Please select a research centre.',
+            'title.required' => 'Please fill in the title field.',
+            'short_description.required' => 'Please provide a short description.',
+            'meta_title.required' => 'Please enter a meta title.',
+            'description.required' => 'Please fill in the description field.',
+            'status.required' => 'Please select a status.',
+            'main_image.required' => 'Please upload the main image. MAX 5MB',
+            'main_image.image' => 'The main image must be a valid image file.',
+            'main_image.mimes' => 'The main image must be in jpeg, png, or jpg format.',
+            'main_image.max' => 'The main image must not exceed 5MB.',
+            'multiple_images.*.image' => 'Each uploaded file in multiple images must be a valid image.',
+            'multiple_images.*.mimes' => 'Each uploaded file in multiple images must be in jpeg, png, or jpg format.',
+            'multiple_images.*.max' => 'Each uploaded image must not exceed 5MB.',
         ]);
+        
 
         $news = Managenews::findOrFail($id);
 

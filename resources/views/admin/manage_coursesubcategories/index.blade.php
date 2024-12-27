@@ -68,7 +68,7 @@
                                 <form action="{{ route('subcategory.delete', $cat->id) }}" method="get"
                                     style="display:inline;">
                                     @csrf
-                                    <button type="submit" class="btn btn-primary text-white btn-sm">Delete</button>
+                                    <button type="submit" class="btn btn-primary text-white btn-sm" onclick="return confirm('Are you sure you want to delete?')">Delete</button>
                                 </form>
                             </td>
                             <td>

@@ -15,7 +15,7 @@
             <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Video Gallery</span>
         </li>
     </ul>
-</div>
+</div> 
 <div class="row justify-content-center">
     <div class="col-lg-12">
         <div class="card bg-white border-0 rounded-10 mb-4">
@@ -28,7 +28,7 @@
                 <form action="{{ route('micro-video-gallery.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-                        <div class="col-lg-6">
+                        <!-- <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label for="category_name">Category Name :</label>
                                 <span class="star">*</span>
@@ -40,7 +40,30 @@
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
+                        </div> -->
+
+
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label for="category_name" class="label">Category Name</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <select name="category_name" id="category_name" class="form-control text-dark ps-5 h-58">
+                                        <option value="">Select Category Name</option>
+                                        @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}" {{ old('category_name') == $category->id ? 'selected' : '' }}>
+                                            {{ $category->name }}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                    @error('category_name')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
+
+
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label for="video_title_en">Video Title (English) :</label>
@@ -87,7 +110,7 @@
                         <div class="d-flex ms-sm-3 ms-md-0">
                             <button class="btn btn-success text-white fw-semibold" type="submit">Submit</button> &nbsp;
                             <a href="{{ route('micro-video-gallery.index') }}"
-                                class="btn btn-secondary text-white">Cancel</a>
+                                class="btn btn-secondary text-white">Back</a>
                         </div>
                     </div>
                 </form>

@@ -75,6 +75,7 @@
                                 <div class="form-group position-relative">
                                     <input type="file" name="slider_image" id="slider_image"
                                         class="form-control text-dark ps-5 h-58" value="{{ old('slider_image') }}">
+                                        <span class="star">Best Size for banner is : 1,365px × 475px</span>
                                     @error('slider_image')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -124,7 +125,7 @@
                         </div>
                         <div class="d-flex ms-sm-3 ms-md-0 mt-4">
                             <button class="btn btn-success text-white fw-semibold" type="submit">Submit</button> &nbsp;
-                            <a href="{{ route('slider.index') }}" class="btn btn-secondary text-white">Cancel</a>
+                            <a href="{{ route('slider.index') }}" class="btn btn-secondary text-white">Back</a>
                         </div>
                     </div>
                 </form>

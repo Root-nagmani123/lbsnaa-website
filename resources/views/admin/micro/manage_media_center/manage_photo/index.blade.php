@@ -46,7 +46,6 @@
                             <th class="col">#</th>
                             <th class="col">Category Name</th>
                             <th class="col">Media Category</th>
-                            <th class="col">Image Title (English)</th>
                             <th class="col">Option</th>
                             <th class="col">Actions</th>
                             <th class="col">Status</th>
@@ -61,7 +60,6 @@
                             <td class="text-center">{{ $index + 1 }}</td> <!-- Display index here -->
                             <td>{{ $gallery->name ?? 'N/A' }}</td>
                             <td>{{ $gallery->media_cat_name ?? 'N/A' }}</td>
-                            <td>{{ $gallery->image_title_english }}</td>
                             <td>
                                 <button type="button"
                                     class="btn btn-outline-primary text-primary fw-semibold btn-sm view-slider"
@@ -160,8 +158,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const publish_date = this.dataset.publish_date;
             const image_title_english = this.dataset.image_title_english;
             const image_title_hindi = this.dataset.image_title_hindi;
-            const related_news = this.dataset.related_news;
-            const related_events = this.dataset.related_events;
             const image_files = this.dataset.image_files;
 
             // Parse the JSON string to get the array of image paths
@@ -186,8 +182,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div>
                     <p><strong>Category Name:</strong> ${name}</p>
                     <p><strong>Related Training Program:</strong> ${media_cat_name}</p>
-                    <p><strong>Related News:</strong> ${related_news}</p>
-                    <p><strong>Related Events:</strong> ${related_events}</p>
                     <p><strong>Image Title (English):</strong> ${image_title_english}</p>
                     <p><strong>Image TItle (Hindi):</strong> ${image_title_hindi}</p>
                     <p><strong>Images:</strong></p>

@@ -342,7 +342,7 @@ class TrainingManagementController extends Controller
 
     public function districtIndex()
     {
-
+ 
         $districts = DB::table('manage_district')->get();
         return view('admin.manage_district.index', compact('districts'));
     }
@@ -468,7 +468,7 @@ class TrainingManagementController extends Controller
             'exam_code' => $request->exm_code,
             'exam_description' => $request->exm_desc,
             'user_id' => $request->exm_user_id,
-            'transaction_date' => $request->exm_date,
+            'transaction_date' => $request->exm_date, 
             'preliminary_flag' => $request->preliminary_flag,
             'main_flag' => $request->main_flag,
             'status' => $request->status,
@@ -502,12 +502,11 @@ class TrainingManagementController extends Controller
         $request->validate([
             'txtlanguage' => 'required|string|max:255',   // Language is required and must be a string
             'exm_code' => 'required|string|max:50',      // Exam code is required and must be a string
-            'exm_desc' => 'nullable|string|max:500',     // Exam description is optional but must be a string
             'exm_user_id' => 'required|integer',         // User ID is required and must be an integer
             'exm_date' => 'required|date_format:d-m-Y',  // Transaction date must follow DD-MM-YYYY format
             'status' => 'required|integer|in:0,1',       // Status must be 0 or 1
         ]);
-
+// dd($request);
         // Convert the date to "YYYY-MM-DD" format for database storage
         $formattedDate = \Carbon\Carbon::createFromFormat('d-m-Y', $request->exm_date)->format('Y-m-d');
 

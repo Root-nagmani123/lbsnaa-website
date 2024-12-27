@@ -202,7 +202,7 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="std_code">STD Code :</label>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="std_code"
+                                    <input type="number" class="form-control text-dark ps-5 h-58" name="std_code"
                                         id="std_code" value="{{ $faculty->std_code }}">
                                 </div>
                             </div>

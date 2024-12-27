@@ -32,6 +32,11 @@
         @if (session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
         @endif
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
         <div class="default-table-area members-list">
             <div class="table-responsive">
                 <table class="table align-middle" id="myTable">
@@ -40,7 +45,6 @@
                             <th class="col">#</th>
                             <th class="col">Image</th>
                             <th class="col">Text</th>
-                            <th class="col">Description</th>
                             <th class="col">Language</th>
                             <th class="col">Option</th>
                             <th class="col">Actions</th>
@@ -53,7 +57,7 @@
                             <td>{{ $loop->iteration }}</td> <!-- Auto-incrementing index -->
                             <td><img src="{{ asset('storage/' . $slider->slider_image) }}" width="100"></td>
                             <td>{{ $slider->slider_text }}</td>
-                            <td>{{ html_entity_decode(strip_tags($slider->slider_description)) }}</td>
+                            <!-- <td>{{ html_entity_decode(strip_tags($slider->slider_description)) }}</td> -->
                             <td>
                                 @if ($slider->language == 1)
                                 English

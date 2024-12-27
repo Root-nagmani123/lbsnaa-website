@@ -23,15 +23,6 @@
                 <div class="d-flex justify-content-between align-items-center border-bottom pb-20 mb-20">
                     <h4 class="fw-semibold fs-18 mb-0">Add Vacancy</h4>
                 </div>
-                <!-- @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif -->
                 <form action="{{ route('micro_manage_vacancy.update', $vacancy->id) }}" method="POST"
                     enctype="multipart/form-data">
                     @csrf
@@ -64,7 +55,7 @@
                             </div>
                         </div>
                         <!-- New Dropdown for Research Centre -->
-                        <div class="col-lg-5">
+                        <!-- <div class="col-lg-5">
                             <div class="form-group mb-4">
                                 <label for="research_centre_id" class="label">Select Research Centre</label>
                                 <span class="star">*</span>
@@ -82,7 +73,28 @@
                                     @enderror
                                 </div>
                             </div>
+                        </div> -->
+
+                        <div class="col-lg-5">
+                            <div class="form-group mb-4">
+                                <label for="research_centre_id" class="label">Select Research Centre</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <select name="research_centre" id="research_centre_id" class="form-control text-dark ps-5 h-58">
+                                        <option value="">Select Research Centre</option>
+                                        @foreach ($researchCentres as $id => $name)
+                                            <option value="{{ $id }}" {{ old('research_centre', $vacancy->research_centre) == $id ? 'selected' : '' }}>
+                                                {{ $name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('research_centre')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
+
                         <div class="col-lg-12">
                             <div class="form-group mb-4">
                                 <label class="label" for="job_description">Job Description :</label>
@@ -187,7 +199,7 @@
                         <div class="d-flex ms-sm-3 ms-md-0">
                             <button class="btn btn-success text-white fw-semibold" type="submit">Update</button> &nbsp;
                             <a href="{{ route('micro_manage_vacancy.index') }}"
-                                class="btn btn-secondary text-white">Cancel</a>
+                                class="btn btn-secondary text-white">Back</a>
                         </div>
                     </div>
                 </form>

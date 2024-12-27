@@ -56,7 +56,8 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td> <!-- Auto-incrementing index -->
                             <td>{{ $district->district_name }}</td>
-                            <td>{{ $district->district_name_hindi }}</td>
+                            <td>{{ $district->district_name_hindi ?? 'N/A' }}</td>
+
                             <td>
                                 <a href="{{ route('district.edit', $district->id) }}"
                                     class="btn btn-success text-white fw-semibold btn-sm">Edit</a>

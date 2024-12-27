@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Micro;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Micro\MicroVideoGallery;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\Admin\Micro\MicroManageAudit;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +22,11 @@ class MicroVideoGalleryController extends Controller
     // Show the form for creating a new video
     public function create()
     {
-        return view('admin.micro.manage_media_center.video_gallery.create');
+        $categories = DB::table('micro_media_categories')
+            ->where('status', 1)
+            ->get(); // Retrieve records with status == 1 
+        // dd($mediaCategories);
+        return view('admin.micro.manage_media_center.video_gallery.create', compact('categories'));
     }
 
     // Store a newly created video
@@ -31,7 +36,7 @@ class MicroVideoGalleryController extends Controller
             'category_name' => 'required',
             'video_title_en' => 'required',
             'video_title_hi' => 'nullable',
-            'video_upload' => 'nullable|mimes:mp4|max:20480',
+            'video_upload' => 'required|mimes:mp4|max:20480',
             'page_status' => 'required|in:1,0',
         ]);
 
@@ -53,16 +58,25 @@ class MicroVideoGalleryController extends Controller
             'IP_Address' => $request->ip(), // Get IP address from request
         ]);
 
-        return redirect()->route('micro-video-gallery.index')
-                         ->with('success', 'Video added successfully.');
+        return redirect()->route('micro-video-gallery.index')->with('success', 'Video added successfully.');
     }
 
     // Show the form for editing the video
     public function edit($id)
     {
+        // Retrieve the video by its ID or fail if not found
         $video = MicroVideoGallery::findOrFail($id);
-        return view('admin.micro.manage_media_center.video_gallery.edit', compact('video'));
+
+        // Retrieve all active categories with status == 1
+        $categories = DB::table('micro_media_categories')
+            ->where('status', '=', 1) // Explicitly specify the condition
+            ->get();
+        // dd($categories);
+
+        // Return the edit view with video and categories data
+        return view('admin.micro.manage_media_center.video_gallery.edit', compact('video', 'categories'));
     }
+
 
     // Update the specified video
 
@@ -118,21 +132,27 @@ class MicroVideoGalleryController extends Controller
 
         // Return the view with the video data
         return view('admin.micro-video-gallery.show', compact('video'));
-    }
+    } 
 
-    // Delete the specified video
     public function destroy($id)
     {
+        // Find the video or fail with a 404
         $video = MicroVideoGallery::findOrFail($id);
 
-        // Delete video file if exists
+        // Check if the video is active (status = 1)
+        if ($video->page_status == 1) {
+            return redirect()->route('micro-video-gallery.index')->with('error', 'Active videos cannot be deleted.');
+        }
+
+        // Delete the video file if it exists
         if ($video->video_upload && file_exists(storage_path('app/public/' . $video->video_upload))) {
             unlink(storage_path('app/public/' . $video->video_upload));
         }
 
+        // Delete the video record from the database
         $video->delete();
 
-        return redirect()->route('micro-video-gallery.index')
-                         ->with('success', 'Video deleted successfully.');
+        return redirect()->route('micro-video-gallery.index')->with('success', 'Video deleted successfully.');
     }
+
 }

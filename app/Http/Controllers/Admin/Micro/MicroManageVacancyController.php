@@ -24,10 +24,15 @@ class MicroManageVacancyController extends Controller
 
     public function create()
     {
-        $researchCentres = DB::table('research_centres')->pluck('research_centre_name', 'id'); // Replace 'name' and 'id' with your actual column names.
+        // Fetch research centres where status is 1 (Active)
+        $researchCentres = DB::table('research_centres')
+            ->where('status', 1) // Only fetch active research centres
+            ->pluck('research_centre_name', 'id'); // Replace with your actual column names
 
-        return view('admin.micro.micro_manage_vacancy.create',compact('researchCentres'));
+        // Pass the filtered list to the view
+        return view('admin.micro.micro_manage_vacancy.create', compact('researchCentres'));
     }
+
 
 
     public function store(Request $request)
@@ -103,14 +108,19 @@ class MicroManageVacancyController extends Controller
     {
         // Fetch the specific training program by ID
         $vacancy = MicroManageVacancy::findOrFail($id); 
-        // Fetch the research centers
+
+        // Fetch only active research centres (status == 1)
         $researchCentres = DB::table('research_centres')
-            ->select('id', 'research_centre_name')
+            ->where('status', 1) // Include only active research centres
             ->pluck('research_centre_name', 'id') // Retrieves an associative array of id => name
             ->toArray();
+        // dd($vacancy->research_centre);
+        // dd($researchCentres);
+
         // Pass the variables to the Blade file
         return view('admin.micro.micro_manage_vacancy.edit', compact('vacancy', 'researchCentres'));
     }
+
 
     public function update(Request $request, $id)
     {
@@ -137,12 +147,22 @@ class MicroManageVacancyController extends Controller
 
         // Redirect back
         return redirect()->route('micro_manage_vacancy.index')->with('success', 'Vacancy updated successfully.');
-    }
+    } 
 
     public function destroy($id)
     {
+        // Find the record
         $media = MicroManageVacancy::findOrFail($id);
+
+        // Check if the status is 1 (Active/Inactive based on your logic)
+        if ($media->status == 1) {
+            return redirect()->route('micro_manage_vacancy.index')->with('error', 'Active vacancies cannot be deleted.');
+        }
+
+        // Proceed with deletion if the condition is not met
         $media->delete();
-        return redirect()->route('micro_manage_vacancy.index')->with('success', 'Vacancy deleted successfully');
+
+        return redirect()->route('micro_manage_vacancy.index')->with('success', 'Vacancy deleted successfully.');
     }
+
 }
