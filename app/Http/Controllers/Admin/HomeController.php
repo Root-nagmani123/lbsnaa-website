@@ -317,6 +317,7 @@ public function footer_images_status_update(Request $request, $id)
     // Store a newly created quick link
     public function quick_link_store(Request $request)
     {
+        // print_r($_POST);die;
         $request->validate([
             'text' => 'required',
         ]);
