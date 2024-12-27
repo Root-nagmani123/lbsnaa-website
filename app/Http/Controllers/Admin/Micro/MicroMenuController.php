@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 
 class MicroMenuController extends Controller
 {
-    public function index()
+    public function index() 
     {
         $menus = micromenu::where('is_deleted', 0)->get();
         $menuTree = $this->buildMenuTree($menus);

@@ -147,46 +147,91 @@ public function footer_image_create()
     return view('admin.home.footer_image_create');
 }
 
-// Store a newly created footer image in the database
+// // Store a newly created footer image in the database
+// public function footer_image_store(Request $request)
+// {
+//     $request->validate([
+//         'language' => 'required',
+//         'title' => 'required',
+//         'link' => 'required',
+//         'description' => 'required',
+//         'image' => 'required|image|mimes:jpeg,png,jpg,gif',
+//         'status' => 'required|in:0,1',
+//     ]);
+//     // dd($request);
+//     // Save image
+//     $imageName = time() . '.' . $request->image->extension();
+//     $request->image->move(public_path('footer-images'), $imageName);
+    
+//     // Create footer image
+//     HomeFooterImage::create([
+//         // dd($request),
+//         'language' => $request->language,
+//         'title' => $request->title,
+//         'link' => $request->link,
+//         'description' => $request->description,
+//         'image' => $imageName,
+//         'status' => $request->status ?? 0,
+//         'deleted_on' => null,
+//     ]);
+
+//     ManageAudit::create([
+//         'Module_Name' => 'Footer Image', // Static value
+//         'Time_Stamp' => time(), // Current timestamp
+//         'Created_By' => null, // ID of the authenticated user
+//         'Updated_By' => null, // No update on creation, so leave null
+//         'Action_Type' => 'Insert', // Static value
+//         'IP_Address' => $request->ip(), // Get IP address from request
+//     ]);
+
+//     return redirect()->route('admin.footer_images.index')->with('success', 'Footer image added successfully.');
+// }
+
 public function footer_image_store(Request $request)
 {
     $request->validate([
-        'language' => 'required',
-        'title' => 'required',
-        'link' => 'required',
-        'description' => 'required',
-        'image' => 'required|image|mimes:jpeg,png,jpg,gif',
+        'language' => 'required|string|max:255',
+        'title' => 'required|string|max:255',
+        'link' => 'required|url',
+        'description' => 'required|string',
+        'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         'status' => 'required|in:0,1',
     ]);
 
-    // Save image
-    $imageName = time() . '.' . $request->image->extension();
-    $request->image->move(public_path('footer-images'), $imageName);
+        // Save image
+        $imageName = time() . '.' . $request->image->extension();
+        $request->image->move(public_path('footer-images'), $imageName);
 
-    // Create footer image
-    HomeFooterImage::create([
-        'language' => $request->language,
-        'image' => $imageName,
-        'status' => $request->status ?? 0,
-        'deleted_on' => null,
-    ]);
+        // Insert the validated data into the database
+        DB::table('home_footer_images')->insert([
+            'language' => $request->language,
+            'title' => $request->title,
+            'link' => $request->link,
+            'description' => $request->description,
+            'image' => $imageName,
+            'status' => $request->status,
+            'deleted_on' => null, // Assuming 'is_deleted' is a field in your table
+        ]);
 
-    ManageAudit::create([
-        'Module_Name' => 'Footer Image', // Static value
-        'Time_Stamp' => time(), // Current timestamp
-        'Created_By' => null, // ID of the authenticated user
-        'Updated_By' => null, // No update on creation, so leave null
-        'Action_Type' => 'Insert', // Static value
-        'IP_Address' => $request->ip(), // Get IP address from request
-    ]);
+        // Audit entry
+        ManageAudit::create([
+            'Module_Name' => 'Footer Image', // Static value
+            'Time_Stamp' => time(), // Current timestamp
+            'Created_By' => null, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation
+            'Action_Type' => 'Insert', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+        ]);
 
-    return redirect()->route('admin.footer_images.index')->with('success', 'Footer image added successfully.');
+        return redirect()->route('admin.footer_images.index')->with('success', 'Footer image added successfully.');
+    
 }
 
 // Show the form for editing an existing footer image
 public function footer_image_edit($id)
 {
     $footerImage = HomeFooterImage::findOrFail($id);
+    // dd($footerImage);
     return view('admin.home.footer_image_edit', compact('footerImage'));
 }
 

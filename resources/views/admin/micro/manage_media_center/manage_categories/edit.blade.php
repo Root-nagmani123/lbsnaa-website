@@ -32,6 +32,28 @@
                     @csrf
                     @method('PUT')
                     <div class="row">
+
+                    <div class="col-lg-5">
+                            <div class="form-group mb-4">
+                                <label for="research_centre_id" class="label">Select Research Centre</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <select name="research_centre" id="research_centre_id" class="form-control text-dark ps-5 h-58">
+                                        <option value="">Select Research Centre</option>
+                                        @foreach ($researchCentres as $id => $name)
+                                            <option value="{{ $id }}" {{ old('research_centre', $category->research_centre) == $id ? 'selected' : '' }}>
+                                                {{ $name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('research_centre')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="media_gallery">Media Gallery :</label>
@@ -63,7 +85,6 @@
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="hindi_name">Hindi Name :</label>
-                                <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark ps-5 h-58" name="hindi_name"
                                         id="hindi_name" value="{{ old('hindi_name', $category->hindi_name) }}">
@@ -76,18 +97,22 @@
                                 <label class="label" for="category_image">Category Image:</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
+                                    <!-- File input for image -->
                                     <input type="file" class="form-control text-dark ps-5 h-58" name="category_image"
                                         id="category_image" accept="image/*">
+                                    
+                                    <!-- If there is an existing image, show it -->
+                                    @if($category->category_image)
+                                        <img src="{{ asset('storage/uploads/category_images/' . $category->category_image) }}"
+                                            alt="Category Image" class="img-thumbnail mt-2" style="width: 150px; height: auto;">
+                                    @endif
                                     @error('category_image')
-                                    <div class="text-danger">{{ $message }}</div>
+                                        <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                @if($category->category_image)
-                                <img src="{{ asset('uploads/category_images/' . $category->category_image) }}"
-                                    alt="Category Image" class="img-thumbnail mt-2" style="width: 150px; height: auto;">
-                                @endif
                             </div>
                         </div>
+
 
                         <div class="col-lg-6">
                             <div class="form-group mb-4">

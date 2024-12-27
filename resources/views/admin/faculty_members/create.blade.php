@@ -189,7 +189,7 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="std_code">STD Code :</label>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="std_code"
+                                    <input type="number" class="form-control text-dark ps-5 h-58" name="std_code"
                                         id="std_code" value="{{ old('std_code')}}">
                                 </div>
                             </div>
@@ -198,7 +198,7 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="phone_internal_office">Phone Internal Office :</label>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58"
+                                    <input type="number" class="form-control text-dark ps-5 h-58"
                                         name="phone_internal_office" id="phone_internal_office" value="{{ old('phone_internal_office')}}">
                                     @error('phone_internal_office')
                                         <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
@@ -210,7 +210,7 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="phone_internal_residence">Phone Internal Residence :</label>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58"
+                                    <input type="number" class="form-control text-dark ps-5 h-58"
                                         name="phone_internal_residence" id="phone_internal_residence" value="{{ old('phone_internal_residence')}}">
                                     @error('phone_internal_residence')
                                         <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
@@ -222,7 +222,7 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="phone_pt_office">Phone P&T Office :</label>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="phone_pt_office"
+                                    <input type="number" class="form-control text-dark ps-5 h-58" name="phone_pt_office"
                                         id="phone_pt_office" value="{{ old('phone_pt_office')}}">
                                     @error('phone_pt_office')
                                         <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
@@ -234,7 +234,7 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="phone_pt_residence">Phone P&T Residence :</label>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58"
+                                    <input type="number" class="form-control text-dark ps-5 h-58"
                                         name="phone_pt_residence" id="phone_pt_residence" value="{{ old('phone_pt_residence')}}">
                                     @error('phone_pt_residence')
                                         <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
@@ -246,7 +246,7 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="mobile">Mobile :</label>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="mobile"
+                                    <input type="number" class="form-control text-dark ps-5 h-58" name="mobile"
                                         id="mobile" value="{{ old('mobile')}}">
                                     @error('mobile')
                                         <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->

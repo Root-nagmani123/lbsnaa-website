@@ -15,7 +15,7 @@
             <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Photo Gallery</span>
         </li>
     </ul>
-</div>
+</div> 
 <div class="row justify-content-center">
     <div class="col-lg-12">
         <div class="card bg-white border-0 rounded-10 mb-4">

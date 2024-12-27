@@ -49,6 +49,7 @@
                     <thead>
                         <tr class="text-center">
                             <th class="col">#</th>
+                            <th class="col">Title</th>
                             <th class="col">Image</th>
                             <th class="col">Action</th>
                             <th class="col">Status</th>
@@ -58,6 +59,7 @@
                         @foreach($footerImages as $footerImage)
                         <tr>
                             <td>{{ $loop->iteration }}</td> <!-- Auto-incrementing index -->
+                            <td>{{ $footerImage->title }}</td>
                             <td><img src="{{ asset('footer-images/' . $footerImage->image) }}" width="100"></td>
                             <td>
                                 <a href="{{ route('admin.footer_images.edit', $footerImage->id) }}"

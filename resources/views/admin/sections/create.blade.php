@@ -49,7 +49,7 @@
                                     <select class="form-select form-control ps-5 h-58" name="status" id="status">
                                     <option value="" class="text-dark" selected>Select</option>
                                         <option value="1" class="text-dark">Active</option>
-                                        <option value="2" class="text-dark">Inactive</option>
+                                        <option value="0" class="text-dark">Inactive</option>
                                     </select>
                                     @error('status')
                                         <div style="color: red;">{{ $message }}</div>

@@ -24,11 +24,23 @@ class MicroSliderController extends Controller
         return view('admin.micro.slider.index', compact('sliders'));
     }
 
+    // public function create()
+    // {
+    //     $researchCentres = DB::table('research_centres')->pluck('research_centre_name', 'id'); // Replace 'name' and 'id' with your actual column names.
+    //     return view('admin.micro.slider.create',compact('researchCentres'));
+    // }
+
     public function create()
     {
-        $researchCentres = DB::table('research_centres')->pluck('research_centre_name', 'id'); // Replace 'name' and 'id' with your actual column names.
-        return view('admin.micro.slider.create',compact('researchCentres'));
+        // Fetch only active research centres (status == 1)
+        $researchCentres = DB::table('research_centres')
+            ->where('status', 1) // Include only active research centres
+            ->pluck('research_centre_name', 'id'); // Retrieves an associative array of id => name
+
+        // Pass the active research centres to the view
+        return view('admin.micro.slider.create', compact('researchCentres'));
     }
+
 
 
     public function store(Request $request)
@@ -94,18 +106,34 @@ class MicroSliderController extends Controller
 
     
 
+    // public function edit($id)
+    // {
+    //     // Fetch the specific training program by ID
+    //     $slider = MicroSlider::findOrFail($id); 
+    //     // Fetch the research centers
+    //     $researchCentres = DB::table('research_centres')
+    //         ->select('id', 'research_centre_name')
+    //         ->pluck('research_centre_name', 'id') // Retrieves an associative array of id => name
+    //         ->toArray();
+    //     // Pass the variables to the Blade file
+    //     return view('admin.micro.slider.edit', compact('slider', 'researchCentres'));
+    // }
+
     public function edit($id)
     {
-        // Fetch the specific training program by ID
-        $slider = MicroSlider::findOrFail($id); 
-        // Fetch the research centers
+        // Fetch the specific slider by ID
+        $slider = MicroSlider::findOrFail($id);
+
+        // Fetch only active research centers (status == 1)
         $researchCentres = DB::table('research_centres')
-            ->select('id', 'research_centre_name')
+            ->where('status', 1) // Include only active research centers
             ->pluck('research_centre_name', 'id') // Retrieves an associative array of id => name
             ->toArray();
+
         // Pass the variables to the Blade file
         return view('admin.micro.slider.edit', compact('slider', 'researchCentres'));
     }
+
     
 
     public function update(Request $request, $id)
@@ -139,15 +167,22 @@ class MicroSliderController extends Controller
 
         return redirect()->route('slider.index')->with('success', 'Slider updated successfully!');
     }
-    
-    
 
     public function destroy($id)
     {
+        // Find the slider record by ID
         $slider = MicroSlider::findOrFail($id);
+
+        // Check if the slider status is 1 (Active), and prevent deletion
+        if ($slider->status == 1) {
+            return redirect()->route('slider.index')->with('error', 'Active sliders cannot be deleted.');
+        }
+
+        // Delete the slider if status is not 1
         $slider->delete();
-    
+
         return redirect()->route('slider.index')->with('success', 'Slider deleted successfully!');
     }
+
     
 }

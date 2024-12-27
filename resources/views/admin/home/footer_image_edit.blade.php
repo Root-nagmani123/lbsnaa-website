@@ -48,7 +48,8 @@
                             <label class="label" for="title">Title :</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
-                                <input type="text" class="form-control text-dark ps-5 h-58" id="title" name="title">
+                                <input type="text" class="form-control text-dark ps-5 h-58" id="title" name="title"
+                                    value="{{ $footerImage->title }}">
                                 @error('title')
                                 <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
                                 @enderror
@@ -60,7 +61,8 @@
                             <label class="label" for="link">URL :</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
-                                <input type="text" class="form-control text-dark ps-5 h-58" id="link" name="link">
+                                <input type="text" class="form-control text-dark ps-5 h-58" id="link" name="link"
+                                    value="{{ $footerImage->link }}">
                                 @error('link')
                                 <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
                                 @enderror
@@ -87,13 +89,14 @@
                             <span class="star">*</span>
                             <div class="form-group position-relative">
                                 <textarea name="description" id="description" class="form-control ps-5 text-dark"
-                                    rows="5"></textarea>
+                                    rows="5">{{ old('description', $footerImage->description) }}</textarea>
                                 @error('description')
                                 <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
                                 @enderror
                             </div>
                         </div>
                     </div>
+
                     <div class="col-lg-6">
                         <div class="form-group mb-4">
                             <label class="label" for="status">Status :</label>
@@ -125,6 +128,6 @@ $('#description').summernote({
     tabsize: 2,
     height: 300
 });
-</script>  
+</script>
 <!-- here this code end of the editer js -->
 @endsection
