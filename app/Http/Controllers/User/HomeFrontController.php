@@ -9,13 +9,15 @@ class HomeFrontController extends Controller
 {
     public function index()
     {
+        $today = date('Y-m-d');
         $sliders =  DB::table('sliders')->where('status',1)->where('is_deleted',0)->get();
-        $news =  DB::table('news')->where('status',1)->get();
+        $news =  DB::table('news')->where('status',1)->where('start_date', '<=', $today)
+        ->where('end_date', '>=', $today)->get();
         $quick_links = DB::table('quick_links')->where('is_deleted',0)->where('status',1)->get();
         $faculty_members = DB::table('faculty_members')->select('image')->where('designation','Director')->where('page_status',1)->first();
         $news_scrollers=  DB::table('menus')->where('txtpostion',7)->where('is_deleted',0)->where('menu_status',1)->get();
         // print_r($faculty_members);die;
-        $today = date('Y-m-d');
+        
         $current_course = DB::table('course')
         ->select('id','course_name', 'coordinator_id', 'course_start_date', 'course_end_date')
             ->where('course_start_date', '<=', $today)
@@ -120,7 +122,9 @@ class HomeFrontController extends Controller
         return view('user.pages.footer_details_page', compact('nav_page'));
     }
     function news_listing(){
-        $news =  DB::table('news')->where('status',1)->get();
+        $today = date('Y-m-d');
+        $news =  DB::table('news')->where('status',1)->where('start_date', '<=', $today)
+        ->where('end_date', '>=', $today)->get();
     
         return view('user.pages.newsList', compact('news'));
         
@@ -132,8 +136,9 @@ class HomeFrontController extends Controller
         
     }
     function tenders(){
-        
-        $query = DB::table('manage_tenders')->get();
+        $today = date('Y-m-d');
+        $query = DB::table('manage_tenders')->where('status', 1)->where('publish_date', '<=', $today)
+        ->where('expiry_date', '>=', $today)->get();
         return view('user.pages.tenders',compact('query'));
         
     }

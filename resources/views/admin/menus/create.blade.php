@@ -291,16 +291,21 @@ document.getElementById('texttype').addEventListener('change', function() {
 });
 document.getElementById('txtpostion').addEventListener('change', function() {
     const value = this.value;
-    if(value == 3 || value == 4 || value == 5 || value == 6 || value == 7)
-    var selectElement = document.getElementById('menucategory');
-        
+    if (value == 3 || value == 4 || value == 5 || value == 6 || value == 7) {
+        var selectElement = document.getElementById('menucategory');
+
         // Loop through all options and disable them except for the one with value '0'
         for (var i = 0; i < selectElement.options.length; i++) {
             if (selectElement.options[i].value !== '0') {
                 selectElement.options[i].disabled = true;
+            } else {
+                selectElement.options[i].disabled = false; // Ensure '0' is enabled
+                selectElement.options[i].selected = true; // Select the '0' option
             }
         }
+    }
 });
+
 </script>
 
 <script>

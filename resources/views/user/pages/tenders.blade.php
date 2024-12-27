@@ -50,7 +50,7 @@
                                         <td>{{ \Carbon\Carbon::parse($value->expiry_date)->format('d F, Y, H:i A') }}</td>
                                         <td>
                                             @if(!empty($value->file))
-                                                <a href="{{ asset('tender/'.$value->file) }}" class="btn btn-sm btn-outline-primary" target="_blank">Download</a>
+                                                <a href="{{ asset('storage/tender/'.$value->file) }}" class="btn btn-sm btn-outline-primary" target="_blank">Download</a>
                                             @else
                                                 <span class="text-muted">N/A</span>
                                             @endif

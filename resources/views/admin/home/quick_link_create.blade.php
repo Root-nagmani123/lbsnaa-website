@@ -113,3 +113,26 @@
     </div>
 </div>
 @endsection
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    function toggleLinkInput() {
+        var linkType = document.getElementById('link_type').value;
+
+        // Hide both by default
+        document.getElementById('url_input').style.display = 'none';
+        document.getElementById('file_input').style.display = 'none';
+
+        // Show the relevant input based on the selection
+        if (linkType === 'url') {
+            document.getElementById('url_input').style.display = 'block';
+        } else if (linkType === 'file') {
+            document.getElementById('file_input').style.display = 'block';
+        }
+    }
+
+    // Call the function on page load in case there's a default selection
+    toggleLinkInput();
+    
+    document.getElementById('link_type').addEventListener('change', toggleLinkInput);
+});
+</script>

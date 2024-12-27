@@ -41,7 +41,7 @@ $footer_links = DB::table('menus')->where('txtpostion',3)->where('menu_status',1
                             href="{{ url('footer_menu/'.$footer_link->menu_slug) }}">{{ $footer_link->menutitle }}</a>
                         @elseif($footer_link->texttype == 2)
                         {{-- PDF File Upload --}}
-                        <a class="nav-link" href="{{ asset('uploads/menus/' . $footer_link->pdf_file) }}"
+                        <a class="nav-link" href="{{ asset($footer_link->pdf_file) }}"
                             target="_blank">{{ $footer_link->menutitle }}</a>
                         @elseif($footer_link->texttype == 3)
                         {{-- Website URL --}}

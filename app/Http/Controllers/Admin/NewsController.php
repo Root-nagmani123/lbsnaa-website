@@ -232,16 +232,50 @@ class NewsController extends Controller
         $dom->loadHTML($description,9);
 
         $images = $dom->getElementsByTagName('img');
+// print_r($images);die;
+        // foreach ($images as $key => $img) {
+        //     $data = base64_decode(explode(',',explode(';',$img->getAttribute('src'))[1])[1]);
+        //     $image_name = "/ckupload/" . time(). $key.'.png';
+        //     file_put_contents(public_path().$image_name,$data);
 
-        foreach ($images as $key => $img) {
-            $data = base64_decode(explode(',',explode(';',$img->getAttribute('src'))[1])[1]);
-            $image_name = "/ckupload/" . time(). $key.'.png';
-            file_put_contents(public_path().$image_name,$data);
+        //     $img->removeAttribute('src');
+        //     $img->setAttribute('src',$image_name);
+        // }
+        $images = $dom->getElementsByTagName('img');
+// Debugging: Print images or log them
+// print_r($images); die;
 
-            $img->removeAttribute('src');
-            $img->setAttribute('src',$image_name);
+foreach ($images as $key => $img) {
+    $src = $img->getAttribute('src');
+
+    // Check if src contains "data:" prefix and ";base64," to ensure it's a valid data URI
+    if (str_starts_with($src, 'data:') && str_contains($src, ';base64,')) {
+        $srcParts = explode(';', $src);
+        
+        // Extract and decode the base64 data
+        if (isset($srcParts[1]) && str_contains($srcParts[1], ',')) {
+            $dataParts = explode(',', $srcParts[1]);
+            $base64Data = $dataParts[1] ?? '';
+            $data = base64_decode($base64Data);
+
+            if ($data !== false) {
+                $image_name = "/ckupload/" . time() . $key . '.png';
+                file_put_contents(public_path() . $image_name, $data);
+
+                // Update the src attribute to the new file path
+                $img->removeAttribute('src');
+                $img->setAttribute('src', $image_name);
+            } else {
+            }
+        } else {
         }
-        $description = $dom->saveHTML();
+    } else {
+    }
+}
+
+$description = $dom->saveHTML();
+
+        // $description = $dom->saveHTML();
 
 
         // Update other news attributes

@@ -266,7 +266,7 @@
                     </div>
                 </div>
                 <div class="position-relative py-5">
-                    <div class="tns-outer" id="tns1-ow">
+                    <div class="tns-outer" id="tns1-ow"> 
                         <div id="tns1-mw" class="tns-ovh">
                             <div class="tns-inner" id="tns1-iw">
                                 <div class="sliderTestimonialFourth tns-slider tns-carousel tns-subpixel tns-calc tns-horizontal"
@@ -284,7 +284,7 @@
                                             <div class="card-body" style="height: 200px; overflow-y: hidden;">
                                                 <a href="#" class="fs-5 mb-2 fw-semibold d-block text-success">Posted
                                                     On:
-                                                    {{ \Carbon\Carbon::parse($slider->created_at)->format('d F, Y') }}</a>
+                                                    {{ \Carbon\Carbon::parse($slider->start_date)->format('d F, Y') }}</a>
                                                 <h3>
                                                     <a href="{{ route('user.newsbyslug', $slider->title_slug) }}"
                                                         class="text-inherit">{{ $slider->title }}</a>
