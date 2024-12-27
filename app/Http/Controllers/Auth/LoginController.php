@@ -11,20 +11,40 @@ use App\Models\User;
 use Illuminate\Validation\ValidationException;
 
 use App\Models\Admin\ManageAudit;
-
+use Illuminate\Support\Facades\Http;
 class LoginController extends Controller
 {
     public function login()
     {
         
+        
         return view('auth.admin_login');
     }
     public function authenticate(Request $request)
 {
+    // print_r($_POST);die();
     $request->validate([
         'email' => 'required|email',
         'password' => 'required',
+        'g-recaptcha-response' => 'required', 
     ]);
+    // dd($request->input('g-recaptcha-response')); 
+    // print_r($request->input('g-recaptcha-response'));die;
+    $response = $request->input('g-recaptcha-response');
+    $secret = env('RECAPTCHA_SECRET');
+    $remoteip = $request->ip();
+
+    $verify = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+        'secret' => $secret,
+        'response' => $response,
+        'remoteip' => $remoteip,
+    ]);
+
+    $verifyResponse = $verify->json();
+// print_r($verifyResponse);die;
+    if (!$verifyResponse['success']) {
+        return back()->withErrors(['captcha' => 'reCAPTCHA verification failed']);
+    }
 
     // Retrieve the user by email
     $user = User::where('email', $request->email)->first();
@@ -37,9 +57,19 @@ class LoginController extends Controller
             'action' => 'Login',
             'ip_address' => $request->ip(),
         ]);
+     
         // Manually log the user in
+        // echo '</div>';
         Auth::login($user);
-
+        if (Auth::check()) {
+            // Now you can safely do other actions, like redirecting manually
+            print_r(Auth::user()); // This will print the logged-in user's data
+        } else {
+            print_r('Login failed!');
+        }
+       
+        // print_r($user);
+      
         // Store the logged-in user's ID in the session
         session(['user_id' => $user->id]);
 
@@ -52,7 +82,7 @@ class LoginController extends Controller
             'Action_Type' => 'Login', // Static value
             'IP_Address' => $request->ip(), // Get IP address from request
         ]);
-
+       
         // Redirect to the intended route or a default page
         return redirect()->intended('admin');
     }
@@ -70,6 +100,7 @@ class LoginController extends Controller
         'email' => 'The provided credentials do not match our records.',
     ]);
 }
+
 
     public function logout(Request $request)
 {

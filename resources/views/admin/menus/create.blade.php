@@ -293,6 +293,19 @@ document.getElementById('texttype').addEventListener('change', function() {
     document.getElementById('content-field').style.display = value === '1' ? 'block' : 'none';
     document.getElementById('pdf-upload-field').style.display = value === '2' ? 'block' : 'none';
     document.getElementById('website-url-field').style.display = value === '3' ? 'block' : 'none';
+  
+});
+document.getElementById('txtpostion').addEventListener('change', function() {
+    const value = this.value;
+    if(value == 3 || value == 4 || value == 5 || value == 6 || value == 7)
+    var selectElement = document.getElementById('menucategory');
+        
+        // Loop through all options and disable them except for the one with value '0'
+        for (var i = 0; i < selectElement.options.length; i++) {
+            if (selectElement.options[i].value !== '0') {
+                selectElement.options[i].disabled = true;
+            }
+        }
 });
 </script>
 

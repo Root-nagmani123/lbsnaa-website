@@ -148,11 +148,11 @@ class ManageSouvenirController extends Controller
             // 'product_price' => 'required|numeric|min:0',
             // 'product_discounted_price' => 'nullable|numeric|min:0|lte:product_price',
             // 'contact_email_id' => 'required|email|max:255',
-            'document_upload' => 'nullable|file|mimes:pdf,doc,docx|max:20480', // 20 MB limit
+            'document_upload' => 'nullable|file|mimes:jpg,jpeg,png,gif,pdf,doc,docx|max:20480', // 20 MB limit
             'upload_image' => 'required|image|mimes:jpg,jpeg,png,gif|max:10240', // 10 MB limit
             'product_status' => 'required|in:0,1', // Assuming 'active' and 'inactive' are valid statuses
         ]);
-
+        try {
         $document_name = '';
         $upload_name = '';
 
@@ -187,17 +187,14 @@ class ManageSouvenirController extends Controller
             'updated_at' => now()
         ]);
 
-        // Add audit log entry
-        // ManageAudit::create([
-        //     'Module_Name' => 'Academy Souvenir Module',
-        //     'Time_Stamp' => time(),
-        //     'Created_By' => null, // Assuming you want to log the user ID
-        //     'Updated_By' => null,
-        //     'Action_Type' => 'Insert',
-        //     'IP_Address' => $request->ip(),
-        // ]);
-
         return redirect()->route('academy_souvenirs.index')->with('success', 'Academy Souvenir created successfully.');
+    } catch (\Exception $e) {
+        // Log the error for debugging purposes
+        \Log::error('Error storing Academy Souvenir: ' . $e->getMessage());
+
+        // Redirect back with an error message
+        return redirect()->back()->withErrors(['error' => 'Something went wrong. Please try again.']);
+    }
     }
 
 

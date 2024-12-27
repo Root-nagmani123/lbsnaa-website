@@ -116,7 +116,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <textarea name="description" id="description"
-                                        class="form-control ps-5 text-dark">{{ old('description', strip_tags($news->description)) }}</textarea>
+                                        class="form-control ps-5 text-dark">{{$news->description}}</textarea>
                                     @error('description')
                                     <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
                                     @enderror
@@ -223,6 +223,7 @@
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <script>
 $('#description').summernote({
+    placeholder: 'description...',
     tabsize: 2,
     height: 300
 });

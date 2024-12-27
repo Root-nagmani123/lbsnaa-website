@@ -231,8 +231,8 @@ class MenuController extends Controller
 
             $file = $request->file('pdf_file');
             $fileName = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('uploads/menus/'), $fileName);
-            $menu->pdf_file = 'uploads/menus/' . $fileName;
+            $file->move(public_path('pdfs/'), $fileName);
+            $menu->pdf_file = 'pdfs/' . $fileName;
         }
 
         $menu->save();

@@ -42,15 +42,31 @@
     <div class="container-fluid">
         <div class="position-relative d-flex overflow-hidden pt-4 gap-3">
             <button class="btn btn-primary" id="basic-addon2" style="z-index: 1;">Latest Updates</button>
-            <div class="animate-marquee d-flex gap-3">
-                @foreach($news_scrollers as $scroller)
-                <a href="{{ route('user.letest_updates', $scroller->menu_slug) }}"
-                    class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border marquee-item">
-                    <div class="p-3">
-                        <span class="text-gray-800">{{$scroller->menutitle}}</span>
+            <div class="animate-marquee d-flex gap-3"> 
+            @foreach($news_scrollers as $scroller)
+                @if(!empty($scroller->texttype == 3))
+                    <a href="{{ $scroller->web_site_target == '2' ? (str_starts_with($scroller->website_url, 'http') ? $scroller->website_url : 'http://' . $scroller->website_url) : url($scroller->website_url) }}"
+                        target="_blank" class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border marquee-item text-decoration-none text-primary">
+                        <div class="p-3">
+                            <span class="text-gray-800">{{ $scroller->menutitle }}</span>
+                        </div>
+                    </a>
+                @elseif(!empty($scroller->texttype == 2))
+                    <a href="{{ asset($scroller->pdf_file) }}" 
+                        target="_blank" class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border marquee-item text-decoration-none text-primary">
+                        <div class="p-3">
+                            <span class="text-gray-800">{{ $scroller->menutitle }}</span>
+                        </div>
+                    </a>
+                @else
+                    <div class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border marquee-item">
+                        <div class="p-3">
+                            <span class="text-gray-800">{{ $scroller->menutitle }}</span>
+                        </div>
                     </div>
-                </a>
+                @endif
                 @endforeach
+
             </div>
         </div>
     </div>

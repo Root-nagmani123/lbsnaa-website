@@ -149,14 +149,12 @@
                                             <label class="label" for="web_site_target">Web Site Target :</label>
                                             <span class="star">*</span>
                                             <div class="form-group position-relative">
-                                                <select class="form-select form-control ps-5 h-58"
-                                                    name="web_site_target" id="web_site_target" autocomplete="off">
-                                                    <option class="text-dark"
-                                                        {{ $menu->menucategory == 0 ? 'selected' : '' }}>It is Root
-                                                        Category
-                                                    </option>
-                                                    {!! $menuOptions !!}
-                                                </select>
+                                            <select class="form-select form-control ps-5 h-58" name="web_site_target"
+                                                id="web_site_target" autocomplete="off">
+                                                <option selected value="0" class="text-dark">Select</option>
+                                                <option value="1" {{ $menu->web_site_target == 1 ? 'selected' : '' }} class="text-dark">Internal Link</option>
+                                                <option value="2" {{ $menu->web_site_target == 2 ? 'selected' : '' }} class="text-dark">External Link</option>
+                                            </select>
                                             </div>
                                         </div>
                                     </div>
@@ -173,7 +171,7 @@
                                             {!! $menuOptions !!}
                                         </select>
                                     </div>
-                                </div>
+                                </div> 
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group mb-4">
@@ -276,6 +274,18 @@ document.getElementById('texttype').addEventListener('change', function() {
     document.getElementById('content-field').style.display = value === '1' ? 'block' : 'none';
     document.getElementById('pdf-upload-field').style.display = value === '2' ? 'block' : 'none';
     document.getElementById('website-url-field').style.display = value === '3' ? 'block' : 'none';
+});
+document.getElementById('txtpostion').addEventListener('change', function() {
+    const value = this.value;
+    if(value == 3 || value == 4 || value == 5 || value == 6 || value == 7)
+    var selectElement = document.getElementById('menucategory');
+        
+        // Loop through all options and disable them except for the one with value '0'
+        for (var i = 0; i < selectElement.options.length; i++) {
+            if (selectElement.options[i].value !== '0') {
+                selectElement.options[i].disabled = true;
+            }
+        }
 });
 </script>
 @endsection
