@@ -44,7 +44,6 @@
                     <thead>
                         <tr class="text-center">
                             <th class="col">#</th> <!-- Index Column -->
-                            <th class="col">Category</th>
                             <th class="col">Video Title (English)</th>
                             <th class="col">Video Title (Hindi)</th>
                             <th class="col">Video</th> <!-- Video Display Column -->
@@ -57,7 +56,6 @@
                         @foreach ($videos as $video)
                         <tr>
                             <td>{{ $loop->iteration }}</td> <!-- Display Index -->
-                            <td>{{ $video->category_name }}</td>
                             <td>{{ $video->video_title_en }}</td>
                             <td>{{ $video->video_title_hi }}</td>
                             <!-- Display the uploaded video -->

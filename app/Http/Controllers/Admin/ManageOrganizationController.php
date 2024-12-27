@@ -36,22 +36,44 @@ class ManageOrganizationController extends Controller
     // Store a new faculty member
     public function facultyStore(Request $request)
     {
-        // Validate input fields
+        // // Validate input fields
+        // $validated = $request->validate([
+        //     'language' => 'required|in:1,2',
+        //     'category' => 'required|in:0,1',
+        //     'name' => 'required|string|max:255',
+        //     'email' => 'required|email|unique:faculty_members,email',
+        //     'designation' => 'required|string|max:255',
+        //     'page_status' => 'required|in:0,1',
+
+        //     'phone_internal_office' => 'nullable|string|max:10',
+        //     'phone_internal_residence' => 'nullable|string|max:10',
+        //     'phone_pt_office' => 'nullable|string|max:10',
+        //     'phone_pt_residence' => 'nullable|string|max:10',
+        //     'mobile' => 'nullable|string|max:10',
+            
+        // ]);
+
         $validated = $request->validate([
             'language' => 'required|in:1,2',
             'category' => 'required|in:0,1',
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:faculty_members,email',
+            'email' => [
+                'required',
+                'email',
+                'unique:faculty_members,email',
+                'regex:/^[a-zA-Z][a-zA-Z0-9._%+-]*@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/', // Regex to prevent invalid starting characters
+            ],
             'designation' => 'required|string|max:255',
             'page_status' => 'required|in:0,1',
-
+        
             'phone_internal_office' => 'nullable|string|max:10',
             'phone_internal_residence' => 'nullable|string|max:10',
             'phone_pt_office' => 'nullable|string|max:10',
             'phone_pt_residence' => 'nullable|string|max:10',
             'mobile' => 'nullable|string|max:10',
-            
         ]);
+        
+        
     
         // Handle image upload
         $imagePath = null;

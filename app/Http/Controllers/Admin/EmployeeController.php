@@ -90,7 +90,7 @@ class EmployeeController extends Controller
             'parentcategory' => 'required',
             'employee_name' => 'required',
             'description' => 'nullable|string',
-            'category' => 'nullable',
+            'category' => 'nullable', 
             'status' => 'required|in:0,1',
         ]);
 

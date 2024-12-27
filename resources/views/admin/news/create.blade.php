@@ -33,145 +33,145 @@
                                 <label class="label" for="language">Page Language :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="radio" name="language" value="1"> English
-                                    <input type="radio" name="language" value="2"> Hindi
+                                    <input type="radio" name="language" value="1" {{ old('language') == 1 ? 'checked' : '' }}> English
+                                    <input type="radio" name="language" value="2" {{ old('language') == 2 ? 'checked' : '' }}> Hindi
                                 </div>
                                 @error('language')
-                                        <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                    @enderror
+                                    <div style="color: red;">{{ $message }}</div>
+                                @enderror
                             </div>
-
                         </div>
+
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="title">Title :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="title" id="title">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="title" id="title" value="{{ old('title') }}">
                                     @error('title')
-                                        <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
+                                        <div style="color: red;">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label for="short_description" class="label">Short Description</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <textarea name="short_description" id="short_description"
-                                        class="form-control ps-5 text-dark"></textarea>
-                                        @error('short_description')
-                                        <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
+                                    <textarea name="short_description" id="short_description" class="form-control ps-5 text-dark">{{ old('short_description') }}</textarea>
+                                    @error('short_description')
+                                        <div style="color: red;">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="meta_title">Meta Title :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="meta_title"
-                                        id="meta_title">
-                                        @error('meta_title')
-                                        <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="meta_title" id="meta_title" value="{{ old('meta_title') }}">
+                                    @error('meta_title')
+                                        <div style="color: red;">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
-                                <label class="label" for="meta_keywords">Meta Keywords :</label>
+                                <label for="meta_keywords" class="label">Meta Keywords :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="meta_keywords"
-                                        id="meta_keywords">
-                                        @error('meta_keywords')
-                                        <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="meta_keywords" id="meta_keywords" value="{{ old('meta_keywords') }}">
+                                    @error('meta_keywords')
+                                        <div style="color: red;">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label for="meta_description" class="label">Meta Description</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <textarea name="meta_description" id="meta_description"
-                                        class="form-control ps-5 text-dark"></textarea>
-                                        @error('meta_description')
-                                        <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
+                                    <textarea name="meta_description" id="meta_description" class="form-control ps-5 text-dark">{{ old('meta_description') }}</textarea>
+                                    @error('meta_description')
+                                        <div style="color: red;">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-lg-12">
                             <div class="form-group mb-4">
                                 <label for="description" class="label">Description</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <textarea name="description" id="description"
-                                        class="form-control ps-5 text-dark"></textarea>
-                                        @error('description')
-                                        <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
+                                    <textarea name="description" id="description" class="form-control ps-5 text-dark">{{ old('description') }}</textarea>
+                                    @error('description')
+                                        <div style="color: red;">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label for="main_image" class="label">Main Image</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="file" name="main_image" id="main_image"
-                                        class="form-control text-dark ps-5 h-58">
-                                        @error('main_image')
-                                        <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
+                                    <input type="file" name="main_image" id="main_image" class="form-control text-dark ps-5 h-58">
+                                    @error('main_image')
+                                        <div style="color: red;">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label for="multiple_images" class="label">Upload Multiple Image</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="file" name="multiple_images[]" id="multiple_images"
-                                        class="form-control text-dark ps-5 h-58" multiple>
-                                        @error('multiple_images')
-                                        <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
+                                    <input type="file" name="multiple_images[]" id="multiple_images" class="form-control text-dark ps-5 h-58" multiple>
+                                    @error('multiple_images')
+                                        <div style="color: red;">{{ $message }}</div>
                                     @enderror
                                 </div>
-
                             </div>
                         </div>
+
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label for="start_date" class="label">Start Date</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="date" name="start_date" id="start_date"
-                                        class="form-control text-dark ps-5 h-58">
-                                        @error('start_date')
-                                        <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
+                                    <input type="date" name="start_date" id="start_date" class="form-control text-dark ps-5 h-58" value="{{ old('start_date') }}">
+                                    @error('start_date')
+                                        <div style="color: red;">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label for="end_date" class="label">End Date</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="date" name="end_date" id="end_date"
-                                        class="form-control text-dark ps-5 h-58">
-                                        @error('end_date')
-                                        <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
+                                    <input type="date" name="end_date" id="end_date" class="form-control text-dark ps-5 h-58" value="{{ old('end_date') }}">
+                                    @error('end_date')
+                                        <div style="color: red;">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="status">Status :</label>
@@ -179,15 +179,16 @@
                                 <div class="form-group position-relative">
                                     <select class="form-select form-control ps-5 h-58" name="status" id="status">
                                         <option value="" class="text-dark" selected>Select</option>
-                                        <option value="1" class="text-dark">Active</option>
-                                        <option value="0" class="text-dark">Inactive</option>
+                                        <option value="1" class="text-dark" {{ old('status') == '1' ? 'selected' : '' }}>Active</option>
+                                        <option value="0" class="text-dark" {{ old('status') == '0' ? 'selected' : '' }}>Inactive</option>
                                     </select>
                                     @error('status')
-                                        <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
+                                        <div style="color: red;">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
                         </div>
+
                         <div class="d-flex ms-sm-3 ms-md-0">
                             <button class="btn btn-success text-white fw-semibold" type="submit">Submit</button>
                             &nbsp;
@@ -195,8 +196,8 @@
                         </div>
 
                     </div>
-            </div>
-            </form>
+                </form>
+
 
 
         </div>

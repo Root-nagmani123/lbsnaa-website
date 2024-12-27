@@ -16,7 +16,7 @@
             <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Exam</span>
         </li>
     </ul>
-</div> 
+</div>
 <div class="row justify-content-center">
     <div class="col-lg-12">
         <div class="card bg-white border-0 rounded-10 mb-4">
@@ -33,10 +33,12 @@
                                 <label class="label" for="menutitle">Page Language :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="radio" name="txtlanguage" value="1"  {{ old('txtlanguage') == '1' ? 'checked' : '' }}>English
-                                    <input type="radio" name="txtlanguage" value="2"  {{ old('txtlanguage') == '2' ? 'checked' : '' }}>Hindi
+                                    <input type="radio" name="txtlanguage" value="1"
+                                        {{ old('txtlanguage') == '1' ? 'checked' : '' }}>English
+                                    <input type="radio" name="txtlanguage" value="2"
+                                        {{ old('txtlanguage') == '2' ? 'checked' : '' }}>Hindi
                                     @error('txtlanguage')
-                                        <div style="color: red;">{{ $message }}</div>  <!-- Display error if any -->
+                                    <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
                                     @enderror
                                 </div>
                             </div>
@@ -47,9 +49,9 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark ps-5 h-58" name="exm_code"
-                                        id="exm_code"  value="{{ old('exm_code') }}">
+                                        id="exm_code" value="{{ old('exm_code') }}">
                                     @error('exm_code')
-                                        <div style="color: red;">{{ $message }}</div>  <!-- Display error if any -->
+                                    <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
                                     @enderror
                                 </div>
                             </div>
@@ -59,7 +61,7 @@
                                 <label class="label" for="exm_desc">Exam Description :</label>
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark ps-5 h-58" name="exm_desc"
-                                        id="exm_desc"  value="{{ old('exm_desc') }}">
+                                        id="exm_desc" value="{{ old('exm_desc') }}">
                                 </div>
                             </div>
                         </div>
@@ -70,14 +72,14 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="number" class="form-control text-dark ps-5 h-58" name="exm_user_id"
-                                        id="exm_user_id"  value="{{ old('name') }}">
-                                        @error('exm_user_id')
-                                        <div style="color: red;">{{ $message }}</div>  <!-- Display error if any -->
+                                        id="exm_user_id" value="{{ old('name') }}">
+                                    @error('exm_user_id')
+                                    <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
                                     @enderror
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <!-- <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="exm_date">Transaction Date :</label>
                                 <span class="star">*</span>
@@ -85,19 +87,37 @@
                                     <input type="text" class="form-control text-dark ps-5 h-58" name="exm_date" id="exm_date"
                                      placeholder="DD-MM-YYYY"  value="{{ old('exm_date') }}">
                                     @error('exm_date')
-                                        <div style="color: red;">{{ $message }}</div>  <!-- Display error if any -->
+                                        <div style="color: red;">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div> -->
+                        <!-- HTML Form -->
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="exm_date">Transaction Date :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="text" class="form-control text-dark ps-5 h-58" name="exm_date"
+                                        id="exm_date" placeholder="DD-MM-YYYY" value="{{ old('exm_date') }}">
+                                    @error('exm_date')
+                                    <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
                                     @enderror
                                 </div>
                             </div>
                         </div>
+
+
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label for="preliminary_flag" class="label">Preliminary Flag</label>
                                 <div class="form-group position-relative">
                                     <input class="form-check-input" type="radio" name="preliminary_flag"
-                                        id="preliminary_flag" value="1"  {{ old('preliminary_flag') == '1' ? 'checked' : '' }}> Yes
+                                        id="preliminary_flag" value="1"
+                                        {{ old('preliminary_flag') == '1' ? 'checked' : '' }}> Yes
                                     <input class="form-check-input" type="radio" name="preliminary_flag"
-                                        id="preliminary_flag" value="0" {{ old('preliminary_flag') == '0' ? 'checked' : '' }}> No
+                                        id="preliminary_flag" value="0"
+                                        {{ old('preliminary_flag') == '0' ? 'checked' : '' }}> No
                                 </div>
                             </div>
                         </div>
@@ -119,11 +139,13 @@
                                 <div class="form-group position-relative">
                                     <select class="form-select form-control ps-5 h-58" name="status" id="status">
                                         <option value="" class="text-dark" selected>Select</option>
-                                        <option value="1" class="text-dark" {{ old('status') == '1' ? 'selected' : '' }}>Active</option>
-                                        <option value="0" class="text-dark" {{ old('status') == '0' ? 'selected' : '' }}>Inactive</option>
+                                        <option value="1" class="text-dark"
+                                            {{ old('status') == '1' ? 'selected' : '' }}>Active</option>
+                                        <option value="0" class="text-dark"
+                                            {{ old('status') == '0' ? 'selected' : '' }}>Inactive</option>
                                     </select>
                                     @error('status')
-                                        <div style="color: red;">{{ $message }}</div>  <!-- Display error if any -->
+                                    <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
                                     @enderror
                                 </div>
                             </div>
@@ -148,20 +170,20 @@ $('#exm_desc').summernote({
     tabsize: 2,
     height: 300
 });
-</script>  
+</script>
 <!-- here this code end of the editer js -->
-@endsection
-
-<!-- Include Flatpickr CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <!-- Include Flatpickr JS -->
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 <!-- Initialize Flatpickr -->
 <script>
+document.addEventListener("DOMContentLoaded", function() {
     flatpickr("#exm_date", {
-        dateFormat: "d-m-Y",  // Specify the "DD-MM-YYYY" format
-        allowInput: true,     // Allows the user to type in the date
-        maxDate: "today"      // Optional: Restrict to today's date or any other constraints
+        dateFormat: "d-m-Y", // Specify the "DD-MM-YYYY" format
+        allowInput: true, // Allows the user to type in the date
+        // maxDate: "today"      // Optional: Restrict to today's date or any other constraints
     });
+});
 </script>
+@endsection

@@ -141,170 +141,89 @@ class ManagePhotoGalleryController extends Controller
     }
 
 
-    // public function update(Request $request, $id)
-    // {
-
-    //     // Validate inputs
-    //     $request->validate([
-    //         'image_files' => 'nullable|array',
-    //         'image_files.*' => 'nullable|file|mimes:jpeg,png,jpg|max:2048',
-    //         'image_title_english' => 'required|string|max:255',
-    //         'image_title_hindi' => 'nullable|string|max:255',
-    //         'status' => 'required',
-    //         'course_id' => 'nullable|integer',
-    //         'related_training_program' => 'nullable|string|max:255',
-    //     ]);
-
-    //     $gallery = ManagePhotoGallery::findOrFail($id);
-
-    //     // Decode existing image files
-    //     $existingImages = json_decode($gallery->image_files, true) ?? [];
-
-    //     // Initialize updated image list
-    //     $updatedImages = [];
-
-    //     // Handle replaced files
-    //     if ($request->has('replaced_files')) {
-    //         foreach ($request->input('replaced_files') as $index => $isReplaced) {
-    //             if ($isReplaced === "true") {
-    //                 // Remove the old file from storage
-    //                 if (isset($existingImages[$index])) {
-    //                     $oldFile = $existingImages[$index];
-    //                     $filePath = storage_path('app/public/' . $oldFile);
-    //                     if (file_exists($filePath)) {
-    //                         unlink($filePath); // Delete old file
-    //                     }
-    //                 }
-
-    //                 // Add the new uploaded file
-    //                 if ($request->hasFile("image_files.{$index}")) {
-    //                     $updatedImages[$index] = $request->file("image_files.{$index}")->store('uploads/gallery', 'public');
-    //                 }
-    //             } else {
-    //                 // Retain the old file if not replaced
-    //                 $updatedImages[$index] = $existingImages[$index] ?? null;
-    //             }
-    //         }
-    //     }
-
-    //     // Handle new files added dynamically
-    //     if ($request->hasFile('image_files.new')) {
-    //         foreach ($request->file('image_files.new') as $newFile) {
-    //             $updatedImages[] = $newFile->store('uploads/gallery', 'public');
-    //         }
-    //     }
-
-    //     // Save updated image list
-    //     $gallery->image_files = json_encode(array_values($updatedImages));
-    //     // Update other fields
-    //     $gallery->image_title_english = $request->input('image_title_english', 'Default Title');
-    //     $gallery->image_title_hindi = $request->input('image_title_hindi');
-    //     $gallery->status = $request->input('status', 'Draft');
-    //     $gallery->course_id = $request->input('course_id');
-    //     $gallery->related_news = $request->input('related_news');
-    //     $gallery->related_training_program = $request->input('related_training_program');
-    //     $gallery->related_events = $request->input('related_events');
-    //     $gallery->media_categories = $request->input('media_categories');
-    //     $gallery->updated_at = now();
-    //     // dd($gallery);
-    //     $gallery->save();
-
-    //     // Log the update action in the audit table
-    //     ManageAudit::create([
-    //         'Module_Name' => 'Photo Gallery',
-    //         'Time_Stamp' => time(),
-    //         'Created_By' =>  null,
-    //         'Updated_By' => null,
-    //         'Action_Type' => 'Update',
-    //         'IP_Address' => $request->ip(),
-    //     ]);
-
-    //     return redirect()->route('photo-gallery.index')->with('success', 'Gallery updated successfully.');
-    // }
-
     public function update(Request $request, $id)
-{
-    // Validate inputs
-    $request->validate([
-        'image_files' => 'nullable|array',
-        'image_files.*' => 'nullable|file|mimes:jpeg,png,jpg|max:2048',
-        'image_title_english' => 'required|string|max:255',
-        'image_title_hindi' => 'nullable|string|max:255',
-        'status' => 'required',
-        'course_id' => 'nullable|integer',
-        'related_training_program' => 'nullable|string|max:255',
-        'related_news' => 'nullable|string|max:255',
-        'related_events' => 'nullable|string|max:255',
-        'media_categories' => 'nullable|string|max:255',
-    ]);
+    {
+        // Validate inputs
+        $request->validate([
+            'image_files' => 'nullable|array',
+            'image_files.*' => 'nullable|file|mimes:jpeg,png,jpg|max:2048',
+            'image_title_english' => 'required|string|max:255',
+            'image_title_hindi' => 'nullable|string|max:255',
+            'status' => 'required',
+            'course_id' => 'nullable|integer',
+            'related_training_program' => 'nullable|string|max:255',
+            'related_news' => 'nullable|string|max:255',
+            'related_events' => 'nullable|string|max:255',
+            'media_categories' => 'nullable|string|max:255',
+        ]);
 
-    $gallery = ManagePhotoGallery::findOrFail($id);
+        $gallery = ManagePhotoGallery::findOrFail($id);
 
-    // Decode existing image files
-    $existingImages = json_decode($gallery->image_files, true) ?? [];
+        // Decode existing image files
+        $existingImages = json_decode($gallery->image_files, true) ?? [];
 
-    // Initialize updated image list
-    $updatedImages = [];
+        // Initialize updated image list
+        $updatedImages = [];
 
-    // Handle replaced files
-    if ($request->has('replaced_files')) {
-        foreach ($request->input('replaced_files') as $index => $isReplaced) {
-            if ($isReplaced === "true") {
-                // Remove the old file from storage
-                if (isset($existingImages[$index])) {
-                    $oldFile = $existingImages[$index];
-                    $filePath = storage_path('app/public/' . $oldFile);
-                    if (file_exists($filePath)) {
-                        unlink($filePath); // Delete old file
+        // Handle replaced files
+        if ($request->has('replaced_files')) {
+            foreach ($request->input('replaced_files') as $index => $isReplaced) {
+                if ($isReplaced === "true") {
+                    // Remove the old file from storage
+                    if (isset($existingImages[$index])) {
+                        $oldFile = $existingImages[$index];
+                        $filePath = storage_path('app/public/' . $oldFile);
+                        if (file_exists($filePath)) {
+                            unlink($filePath); // Delete old file
+                        }
                     }
-                }
 
-                // Add the new uploaded file
-                if ($request->hasFile("image_files.{$index}")) {
-                    $updatedImages[$index] = $request->file("image_files.{$index}")->store('uploads/gallery', 'public');
+                    // Add the new uploaded file
+                    if ($request->hasFile("image_files.{$index}")) {
+                        $updatedImages[$index] = $request->file("image_files.{$index}")->store('uploads/gallery', 'public');
+                    }
+                } else {
+                    // Retain the old file if not replaced
+                    $updatedImages[$index] = $existingImages[$index] ?? null;
                 }
-            } else {
-                // Retain the old file if not replaced
-                $updatedImages[$index] = $existingImages[$index] ?? null;
             }
         }
-    }
 
-    // Handle new files added dynamically
-    if ($request->hasFile('image_files.new')) {
-        foreach ($request->file('image_files.new') as $newFile) {
-            $updatedImages[] = $newFile->store('uploads/gallery', 'public');
+        // Handle new files added dynamically
+        if ($request->hasFile('image_files.new')) {
+            foreach ($request->file('image_files.new') as $newFile) {
+                $updatedImages[] = $newFile->store('uploads/gallery', 'public');
+            }
         }
+
+        // Save updated image list
+        $gallery->image_files = json_encode(array_values($updatedImages));
+
+        // Update other fields, allowing null or blank values
+        $gallery->image_title_english = $request->input('image_title_english', 'Default Title');
+        $gallery->image_title_hindi = $request->input('image_title_hindi') ?: null; // Set null if blank
+        $gallery->status = $request->input('status', 'Draft');
+        $gallery->course_id = $request->input('course_id') ?: null; // Set null if blank
+        $gallery->related_news = $request->input('related_news') ?: null;
+        $gallery->related_training_program = $request->input('related_training_program') ?: null;
+        $gallery->related_events = $request->input('related_events') ?: null;
+        $gallery->media_categories = $request->input('media_categories') ?: null;
+        $gallery->updated_at = now();
+
+        $gallery->save();
+
+        // Log the update action in the audit table
+        ManageAudit::create([
+            'Module_Name' => 'Photo Gallery',
+            'Time_Stamp' => time(),
+            'Created_By' => null,
+            'Updated_By' => null,
+            'Action_Type' => 'Update',
+            'IP_Address' => $request->ip(),
+        ]);
+
+        return redirect()->route('photo-gallery.index')->with('success', 'Gallery updated successfully.');
     }
-
-    // Save updated image list
-    $gallery->image_files = json_encode(array_values($updatedImages));
-
-    // Update other fields, allowing null or blank values
-    $gallery->image_title_english = $request->input('image_title_english', 'Default Title');
-    $gallery->image_title_hindi = $request->input('image_title_hindi') ?: null; // Set null if blank
-    $gallery->status = $request->input('status', 'Draft');
-    $gallery->course_id = $request->input('course_id') ?: null; // Set null if blank
-    $gallery->related_news = $request->input('related_news') ?: null;
-    $gallery->related_training_program = $request->input('related_training_program') ?: null;
-    $gallery->related_events = $request->input('related_events') ?: null;
-    $gallery->media_categories = $request->input('media_categories') ?: null;
-    $gallery->updated_at = now();
-
-    $gallery->save();
-
-    // Log the update action in the audit table
-    ManageAudit::create([
-        'Module_Name' => 'Photo Gallery',
-        'Time_Stamp' => time(),
-        'Created_By' => null,
-        'Updated_By' => null,
-        'Action_Type' => 'Update',
-        'IP_Address' => $request->ip(),
-    ]);
-
-    return redirect()->route('photo-gallery.index')->with('success', 'Gallery updated successfully.');
-}
 
     
     public function destroy($id){

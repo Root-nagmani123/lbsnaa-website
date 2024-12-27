@@ -33,6 +33,11 @@
         @if (session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
         @endif
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
         <div class="default-table-area members-list">
             <div class="table-responsive">
                 <table class="table align-middle" id="myTable">
@@ -40,11 +45,7 @@
                         <tr class="text-center">
                             <th class="col">ID</th> <!-- Add index column -->
                             <th class="col">Job Title</th>
-                            <th class="col">Research Centre</th>
                             <th class="col">Language</th>
-                            <th class="col">Publish Date</th>
-                            <th class="col">Expiry Date</th>
-                            <th class="col">Uploaded Document / Website Link</th> <!-- Column for document or link -->
                             <th class="col">Option</th>
                             <th class="col">Actions</th>
                             <th class="col">Status</th>
@@ -56,7 +57,6 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $vacancy->job_title }}</td>
-                            <td>{{ $vacancy->research_centre_name }}</td>
                             <td>
                                 @if ($vacancy->language == 1)
                                 English
@@ -64,9 +64,7 @@
                                 Hindi
                                 @endif
                             </td>
-                            <td>{{ $vacancy->publish_date }}</td>
-                            <td>{{ $vacancy->expiry_date }}</td>
-                            <td>
+                            <!-- <td>
                                 @if($vacancy->content_type == 'PDF' && $vacancy->document_upload)
 
                                 @if(in_array(pathinfo($vacancy->document_upload, PATHINFO_EXTENSION), ['jpg', 'png',
@@ -86,7 +84,7 @@
                                 @else
                                 No document or link available.
                                 @endif
-                            </td>
+                            </td> -->
                             <td>
                                 <button type="button" class="btn btn-outline-primary fw-semibold btn-sm view-slider"
                                     data-bs-toggle="modal" data-bs-target="#staticBackdrop"

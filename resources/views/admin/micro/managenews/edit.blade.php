@@ -157,7 +157,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="file" name="main_image" id="main_image"
-                                        class="form-control text-dark ps-5 h-58">
+                                        class="form-control text-dark ps-5 h-58" value="{{ old('main_image', $news->main_image) }}">
                                     <small>Current: <img src="{{ asset( $news->main_image) }}" alt="Current Image"
                                             style="max-width: 150px;"></small>
                                     @error('main_image')
@@ -172,7 +172,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="file" name="multiple_images" id="multiple_images"
-                                        class="form-control text-dark ps-5 h-58">
+                                        class="form-control text-dark ps-5 h-58" value="{{ old('multiple_images', $news->multiple_images) }}">
                                     <small>Current Images:
                                         @foreach (json_decode($news->multiple_images) as $image)
                                         <img src="{{ asset($image) }}" alt="Current Image"

@@ -332,7 +332,7 @@ Route::post('/users/permissions/update', [UserManagementController::class, 'upda
     Route::PUT('/academy-souvenirs/update/{id}', [ManageSouvenirController::class, 'updateAcademySouvenir'])->name('academy_souvenirs.update');
     Route::delete('/academy-souvenirs/destroy/{id}', [ManageSouvenirController::class, 'destroyAcademySouvenir'])->name('academy_souvenirs.destroy');
 
-
+ 
     // Manage organisation chart route
     Route::get('organisation_chart', [EmployeeController::class, 'organisation_chartIndex'])->name('organisation_chart.index');
     Route::get('organisation_chart/create', [EmployeeController::class, 'organisation_chartCreate'])->name('organisation_chart.create');
@@ -344,7 +344,7 @@ Route::post('/users/permissions/update', [UserManagementController::class, 'upda
     // Add this route for the sub-organisation page
     // Route::get('organisation-chart/sub-org/{parent_id}', [EmployeeController::class, 'showSubOrg'])->name('organisation_chart.sub_org');
     Route::get('organisation-chart/sub-org/{parent_id}', [EmployeeController::class, 'showSubOrg'])->name('organisation-chart.sub-org');
-
+    
 
     // manage course subcategory
     Route::get('subcategory', [CoursesubCategoryController::class, 'index'])->name('subcategory.index');

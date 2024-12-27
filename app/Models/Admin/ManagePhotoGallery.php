@@ -23,7 +23,7 @@ class ManagePhotoGallery extends Model
     ];
 
 
-    public function courses()
+    public function courses() 
     {
         return $this->belongsTo(Course::class, 'course_id');
 

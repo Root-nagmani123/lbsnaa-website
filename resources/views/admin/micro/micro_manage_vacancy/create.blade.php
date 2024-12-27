@@ -147,7 +147,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6" id="document_upload">
+                        <div class="col-lg-6" id="publish_date">
                             <div class="form-group mb-4">
                                 <label class="label" for="publish_date">Publish Date :</label>
                                 <span class="star">*</span>
@@ -194,7 +194,7 @@
                         <div class="d-flex ms-sm-3 ms-md-0">
                             <button class="btn btn-success text-white fw-semibold" type="submit">Submit</button> &nbsp;
                             <a href="{{ route('micro_manage_vacancy.index') }}"
-                                class="btn btn-secondary text-white">Cancel</a>
+                                class="btn btn-secondary text-white">Back</a>
                         </div>
                     </div>
                 </form>
@@ -234,4 +234,34 @@ document.addEventListener("DOMContentLoaded", function() {
         endDateInput.setAttribute('min', this.value);
     });
 });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const contentTypeSelector = document.getElementById("content_type");
+        const documentUploadField = document.getElementById("document_upload");
+        const websiteLinkField = document.getElementById("website_link");
+
+        // Function to toggle visibility
+        function toggleFields() {
+            const selectedValue = contentTypeSelector.value;
+
+            // Hide both fields by default
+            documentUploadField.style.display = "none";
+            websiteLinkField.style.display = "none";
+
+            // Show the appropriate field based on the selected value
+            if (selectedValue === "PDF") {
+                documentUploadField.style.display = "block";
+            } else if (selectedValue === "Website") {
+                websiteLinkField.style.display = "block";
+            }
+        }
+
+        // Add event listener to the select element
+        contentTypeSelector.addEventListener("change", toggleFields);
+
+        // Trigger the function on page load to handle old values
+        toggleFields();
+    });
 </script>

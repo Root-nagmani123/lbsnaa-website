@@ -95,7 +95,7 @@ class CoursesubCategoryController extends Controller
         return view('admin.manage_coursesubcategories.edit', compact('subcategory', 'categories'));
     }
 
-
+ 
     public function update(Request $request, $id)
     {
         $request->validate([

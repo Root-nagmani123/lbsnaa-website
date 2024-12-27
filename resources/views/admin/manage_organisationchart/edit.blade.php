@@ -23,7 +23,8 @@
                 <div class="d-flex justify-content-between align-items-center border-bottom pb-20 mb-20">
                     <h4 class="fw-semibold fs-18 mb-0">Edit Organisation Chart</h4>
                 </div>
-                <form action="{{ route('organisation_chart.update', $record->id) }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('organisation_chart.update', $record->id) }}" method="post"
+                    enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <input type="hidden" name="parent_id" value="{{ $record->parent_id }}">
@@ -33,8 +34,10 @@
                                 <label class="label">Page Language :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="radio" name="language" value="1" {{ $record->language == '1' ? 'checked' : '' }}> English
-                                    <input type="radio" name="language" value="2" {{ $record->language == '2' ? 'checked' : '' }}> Hindi
+                                    <input type="radio" name="language" value="1"
+                                        {{ $record->language == '1' ? 'checked' : '' }}> English
+                                    <input type="radio" name="language" value="2"
+                                        {{ $record->language == '2' ? 'checked' : '' }}> Hindi
                                 </div>
                             </div>
                         </div>
@@ -46,12 +49,14 @@
                                 <label class="label">Select Parent Employee :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select name="parentcategory" id="parentcategory" class="form-select form-control ps-5 h-58">
+                                    <select name="parentcategory" id="parentcategory"
+                                        class="form-select form-control ps-5 h-58">
                                         <option value="" class="text-dark">Select Employee</option>
                                         @foreach ($faculty as $parent)
-                                            <option class="text-dark" value="{{ $parent->id }}" {{ $record->faculty_id == $parent->id ? 'selected' : '' }}>
-                                                {{ $parent->name }}
-                                            </option>
+                                        <option class="text-dark" value="{{ $parent->id }}"
+                                            {{ $record->faculty_id == $parent->id ? 'selected' : '' }}>
+                                            {{ $parent->name }}
+                                        </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -65,7 +70,8 @@
                                 <label class="label">Select Category :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" id="employee_name" name="employee_name" value="{{ $record->employee_name }}" class="form-control text-dark ps-5 h-58">
+                                    <input type="text" id="employee_name" name="employee_name"
+                                        value="{{ $record->employee_name }}" class="form-control text-dark ps-5 h-58">
                                 </div>
                             </div>
                         </div>
@@ -85,12 +91,14 @@
 
                     <!-- Submit Button -->
                     <div class="d-flex ms-sm-3 ms-md-0">
-                            <button class="btn btn-success text-white fw-semibold" type="submit">Update</button>&nbsp;
-                        <a href="{{ route('organisation-chart.sub-org', ['parent_id' => $parent_id]) }}" 
-                        class="btn btn-secondary text-white">Back</a>
+                        <button class="btn btn-success text-white fw-semibold" type="submit">Update</button>&nbsp;
+                        <a href="{{ route('organisation-chart.sub-org', ['parent_id' => $parent_id ?? 0]) }}"
+                            class="btn btn-secondary text-white">Back</a>
 
-                            <!-- <a href="{{ route('organisation_chart.index') }}" class="btn btn-secondary text-white">Back</a> -->
-                        </div>
+
+
+                        <!-- <a href="{{ route('organisation_chart.index') }}" class="btn btn-secondary text-white">Back</a> -->
+                    </div>
                 </form>
             </div>
         </div>
@@ -104,11 +112,11 @@
 
 <!-- Autocomplete Script -->
 <script>
-    $(function() {
-        $("#employee_name").autocomplete({
-            source: "{{ route('employee.autocomplete') }}",
-            minLength: 2
-        });
+$(function() {
+    $("#employee_name").autocomplete({
+        source: "{{ route('employee.autocomplete') }}",
+        minLength: 2
     });
+});
 </script>
 @endsection

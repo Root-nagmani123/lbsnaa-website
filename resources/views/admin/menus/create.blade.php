@@ -37,7 +37,7 @@
                                     <input type="radio" name="txtlanguage" value="2"> Hindi
                                 </div>
                                 @error('txtlanguage')
-                                    <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
+                                <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
                                 @enderror
                             </div>
                         </div>
@@ -49,7 +49,7 @@
                                     <input type="text" class="form-control text-dark ps-5 h-58" name="menutitle"
                                         id="menutitle">
                                     @error('menutitle')
-                                        <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
+                                    <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
                                     @enderror
                                 </div>
                             </div>
@@ -61,7 +61,7 @@
                                 <div class="form-group position-relative">
                                     <select class="form-select form-control ps-5 h-58" id="txtpostion"
                                         autocomplete="off" autocomplete="off" name="txtpostion"
-                                         onchange="updateMenuTypeOptions(this.value)">
+                                        onchange="updateMenuTypeOptions(this.value)">
                                         <option selected class="text-dark">Select</option>
                                         <option value="1" class="text-dark">Header Menu</option>
                                         <option value="2" class="text-dark">Bottom Menu</option>
@@ -72,7 +72,7 @@
                                         <option value="7" class="text-dark">Latest Updates</option>
                                     </select>
                                     @error('txtpostion')
-                                        <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
+                                    <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
                                     @enderror
                                 </div>
                             </div>
@@ -90,13 +90,16 @@
                                     </select> -->
                                     <select name="texttype" id="texttype" class="form-control text-dark ps-5 h-58">
                                         <option value="" {{ old('texttype') == '' ? 'selected' : '' }}>Select</option>
-                                        <option value="1" {{ old('texttype') == '1' ? 'selected' : '' }}>Content</option>
-                                        <option value="2" {{ old('texttype') == '2' ? 'selected' : '' }}>PDF file Upload</option>
-                                        <option value="3" {{ old('texttype') == '3' ? 'selected' : '' }}>Website URL</option>
+                                        <option value="1" {{ old('texttype') == '1' ? 'selected' : '' }}>Content
+                                        </option>
+                                        <option value="2" {{ old('texttype') == '2' ? 'selected' : '' }}>PDF file Upload
+                                        </option>
+                                        <option value="3" {{ old('texttype') == '3' ? 'selected' : '' }}>Website URL
+                                        </option>
                                     </select>
 
                                     @error('texttype')
-                                        <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
+                                    <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
                                     @enderror
                                 </div>
                             </div>
@@ -107,13 +110,9 @@
                                     <div class="col-lg-6">
                                         <div class="form-group mb-4">
                                             <label class="label" for="meta_title">Meta Title:</label>
-                                            <span class="star">*</span>
                                             <div class="form-group position-relative">
                                                 <input type="text" class="form-control text-dark ps-5 h-58"
                                                     name="meta_title" id="meta_title">
-                                                @error('meta_title')
-                                                    <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                                @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -130,13 +129,9 @@
                                 <div class="col-lg-12">
                                     <div class="form-group mb-4">
                                         <label class="label" for="content">Description :</label>
-                                        <span class="star">*</span>
                                         <div class="form-group position-relative">
                                             <textarea class="form-control ps-5 text-dark" rows="5" name="content"
                                                 id="content"></textarea>
-                                            @error('content')
-                                                <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -155,12 +150,13 @@
                         <div class="col-lg-6" style="display: none;" id="pdf-upload-field">
                             <div class="form-group mb-4">
                                 <label class="label" for="pdf_file">Upload PDF</label>
-                               <div class="fomr-group position-relative">
-                                   <input id="pdf_file" type="file" name="pdf_file" accept=".pdf" class="form-control text-dark ps-5 h-58">
-                                   @error('pdf_file')
-                                       <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                   @enderror
-                               </div>
+                                <div class="fomr-group position-relative">
+                                    <input id="pdf_file" type="file" name="pdf_file" accept=".pdf"
+                                        class="form-control text-dark ps-5 h-58">
+                                    @error('pdf_file')
+                                    <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
+                                    @enderror
+                                </div>
                             </div>
                         </div>
                         <div id="website-url-field" style="display: none;">
@@ -168,13 +164,9 @@
                                 <div class="col-lg-6">
                                     <div class="form-group mb-4">
                                         <label class="label" for="website_url">Website URL:</label>
-                                        <span class="star">*</span>
                                         <div class="form-group position-relative">
                                             <input type="text" class="form-control text-dark ps-5 h-58"
                                                 name="website_url" id="website_url">
-                                            @error('website_url')
-                                                <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -199,21 +191,23 @@
                                 <label class="label" for="menucategory">Primary Link :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="menucategory" id="menucategory" autocomplete="off">
-                                        <option value="0" class="text-dark" {{ old('menucategory', 0) == 0 ? 'selected' : '' }}>
+                                    <select class="form-select form-control ps-5 h-58" name="menucategory"
+                                        id="menucategory" autocomplete="off">
+                                        <option value="0" class="text-dark"
+                                            {{ old('menucategory', 0) == 0 ? 'selected' : '' }}>
                                             It is Root Category
                                         </option>
                                         {!! $menuOptions !!}
                                     </select>
                                     @error('menucategory')
-                                        <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
+                                    <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
                                     @enderror
                                 </div>
                             </div>
                         </div>
 
 
-                        
+
                         <div id="date-fields" style="display: none;">
                             <div class="row">
                                 <div class="col-lg-6">
@@ -224,9 +218,9 @@
                                             <input type="date" class="form-control text-dark ps-5 h-58"
                                                 name="start_date" id="start_date" onfocus="(this.type='date')"
                                                 onblur="(this.type='text')">
-                                                @error('start_date')
-                                                    <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                                @enderror
+                                            @error('start_date')
+                                            <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -239,7 +233,7 @@
                                                 name="termination_date" id="termination_date" placeholder="dd/mm/yyyy"
                                                 onfocus="(this.type='date')" onblur="(this.type='text')">
                                             @error('termination_date')
-                                                <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
+                                            <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
                                             @enderror
                                         </div>
                                     </div>
@@ -258,7 +252,7 @@
                                         <option value="0" class="text-dark">Inactive</option>
                                     </select>
                                     @error('menu_status')
-                                        <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
+                                    <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
                                     @enderror
                                 </div>
                             </div>
@@ -285,7 +279,7 @@ $('#meta_description').summernote({
     tabsize: 2,
     height: 300
 });
-</script>  
+</script>
 <!-- here this code end of the editer js -->
 <script>
 document.getElementById('texttype').addEventListener('change', function() {
@@ -297,38 +291,39 @@ document.getElementById('texttype').addEventListener('change', function() {
 </script>
 
 <script>
-     function updateMenuTypeOptions(selectedValue) {
-        // Get the second dropdown element
-        const menuTypeDropdown = document.getElementById("texttype");
+function updateMenuTypeOptions(selectedValue) {
+    // Get the second dropdown element
+    const menuTypeDropdown = document.getElementById("texttype");
 
-        // Enable all options by default
-        for (let i = 0; i < menuTypeDropdown.options.length; i++) {
-            menuTypeDropdown.options[i].disabled = false;
-        }
+    // Enable all options by default
+    for (let i = 0; i < menuTypeDropdown.options.length; i++) {
+        menuTypeDropdown.options[i].disabled = false;
+    }
 
-        // If "Header Menu" or "Bottom Menu" is selected
-        if (selectedValue === "1" || selectedValue === "2") {
-            // Disable "PDF file Upload" and "Website URL"
-            menuTypeDropdown.options[2].disabled = true; // PDF file Upload
-            menuTypeDropdown.options[3].disabled = true; // Website URL
+    // If "Header Menu" or "Bottom Menu" is selected
+    if (selectedValue === "1" || selectedValue === "2") {
+        // Disable "PDF file Upload" and "Website URL"
+        menuTypeDropdown.options[2].disabled = true; // PDF file Upload
+        menuTypeDropdown.options[3].disabled = true; // Website URL
 
-            // Reset the selection to "Select" if the currently selected option is disabled
-            if (menuTypeDropdown.value === "2" || menuTypeDropdown.value === "3") {
-                menuTypeDropdown.value = "";
-            }
+        // Reset the selection to "Select" if the currently selected option is disabled
+        if (menuTypeDropdown.value === "2" || menuTypeDropdown.value === "3") {
+            menuTypeDropdown.value = "";
         }
     }
-    function displayFileName() {
-        const fileInput = document.getElementById('file-upload');
-        const fileNameDiv = document.getElementById('file-name');
+}
 
-        if (fileInput.files && fileInput.files[0]) {
-            const fileName = fileInput.files[0].name;
-            fileNameDiv.textContent = 'Selected file: ' + fileName;
-            fileNameDiv.style.display = 'block'; // Show the file name
-        } else {
-            fileNameDiv.style.display = 'none'; // Hide if no file is selected
-        }
+function displayFileName() {
+    const fileInput = document.getElementById('file-upload');
+    const fileNameDiv = document.getElementById('file-name');
+
+    if (fileInput.files && fileInput.files[0]) {
+        const fileName = fileInput.files[0].name;
+        fileNameDiv.textContent = 'Selected file: ' + fileName;
+        fileNameDiv.style.display = 'block'; // Show the file name
+    } else {
+        fileNameDiv.style.display = 'none'; // Hide if no file is selected
     }
+}
 </script>
 @endsection
