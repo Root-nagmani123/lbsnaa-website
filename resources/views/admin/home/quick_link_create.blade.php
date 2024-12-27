@@ -44,7 +44,7 @@
                         </div>
 
                         <!-- Hidden Input Field -->
-                        <input type="hidden" name="text" id="hiddenContent">
+                        <!-- <input type="hidden" name="text" id="hiddenContent"> -->
 
                         <!-- Link Type -->
                         <div class="col-lg-6 mb-4">
