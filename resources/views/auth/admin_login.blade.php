@@ -24,7 +24,7 @@
                     @csrf
                     <div class="card bg-white border-0 rounded-10 mb-4" style="width: 500px;">
                         <div class="d-flex align-items-center gap-4 mb-3 justify-content-center border-bottom">
-                            <a href="#!">
+                            <a href="index.html">
                                 <img src="{{ asset('admin_assets/images/logo.png')}}" alt="logo" width="300"
                                     style="padding: 20px; text-align: center;" class="img-fluid">
                             </a>
@@ -56,7 +56,6 @@
             </div>
         </div>
     </div>
-
 
 
     <script src="{{ asset('admin_assets/js/bootstrap.bundle.min.js') }}"></script>
