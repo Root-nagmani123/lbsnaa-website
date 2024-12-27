@@ -310,14 +310,16 @@ public function souvenir(Request $request)
     if ($request->producttype) {
         $query->where('product_type', $request->producttype);
     }
+    $keywords = '';
     if ($request->keywords) {
+        $keywords = $request->keywords;
         $query->where('product_title', 'LIKE', '%' . $request->keywords . '%');
     }
 
     $souvenir = $query->select('id', 'product_title', 'product_price', 'contact_email_id', 'upload_image', 'product_description')->get();
 
     // Return to view
-    return view('user.pages.souvenir_list', compact('categories', 'souvenir'));
+    return view('user.pages.souvenir_list', compact('categories', 'souvenir','keywords'));
 }
 function rti_main_page(Request $request) {
     $slug = 'rti';

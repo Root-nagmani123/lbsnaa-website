@@ -15,8 +15,8 @@ $footer_links = DB::table('menus')->where('txtpostion',3)->where('menu_status',1
                     @foreach($footer_icons as $i => $footer_icon)
                     <div class="col d-flex justify-content-center align-items-center">
                         <div class="mb-3 mt-3">
-                            <img src="{{ asset('footer-images/' . $footer_icon->image) }}" alt="logo" class="img-fluid"
-                                style=" max-width: 150px; max-height: 60px; object-fit: contain;">
+                            <a href="{{ $footer_icon->link }}" target="_blank"><img src="{{ asset('footer-images/' . $footer_icon->image) }}" alt="{{ $footer_icon->title }}" title="{{ $footer_icon->title }}" class="img-fluid"
+                            style=" max-width: 150px; max-height: 60px; object-fit: contain;"></a>
                         </div>
                     </div>
                     @endforeach

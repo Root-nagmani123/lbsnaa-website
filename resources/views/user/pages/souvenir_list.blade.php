@@ -31,7 +31,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="Keywords">Keywords:</label>
-                            <input type="text" class="form-control" id="Keywords" name="keywords" value=""
+                            <input type="text" class="form-control" id="Keywords" name="keywords" value="{{$keywords}}"
                                 placeholder="Search Products">
                         </div>
                     </div>
@@ -70,7 +70,8 @@
         </form>
 
         <!-- Products Display -->
-        <div class="row gap-4">
+        <div class="row g-4">
+            @if(count($souvenir) > 0)
             @foreach ($souvenir as $product)
             <div class="col-sm-6 col-lg-4 d-flex">
                 <div class="card w-100 shadow-sm">
@@ -82,7 +83,7 @@
                             class="card-img-top img-fluid rounded" 
                             alt="{{ $product->product_title }}" 
                             style="height: 200px; object-fit: cover;">
-                        <p class="description mt-3 text-truncate">{{ Str::limit($product->product_description, 50, '...') }}</p>
+                        <p class="description mt-3 text-truncate"><?php echo (Str::limit($product->product_description, 50, '...'));?></p>
                         <p class="price fw-bold text-primary"><span>₹</span> {{ $product->product_price }}</p>
                         <p class="mt-auto small">
                             <span class="text-muted">For Purchase, kindly contact:</span><br>
@@ -92,6 +93,9 @@
                 </div>
             </div>
             @endforeach
+            @else
+            <div>No Result Found</div>
+            @endif
         </div>
     </div>
 </section>

@@ -483,6 +483,7 @@ Route::post('/admin/toggle-status', [MenuController::class, 'toggle_status'])->n
 
 // login wrok here mayank
 Route::get('/login', [LoginController::class, 'login'])->name('login');
+Route::get('/refresh_captcha',[LoginController::class, 'refreshCaptcha'])->name('refresh_captcha');
 Route::post('/admin/login', [LoginController::class, 'authenticate'])->name('admin.login');
 Route::post('/admin/logout', [LoginController::class, 'logout'])->name('admin.logout');
 

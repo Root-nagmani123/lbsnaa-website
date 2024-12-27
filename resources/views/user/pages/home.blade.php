@@ -43,27 +43,33 @@
 <!-- floating notification start -->
 <section class="py-2">
     <div class="container-fluid">
-        <div class="card" style="height:50px">
-            <div class="position-relative d-flex overflow-x-hidden align-items-center">
-                <!-- Latest Updates Button -->
-                <button class="btn btn-primary btn-sm me-2" id="basic-addon2" style="z-index: 999;">Latest
-                    Updates</button>
-                <!-- Marquee Section -->
-                <div id="marqueeWrapper" class="w-100 overflow-hidden">
-                    <div id="marqueeContainer" class="d-flex gap-3">
-                        @foreach($news_scrollers as $scroller)
-                        <a href="{{ route('user.letest_updates', $scroller->menu_slug) }}" class="text-center w-100">
-                            <div class="py-3">
-                                <h6 class="mb-0">{{$scroller->menutitle}}</h6>
-                            </div>
-                        </a>
-                        @endforeach
+        <div class="position-relative d-flex overflow-hidden pt-4 gap-3">
+            <button class="btn btn-primary" id="basic-addon2" style="z-index: 1;">Latest Updates</button>
+            <div class="animate-marquee d-flex gap-3"> 
+            @foreach($news_scrollers as $scroller)
+                @if(!empty($scroller->texttype == 3))
+                    <a href="{{ $scroller->web_site_target == '2' ? (str_starts_with($scroller->website_url, 'http') ? $scroller->website_url : 'http://' . $scroller->website_url) : url($scroller->website_url) }}"
+                        target="_blank" class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border marquee-item text-decoration-none text-primary">
+                        <div class="p-3">
+                            <span class="text-gray-800">{{ $scroller->menutitle }}</span>
+                        </div>
+                    </a>
+                @elseif(!empty($scroller->texttype == 2))
+                    <a href="{{ asset($scroller->pdf_file) }}" 
+                        target="_blank" class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border marquee-item text-decoration-none text-primary">
+                        <div class="p-3">
+                            <span class="text-gray-800">{{ $scroller->menutitle }}</span>
+                        </div>
+                    </a>
+                @else
+                    <div class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border marquee-item">
+                        <div class="p-3">
+                            <span class="text-gray-800">{{ $scroller->menutitle }}</span>
+                        </div>
                     </div>
-                </div>
-                <!-- Play/Pause Button -->
-                <button class="btn btn-secondary btn-sm me-2" id="playPauseBtn" style="z-index: 999;">
-                    <i class="material-icons menu-icon">pause</i>
-                </button>
+                @endif
+                @endforeach
+
             </div>
         </div>
     </div>

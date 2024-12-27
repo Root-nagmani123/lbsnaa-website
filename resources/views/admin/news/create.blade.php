@@ -215,7 +215,6 @@ $('#description').summernote({
 });
 </script>  
 <!-- here this code end of the editer js -->
-
 <script>
     // JavaScript to allow only today's date and future dates
     document.addEventListener('DOMContentLoaded', function () {

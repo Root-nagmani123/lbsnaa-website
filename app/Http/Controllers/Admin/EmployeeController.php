@@ -24,7 +24,7 @@ class EmployeeController extends Controller
     public function organisation_chartCreate(Request $request)
     {
         $parent_id = !empty($request->query('parent_id')) ? $request->query('parent_id') : '';
-        $records = DB::table('faculty_members')->get();
+        $records = DB::table('faculty_members')->where('page_status',1)->get();
         return view('admin.manage_organisationchart.create', compact('records', 'parent_id'));
     }
 
