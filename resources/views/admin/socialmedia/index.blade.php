@@ -10,8 +10,17 @@
                 <div class="d-flex justify-content-between align-items-center border-bottom pb-20 mb-20">
                 <h4 class="fw-semibold fs-18 mb-0">Manage Social Media Links</h4>
             </div>
-            @if (session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
+            @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        @endif
+        @if(session('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ session('error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
         @endif
 
                 <form action="{{ route('socialmedia.store') }}" method="POST" enctype="multipart/form-data">
