@@ -70,10 +70,10 @@
         </form>
 
         <!-- Products Display -->
-        <div class="row g-4">
+        <div class="row gap-4">
             @foreach ($souvenir as $product)
             <div class="col-sm-6 col-lg-4 d-flex">
-                <div class="card h-100 shadow-sm">
+                <div class="card w-100 shadow-sm">
                     <div class="card-header text-truncate" style="border-bottom: 0;">
                         <h5 title="{{ $product->product_title }}">{{ Str::limit($product->product_title, 20, '...') }}</h5>
                     </div>

@@ -102,7 +102,7 @@
                         <div class="col-lg-6 d-flex gap-2">
                             <button class="btn btn-success text-white fw-semibold" type="submit">Submit</button>
                             <a href="{{ route('admin.quick_links.index') }}"
-                                class="btn btn-secondary text-white">Cancel</a>
+                                class="btn btn-secondary text-white">Back</a>
                         </div>
                     </div>
                 </form>

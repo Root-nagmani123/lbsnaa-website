@@ -18,16 +18,18 @@
     <link href="{{ asset('assets/libs/tiny-slider/dist/tiny-slider.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/libs/glightbox/dist/css/glightbox.min.css') }}">
     <link rel="icon" type="image/png" href="{{ asset('admin_assets/images/favicon.ico') }}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
 
     <title>Home | Lal Bahadur Shastri National Academy of Administration</title>
 </head>
 
 <body class="d-flex flex-column min-vh-100 bg-white">
 <nav class="navbar navbar-expand-lg shadow-none sticky-top">
-    <div class="container-fluid px-0 d-flex">
+    <div class="container px-0 d-flex">
         <!-- Logo -->
         <a href="{{ route('home') }}" class="navbar-brand me-auto">
-            <img src="{{ asset('admin_assets/images/logo.png') }}" alt="logo-icon" class="img-fluid" width="200">
+            <img src="{{ asset('admin_assets/images/logo.png') }}" alt="logo-icon" class="img-fluid" width="300">
         </a>
 
         <!-- Navbar Toggle Button (For mobile view) -->
@@ -83,7 +85,7 @@
                     ->where('parent_id', $submenu->id)
                     ->exists();
 
-                    $output .= '<li class="dropdown-submenu dropstart">';
+                    $output .= '<li class="dropdown-submenu dropend">';
                         $output .= '<a class="dropdown-item ' . ($hasChildren ? 'dropdown-toggle' : '') . '"
                             href="' . route('user.navigationpagesbyslug', $submenu->menu_slug) . '" ' . 
                         ($hasChildren ? ' data-bs-toggle="dropdown" aria-haspopup="true"
@@ -106,7 +108,7 @@
                     $categoryTree = buildCategoryTree($subcategories);
 
                     foreach ($categoryTree as $category) {
-                    $output .= '<li class="dropdown-submenu dropstart">';
+                    $output .= '<li class="dropdown-submenu dropend">';
                         $output .= '<a class="dropdown-item dropdown-toggle"
                             href="' . route('user.courseslug', $category['category']->slug) . '"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' . 
