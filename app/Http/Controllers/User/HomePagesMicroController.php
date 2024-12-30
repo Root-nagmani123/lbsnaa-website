@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use DOMDocument;
 use Carbon\Carbon;
 class HomePagesMicroController extends Controller
-{
+{ 
 
 
     public function media_gallery()

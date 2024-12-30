@@ -123,6 +123,47 @@ if (!function_exists('getMenuPosition')) {
 //     }
 // }
 
+// if (!function_exists('renderMicroMenuItems')) {
+//     function renderMicroMenuItems($parentId) {
+//         $submenus = DB::table('micromenus')
+//             ->where('menu_status', 1)
+//             // ->where('is_deleted', 0)
+//             ->where('parent_id', $parentId)
+//             ->get();
+//         // Debugging output to check submenus
+//         if ($submenus->isEmpty()) {
+//             return ''; // No submenus found, return empty
+//         }
+
+//         $output = '<ul class="dropdown-menu dropdown-menu-arrow dropdown-menu-end">';
+//         foreach ($submenus as $submenu) {
+//             // print_r($submenu);die;
+//             $hasChildren = DB::table('micromenus')
+//                 ->where('menu_status', 1)
+//                 ->where('is_deleted', 0)
+//                 ->where('parent_id', $submenu->id) 
+//                 ->exists();
+
+//             $output .= '<li class="nav-item ' . ($hasChildren ? 'dropdown' : '') . '">';
+//             $output .=
+//                 '<a class="nav-link ' . ($hasChildren ? 'dropdown-toggle' : '') . '"
+//                     href="' . ($submenu->menutitle == 'Research Center' ? '#' : route('user.navigationmenubyslug', $submenu->menu_slug)) . '" ' .
+//                 ($hasChildren ? ' data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"' : '') . '>' . 
+//                 $submenu->menutitle . '</a>';
+
+//             // Recursive call for child menus
+//             if ($hasChildren) {
+//                 $output .= renderMicroMenuItems($submenu->id);
+//             }
+
+//             $output .= '</li>';
+//         }
+//         $output .= '</ul>';
+
+//         return $output;
+//     }
+// }
+
 if (!function_exists('renderMicroMenuItems')) {
     function renderMicroMenuItems($parentId) {
         $submenus = DB::table('micromenus')
@@ -162,6 +203,8 @@ if (!function_exists('renderMicroMenuItems')) {
         return $output;
     }
 }
+
+
 if (!function_exists('permisson_navigation')) {
     function permisson_navigation() {
         // return Auth::user();

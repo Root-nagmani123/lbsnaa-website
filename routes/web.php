@@ -114,12 +114,8 @@ Route::POST('/feedback_store', [HomeFrontController::class, 'storeFeedback'])->n
 //micro 
 Route::get('/lbsnaa-sub', [HomeFrontmicroController::class,'index'])->name('user.micrositebyslug');
 Route::get('/lbsnaa-sub/micromenu/{slug}', [HomeFrontmicroController::class, 'get_navigation_pages'])->name('user.navigationmenubyslug');
- 
-
 //micro 
-Route::get('/lbsnaa-sub', [HomeFrontmicroController::class,'index'])->name('user.micrositebyslug');
-
-
+// Route::get('/lbsnaa-sub', [HomeFrontmicroController::class,'index'])->name('user.micrositebyslug');
 // Indrajeet Home page dynamic
 Route::get('/lbsnaa-sub/media_gallery', [HomePagesMicroController::class,'media_gallery'])->name('user.media_gallery');
 Route::get('/photo-galleries/filterGallery', [HomePagesMicroController::class, 'filterGallery'])->name('photoGalleries.filterGallery');
@@ -132,6 +128,12 @@ Route::get('/lbsnaa-sub/video-gallery', [HomePagesMicroController::class, 'video
 
 
 
+// 30/12/2024
+// For micro 
+
+
+
+// 30/12/2024
 
 
 
@@ -416,7 +418,7 @@ Route::post('/users/permissions/update', [UserManagementController::class, 'upda
     Route::put('/micro-manage-vacancy/{id}', [MicroManageVacancyController::class, 'update'])->name('micro_manage_vacancy.update');
     Route::get('/micro_manage_vacancy/{id}/edit', [MicroManageVacancyController::class, 'edit'])->name('micro_manage_vacancy.edit');
     // Route::delete('/admin/micro_manage_vacancy/{id}', [MicroManageVacancyController::class, 'destroy'])->name('micro_manage_vacancy.destroy');
-
+ 
 
     Route::resource('micro-video-gallery', MicroVideoGalleryController::class);
     Route::put('admin/micro-video-gallery/{id}', [MicroVideoGalleryController::class, 'update'])->name('micro-video-gallery.update');

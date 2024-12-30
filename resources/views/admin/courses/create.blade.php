@@ -157,7 +157,7 @@
                                     @enderror
                                 </div>
                             </div>
-                        </div> -->
+                        </div> --> 
 
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
@@ -382,7 +382,7 @@
                                 <label class="label" for="venue_id">Venue:</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="venue_id" id="venue_id" required>
+                                    <select class="form-select form-control ps-5 h-58" name="venue_id" id="venue_id">
                                         <option value="" class="text-dark" selected disabled>Select Venue</option>
                                         @foreach($manage_venues as $venues)
                                         <option value="{{ $venues->id }}" {{ old('venue_id') == $venues->id ? 'selected' : '' }} class="text-dark">
@@ -434,7 +434,7 @@
                                 <label class="label" for="page_status">Status:</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="page_status" id="page_status" required>
+                                    <select class="form-select form-control ps-5 h-58" name="page_status" id="page_status">
                                         <option value="" class="text-dark" selected disabled>Select</option>
                                         <option value="1" {{ old('page_status') == '1' ? 'selected' : '' }} class="text-dark">Active</option>
                                         <option value="0" {{ old('page_status') == '0' ? 'selected' : '' }} class="text-dark">Inactive</option>

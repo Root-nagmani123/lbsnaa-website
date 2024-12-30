@@ -238,7 +238,7 @@ public function footer_image_edit($id)
 // Update an existing footer image in the database
 public function footer_image_update(Request $request, $id)
 {
-    $request->validate([
+    $request->validate([ 
         'language' => 'required',
         'title' => 'required',
         'link' => 'required',

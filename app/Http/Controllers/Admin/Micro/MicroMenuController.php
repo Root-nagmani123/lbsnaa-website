@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 use App\Models\Admin\Micro\MicroManageAudit;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class MicroMenuController extends Controller
 {
@@ -131,6 +132,7 @@ class MicroMenuController extends Controller
         $menu->language = $request->language;
         $menu->research_centreid = $request->research_centre;
         $menu->menutitle = $request->menutitle;
+        $menu->menu_slug = Str::slug($request->menutitle, '-');
         $menu->texttype = $request->texttype;
         $menu->menucategory = $request->menucategory;
         $menu->parent_id = $request->menucategory;
@@ -207,6 +209,7 @@ class MicroMenuController extends Controller
         $menu->language = $request->txtlanguage;
         $menu->research_centreid = $request->research_centre;
         $menu->menutitle = $request->menutitle;
+        $menu->menu_slug = Str::slug($request->menutitle, '-');
         $menu->texttype = $request->texttype;
         $menu->menucategory = $request->menucategory;
         $menu->parent_id = $request->menucategory;
