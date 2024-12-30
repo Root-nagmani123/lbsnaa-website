@@ -24,7 +24,7 @@
                     @csrf
                     <div class="card bg-white border-0 rounded-10 mb-4" style="width: 500px;">
                         <div class="d-flex align-items-center gap-4 mb-3 justify-content-center border-bottom">
-                            <a href="index.html">
+                            <a href="#!">
                                 <img src="{{ asset('admin_assets/images/logo.png')}}" alt="logo" width="300"
                                     style="padding: 20px; text-align: center;" class="img-fluid">
                             </a>
@@ -45,7 +45,9 @@
                             </div>
                             
                             <!-- reCAPTCHA v2 checkbox -->
-                            <div class="g-recaptcha" data-sitekey="{{ env('RECAPTCHA_SITEKEY') }}"></div>
+                           <div class="form-group mb-4">
+                           <div class="g-recaptcha" data-sitekey="{{ env('RECAPTCHA_SITEKEY') }}"></div>
+                           </div>
                             
                             <button type="submit" class="btn btn-primary fs-16 fw-semibold text-dark heading-fornt py-2 py-md-3 px-4 text-white w-100">
                                 Login

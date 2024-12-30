@@ -38,43 +38,44 @@
 
         <!-- Search Form -->
         <div class="row mb-4">
-    <div class="col-12">
-        <form id="form2" action="{{ route('user.photogallery') }}" method="GET" class="row g-2">
-            <div class="col-md-3">
-                <label for="Keywords" class="form-label">Search:</label>
-                <input type="text" id="Keywords" name="keywords" value="{{ request('keywords') }}" 
-                    placeholder="Keyword Search" class="form-control">
+            <div class="col-12">
+                <form id="form2" action="{{ route('user.photogallery') }}" method="GET" class="row g-2">
+                    <div class="col-md-3">
+                        <label for="Keywords" class="form-label">Search:</label>
+                        <input type="text" id="Keywords" name="keywords" value="{{ request('keywords') }}"
+                            placeholder="Keyword Search" class="form-control">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="txtcategory" class="form-label">Category:</label>
+                        <select name="txtcategory" id="txtcategory" class="form-select">
+                            <option value="">Select</option>
+                            @foreach($media_cat as $media)
+                            <option value="{{ $media->id }}"
+                                {{ request('txtcategory') == $media->id ? 'selected' : '' }}>
+                                {{ $media->name }}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="year" class="form-label">Year:</label>
+                        <select name="year" id="year" class="form-select">
+                            <option value="">Select</option>
+                            @for($i = date('Y'); $i >= 2011; $i--)
+                            <option value="{{ $i }}" {{ request('year') == $i ? 'selected' : '' }}>
+                                {{ $i }}
+                            </option>
+                            @endfor
+                        </select>
+                    </div>
+                    <div class="col-md-3 d-flex align-items-end gap-2">
+                        <a href="{{ route('user.photogallery') }}"
+                            class="btn btn-outline-warning fw-bold w-100">Reset</a>
+                        <button type="submit" class="btn btn-outline-primary fw-bold w-100">Submit</button>
+                    </div>
+                </form>
             </div>
-            <div class="col-md-3">
-                <label for="txtcategory" class="form-label">Category:</label>
-                <select name="txtcategory" id="txtcategory" class="form-select">
-                    <option value="">Select</option>
-                    @foreach($media_cat as $media)
-                    <option value="{{ $media->id }}" 
-                        {{ request('txtcategory') == $media->id ? 'selected' : '' }}>
-                        {{ $media->name }}
-                    </option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="col-md-3">
-                <label for="year" class="form-label">Year:</label>
-                <select name="year" id="year" class="form-select">
-                    <option value="">Select</option>
-                    @for($i = date('Y'); $i >= 2011; $i--)
-                    <option value="{{ $i }}" {{ request('year') == $i ? 'selected' : '' }}>
-                        {{ $i }}
-                    </option>
-                    @endfor
-                </select>
-            </div>
-            <div class="col-md-3 d-flex align-items-end gap-2">
-                <a href="{{ route('user.photogallery') }}" class="btn btn-outline-warning fw-bold w-100">Reset</a>
-                <button type="submit" class="btn btn-outline-primary fw-bold w-100">Submit</button>
-            </div>
-        </form>
-    </div>
-</div>
+        </div>
 
 
         <!-- Gallery Images -->
@@ -83,12 +84,11 @@
             @foreach($media_cat as $media)
             <div class="col-sm-6 col-md-4 col-lg-3">
                 <div class="card h-100 shadow-sm">
-                <a href="{{ url('view_all_photogallery') }}?glrid={{ $media->id }}">
-    <img src="{{ $media->category_image ? url('uploads/category_images/' . $media->category_image) : url('path/to/default-image.jpg') }}" 
-         alt="{{ $media->name }}" 
-         class="card-img-top img-fluid rounded-top" 
-         style="height:150px; object-fit: cover;">
-</a>
+                    <a href="{{ url('view_all_photogallery') }}?glrid={{ $media->id }}">
+                        <img src="{{ $media->category_image ? url('uploads/category_images/' . $media->category_image) : url('path/to/default-image.jpg') }}"
+                            alt="{{ $media->name }}" class="card-img-top img-fluid rounded-top"
+                            style="height:150px; object-fit: cover;">
+                    </a>
 
                     <div class="card-body text-center">
                         <h5 class="card-title mb-0">{{ $media->name }}</h5>
