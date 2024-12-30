@@ -13,9 +13,6 @@
                         <li class="breadcrumb-item">
                             <a href="{{ route('home') }}" class="text-danger">Home</a>
                         </li>
-                        <li class="breadcrumb-item">
-                            <a href="#" class="text-danger">Academy News</a>
-                        </li>
                         <li class="breadcrumb-item active" aria-current="page">Academy News</li>
                     </ol>
                 </nav>
