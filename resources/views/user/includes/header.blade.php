@@ -197,8 +197,12 @@
                             <ul class="dropdown-menu dropdown-menu-arrow">
                                 @foreach($Research_Center_list as $reserch_c)
                                 <li>
-                                    <a class="dropdown-item"
+                                    <!-- <a class="dropdown-item"
                                         href="{{ url('lbsnaa-sub') }}?slug={{ $reserch_c->research_centre_slug }}">
+                                        {{ $reserch_c->research_centre_name }}
+                                    </a> -->
+                                    <a class="dropdown-item"
+                                        href="{{ url('lbsnaa-sub') }}/{{ $reserch_c->research_centre_slug }}">
                                         {{ $reserch_c->research_centre_name }}
                                     </a>
                                 </li>
