@@ -14,7 +14,7 @@
                         <li class="breadcrumb-item">
                             <a href="#" class="text-danger">Academy News</a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">Academy News</li>
+                        <li class="breadcrumb-item active" aria-current="page">Archive Academy News</li>
                     </ol>
                 </nav>
             </div>

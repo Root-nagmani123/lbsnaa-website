@@ -14,7 +14,10 @@
                             <li class="breadcrumb-item">
                                 <a href="{{ route('home') }}" style="color: #af2910;">Home</a>
                             </li>
-                            <li class="breadcrumb-item active" aria-current="page">Archieve Tenders</li>
+                            <li class="breadcrumb-item">
+                                <a href="{{ route('user.tenders') }}">Tender</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">Archive Tenders</li>
                         </ol>
                     </nav>
                 </div>
