@@ -50,34 +50,35 @@
                     style="z-index: 999;width: 200px;">Latest Updates</button>
                 <!-- Marquee Section -->
                 <div id="marqueeWrapper" class="w-100 overflow-hidden">
-                    <div id="marqueeContainer" class="d-flex gap-3 flex-nowrap">
+                    <div id="marqueeContainer" class="d-flex gap-3 flex-nowrap align-items-center">
                         @foreach($news_scrollers as $scroller)
                         @if(!empty($scroller->website_url))
                         <a href="{{ $scroller->website_url != '' ? (str_starts_with($scroller->website_url, 'http') ? $scroller->website_url : 'http://' . $scroller->website_url) : url($scroller->website_url) }}"
                             target="_blank"
-                            class="d-flex align-items-center justify-content-center text-center card-lift px-3"
-                            style="height: 30px; white-space: nowrap;">
+                            class="d-inline-flex align-items-center justify-content-center text-center card-lift px-3 rounded border shadow-sm"
+                            style="height: 30px; white-space: nowrap; background-color: #f8f9fa;">
                             <span class="text-gray-800">{{ $scroller->menutitle }}</span>
                         </a>
                         @elseif(!empty($scroller->pdf_file))
                         <a href="{{ asset($scroller->pdf_file) }}" target="_blank"
-                            class="d-flex align-items-center justify-content-center text-center card-lift px-3"
-                            style="height: 30px; white-space: nowrap;">
+                            class="d-inline-flex align-items-center justify-content-center text-center card-lift px-3 rounded border shadow-sm"
+                            style="height: 30px; white-space: nowrap; background-color: #f8f9fa;">
                             <span class="text-gray-800">{{ $scroller->menutitle }}</span>
                         </a>
                         @else
-                        <a href="{{ route('user.letest_updates', $scroller->menu_slug) }}" class="d-flex align-items-center justify-content-center bg-white text-center shadow-sm text-wrap rounded-4 border card-lift px-3"
-                            style="height: 30px; white-space: nowrap;">
+                        <a href="{{ route('user.letest_updates', $scroller->menu_slug) }}"
+                            class="d-inline-flex align-items-center justify-content-center text-center card-lift px-3 rounded border shadow-sm"
+                            style="height: 30px; white-space: nowrap; background-color: #f8f9fa;">
                             <span class="text-gray-800">{{ $scroller->menutitle }}</span>
                         </a>
                         @endif
                         @endforeach
                     </div>
                 </div>
-            <!-- Play/Pause Button -->
-            <button class="btn btn-secondary btn-sm me-2 rounded" id="playPauseBtn" style="z-index: 999;">
-                <i class="material-icons menu-icon">pause</i>
-            </button>
+                <!-- Play/Pause Button -->
+                <button class="btn btn-secondary btn-sm me-2 rounded" id="playPauseBtn" style="z-index: 999;">
+                    <i class="material-icons menu-icon">pause</i>
+                </button>
             </div>
 
         </div>
