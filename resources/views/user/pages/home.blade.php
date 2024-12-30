@@ -52,6 +52,7 @@
                 <div id="marqueeWrapper" class="w-100 overflow-hidden">
                     <div id="marqueeContainer" class="d-flex gap-3 flex-nowrap align-items-center">
                         @foreach($news_scrollers as $scroller)
+<<<<<<< HEAD
                         @if(!empty($scroller->website_url))
                         <a href="{{ $scroller->website_url != '' ? (str_starts_with($scroller->website_url, 'http') ? $scroller->website_url : 'http://' . $scroller->website_url) : url($scroller->website_url) }}"
                             target="_blank"
@@ -73,6 +74,32 @@
                         </a>
                         @endif
                         @endforeach
+=======
+    @if(!empty($scroller->website_url))
+        <a href="{{ $scroller->website_url != '' ? (str_starts_with($scroller->website_url, 'http') ? $scroller->website_url : 'http://' . $scroller->website_url) : url($scroller->website_url) }}"
+            target="_blank"  class="text-center card-lift" style="width: 500px; max-width: 100%;">
+            <div class="p-3">
+                <span class="text-gray-800">{{ $scroller->menutitle }}</span>
+            </div>
+        </a>
+    @elseif(!empty($scroller->pdf_file))
+        <a href="{{ asset($scroller->pdf_file) }}" 
+            target="_blank"  class="text-center card-lift" style="width: 500px; max-width: 100%;">
+            <div class="p-3">
+                <span class="text-gray-800">{{ $scroller->menutitle }}</span>
+            </div>
+        </a>
+    @else
+    <a href="{{ route('user.letest_updates', $scroller->menu_slug) }}"
+                            class="text-center card-lift" style="width: 500px; max-width: 100%;">
+                            <div class="py-3 gap-3">
+                                <h6 class="mb-0">{{$scroller->menutitle}}</h6>
+                            </div>
+                        </a>
+    @endif
+@endforeach
+
+>>>>>>> 137e159f42c4e1d6889fc4b8da61d3f9eca8b562
                     </div>
                 </div>
                 <!-- Play/Pause Button -->
