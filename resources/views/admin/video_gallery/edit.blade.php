@@ -35,7 +35,13 @@
                             <span class="star">*</span>
                             <div class="form-group position-relative">
                                 <select name="category_name" id="category_name" class="form-control">
-                                    <option value="Publish" {{ $media->category_name }}>Publish</option>
+                                @foreach ($mediaCategories as $id => $name)
+
+                                        <option value="{{ $id }}" {{ old('media_categories', $gallery->media_gallery ?? '') == $id ? 'selected' : '' }}>
+                                            {{ $name }}
+                                            
+                                        </option>
+                                    @endforeach
                                 </select>
                                 @error('category_name')
                                     <div class="text-danger">{{ $message }}</div>

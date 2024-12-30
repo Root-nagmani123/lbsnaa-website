@@ -38,6 +38,7 @@ class ManagePhotoGalleryController extends Controller
     {
         $mediaCategories = DB::table('manage_media_categories')
             ->where('status', 1)
+            ->where('media_gallery', 'Photo Gallery')
             ->get(); // Retrieve records with status == 1
         return view('admin.manage_photo.create', compact('mediaCategories'));
     }

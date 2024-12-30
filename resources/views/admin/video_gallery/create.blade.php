@@ -40,13 +40,17 @@
                             <span class="star">*</span>
                             <div class="form-group position-relative">
                                 <select name="category_name" id="category_name" class="form-control">
-                                    <option value="">Select</option>
-                                    <option value="Publish" {{ old('category_name') == 'Publish' ? 'selected' : '' }}>Publish</option>
-                                </select>
+                                <option value="">Select Category</option>
+                                @foreach ($media as $category)
+                                        <option value="{{ $category->id }}" {{ old('category_name') == $category->id ? 'selected' : '' }}>
+                                            {{ $category->name }}
+                                        </option>
+                                        @endforeach
+                                        </select>
                                 @error('category_name')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
-                            </div>
+                            </div> 
                         </div>
                     </div>
 

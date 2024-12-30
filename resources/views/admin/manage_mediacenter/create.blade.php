@@ -75,11 +75,11 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
-                                <label class="label" for="audio_upload">Audio Upload (.mp4 only) :</label>
+                                <label class="label" for="audio_upload">Audio Upload (.mp3 only) :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="file" class="form-control text-dark ps-5 h-58" name="audio_upload"
-                                        id="audio_upload" accept=".mp4,.mp3"  value="{{ old('audio_upload') }}">
+                                        id="audio_upload" accept=".mp3"  value="{{ old('audio_upload') }}">
                                     @error('audio_upload')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror

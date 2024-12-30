@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Admin\ManageAudit;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ManageVideoController extends Controller
 {
@@ -21,7 +22,12 @@ class ManageVideoController extends Controller
     // Show the form for creating a new media
     public function create()
     {
-        return view('admin.video_gallery.create');
+        $media = DB::table('manage_media_categories')
+        ->where('status', 1)
+        ->where('media_gallery', 'Video Gallery')
+        ->get(); 
+        // print_r($media);die;
+        return view('admin.video_gallery.create',compact('media'));
     }
 
     // // Store the newly created media
@@ -105,8 +111,13 @@ class ManageVideoController extends Controller
     // Show the form for editing the specified media
     public function edit($id)
     {
+        $mediaCategories = DB::table('manage_media_categories')
+        ->where('status', 1)
+        ->where('media_gallery', 'Video Gallery')
+        ->get();
+        // print_r($mediaCategories);die; 
         $media = ManageVideoCenter::findOrFail($id);
-        return view('admin.video_gallery.edit', compact('media'));
+        return view('admin.video_gallery.edit', compact('media','mediaCategories'));
     }
 
     // Update the specified media in the database
