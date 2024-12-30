@@ -8,7 +8,25 @@ if (!function_exists('renderMenu')) {
         $output .= '<td>' . $indent . htmlspecialchars($menu->menutitle) . '</td>';
         $output .= '<td>' . ($menu->parent_id ? htmlspecialchars(\App\Models\Admin\Menu::find($menu->parent_id)->menutitle) : 'Root Category') . '</td>';
         $output .= '<td>' . getMenuPosition($menu->txtpostion) . '</td>';
-        $output .= '<td class="gap-3"><a href="' . route('admin.menus.edit', $menu->id) . '" class="btn bg-success text-white btn-sm">Edit</a><a href="' . route('admin.menus.delete', $menu->id) . '" class="btn btn-sm btn-primary text-white">Delete</a></td>';
+        $output .= '<td>
+                <div class="d-flex justify-content-center align-items-center gap-2">
+                    <a href="' . route('admin.menus.edit', $menu->id) . '" 
+                        class="btn btn-success text-white btn-sm">
+                        Edit
+                    </a>
+                    <form action="' . route('admin.menus.delete', $menu->id) . '" 
+                          method="POST" 
+                          class="m-0">
+                        ' . csrf_field() . '
+                        ' . method_field('DELETE') . '
+                        <button type="submit" class="btn btn-primary text-white btn-sm" 
+                                onclick="return confirm(\'Are you sure you want to delete?\')">
+                            Delete
+                        </button>
+                    </form>
+                </div>
+            </td>';
+
         $output .= '<td><div class="form-check form-switch">
         <input class="form-check-input status-toggle" type="checkbox" role="switch" data-table="menus" 
         data-column="menu_status" data-id="' . $menu->id . '" ' . 
@@ -39,7 +57,24 @@ if (!function_exists('renderMicroMenu')) {
         $output .= '<td>' . ($menu->parent_id ? htmlspecialchars(\App\Models\Admin\Micro\MicroMenu::find($menu->parent_id)->menutitle) : 'Root Category') . '</td>';
         $output .= '<td>' . getMenuType($menu->texttype) . '</td>';
         $output .= '<td>' . getMenuPosition($menu->txtpostion) . '</td>';
-        $output .= '<td class="gap-3"><a href="' . route('micromenus.edit', $menu->id) . '" class="btn bg-success text-white btn-sm">Edit</a> &nbsp;<a href="' . route('micromenu.delete', $menu->id) . '" class="btn btn-sm btn-primary text-white">Delete</a></td>';
+        $output .= '<td>
+        <div class="d-flex justify-content-center align-items-center gap-2">
+            <a href="' . route('micromenus.edit', $menu->id) . '" 
+                class="btn btn-success text-white btn-sm">
+                Edit
+            </a>
+            <form action="' . route('micromenu.delete', $menu->id) . '" 
+                  method="POST" 
+                  class="m-0">
+                ' . csrf_field() . '
+                ' . method_field('DELETE') . '
+                <button type="submit" class="btn btn-primary text-white btn-sm" 
+                        onclick="return confirm(\'Are you sure you want to delete?\')">
+                    Delete
+                </button>
+            </form>
+        </div>
+    </td>';
         $output .= '<td><div class="form-check form-switch">
             <input class="form-check-input status-toggle" type="checkbox" role="switch" data-table="micromenus" 
             data-column="menu_status" data-id="' . $menu->id . '" ' . ($menu->menu_status ? 'checked' : '') . '>
