@@ -63,8 +63,9 @@
                         </select>
                     </div>
                     <div class="col-md-3 d-flex align-items-end gap-2">
-                    <button id="btn2" type="reset" class="btn btn-outline-warning fw-bold w-100" onclick="pageLoad()">Reset</button>
-                    <input type="hidden" name="action" value="reset">
+                        <button id="btn2" type="reset" class="btn btn-outline-warning fw-bold w-100"
+                            onclick="pageLoad()">Reset</button>
+                        <input type="hidden" name="action" value="reset">
                         <button id="btn2" type="submit" class="btn btn-outline-primary fw-bold w-100">Submit</button>
                         <input type="hidden" name="action" value="submit">
                     </div>
@@ -80,7 +81,8 @@
                 <div class="card h-100 shadow-sm">
                     <a href="{{ url('view_all_photogallery') }}?glrid={{ $media->id }}">
                         <img src="https://www.lbsnaa.gov.in/upload/photogallery/media/65a53a922cd00A03A7707.JPG"
-                            alt="{{ $media->name }}" class="card-img-top img-fluid rounded-top" style="height:150px; object-fit: cover;">
+                            alt="{{ $media->name }}" class="card-img-top img-fluid rounded-top"
+                            style="height:150px; object-fit: cover;">
                     </a>
                     <div class="card-body text-center">
                         <h5 class="card-title mb-0">{{ $media->name }}</h5>

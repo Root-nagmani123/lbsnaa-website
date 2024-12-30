@@ -59,11 +59,12 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-3 d-flex align-items-end">
-                        <div class="form-group w-100">
-                            <button type="submit" name="submit" class="btn btn-outline-primary w-100">Submit</button>
-                            <input type="hidden" name="action" value="submit">
-                        </div>
+                    <div class="col-md-3 d-flex align-items-end gap-2">
+                        <button id="btn2" type="reset" class="btn btn-outline-warning fw-bold w-100"
+                            onclick="pageLoad()">Reset</button>
+                        <input type="hidden" name="action" value="reset">
+                        <button id="btn2" type="submit" class="btn btn-outline-primary fw-bold w-100">Submit</button>
+                        <input type="hidden" name="action" value="submit">
                     </div>
                 </div>
             </div>
@@ -76,14 +77,15 @@
             <div class="col-sm-6 col-lg-4 d-flex">
                 <div class="card w-100 shadow-sm">
                     <div class="card-header text-truncate" style="border-bottom: 0;">
-                        <h5 title="{{ $product->product_title }}">{{ Str::limit($product->product_title, 20, '...') }}</h5>
+                        <h5 title="{{ $product->product_title }}">{{ Str::limit($product->product_title, 20, '...') }}
+                        </h5>
                     </div>
                     <div class="card-body d-flex flex-column">
-                        <img src="{{ asset('AcademySouvenir/images/' . $product->upload_image) }}" 
-                            class="card-img-top img-fluid rounded" 
-                            alt="{{ $product->product_title }}" 
+                        <img src="{{ asset('AcademySouvenir/images/' . $product->upload_image) }}"
+                            class="card-img-top img-fluid rounded" alt="{{ $product->product_title }}"
                             style="height: 200px; object-fit: cover;">
-                        <p class="description mt-3 text-truncate"><?php echo (Str::limit($product->product_description, 50, '...'));?></p>
+                        <p class="description mt-3 text-truncate">
+                            <?php echo (Str::limit($product->product_description, 50, '...'));?></p>
                         <p class="price fw-bold text-primary"><span>₹</span> {{ $product->product_price }}</p>
                         <p class="mt-auto small">
                             <span class="text-muted">For Purchase, kindly contact:</span><br>

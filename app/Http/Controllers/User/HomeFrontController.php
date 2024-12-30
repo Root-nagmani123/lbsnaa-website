@@ -305,7 +305,7 @@ public function get_course_details_pages(Request $request, $slug)
 public function souvenir(Request $request)
 {
     // Fetch categories for the filter
-    $categories = DB::table('souvenircategory')->select('id', 'category_name')->get();
+    $categories = DB::table('souvenircategory')->select('id', 'category_name')->where('status', '1')->get();
 
     // Fetch products based on filters
     $query = DB::table('academy_souvenirs');
@@ -321,7 +321,7 @@ public function souvenir(Request $request)
         $query->where('product_title', 'LIKE', '%' . $request->keywords . '%');
     }
 
-    $souvenir = $query->select('id', 'product_title', 'product_price', 'contact_email_id', 'upload_image', 'product_description')->get();
+    $souvenir = $query->select('id', 'product_title', 'product_price', 'contact_email_id', 'upload_image', 'product_description')->where('product_status', '1')->get();
 
     // Return to view
     return view('user.pages.souvenir_list', compact('categories', 'souvenir','keywords'));
