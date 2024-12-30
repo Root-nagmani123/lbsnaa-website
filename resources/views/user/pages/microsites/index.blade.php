@@ -115,18 +115,28 @@ height: 300px; background-size: content; background-position: center; border-rad
 
 <section class="py-6">
     <div class="container">
-        <div class="row">
+        <div class="row"> 
             <div class="col-8">
                 <div>
+                @foreach($research_centres as $research_centre)
                     <h4 class="fw-bold text-primary">
+                        {{ $research_centre->research_centre_name }}
+                    </h4>
+
+                    <p class="mb-0" style="text-align: left;">
+                        {{ strip_tags($research_centre->description) }}
+                    </p>
+                @endforeach
+
+                    <!-- <h4 class="fw-bold text-primary">
                         The Ministry of Rural Development and Planning Commission assigned following objectives to B. N.
                         Yugandhar Centre for Rural Studies:
                     </h4>
                     <p class="mb-0" style="text-align: left;">Preparation and Canvassing of questionnaires on Tenancy,
                         Land Ceiling, Land Records, Land Consolidation, Government Waste Land, Homelessness, Rural
                         Development, including Poverty Alleviation Programmes and generation of empirical data on all
-                        these programmes by the IAS Officer Trainees during their district training.</p>
-                    <p class="mb-0 mt-2" style="text-align: left;">Preparation and Canvassing of questionnaires on
+                        these programmes by the IAS Officer Trainees during their district training.</p> -->
+                    <!-- <p class="mb-0 mt-2" style="text-align: left;">Preparation and Canvassing of questionnaires on
                         Tenancy, Land Ceiling, Land Records, Land Consolidation, Government Waste Land, Homelessness,
                         Rural Development, including Poverty Alleviation Programmes and generation of empirical data on
                         all these programmes by the IAS Officer Trainees during their district training.</p>
@@ -137,7 +147,9 @@ height: 300px; background-size: content; background-position: center; border-rad
                     <p class="mb-0 mt-2" style="text-align: left;">Preparation and Canvassing of questionnaires on
                         Tenancy, Land Ceiling, Land Records, Land Consolidation, Government Waste Land, Homelessness,
                         Rural Development, including Poverty Alleviation Programmes and generation of empirical data on
-                        all these programmes by the IAS Officer Trainees during their district training.</p>
+                        all these programmes by the IAS Officer Trainees during their district training.</p> -->
+
+                
                 </div>
 
                 <div class="container">

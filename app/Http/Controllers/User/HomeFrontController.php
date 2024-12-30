@@ -9,7 +9,7 @@ class HomeFrontController extends Controller
 {
     public function index()
     {
-        $today = date('Y-m-d');
+        $today = date('Y-m-d'); 
         $sliders =  DB::table('sliders')->where('status',1)->where('is_deleted',0)->get();
         $news =  DB::table('news')->where('status',1)->where('start_date', '<=', $today)
         ->where('end_date', '>=', $today)->get();
