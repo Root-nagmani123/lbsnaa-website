@@ -63,13 +63,21 @@
                             <td>{{ $state->state_name }}</td>
                             <td>{{ $state->state_name_hindi  }}</td>
                             <td>
-                                <a href="{{ route('state.edit', $state->id) }}"
-                                    class="btn btn-success text-white btn-sm">Edit</a>
-                                <form action="{{ route('state.destroy', $state->id) }}" method="POST"
-                                    style="display:inline;">
-                                    @csrf
-                                    <button type="submit" class="btn btn-primary text-white btn-sm" onclick="return confirm('Are you sure you want to delete?')">Delete</button>
-                                </form>
+                                <div class="d-flex justify-content-start align-items-start gap-2">
+                                    <a href="{{ route('state.edit', $state->id) }}"
+                                        class="btn btn-success text-white btn-sm">
+                                        Edit
+                                    </a>
+                                    <form action="{{ route('state.destroy', $state->id) }}" method="POST"
+                                        class="m-0">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-primary text-white btn-sm"
+                                            onclick="return confirm('Are you sure you want to delete?')">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                             <td>
                                 <div class="form-check form-switch">

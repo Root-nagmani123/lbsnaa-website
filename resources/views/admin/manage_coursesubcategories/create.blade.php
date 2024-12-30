@@ -89,7 +89,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <select class="form-select form-control ps-5 h-58" name="parent_id" id="parent_id">
-                                        <option value="0">It is Root Category</option>
+                                        <option value="" selected>It is Root Category</option>
                                         {!! buildCategoryOptions($subcategories) !!}
                                     </select>
                                     @error('parent_id')

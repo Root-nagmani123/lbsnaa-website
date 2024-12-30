@@ -62,15 +62,21 @@
                             <td>{{ $links->txtename }}</td>
                             <td>{{ $links->language == 1 ? 'English' : 'Hindi' }}</td>
                             <td>
-                                <a href="{{ route('microquicklinks.edit', $links->id) }}"
-                                    class="btn btn-success text-white fw-semibold btn-sm">Edit</a>
-                                <form action="{{ route('microquicklinks.destroy', $links->id) }}" method="POST"
-                                    style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-primary text-white fw-semibold btn-sm"
-                                        onclick="return confirm('Are you sure you want to delete this link ?')">Delete</button>
-                                </form>
+                                <div class="d-flex justify-content-start align-items-start gap-2">
+                                    <a href="{{ route('microquicklinks.edit', $links->id) }}"
+                                        class="btn btn-success text-white btn-sm">
+                                        Edit
+                                    </a>
+                                    <form action="{{ route('microquicklinks.destroy', $links->id) }}" method="POST"
+                                        class="m-0">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-primary text-white btn-sm"
+                                            onclick="return confirm('Are you sure you want to delete?')">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                             <td>
                                 <div class="form-check form-switch">

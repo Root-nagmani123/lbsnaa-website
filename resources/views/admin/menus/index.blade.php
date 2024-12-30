@@ -19,41 +19,45 @@
 </div>
 <div class="card bg-white border-0 rounded-10 mb-4">
     <div class="card-body p-4">
-        <div class="d-sm-flex text-center justify-content-between align-items-center border-bottom pb-20 mb-20">
-            <h4 class="fw-semibold fs-18 mb-sm-0">Menu List</h4>
-            
-            <a href="{{ route('admin.menus.create') }}">
-                <button class="border-0 btn btn-success py-2 px-3 px-sm-4 text-white fs-14 fw-semibold rounded-3">
-                    <span class="py-sm-1 d-block">
-                        <i class="ri-add-line text-white"></i>
+        <div class="row align-items-center justify-content-between border-bottom pb-3 mb-3">
+            <div class="col-12 col-sm-auto text-center text-sm-start mb-3 mb-sm-0">
+                <h4 class="fw-semibold fs-18 mb-0">Menu List</h4>
+            </div>
+            <div class="col-12 col-sm-auto text-center text-sm-end">
+                <a href="{{ route('admin.menus.create') }}">
+                    <button class="btn btn-success py-2 px-3 text-white fs-14 fw-semibold rounded-3">
+                        <i class="ri-add-line text-white me-2"></i>
                         <span>Add New Menu</span>
-                    </span>
-                </button>
-            </a>
+                    </button>
+                </a>
+            </div>
         </div>
+        
         @if(session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             {{ session('success') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         @endif
+
         @if(session('error'))
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
             {{ session('error') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         @endif
+        
         <div class="default-table-area members-list">
             <div class="table-responsive">
-                <table class="table align-middle" id="myTable">
+                <table class="table align-middle text-center" id="myTable">
                     <thead>
-                        <tr class="text-center">
-                            <th class="col">#</th>
-                            <th class="col">Menu Title</th>
-                            <th class="col">Parent Menu</th>
-                            <th class="col">Content Position</th>
-                            <th class="col">Action</th>
-                            <th class="col">Status</th>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Menu Title</th>
+                            <th scope="col">Parent Menu</th>
+                            <th scope="col">Content Position</th>
+                            <th scope="col">Action</th>
+                            <th scope="col">Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -66,6 +70,7 @@
         </div>
     </div>
 </div>
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 

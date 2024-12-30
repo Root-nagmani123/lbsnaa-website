@@ -94,15 +94,21 @@
                                 </button>
                             </td>
                             <td>
-                                <a href="{{ route('manage_tender.edit', $tender->id) }}"
-                                    class="btn btn-success text-white fw-semibold btn-sm">Edit</a>
-                                <form action="{{ route('manage_tender.destroy', $tender->id) }}" method="POST"
-                                    style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-primary text-white fw-semibold btn-sm"
-                                        onclick="return confirm('Are you sure you want to delete?')">Delete</button>
-                                </form>
+                                <div class="d-flex justify-content-start align-items-start gap-2">
+                                    <a href="{{ route('manage_tender.edit', $tender->id) }}"
+                                        class="btn btn-success text-white btn-sm">
+                                        Edit
+                                    </a>
+                                    <form action="{{ route('manage_tender.destroy', $tender->id) }}" method="POST"
+                                        class="m-0">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-primary text-white btn-sm"
+                                            onclick="return confirm('Are you sure you want to delete?')">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                             <td>
                                 <div class="form-check form-switch">
