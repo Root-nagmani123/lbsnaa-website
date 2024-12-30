@@ -59,10 +59,15 @@ class ManageOrganizationController extends Controller
             'name' => 'required|string|max:255',
             'email' => [
                 'required',
-                'email',
-                'unique:faculty_members,email',
-                'regex:/^[a-zA-Z][a-zA-Z0-9._%+-]*@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/', // Regex to prevent invalid starting characters
+                'email:rfc,dns',
+                'unique:staff_members,email',
+                function ($attribute, $value, $fail) {
+                    if (preg_match('/^[\.\,\/\!\@\#\$\%\^\~]/', $value)) {
+                        $fail("The {$attribute} must not start with special characters.");
+                    }
+                },
             ],
+
             'designation' => 'required|string|max:255',
             'page_status' => 'required|in:0,1',
         
@@ -224,16 +229,27 @@ class ManageOrganizationController extends Controller
         $validated = $request->validate([
             'language' => 'required|string|in:1,2', // Replace with your dropdown options
             'name' => 'required|string|max:255',
+            // 'email' => [
+            //     'required',
+            //     'email:rfc,dns',
+            //     'unique:staff_members,email',
+            //     function ($attribute, $value, $fail) {
+            //         if (preg_match('/^[\.\,\/\!\@\#\$\%\^\~\@\d]/', $value)) {
+            //             $fail("The {$attribute} must not start with special characters or numbers.");
+            //         }
+            //     },
+            // ],
             'email' => [
                 'required',
                 'email:rfc,dns',
                 'unique:staff_members,email',
                 function ($attribute, $value, $fail) {
-                    if (preg_match('/^[\.\,\/\!\@\#\$\%\^\~\@\d]/', $value)) {
-                        $fail("The {$attribute} must not start with special characters or numbers.");
+                    if (preg_match('/^[\.\,\/\!\@\#\$\%\^\~]/', $value)) {
+                        $fail("The {$attribute} must not start with special characters.");
                     }
                 },
             ],
+
             'designation' => 'required|string|max:255',
             'mobile' => 'required|digits:10|unique:staff_members,mobile', // Ensure valid 10-digit mobile number
         
