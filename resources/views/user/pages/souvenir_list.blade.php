@@ -60,8 +60,8 @@
                         </div>
                     </div>
                     <div class="col-md-3 d-flex align-items-end gap-2">
-                        <button id="btn2" type="reset" class="btn btn-outline-warning fw-bold w-100"
-                            onclick="pageLoad()">Reset</button>
+                        <a href="{{ route('user.souvenir')}}" id="btn2" type="reset" class="btn btn-outline-warning fw-bold w-100"
+                           >Reset</a>
                         <input type="hidden" name="action" value="reset">
                         <button id="btn2" type="submit" class="btn btn-outline-primary fw-bold w-100">Submit</button>
                         <input type="hidden" name="action" value="submit">

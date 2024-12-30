@@ -187,12 +187,12 @@
                                                 {{ $menu->txtpostion == 2 ? 'selected' : '' }}>Bottom Menu</option> -->
                                             <option value="3" class="text-dark"
                                                 {{ $menu->txtpostion == 3 ? 'selected' : '' }}>Footer Menu</option>
-                                            <!-- <option value="4" class="text-dark"
+                                            <option value="4" class="text-dark"
                                                 {{ $menu->txtpostion == 4 ? 'selected' : '' }}>Director Message Menu
                                             </option>
                                             <option value="5" class="text-dark"
                                                 {{ $menu->txtpostion == 5 ? 'selected' : '' }}>Life Academy Menu
-                                            </option> -->
+                                            </option>
                                             <option value="6" class="text-dark"
                                                 {{ $menu->txtpostion == 6 ? 'selected' : '' }}>Other Pages</option>
                                             <option value="7" class="text-dark"

@@ -177,7 +177,8 @@ class HomeFrontController extends Controller
     }
     
     function tenders_archive(Request $request){
-        $today = date('Y-m-d');
+        date_default_timezone_set('Asia/Kolkata'); // Set timezone to Asia/Kolkata
+        $today = date('Y-m-d H:i:s');
     
         // Fetch the distinct years of news
         $currentYear = date('Y');
