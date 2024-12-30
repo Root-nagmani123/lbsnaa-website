@@ -27,13 +27,24 @@
         <!-- Media Gallery -->
         <div class="row g-3 py-lg-4 pt-4 justify-content-start">
             <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                <a href="#" class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift">
+                <a href="{{ route('user.audiogallery')}}" class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift">
                     <div class="p-3">
                         <img src="{{ asset('assets/images/audio-book.png') }}" alt="Academy Song"
                             class="img-fluid rounded-circle" style="max-width: 100px;">
                     </div>
                     <div class="mt-3">
                         <h4 class="text-center">Academy Song</h4>
+                    </div>
+                </a>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                <a href="{{ route('user.videogallery')}}" class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift">
+                    <div class="p-3">
+                        <img src="{{ asset('assets/images/audio-book.png') }}" alt="Academy Song"
+                            class="img-fluid rounded-circle" style="max-width: 100px;">
+                    </div>
+                    <div class="mt-3">
+                        <h4 class="text-center">Video Gallery</h4>
                     </div>
                 </a>
             </div>

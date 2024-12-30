@@ -105,6 +105,8 @@ Route::get('/rti/{slug}', [HomeFrontController::class, 'get_rti_page_details'])-
 Route::get('/souvenir', [HomeFrontController::class, 'souvenir'])->name('user.souvenir');
 Route::get('/feedback', [HomeFrontController::class, 'feedback'])->name('user.feedback');
 Route::get('/mediagallery', [HomeFrontController::class, 'mediagallery'])->name('user.mediagallery');
+Route::get('/audiogallery', [HomeFrontController::class, 'audiogallery'])->name('user.audiogallery');
+Route::get('/videogallery', [HomeFrontController::class, 'videogallery'])->name('user.videogallery');
 Route::get('/photogallery', [HomeFrontController::class, 'photogallery'])->name('user.photogallery');
 Route::get('/view_all_photogallery', [HomeFrontController::class, 'view_all_photogallery'])->name('user.view_all_photogallery');
 Route::get('/organization', [HomeFrontController::class, 'organization'])->name('user.organization');

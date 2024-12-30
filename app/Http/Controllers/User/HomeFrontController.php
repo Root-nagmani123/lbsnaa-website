@@ -478,6 +478,23 @@ function feedback(Request $request){
 function mediagallery(){
     return view('user.pages.mediagallery');
 }
+function audiogallery(){
+    $media_data = DB::table('manage_media_centers')
+    ->where('page_status',1)
+    ->get();
+
+    return view('user.pages.audiogallery',compact('media_data'));
+    
+}
+function videogallery(){
+    $media_data = DB::table('manage_video_centers')
+    ->leftjoin('manage_media_categories', 'manage_video_centers.category_name', '=', 'manage_media_categories.id')
+    ->where('page_status',1)
+    ->select('manage_video_centers.*','manage_media_categories.name')
+    ->get();
+
+    return view('user.pages.videogallery',compact('media_data'));
+}
 function photogallery(Request $request){
     $keywords = $request->input('keywords');
     $category = $request->input('txtcategory');

@@ -74,11 +74,12 @@
             </div>
         </a>
     @else
-        <div class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border marquee-item">
-            <div class="p-3">
-                <span class="text-gray-800">{{ $scroller->menutitle }}</span>
-            </div>
-        </div>
+    <a href="{{ route('user.letest_updates', $scroller->menu_slug) }}"
+                            class="text-center card-lift" style="width: 500px; max-width: 100%;">
+                            <div class="py-3 gap-3">
+                                <h6 class="mb-0">{{$scroller->menutitle}}</h6>
+                            </div>
+                        </a>
     @endif
 @endforeach
 
