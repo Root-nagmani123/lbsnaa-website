@@ -14,7 +14,7 @@
                             <li class="breadcrumb-item">
                                 <a href="{{ route('home') }}" style="color: #af2910;">Home</a>
                             </li>
-                            <li class="breadcrumb-item active" aria-current="page">Tenders</li>
+                            <li class="breadcrumb-item active" aria-current="page">Archieve Tenders</li>
                         </ol>
                     </nav>
                 </div>
@@ -22,29 +22,38 @@
         </div>
         <div class="contsearch">
             <form id="form2" method="GET" action="{{ route('user.tenders_archive') }}">
+                <div class="row mb-4">
+                    <div class="col-lg-4">
+                        <label class="form-label" for="Keywords">Search :</label>
+                            <input type="text" id="Keywords" name="keywords" value="{{ request('keywords') }}"
+                                placeholder="Keywords Search" class="form-control text-dark ps-5 h-58">
+                    </div>
+                    <div class="col-lg-4">
+                        <label for="year" class="form-label">Year</label>
+                            <select name="year" id="year" class="form-select ps-5 text-dark h-58">
+                                @foreach($years as $year)
+                                <option value="{{ $year }}" @if($year==request('year')) selected @endif>{{ $year }}
+                                </option>
+                                @endforeach
+                            </select>
+
+                    </div>
+                    <div class="col-lg-4 d-flex align-items-end gap-2">
+                    <button type="submit" class="btn btn-outline-primary fw-bold w-100">Submit</button>
+                        <a href="{{ route('user.tenders_archive') }}"
+                            class="btn btn-outline-warning fw-bold w-100">Reset</a>
+                        
+                    </div>
+                </div>
                 <fieldset>
-                    <label class="txt">Search :</label>
-                    <label for="keywords">
-                        <input type="text" id="Keywords" name="keywords" value="{{ request('keywords') }}"
-                            placeholder="Keywords Search">
-                    </label>
-
-                    <label for="year">
-                        <select name="year" id="year">
-                            @foreach($years as $year)
-                            <option value="{{ $year }}" @if($year==request('year')) selected @endif>{{ $year }}</option>
-                            @endforeach
-                        </select>
-                    </label>
 
 
 
-                    <label for="btn2">
-                        <input id="btn2" type="submit" value="Submit" class="btn">
-                    </label>
-                    <label for="btn-reset">
-                <a href="{{ route('user.tenders_archive') }}" id="btn-reset" class="btn btn-secondary">Reset</a>
-            </label>
+
+
+
+
+                    
                 </fieldset>
             </form>
         </div>

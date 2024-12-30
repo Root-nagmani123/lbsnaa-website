@@ -56,27 +56,33 @@
                         </tr>
                     </thead>
                     <tbody>
-                    @if($sections->isEmpty())
-                <tr>
-                    <td colspan="5" class="text-center">No Data Found</td>
-                </tr>
-            @else
+                        @if($sections->isEmpty())
+                        <tr>
+                            <td colspan="5" class="text-center">No Data Found</td>
+                        </tr>
+                        @else
                         @foreach($sections as $section)
                         <tr>
                             <td>{{ $loop->iteration }}</td> <!-- Display Index -->
                             <td>{{ $section->name }}</td>
-                <td>{{ $section->description }}</td>
-                <td>{{ $section->officer_Incharge }}</td>
-                            <td>
-                                <a href="{{ route('admin.section_category.edit', $section->id) }}"
-                                    class="btn bg-success text-white btn-sm">Edit</a>
-                                <form action="{{ route('admin.section_category.destroy', $section->id, $id) }}" method="POST"
-                                    style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-primary text-white"
-                                        onclick="return confirm('Are you sure?')">Delete</button>
-                                </form>
+                            <td>{{ $section->description }}</td>
+                            <td>{{ $section->officer_Incharge }}</td>
+                            <td class="text-center">
+                                <div class="d-flex justify-content-center align-items-center gap-2">
+                                    <a href="{{ route('admin.section_category.edit', $section->id) }}"
+                                        class="btn btn-success text-white btn-sm">
+                                        Edit
+                                    </a>
+                                    <form action="{{ route('admin.section_category.destroy', $section->id, $id) }}" method="POST"
+                                        class="m-0">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-primary text-white btn-sm"
+                                            onclick="return confirm('Are you sure you want to delete?')">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                             <td>
                                 <div class="form-check form-switch">

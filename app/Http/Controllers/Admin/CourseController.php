@@ -25,7 +25,7 @@ class CourseController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
+     * 
      * @return \Illuminate\Http\Response
      */
     public function create()
@@ -134,7 +134,7 @@ class CourseController extends Controller
 
         // Insert the validated data into the database
         DB::table('course')->insert($validatedData);
-
+ 
         // Log the action in the ManageAudit table
         ManageAudit::create([
             'Module_Name' => 'Course Module', // Static value
