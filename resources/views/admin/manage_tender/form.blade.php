@@ -79,7 +79,7 @@
             <div class="mt-2">
                 @if(pathinfo($manageTender->file, PATHINFO_EXTENSION) == 'pdf')
                 <label>Current File (PDF):</label><br>
-                <a href="{{ asset('storage/uploads/' . $manageTender->file) }}" target="_blank">View PDF</a>
+                <a href="{{ asset('storage/tender/' . $manageTender->file) }}" target="_blank">View PDF</a>
                 @endif
             </div>
             @endif

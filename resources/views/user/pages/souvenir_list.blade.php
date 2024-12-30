@@ -54,8 +54,8 @@
                             <label for="Products">Product Type:</label>
                             <select name="producttype" id="producttype" class="form-control">
                                 <option value="">Select</option>
-                                <option value="1" {{ request('producttype') == 1 ? 'selected' : '' }}>Sale</option>
-                                <option value="2" {{ request('producttype') == 2 ? 'selected' : '' }}>Download</option>
+                                <option value="Sale" {{ request('producttype') == 'Sale' ? 'selected' : '' }}>Sale</option>
+                                <option value="Download" {{ request('producttype') == 'Download' ? 'selected' : '' }}>Download</option>
                             </select>
                         </div>
                     </div>
@@ -86,11 +86,16 @@
                             style="height: 200px; object-fit: cover;">
                         <p class="description mt-3 text-truncate">
                             <?php echo (Str::limit($product->product_description, 50, '...'));?></p>
+                        @if ($product->product_type == 'Sale')    
                         <p class="price fw-bold text-primary"><span>₹</span> {{ $product->product_price }}</p>
                         <p class="mt-auto small">
                             <span class="text-muted">For Purchase, kindly contact:</span><br>
                             <a href="mailto:{{ $product->contact_email_id }}">{{ $product->contact_email_id }}</a>
                         </p>
+                        @elseif($product->product_type == 'Download')
+                        <a href="{{ asset('AcademySouvenir/documents/' . $product->document_upload) }}" target="_blank">Free Download</a>
+
+                        @endif
                     </div>
                 </div>
             </div>

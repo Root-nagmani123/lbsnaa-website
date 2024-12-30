@@ -63,7 +63,7 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td> <!-- Auto-incrementing index -->
                             <td>{{ $souvenir->product_title }}</td>
-                            <td>{{ $souvenir->product_category }}</td>
+                            <td>{{ $souvenir->category_name }}</td>
                             <td>{{ $souvenir->product_type }}</td>
                             <td>{{ $souvenir->language == 1 ? 'English' : 'Hindi' }}</td>
                             <td>

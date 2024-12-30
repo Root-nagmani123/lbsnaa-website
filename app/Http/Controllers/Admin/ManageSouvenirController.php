@@ -124,7 +124,11 @@ class ManageSouvenirController extends Controller
     public function indexAcademySouvenirs()
     {
         // Fetch all academy souvenirs
-        $souvenirs = DB::table('academy_souvenirs')->get();
+        $souvenirs = DB::table('academy_souvenirs')
+        ->leftJoin('souvenircategory as parent', 'academy_souvenirs.product_category', '=', 'parent.id')
+        ->where('product_status',1)
+        ->select('academy_souvenirs.*', 'parent.category_name')
+        ->get();
         return view('admin.souvenirModule.academy_souvenirs.index', compact('souvenirs'));
     }
 

@@ -162,13 +162,20 @@ class HomeFrontController extends Controller
         return view('user.pages.letest_updates', compact('nav_page'));
         
     }
-    function tenders(){
-        $today = date('Y-m-d');
-        $query = DB::table('manage_tenders')->where('status', 1)->where('publish_date', '<=', $today)
-        ->where('expiry_date', '>=', $today)->get();
-        return view('user.pages.tenders',compact('query'));
+    function tenders() {
         
+        date_default_timezone_set('Asia/Kolkata'); // Set timezone to Asia/Kolkata
+        $today = date('Y-m-d H:i:s'); // Include time for more precise filtering
+        // dd($today);
+        $query = DB::table('manage_tenders')
+            ->where('status', 1)
+            ->where('publish_date', '<=', $today)
+            ->where('expiry_date', '>=', $today)
+            ->get();
+    
+        return view('user.pages.tenders', compact('query'));
     }
+    
     function tenders_archive(Request $request){
         $today = date('Y-m-d');
     
@@ -372,7 +379,7 @@ public function souvenir(Request $request)
         $query->where('product_title', 'LIKE', '%' . $request->keywords . '%');
     }
 
-    $souvenir = $query->select('id', 'product_title', 'product_price', 'contact_email_id', 'upload_image', 'product_description')->where('product_status', '1')->get();
+    $souvenir = $query->select('id', 'product_title', 'product_price','product_type','document_upload', 'contact_email_id', 'upload_image', 'product_description')->where('product_status', '1')->get();
 
     // Return to view
     return view('user.pages.souvenir_list', compact('categories', 'souvenir','keywords'));
