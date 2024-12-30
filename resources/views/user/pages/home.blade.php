@@ -46,50 +46,42 @@
         <div>
             <div class="position-relative d-flex overflow-x-hidden align-items-center">
                 <!-- Latest Updates Button -->
-                <button class="btn btn-primary btn-sm me-2 rounded py-2" id="basic-addon2" style="z-index: 999;width: 200px;">Latest Updates</button>
+                <button class="btn btn-primary btn-sm me-2 rounded py-2" id="basic-addon2"
+                    style="z-index: 999;width: 200px;">Latest Updates</button>
                 <!-- Marquee Section -->
                 <div id="marqueeWrapper" class="w-100 overflow-hidden">
-                    <div id="marqueeContainer" class="d-flex gap-3">
-                        <!-- @foreach($news_scrollers as $scroller)
-                        <a href="{{ route('user.letest_updates', $scroller->menu_slug) }}"
-                            class="text-center card-lift" style="width: 500px; max-width: 100%;">
-                            <div class="py-3 gap-3">
-                                <h6 class="mb-0">{{$scroller->menutitle}}</h6>
-                            </div>
-                        </a>
-                        @endforeach -->
+                    <div id="marqueeContainer" class="d-flex gap-3 flex-nowrap">
                         @foreach($news_scrollers as $scroller)
-    @if(!empty($scroller->website_url))
-        <a href="{{ $scroller->website_url != '' ? (str_starts_with($scroller->website_url, 'http') ? $scroller->website_url : 'http://' . $scroller->website_url) : url($scroller->website_url) }}"
-            target="_blank"  class="text-center card-lift" style="width: 500px; max-width: 100%;">
-            <div class="p-3">
-                <span class="text-gray-800">{{ $scroller->menutitle }}</span>
-            </div>
-        </a>
-    @elseif(!empty($scroller->pdf_file))
-        <a href="{{ asset($scroller->pdf_file) }}" 
-            target="_blank"  class="text-center card-lift" style="width: 500px; max-width: 100%;">
-            <div class="p-3">
-                <span class="text-gray-800">{{ $scroller->menutitle }}</span>
-            </div>
-        </a>
-    @else
-        <div class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border marquee-item">
-            <div class="p-3">
-                <span class="text-gray-800">{{ $scroller->menutitle }}</span>
-            </div>
-        </div>
-    @endif
-@endforeach
-
+                        @if(!empty($scroller->website_url))
+                        <a href="{{ $scroller->website_url != '' ? (str_starts_with($scroller->website_url, 'http') ? $scroller->website_url : 'http://' . $scroller->website_url) : url($scroller->website_url) }}"
+                            target="_blank"
+                            class="d-flex align-items-center justify-content-center text-center card-lift px-3"
+                            style="height: 30px; white-space: nowrap;">
+                            <span class="text-gray-800">{{ $scroller->menutitle }}</span>
+                        </a>
+                        @elseif(!empty($scroller->pdf_file))
+                        <a href="{{ asset($scroller->pdf_file) }}" target="_blank"
+                            class="d-flex align-items-center justify-content-center text-center card-lift px-3"
+                            style="height: 30px; white-space: nowrap;">
+                            <span class="text-gray-800">{{ $scroller->menutitle }}</span>
+                        </a>
+                        @else
+                        <div class="d-flex align-items-center justify-content-center bg-white text-center shadow-sm text-wrap rounded-4 border card-lift px-3"
+                            style="height: 30px; white-space: nowrap;">
+                            <span class="text-gray-800">{{ $scroller->menutitle }}</span>
+                        </div>
+                        @endif
+                        @endforeach
                     </div>
                 </div>
-                <!-- Play/Pause Button -->
-                <button class="btn btn-secondary btn-sm me-2 rounded" id="playPauseBtn" style="z-index: 999;">
-                    <i class="material-icons menu-icon">pause</i>
-                </button>
+            <!-- Play/Pause Button -->
+            <button class="btn btn-secondary btn-sm me-2 rounded" id="playPauseBtn" style="z-index: 999;">
+                <i class="material-icons menu-icon">pause</i>
+            </button>
             </div>
+
         </div>
+    </div>
     </div>
 </section>
 <section class="py-3">
@@ -389,17 +381,17 @@
     </div>
 </section>
 <style>
-    #marqueeWrapper {
-        position: relative;
-        overflow: hidden;
-        white-space: nowrap;
-    }
+#marqueeWrapper {
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+}
 
-    #marqueeContainer {
-        display: inline-flex;
-        white-space: nowrap;
-        will-change: transform;
-    }
+#marqueeContainer {
+    display: inline-flex;
+    white-space: nowrap;
+    will-change: transform;
+}
 </style>
 
 @include('user.includes.footer')
