@@ -66,10 +66,10 @@
                             <span class="text-gray-800">{{ $scroller->menutitle }}</span>
                         </a>
                         @else
-                        <div class="d-flex align-items-center justify-content-center bg-white text-center shadow-sm text-wrap rounded-4 border card-lift px-3"
+                        <a href="{{ route('user.letest_updates', $scroller->menu_slug) }}" class="d-flex align-items-center justify-content-center bg-white text-center shadow-sm text-wrap rounded-4 border card-lift px-3"
                             style="height: 30px; white-space: nowrap;">
                             <span class="text-gray-800">{{ $scroller->menutitle }}</span>
-                        </div>
+                        </a>
                         @endif
                         @endforeach
                     </div>
