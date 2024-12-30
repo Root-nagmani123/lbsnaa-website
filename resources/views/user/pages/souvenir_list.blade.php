@@ -77,7 +77,7 @@
             <div class="col-sm-6 col-lg-4 d-flex">
                 <div class="card w-100 shadow-sm">
                     <div class="card-header text-truncate" style="border-bottom: 0;">
-                        <h5 title="{{ $product->product_title }}">{{ Str::limit($product->product_title, 20, '...') }}
+                        <h5 title="{{ $product->product_title }}">{{ Str::limit($product->product_title, 50, '...') }}
                         </h5>
                     </div>
                     <div class="card-body d-flex flex-column">

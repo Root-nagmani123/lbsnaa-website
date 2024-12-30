@@ -66,21 +66,22 @@
                             <td>{{ $exam->exam_code }}</td>
                             <td>{{ $exam->exam_description }}</td>
                             <td>{{ \Carbon\Carbon::parse($exam->transaction_date)->format('d-m-Y') }}</td>
-
-
-                            <!-- <td>{{ $exam->preliminary_flag == 1 ? 'Yes' : 'No' }}</td>
-                            <td>{{ $exam->main_flag == 1 ? 'Yes' : 'No' }}</td> -->
                             <td>
-                                <a href="{{ route('exam.edit', $exam->id) }}"
-                                    class="btn btn-success text-white fw-semibold btn-sm">Edit</a>
-
-                                <form action="{{ route('exam.destroy', $exam->id) }}" method="POST"
-                                    style="display:inline;">
-                                    @csrf
-                                    <button type="submit" class="btn btn-primary text-white fw-semibold btn-sm"
-                                        onclick="return confirm('Are you sure you want to delete?')">Delete</button>
-                                </form>
-
+                                <div class="d-flex justify-content-start align-items-start gap-2">
+                                    <a href="{{ route('exam.edit', $exam->id) }}"
+                                        class="btn btn-success text-white btn-sm">
+                                        Edit
+                                    </a>
+                                    <form action="{{ route('exam.destroy', $exam->id) }}" method="POST"
+                                        class="m-0">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-primary text-white btn-sm"
+                                            onclick="return confirm('Are you sure you want to delete?')">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                             <td>
                                 <div class="form-check form-switch">

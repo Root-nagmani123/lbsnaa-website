@@ -67,8 +67,7 @@
                             <td>{{ $souvenir->product_type }}</td>
                             <td>{{ $souvenir->language == 1 ? 'English' : 'Hindi' }}</td>
                             <td>
-                                <button type="button"
-                                    class="btn btn-outline-primary fw-semibold btn-sm view-slider"
+                                <button type="button" class="btn btn-outline-primary fw-semibold btn-sm view-slider"
                                     data-bs-toggle="modal" data-bs-target="#staticBackdrop"
                                     data-product_category="{{ $souvenir->product_category }}"
                                     data-product_title="{{ $souvenir->product_title }}"
@@ -84,17 +83,22 @@
                                     View
                                 </button>
                             </td>
-
                             <td>
-                                <a href="{{ route('academy_souvenirs.edit', $souvenir->id) }}"
-                                    class="btn bg-success text-white btn-sm">Edit</a>
-                                <form action="{{ route('academy_souvenirs.destroy', $souvenir->id) }}" method="POST"
-                                    style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-primary text-white"
-                                        onclick="return confirm('Are you sure?')">Delete</button>
-                                </form>
+                                <div class="d-flex justify-content-start align-items-start gap-2">
+                                    <a href="{{ route('academy_souvenirs.edit', $souvenir->id) }}"
+                                        class="btn btn-success text-white btn-sm">
+                                        Edit
+                                    </a>
+                                    <form action="{{ route('academy_souvenirs.destroy', $souvenir->id) }}" method="POST"
+                                        class="m-0">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-primary text-white btn-sm"
+                                            onclick="return confirm('Are you sure you want to delete?')">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                             <td>
                                 <div class="form-check form-switch">

@@ -60,21 +60,32 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $section->title }}</td>
-                            <td><a href="{{ route('admin.section_category.index', ['catid' => $section->id]) }}" class="">Click Here</a></td>
-                            <td>
-                                <a href="{{ route('sections.edit', $section->id) }}"
-                                    class="btn btn-success text-white btn-sm">Edit</a>
-                                <form action="{{ route('sections.destroy', $section->id) }}" method="POST"
-                                    style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-primary text-white btn-sm" onclick="return confirm('Are you sure you want to delete?')">Delete</button>
-                                </form>
+                            <td><a href="{{ route('admin.section_category.index', ['catid' => $section->id]) }}"
+                                    class="">Click Here</a></td>
+                            <td class="text-center">
+                                <div class="d-flex justify-content-center align-items-center gap-2">
+                                    <a href="{{ route('sections.edit', $section->id) }}"
+                                        class="btn btn-success text-white btn-sm">
+                                        Edit
+                                    </a>
+                                    <form action="{{ route('sections.destroy', $section->id) }}" method="POST"
+                                        class="m-0">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-primary text-white btn-sm"
+                                            onclick="return confirm('Are you sure you want to delete?')">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
-                            <td><div class="form-check form-switch">
-            <input class="form-check-input status-toggle" type="checkbox" role="switch"  data-table="sections" 
-            data-column="status" data-id="{{$section->id}}" {{$section->status ? 'checked' : ''}}>
-          </div></td>
+                            <td>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input status-toggle" type="checkbox" role="switch"
+                                        data-table="sections" data-column="status" data-id="{{$section->id}}"
+                                        {{$section->status ? 'checked' : ''}}>
+                                </div>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>

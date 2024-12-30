@@ -61,16 +61,22 @@
                             <td>{{ $loop->iteration }}</td> <!-- Auto-incrementing index -->
                             <td>{{ $district->district_name }}</td>
                             <td>{{ $district->district_name_hindi ?? 'N/A' }}</td>
-
                             <td>
-                                <a href="{{ route('district.edit', $district->id) }}"
-                                    class="btn btn-success text-white fw-semibold btn-sm">Edit</a>
-                                <form action="{{ route('district.destroy', $district->id) }}" method="POST"
-                                    style="display:inline;">
-                                    @csrf
-                                    <button type="submit" class="btn btn-primary text-white fw-semibold btn-sm"
-                                        onclick="return confirm('Are you sure you want to delete?')">Delete</button>
-                                </form>
+                                <div class="d-flex justify-content-start align-items-start gap-2">
+                                    <a href="{{ route('district.edit', $district->id) }}"
+                                        class="btn btn-success text-white btn-sm">
+                                        Edit
+                                    </a>
+                                    <form action="{{ route('district.destroy', $district->id) }}" method="POST"
+                                        class="m-0">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-primary text-white btn-sm"
+                                            onclick="return confirm('Are you sure you want to delete?')">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                             <td>
                                 <div class="form-check form-switch">

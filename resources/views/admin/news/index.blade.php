@@ -63,16 +63,13 @@
                             <td>{{ $item->title }}</td>
                             <td>{{ $item->language == 1 ? 'English' : 'Hindi' }}</td>
                             <td>
-                                <button type="button"
-                                    class="btn btn-outline-primary fw-semibold btn-sm view-slider"
+                                <button type="button" class="btn btn-outline-primary fw-semibold btn-sm view-slider"
                                     data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-                                    data-title="{{ $item->title }}"
-                                    data-meta_title="{{ $item->meta_title }}"
+                                    data-title="{{ $item->title }}" data-meta_title="{{ $item->meta_title }}"
                                     data-meta_keywords="{{ $item->meta_keywords }}"
                                     data-meta_description="{{ $item->meta_description }}"
                                     data-short_description="{{ $item->short_description }}"
-                                    data-start_date="{{ $item->start_date }}"
-                                    data-end_date="{{ $item->end_date }}"
+                                    data-start_date="{{ $item->start_date }}" data-end_date="{{ $item->end_date }}"
                                     data-main_image="{{ asset( $item->main_image) }}"
                                     data-multiple_images="{{ asset( $item->multiple_images) }}"
                                     data-language="{{ $item->language == 1 ? 'English' : 'Hindi' }}">
@@ -80,15 +77,21 @@
                                 </button>
                             </td>
                             <td>
-                                <a href="{{ route('admin.news.edit', $item->id) }}"
-                                    class="btn btn-success text-white fw-semibold btn-sm">Edit</a>
-                                <form action="{{ route('admin.news.destroy', $item->id) }}" method="POST"
-                                    style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-primary text-white fw-semibold btn-sm"
-                                        onclick="return confirm('Are you sure you want to delete this faculty member?')">Delete</button>
-                                </form>
+                                <div class="d-flex justify-content-start align-items-start gap-2">
+                                    <a href="{{ route('admin.news.edit', $item->id) }}"
+                                        class="btn btn-success text-white btn-sm">
+                                        Edit
+                                    </a>
+                                    <form action="{{ route('admin.news.destroy', $item->id) }}" method="POST"
+                                        class="m-0">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-primary text-white btn-sm"
+                                            onclick="return confirm('Are you sure you want to delete?')">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                             <td>
                                 <div class="form-check form-switch">
@@ -183,10 +186,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     const trimmedImage = image.trim(); // Trim any extra spaces
 
                     // Prepend base URL to the image path if it doesn't already contain it
-                    const imageUrl = trimmedImage.startsWith('http') ? trimmedImage : baseURL + trimmedImage;
-                    
+                    const imageUrl = trimmedImage.startsWith('http') ? trimmedImage :
+                        baseURL + trimmedImage;
+
                     // Create the HTML for the image
-                    imagesHTML += `<img src="${imageUrl}" alt="Image" style="max-width: 100px; margin: 5px; display: inline-block;">`;
+                    imagesHTML +=
+                        `<img src="${imageUrl}" alt="Image" style="max-width: 100px; margin: 5px; display: inline-block;">`;
                 });
             }
 
@@ -210,8 +215,3 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
-
-
-
-
-

@@ -61,13 +61,22 @@
                             <td>{{ $loop->iteration }}</td> <!-- Auto-incrementing index here -->
                             <td>{{ $founder->name }}</td>
                             <td>{{ $founder->language == 1 ? 'English' : 'Hindi' }}</td>
-                            <td>
-                                <a href="{{ route('founders.edit', $founder->id) }}" class="btn bg-success text-white btn-sm">Edit</a>
-                                <form action="{{ route('founders.destroy', $founder->id) }}" method="POST" style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-primary text-white btn-sm" onclick="return confirm('Are you sure you want to delete?')">Delete</button>
-                                </form>
+                            <td class="text-center">
+                                <div class="d-flex justify-content-center align-items-center gap-2">
+                                    <a href="{{ route('founders.edit', $founder->id) }}"
+                                        class="btn btn-success text-white btn-sm">
+                                        Edit
+                                    </a>
+                                    <form action="{{ route('founders.destroy', $founder->id) }}" method="POST"
+                                        class="m-0">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-primary text-white btn-sm"
+                                            onclick="return confirm('Are you sure you want to delete?')">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                             <td><div class="form-check form-switch">
                             <input class="form-check-input status-toggle" type="checkbox" role="switch"  data-table="manage_founders" 

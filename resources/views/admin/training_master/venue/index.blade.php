@@ -49,7 +49,7 @@
                         <tr class="text-center">
                             <th class="col">#</th> <!-- Index column for auto-incrementing -->
                             <th class="col">Venue Title</th>
-                            <th class="col">Venue Detail</th>                            
+                            <th class="col">Venue Detail</th>
                             <th class="col">Page Language</th>
                             <th class="col">Actions</th>
                             <th class="col">Status</th>
@@ -64,17 +64,22 @@
                             <td>{{ $venue->venue_title }}</td>
                             <td>{{ $venue->venue_detail }}</td>
                             <td>{{ $venue->page_language == 1 ? 'English' : 'Hindi' }}</td>
-                            
-                            <td>
-                                <a href="{{ route('venues.edit', $venue->id) }}"
-                                    class="btn bg-success text-white btn-sm">Edit</a>
-                                <form action="{{ route('venues.destroy', $venue->id) }}" method="POST"
-                                    style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-primary text-white"
-                                        onclick="return confirm('Are you sure you want to delete?')">Delete</button>
-                                </form>
+                            <td class="text-center">
+                                <div class="d-flex justify-content-center align-items-center gap-2">
+                                    <a href="{{ route('venues.edit', $venue->id) }}"
+                                        class="btn btn-success text-white btn-sm">
+                                        Edit
+                                    </a>
+                                    <form action="{{ route('venues.destroy', $venue->id) }}" method="POST"
+                                        class="m-0">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-primary text-white btn-sm"
+                                            onclick="return confirm('Are you sure you want to delete?')">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                             <td>
                                 <div class="form-check form-switch">

@@ -76,10 +76,8 @@
                             </td>
 
                             <td>
-                                <button type="button"
-                                    class="btn btn-outline-primary fw-semibold btn-sm view-slider"
+                                <button type="button" class="btn btn-outline-primary fw-semibold btn-sm view-slider"
                                     data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-
                                     data-category_name="{{ $video->category_name }}"
                                     data-audio_title_en="{{ $video->video_title_en }}"
                                     data-audio_title_hi="{{ $video->video_title_hi }}"
@@ -88,17 +86,22 @@
                                     View
                                 </button>
                             </td>
-
                             <td>
-                                <a href="{{ route('micro-video-gallery.edit', $video->id) }}"
-                                    class="btn bg-success text-white btn-sm">Edit</a>
-                                <form action="{{ route('micro-video-gallery.destroy', $video->id) }}" method="POST"
-                                    style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-primary text-white"
-                                    onclick="return confirm('Are you sure you want to delete?')">Delete</button>
-                                </form>
+                                <div class="d-flex justify-content-start align-items-start gap-2">
+                                    <a href="{{ route('micro-video-gallery.edit', $video->id) }}"
+                                        class="btn btn-success text-white btn-sm">
+                                        Edit
+                                    </a>
+                                    <form action="{{ route('micro-video-gallery.destroy', $video->id) }}" method="POST"
+                                        class="m-0">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-primary text-white btn-sm"
+                                            onclick="return confirm('Are you sure you want to delete?')">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                             <td>
                                 <div class="form-check form-switch">
@@ -161,9 +164,10 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const viewButtons = document.querySelectorAll('.view-slider');  // Select all buttons with class 'view-slider'
-    const modalTitle = document.getElementById('staticBackdropLabel');  // Modal title element
-    const modalBody = document.querySelector('.modal-body');  // Modal body element
+    const viewButtons = document.querySelectorAll(
+    '.view-slider'); // Select all buttons with class 'view-slider'
+    const modalTitle = document.getElementById('staticBackdropLabel'); // Modal title element
+    const modalBody = document.querySelector('.modal-body'); // Modal body element
 
     // Loop through each button
     viewButtons.forEach(button => {
@@ -172,13 +176,14 @@ document.addEventListener('DOMContentLoaded', function() {
             const category_name = this.dataset.category_name;
             const audio_title_en = this.dataset.audio_title_en;
             const audio_title_hi = this.dataset.audio_title_hi;
-            const video_upload = this.dataset.video_upload;  // This holds the relative file path of the uploaded video
+            const video_upload = this.dataset
+            .video_upload; // This holds the relative file path of the uploaded video
 
             // Form the correct URL to access the video file
             const videoUrl = `http://127.0.0.1:8000/storage/${video_upload}`;
 
             // Update modal content dynamically
-            modalTitle.textContent = 'Video Details';  // Set modal title
+            modalTitle.textContent = 'Video Details'; // Set modal title
             modalBody.innerHTML = `
                 <div>
                     <p><strong>Category Name:</strong> ${category_name}</p>
@@ -196,6 +201,3 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
-
-
-

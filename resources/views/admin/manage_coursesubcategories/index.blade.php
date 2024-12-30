@@ -22,7 +22,7 @@
         <div class="d-sm-flex text-center justify-content-between align-items-center border-bottom pb-20 mb-20">
             <h4 class="fw-semibold fs-18 mb-sm-0">Course Category/Sub Category</h4>
             <span>These Corses/subcourses are listed in Trainig Menu</span>
-            
+
             <a href="{{ route('subcategory.create') }}">
                 <button class="border-0 btn btn-success py-2 px-3 px-sm-4 text-white fs-14 fw-semibold rounded-3">
                     <span class="py-sm-1 d-block">
@@ -67,13 +67,21 @@
                             <!-- Display parent category name or "Root Category" if none -->
                             <td>{{ $cat->language == 1 ? 'English': 'Hindi'}}</td>
                             <td>
-                                <a href="{{ route('subcategory.edit', $cat->id) }}"
-                                    class="btn btn-success text-white btn-sm ">Edit</a>
-                                <form action="{{ route('subcategory.delete', $cat->id) }}" method="get"
-                                    style="display:inline;">
-                                    @csrf
-                                    <button type="submit" class="btn btn-primary text-white btn-sm" onclick="return confirm('Are you sure you want to delete?')">Delete</button>
-                                </form>
+                                <div class="d-flex justify-content-start align-items-start gap-2">
+                                    <a href="{{ route('subcategory.edit', $cat->id) }}"
+                                        class="btn btn-success text-white btn-sm">
+                                        Edit
+                                    </a>
+                                    <form action="{{ route('subcategory.delete', $cat->id) }}" method="POST"
+                                        class="m-0">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-primary text-white btn-sm"
+                                            onclick="return confirm('Are you sure you want to delete?')">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                             <td>
                                 <div class="form-check form-switch">

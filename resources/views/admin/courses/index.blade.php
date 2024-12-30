@@ -83,24 +83,22 @@
                                 </button>
                             </td>
                             <td>
-                                <div class="d-flex flex-column flex-sm-row gap-2">
+                                <div class="d-flex justify-content-start align-items-start gap-2">
                                     <a href="{{ route('admin.courses.edit', $course->id) }}"
-                                        class="btn bg-success text-white btn-sm w-auto d-flex align-items-center justify-content-center mb-2 mb-sm-0"
-                                        style="height: 36px;">Edit</a>
+                                        class="btn btn-success text-white btn-sm">
+                                        Edit
+                                    </a>
                                     <form action="{{ route('admin.courses.destroy', $course->id) }}" method="POST"
-                                        style="display:inline;">
+                                        class="m-0">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit"
-                                            class="btn btn-sm btn-primary text-white w-auto d-flex align-items-center justify-content-center"
-                                            style="height: 36px;"
-                                            onclick="return confirm('Are you sure?')">Delete</button>
+                                        <button type="submit" class="btn btn-primary text-white btn-sm"
+                                            onclick="return confirm('Are you sure you want to delete?')">
+                                            Delete
+                                        </button>
                                     </form>
                                 </div>
                             </td>
-
-
-
                             <td>
                                 <div class="form-check form-switch">
                                     <input class="form-check-input status-toggle" type="checkbox" role="switch"
