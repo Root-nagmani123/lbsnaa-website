@@ -129,6 +129,33 @@ class HomeFrontController extends Controller
         return view('user.pages.newsList', compact('news'));
         
     }
+    public function news_old_listing(Request $request) {
+        $today = date('Y-m-d');
+    
+        // Fetch the distinct years of news
+        $currentYear = date('Y');
+        $startingYear = 2010; // Change this to your desired starting year
+        $years = range($currentYear, $startingYear);
+    
+        // Build the query for news
+        $query = DB::table('news')
+            ->where('status', 1)
+            ->where('end_date', '<', $today);
+    
+        // Apply search filters if provided
+        if ($request->filled('keywords')) {
+            $query->where('title', 'like', '%' . $request->keywords . '%');
+        }
+        if ($request->filled('year')) {
+            $query->whereYear('start_date', $request->year);
+        }
+    
+        $news = $query->get();
+    
+        // Return view with news and years
+        return view('user.pages.old_news', compact('news', 'years'));
+    }
+    
     function letest_updates($slug){
         $nav_page=  DB::table('menus')->where('txtpostion',7)->where('is_deleted',0)->where('menu_status',1)->where('menu_slug',$slug)->first();
     
@@ -141,6 +168,30 @@ class HomeFrontController extends Controller
         ->where('expiry_date', '>=', $today)->get();
         return view('user.pages.tenders',compact('query'));
         
+    }
+    function tenders_archive(Request $request){
+        $today = date('Y-m-d');
+    
+        // Fetch the distinct years of news
+        $currentYear = date('Y');
+        $startingYear = 2010; // Change this to your desired starting year
+        $years = range($currentYear, $startingYear);
+    
+        // Build the query for news
+        $query = DB::table('manage_tenders')
+            ->where('status', 1)
+            ->where('expiry_date', '<', $today);
+    
+        // Apply search filters if provided
+        if ($request->filled('keywords')) {
+            $query->where('title', 'like', '%' . $request->keywords . '%');
+        }
+        if ($request->filled('year')) {
+            $query->whereYear('expiry_date', $request->year);
+        }
+    
+       $query = $query->get();
+          return view('user.pages.old_tenders',compact('query','years'));
     }
     function faculty(Request $request)
 {

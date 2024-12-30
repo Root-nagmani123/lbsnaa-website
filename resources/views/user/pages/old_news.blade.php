@@ -1,7 +1,5 @@
 @include('user.includes.header')
 
-@if(isset($news))
-
 <!-- Page Content -->
 <section class="py-4">
     <div class="container">
@@ -24,17 +22,35 @@
     </div>
 </section>
 
-<section class="container">
-    <div class="row mb-3">
-        <div class="col-md-9"></div>
-        <div class="col-md-3 text-end">
-            <a href="{{ route('user.news_old_listing') }}" class="btn btn-outline-primary fw-semibold btn-sm">Archive</a>
-        </div>
-    </div> 
-</section>
+<!-- Search Form -->
+<div class="contsearch">
+    <form id="form2" method="GET" action="{{ route('user.news_old_listing') }}">
+        <fieldset>
+            <label class="txt">Search by Day/Month/Year:</label>
+            <label for="keywords">
+                <input type="text" id="Keywords" name="keywords" value="{{ request('keywords') }}" placeholder="Search News">
+            </label>
 
+            <label for="year">
+    <select name="year" id="year" fdprocessedid="wgb9i">
+        @foreach($years as $year)
+            <option value="{{ $year }}">{{ $year }}</option>
+        @endforeach
+    </select>
+</label>
+
+
+            <label for="btn2">
+                <input id="btn2" type="submit" value="Submit" class="btn">
+            </label>
+        </fieldset>
+    </form>
+</div>
+
+<!-- News Section -->
 <section class="py-6">
     <div class="container">
+        @if($news->isNotEmpty())
         <div class="row g-4">
             @foreach($news as $slider)
             <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
@@ -42,7 +58,7 @@
                 <div class="card shadow-lg card-lift h-100">
                     <div class="card-header p-0">
                         <a href="#">
-                            <img src="{{ isset($slider->main_image) && !empty($slider->main_image) ? asset($slider->main_image) : asset('assets/images/4.jpg') }}"
+                            <img src="{{ $slider->main_image ? asset($slider->main_image) : asset('assets/images/4.jpg') }}"
                                 class="card-img-top" alt="blogpost" style="height: 200px; object-fit: cover;">
                         </a>
                     </div>
@@ -65,28 +81,10 @@
             </div>
             @endforeach
         </div>
-
-        <!-- Load More Button (optional) -->
-        <!-- 
-        <div class="row">
-            <div class="col-12 text-center mt-4">
-                <a href="#" class="btn btn-primary">
-                    <div class="spinner-border spinner-border-sm me-2" role="status">
-                        <span class="visually-hidden">Loading...</span>
-                    </div>
-                    Load More
-                </a>
-            </div>
-        </div>
-        -->
+        @else
+        <h4>No News Found</h4>
+        @endif
     </div>
 </section>
-
-
-
-@else
-<h4>News does not exist</h4>
-@endif
-
 
 @include('user.includes.footer')

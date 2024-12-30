@@ -20,7 +20,14 @@
                 </div>
             </div>
         </div>
-
+        <section class="container">
+    <div class="row mb-3">
+        <div class="col-md-9"></div>
+        <div class="col-md-3 text-end">
+            <a href="{{ route('user.tenders_archive') }}" class="btn btn-outline-primary fw-semibold btn-sm">Archive</a>
+        </div>
+    </div> 
+</section>
         <!-- Tenders Card -->
         <div class="card bg-white border-0 rounded-4 shadow-sm mb-4">
             <div class="card-body p-4">

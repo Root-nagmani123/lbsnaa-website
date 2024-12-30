@@ -90,7 +90,9 @@ Route::get('/menu/{slug}', [HomeFrontController::class, 'get_navigation_pages'])
 Route::get('/footer_menu/{slug}', [HomeFrontController::class, 'footer_menu'])->name('user.footer_menu');
 Route::get('/updates/{slug}', [HomeFrontController::class, 'letest_updates'])->name('user.letest_updates');
 Route::get('/news-listing', [HomeFrontController::class, 'news_listing'])->name('user.news_listing');
+Route::get('/news-old-listing', [HomeFrontController::class, 'news_old_listing'])->name('user.news_old_listing');
 Route::get('/tenders', [HomeFrontController::class, 'tenders'])->name('user.tenders');
+Route::get('/tenders-archive', [HomeFrontController::class, 'tenders_archive'])->name('user.tenders_archive');
 Route::get('/faculty', [HomeFrontController::class, 'faculty'])->name('user.faculty');
 Route::get('/staff', [HomeFrontController::class, 'staff'])->name('user.staff');
 Route::get('/vacancy', [HomeFrontController::class, 'vacancy'])->name('user.vacancy');
