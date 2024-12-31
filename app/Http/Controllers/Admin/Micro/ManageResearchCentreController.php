@@ -90,7 +90,8 @@ class ManageResearchCentreController extends Controller
 
         return redirect()->route('researchcentres.index')->with('success', 'Research Centre updated successfully!');
     }
-
+ 
+    
     public function researchcentresDestroy($id)
     {
         // Fetch the research center by ID
@@ -111,5 +112,6 @@ class ManageResearchCentreController extends Controller
 
         return redirect()->route('researchcentres.index')->with('success', 'Research Centre deleted successfully!');
     }
+
 
 }

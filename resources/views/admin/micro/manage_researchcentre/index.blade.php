@@ -72,8 +72,17 @@
                                     <a href="{{ route('researchcentres.edit', $centre->id) }}"
                                         class="btn bg-success text-white btn-sm w-auto d-flex align-items-center justify-content-center mb-2 mb-sm-0"
                                         style="height: 30px;">Edit</a>
-                                    <form action="{{ route('researchcentres.destroy', $centre->id) }}" method="POST"
-                                        style="display:inline;">
+                                    <!-- <form action="{{ route('researchcentres.destroy', $centre->id) }}" method="POST"
+                                        style="display:inline;"> 
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                            class="btn btn-sm btn-primary text-white w-auto d-flex align-items-center justify-content-center"
+                                            style="height: 30px;"
+                                            onclick="return confirm('Are you sure?')">Delete</button>
+                                    </form> -->
+
+                                    <form action="{{ route('researchcentres.destroy', $centre->id) }}" method="POST" style="display:inline;">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit"
@@ -81,6 +90,7 @@
                                             style="height: 30px;"
                                             onclick="return confirm('Are you sure?')">Delete</button>
                                     </form>
+
                                 </div>
                             </td>
                             <td>
