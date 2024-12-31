@@ -167,7 +167,7 @@
                     <tbody>
                         @foreach($categories as $item)
                         <tr>
-                            <td>{{ $item->id }}</td>
+                            <td>{{ $loop->iteration }}</td>
                             <td>{{ $item->media_gallery }}</td>
                             <td>{{ $item->name }}</td>
                             <td>{{ $item->hindi_name }}</td>
