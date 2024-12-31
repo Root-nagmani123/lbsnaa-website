@@ -74,7 +74,7 @@ class ManageMediaCategoriesController extends Controller
             'name' => 'required|string',
             'hindi_name' => 'nullable|string',
             'status' => 'required|integer|in:1,0',
-            'category_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Validate image
+            'category_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validate image
         ], [
             'media_gallery.required' => 'Please select a gallery type.',
             'name.required' => 'Please enter the name.',

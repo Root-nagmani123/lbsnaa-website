@@ -443,6 +443,11 @@ Route::post('/users/permissions/update', [UserManagementController::class, 'upda
     Route::put('/admin/micromenu/{id}', [MicroMenuController::class, 'update'])->name('micromenu.update');
     Route::get('/admin/micromenu/{id}/delete', [MicroMenuController::class, 'delete'])->name('micromenu.delete');
 
+
+    // Route::delete('/admin/micromenu/{id}/delete', [MicroMenuController::class, 'destroy'])->name('admin.micromenu.delete');
+
+
+
     Route::post('/micromenu/{id}/toggle-status', [MicroMenuController::class, 'toggleStatus'])->name('micromenus.toggleStatus');
 
     //Manage micro Quick links Page

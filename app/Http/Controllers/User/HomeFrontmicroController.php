@@ -81,6 +81,7 @@ class HomeFrontmicroController extends Controller
         $breadcrumb = $this->generateBreadcrumb($slug);
         $quickLinks = DB::table('micro_quick_links')->where('categorytype', 2)->where('status', 1)->get();
         $nav_page =  DB::table('micromenus')->where('menu_status', 1)->where('is_deleted', 0)->where('menu_slug', $slug)->first();
+        
         return view('user.pages.microsites.navigationmenubyslug', compact('nav_page', 'breadcrumb', 'quickLinks'));
     }
 }

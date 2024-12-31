@@ -83,7 +83,7 @@
                                     <input type="file" class="form-control text-dark ps-5 h-58" name="category_image" id="category_image" accept="image/*">
                                     @error('category_image')
                                         <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                    @enderror 
                                 </div>
                                 @if($category->category_image)
                                     <img src="{{ asset('uploads/category_images/' . $category->category_image) }}" alt="Category Image" class="img-thumbnail mt-2" style="width: 150px; height: auto;">
