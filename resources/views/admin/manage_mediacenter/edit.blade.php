@@ -82,11 +82,11 @@
 
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
-                                <label class="label" for="audio_upload">Audio Upload (.mp3 or .mp4) :</label>
+                                <label class="label" for="audio_upload">Audio Upload (.mp3 only) :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="file" class="form-control text-dark ps-5 h-58" name="audio_upload"
-                                        id="audio_upload" accept=".mp4,.mp3" value="{{ $audio->audio_upload }}">
+                                        id="audio_upload" accept=".mp3" value="{{ $audio->audio_upload }}">
                                 </div>
                                 @if($audio->audio_upload)
                                     <div class="mt-3">

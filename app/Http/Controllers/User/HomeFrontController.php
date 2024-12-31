@@ -511,6 +511,7 @@ function photogallery(Request $request){
             return $query->whereYear('created_at', $year);
         })
         ->where('media_gallery', 'Photo Gallery')
+        ->where('status', 1)
         ->get();
 
     return view('user.pages.photogallery', compact('media_cat'));

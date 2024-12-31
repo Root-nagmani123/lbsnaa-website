@@ -38,7 +38,7 @@
                                 @foreach ($mediaCategories as $id => $name)
 
                                         <option value="{{ $id }}" {{ old('media_categories', $gallery->media_gallery ?? '') == $id ? 'selected' : '' }}>
-                                            {{ $name }}
+                                            {{ $name->name }}
                                             
                                         </option>
                                     @endforeach
@@ -99,7 +99,7 @@
                             preg_match('/(?:https?:\/\/(?:www\.)?youtube\.com\/(?:.*(?:v|e(?:mbed)?)\/|\S+?v=)([A-Za-z0-9_-]{11}))/i', $url, $matches);
                             $videoId = $matches[1] ?? null;
                         @endphp
-
+ 
                         @if ($videoId)
                             <!-- Embed YouTube video using iframe -->
                             <div class="col-lg-12">

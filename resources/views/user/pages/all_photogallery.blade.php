@@ -71,10 +71,12 @@
                 </div>
                 @endforeach
                 @endif
-                @endforeach
-                @endif
-            </div>
-        </div>
+            @endforeach
+            @else
+            <p>No images available</p>
+        @endif
+    </div>
+</div>
 
 
     </div>
