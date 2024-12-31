@@ -1,24 +1,4 @@
 @include('user.includes.header')
-<section class="py-4">
-    <div class="container">
-        <div class="row align-items-center pb-lg-2">
-            <!-- Breadcrumb -->
-            <div class="col-12">
-                <div class="mb-4 mb-lg-0 bg-gray-200 rounded-4 py-2">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb p-2">
-                            <li class="breadcrumb-item">
-                                <a href="{{ route('home') }}" style="color: #af2910;">Home</a>
-                            </li>
-                          
-                            <li class="breadcrumb-item active" aria-current="page">Media Gallery</li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 <section class="py-5">
     <!-- container -->
     <div class="container">
