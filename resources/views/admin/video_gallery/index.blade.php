@@ -64,7 +64,7 @@
                             <td>
                                 <button type="button" class="btn btn-outline-primary fw-semibold btn-sm view-slider"
                                     data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-                                    data-category_name="{{ $item->category_name }}"
+                                    data-category_name="{{ $item->name }}"
                                     data-audio_title_en="{{ $item->audio_title_en }}"
                                     data-audio_title_hi="{{ $item->audio_title_hi }}"
                                     data-video_upload="{{ $item->video_upload }}">
@@ -162,11 +162,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const video_upload = this.dataset.video_upload;
 
             // Extract YouTube video ID from the URL
-            const youtubeRegex =
-                /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*\?v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-            const matches = video_upload.match(youtubeRegex);
-            const videoId = matches ? matches[1] : null; // Extract the YouTube video ID
-
+           
 
             // Update modal content
             modalTitle.textContent = 'Video Gallery Details';
@@ -175,10 +171,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     <p><strong>Category Name:</strong> ${category_name}</p>
                     <p><strong>Video Title (Hindi):</strong> ${audio_title_hi}</p>
                     <p><strong>Video Title (English):</strong> ${audio_title_en}</p>
-                    <p><strong>Video:</strong></p>
-                    ${videoId ? `
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="width:300px; height:300px;"></iframe>
-                    ` : `<p>Invalid YouTube URL</p>`}
+                    <p><strong>Video:</strong></p></strong> <a href="${video_upload}" target="_blanck">${video_upload}</a>
+                   
                 </div>`;
         });
     });

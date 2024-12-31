@@ -73,6 +73,8 @@
                     @endforeach
                 @endif
             @endforeach
+            @else
+            <p>No images available</p>
         @endif
     </div>
 </div>

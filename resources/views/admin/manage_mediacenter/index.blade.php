@@ -114,46 +114,56 @@
 <!-- modal start -->
 
 <!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Tenders / Circulars Details</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
+<div class="modal fade" id="staticBackdrop" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+        <button type="button" class="btn-close" onclick="model_close_reload()"></button>
+      </div>
+      <div class="modal-body">
                 <div class="form-group">
                     <label for="sliderText">Title</label>
-                    <p id="sliderText"></p> <!-- Text will be injected here -->
+                    <p id="sliderText"></p>
                 </div>
                 <div class="form-group">
                     <label for="sliderDescription">Type</label>
-                    <p id="sliderDescription"></p> <!-- Description will be injected here -->
+                    <p id="sliderDescription"></p>
                 </div>
                 <div class="form-group">
                     <label for="sliderDescription">publish_date</label>
-                    <p id="sliderDescription"></p> <!-- Description will be injected here -->
+                    <p id="sliderDescription"></p>
                 </div>
                 <div class="form-group">
                     <label for="sliderDescription">Type</label>
-                    <p id="sliderDescription"></p> <!-- Description will be injected here -->
+                    <p id="sliderDescription"></p>
                 </div>
                 <div class="form-group">
                     <label for="sliderImage">Image</label>
-                    <img id="sliderImage" src="" width="100" /> <!-- Image will be injected here -->
+                    <img id="sliderImage" src="" width="100" />
                 </div>
                 <div class="form-group">
                     <label for="sliderLanguage">Language</label>
-                    <p id="sliderLanguage"></p> <!-- Language will be injected here -->
+                    <p id="sliderLanguage"></p>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-@endsection
 
+
+
+@endsection
+<script>
+    function model_close_reload(){
+        location.reload();
+    }
+    // Reload the page when the modal is closed
+    document.getElementById('exampleModal').addEventListener('hidden.bs.modal', function () {
+        location.reload();
+    });
+</script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const viewButtons = document.querySelectorAll('.view-slider');
@@ -161,40 +171,31 @@ document.addEventListener('DOMContentLoaded', function() {
     const modalBody = document.querySelector('.modal-body');
 
     viewButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            // Extract data from the button
-            const category_name = this.dataset.category_name;
-            const audio_title_en = this.dataset.audio_title_en;
-            const audio_title_hi = this.dataset.audio_title_hi;
-            const audio_upload = this.dataset.audio_upload;
+    button.addEventListener('click', function() {
+        // Extract data from the button
+        const category_name = this.dataset.category_name;
+        const audio_title_en = this.dataset.audio_title_en;
+        const audio_title_hi = this.dataset.audio_title_hi;
+        const audio_upload = this.dataset.audio_upload;
 
-            // Update modal content
-            modalTitle.textContent = 'Tenders / Circulars Details';
-            modalBody.innerHTML = `<div>
-                    <p><strong>Category Name:</strong> ${category_name}</p>
-                    <p><strong>Audio Title En:</strong> ${audio_title_en} </p>
-                    <p><strong>Audio Title Hi:</strong> ${audio_title_hi}</p>
-                    
+        // Determine the correct audio file path
+        const audioFilePath = audio_upload.startsWith('http') ? audio_upload : `/uploads/audios/${audio_upload}`;
 
-                    <p><strong>File:</strong></p>
-                        @if($audio->audio_upload)
-                            @if(pathinfo($audio->audio_upload, PATHINFO_EXTENSION) == 'mp3')
-                                <!-- Audio player -->
-                                <audio controls class="mb-3" style="width: 100%;">
-                                    <source src="{{ asset('uploads/audios/' . $audio->audio_upload) }}" type="audio/mpeg">
-                                    Your browser does not support the audio element.
-                                </audio>
-                            @elseif(pathinfo($audio->audio_upload, PATHINFO_EXTENSION) == 'mp4')
-                                <!-- Video player -->
-                                <video controls class="img-fluid mb-3" style="width: 100px; height: 100px;">
-                                    <source src="{{ asset('uploads/audios/' . $audio->audio_upload) }}" type="video/mp4">
-                                    Your browser does not support the video element.
-                                </video>
-                            @endif
-                        @endif
-                    
-                    </div>`;
-        });
+        // Update modal content
+        modalTitle.textContent = 'Audio Gallery Details';
+        modalBody.innerHTML = `
+            <div>
+                <p><strong>Category Name:</strong> ${category_name}</p>
+                <p><strong>Audio Title En:</strong> ${audio_title_en}</p>
+                <p><strong>Audio Title Hi:</strong> ${audio_title_hi}</p>
+                <p><strong>File:</strong></p>
+                <audio controls class="mb-3" style="width: 100%;">
+                    <source src="${audioFilePath}" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>`;
     });
+});
+
 });
 </script>

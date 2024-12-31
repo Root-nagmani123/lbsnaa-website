@@ -15,7 +15,22 @@ class ManageVideoController extends Controller
     // List all media
     public function index()
     {
-        $media = ManageVideoCenter::all();
+        // $media = ManageVideoCenter::all();
+        
+        // $mediaCategories = DB::table('manage_video_centers')
+        // leftJoin()
+        // ->where('page_status', 1)
+        // ->get(); 
+        // $mediaCategories = DB::table('manage_media_categories')
+        // ->where('status', 1)
+        // ->where('media_gallery', 'Video Gallery')
+        // ->get(); 
+
+        $media = DB::table('manage_video_centers')
+        ->leftJoin('manage_media_categories as parent', 'manage_video_centers.category_name', '=', 'parent.id')
+        // ->where('manage_video_centers.page_status',1)
+        ->select('manage_video_centers.*', 'parent.name')
+        ->get();
         return view('admin.video_gallery.index', compact('media'));
     }
 
@@ -114,7 +129,7 @@ class ManageVideoController extends Controller
         $mediaCategories = DB::table('manage_media_categories')
         ->where('status', 1)
         ->where('media_gallery', 'Video Gallery')
-        ->get();
+        ->get(); 
         // print_r($mediaCategories);die; 
         $media = ManageVideoCenter::findOrFail($id);
         return view('admin.video_gallery.edit', compact('media','mediaCategories'));
