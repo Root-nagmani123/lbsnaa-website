@@ -22,41 +22,41 @@
     </div>
 </section>
 
-<section class="container">
+<section class="container"> 
     <!-- Filter Form -->
     <div style="margin: 20px 0;">
-        <form action="{{ route('photoGalleries.filterGallery') }}" method="GET"
-            style="display: flex; gap: 10px; align-items: center;">
-            <!-- Keyword Search -->
-            <label for="keyword" class="fw-semibold label">Search:</label>
-            <input type="text" name="keyword" id="keyword" placeholder="Keyword Search" value="{{ request('keyword') }}"
-                class="form-control ps-5 h-58 w-25">
+    <form action="{{ route('photoGalleries.filterGallery') }}" method="GET" id="filterForm"
+        style="display: flex; gap: 10px; align-items: center;">
+        <!-- Keyword Search -->
+        <label for="keyword" class="fw-semibold label">Search:</label>
+        <input type="text" name="keyword" id="keyword" placeholder="Keyword Search" value="{{ request('keyword') }}"
+            class="form-control ps-5 h-58 w-25">
 
-            <!-- Category Dropdown -->
-            <select name="category" class="form-control ps-5 h-58 w-25">
-                <option value="">All Categories</option>
-                @foreach ($courses as $course)
-                <option value="{{ $course->id }}" {{ request('category') == $course->id ? 'selected' : '' }}>
-                    {{ $course->course_name }}
-                </option>
-                @endforeach
-            </select>
+        <!-- Category Dropdown -->
+        <select name="category" class="form-control ps-5 h-58 w-25">
+            <option value="">All Categories</option>
+            @foreach ($courses as $course)
+            <option value="{{ $course->id }}" {{ request('category') == $course->id ? 'selected' : '' }}>
+                {{ $course->course_name }}
+            </option>
+            @endforeach
+        </select>
 
-            <!-- Year Dropdown -->
-            <select name="year" class="form-control ps-5 h-58 w-25">
-                <option value="">All Years</option>
-                @for($year = date('Y'); $year >= 2000; $year--)
-                <option value="{{ $year }}" {{ request('year') == $year ? 'selected' : '' }}>{{ $year }}</option>
-                @endfor
-            </select>
+        <!-- Year Dropdown -->
+        <select name="year" class="form-control ps-5 h-58 w-25">
+            <option value="">All Years</option>
+            @for($year = date('Y'); $year >= 2000; $year--)
+            <option value="{{ $year }}" {{ request('year') == $year ? 'selected' : '' }}>{{ $year }}</option>
+            @endfor
+        </select>
 
-            <!-- Submit Button -->
-            <button type="submit" class="btn btn-outline-primary fw-semibold">Submit</button>
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-outline-primary fw-semibold">Submit</button>
 
-            <!-- Clear Button -->
-            <button type="button" onclick="clearFilters()" class="fw-semibold btn btn-outline-secondary">Clear</button>
-        </form>
-    </div>
+        <!-- Clear Button -->
+        <button type="button" onclick="clearFilters()" class="fw-semibold btn btn-outline-secondary">Clear</button>
+    </form>
+</div>
 <!-- Gallery Display -->
 @if($photoGalleries->isNotEmpty())
 <div class="row g-4">
@@ -93,3 +93,13 @@
 @endif
 @endif
 @include('user.pages.microsites.includes.footer')
+
+<script>
+    function clearFilters() {
+        // Reset the form
+        document.getElementById('filterForm').reset();
+
+        // Optionally, clear the query parameters from the URL
+        window.location.href = "{{ route('photoGalleries.filterGallery') }}";
+    }
+</script>

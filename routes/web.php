@@ -114,12 +114,15 @@ Route::POST('/feedback_store', [HomeFrontController::class, 'storeFeedback'])->n
 
 
 //micro 
-// Route::get('/lbsnaa-sub', [HomeFrontmicroController::class,'index'])->name('user.micrositebyslug');
-Route::get('/lbsnaa-sub/{slug}', [HomeFrontmicroController::class, 'index'])->name('user.micrositebyslug');
+Route::get('/lbsnaa-sub', [HomeFrontmicroController::class,'index'])->name('user.micrositebyslug');
+// Route::get('/lbsnaa-sub/{slug}', [HomeFrontmicroController::class, 'index'])->name('user.micrositebyslug');
+
+
+
 
 Route::get('/lbsnaa-sub/micromenu/{slug}', [HomeFrontmicroController::class, 'get_navigation_pages'])->name('user.navigationmenubyslug');
 //micro 
-// Route::get('/lbsnaa-sub', [HomeFrontmicroController::class,'index'])->name('user.micrositebyslug');
+
 // Indrajeet Home page dynamic
 Route::get('/lbsnaa-sub/media_gallery', [HomePagesMicroController::class,'media_gallery'])->name('user.media_gallery');
 Route::get('/photo-galleries/filterGallery', [HomePagesMicroController::class, 'filterGallery'])->name('photoGalleries.filterGallery');
@@ -132,23 +135,8 @@ Route::get('/lbsnaa-sub/video-gallery', [HomePagesMicroController::class, 'video
 
 
 
-// 30/12/2024
-// For micro 
-
-
-
-// 30/12/2024
-
-
-
-
-
-
-
-
-
 Route::middleware('auth')->group(function () {
-    Route::get('/admin', [Controller::class, 'index'])->name('admin.index');
+Route::get('/admin', [Controller::class, 'index'])->name('admin.index');
 
 
 Route::get('/admin/feedback-list', [MenuController::class, 'feedback_list'])->name('admin.feedback_list');
@@ -440,7 +428,8 @@ Route::post('/users/permissions/update', [UserManagementController::class, 'upda
     Route::post('researchcentres/store', [ManageResearchCentreController::class, 'researchcentresStore'])->name('researchcentres.store');
     Route::get('researchcentres/{id}/edit', [ManageResearchCentreController::class, 'researchcentresEdit'])->name('researchcentres.edit');
     Route::post('researchcentres/{id}/update', [ManageResearchCentreController::class, 'researchcentresUpdate'])->name('researchcentres.update');
-    Route::post('researchcentres/{id}/delete', [ManageResearchCentreController::class, 'researchcentresDestroy'])->name('researchcentres.destroy');
+    // Route::post('researchcentres/{id}/delete', [ManageResearchCentreController::class, 'researchcentresDestroy'])->name('researchcentres.destroy');
+    Route::delete('researchcentres/{id}/delete', [ManageResearchCentreController::class, 'researchcentresDestroy'])->name('researchcentres.destroy');
 
     // Route::resource('micro-photo-gallery', MicroManagePhotoGalleryController::class);
     // Manage micro news route
