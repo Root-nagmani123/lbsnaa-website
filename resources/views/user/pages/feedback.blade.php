@@ -26,9 +26,9 @@
             <div class="col-lg-4 col-md-4 col-12">
                 <div class="mb-4">
                     <!-- Feedback text content -->
-                    <p>Thank you for visiting MyGov and becoming a stakeholder in the governance procedure of the country. We would like to hear from you about your experience and get your valued feedback on how we can make your participation in the governance process better.</p>
-                    <p>If you are facing any issues with the registration or login process, please do not hesitate to contact us through this form. We are happy to assist you with any challenges you might face while browsing and/or participating on MyGov, as we value your contribution.</p>
-                    <p>Did not find your suggestions on the platform? Feel free to reach out to us, and we will address your issue as soon as possible. Your participation in MyGov is important to us.</p>
+                    <p>Thank you for visiting LBSNAA   and becoming a stakeholder in the governance procedure of the country. We would like to hear from you about your experience and get your valued feedback on how we can make your participation in the governance process better.</p>
+                    <p>If you are facing any issues with the registration or login process, please do not hesitate to contact us through this form. We are happy to assist you with any challenges you might face while browsing and/or participating on LBSNAA  , as we value your contribution.</p>
+                    <p>Did not find your suggestions on the platform? Feel free to reach out to us, and we will address your issue as soon as possible. Your participation in LBSNAA  is important to us.</p>
                     <p>For more information, please visit our FAQ page.</p>
                 </div>
             </div>
