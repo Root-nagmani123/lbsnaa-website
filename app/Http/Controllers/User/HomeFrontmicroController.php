@@ -8,22 +8,45 @@ use DOMDocument;
 
 class HomeFrontmicroController extends Controller
 {
-    public function index($slug)
+    // public function index($slug)
+    // { 
+    //     // dd($slug);
+    //     $sliders =  DB::table('micro_sliders')->where('status', 1)->get();
+    //     $whatsNew = DB::table('micro_quick_links')->where('categorytype', 1)->where('status', 1)->get();
+    //     $quickLinks = DB::table('micro_quick_links')->where('categorytype', 2)->where('status', 1)->get();
+    //     // Fetch research centres by slug
+    //     $research_centres = DB::table('research_centres')
+    //     ->where('status', 1)
+    //     ->where('research_centre_slug', 'like', "%{$slug}%")
+    //     ->get(); 
+
+    //     // dd($research_centres);
+
+    //     return view('user.pages.microsites.index', compact('sliders', 'quickLinks', 'whatsNew','research_centres'));
+    // }
+
+    public function index($slug = null)
     { 
-        // dd($slug);
-        $sliders =  DB::table('micro_sliders')->where('status', 1)->get();
+        // Fetch all sliders, quick links, and what's new data
+        $sliders = DB::table('micro_sliders')->where('status', 1)->get();
         $whatsNew = DB::table('micro_quick_links')->where('categorytype', 1)->where('status', 1)->get();
         $quickLinks = DB::table('micro_quick_links')->where('categorytype', 2)->where('status', 1)->get();
-        // Fetch research centres by slug
-        $research_centres = DB::table('research_centres')
-        ->where('status', 1)
-        ->where('research_centre_slug', 'like', "%{$slug}%")
-        ->get();
 
-        // dd($research_centres);
+        // Fetch research centres, using the slug if it's provided
+        $query = DB::table('research_centres')->where('status', 1);
+        
+        if ($slug) {
+            // If slug is provided, filter by it
+            $query->where('research_centre_slug', 'like', "%{$slug}%");
+        }
 
-        return view('user.pages.microsites.index', compact('sliders', 'quickLinks', 'whatsNew','research_centres'));
+        // Get the results
+        $research_centres = $query->get(); 
+
+        // Return the view with the necessary data
+        return view('user.pages.microsites.index', compact('sliders', 'quickLinks', 'whatsNew', 'research_centres'));
     }
+
 
     public function generateBreadcrumb($currentMenuSlug)
     {
