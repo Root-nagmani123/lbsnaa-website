@@ -12,7 +12,7 @@
                         <li class="breadcrumb-item">
                             <a href="{{ route('user.mediagallery')}}" style="color: #af2910;">Media Gallery</a>
                         </li>
-                       
+
                         <li class="breadcrumb-item">
                             <a href="#" style="color: #af2910;">Audio Gallery Details</a>
                         </li>
@@ -25,18 +25,6 @@
 <section class="py-5">
     <!-- container -->
     <div class="container">
-        <div class="row">
-            <!-- cols -->
-            <div class="col-md-12 col-lg-5">
-                <div class="mb-2">
-                    <!-- title -->
-                    <h1 class="display-4 mb-3 fw-bold">Audio Gallery</h1>
-                    <!-- text -->
-                  
-                </div>
-            </div>
-        </div>
-        <hr class="my-4">
         <!-- form -->
         @if(session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -47,28 +35,31 @@
 
 
         <div class="container">
-    <div class="row">
-        @if(count($media_data) > 0)
-            @foreach($media_data as $media)
-              
-                        <div class="col-md-4 mb-4"> <!-- Added 'mb-4' for spacing between rows -->
-                            <div class="galleryimges">
-                           
-                            <audio controls class="w-100">
-    <source src="{{ asset('uploads/audios/' . $media->audio_upload) }}" type="audio/mpeg">
-    Your browser does not support the audio element.
-</audio>
+            <div class="row">
+                @if(count($media_data) > 0)
+                @foreach($media_data as $media)
 
-                                <div class="form-field mt-2">
-                                    <p>{{ $media->audio_title_en }}</p>
-                                </div>
+                <div class="col-md-4 mb-4">
+                    <!-- Added 'mb-4' for spacing between rows -->
+                    <div class="card">
+                        <div class="card-body">
+                            <audio controls class="w-100">
+                                <source src="{{ asset('uploads/audios/' . $media->audio_upload) }}" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
+                        </div>
+                        <div class="card-footer" style="border:none;">
+                            <div class="form-field mt-2">
+                                <p>{{ $media->audio_title_en }}</p>
                             </div>
                         </div>
-               
-            @endforeach
-        @endif
-    </div>
-</div>
+                    </div>
+                </div>
+
+                @endforeach
+                @endif
+            </div>
+        </div>
 
 
     </div>

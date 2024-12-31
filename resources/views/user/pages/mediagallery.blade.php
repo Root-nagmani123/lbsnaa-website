@@ -22,63 +22,65 @@
 <section class="py-5">
     <!-- container -->
     <div class="container">
-        <div class="row">
-            <!-- Title Column -->
-            <div class="col-12 col-lg-5">
-                <div class="mb-2">
-                    <!-- Title -->
-                    <h3 class="mb-3 fw-bold">Media Gallery</h3>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Success Message -->
-        @if(session('success'))
-        <div class="row">
+        <!-- Breadcrumb -->
+        <div class="row align-items-center pb-lg-2 mb-4">
             <div class="col-12">
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{ session('success') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <div class="bg-gray-200 rounded-4 py-2">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb p-2 mb-0">
+                            <li class="breadcrumb-item">
+                                <a href="{{ route('home') }}" style="color: #af2910;">Home</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">Media Gallery</li>
+                        </ol>
+                    </nav>
                 </div>
             </div>
         </div>
-        @endif
-        
+        <div class="row">
         <!-- Media Gallery -->
-        <div class="row g-3 py-lg-4 pt-4 justify-content-start">
+        <div class="row gap-2 py-lg-4 pt-4 justify-content-start">
             <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                <a href="{{ route('user.audiogallery')}}" class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift">
-                    <div class="p-3">
-                        <img src="{{ asset('assets/images/audio-book.png') }}" alt="Academy Song"
-                            class="img-fluid rounded-circle" style="max-width: 100px;">
-                    </div>
-                    <div class="mt-3">
-                        <h4 class="text-center">Academy Song</h4>
-                    </div>
-                </a>
+                <div class="card">
+                    <a href="{{ route('user.audiogallery')}}"
+                        class="bg-white text-center shadow-sm text-wrap rounded-4 w-100">
+                        <div class="p-3">
+                            <img src="{{ asset('assets/images/audio-book.png') }}" alt="Academy Song" class="img-fluid"
+                                style="max-width: 100px;">
+                        </div>
+                        <div class="mt-3">
+                            <h4 class="text-center">Academy Song</h4>
+                        </div>
+                    </a>
+                </div>
             </div>
             <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                <a href="{{ route('user.videogallery')}}" class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift">
-                    <div class="p-3">
-                        <img src="{{ asset('assets/images/audio-book.png') }}" alt="Academy Song"
-                            class="img-fluid rounded-circle" style="max-width: 100px;">
-                    </div>
-                    <div class="mt-3">
-                        <h4 class="text-center">Video Gallery</h4>
-                    </div>
-                </a>
+                <div class="card">
+                    <a href="{{ route('user.videogallery')}}"
+                        class="bg-white text-center shadow-sm text-wrap rounded-4 w-100">
+                        <div class="p-3">
+                            <img src="{{ asset('assets/images/video.png') }}" alt="Academy Song" class="img-fluid"
+                                style="max-width: 100px;">
+                        </div>
+                        <div class="mt-3">
+                            <h4 class="text-center">Video Gallery</h4>
+                        </div>
+                    </a>
+                </div>
             </div>
             <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                <a href="{{ route('user.photogallery') }}"
-                    class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift">
-                    <div class="p-3">
-                        <img src="{{ asset('assets/images/gallery (1).png') }}" alt="Photo Gallery"
-                            class="img-fluid rounded-circle" style="max-width: 100px;">
-                    </div>
-                    <div class="mt-3">
-                        <h4 class="text-center">Photos Gallery</h4>
-                    </div>
-                </a>
+                <div class="card">
+                    <a href="{{ route('user.photogallery') }}"
+                        class="bg-white text-center shadow-sm text-wrap rounded-4 w-100">
+                        <div class="p-3">
+                            <img src="{{ asset('assets/images/gallery (1).png') }}" alt="Photo Gallery"
+                                class="img-fluid" style="max-width: 100px;">
+                        </div>
+                        <div class="mt-3">
+                            <h4 class="text-center">Photos Gallery</h4>
+                        </div>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
