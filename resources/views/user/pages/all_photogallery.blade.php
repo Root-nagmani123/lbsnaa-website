@@ -32,9 +32,7 @@
             <div class="col-md-12 col-lg-5">
                 <div class="mb-2">
                     <!-- title -->
-                    <h1 class="display-4 mb-3 fw-bold">Photo Gallery</h1>
-                    <!-- text -->
-                    <p>@if(count($media_d) > 0 ){{ $media_d[0]->name}}@endif</p>
+                    <h4 class="display-4 mb-3 fw-bold h4">@if(count($media_d) > 0 ){{ $media_d[0]->name}}@endif</h4>
                 </div>
             </div>
         </div>
@@ -49,33 +47,34 @@
 
 
         <div class="container">
-    <div class="row">
-        @if(count($media_d) > 0)
-            @foreach($media_d as $media)
+            <div class="row">
+                @if(count($media_d) > 0)
+                @foreach($media_d as $media)
                 @php
-                    // Decoding the JSON data to get the images
-                    $multiple_img = json_decode($media->image_files, true);
+                // Decoding the JSON data to get the images
+                $multiple_img = json_decode($media->image_files, true);
                 @endphp
                 @if(is_array($multiple_img))
-                    @foreach($multiple_img as $img)
-                        <div class="col-md-4 mb-4"> <!-- Added 'mb-4' for spacing between rows -->
-                            <div class="galleryimges">
-                            <a href="#">
-
-                                    <img src="{{ asset('storage/' . $img) }}" class="img-fluid rounded" 
-                                         alt="{{ $media->name }}" style="width: 100%; height: auto;">
-                                </a>
-                                <div class="form-field mt-2">
-                                    <p>{{ $media->image_title_english }}</p>
-                                </div>
+                @foreach($multiple_img as $img)
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <img src="{{ asset('storage/' . $img) }}" class="img-fluid rounded" alt="{{ $media->name }}"
+                                style="width: 100%; height: 200px; object-fit: cover;">
+                        </div>
+                        <div class="card-footer">
+                            <div class="form-field mt-2">
+                                <p>{{ $media->image_title_english }}</p>
                             </div>
                         </div>
-                    @endforeach
+                    </div>
+                </div>
+                @endforeach
                 @endif
-            @endforeach
-        @endif
-    </div>
-</div>
+                @endforeach
+                @endif
+            </div>
+        </div>
 
 
     </div>
