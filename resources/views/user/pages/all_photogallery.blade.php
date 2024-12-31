@@ -15,9 +15,7 @@
                         <li class="breadcrumb-item">
                             <a href="{{ route('user.photogallery')}}" style="color: #af2910;">Photo Gallery</a>
                         </li>
-                        <li class="breadcrumb-item">
-                            <a href="#" style="color: #af2910;">Photo Gallery Details</a>
-                        </li>
+                        <li class="breadcrumb-item active">Photo Gallery Details</li>
                     </ol>
                 </nav>
             </div>
@@ -36,7 +34,6 @@
                 </div>
             </div>
         </div>
-        <hr class="my-4">
         <!-- form -->
         @if(session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -76,7 +73,6 @@
             <p>No images available</p>
         @endif
     </div>
-</div>
 
 
     </div>
