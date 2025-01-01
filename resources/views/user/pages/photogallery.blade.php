@@ -1,6 +1,6 @@
 @include('user.includes.header')
 <section class="py-4">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row align-items-center pb-lg-2">
             <!-- Breadcrumb -->
             <div class="col-12">
@@ -23,7 +23,7 @@
 </section>
 
 <section class="py-2">
-    <div class="container">
+    <div class="container-fluid">
         <!-- Success Message -->
         @if(session('success'))
         <div class="row">
@@ -87,7 +87,7 @@
                     <a href="{{ url('view_all_photogallery') }}?glrid={{ $media->id }}">
                         <img src="{{ $media->category_image ? url('uploads/category_images/' . $media->category_image) : url('path/to/default-image.jpg') }}"
                             alt="{{ $media->name }}" class="card-img-top img-fluid rounded-top"
-                            style="height:150px; object-fit: cover;">
+                            style="height:300px; object-fit: cover;">
                     </a>
 
                     <div class="card-body text-center">

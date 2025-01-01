@@ -26,7 +26,7 @@ $footer_links = DB::table('menus')->where('txtpostion',3)->where('menu_status',1
     </div>
     <!-- footer -->
     <footer class="pt-2 pb-3">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row justify-content-center text-center align-items-center">
                 <div class="col-12 col-md-12 px-0">
                     <nav class="nav nav-footer justify-content-center">
@@ -196,7 +196,6 @@ const slider = tns({
 
 <!-- Theme JS -->
 <script src="{{ asset('assets/js/theme.min.js') }}"></script>
-<script src="{{ asset('assets/js/orgchart.js') }}"></script>
 
 <script src="{{ asset('assets/libs/tippy.js/dist/tippy-bundle.umd.min.js') }}"></script>
 

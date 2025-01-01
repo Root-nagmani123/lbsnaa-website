@@ -1,6 +1,6 @@
 @include('user.includes.header')
 <section class="py-4">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row align-items-center pb-lg-2">
             <!-- image -->
             <div class="mb-4 mb-lg-0 bg-gray-200 rounded-4 py-2">
@@ -24,13 +24,13 @@
 </section>
 <section class="py-5">
     <!-- container -->
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <!-- cols -->
             <div class="col-md-12 col-lg-5">
                 <div class="mb-2">
                     <!-- title -->
-                    <h4 class="display-4 mb-3 fw-bold h4">@if(count($media_d) > 0 ){{ $media_d[0]->name}}@endif</h4>
+                    <h5 class="display-4 mb-3 fw-bold">@if(count($media_d) > 0 ){{ $media_d[0]->name}}@endif</h5>
                 </div>
             </div>
         </div>
@@ -43,7 +43,7 @@
         @endif
 
 
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
                 @if(count($media_d) > 0)
                 @foreach($media_d as $media)
@@ -53,13 +53,13 @@
                 @endphp
                 @if(is_array($multiple_img))
                 @foreach($multiple_img as $img)
-                <div class="col-md-4 mb-4">
+                <div class="col-md-3 mb-4">
                     <div class="card">
-                        <div class="card-body">
+                        <div class="card-body" style="padding:0;">
                             <img src="{{ asset('storage/' . $img) }}" class="img-fluid rounded" alt="{{ $media->name }}"
-                                style="width: 100%; height: 200px; object-fit: cover;">
+                                style="width: 100%; height: 250px; object-fit: cover;">
                         </div>
-                        <div class="card-footer">
+                        <div class="card-footer" style="border:none;">
                             <div class="form-field mt-2">
                                 <p>{{ $media->image_title_english }}</p>
                             </div>

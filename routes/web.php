@@ -156,7 +156,7 @@ Route::get('/admin/menu/create', [MenuController::class, 'create'])->name('admin
 Route::post('/admin/menu', [MenuController::class, 'store'])->name('admin.menus.store');
 Route::get('/admin/menu/{id}/edit', [MenuController::class, 'edit'])->name('admin.menus.edit');
 Route::put('/admin/menu/{id}', [MenuController::class, 'update'])->name('admin.menus.update');
-Route::get('/admin/menu/{id}/delete', [MenuController::class, 'delete'])->name('admin.menus.delete');
+Route::delete('/admin/menu/{id}/delete', [MenuController::class, 'delete'])->name('admin.menus.delete');
 
 Route::post('/admin/menus/{id}/toggle-status', [MenuController::class, 'toggleStatus'])->name('admin.menus.toggleStatus');
 
