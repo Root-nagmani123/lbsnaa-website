@@ -2,7 +2,7 @@
 
 @if(isset($photoGalleries))
 <section class="py-4">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row align-items-center pb-lg-2">
             <!-- Breadcrumb -->
             <div class="mb-4 mb-lg-0 bg-gray-200 rounded-4 py-2">
@@ -22,7 +22,7 @@
     </div>
 </section>
 
-<section class="container"> 
+<section class="container-fluid"> 
     <!-- Filter Form -->
     <div style="margin: 20px 0;">
     <form action="{{ route('photoGalleries.filterGallery') }}" method="GET" id="filterForm"
@@ -59,7 +59,7 @@
 </div>
 <!-- Gallery Display -->
 @if($photoGalleries->isNotEmpty())
-<div class="row g-4">
+<div class="row gap-4">
     @foreach ($photoGalleries as $gallery)
         @php
             $imageFiles = json_decode($gallery->image_files, true);
@@ -71,7 +71,7 @@
                 <!-- Card -->
                 <div class="card h-100">
                     <!-- Image -->
-                    <img src="{{ asset('storage/' . $imageFile) }}" class="card-img-top rounded-3 img-fluid" alt="{{ $gallery->image_title_english }}" style="object-fit: cover; height: 200px;">
+                    <img src="{{ asset('storage/' . $imageFile) }}" alt="{{ $gallery->image_title_english }}" style="height: 400px; background-size: cover; background-position: center;">
                     
                     <!-- Card Body -->
                     <div class="card-body">
