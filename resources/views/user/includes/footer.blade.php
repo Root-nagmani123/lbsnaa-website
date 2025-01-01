@@ -196,7 +196,6 @@ const slider = tns({
 
 <!-- Theme JS -->
 <script src="{{ asset('assets/js/theme.min.js') }}"></script>
-<script src="{{ asset('assets/js/orgchart.js') }}"></script>
 
 <script src="{{ asset('assets/libs/tippy.js/dist/tippy-bundle.umd.min.js') }}"></script>
 

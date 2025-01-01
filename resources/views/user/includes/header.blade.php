@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="{{ asset('assets/libs/glightbox/dist/css/glightbox.min.css') }}">
     <link rel="icon" type="image/png" href="{{ asset('admin_assets/images/favicon.ico') }}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
+    <script src="{{ asset('assets/js/orgchart.js') }}"></script>
     <title>Home | Lal Bahadur Shastri National Academy of Administration</title>
 </head>
 

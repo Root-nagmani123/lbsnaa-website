@@ -1,6 +1,6 @@
 @include('user.includes.header')
 <section class="py-4">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row align-items-center pb-lg-2">
             <!-- image -->
             <div class="mb-4 mb-lg-0 bg-gray-200 rounded-4 py-2">
@@ -23,45 +23,30 @@
     </div>
 </section>
 <section class="py-5">
-    <!-- container -->
-    <div class="container">
-        <!-- form -->
-        @if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        @endif
-
-
-        <div class="container">
-            <div class="row">
-                @if(count($media_data) > 0)
+    <div class="container-fluid">
+        <div class="row">
+            @if(count($media_data) > 0)
                 @foreach($media_data as $media)
-
-                <div class="col-md-4 mb-4">
-                    <!-- Added 'mb-4' for spacing between rows -->
-                    <div class="card">
-                        <div class="card-body">
-                            <audio controls class="w-100">
-                                <source src="{{ asset('uploads/audios/' . $media->audio_upload) }}" type="audio/mpeg">
-                                Your browser does not support the audio element.
-                            </audio>
-                        </div>
-                        <div class="card-footer" style="border:none;">
-                            <div class="form-field mt-2">
-                                <p>{{ $media->audio_title_en }}</p>
+                    <div class="col-md-3 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <audio controls class="w-100">
+                                    <source src="{{ asset('uploads/audios/' . $media->audio_upload) }}" type="audio/mpeg">
+                                    Your browser does not support the audio element.
+                                </audio>
+                            </div>
+                            <div class="card-footer" style="border:none;">
+                                <div class="form-field mt-2">
+                                    <p>{{ $media->audio_title_en }}</p>
+                                </div>
                             </div>
                         </div>
-               
-            @endforeach
+                    </div>
+                @endforeach
             @else
-            <p>No Audio Found</p>
-        @endif
-    </div>
-</div>
-
-
+                <p>No Audio Found</p>
+            @endif
+        </div>
     </div>
 </section>
 @include('user.includes.footer')
