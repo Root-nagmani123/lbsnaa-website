@@ -25,25 +25,71 @@ class HomeFrontmicroController extends Controller
     //     return view('user.pages.microsites.index', compact('sliders', 'quickLinks', 'whatsNew','research_centres'));
     // }
  
-    public function index($slug = null)
-    { 
-        // Fetch all sliders, quick links, and what's new data
-        $sliders = DB::table('micro_sliders')->where('status', 1)->get();
-        $whatsNew = DB::table('micro_quick_links')->where('categorytype', 1)->where('status', 1)->get();
-        $quickLinks = DB::table('micro_quick_links')->where('categorytype', 2)->where('status', 1)->get();
+    // public function index($slug = null)
+    // { 
+    //     // Fetch all sliders, quick links, and what's new data
+    //     $sliders = DB::table('micro_sliders')->where('status', 1)->get();
+    //     $whatsNew = DB::table('micro_quick_links')->where('categorytype', 1)->where('status', 1)->get();
+    //     $quickLinks = DB::table('micro_quick_links')->where('categorytype', 2)->where('status', 1)->get();
 
-        // Fetch research centres, using the slug if it's provided
-        $query = DB::table('research_centres')->where('status', 1);
-        if ($slug) {
-            // Filter by research_centre_slug if provided
-            $query->where('research_centre_slug', $slug);
-        }
-        // Get the results
-        $research_centres = $query->get();
-        // dd($research_centres);
-        // Return the view with the necessary data
-        return view('user.pages.microsites.index', compact('sliders', 'quickLinks', 'whatsNew', 'research_centres','slug'));
+    //     // Fetch research centres, using the slug if it's provided
+    //     $query = DB::table('research_centres')->where('status', 1);
+    //     if ($slug) {
+    //         // Filter by research_centre_slug if provided
+    //         $query->where('research_centre_slug', $slug);
+    //     }
+    //     // Get the results
+    //     $research_centres = $query->get();
+    //     // Return the view with the necessary data
+    //     return view('user.pages.microsites.index', compact('sliders', 'quickLinks', 'whatsNew', 'research_centres','slug'));
+    // }
+
+    public function index($slug = null)
+{ 
+    // Start the query to fetch data from 'micro_sliders' joined with 'research_centres'
+    $sliders = DB::table('micro_sliders')
+        ->join('research_centres', 'micro_sliders.research_centre', '=', 'research_centres.id')  // Join with 'research_centres'
+        ->where('micro_sliders.status', 1)
+        ->when($slug, function($query) use ($slug) {
+            return $query->where('research_centres.research_centre_slug', $slug);  // Filter by slug if provided
+        })
+        ->select('micro_sliders.*', 'research_centres.research_centre_name as research_centre_name')
+        ->get();
+
+    // Fetch "quick links" and "what's new" based on the same condition
+    $whatsNew = DB::table('micro_quick_links')
+        ->join('research_centres', 'micro_quick_links.research_centre_id', '=', 'research_centres.id')  // Join with 'research_centres'
+        ->where('micro_quick_links.categorytype', 1)
+        ->where('micro_quick_links.status', 1)
+        ->when($slug, function($query) use ($slug) {
+            return $query->where('research_centres.research_centre_slug', $slug);  // Filter by slug if provided
+        })
+        ->select('micro_quick_links.*', 'research_centres.research_centre_name as research_centre_name')
+        ->get();
+
+    $quickLinks = DB::table('micro_quick_links')
+        ->join('research_centres', 'micro_quick_links.research_centre_id', '=', 'research_centres.id')  // Join with 'research_centres'
+        ->where('micro_quick_links.categorytype', 2)
+        ->where('micro_quick_links.status', 1)
+        ->when($slug, function($query) use ($slug) {
+            return $query->where('research_centres.research_centre_slug', $slug);  // Filter by slug if provided
+        })
+        ->select('micro_quick_links.*', 'research_centres.research_centre_name as research_centre_name')
+        ->get();
+
+    // Fetch research centres, using the slug if it's provided
+    $query = DB::table('research_centres')->where('research_centres.status', 1);
+    if ($slug) {
+        // Filter by research_centre_slug if provided
+        $query->where('research_centres.research_centre_slug', $slug);
     }
+    $research_centres = $query->get();
+
+    // Return the view with the necessary data
+    return view('user.pages.microsites.index', compact('sliders', 'quickLinks', 'whatsNew', 'research_centres', 'slug'));
+}
+
+
 
 
     public function generateBreadcrumb($currentMenuSlug)

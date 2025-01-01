@@ -46,6 +46,6 @@
         @endforeach
     </div>
 </div>
-
-
+ 
+ 
 @include('user.pages.microsites.includes.footer')

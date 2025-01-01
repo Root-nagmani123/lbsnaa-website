@@ -37,8 +37,39 @@
             <a class="navbar-brand" href="{{ route('home') }}"><img src="{{ asset('assets/images/microsites/logo.png') }}"
                     alt="logo" width="300"></a>
             <!-- Button -->
-            <a class="navbar-brand" href="#"><img src="{{ asset('assets/images/microsites/crs.jpg') }}"
-                    alt="logo" width="500"></a>
+
+            <!-- research_centre_name -->
+            @php
+                // Get the slug from the query parameter or default to null
+                $slug = request()->query('slug');
+
+                // Query to get the research centre data based on the slug
+                $centre_name = null;
+                if ($slug) {
+                    $centre_name = DB::table('research_centres')
+                        ->where('status', 1)
+                        ->where('research_centre_slug', $slug) // Match the slug
+                        ->first(); // Get the first matching result
+                }
+            @endphp
+
+            <a class="navbar-brand" href="#">
+                <!-- <img src="{{ asset('assets/images/microsites/crs.jpg') }}" alt="logo" width="500"> -->
+                
+                <!-- Display the research centre name if available -->
+                @if($centre_name)
+                    <span>{{ $centre_name->research_centre_name }}</span>
+                @else
+                    <span>Default Centre Name</span> <!-- Default name if no match is found -->
+                @endif
+            </a>
+
+
+            <!-- <a class="navbar-brand" href="#"><img src="{{ asset('assets/images/microsites/crs.jpg') }}"
+                    alt="logo" width="500"></a> -->
+
+
+                    
         </div>
     </nav>
     <nav class="navbar navbar-expand-lg">

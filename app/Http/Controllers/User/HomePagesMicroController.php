@@ -10,14 +10,36 @@ use DOMDocument;
 use Carbon\Carbon;
 class HomePagesMicroController extends Controller
 { 
-    public function media_gallery()
+
+    
+    // public function media_gallery()
+    // {
+    //     // echo 'test';die;
+    //     // Fetch all data from the table using Query Builder
+    //     $photoGalleries = DB::table('micro_manage_photo_galleries')->where('status', 1)->get();
+    //     $courses = DB::table('course')->select('id', 'course_name')->get();
+    //     // Pass data to the view
+    //     return view('user.pages.microsites.media_gallery', compact('photoGalleries','courses'));
+    // }
+
+    public function media_gallery(Request $request)
     {
-        // echo 'test';die;
-        // Fetch all data from the table using Query Builder
-        $photoGalleries = DB::table('micro_manage_photo_galleries')->where('status', 1)->get();
+        // Get the 'slug' from the request
+        $slug = $request->query('slug');
+        
+        // Fetch all data from the photo galleries and research centres using a join
+        $photoGalleries = DB::table('micro_manage_photo_galleries as photo_gallery')
+            ->join('research_centres as research_centres', 'photo_gallery.research_centre', '=', 'research_centres.id')
+            ->where('photo_gallery.status', 1)
+            ->where('research_centres.research_centre_slug', $slug)  // Filter by the slug
+            ->select('photo_gallery.*', 'research_centres.*')  // Select all columns from both tables
+            ->get();
+        
+        // Fetch courses (if needed)
         $courses = DB::table('course')->select('id', 'course_name')->get();
+        
         // Pass data to the view
-        return view('user.pages.microsites.media_gallery', compact('photoGalleries','courses'));
+        return view('user.pages.microsites.media_gallery', compact('photoGalleries', 'courses', 'slug'));
     }
 
     // public function mediagallery($slug = null)
@@ -47,44 +69,88 @@ class HomePagesMicroController extends Controller
         
 
 
+    // public function filterGallery(Request $request)
+    // {
+    //     // Get filter inputs
+    //     $keyword = $request->input('keyword');
+    //     $category = $request->input('category');
+    //     $year = $request->input('year');
+
+    //     // Query for the gallery with filters
+    //     $photoGalleries = DB::table('micro_manage_photo_galleries')
+    //         ->join('course', 'course.id', '=', 'micro_manage_photo_galleries.course_id') // Join condition
+    //         ->select(
+    //             'micro_manage_photo_galleries.*',
+    //             'course.course_name as course_name', // Ensure this matches the actual column name in your table
+    //             'course.description as course_description'
+    //         )
+
+    //         ->when($keyword, function ($query, $keyword) {
+    //             return $query->where(function ($q) use ($keyword) {
+    //                 $q->where('micro_manage_photo_galleries.image_title_english', 'like', "%$keyword%")
+    //                   ->orWhere('micro_manage_photo_galleries.image_title_hindi', 'like', "%$keyword%");
+    //             });
+    //         })
+            
+    //         ->when($category, function ($query, $category) {
+    //             return $query->where('micro_manage_photo_galleries.course_id', $category);
+    //         })
+    //         ->when($year, function ($query, $year) {
+    //             return $query->whereYear('micro_manage_photo_galleries.created_at', $year);
+    //         })
+    //         ->where('micro_manage_photo_galleries.status', 1)
+    //         ->get();
+
+    //     // Fetch all courses for the dropdown
+    //     $courses = DB::table('course')->select('id', 'course_name')->get();
+
+    //     // Pass the data to the view
+    //     return view('user.pages.microsites.media_gallery', compact('photoGalleries', 'courses'));
+    // }
+
     public function filterGallery(Request $request)
     {
         // Get filter inputs
         $keyword = $request->input('keyword');
         $category = $request->input('category');
         $year = $request->input('year');
+        $slug = $request->query('slug');  // Get the 'slug' from the query string
 
-        // Query for the gallery with filters
+        // Query for the gallery with filters and slug
         $photoGalleries = DB::table('micro_manage_photo_galleries')
             ->join('course', 'course.id', '=', 'micro_manage_photo_galleries.course_id') // Join condition
+            ->join('research_centres', 'research_centres.id', '=', 'micro_manage_photo_galleries.research_centre') // Join with research_centres table
             ->select(
                 'micro_manage_photo_galleries.*',
                 'course.course_name as course_name', // Ensure this matches the actual column name in your table
-                'course.description as course_description'
+                'course.description as course_description',
+                'research_centres.research_centre_slug' // Select slug for reference
             )
-
             ->when($keyword, function ($query, $keyword) {
                 return $query->where(function ($q) use ($keyword) {
                     $q->where('micro_manage_photo_galleries.image_title_english', 'like', "%$keyword%")
-                      ->orWhere('micro_manage_photo_galleries.image_title_hindi', 'like', "%$keyword%");
+                    ->orWhere('micro_manage_photo_galleries.image_title_hindi', 'like', "%$keyword%");
                 });
             })
-            
             ->when($category, function ($query, $category) {
                 return $query->where('micro_manage_photo_galleries.course_id', $category);
             })
             ->when($year, function ($query, $year) {
                 return $query->whereYear('micro_manage_photo_galleries.created_at', $year);
             })
+            ->when($slug, function ($query, $slug) {
+                return $query->where('research_centres.research_centre_slug', $slug);  // Filter by the slug
+            })
             ->where('micro_manage_photo_galleries.status', 1)
             ->get();
 
         // Fetch all courses for the dropdown
         $courses = DB::table('course')->select('id', 'course_name')->get();
-
+            dd($courses);
         // Pass the data to the view
         return view('user.pages.microsites.media_gallery', compact('photoGalleries', 'courses'));
     }
+
 
 
     public function calendar(Request $request)
@@ -142,22 +208,39 @@ class HomePagesMicroController extends Controller
     //     return view('user.pages.microsites.video_gallery', compact('videos'));
     // }
 
+    // public function videoGallery($slug = null)
+    // {
+    //     // Fetch videos from the 'micro_video_galleries' table, filtered by the slug if provided
+    //     $query = DB::table('micro_video_galleries')
+    //         ->where('page_status', 1);  // Ensure only active videos are fetched
+
+    //     if ($slug) {
+    //         // If the slug is provided, filter the videos by it (you can adjust this as needed)
+    //         $query->where('slug', $slug);  // Example: assuming the videos table has a 'slug' field
+    //     }
+
+    //     $videos = $query->get();  // Get the results
+
+    //     // Pass the videos and slug to the view
+    //     return view('user.pages.microsites.video_gallery', compact('videos', 'slug'));
+    // }
+
     public function videoGallery($slug = null)
     {
-        // Fetch videos from the 'micro_video_galleries' table, filtered by the slug if provided
-        $query = DB::table('micro_video_galleries')
-            ->where('page_status', 1);  // Ensure only active videos are fetched
-
+        // Build the base query for the video gallery with join
+        $query = DB::table('micro_video_galleries as video_gallery')
+            ->join('research_centres as research_centres', 'video_gallery.research_centre', '=', 'research_centres.id')  // Join with the research_centres table
+            ->where('video_gallery.page_status', 1);  // Ensure only active videos are fetched
+        // If the slug is provided, filter the videos by the slug
         if ($slug) {
-            // If the slug is provided, filter the videos by it (you can adjust this as needed)
-            $query->where('slug', $slug);  // Example: assuming the videos table has a 'slug' field
+            $query->where('research_centres.research_centre_slug', $slug);  // Filter by slug in the research_centres table
         }
-
-        $videos = $query->get();  // Get the results
-
+        // Get the results from the query
+        $videos = $query->select('video_gallery.*', 'research_centres.*')->get();  // Select all columns from both tables
         // Pass the videos and slug to the view
         return view('user.pages.microsites.video_gallery', compact('videos', 'slug'));
     }
+
 
 
 
