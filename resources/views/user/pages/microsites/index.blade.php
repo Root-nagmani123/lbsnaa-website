@@ -125,7 +125,7 @@ height: 300px; background-size: content; background-position: center; border-rad
 
                     <p class="mb-0" style="text-align: left;">
                         {{ strip_tags($research_centre->description) }}
-                    </p>
+                    </p> 
                 @endforeach
 
                     <!-- <h4 class="fw-bold text-primary">
@@ -155,7 +155,26 @@ height: 300px; background-size: content; background-position: center; border-rad
                 <div class="container">
                     <div class="position-relative d-flex overflow-x-hidden py-lg-4 pt-4">
                         <div class="d-flex gap-3">
-                            <a href="{{ route('mediagallery') }}"
+
+
+                        @foreach ($research_centres as $research_centre)
+                            <a href="{{ route('mediagallery', ['slug' => $research_centre->research_centre_slug]) }}"
+                                class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border"
+                                style="width: 200px !important">
+                                <div class="p-3">
+                                    <img src="{{ asset('assets/images/image (2).png') }}"
+                                        class="avatar avatar-xl">
+                                </div>
+                                <div class="mt-3">
+                                    <h3 class="text-center">Photo Gallery</h3>
+                                </div>
+                            </a>
+                        @endforeach
+
+
+
+
+                            <!-- <a href="{{ route('mediagallery') }}"
                                 class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border"
                                 style="width: 200px !important">
                                 <div class="p-3">
@@ -165,29 +184,39 @@ height: 300px; background-size: content; background-position: center; border-rad
                                 <div class="mt-3">
                                     <h3 class="text-center">Photo Gallery</h3>
                                 </div>
-                            </a>
-                            <a href="{{ route('calendar') }}"
-                                class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border"
-                                style="width: 200px !important">
-                                <div class="p-3">
-                                    <img src="{{ asset('assets/images/calendar (2).png') }}" alt="mentor 19"
-                                        class="avatar avatar-xl">
-                                </div>
-                                <div class="mt-3">
-                                    <h3 class="text-center">Training Calender</h3>
-                                </div>
-                            </a>
-                            <a href="{{ route('news') }}"
-                                class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border"
-                                style="width: 200px !important">
-                                <div class="p-3">
-                                    <img src="{{ asset('assets/images/newspaper (1).png') }}" alt="mentor 19"
-                                        class="avatar avatar-xl">
-                                </div>
-                                <div class="mt-3">
-                                    <h3 class="text-center">Latest News</h3>
-                                </div>
-                            </a>
+                            </a> -->
+
+                            @foreach ($research_centres as $research_centre)
+                                <a href="{{ route('calendar', ['slug' => $research_centre->research_centre_slug]) }}"
+
+                                    class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border"
+                                    style="width: 200px !important">
+                                    <div class="p-3">
+                                        <img src="{{ asset('assets/images/calendar (2).png') }}" alt="mentor 19"
+                                            class="avatar avatar-xl">
+                                    </div>
+                                    <div class="mt-3">
+                                        <h3 class="text-center">Training Calender</h3>
+                                    </div>
+                                </a>
+                            @endforeach
+                            
+
+                            @foreach ($research_centres as $research_centre)
+                                <a href="{{ route('news', ['slug' => $research_centre->research_centre_slug]) }}"
+
+                                    class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border"
+                                    style="width: 200px !important">
+                                    <div class="p-3">
+                                        <img src="{{ asset('assets/images/newspaper (1).png') }}" alt="mentor 19"
+                                            class="avatar avatar-xl">
+                                    </div>
+                                    <div class="mt-3">
+                                        <h3 class="text-center">Latest News</h3>
+                                    </div>
+                                </a>
+                            @endforeach
+
                         </div>
                     </div>
                 </div>

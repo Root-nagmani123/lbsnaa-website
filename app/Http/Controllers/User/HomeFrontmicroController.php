@@ -24,7 +24,7 @@ class HomeFrontmicroController extends Controller
 
     //     return view('user.pages.microsites.index', compact('sliders', 'quickLinks', 'whatsNew','research_centres'));
     // }
-
+ 
     public function index($slug = null)
     { 
         // Fetch all sliders, quick links, and what's new data
@@ -34,17 +34,15 @@ class HomeFrontmicroController extends Controller
 
         // Fetch research centres, using the slug if it's provided
         $query = DB::table('research_centres')->where('status', 1);
-        
         if ($slug) {
-            // If slug is provided, filter by it
-            $query->where('research_centre_slug', 'like', "%{$slug}%");
+            // Filter by research_centre_slug if provided
+            $query->where('research_centre_slug', $slug);
         }
-
         // Get the results
-        $research_centres = $query->get(); 
-
+        $research_centres = $query->get();
+        // dd($research_centres);
         // Return the view with the necessary data
-        return view('user.pages.microsites.index', compact('sliders', 'quickLinks', 'whatsNew', 'research_centres'));
+        return view('user.pages.microsites.index', compact('sliders', 'quickLinks', 'whatsNew', 'research_centres','slug'));
     }
 
 

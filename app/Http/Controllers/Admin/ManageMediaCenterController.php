@@ -31,21 +31,24 @@ class ManageMediaCenterController extends Controller
         $rules = [
             'category_name' => 'required|string',
             'audio_title_en' => 'required|string',
-            'audio_title_hi' => 'nullable',
-            'audio_upload' => 'required|mimes:mp3,mp4|max:15360',  // Accept .mp4 and audio formats
+            'audio_title_hi' => 'nullable|string',
+            'audio_upload' => 'required|mimes:mp3,mp4|max:5120',  // 15 MB limit
             'page_status' => 'required|integer|in:1,0',
         ];
-
-        // Custom messages
+        
         $messages = [
             'category_name.required' => 'Select category name.',
             'audio_title_en.required' => 'Enter the English audio title.',
             'audio_upload.required' => 'Please upload an audio file.',
             'audio_upload.mimes' => 'Only MP3 and MP4 files are allowed.',
-            'audio_upload.max' => 'The audio file size must not exceed 15MB.',
+            'audio_upload.max' => 'The audio file size must not exceed 5MB.',
             'page_status.required' => 'Select the page status.',
             'page_status.in' => 'The page status must be either active (1) or inactive (0).',
         ];
+        
+        $request->validate($rules, $messages);
+        
+        
 
         // Validate request
         $validatedData = $request->validate($rules, $messages);
@@ -93,7 +96,7 @@ class ManageMediaCenterController extends Controller
             'category_name' => 'required|string',
             'audio_title_en' => 'required|string',
             'audio_title_hi' => 'nullable|string',
-            'audio_upload' => 'nullable|mimes:mp3,mp4|max:15360',  // Accept .mp4 and audio formats
+            'audio_upload' => 'nullable|mimes:mp3,mp4|max:5120',  // Accept .mp4 and audio formats
             'page_status' => 'required|integer|in:1,0',
         ]);
 

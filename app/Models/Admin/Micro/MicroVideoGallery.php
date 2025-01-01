@@ -17,5 +17,6 @@ class MicroVideoGallery extends Model
         'video_title_hi',
         'video_upload',
         'page_status',
+        'research_centre',
     ];
 }

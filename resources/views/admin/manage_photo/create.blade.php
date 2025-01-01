@@ -323,7 +323,7 @@ document.addEventListener("DOMContentLoaded", function() {
             courseSuggestions.style.display = "none";
         }
     });
-});
+}); 
 </script>
 
 

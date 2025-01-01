@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class ManageAuditController extends Controller
 {
     public function index()
-    {
+    { 
         // Fetch data from the manage_audit table, ordered by timestamp
         $audits = ManageAudit::orderBy('timestamps', 'desc')->get();
         // dd($audits);

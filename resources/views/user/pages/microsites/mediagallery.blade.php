@@ -23,44 +23,55 @@
         <div class="col-8">
             <div class="position-relative d-flex overflow-x-hidden py-lg-4 pt-4">
                 <div class="d-flex gap-3">
-                    <a href="{{ route('user.media_gallery') }}"
+                
+                    <!-- <a href="{{ route('user.media_gallery') }}"
                         class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border"
                         style="width: 200px !important">
-                        <!--img-->
+                        
                         <div class="p-3">
                             <img src="{{ asset('assets/images/images.png') }}" alt="mentor 19" class="avatar avatar-xl">
-                            <!--content-->
+                            
                             <div class="mt-3">
                                 <h3 class="mb-0 h4">Photos Gallery</h3>
                             </div>
                         </div>
-                    </a>
-                    <a href="{{ route('videoGallery') }}"
+                    </a>  -->
+                    @if ($research_centre)
+                        <a href="{{ route('user.media_gallery', ['slug' => $slug]) }}"
                         class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border"
                         style="width: 200px !important">
-                        <!--img-->
+                            <!-- Image -->
+                            <div class="p-3">
+                                <img src="{{ asset('assets/images/images.png') }}" alt="mentor 19" class="avatar avatar-xl">
+                                <!-- Content -->
+                                <div class="mt-3">
+                                    <h3 class="mb-0 h4">Photos Gallery</h3>
+                                </div>
+                            </div>
+                        </a>
+                    @else
+                        <p>No research centre found for the slug: {{ $slug }}.</p>
+                    @endif
+
+
+
+                    <a href="{{ route('videoGallery', ['slug' => request()->query('slug')]) }}"
+                        class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border"
+                        style="width: 200px !important">
+                        <!-- Image -->
                         <div class="p-3">
-                            <img src="{{ asset('assets/images/gallery.png') }}" alt="mentor 19"
-                                class="avatar avatar-xl">
-                            <!--content-->
+                            <img src="{{ asset('assets/images/gallery.png') }}" alt="mentor 19" class="avatar avatar-xl">
+                            <!-- Content -->
                             <div class="mt-3">
                                 <h3 class="mb-0 h4">Video Gallery</h3>
                             </div>
                         </div>
                     </a>
+
                 </div>
             </div>
         </div>
-        <!-- <div class="col-4">
-            <div class="card card-hover border">
-                <div class="card-header" style="background-color: #af2910;">
-                    <h3 class="text-white">Quick Links</h3>
-                </div>
-                <div class="card-body" style="padding: 0;">
-                        
-                </div>
-            </div>
-        </div> -->
+
         <div class="col-4">
             <div class="card card-hover border">
                 <div class="card-header" style="background-color: #af2910;">

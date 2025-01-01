@@ -12,6 +12,7 @@ class HomePagesMicroController extends Controller
 { 
     public function media_gallery()
     {
+        // echo 'test';die;
         // Fetch all data from the table using Query Builder
         $photoGalleries = DB::table('micro_manage_photo_galleries')->where('status', 1)->get();
         $courses = DB::table('course')->select('id', 'course_name')->get();
@@ -19,11 +20,32 @@ class HomePagesMicroController extends Controller
         return view('user.pages.microsites.media_gallery', compact('photoGalleries','courses'));
     }
 
-    public function mediagallery()
+    // public function mediagallery($slug = null)
+    // {
+    //     $query = DB::table('research_centres')->where('status', 1);
+    //     if ($slug) {
+    //         // Filter by research_centre_slug if provided
+    //         $query->where('research_centre_slug', $slug);
+    //     }
+    //     $research_centres = $query->get();
+
+    //     $quickLinks = DB::table('micro_quick_links')->where('categorytype', 2)->where('status', 1)->get();
+    //     return view('user.pages.microsites.mediagallery',compact('quickLinks','research_centres','slug'));
+    // }
+
+    public function mediagallery(Request $request)
     {
+        // Get the slug from the query parameters (URL)
+        $slug = $request->query('slug');  // or $request->get('slug');
+        // Fetch the research centre by slug
+        $research_centre = DB::table('research_centres')->where('status', 1)
+            ->where('research_centre_slug', $slug)
+            ->first();
         $quickLinks = DB::table('micro_quick_links')->where('categorytype', 2)->where('status', 1)->get();
-        return view('user.pages.microsites.mediagallery',compact('quickLinks'));
+        return view('user.pages.microsites.mediagallery', compact('quickLinks', 'research_centre', 'slug'));
     }
+        
+
 
     public function filterGallery(Request $request)
     {
@@ -108,17 +130,35 @@ class HomePagesMicroController extends Controller
 
 
 
-    // Method to show the video gallery
-    public function videoGallery()
-    {
-        // Fetch all videos from the 'micro_video_galleries' table
-        $videos = DB::table('micro_video_galleries')
-            ->where('page_status', 1)  // Ensure only active videos are fetched
-            ->get();
+    // // Method to show the video gallery
+    // public function videoGallery()
+    // {
+    //     // Fetch all videos from the 'micro_video_galleries' table
+    //     $videos = DB::table('micro_video_galleries')
+    //         ->where('page_status', 1)  // Ensure only active videos are fetched
+    //         ->get();
 
-        // Pass the videos to the view
-        return view('user.pages.microsites.video_gallery', compact('videos'));
+    //     // Pass the videos to the view
+    //     return view('user.pages.microsites.video_gallery', compact('videos'));
+    // }
+
+    public function videoGallery($slug = null)
+    {
+        // Fetch videos from the 'micro_video_galleries' table, filtered by the slug if provided
+        $query = DB::table('micro_video_galleries')
+            ->where('page_status', 1);  // Ensure only active videos are fetched
+
+        if ($slug) {
+            // If the slug is provided, filter the videos by it (you can adjust this as needed)
+            $query->where('slug', $slug);  // Example: assuming the videos table has a 'slug' field
+        }
+
+        $videos = $query->get();  // Get the results
+
+        // Pass the videos and slug to the view
+        return view('user.pages.microsites.video_gallery', compact('videos', 'slug'));
     }
+
 
 
 }

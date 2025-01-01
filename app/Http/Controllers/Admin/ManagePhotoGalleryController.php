@@ -177,7 +177,7 @@ class ManagePhotoGalleryController extends Controller
                         if (file_exists($filePath)) {
                             unlink($filePath); // Delete old file
                         }
-                    }
+                    } 
 
                     // Add the new uploaded file
                     if ($request->hasFile("image_files.{$index}")) {

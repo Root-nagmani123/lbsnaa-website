@@ -61,7 +61,21 @@
                             </div>
                         </div>
 
-
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label for="select_research_centre">Select Research Centre:</label>
+                                <span class="star">*</span>
+                                <select name="research_centre" class="form-control">
+                                    <option value="" selected>Select Research Centre</option>
+                                    @foreach ($researchCentres as $id => $name)
+                                    <option value="{{ $id }}">{{ $name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('research_centre')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
 
                         <!-- Dropdown to select related content for News -->
                         <!-- <div class="col-lg-6">
@@ -154,7 +168,7 @@
                         </div> -->
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
-                                <label for="media_categories" class="label">Select Category Centre</label>
+                                <label for="media_categories" class="label">Media Category</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <select name="media_categories" id="media_categories" class="form-control text-dark ps-5 h-58">

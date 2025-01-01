@@ -16,7 +16,12 @@ class MicroVideoGalleryController extends Controller
     public function index()
     {
         $videos = MicroVideoGallery::all(); // Get all videos
-        return view('admin.micro.manage_media_center.video_gallery.index', compact('videos'));
+        // Fetching active research centres where status == 1
+        $researchCentres = DB::table('research_centres')
+        ->where('status', 1) // Filter only active records
+        ->pluck('research_centre_name', 'id');
+
+        return view('admin.micro.manage_media_center.video_gallery.index', compact('videos','researchCentres'));
     }
 
     // Show the form for creating a new video
@@ -26,7 +31,11 @@ class MicroVideoGalleryController extends Controller
             ->where('status', 1)
             ->get(); // Retrieve records with status == 1 
         // dd($mediaCategories);
-        return view('admin.micro.manage_media_center.video_gallery.create', compact('categories'));
+        $researchCentres = DB::table('research_centres')
+            ->where('status', 1)  // Filter where status is 1
+            ->pluck('research_centre_name', 'id');  // Replace 'research_centre_name' and 'id' with your actual column names
+
+        return view('admin.micro.manage_media_center.video_gallery.create', compact('categories','researchCentres'));
     }
 
     // Store a newly created video
@@ -38,8 +47,9 @@ class MicroVideoGalleryController extends Controller
             'video_title_hi' => 'nullable',
             'video_upload' => 'required|mimes:mp4|max:20480',
             'page_status' => 'required|in:1,0',
+            'research_centre' => 'required',
         ]);
-
+        // dd($request);
         $data = $request->all();
 
         // Handle video file upload
@@ -72,9 +82,12 @@ class MicroVideoGalleryController extends Controller
             ->where('status', '=', 1) // Explicitly specify the condition
             ->get();
         // dd($categories);
+        $researchCentres = DB::table('research_centres')
+            ->where('status', 1)  // Filter where status is 1
+            ->pluck('research_centre_name', 'id');  // Replace 'research_centre_name' and 'id' with your actual column names
 
         // Return the edit view with video and categories data
-        return view('admin.micro.manage_media_center.video_gallery.edit', compact('video', 'categories'));
+        return view('admin.micro.manage_media_center.video_gallery.edit', compact('video', 'categories','researchCentres'));
     }
 
 
@@ -88,6 +101,7 @@ class MicroVideoGalleryController extends Controller
             'video_title_hi' => 'nullable|string|max:255', // Hindi video title is optional
             'video_upload' => 'nullable|mimes:mp4|max:20480', // Video upload must be an MP4 and max size 20MB (20480KB)
             'page_status' => 'required|in:1,0', // Must be 1 or 0
+            'research_centre' => 'required',
         ], [    
             'category_name.required' => 'Please enter the category name.',
             'video_title_en.required' => 'Please provide the video title in English.',
@@ -95,7 +109,8 @@ class MicroVideoGalleryController extends Controller
             'video_upload.max' => 'The video file size must not exceed 20MB.',
             'page_status.required' => 'Please select the page status.',
             'page_status.in' => 'The page status must be either active (1) or inactive (0).',
-        ]);
+            'research_centre' => 'Please select research center',
+        ]); 
 
         $video = MicroVideoGallery::findOrFail($id);
         $data = $request->all();

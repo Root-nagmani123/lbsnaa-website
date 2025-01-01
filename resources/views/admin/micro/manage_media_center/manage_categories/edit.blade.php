@@ -35,7 +35,7 @@
 
                     <div class="col-lg-5">
                             <div class="form-group mb-4">
-                                <label for="research_centre_id" class="label">Select Research Centre</label>
+                                <label for="research_centre_id" class="label">Select Research Center</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <select name="research_centre" id="research_centre_id" class="form-control text-dark ps-5 h-58">

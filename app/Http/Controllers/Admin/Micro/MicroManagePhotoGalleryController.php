@@ -31,17 +31,26 @@ class MicroManagePhotoGalleryController extends Controller
             'four_row.name as related_events'
         )
         ->get();
-        
+
+        // Fetching active research centres where status == 1
+        $researchCentres = DB::table('research_centres')
+        ->where('status', 1) // Filter only active records
+        ->pluck('research_centre_name', 'id'); 
+         
         // print_r($galleries);
-        return view('admin.micro.manage_media_center.manage_photo.index', compact('galleries'));
+        return view('admin.micro.manage_media_center.manage_photo.index', compact('galleries', 'researchCentres'));
     }
 
     public function create()
     {
         $mediaCategories = DB::table('micro_media_categories')
             ->where('status', 1)
-            ->get(); // Retrieve records with status == 1        
-        return view('admin.micro.manage_media_center.manage_photo.create', compact('mediaCategories')); 
+            ->get(); // Retrieve records with status == 1  
+        $researchCentres = DB::table('research_centres')
+            ->where('status', 1)  // Filter where status is 1
+            ->pluck('research_centre_name', 'id');  // Replace 'research_centre_name' and 'id' with your actual column names
+
+        return view('admin.micro.manage_media_center.manage_photo.create', compact('mediaCategories','researchCentres')); 
     }
  
     public function store(Request $request)
@@ -51,7 +60,7 @@ class MicroManagePhotoGalleryController extends Controller
             'image_files' => 'required|array', // Ensure an array of images is provided
             'image_files.*' => 'file|mimes:jpeg,png,jpg|max:2048', // Validate each file in the array
             'image_title_english' => 'required|string|max:255', // Ensure the English title is provided
-            
+            'research_centre' => 'required',
             'status' => 'required|integer|in:1,0', // Ensure status is one of the valid values
             'course_id' => 'required|integer|exists:courses,id', // Ensure course ID exists in the database
             'media_categories' => 'required', // Ensure course ID exists in the database
@@ -65,6 +74,7 @@ class MicroManagePhotoGalleryController extends Controller
             'status.required' => 'Please select a valid status.',
             'course_id.required' => 'Please select a course.',
             'course_id.exists' => 'The selected course is invalid.',
+            'research_centre.required' => 'Please select research center.',
         ]);
 
         // Ensure image files are provided
@@ -95,6 +105,7 @@ class MicroManagePhotoGalleryController extends Controller
             'related_training_program' => $request->input('related_training_program'),
             'related_events' => $request->input('related_events'),
             'media_categories'=> $request->input('media_categories'),
+            'research_centre' => $request->input('research_centre'),
             'created_at' => now(), // Add timestamp for created_at
             'updated_at' => now(), // Add timestamp for updated_at
         ];
@@ -127,7 +138,9 @@ class MicroManagePhotoGalleryController extends Controller
         ->select('sub.*', 'parent.id as parent_id', 'parent.name as parent_name')
         ->first();
 
-
+        $researchCentres = DB::table('research_centres')
+        ->where('status', 1)  // Filter where status is 1
+        ->pluck('research_centre_name', 'id');  // Replace 'research_centre_name' and 'id' with your actual column names
 
         if (!$gallery) {
             abort(404, 'Gallery not found');
@@ -166,6 +179,7 @@ class MicroManagePhotoGalleryController extends Controller
             'bbb' => $bbb ? $bbb->name : null,
             'ccc' => $ccc ? $ccc->name : null,
             'ddd' => $ddd ? $ddd->name : null,
+            'researchCentres' => $researchCentres,
         ]);
     }
 
@@ -176,7 +190,7 @@ class MicroManagePhotoGalleryController extends Controller
             'image_files' => 'nullable|array',
             'image_files.*' => 'nullable|file|mimes:jpeg,png,jpg|max:2048', // Validate image files
             'image_title_english' => 'required|string|max:255', // Validate English title
-            
+            'research_centre' => 'required',
             'status' => 'required|integer|in:1,0', // Validate status (either 1 or 0)
             'course_id' => 'required|integer|exists:courses,id', // Validate course ID exists
             
@@ -190,6 +204,7 @@ class MicroManagePhotoGalleryController extends Controller
             'status.in' => 'Status must be either 1 or 0.',
             'course_id.required' => 'Please select a course.',
             'course_id.exists' => 'The selected course is invalid.',
+            'research_centre.required' => 'Please select research center.',
             
         ]);
 
@@ -247,6 +262,7 @@ class MicroManagePhotoGalleryController extends Controller
         $gallery->related_training_program = $request->input('related_training_program');
         $gallery->related_events = $request->input('related_events');
         $gallery->media_categories = $request->input('media_categories');
+        $gallery->research_centre = $request->input('research_centre');
         $gallery->updated_at = now();
 
         // Save the gallery

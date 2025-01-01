@@ -66,6 +66,23 @@
 
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
+                                <label for="select_research_centre">Select Research Centre:</label>
+                                <span class="star">*</span>
+                                <select name="research_centre" class="form-control">
+                                    <option value="" selected>Select Research Centre</option>
+                                    @foreach ($researchCentres as $id => $name)
+                                    <option value="{{ $id }}">{{ $name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('research_centre')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
                                 <label for="video_title_en">Video Title (English) :</label>
                                 <span class="star">*</span>
                                 <input type="text" name="video_title_en" id="video_title_en" class="form-control"

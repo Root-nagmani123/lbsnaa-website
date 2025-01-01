@@ -104,7 +104,7 @@ Route::get('/rti/{slug}', [HomeFrontController::class, 'get_rti_page_details'])-
 
 Route::get('/souvenir', [HomeFrontController::class, 'souvenir'])->name('user.souvenir');
 Route::get('/feedback', [HomeFrontController::class, 'feedback'])->name('user.feedback');
-Route::get('/mediagallery', [HomeFrontController::class, 'mediagallery'])->name('user.mediagallery');
+// Route::get('/mediagallery', [HomeFrontController::class, 'mediagallery'])->name('user.mediagallery');
 Route::get('/audiogallery', [HomeFrontController::class, 'audiogallery'])->name('user.audiogallery');
 Route::get('/videogallery', [HomeFrontController::class, 'videogallery'])->name('user.videogallery');
 Route::get('/photogallery', [HomeFrontController::class, 'photogallery'])->name('user.photogallery');
@@ -114,14 +114,23 @@ Route::POST('/feedback_store', [HomeFrontController::class, 'storeFeedback'])->n
 
 
 //micro 
-Route::get('/lbsnaa-sub', [HomeFrontmicroController::class,'index'])->name('user.micrositebyslug');
-// Route::get('/lbsnaa-sub/{slug}', [HomeFrontmicroController::class, 'index'])->name('user.micrositebyslug');
-
-
-
-
+// Route::get('/lbsnaa-sub', [HomeFrontmicroController::class,'index'])->name('user.micrositebyslug');
+Route::get('/lbsnaa-sub/{slug}', [HomeFrontmicroController::class, 'index'])->name('user.micrositebyslug');
 Route::get('/lbsnaa-sub/micromenu/{slug}', [HomeFrontmicroController::class, 'get_navigation_pages'])->name('user.navigationmenubyslug');
 //micro 
+
+// 01/01
+// Route::get('lbsnaa-sub/{slug}', [HomeFrontmicroController::class, 'handleMicroSite'])->name('micro.site');
+// Route::get('mediagallery/{slug}', [HomeFrontmicroController::class, 'mediagallery'])->name('mediagallery');
+// Route::get('mediagallery/{slug?}', [HomeFrontmicroController::class, 'mediagallery'])->name('user.media_gallery');
+Route::get('mediagallery', [HomeFrontmicroController::class, 'mediagallery'])->name('user.media_gallery');
+Route::get('video-gallery/{slug}', [HomeFrontmicroController::class, 'videoGallery'])->name('user.videoGallery');
+
+
+
+// 01/01
+
+
 
 // Indrajeet Home page dynamic
 Route::get('/lbsnaa-sub/media_gallery', [HomePagesMicroController::class,'media_gallery'])->name('user.media_gallery');
@@ -129,7 +138,7 @@ Route::get('/photo-galleries/filterGallery', [HomePagesMicroController::class, '
 Route::get('/lbsnaa-sub/calendar', [HomePagesMicroController::class, 'calendar'])->name('calendar');
 Route::get('/lbsnaa-sub/news', [HomePagesMicroController::class, 'news'])->name('news');
 Route::get('/lbsnaa-sub/news/{id}', [HomePagesMicroController::class, 'newsdetails'])->name('news.details');
-Route::get('/lbsnaa-sub/mediagallery', [HomePagesMicroController::class, 'mediagallery'])->name('mediagallery');
+Route::get('/lbsnaa-sub_m/mediagallery', [HomePagesMicroController::class, 'mediagallery'])->name('mediagallery');
 Route::get('/lbsnaa-sub/video-gallery', [HomePagesMicroController::class, 'videoGallery'])->name('videoGallery');
 
 
@@ -349,7 +358,7 @@ Route::post('/users/permissions/update', [UserManagementController::class, 'upda
     Route::get('subcategory/{id}/edit', [CoursesubCategoryController::class, 'edit'])->name('subcategory.edit');
     Route::put('subcategory/{id}', [CoursesubCategoryController::class, 'update'])->name('subcategory.update');
     Route::get('subcategory/{id}/delete', [CoursesubCategoryController::class, 'delete'])->name('subcategory.delete');
-
+ 
     // Indrajeet
     Route::resource('organisers', OrganiserController::class);
     Route::resource('venues', ManageVenueController::class);
