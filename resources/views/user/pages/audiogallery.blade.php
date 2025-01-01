@@ -53,13 +53,13 @@
                                 <p>{{ $media->audio_title_en }}</p>
                             </div>
                         </div>
-                    </div>
-                </div>
-
-                @endforeach
-                @endif
-            </div>
-        </div>
+               
+            @endforeach
+            @else
+            <p>No Audio Found</p>
+        @endif
+    </div>
+</div>
 
 
     </div>
