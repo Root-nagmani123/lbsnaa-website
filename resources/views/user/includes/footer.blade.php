@@ -63,7 +63,7 @@ $footer_links = DB::table('menus')->where('txtpostion',3)->where('menu_status',1
             <hr class="mt-6 mb-3">
             <div class="row align-items-center">
                 <!-- Desc -->
-                <div class="col-lg-6 col-md-6 col-12">
+                <div class="col-lg-9 col-md-9 col-12">
                     <span>
                         ©
                         <span id="copyright4">
@@ -72,14 +72,14 @@ $footer_links = DB::table('menus')->where('txtpostion',3)->where('menu_status',1
                                 .getFullYear()));
                             </script>
                         </span>
-                        <span style="color: #af2910;">Lal Bahadur Shastri National Academy of Administration</span>. All
+                        <span>Copyright Ministry of Electronics & IT <a href="https://www.digitalindia.gov.in/" target="_blank" style="color: #af2910;">(NeGD)</a>, Government of India.</span>. All
                         Rights
                         Reserved
                     </span>
                 </div>
 
                 <!-- Links -->
-                <div class="col-lg-6 col-md-12 col-12 d-lg-flex justify-content-end">
+                <div class="col-lg-3 col-md-12 col-12 d-lg-flex justify-content-end">
                     <div>
                         @php
                         $social_media_links = DB::table('social_media_links')->get();
