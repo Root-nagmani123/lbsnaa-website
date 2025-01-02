@@ -61,7 +61,14 @@
                                 <label for="officer_incharge" class="label">Officer Incharge</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" name="officer_Incharge" class="form-control text-dark ps-5 h-58">
+                                    <select name="officer_Incharge" id="officer_Incharge" class="form-control">
+                                        <option value="">Select Officer Incharge</option>
+                                        @foreach ($officers as $officer)
+                                        <option value="{{ $officer->email }}">
+                                            {{ $officer->name }} {{-- Replace "name" with the actual column name --}}
+                                        </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -69,8 +76,16 @@
                             <div class="form-group mb-4">
                                 <label for="alternative_incharge_1st" class="label">Alternative Incharge 1st</label>
                                 <div class="form-group position-relative">
-                                    <input type="text" name="alternative_incharge_1st"
-                                        class="form-control text-dark ps-5 h-58">
+                                    <!-- <input type="text" name="alternative_incharge_1st" class="form-control text-dark ps-5 h-58"> -->
+                                    <select name="alternative_incharge_1st" id="alternative_incharge_1st"
+                                        class="form-control">
+                                        <option value="">Select  Incharge</option>
+                                        @foreach ($officers as $officer)
+                                        <option value="{{ $officer->email }}">
+                                            {{ $officer->name }} {{-- Replace "name" with the actual column name --}}
+                                        </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -78,8 +93,16 @@
                             <div class="form-group mb-4">
                                 <label for="alternative_incharge_2st" class="label">Alternative Incharge 2nd</label>
                                 <div class="form-group position-relative">
-                                    <input type="text" name="alternative_incharge_2st"
-                                        class="form-control text-dark ps-5 h-58">
+                                    <!-- <input type="text" name="alternative_incharge_2st" class="form-control text-dark ps-5 h-58"> -->
+                                    <select name="alternative_incharge_2st" id="alternative_incharge_2st"
+                                        class="form-control">
+                                        <option value="">Select  Incharge</option>
+                                        @foreach ($officers as $officer)
+                                        <option value="{{ $officer->email }}">
+                                            {{ $officer->name }} {{-- Replace "name" with the actual column name --}}
+                                        </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -87,8 +110,16 @@
                             <div class="form-group mb-4">
                                 <label for="alternative_incharge_3st" class="label">Alternative Incharge 3rd</label>
                                 <div class="form-group position-relative">
-                                    <input type="text" name="alternative_incharge_3st"
-                                        class="form-control text-dark ps-5 h-58">
+                                    <!-- <input type="text" name="alternative_incharge_3st" class="form-control text-dark ps-5 h-58"> -->
+                                    <select name="alternative_incharge_3st" id="alternative_incharge_3st"
+                                        class="form-control">
+                                        <option value="">Select  Incharge</option>
+                                        @foreach ($officers as $officer)
+                                        <option value="{{ $officer->email }}">
+                                            {{ $officer->name }} {{-- Replace "name" with the actual column name --}}
+                                        </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -96,8 +127,16 @@
                             <div class="form-group mb-4">
                                 <label for="alternative_incharge_4st" class="label">Alternative Incharge 4th</label>
                                 <div class="form-group postion-relative">
-                                    <input type="text" name="alternative_incharge_4st"
-                                        class="form-control text-dark ps-5 h-58">
+                                    <!-- <input type="text" name="alternative_incharge_4st" class="form-control text-dark ps-5 h-58"> -->
+                                    <select name="alternative_incharge_4st" id="alternative_incharge_4st"
+                                        class="form-control">
+                                        <option value="">Select  Incharge</option>
+                                        @foreach ($officers as $officer)
+                                        <option value="{{ $officer->email }}">
+                                            {{ $officer->name }} {{-- Replace "name" with the actual column name --}}
+                                        </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -105,8 +144,16 @@
                             <div class="form-group mb-4">
                                 <label for="alternative_incharge_5st" class="label">Alternative Incharge 5th</label>
                                 <div class="form-group postion-relative">
-                                    <input type="text" name="alternative_incharge_5st"
-                                        class="form-control text-dark ps-5 h-58">
+                                    <!-- <input type="text" name="alternative_incharge_5st" class="form-control text-dark ps-5 h-58"> -->
+                                    <select name="alternative_incharge_5st" id="alternative_incharge_5st"
+                                        class="form-control">
+                                        <option value="">Select  Incharge</option>
+                                        @foreach ($officers as $officer)
+                                        <option value="{{ $officer->email }}">
+                                            {{ $officer->name }} {{-- Replace "name" with the actual column name --}}
+                                        </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
 
@@ -195,7 +242,8 @@
                         </div>
                         <div class="d-flex ms-sm-3 ms-md-0">
                             <button class="btn btn-success text-white fw-semibold" type="submit">Submit</button>&nbsp;
-                            <a href="{{ route('admin.section_category', ['catid' => $id]) }}" class="btn btn-secondary text-white">Back</a>
+                            <a href="{{ route('admin.section_category', ['catid' => $id]) }}"
+                                class="btn btn-secondary text-white">Back</a>
                         </div>
                     </div>
                 </form>

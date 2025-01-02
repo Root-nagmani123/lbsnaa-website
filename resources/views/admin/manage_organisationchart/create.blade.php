@@ -15,7 +15,7 @@
             <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Organization Chart</span>
         </li>
     </ul>
-</div>
+</div> 
 <div class="row justify-content-center">
     <div class="col-lg-12">
         <div class="card bg-white border-0 rounded-10 mb-4">
@@ -53,7 +53,7 @@
                                         class="form-select form-control ps-5 h-58">
                                         <option value="">Select Employee</option>
                                         @foreach ($records as $record)
-                                        <option value={{ $record->id }}>{{ $record->name }}</option>
+                                        <option value={{ $record->id }} {{ $record->id == $organisation_chart->employee_name ? 'selected' : '' }}>{{ $record->name }}</option>
                                         @endforeach
                                     </select>
                                     @error('parentcategory')
@@ -69,8 +69,14 @@
                                 <label class="label" for="menutitle">Select Category :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" id="employee_name" name="employee_name" autocomplete=""
-                                        class="form-control text-dark ps-5 h-58">
+                                    <!-- <input type="text" id="employee_name" name="employee_name" autocomplete="" class="form-control text-dark ps-5 h-58"> -->
+                                    <select name="employee_name" id="employee_name"
+                                        class="form-select form-control ps-5 h-58">
+                                        <option value="" class="text-dark">Select </option>
+                                        @foreach ($records as $record)
+                                        <option value={{ $record->id }}>{{ $record->name }}</option>
+                                        @endforeach
+                                    </select>
                                     @error('employee_name')
                                         <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
                                     @enderror

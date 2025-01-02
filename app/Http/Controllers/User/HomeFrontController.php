@@ -39,7 +39,7 @@ class HomeFrontController extends Controller
 
         $news =  DB::table('news')->where('status',1)->where('title_slug',$slug)->first();
 
-        $news_images = explode(',', $news->multiple_images);
+        $news_images = json_decode($news->multiple_images);
 
         
         return view('user.pages.newsbyslug', compact('news','news_images'));
@@ -76,7 +76,7 @@ class HomeFrontController extends Controller
     {
         // echo $slug;die;
         if($slug == 'faculty'){
-            $query = DB::table('faculty_members')->where('page_status', 1);
+            $query = DB::table('faculty_members')->where('page_status', 1)->where('category', 1);
 
             // Check if a search keyword is provided
             if ($request->has('keywords') && !empty($request->keywords)) {
@@ -239,18 +239,22 @@ public function training_cal()
     // Step 1: Fetch all parent categories
     $parentCategories = DB::table('courses_sub_categories')
         ->where('parent_id', 0)  // Get only the parent categories
+        ->where('status', 1) 
         ->select('id', 'category_name', 'color_theme')
         ->get();
 
     // Step 2: Fetch all subcategories in one query
     $subcategories = DB::table('courses_sub_categories')
         ->where('parent_id', '!=', 0) // Get all subcategories that have a parent
+        ->where('status', 1) // Get all subcategories that have a parent
         ->select('id', 'category_name', 'color_theme', 'parent_id')
         ->get();
 
     // Step 3: Fetch all courses in one query
     $courses = DB::table('course')
         ->leftJoin('section_category', 'course.support_section', '=', 'section_category.id')
+        ->where('section_category.status', 1)
+        ->where('course.page_status', 1)
         ->select(
             'course.id',
             'course.course_name',
@@ -530,27 +534,25 @@ function view_all_photogallery(Request $request){
 }
 public function organization(Request $request)
 {
-    // Fetch organization chart with faculty designations
     $orgChart = DB::table('organisation_chart')
-        ->leftJoin('faculty_members as faculty', 'organisation_chart.faculty_id', '=', 'faculty.id')
+        ->leftJoin('faculty_members as faculty', 'organisation_chart.employee_name', '=', 'faculty.id')
         ->select(
             'organisation_chart.id',
             'organisation_chart.employee_name',
             'organisation_chart.parent_id',
-            'faculty.designation as designation' // Fetch designation from faculty_members table
+            'faculty.designation as designation', // Fetch designation from faculty_members table
+            'faculty.description as description', // Fetch designation from faculty_members table
+            'faculty.image as image', // Fetch designation from faculty_members table
+            'faculty.email as email', // Fetch designation from faculty_members table
+            'faculty.phone_pt_office as phone_pt_office', // Fetch designation from faculty_members table
+            'faculty.name as name' // Fetch designation from faculty_members table
         )
         ->where('organisation_chart.status', 1)
-
         ->orderBy('organisation_chart.id')
-
         ->get();
-
-    // Convert to an array for recursive manipulation
     $orgChart = $orgChart->toArray();
-
-    // Build a hierarchy using a recursive function
     $hierarchy = $this->buildHierarchy($orgChart);
-// print_r($hierarchy);die;
+    // print_r($hierarchy);die;
     return view('user.pages.organization', compact('hierarchy'));
 }
 
@@ -558,7 +560,6 @@ public function organization(Request $request)
 private function buildHierarchy($elements, $parentId = null)
 {
     $branch = [];
-
     foreach ($elements as $element) {
         if ($element->parent_id == $parentId) {
             // Recursively fetch children
@@ -569,8 +570,52 @@ private function buildHierarchy($elements, $parentId = null)
             $branch[] = $element;
         }
     }
-
     return $branch;
+}
+public function faculty_responsibility(Request $request) {
+    $query = DB::table('faculty_members')
+        ->where('page_status', 1)
+        ->select('name', 'email');
+    // Apply keyword search if provided
+    if ($request->has('keywords') && !empty($request->keywords)) {
+        $query->where('name', 'LIKE', '%' . $request->keywords . '%');
+    }
+    $data = $query->get();
+    foreach ($data as $key => $value) {
+        // Officer Incharge
+        $Officer = DB::table('section_category')
+            ->leftJoin('sections', 'section_category.section_id', '=', 'sections.id')
+            ->where('section_category.officer_Incharge', $value->email)
+            ->select('sections.id as sections_id', 'sections.title as section_title', 'section_category.name as category_name')
+            ->get()
+            ->groupBy('sections_id')
+            ->map(function ($items) {
+                return [
+                    'section_title' => $items->first()->section_title,
+                    'categories' => $items->pluck('category_name')->toArray(),
+                ];
+            });
+
+        // Deputy Incharge
+        $Deputy = DB::table('section_category')
+            ->leftJoin('sections', 'section_category.section_id', '=', 'sections.id')
+            ->where('section_category.alternative_Incharge_1st', $value->email)
+            ->select('sections.id as sections_id', 'sections.title as section_title', 'section_category.name as category_name')
+            ->get()
+            ->groupBy('sections_id')
+            ->map(function ($items) {
+                return [
+                    'section_title' => $items->first()->section_title,
+                    'categories' => $items->pluck('category_name')->toArray(),
+                ];
+            });
+
+        // Append section data to the faculty member object
+        $value->Officer_Incharge = $Officer;
+        $value->Deputy_Incharge = $Deputy;
+    }
+
+    return view('user.pages.faculty_responsibility', compact('data'));
 }
 
 

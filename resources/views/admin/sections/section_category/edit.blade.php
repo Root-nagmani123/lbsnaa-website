@@ -33,7 +33,7 @@
                                 <label class="label" for="language">Page Language :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="radio" name="language" value="1"> English
+                                    <input type="radio"  name="language" value="1"> English
                                     <input type="radio" name="language" value="2"> Hindi
                                 </div>
                             </div>
@@ -65,8 +65,19 @@
                                 <label for="officer_incharge" class="label">Officer Incharge</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" name="officer_Incharge" class="form-control ps-5 text-dark h-58"
-                                        value="{{ old('officer_Incharge', $sectionCategory->officer_Incharge) }}">
+                                    <!-- <input type="text" name="officer_Incharge" class="form-control ps-5 text-dark h-58" value="{{ old('officer_Incharge', $sectionCategory->officer_Incharge) }}"> -->
+                                    <select name="officer_Incharge" id="officer_Incharge" class="form-control">
+                                        <option value="">Select Officer Incharge</option>
+                                        @foreach ($officers as $officer)
+                                        <option value="{{ $officer->email }}" @if ($sectionCategory->officer_Incharge ==
+                                            $officer->email)
+                                            selected
+                                            @endif>
+                                            {{ $officer->name }} {{-- Replace "name" with the actual column name --}}
+                                        </option>
+                                        @endforeach
+
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -74,8 +85,19 @@
                             <div class="form-group mb-4">
                                 <label for="alternative_Incharge_1st" class="label">Alternative Incharge 1st</label>
                                 <div class="form-group position-relative">
-                                    <input type="text" name="alternative_Incharge_1st" class="form-control"
-                                        value="{{ old('alternative_Incharge_1st', $sectionCategory->alternative_Incharge_1st) }}">
+                                    <!-- <input type="text" name="alternative_Incharge_1st" class="form-control" value="{{ old('alternative_Incharge_1st', $sectionCategory->alternative_Incharge_1st) }}"> -->
+                                    <select name="alternative_Incharge_1st" id="alternative_Incharge_1st"
+                                        class="form-control">
+                                        <option value="">Select Incharge</option>
+                                        @foreach ($officers as $officer)
+                                        <option value="{{ $officer->email }}" @if ($sectionCategory->alternative_Incharge_1st ==
+                                            $officer->email)
+                                            selected
+                                            @endif>
+                                            {{ $officer->name }} {{-- Replace "name" with the actual column name --}}
+                                        </option>
+                                        @endforeach
+                                    </select>
                                 </div>
 
                             </div>
@@ -84,9 +106,19 @@
                             <div class="form-group mb-4">
                                 <label for="alternative_Incharge_2st" class="label">Alternative Incharge 2nd</label>
                                 <div class="form-group position-relative">
-                                    <input type="text" name="alternative_Incharge_2st"
-                                        class="form-control ps-5 text-dark h-58"
-                                        value="{{ old('alternative_Incharge_2st', $sectionCategory->alternative_Incharge_2st) }}">
+                                    <!-- <input type="text" name="alternative_Incharge_2st" class="form-control ps-5 text-dark h-58" value="{{ old('alternative_Incharge_2st', $sectionCategory->alternative_Incharge_2st) }}"> -->
+                                    <select name="alternative_Incharge_2st" id="alternative_Incharge_2st"
+                                        class="form-control">
+                                        <option value="">Select Incharge</option>
+                                        @foreach ($officers as $officer)
+                                        <option value="{{ $officer->email }}" @if ($sectionCategory->alternative_Incharge_2st ==
+                                            $officer->email)
+                                            selected
+                                            @endif>
+                                            {{ $officer->name }} {{-- Replace "name" with the actual column name --}}
+                                        </option>
+                                        @endforeach
+                                    </select>
                                 </div>
 
                             </div>
@@ -95,9 +127,19 @@
                             <div class="form-group mb-4">
                                 <label for="alternative_Incharge_3st" class="label">Alternative Incharge 3rd</label>
                                 <div class="form-group position-relative">
-                                    <input type="text" name="alternative_Incharge_3st"
-                                        class="form-control ps-5 text-dark h-58"
-                                        value="{{ old('alternative_Incharge_3st', $sectionCategory->alternative_Incharge_3st) }}">
+                                    <!-- <input type="text" name="alternative_Incharge_3st" class="form-control ps-5 text-dark h-58" value="{{ old('alternative_Incharge_3st', $sectionCategory->alternative_Incharge_3st) }}"> -->
+                                    <select name="alternative_Incharge_3st" id="alternative_Incharge_3st"
+                                        class="form-control">
+                                        <option value="">Select Incharge</option>
+                                        @foreach ($officers as $officer)
+                                        <option value="{{ $officer->email }}" @if ($sectionCategory->alternative_Incharge_3st ==
+                                            $officer->email)
+                                            selected
+                                            @endif>
+                                            {{ $officer->name }} {{-- Replace "name" with the actual column name --}}
+                                        </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
 
@@ -106,9 +148,19 @@
                             <div class="form-group mb-4">
                                 <label for="alternative_Incharge_4st" class="label">Alternative Incharge 4th</label>
                                 <div class="form-group position-relative">
-                                    <input type="text" name="alternative_Incharge_4st"
-                                        class="form-control ps-5 text-dark h-58"
-                                        value="{{ old('alternative_Incharge_4st', $sectionCategory->alternative_Incharge_4st) }}">
+                                    <!-- <input type="text" name="alternative_Incharge_4st" class="form-control ps-5 text-dark h-58" value="{{ old('alternative_Incharge_4st', $sectionCategory->alternative_Incharge_4st) }}"> -->
+                                    <select name="alternative_Incharge_4st" id="alternative_Incharge_4st"
+                                        class="form-control">
+                                        <option value="">Select Incharge</option>
+                                        @foreach ($officers as $officer)
+                                        <option value="{{ $officer->email }}" @if ($sectionCategory->alternative_Incharge_4st ==
+                                            $officer->email)
+                                            selected
+                                            @endif>
+                                            {{ $officer->name }} {{-- Replace "name" with the actual column name --}}
+                                        </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
 
@@ -117,9 +169,19 @@
                             <div class="form-group mb-4">
                                 <label for="alternative_Incharge_5st" class="label">Alternative Incharge 5th</label>
                                 <div class="form-group position-relative">
-                                    <input type="text" name="alternative_Incharge_5st"
-                                        class="form-control ps-5 text-dark h-58"
-                                        value="{{ old('alternative_Incharge_5st', $sectionCategory->alternative_Incharge_5st) }}">
+                                    <!-- <input type="text" name="alternative_Incharge_5st" class="form-control ps-5 text-dark h-58" value="{{ old('alternative_Incharge_5st', $sectionCategory->alternative_Incharge_5st) }}"> -->
+                                    <select name="alternative_Incharge_5st" id="alternative_Incharge_5st"
+                                        class="form-control">
+                                        <option value="">Select Incharge</option>
+                                        @foreach ($officers as $officer)
+                                        <option value="{{ $officer->email }}" @if ($sectionCategory->alternative_Incharge_5st ==
+                                            $officer->email)
+                                            selected
+                                            @endif>
+                                            {{ $officer->name }} {{-- Replace "name" with the actual column name --}}
+                                        </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -210,7 +272,8 @@
 
                         <div class="d-flex ms-sm-3 ms-md-0">
                             <button class="btn btn-success text-white fw-semibold" type="submit">Update</button>&nbsp;
-                            <a href="{{ route('admin.section_category', ['catid' => $sectionCategory->section_id]) }}" class="btn btn-secondary text-white">Back</a>
+                            <a href="{{ route('admin.section_category', ['catid' => $sectionCategory->section_id]) }}"
+                                class="btn btn-secondary text-white">Back</a>
                         </div>
                     </div>
                 </form>

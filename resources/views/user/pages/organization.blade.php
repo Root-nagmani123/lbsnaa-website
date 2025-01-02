@@ -21,15 +21,16 @@
     <div class="container">
         <div class="tree">
             @if (!empty($hierarchy))
-            @foreach ($hierarchy as $node)
-            @include('partials.organization-node', ['child' => $node])
-            @endforeach
+                @foreach ($hierarchy as $node)
+                    @include('partials.organization-node', ['node' => $node])
+                @endforeach
             @endif
         </div>
     </div>
 </section>
+
 <style>
-.tree {
+    .tree {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -39,35 +40,37 @@
 
 .chart-box {
     display: inline-block;
-    margin: 20px auto;
+    margin: 20px;
     text-align: center;
+    border: 2px solid #af2910;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 200px; /* Adjust width based on content */
 }
 
 .branch {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
     position: relative;
 }
 
-/* Connecting Lines */
 .branch::before {
     content: '';
     position: absolute;
-    top: -15px;
+    top: -20px; /* Adjust to position the arrow correctly */
     left: 50%;
     width: 2px;
-    height: 15px;
-    background-color: #fff;
+    height: 20px;
+    background-color: #af2910; /* Color for the line */
 }
-.branch > .node:not(:first-child)::before {
-    content: '';
-    position: absolute;
-    top: -10px;
-    left: -50%;
-    width: 100%;
-    height: 2px;
-    background-color: #ffffff;
+
+.node {
+    position: relative;
+    display: inline-block;
+    margin: 20px;
+    padding: 10px;
 }
 
 .node::before {
@@ -76,9 +79,45 @@
     top: 0;
     left: 50%;
     width: 2px;
-    height: 20px;
-    background-color: #ffffff;
+    height: 20px; /* Length of the arrow */
+    background-color: #af2910;
 }
+
+.node > .branch::before {
+    content: '';
+    position: absolute;
+    top: -20px; /* Adjust the positioning to match the vertical distance */
+    left: 50%;
+    width: 2px;
+    height: 20px;
+    background-color: #af2910;
+}
+
+/* Optional: Add styling for the arrow to make it look more like a line */
+.arrow {
+    border-left: 2px solid #af2910; /* Line connecting parent to child */
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 0;
+    height: 20px; /* Adjust arrow length */
+}
+
+.card-body {
+    padding: 15px;
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #af2910;
+}
+
+small {
+    font-size: 14px;
+    color: #555;
+}
+
 
 </style>
 @include('user.includes.footer')

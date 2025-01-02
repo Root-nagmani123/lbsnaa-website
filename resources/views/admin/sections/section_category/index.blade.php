@@ -56,11 +56,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @if($sections->isEmpty())
-                        <tr>
-                            <td colspan="5" class="text-center">No Data Found</td>
-                        </tr>
-                        @else
+                       
                         @foreach($sections as $section)
                         <tr>
                             <td>{{ $loop->iteration }}</td> <!-- Display Index -->
@@ -93,7 +89,6 @@
                             </td>
                         </tr>
                         @endforeach
-                        @endif
                     </tbody>
                 </table>
             </div>

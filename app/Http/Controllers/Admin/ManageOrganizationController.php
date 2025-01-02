@@ -66,7 +66,7 @@ class ManageOrganizationController extends Controller
                         $fail("The {$attribute} must not start with special characters.");
                     }
                 },
-            ],
+            ], 
 
             'designation' => 'required|string|max:255',
             'page_status' => 'required|in:0,1',
@@ -75,7 +75,9 @@ class ManageOrganizationController extends Controller
             'phone_internal_residence' => 'nullable|string|max:10',
             'phone_pt_office' => 'nullable|string|max:10',
             'phone_pt_residence' => 'nullable|string|max:10',
-            'mobile' => 'nullable|string|max:10',
+            'std_code' => 'nullable|string|max:10',
+            'country_code' => 'nullable|string|max:10',
+            'phone_pt_office' => 'nullable|string|max:10',
         ]);
         
         
@@ -156,6 +158,9 @@ class ManageOrganizationController extends Controller
             'phone_pt_office' => 'nullable|digits:10',
             'phone_pt_residence' => 'nullable|digits:10',
             'mobile' => 'nullable|digits:10',
+            'std_code' => 'nullable|string|max:10',
+            'country_code' => 'nullable|string|max:10',
+            'phone_pt_office' => 'nullable|string|max:10',
         ]);
 
         $data = $request->all();
@@ -397,6 +402,7 @@ class ManageOrganizationController extends Controller
     // Section create method to show the create form
     public function sectionCreate()
     {
+      
         return view('admin.sections.create');
     }
 
@@ -465,10 +471,31 @@ class ManageOrganizationController extends Controller
         $id = $request->catid;
 
         // Fetch sections using the query builder
+        // $sections = DB::table('section_category')
+        //     ->select('name', 'description', 'officer_Incharge', 'status', 'id')
+        //     ->where('section_id', $id)
+        //     ->get();
         $sections = DB::table('section_category')
-            ->select('name', 'description', 'officer_Incharge', 'status', 'id')
-            ->where('section_id', $id)
-            ->get();
+        ->select(
+            'section_category.name',
+            'section_category.description',
+            'section_category.status',
+            'section_category.id',
+            'officer_data.name as officer_Incharge'
+        )
+        ->leftJoin(
+            DB::raw('(
+                SELECT id, name, email COLLATE utf8mb4_general_ci as email, "Staff" as type FROM staff_members
+                UNION
+                SELECT id, name, email COLLATE utf8mb4_general_ci as email, "Faculty" as type FROM faculty_members
+            ) as officer_data'),
+            'section_category.officer_Incharge',
+            '=',
+            DB::raw('officer_data.email COLLATE utf8mb4_general_ci')
+        )
+        ->where('section_category.section_id', $id)
+        ->get();
+// print_r($sections);die;
 
         // Return the view with the sections and id
         return view('admin.sections.section_category.index', compact('sections', 'id'));
@@ -480,7 +507,17 @@ class ManageOrganizationController extends Controller
     {
         // Fetch sections using query builder
         $id = $request->catid;
-        return view('admin.sections.section_category.create', compact('id'));
+        // $staff = DB::table('staff_members')->where('page_status', 1)->get()->map(function ($item) {
+        //     $item->type = 'Staff'; // Add a type property
+        //     return $item;
+        // });
+        $faculty = DB::table('faculty_members')->where('page_status', 1)->get()->map(function ($item) {
+            $item->type = 'Faculty'; // Add a type property
+            return $item;
+        });
+        
+        $officers =$faculty;
+        return view('admin.sections.section_category.create', compact('id','officers'));
     }
     
     public function storeSectionCategory(Request $request)
@@ -532,7 +569,17 @@ class ManageOrganizationController extends Controller
         // Fetch section category and sections using query builder
         $sectionCategory = DB::table('section_category')->where('id', $id)->first();
         // dd($sectionCategory->section_id);
-        return view('admin.sections.section_category.edit', compact('sectionCategory'));
+        // $staff = DB::table('staff_members')->where('page_status', 1)->get()->map(function ($item) {
+        //     $item->type = 'Staff'; // Add a type property
+        //     return $item;
+        // });
+        $faculty = DB::table('faculty_members')->where('page_status', 1)->get()->map(function ($item) {
+            $item->type = 'Faculty'; // Add a type property
+            return $item;
+        });
+        
+        $officers = $faculty;
+        return view('admin.sections.section_category.edit', compact('sectionCategory','officers'));
     }
 
     public function updateSectionCategory(Request $request, $id)

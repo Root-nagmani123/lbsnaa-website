@@ -102,6 +102,7 @@ Route::get('/course_full_destails/{slug}', [HomeFrontController::class, 'get_cou
 Route::get('/rti', [HomeFrontController::class, 'rti_main_page'])->name('user.get_rti_page');
 Route::get('/rti/{slug}', [HomeFrontController::class, 'get_rti_page_details'])->name('user.get_rti_page_details');
 
+Route::get('/faculty_responsibility', [HomeFrontController::class, 'faculty_responsibility'])->name('user.faculty_responsibility');
 Route::get('/souvenir', [HomeFrontController::class, 'souvenir'])->name('user.souvenir');
 Route::get('/feedback', [HomeFrontController::class, 'feedback'])->name('user.feedback');
 Route::get('/mediagallery', [HomeFrontController::class, 'mediagallery'])->name('user.mediagallery');
@@ -143,6 +144,7 @@ Route::get('/admin/feedback-list', [MenuController::class, 'feedback_list'])->na
 
 
 Route::get('/admin/menu', [MenuController::class, 'index'])->name('admin.menus.index');
+Route::post('/admin/check-menu-title', [MenuController::class, 'check_menu_title'])->name('admin.menus.check_menu_title');
 Route::get('/admin/menu/create', [MenuController::class, 'create'])->name('admin.menus.create');
 Route::post('/admin/menu', [MenuController::class, 'store'])->name('admin.menus.store');
 Route::get('/admin/menu/{id}/edit', [MenuController::class, 'edit'])->name('admin.menus.edit');

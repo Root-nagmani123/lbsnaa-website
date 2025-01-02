@@ -51,12 +51,12 @@
                         @if ($records->isEmpty())
                         <div class="alert alert-warning text-center" role="alert" colspan="6" class="text-center">
                             No records found
-                        </div>
+                        </div> 
                         @else
                         @foreach ($records as $record)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $record->employee_name }}</td>
+                            <td>{{ $record->name }}</td>
                             <td><a href="{{ route('organisation-chart.sub-org', ['parent_id' => $record->id]) }}"
                                     class="btn btn-secondary btn-sm text-white">click here</a></td>
                             <td>{{ $record->description }}</td>

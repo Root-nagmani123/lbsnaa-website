@@ -16,7 +16,11 @@ class EmployeeController extends Controller
     public function organisation_chartIndex()
     {
 
-        $records = DB::table('organisation_chart')->where('category', 0)->get();
+        $records = DB::table('organisation_chart')
+        ->leftJoin('faculty_members', 'organisation_chart.faculty_id', '=', 'faculty_members.id')
+        ->where('organisation_chart.category', 0)
+        ->select('organisation_chart.*','faculty_members.name')
+        ->get();
         return view('admin.manage_organisationchart.index', compact('records'));
     }
 
@@ -25,7 +29,8 @@ class EmployeeController extends Controller
     {
         $parent_id = !empty($request->query('parent_id')) ? $request->query('parent_id') : '';
         $records = DB::table('faculty_members')->where('page_status',1)->get();
-        return view('admin.manage_organisationchart.create', compact('records', 'parent_id'));
+        $organisation_chart = DB::table('organisation_chart')->where('status',1)->where('id',$parent_id)->first();
+        return view('admin.manage_organisationchart.create', compact('records', 'parent_id','organisation_chart'));
     }
 
     // Category store method to handle form submission for creating new section
@@ -180,14 +185,33 @@ class EmployeeController extends Controller
 
     public function showSubOrg($parent_id)
     {
+
         
         // Fetch records based on the parent_id
-        $records = DB::table('organisation_chart')
-            ->where('parent_id', $parent_id)
-            ->get();
-        $employeeNames = DB::table('organisation_chart')
-            ->where('id', $parent_id)
-            ->value('employee_name');
-        return view('admin.manage_organisationchart.sub_org', compact('records', 'parent_id', 'employeeNames'));
+        // $records = DB::table('organisation_chart')
+        //     ->where('parent_id', $parent_id)
+        //     ->get();
+        // $employeeNames = DB::table('organisation_chart')
+        //     ->where('id', $parent_id)
+        //     ->value('employee_name');
+
+            // $records = DB::table('organisation_chart')
+            // ->leftJoin('faculty_members', 'organisation_chart.faculty_id', '=', 'faculty_members.id')
+            // ->where('organisation_chart.parent_id', $parent_id)
+            // ->select('organisation_chart.*','faculty_members.name')
+            // ->get();
+
+            $records = DB::table('organisation_chart as oc')
+                ->leftJoin('faculty_members as fm1', 'oc.employee_name', '=', 'fm1.id')
+                ->leftJoin('faculty_members as fm2', 'oc.faculty_id', '=', 'fm2.id')
+                ->where('oc.parent_id', $parent_id)
+                ->select(
+                    'oc.*',
+                    'fm1.name as employeeNames',
+                    'fm2.name as faculty_id_faculty'
+                )
+                ->get();
+
+        return view('admin.manage_organisationchart.sub_org', compact('records','parent_id'));
     }
 }

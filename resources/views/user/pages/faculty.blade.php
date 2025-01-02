@@ -57,7 +57,7 @@
                                     <td>{{ $value->name }}</td>
                                     <td>{{ $value->designation }}</td>
                                     <td>{{ $value->email }}</td>
-                                    <td>{{ $value->mobile }}</td>
+                                    <td>{{ $value->country_code }}-{{ $value->std_code }}-{{ $value->phone_pt_office }}</td>
                                 </tr>
                                 @endforeach
                                 @else

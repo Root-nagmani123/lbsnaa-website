@@ -138,6 +138,13 @@ class MenuController extends Controller
             'content.string' => 'The content must be a valid string.',
             'website_url.url' => 'The website URL must be valid.',
         ]);
+        $slug = Str::slug($request->menutitle, '-');
+
+        // Check if slug already exists
+        $existingMenu = Menu::where('menu_slug', $slug)->first();
+        if ($existingMenu) {
+            return redirect()->back()->withErrors(['menutitle' => 'This menu title already exists.'])->withInput();
+        }
 
         $menu = new Menu();
         $menu->language = $request->txtlanguage;
@@ -248,7 +255,7 @@ class MenuController extends Controller
 
         return redirect()->route('admin.menus.index')->with('success', 'Menu updated successfully.');
     }
-
+ 
     public function delete($id)
     {
         // Find the menu by its ID or fail if it doesn't exist
@@ -303,6 +310,14 @@ class MenuController extends Controller
             ]);
         }
     }
+
+    public function check_menu_title(Request $request)
+{
+    $title = $request->input('title');
+    $exists = DB::table('menus')->where('menu_slug', $title)->exists();
+
+    return response()->json(['exists' => $exists]);
+}
     public function feedback_list()
     {
         // Fetch feedback data
