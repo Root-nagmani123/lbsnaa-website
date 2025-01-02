@@ -20,6 +20,14 @@
     <link rel="icon" type="image/png" href="{{ asset('admin_assets/images/favicon.ico') }}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="{{ asset('assets/js/orgchart.js') }}"></script>
+    <!-- OrgChart.js CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/orgchart/2.0.0/css/jquery.orgchart.min.css">
+
+    <!-- jQuery (required for OrgChart.js) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- OrgChart.js JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/orgchart/2.0.0/js/jquery.orgchart.min.js"></script>
     <title>Home | Lal Bahadur Shastri National Academy of Administration</title>
 </head>
 
@@ -67,115 +75,156 @@
 
             <!-- Navbar Menu -->
             <div class="collapse navbar-collapse ms-auto" id="navbar-default">
-                <ul class="navbar-nav ms-auto navmenu">
-                    @php
-                    $menus = DB::table('menus')
+    <ul class="navbar-nav ms-auto navmenu">
+        @php
+        $menus = DB::table('menus')
+        ->where('menu_status', 1)
+        ->where('is_deleted', 0)
+        ->where('txtpostion', 1)
+        ->where('parent_id', 0)
+        ->get();
+
+        function renderMenuItems($parentId) {
+            $submenus = DB::table('menus')
+                ->where('menu_status', 1)
+                ->where('is_deleted', 0)
+                ->where('parent_id', $parentId)
+                ->get();
+
+            if ($submenus->isEmpty()) {
+                return '';
+            }
+
+            $output = '<ul class="dropdown-menu custom-dropdown">';
+
+            foreach ($submenus as $submenu) {
+                $hasChildren = DB::table('menus')
                     ->where('menu_status', 1)
                     ->where('is_deleted', 0)
-                    ->where('txtpostion', 1)
-                    ->where('parent_id', 0)
-                    ->get();
+                    ->where('parent_id', $submenu->id)
+                    ->exists();
 
-                    $Research_Center_list = DB::table('research_centres')
-                    ->where('status', 1)
-                    ->get();
-
-                    function renderMenuItems($parentId, $isCourseOrTraining = false) {
-                    $submenus = DB::table('menus')
-                    ->where('menu_status', 1)
-                    ->where('is_deleted', 0)
-                    ->where('parent_id', $parentId)
-                    ->get();
-
-                    if ($submenus->isEmpty() && !$isCourseOrTraining) {
-                    return '';
+                $output .= '<li class="dropdown-submenu">';
+                    $output .= '<a class="dropdown-item ' . ($hasChildren ? 'dropdown-toggle' : '') . '"
+                            href="' . route('user.navigationpagesbyslug', $submenu->menu_slug) . '">' .
+                            $submenu->menutitle . '</a>';
+                    if ($hasChildren) {
+                        $output .= renderMenuItems($submenu->id);
                     }
+                    $output .= '</li>';
+            }
 
-                    $output = '<ul class="dropdown-menu dropdown-menu-arrow clickable"
-                        data-href="' . route('user.navigationpagesbyslug', DB::table('menus')->where('id', $parentId)->value('menu_slug')) . '">
-                        ';
+            $output .= '</ul>';
+            return $output;
+        }
+        @endphp
 
-                        foreach ($submenus as $submenu) {
-                        if ($submenu->menutitle === 'RTI' || $submenu->menutitle === 'research-centers') {
-                        continue;
-                        }
+        @foreach($menus as $menu)
+        <li class="nav-item {{ DB::table('menus')->where('parent_id', $menu->id)->exists() ? 'dropdown' : '' }}">
+            <a class="nav-link {{ DB::table('menus')->where('parent_id', $menu->id)->exists() ? 'dropdown-toggle' : '' }}"
+                href="{{ route('user.navigationpagesbyslug', $menu->menu_slug) }}"
+                {{ DB::table('menus')->where('parent_id', $menu->id)->exists() ? 'data-bs-toggle="dropdown"' : '' }}>
+                {{ $menu->menutitle }}
+            </a>
+            {!! renderMenuItems($menu->id) !!}
+        </li>
+        @endforeach
+    </ul>
+</div>
 
-                        $hasChildren = DB::table('menus')
-                        ->where('menu_status', 1)
-                        ->where('is_deleted', 0)
-                        ->where('parent_id', $submenu->id)
-                        ->exists();
-
-                        $output .= '<li class="dropdown-submenu dropstart">';
-                            $output .= '<a class="dropdown-item ' . ($hasChildren ? 'dropdown-toggle' : '') . '"
-                                href="' . route('user.navigationpagesbyslug', $submenu->menu_slug) . '" ' .
-                            ($hasChildren ? ' data-bs-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false"' : '') . '>' .
-                                $submenu->menutitle . '</a>';
-
-                            if ($hasChildren) {
-                            $output .= renderMenuItems($submenu->id);
-                            }
-
-                            $output .= '</li>';
-                        }
-
-                        $output .= '</ul>';
-                    return $output;
-                    }
-                    @endphp
-
-                    <!-- Navbar Menu Items -->
-                    @foreach($menus as $menu)
-                    @if($menu->menutitle === 'RTI')
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('user.get_rti_page', $menu->menu_slug) }}">
-                            {{ $menu->menutitle }}
-                        </a>
-                    </li>
-                    @elseif($menu->menutitle === 'Research Centers')
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
-                            {{ $menu->menutitle }}
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-arrow clickable" data-href="#">
-                            @foreach($Research_Center_list as $reserch_c)
-                            <li>
-                                <a class="dropdown-item"
-                                    href="{{ url('lbsnaa-sub') }}/{{ $reserch_c->research_centre_slug }}">
-                                    {{ $reserch_c->research_centre_name }}
-                                </a>
-                            </li>
-                            @endforeach
-                        </ul>
-                    </li>
-                    @else
-                    <li
-                        class="nav-item {{ DB::table('menus')->where('parent_id', $menu->id)->exists() || $menu->menutitle === 'Training' ? 'dropdown' : '' }}">
-                        <a class="nav-link {{ DB::table('menus')->where('parent_id', $menu->id)->exists() || $menu->menutitle === 'Training' ? 'dropdown-toggle' : '' }}"
-                            href="{{ route('user.navigationpagesbyslug', $menu->menu_slug) }}"
-                            {{ DB::table('menus')->where('parent_id', $menu->id)->exists() || $menu->menutitle === 'Training' ? 'data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"' : '' }}>
-                            {{ $menu->menutitle }}
-                        </a>
-                        {!! renderMenuItems($menu->id, $menu->menutitle === 'Training') !!}
-                    </li>
-                    @endif
-                    @endforeach
-                </ul>
-            </div>
         </div>
     </nav>
 
     <script>
-    // Make dropdown menus clickable
-    document.querySelectorAll('.dropdown-menu.clickable').forEach(function(menu) {
-        menu.addEventListener('click', function(e) {
-            e.stopPropagation();
-            const href = this.dataset.href;
-            if (href) {
-                window.location.href = href;
-            }
+    document.addEventListener('DOMContentLoaded', function() {
+        const dropdowns = document.querySelectorAll('.dropdown-submenu');
+
+        dropdowns.forEach(function(dropdown) {
+            dropdown.addEventListener('mouseenter', function() {
+                const submenu = this.querySelector('.dropdown-menu');
+                if (submenu) submenu.style.display = 'block';
+            });
+
+            dropdown.addEventListener('mouseleave', function() {
+                const submenu = this.querySelector('.dropdown-menu');
+                if (submenu) submenu.style.display = 'none';
+            });
         });
     });
     </script>
+    <style>
+    /* Default dropdown to open to the right */
+    .navbar-nav .dropdown-menu {
+        position: absolute;
+        left: 0;
+        right: auto;
+        z-index: 1050;
+        /* Ensure the dropdown appears on top */
+    }
+
+    /* Media Query for smaller screens (mobile/tablets) */
+    @media (max-width: 768px) {
+        .navbar-nav .dropdown-menu {
+            position: absolute;
+            left: auto;
+            right: 0;
+            /* Move the dropdown to the left side */
+        }
+
+        /* Handle nested dropdowns on smaller screens */
+        .navbar-nav .dropdown-submenu {
+            position: relative;
+        }
+
+        .navbar-nav .dropdown-submenu .dropdown-menu {
+            left: 100%;
+            /* Align the submenu to the left */
+            right: auto;
+        }
+    }
+
+    .navmenu .dropdown-submenu {
+        position: relative;
+    }
+
+    .navmenu .dropdown-submenu>.dropdown-menu {
+        top: 0;
+        left: 100%;
+        margin-left: 0;
+        border-radius: 0;
+        display: none;
+    }
+
+    .navmenu .dropdown-submenu:hover>.dropdown-menu {
+        display: block;
+    }
+
+    .navmenu .dropdown-toggle::after {
+        content: ' ▶';
+        float: right;
+    }
+    </style>
+    <!-- Add this to your custom CSS file -->
+<style>
+/* Ensure the dropdown submenu opens to the left */
+.dropdown-submenu .dropdown-menu {
+    left: -100%; /* Move to the left side of the parent menu */
+    right: auto; /* Prevent the submenu from opening to the right */
+    top: 0;
+    position: absolute; /* Set submenu position to absolute */
+}
+
+/* Style the arrow icon on the parent menu */
+.dropdown-toggle::after {
+    content: " ▼"; /* Use a downward arrow for the parent item */
+    font-size: 12px;
+    margin-left: 5px;
+}
+
+/* Optional: Make the submenu arrow point to the right */
+.dropdown-submenu .dropdown-toggle::after {
+    content: " ▶"; /* Use a rightward arrow for the submenu */
+    font-size: 12px;
+    margin-left: 5px;
+}
+</style>

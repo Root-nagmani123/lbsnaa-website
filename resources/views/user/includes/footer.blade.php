@@ -26,7 +26,7 @@ $footer_links = DB::table('menus')->where('txtpostion',3)->where('menu_status',1
     </div>
     <!-- footer -->
     <footer class="pt-2 pb-3">
-        <div class="container-fluid">
+        <div class="container">
             <div class="row justify-content-center text-center align-items-center">
                 <div class="col-12 col-md-12 px-0">
                     <nav class="nav nav-footer justify-content-center">
@@ -166,10 +166,10 @@ $footer_links = DB::table('menus')->where('txtpostion',3)->where('menu_status',1
     });
 </script>
 <script>
-// Tiny Slider Configuration for Two Items per Row
+// Tiny Slider Configuration for Three Items per Row, with first item larger
 const slider = tns({
     container: '.sliderTestimonialFourth',
-    items: 2, // Display two items at a time
+    items: 3, // Display three items at a time
     slideBy: 1,
     autoplay: true,
     autoplayTimeout: 3000,
@@ -182,11 +182,17 @@ const slider = tns({
             items: 1 // One item for small screens
         },
         768: {
-            items: 2 // Two items for medium and larger screens
+            items: 2 // Two items for medium screens
+        },
+        1024: {
+            items: 3 // Three items for large screens
         }
-    }
+    },
+    edgePadding: 0,
+    loop: true
 });
 </script>
+
 
 <!-- Scripts -->
 <!-- Libs JS -->

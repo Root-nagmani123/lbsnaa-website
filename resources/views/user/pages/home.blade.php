@@ -262,9 +262,8 @@
         </div>
     </div>
 </section>
-
-<section class="py-5 bg-light" id="news">
-    <div class="container">
+<section class="py-5 mb-5 bg-light" id="news">
+    <div class="container-fluid">
         <div class="row gy-4">
             <div class="col-12 col-md-9">
                 <div class="mb-3">
@@ -276,70 +275,66 @@
                         </div>
                     </div>
                 </div>
-                <div class="position-relative py-2">
-                    <div class="tns-outer" id="tns1-ow">
-                        <div id="tns1-mw" class="tns-ovh">
-                            <div class="tns-inner" id="tns1-iw">
-                                <div class="sliderTestimonialFourth tns-slider tns-carousel tns-subpixel tns-calc tns-horizontal"
-                                    id="tns1">
-                                    @foreach($news as $slider)
-                                    <div class="item tns-item cars-deck">
-                                        <div class="card mb-4 shadow-lg card-lift" style="height:450px; width:auto;">
-                                            <div class="card-header p-0 border-0">
-                                                <a href="#">
-                                                    <img src="{{ isset($slider->main_image) || !empty($slider->main_image) ? asset($slider->main_image) : asset('assets/images/4.jpg') }}"
-                                                        class="card-img-top" alt="blogpost"
-                                                        style="object-fit: cover; height: 200px">
-                                                </a>
-                                            </div>
-                                            <div class="card-body" style="height: 200px; overflow-y: hidden;">
-                                                <a href="#" class="fs-5 mb-2 fw-semibold d-block text-success">Posted
-                                                    On:
-                                                    {{ \Carbon\Carbon::parse($slider->start_date)->format('d F, Y') }}</a>
-                                                <h3>
-                                                    <a href="{{ route('user.newsbyslug', $slider->title_slug) }}"
-                                                        class="text-inherit">{{ $slider->title }}</a>
-                                                </h3>
-                                                <p>{{ $slider->short_description }}</p>
-                                            </div>
-                                            <div class="card-footer border-0" style="height:50px;">
-                                                <a href="{{ route('user.newsbyslug', $slider->title_slug) }}"
-                                                    class="icon-link icon-link-hover link-primary fw-semibold">
-                                                    <span>Read More</span>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                                        fill="currentColor" class="bi bi-arrow-right"
-                                                        viewBox="0 0 16 16">
-                                                        <path fill-rule="evenodd"
-                                                            d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8">
-                                                        </path>
-                                                    </svg>
-                                                </a>
-                                            </div>
+                <div id="multiItemCarousel" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <!-- Group cards in sets of 3 -->
+                        @foreach ($news->chunk(3) as $chunk)
+                        <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                            <div class="row">
+                                @foreach ($chunk as $slider)
+                                <div class="col-4">
+                                    <div class="card">
+                                        <div class="card-header p-0 border-0">
+                                            <img src="{{ isset($slider->main_image) && !empty($slider->main_image) ? asset($slider->main_image) : asset('assets/images/4.jpg') }}"
+                                                class="card-img-top" alt="blogpost"
+                                                style="object-fit: cover; height: 250px">
+                                        </div>
+                                        <div class="card-body" style="height: 200px; overflow-y: hidden;">
+                                            <span class="fs-5 mb-2 fw-semibold d-block text-success">Posted On:
+                                                {{ \Carbon\Carbon::parse($slider->start_date)->format('d F, Y') }}</span>
+                                            <h3>{{ $slider->title }}</h3>
+                                            <p>{{ $slider->short_description }}</p>
+                                        </div>
+                                        <div class="card-footer border-0" style="height:50px;">
+                                            <a href="{{ route('user.newsbyslug', $slider->title_slug) }}"
+                                                class="icon-link icon-link-hover link-primary fw-semibold">
+                                                <span>Read More</span>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                    fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd"
+                                                        d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8">
+                                                    </path>
+                                                </svg>
+                                            </a>
                                         </div>
                                     </div>
-                                    @endforeach
                                 </div>
+                                @endforeach
                             </div>
                         </div>
+                        @endforeach
                     </div>
-                    <!-- Carousel Controls -->
-                    <ul class="controls-testimonial controls justify-content-start" id="sliderTestimonialFourthControls"
-                        aria-label="Carousel Navigation" style="bottom: -35px ! important;">
-                        <li class="prev ms-0" aria-controls="tns1" tabindex="-1" data-controls="prev">
-                            <i class="fe fe-chevron-left"></i>
-                        </li>
-                        <li class="next ms-2" aria-controls="tns1" tabindex="-1" data-controls="next">
-                            <i class="fe fe-chevron-right"></i>
-                        </li>
-                    </ul>
+
+                    <!-- Controls -->
+                    <button class="carousel-control-prev" type="button" data-bs-target="#multiItemCarousel"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#multiItemCarousel"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
                 </div>
             </div>
             <div class="col-12 col-md-3">
+                <!-- Quick Links Section -->
                 <div class="card card-hover border">
                     <div class="card-header bg-danger">
                         <h3 class="text-white">Quick Links</h3>
                     </div>
-                    <div class="card-body p-0" style="height: 480px; overflow-y: scroll;">
+                    <div class="card-body p-0" style="height: 520px; overflow-y: scroll;">
                         <ul class="mt-2 mb-2 list-group list-group-flush">
                             @foreach($quick_links as $key => $quick_link)
                             <li class="text-start list-group-item">
@@ -381,6 +376,7 @@
         </div>
     </div>
 </section>
+
 <style>
 #marqueeWrapper {
     position: relative;
@@ -393,6 +389,7 @@
     white-space: nowrap;
     will-change: transform;
 }
+
 </style>
 
 @include('user.includes.footer')
