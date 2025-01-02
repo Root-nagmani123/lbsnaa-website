@@ -36,7 +36,16 @@
                 </div>
             </div>
         </div>
-        
+        @if(count($news_images)> 0)
+        <div class="row">
+            <div class="col-xl-12 col-md-12 col-12">
+                @foreach($news_images as $val)
+        <img src="{{ asset($val) }}" style="height: 200px">
+
+                @endforeach
+            </div>
+            </div>
+        @endif
         <p><?= $news->description;?></p>
     </div>
 </section>

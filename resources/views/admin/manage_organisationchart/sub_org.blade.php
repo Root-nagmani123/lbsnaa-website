@@ -66,10 +66,10 @@
                         @foreach($records as $record)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $record->employee_name }}</td>
+                            <td>{{ $record->employeeNames }}</td>
                             <td><a href="{{ route('organisation-chart.sub-org', ['parent_id' => $record->id]) }}"
                                     class="btn btn-secondary btn-sm text-white">click here</a></td>
-                            <td>{{ $employeeNames}}</td>
+                            <td>{{ $record->faculty_id_faculty}}</td>
                             <td>{{ $record->description }}</td>
                             <td>
                                 <a href="{{ route('organisation_chart.edit', $record->id) }}"
