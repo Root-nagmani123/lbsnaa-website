@@ -4,7 +4,7 @@
 
 <!-- Page Content -->
 <section class="py-4">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row align-items-center pb-lg-2">
             <!-- image -->
             <div class="mb-4 mb-lg-0 bg-gray-200 rounded-4 py-2">
@@ -35,7 +35,7 @@
 </section>
 
 <section class="py-2 bg-light">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row gy-4 gy-xl-0">
             <div class="col-xl-3 col-lg-6 col-12">
                 <div class="card">
@@ -44,18 +44,17 @@
                         @foreach($menuItems as $menu)
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="heading-{{$menu->id}}">
-                                <button
-                                    class="accordion-button {{ $loop->first ? '' : 'collapsed' }} {{ $menu->children->isNotEmpty() ? '' : 'no-arrow' }}"
-                                    type="button" data-bs-toggle="{{ $menu->children->isNotEmpty() ? 'collapse' : '' }}"
-                                    data-bs-target="{{ $menu->children->isNotEmpty() ? '#collapse-' . $menu->id : '' }}"
-                                    aria-expanded="{{ $loop->first && $menu->children->isNotEmpty() ? 'true' : 'false' }}"
-                                    aria-controls="{{ $menu->children->isNotEmpty() ? 'collapse-' . $menu->id : '' }}">
-
-                                    <!-- Add the anchor tag around the menu title -->
-                                    <a href="{{ url('rti/' . $menu->menu_slug ?? '#') }}" class="text-decoration-none">
+                                <a href="{{ url('rti/' . $menu->menu_slug ?? '#') }}" class="text-decoration-none">
+                                    <button
+                                        class="accordion-button {{ $loop->first ? '' : 'collapsed' }} {{ $menu->children->isNotEmpty() ? '' : 'no-arrow' }}"
+                                        type="button"
+                                        data-bs-toggle="{{ $menu->children->isNotEmpty() ? 'collapse' : '' }}"
+                                        data-bs-target="{{ $menu->children->isNotEmpty() ? '#collapse-' . $menu->id : '' }}"
+                                        aria-expanded="{{ $loop->first && $menu->children->isNotEmpty() ? 'true' : 'false' }}"
+                                        aria-controls="{{ $menu->children->isNotEmpty() ? 'collapse-' . $menu->id : '' }}">
                                         {{ $menu->menutitle }}
-                                    </a>
-                                </button>
+                                    </button>
+                                </a>
                             </h2>
                             @if($menu->children->isNotEmpty())
                             <div id="collapse-{{$menu->id}}"
@@ -66,20 +65,18 @@
                                         @foreach($menu->children as $child)
                                         <div class="accordion-item">
                                             <h2 class="accordion-header" id="heading-{{$child->id}}">
-                                                <button
-                                                    class="accordion-button collapsed {{ $child->children->isNotEmpty() ? '' : 'no-arrow' }}"
-                                                    type="button"
-                                                    data-bs-toggle="{{ $child->children->isNotEmpty() ? 'collapse' : '' }}"
-                                                    data-bs-target="{{ $child->children->isNotEmpty() ? '#collapse-' . $child->id : '' }}"
-                                                    aria-expanded="false"
-                                                    aria-controls="{{ $child->children->isNotEmpty() ? 'collapse-' . $child->id : '' }}">
-
-                                                    <!-- Add anchor tag for child menu -->
-                                                    <a href="{{ url('rti/' . $child->menu_slug ?? '#') }}"
-                                                        class="text-decoration-none">
+                                                <a href="{{ url('rti/' . $child->menu_slug ?? '#') }}"
+                                                    class="text-decoration-none">
+                                                    <button
+                                                        class="accordion-button collapsed {{ $child->children->isNotEmpty() ? '' : 'no-arrow' }}"
+                                                        type="button"
+                                                        data-bs-toggle="{{ $child->children->isNotEmpty() ? 'collapse' : '' }}"
+                                                        data-bs-target="{{ $child->children->isNotEmpty() ? '#collapse-' . $child->id : '' }}"
+                                                        aria-expanded="false"
+                                                        aria-controls="{{ $child->children->isNotEmpty() ? 'collapse-' . $child->id : '' }}">
                                                         {{ $child->menutitle }}
-                                                    </a>
-                                                </button>
+                                                    </button>
+                                                </a>
                                             </h2>
                                             @if($child->children->isNotEmpty())
                                             <div id="collapse-{{$child->id}}" class="accordion-collapse collapse"
@@ -91,18 +88,16 @@
                                                         <div class="accordion-item">
                                                             <h2 class="accordion-header"
                                                                 id="heading-{{$grandChild->id}}">
-                                                                <button class="accordion-button collapsed" type="button"
-                                                                    data-bs-toggle="collapse"
-                                                                    data-bs-target="#collapse-{{$grandChild->id}}"
-                                                                    aria-expanded="false"
-                                                                    aria-controls="collapse-{{$grandChild->id}}">
-
-                                                                    <!-- Add anchor tag for grandchild menu -->
-                                                                    <a href="{{ url('rti/' . $grandChild->menu_slug ?? '#') }}"
-                                                                        class="text-decoration-none">
+                                                                <a href="{{ url('rti/' . $grandChild->menu_slug ?? '#') }}"
+                                                                    class="text-decoration-none">
+                                                                    <button class="accordion-button collapsed"
+                                                                        type="button" data-bs-toggle="collapse"
+                                                                        data-bs-target="#collapse-{{$grandChild->id}}"
+                                                                        aria-expanded="false"
+                                                                        aria-controls="collapse-{{$grandChild->id}}">
                                                                         {{ $grandChild->menutitle }}
-                                                                    </a>
-                                                                </button>
+                                                                    </button>
+                                                                </a>
                                                             </h2>
                                                             <div id="collapse-{{$grandChild->id}}"
                                                                 class="accordion-collapse collapse"
@@ -128,6 +123,7 @@
                         @endforeach
                     </div>
 
+
                 </div>
             </div>
             <div class="col-xl-9 col-lg-6 col-12">
@@ -150,8 +146,8 @@
 
 
 <style>
-    .accordion-button.no-arrow::after {
-        display: none;
-    }
+.accordion-button.no-arrow::after {
+    display: none;
+}
 </style>
 @include('user.includes.footer')
