@@ -4,7 +4,7 @@
 
 <!-- Page Content -->
 <section class="py-4">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row align-items-center pb-lg-2 mb-4">
             <!-- image -->
             <div class="mb-4 mb-lg-0 bg-gray-200 rounded-4 py-2">
@@ -24,7 +24,7 @@
 </section>
 
 <section class="p-2">
-    <div class="container">
+    <div class="container-fluid">
     <div class="card bg-white border-0 rounded-10 mb-4">
     <div class="card-body p-4">
       <div class="default-table-area members-list">

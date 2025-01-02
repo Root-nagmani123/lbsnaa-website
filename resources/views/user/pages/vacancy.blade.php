@@ -4,7 +4,7 @@
 
 <!-- Page Content -->
 <section class="py-4">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row align-items-center pb-lg-2">
             <!-- image -->
             <div class="mb-4 mb-lg-0 bg-gray-200 rounded-4 py-2">

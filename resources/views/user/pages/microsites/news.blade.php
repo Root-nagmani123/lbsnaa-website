@@ -2,7 +2,7 @@
 
 <!-- Page Content -->
 <section class="py-4">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row align-items-center pb-lg-2">
             <!-- image -->
             <div class="mb-4 mb-lg-0 bg-gray-200 rounded-4 py-2">
@@ -18,17 +18,14 @@
         </div>
     </div>
 </section>
-<section class="container">
+<section class="py-6">
+    <div class="container-fluid">
     <div class="row">
         <div class="col-9"></div>
         <div class="col-3">
             <a href="" class="btn btn-outline-primary fw-semibold btn-sm" style="float: right">Archieve</a>
         </div>
     </div>
-</section>
-<section class="py-6">
-    <div class="container">
-
         <div class="row">
             @foreach($newsItems as $news)
             <div class="col-xl-4 col-lg-4 col-md-6 col-12 mb-3 d-flex align-items-stretch">

@@ -4,7 +4,7 @@
 
 <!-- Page Content -->
 <section class="py-2">
-    <div class="container">
+    <div class="container-fluid">
         <!-- Breadcrumb -->
         <div class="row align-items-center pb-lg-2 mb-4">
             <div class="col-12">
@@ -28,36 +28,26 @@
                 <div class="row mb-4">
                     <div class="col-lg-4">
                         <label class="form-label" for="Keywords">Search :</label>
-                            <input type="text" id="Keywords" name="keywords" value="{{ request('keywords') }}"
-                                placeholder="Keywords Search" class="form-control text-dark ps-5 h-58">
+                        <input type="text" id="Keywords" name="keywords" value="{{ request('keywords') }}"
+                            placeholder="Keywords Search" class="form-control text-dark ps-5 h-58">
                     </div>
                     <div class="col-lg-4">
                         <label for="year" class="form-label">Year</label>
-                            <select name="year" id="year" class="form-select ps-5 text-dark h-58">
-                                @foreach($years as $year)
-                                <option value="{{ $year }}" @if($year==request('year')) selected @endif>{{ $year }}
-                                </option>
-                                @endforeach
-                            </select>
+                        <select name="year" id="year" class="form-select ps-5 text-dark h-58">
+                            @foreach($years as $year)
+                            <option value="{{ $year }}" @if($year==request('year')) selected @endif>{{ $year }}
+                            </option>
+                            @endforeach
+                        </select>
 
                     </div>
                     <div class="col-lg-4 d-flex align-items-end gap-2">
-                    <button type="submit" class="btn btn-outline-primary fw-bold w-100">Submit</button>
+                        <button type="submit" class="btn btn-outline-primary fw-bold w-100">Submit</button>
                         <a href="{{ route('user.tenders_archive') }}"
                             class="btn btn-outline-warning fw-bold w-100">Reset</a>
-                        
+
                     </div>
                 </div>
-                <fieldset>
-
-
-
-
-
-
-
-                    
-                </fieldset>
             </form>
         </div>
         <!-- Tenders Card -->

@@ -2,7 +2,7 @@
 
 <!-- Page Content -->
 <section class="py-4">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row align-items-center pb-lg-2">
             <!-- Breadcrumb -->
             <div class="col-12 mb-4 mb-lg-0 bg-gray-200 rounded-4 py-2">
@@ -24,7 +24,7 @@
 
 <!-- Search Form -->
 <section class="py-3">
-    <div class="container">
+    <div class="container-fluid">
         <div class="contsearch">
             <form id="form2" method="GET" action="{{ route('user.news_old_listing') }}" class="row">
                 <div class="col-lg-4">

@@ -1,6 +1,6 @@
     @include('user.pages.microsites.includes.header')
     <section class="py-4">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row align-items-center pb-lg-2">
             <!-- Breadcrumb -->
             <div class="col-12 mb-4 bg-gray-200 rounded-4 py-2">
@@ -18,7 +18,7 @@
 </section>
 
 <section class="py-6">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row g-4">
             <!-- Main Content -->
             <div class="col-lg-8">

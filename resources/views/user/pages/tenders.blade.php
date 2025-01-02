@@ -4,7 +4,7 @@
 
 <!-- Page Content -->
 <section class="py-2">
-    <div class="container">
+    <div class="container-fluid">
         <!-- Breadcrumb -->
         <div class="row align-items-center pb-lg-2 mb-4">
             <div class="col-12">
@@ -20,14 +20,15 @@
                 </div>
             </div>
         </div>
-        <section class="container">
-    <div class="row mb-3">
-        <div class="col-md-9"></div>
-        <div class="col-md-3 text-end">
-            <a href="{{ route('user.tenders_archive') }}" class="btn btn-outline-primary fw-semibold btn-sm">Archive</a>
-        </div>
-    </div> 
-</section>
+        <section class="container-fluid">
+            <div class="row mb-3">
+                <div class="col-md-9"></div>
+                <div class="col-md-3 text-end">
+                    <a href="{{ route('user.tenders_archive') }}"
+                        class="btn btn-outline-primary fw-semibold btn-sm">Archive</a>
+                </div>
+            </div>
+        </section>
         <!-- Tenders Card -->
         <div class="card bg-white border-0 rounded-4 shadow-sm mb-4">
             <div class="card-body p-4">
@@ -49,25 +50,26 @@
                         </thead>
                         <tbody>
                             @if(count($query) > 0)
-                                @foreach($query as $key => $value)
-                                    <tr class="text-center">
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $value->title }}</td>
-                                        <td>{{ \Carbon\Carbon::parse($value->publish_date)->format('d F, Y, H:i A') }}</td>
-                                        <td>{{ \Carbon\Carbon::parse($value->expiry_date)->format('d F, Y, H:i A') }}</td>
-                                        <td>
-                                            @if(!empty($value->file))
-                                                <a href="{{ asset('storage/tender/'.$value->file) }}" class="btn btn-sm btn-outline-primary" target="_blank">Download</a>
-                                            @else
-                                                <span class="text-muted">N/A</span>
-                                            @endif
-                                        </td>
-                                    </tr>
-                                @endforeach
+                            @foreach($query as $key => $value)
+                            <tr class="text-center">
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $value->title }}</td>
+                                <td>{{ \Carbon\Carbon::parse($value->publish_date)->format('d F, Y, H:i A') }}</td>
+                                <td>{{ \Carbon\Carbon::parse($value->expiry_date)->format('d F, Y, H:i A') }}</td>
+                                <td>
+                                    @if(!empty($value->file))
+                                    <a href="{{ asset('storage/tender/'.$value->file) }}"
+                                        class="btn btn-sm btn-outline-primary" target="_blank">Download</a>
+                                    @else
+                                    <span class="text-muted">N/A</span>
+                                    @endif
+                                </td>
+                            </tr>
+                            @endforeach
                             @else
-                                <tr>
-                                    <td colspan="5" class="text-center text-muted">No records found</td>
-                                </tr>
+                            <tr>
+                                <td colspan="5" class="text-center text-muted">No records found</td>
+                            </tr>
                             @endif
                         </tbody>
                     </table>

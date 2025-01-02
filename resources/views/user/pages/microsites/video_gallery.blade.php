@@ -2,7 +2,7 @@
 
 @include('user.pages.microsites.includes.header')
 <section class="py-4">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row align-items-center pb-lg-2">
             <!-- Breadcrumb -->
             <div class="mb-4 mb-lg-0 bg-gray-200 rounded-4 py-2">
@@ -21,7 +21,7 @@
         </div>
     </div>
 </section>
-<div class="container my-4">
+<div class="container-fluid my-4">
     <div class="row g-4">
         @foreach ($videos as $video)
         <div class="col-md-4 col-sm-12 d-flex align-items-stretch">

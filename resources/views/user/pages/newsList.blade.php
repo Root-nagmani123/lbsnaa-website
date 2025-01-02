@@ -4,7 +4,7 @@
 
 <!-- Page Content -->
 <section class="py-4">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row align-items-center pb-lg-2">
             <!-- Breadcrumb -->
             <div class="col-12 mb-4 mb-lg-0 bg-gray-200 rounded-4 py-2">
@@ -21,7 +21,7 @@
     </div>
 </section>
 
-<section class="container">
+<section class="container-fluid">
     <div class="row mb-3">
         <div class="col-md-9"></div>
         <div class="col-md-3 text-end">

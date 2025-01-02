@@ -1,6 +1,6 @@
 @include('user.includes.header')
 <section class="py-4">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row align-items-center pb-lg-2">
             <!-- image -->
             <div class="mb-4 mb-lg-0 bg-gray-200 rounded-4 py-2">
@@ -24,7 +24,7 @@
 </section>
 <section class="py-5">
     <!-- container -->
-    <div class="container">
+    <div class="container-fluid">
         <!-- form -->
         @if(session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -33,9 +33,7 @@
         </div>
         @endif
 
-
-        <div class="container">
-            <div class="row">
+        <div class="row">
                 @if(count($media_data) > 0)
                 @foreach($media_data as $media)
 
@@ -55,7 +53,6 @@
                 @endforeach
                 @endif
             </div>
-        </div>
 
 
     </div>

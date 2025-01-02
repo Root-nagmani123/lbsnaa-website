@@ -1,6 +1,6 @@
 @include('user.includes.header')
 <section class="py-4">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row align-items-center pb-lg-2">
             <!-- Breadcrumb -->
             <div class="col-12">
@@ -21,7 +21,7 @@
 
 <!-- Product List Section -->
 <section class="py-4">
-    <div class="container">
+    <div class="container-fluid">
 
         <!-- Search Form -->
         <form id="search_frm" name="search_frm" method="get" action="">
