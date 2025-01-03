@@ -54,11 +54,11 @@
 
 <!-- News Section -->
 <section class="py-6">
-    <div class="container">
+    <div class="container-fluid">
         @if($news->isNotEmpty())
         <div class="row g-4">
             @foreach($news as $slider)
-            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
                 <!-- Card -->
                 <div class="card shadow-lg card-lift h-100">
                     <div class="card-header p-0">

@@ -27,11 +27,13 @@
             <div class="col-xl-12 col-md-12 col-12">
                 <div class="mb-6 mb-lg-8">
                     <!-- Display all images -->
-                    <div class="row">
+                    <div class="row gap-3">
                         @if(!empty($news->multiple_images))
                         @foreach ($news->multiple_images as $image)
                         <div class="col-md-3 mb-2">
-                            <img src="{{ asset($image) }}" style="object-fit: cover;" class="img-fluid">
+                           <div class="card">
+                           <img src="{{ asset($image) }}" style="object-fit: cover;" class="img-fluid">
+                           </div>
                         </div>
                         @endforeach
                         @else
@@ -39,12 +41,13 @@
                         @endif
                     </div>
                     <div class="py-4">
-                    <p class="text-success fw-bold"><em>Posted On:</em> {{date('d M, Y',strtotime($news->start_date))}}</p>
-                    <h2 class="h1 fw-bold text-primary">
-                        {{$news->title}}
-                    </h2>
-        <p><?= $news->description ?></p>
-        
+                        <p class="text-success fw-bold"><em>Posted On:</em>
+                            {{date('d M, Y',strtotime($news->start_date))}}</p>
+                        <h2 class="h1 fw-bold text-primary">
+                            {{$news->title}}
+                        </h2>
+                        <p><?= $news->description ?></p>
+
                     </div>
                 </div>
             </div>

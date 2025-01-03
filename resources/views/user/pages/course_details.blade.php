@@ -41,36 +41,40 @@
                         <h2 class="fw-bold mb-0 text-white">{{ $course->course_name }}</h2>
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title text-primary">Course Information</h5>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <strong>Section:</strong>
-                                <span>{{ $course->section_name }}</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <strong>Venue:</strong>
-                                <span>{{ $course->venue_title }}</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <strong>Course Coordinator:</strong>
-                                <span>{{ $course->coordinator_id ?? 'N/A' }}</span>
-                            </li>
-                            <li class="list-group-item">
-                                <strong>Associate Course Coordinators:</strong>
-                                <ul class="mb-0">
+                        <table class="table table-striped table-bordered">
+                            <tr>
+                               <th colspan="2" class="text-primary"><b>Course Information</b></th> 
+                            </tr>
+                            <tr>
+                                <td style="width:50%;"><b>Section:</b></td>
+                                <td>{{ $course->section_name }}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Venue:</b></td>
+                                <td>{{ $course->venue_title }}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Course Coordinator:</b></td>
+                                <td>{{ $course->coordinator_id ?? 'N/A' }}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Associate Course Coordinators:</b></td>
+                                <td>
+                                <ul>
                                     <li>{{ $course->asst_coordinator_1_id ?? 'N/A' }}</li>
                                     <li>{{ $course->asst_coordinator_2_id ?? 'N/A' }}</li>
                                     <li>{{ $course->asst_coordinator_3_id ?? 'N/A' }}</li>
                                     <li>{{ $course->asst_coordinator_4_id ?? 'N/A' }}</li>
                                     <li>{{ $course->asst_coordinator_5_id ?? 'N/A' }}</li>
                                 </ul>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <strong>Duration:</strong>
-                                <span>{{ \Carbon\Carbon::parse($course->course_start_date)->format('d M, Y') }} to
-                                    {{ \Carbon\Carbon::parse($course->course_end_date)->format('d M, Y') }}</span>
-                            </li>
-                        </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Duration:</b></td>
+                                <td>{{ \Carbon\Carbon::parse($course->course_start_date)->format('d M, Y') }} to
+                                {{ \Carbon\Carbon::parse($course->course_end_date)->format('d M, Y') }}</td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -78,13 +82,13 @@
         </div>
     </div>
 
-    <div class="container mt-4">
+    <div class="container-fluid mt-4">
         <div class="row">
             <div class="col-12">
                 <h4>Archived Courses:</h4>
                 @if($courses_list->isNotEmpty())
                 <div class="form-group">
-                    <select class="form-select" name="archive" id="archive_course"
+                    <select class="form-control ps-5 text-dark h-58" name="archive" id="archive_course"
                         onchange="navigateToArchivedCourse(this.value)">
                         <option value="">Select Archived Course</option>
                         @foreach ($courses_list as $archived)

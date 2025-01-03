@@ -39,7 +39,7 @@
 
         <!-- Current Courses Section -->
         <section class="py-4">
-            <div class="container">
+            <div class="container-fluid">
                 <h4 class="mb-3">Current Courses:</h4>
                 @if($currentCourse)
                     <div class="current-course-box mb-3 p-3 border rounded bg-light">
@@ -58,7 +58,7 @@
         </section>
 
         <!-- Archived Courses Section -->
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-12 mt-4">
                     <h4 class="mb-3">Archived Courses:</h4>
