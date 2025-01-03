@@ -95,7 +95,7 @@
                                     @error('parent_id')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
-                                </div>
+                                </div> 
                             </div>
                         </div>
                         <div class="col-lg-12">
