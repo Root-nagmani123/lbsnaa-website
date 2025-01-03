@@ -60,7 +60,7 @@ class CoursesubCategoryController extends Controller
             'category_name' => 'required|string|max:255', // Category name should be a string and have a max length
             'color_theme' => 'nullable|string|max:50', // Color theme is optional but should be a string with max length
             'parent_id' => 'nullable|exists:courses_sub_categories,id', // Ensure parent_id exists in the same table
-            'description' => 'required|string|max:500', // Description is optional but should be a string with max length
+            'description' => 'required|string', // Description is optional but should be a string with max length
             'status' => 'required|in:0,1', // Status should be either 0 or 1
         ]);
 

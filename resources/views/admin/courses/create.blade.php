@@ -198,7 +198,8 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
-                                <label class="label" for="coordinator_id">Coordinator ID :</label>
+                                <label class="label" for="coordinator_id">Coordinator Name :</label>
+                                <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark ps-5 h-58" name="coordinator_id"
                                         id="coordinator_id"  value="{{ old('coordinator_id') }}">

@@ -320,6 +320,7 @@ public function get_course_list_pages(Request $request, $slug){
     if ($subcategory) {
         $courses = DB::table('course')
             ->where('course_type', $subcategory->id)
+            ->whereDate('course_end_date', '<', $currentDate)
             ->select('id', 'course_name', 'course_start_date', 'course_end_date', 'course_type')
             ->get();
     }
@@ -336,6 +337,7 @@ public function get_course_list_pages(Request $request, $slug){
 
 public function get_course_details_pages(Request $request, $slug)
 {
+    $currentDate = Carbon::now();
     // Fetch the course based on the slug
     $course = DB::table('course')
                 ->leftjoin('section_category', 'course.support_section', '=', 'section_category.id')
@@ -359,6 +361,7 @@ public function get_course_details_pages(Request $request, $slug)
                     ->first();
                     $courses_list = DB::table('course')
                     ->where('course_type', $course->course_type)
+                    ->whereDate('course_end_date', '<', $currentDate)
                     ->select('id', 'course_name', 'course_start_date', 'course_end_date', 'course_type')
                     ->get();
 
