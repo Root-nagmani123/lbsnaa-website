@@ -24,6 +24,34 @@
 </section>
 
 <section class="p-2">
+<div class="row">
+            <div class="col-12">
+                <div class="mb-4">
+                    <h2 class="h1 fw-bold text-primary">
+                    Traning Calendar
+                    </h2>
+                </div>
+                </div>
+        </div>
+        <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center pb-20 mb-20 mb-2">
+                    
+                    <div class="contsearch">
+                        <form id="form2" action="{{ url()->current() }}" method="GET">
+                            <fieldset class="d-flex align-items-center">
+                                <label for="" class="form-label">Filter Year</label>
+                            <select name="year" class="form-select form-select-sm me-2">
+                                <option value="">Select a year</option>
+                                @for($year = date('Y') - 9; $year <= date('Y'); $year++)
+                                    <option value="{{ $year }}">{{ $year }}</option>
+                                @endfor
+                            </select>
+                                <input id="btn2" type="submit" value="Submit" class="btn btn-outline-primary btn-sm">
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
     <div class="container-fluid">
     <div class="card bg-white border-0 rounded-10 mb-4">
     <div class="card-body p-4">

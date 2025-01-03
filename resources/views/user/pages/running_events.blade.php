@@ -14,7 +14,7 @@
                             <a href="{{ route('home')}}" style="color: #af2910;">Home</a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="#" style="color: #af2910;">Upcoming Courses</a>
+                            <a href="#" style="color: #af2910;">Running Courses</a>
                         </li>
                     </ol>
                 </nav>
@@ -24,7 +24,7 @@
         <div class="card bg-white border-0 rounded-10 mb-4">
             <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center pb-20 mb-20 mb-2">
-                    <h3 class="fw-semibold fs-18 mb-0">Upcoming Courses</h3>
+                    <h3 class="fw-semibold fs-18 mb-0">Running Courses</h3>
 
                 </div>
             </div>

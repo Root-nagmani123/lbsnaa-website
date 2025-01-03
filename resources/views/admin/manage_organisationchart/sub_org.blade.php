@@ -78,9 +78,13 @@
                                     style="display:inline;"> -->
                                     <form action="{{ route('organisation-chart.destroy', $record->id) }}" method="POST"
                                     style="display:inline;">
-                                    
+                                     
                                     @csrf
-                                    <button type="submit" class="btn btn-sm btn-primary text-white">Delete</button>
+                                    <button type="submit" class="btn btn-primary text-white btn-sm"
+                                            onclick="return confirm('Are you sure you want to delete?')">
+                                            Delete
+                                        </button>
+                                    <!-- <button type="submit" class="btn btn-sm btn-primary text-white">Delete</button> -->
                                 </form>
                             </td>
                             <td>
