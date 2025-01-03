@@ -1,6 +1,6 @@
 @include('user.includes.header')
 
-@if(isset($course) && isset($subcategory))
+@if(isset($course))
 <!-- Page Content -->
 <section class="py-4">
     <div class="container-fluid">
@@ -16,6 +16,11 @@
                             <a href="{{ route('user.navigationpagesbyslug', ['slug' => 'training']) }}"
                                 class="text-danger">Training Courses</a>
                         </li>
+                        <li class="breadcrumb-item">
+                            <a href="{{ route('user.course_subcourse_slug', ['slug' => $parentcategory->slug]) }}"
+                                class="text-danger">{{ $parentcategory->category_name }}</a>
+                        </li>
+
                         <li class="breadcrumb-item">
                             <a href="{{ route('user.courseslug', ['slug' => $subcategory->slug]) }}"
                                 class="text-danger">
@@ -122,9 +127,9 @@
 @include('user.includes.footer')
 
 <script>
-    function navigateToArchivedCourse(url) {
-        if (url) {
-            window.location.href = url; // Redirects to the selected URL
-        }
+function navigateToArchivedCourse(url) {
+    if (url) {
+        window.location.href = url; // Redirects to the selected URL
     }
+}
 </script>

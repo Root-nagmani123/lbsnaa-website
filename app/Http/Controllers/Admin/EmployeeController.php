@@ -150,7 +150,7 @@ class EmployeeController extends Controller
         // dd($id);
         // Retrieve the record to ensure it exists and to check its status
         $organisationChart = DB::table('organisation_chart')->where('id', $id)->first();
-
+$parent_id = $organisationChart->parent_id;
         if (!$organisationChart) {
             return redirect()->route('organisation-chart.sub-org', ['parent_id' => $parent_id])->with('error', 'Record not found');
         }

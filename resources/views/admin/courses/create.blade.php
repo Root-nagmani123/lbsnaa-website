@@ -209,6 +209,7 @@
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="asst_coordinator_1_id">1st Asst. Co-ordinator :</label>
+                                <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark ps-5 h-58"
                                         name="asst_coordinator_1_id" id="asst_coordinator_1_id"  value="{{ old('asst_coordinator_1_id') }}">

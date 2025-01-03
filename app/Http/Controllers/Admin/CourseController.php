@@ -118,18 +118,13 @@ class CourseController extends Controller
             // 'description' => 'nullable|string', // Description is optional and can have any length
             'coordinator_id' => 'required', // Optional field, must be a valid user ID from the users table
             'asst_coordinator_1_id' => 'required', // Optional field, must be a valid user ID from the users table
-            'asst_coordinator_2_id' => 'required', // Optional field, must be a valid user ID from the users table
-            'asst_coordinator_3_id' => 'required', // Optional field, must be a valid user ID from the users table
-            'asst_coordinator_4_id' => 'required', // Optional field, must be a valid user ID from the users table
-            'asst_coordinator_5_id' => 'required', // Optional field, must be a valid user ID from the users table
             'important_links' => 'nullable|array', // Optional field that should be an array
             'course_type' => 'nullable|string|max:255', // Optional field for course type, should be a string
             'course_start_date' => 'required|date|after_or_equal:today', // Start date is required, must be a date and today or in the future
             'course_end_date' => 'required|date|after:course_start_date', // End date is required, must be a date, and after the start date
             'support_section' => 'required', // Support section is required
             'venue_id' => 'required', // Venue is required
-            'registration_on' => 'required', // Optional field with boolean validation
-            'page_status' => 'required|in:0,1', // Venue is required and must be either 0 or 1
+             'page_status' => 'required|in:0,1', // Venue is required and must be either 0 or 1
         ]);
 
         // Insert the validated data into the database
