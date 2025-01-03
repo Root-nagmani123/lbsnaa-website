@@ -24,25 +24,34 @@
         <!-- Tenders Card -->
         <div class="card bg-white border-0 rounded-4 shadow-sm mb-4">
             <div class="card-body p-4">
-                <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-3">
-                    <h4 class="fw-semibold fs-18 mb-0">Faculty Responsibility</h4>
-                </div>
-                <div class="contsearch">
-                    <form id="form2" action="{{ route('user.faculty_responsibility') }}" method="GET">
-                        <fieldset>
-                            <label class="txt">Search by Keywords:</label>
-                            <label for="keywords">
-                                <input type="text" id="Keywords" name="keywords"
-                                    value="{{ urlencode(request('keywords')) }}" placeholder="Search Faculty">
-                            </label>
-                            <label for="btn2">
-                                <input id="btn2" type="submit" value="Submit" class="btn">
-                            </label>
-                            <a href="{{ route('user.faculty_responsibility') }}" class="btn btn-primary">Reset</a>
-                        </fieldset>
-                    </form>
+                <div class="row border-bottom   pb-3 mb-3">
+                    <div class="col-lg-6">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h4 class="fw-semibold fs-18 mb-0">Faculty Responsibility</h4>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="contsearch float-end">
+                            <form id="form2" action="{{ route('user.faculty_responsibility') }}" method="GET">
+                                <fieldset>
+                                    <label class="form-label">Search by Keywords:</label>
+                                    <label for="keywords">
+                                        <input type="text" id="Keywords" name="keywords"
+                                            value="{{ urlencode(request('keywords')) }}" placeholder="Search Faculty" class="form-control text-dark ps-5 h-58">
+                                    </label>
+                                    <label for="btn2">
+                                        <input id="btn2" type="submit" value="Submit" class="btn btn-success">
+                                    </label>
+                                    <a href="{{ route('user.faculty_responsibility') }}"
+                                        class="btn btn-warning">Reset</a>
+                                </fieldset>
+                            </form>
 
+                        </div>
+                    </div>
                 </div>
+
+
                 <!-- Table Section -->
                 <div class="table-responsive">
                     <table class="table table-striped align-middle">
