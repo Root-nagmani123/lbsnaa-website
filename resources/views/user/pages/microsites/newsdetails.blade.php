@@ -31,9 +31,9 @@
                         @if(!empty($news->multiple_images))
                         @foreach ($news->multiple_images as $image)
                         <div class="col-md-3 mb-2">
-                           <div class="card">
-                           <img src="{{ asset($image) }}" style="object-fit: cover;" class="img-fluid">
-                           </div>
+                            <div class="card">
+                                <img src="{{ asset($image) }}" style="object-fit: cover;" class="img-fluid">
+                            </div>
                         </div>
                         @endforeach
                         @else
@@ -52,9 +52,10 @@
                 </div>
             </div>
         </div>
+        @else
+        <h4>News does not exist</h4>
+        @endif
     </div>
 </section>
-@else
-<h4>News does not exist</h4>
-@endif
+
 @include('user.pages.microsites.includes.footer')

@@ -1,6 +1,6 @@
  <!-- footer -->
  <footer class="pt-5 pb-3  mt-auto">
-    <div class="container">
+    <div class="container-fluid">
 
       <!-- Desc -->
       <hr class="mt-6 mb-3">
@@ -14,7 +14,7 @@
                 document.getElementById("copyright4").appendChild(document.createTextNode(new Date().getFullYear()));
               </script>
             </span>
-            <span style="color: #af2910;">Lal Bahadur Shastri National Academy of Administration</span>. All Rights
+            Copyright Ministry of Electronics & IT <a href="https://www.digitalindia.gov.in/" target="_blank" style="color: #af2910;">(NeGD)</a>, Government of India.</span> All Rights
             Reserved
           </span>
         </div>

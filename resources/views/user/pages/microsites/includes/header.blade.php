@@ -33,7 +33,7 @@
 <body class="d-flex flex-column min-vh-100 bg-white">
 <header class="d-none d-lg-block sticky-top">
     <nav class="navbar">
-        <div class="container px-0">
+        <div class="container-fluid px-0">
             <a class="navbar-brand" href="{{ route('home') }}"><img src="{{ asset('assets/images/microsites/logo.png') }}"
                     alt="logo" width="300"></a>
             <!-- Button -->
