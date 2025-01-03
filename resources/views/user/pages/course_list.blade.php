@@ -33,7 +33,7 @@
                         {{ $subcategory->category_name }}
                     </h2>
                 </div>
-                <p class="text-muted">{{ $subcategory->description }}</p>
+                <p class="text-muted"><?=$subcategory->description;?></p>
             </div>
         </div>
 
@@ -54,7 +54,7 @@
                 @else
                     <p class="text-muted">No current courses available for this category.</p>
                 @endif
-            </div>
+            </div> 
         </section>
 
         <!-- Archived Courses Section -->

@@ -350,7 +350,7 @@ Route::post('/users/permissions/update', [UserManagementController::class, 'upda
     Route::post('subcategory/', [CoursesubCategoryController::class, 'store'])->name('subcategory.store');
     Route::get('subcategory/{id}/edit', [CoursesubCategoryController::class, 'edit'])->name('subcategory.edit');
     Route::put('subcategory/{id}', [CoursesubCategoryController::class, 'update'])->name('subcategory.update');
-    Route::get('subcategory/{id}/delete', [CoursesubCategoryController::class, 'delete'])->name('subcategory.delete');
+    Route::delete('subcategory/{id}/delete', [CoursesubCategoryController::class, 'delete'])->name('subcategory.delete');
  
     // Indrajeet
     Route::resource('organisers', OrganiserController::class);

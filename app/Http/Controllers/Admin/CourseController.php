@@ -56,7 +56,7 @@ class CourseController extends Controller
          
     //     //
     //     $course = DB::table('course')->insert($request->except('_token'));
-
+ 
     //     ManageAudit::create([
     //         'Module_Name' => 'Course Module', // Static value
     //         'Time_Stamp' => time(), // Current timestamp
@@ -116,12 +116,12 @@ class CourseController extends Controller
             'meta_keyword' => 'nullable|string|max:255', // Meta keyword is optional, must be a string, and max length of 255
             // 'meta_description' => 'nullable|string|max:255', // Meta description is optional
             // 'description' => 'nullable|string', // Description is optional and can have any length
-            'coordinator_id' => 'nullable|exists:users,id', // Optional field, must be a valid user ID from the users table
-            'asst_coordinator_1_id' => 'nullable|exists:users,id', // Optional field, must be a valid user ID from the users table
-            'asst_coordinator_2_id' => 'nullable|exists:users,id', // Optional field, must be a valid user ID from the users table
-            'asst_coordinator_3_id' => 'nullable|exists:users,id', // Optional field, must be a valid user ID from the users table
-            'asst_coordinator_4_id' => 'nullable|exists:users,id', // Optional field, must be a valid user ID from the users table
-            'asst_coordinator_5_id' => 'nullable|exists:users,id', // Optional field, must be a valid user ID from the users table
+            'coordinator_id' => 'required', // Optional field, must be a valid user ID from the users table
+            'asst_coordinator_1_id' => 'required', // Optional field, must be a valid user ID from the users table
+            'asst_coordinator_2_id' => 'required', // Optional field, must be a valid user ID from the users table
+            'asst_coordinator_3_id' => 'required', // Optional field, must be a valid user ID from the users table
+            'asst_coordinator_4_id' => 'required', // Optional field, must be a valid user ID from the users table
+            'asst_coordinator_5_id' => 'required', // Optional field, must be a valid user ID from the users table
             'important_links' => 'nullable|array', // Optional field that should be an array
             'course_type' => 'nullable|string|max:255', // Optional field for course type, should be a string
             'course_start_date' => 'required|date|after_or_equal:today', // Start date is required, must be a date and today or in the future

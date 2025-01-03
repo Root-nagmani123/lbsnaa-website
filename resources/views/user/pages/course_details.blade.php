@@ -116,3 +116,11 @@
 
 
 @include('user.includes.footer')
+
+<script>
+    function navigateToArchivedCourse(url) {
+        if (url) {
+            window.location.href = url; // Redirects to the selected URL
+        }
+    }
+</script>

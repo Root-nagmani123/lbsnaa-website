@@ -127,7 +127,9 @@
                     </div>
                     <div class="card-body pt-2" style="overflow-y:scroll; height: 100px;">
                         <h4 class="mb-3">Runing Courses</h4>
+                        @if(count($current_course) > 0)
                         <ul>
+                       
                             @foreach ($current_course as $course)
                             <li>
                                 <a href="{{ route('user.courseDetailslug', ['slug' => $course->id]) }}"
@@ -139,8 +141,11 @@
                                 {{ date('d F, Y', strtotime($course->course_end_date)) }}
                             </li>
                             @endforeach
-
+                           
                         </ul>
+                        @else
+                            <span>No Course Available</span>
+                            @endif
                     </div>
                     <div class="card-footer" style="border:none;">
 
@@ -155,7 +160,9 @@
                     </div>
                     <div class="card-body pt-2 pb-2" style="overflow-y:scroll;height: 100px;">
                         <h4 class="mb-3">Upcoming Courses</h4>
+                        @if(count($upcoming_course) > 0)
                         <ul>
+                           
                             @foreach ($upcoming_course as $course)
                             <li>
                                 <a href="{{ route('user.courseDetailslug', ['slug' => $course->id]) }}"
@@ -167,7 +174,11 @@
                                 {{ date('d F, Y', strtotime($course->course_end_date)) }}
                             </li>
                             @endforeach
+                           
                         </ul>
+                        @else
+                            <span>No Course Available</span>
+                            @endif
                     </div>
                     <div class="card-footer" style="border:none;">
 
