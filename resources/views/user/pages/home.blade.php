@@ -129,7 +129,7 @@
                         <h4 class="mb-3">Runing Courses</h4>
                         @if(count($current_course) > 0)
                         <ul>
-                       
+                       @php $i = 0; @endphp
                             @foreach ($current_course as $course)
                             <li>
                                 <a href="{{ route('user.courseDetailslug', ['slug' => $course->id]) }}"
@@ -140,9 +140,13 @@
                                 {{ date('d F, Y', strtotime($course->course_start_date)) }} to
                                 {{ date('d F, Y', strtotime($course->course_end_date)) }}
                             </li>
+                            @php $i++; @endphp
                             @endforeach
                            
                         </ul>
+                        
+                            <a href="{{ route('user.runningCourses') }}">View All</a>
+                        
                         @else
                             <span>No Course Available</span>
                             @endif
@@ -176,6 +180,7 @@
                             @endforeach
                            
                         </ul>
+                        <a href="{{ route('user.upcomingCourses') }}">View All</a>
                         @else
                             <span>No Course Available</span>
                             @endif

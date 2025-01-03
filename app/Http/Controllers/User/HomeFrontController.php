@@ -9,6 +9,7 @@ class HomeFrontController extends Controller
 {
     public function index()
     {
+        date_default_timezone_set('Asia/Kolkata');
         $today = date('Y-m-d'); 
         $sliders =  DB::table('sliders')->where('status',1)->where('is_deleted',0)->get();
         $news =  DB::table('news')->where('status',1)->where('start_date', '<=', $today)
@@ -19,16 +20,22 @@ class HomeFrontController extends Controller
         // print_r($faculty_members);die;
         
         $current_course = DB::table('course')
-        ->select('id','course_name', 'coordinator_id', 'course_start_date', 'course_end_date')
-            ->where('course_start_date', '<=', $today)
-            ->where('course_end_date', '>=', $today)
-            ->where('page_status', 1)
+        ->Join('courses_sub_categories', 'course.course_type', '=', 'courses_sub_categories.id')
+     
+        ->select('course.id','course.course_name', 'course.coordinator_id', 'course.course_start_date', 'course.course_end_date')
+            ->where('course.course_start_date', '<=', $today)
+            ->where('course.course_end_date', '>=', $today)
+            ->where('course.page_status', 1)
+            ->where('courses_sub_categories.status', 1)
             ->get();
 
         $upcoming_course = DB::table('course')
-        ->select('id','course_name', 'coordinator_id', 'course_start_date', 'course_end_date')
-            ->where('course_start_date', '>', $today)
+        ->Join('courses_sub_categories', 'course.course_type', '=', 'courses_sub_categories.id')
+
+        ->select('course.id','course.course_name', 'course.coordinator_id', 'course.course_start_date', 'course.course_end_date')
+           ->where('course_start_date', '>', $today)
             ->where('page_status', 1)
+            ->where('courses_sub_categories.status', 1)
             ->get();
             
         // print_r($upcoming_course);die;
@@ -240,14 +247,14 @@ public function training_cal()
     $parentCategories = DB::table('courses_sub_categories')
         ->where('parent_id', 0)  // Get only the parent categories
         ->where('status', 1) 
-        ->select('id', 'category_name', 'color_theme')
+        ->select('id','slug', 'category_name', 'color_theme')
         ->get();
 
     // Step 2: Fetch all subcategories in one query
     $subcategories = DB::table('courses_sub_categories')
         ->where('parent_id', '!=', 0) // Get all subcategories that have a parent
         ->where('status', 1) // Get all subcategories that have a parent
-        ->select('id', 'category_name', 'color_theme', 'parent_id')
+        ->select('id','slug', 'category_name', 'color_theme', 'parent_id')
         ->get();
 
     // Step 3: Fetch all courses in one query
@@ -258,6 +265,7 @@ public function training_cal()
         ->select(
             'course.id',
             'course.course_name',
+            'course.coordinator_id',
             'course.course_start_date',
             'course.course_end_date',
             'course.course_type', // This links the course to a subcategory
@@ -297,6 +305,7 @@ public function training_cal()
                     'course_name' => $course->course_name,
                     'course_start_date' => $course->course_start_date,
                     'course_end_date' => $course->course_end_date,
+                    'coordinator_id' => $course->coordinator_id,
                     'support_section' => $course->support_section
                 ];
             }
@@ -312,11 +321,17 @@ public function get_course_list_pages(Request $request, $slug){
     $subcategory = DB::table('courses_sub_categories')
         ->where('slug', $slug)
         ->where('status', 1)
-        ->select('id', 'category_name', 'color_theme','description')
+        ->select('id', 'parent_id','category_name', 'color_theme','description')
         ->first();
+        $parent_category = DB::table('courses_sub_categories')
+        ->where('id', $subcategory->parent_id)
+        ->where('status', 1)
+        ->select('id', 'category_name', 'slug','color_theme','description')
+        ->first();
+        // print_r($parent_category);die;
 
     // Step 2: Fetch all courses related to this subcategory
-    $courses = [];
+    $courses = []; 
     if ($subcategory) {
         $courses = DB::table('course')
             ->where('course_type', $subcategory->id)
@@ -330,9 +345,25 @@ public function get_course_list_pages(Request $request, $slug){
         ->where('course_type', $subcategory->id)
         ->whereDate('course_start_date', '<=', $currentDate)
         ->whereDate('course_end_date', '>=', $currentDate)
-        ->first();
+        ->get();
 
-    return view('user.pages.course_list', compact('subcategory', 'currentCourse', 'courses'));
+    return view('user.pages.course_list', compact('parent_category','subcategory', 'currentCourse', 'courses'));
+}
+function get_course_subcourse_list_pages(Request $request, $slug){
+    $category = DB::table('courses_sub_categories')
+    ->where('slug', $slug)
+    ->where('status', 1)
+    ->select('id', 'category_name', 'color_theme','description')
+    ->first();
+
+
+    $sub_category = DB::table('courses_sub_categories')
+    ->where('parent_id', $category->id)
+    ->where('status', 1)
+    ->select('id', 'category_name', 'slug','color_theme','description')
+    ->get();
+
+return view('user.pages.course_subcourse_list', compact('category', 'sub_category'));
 }
 
 public function get_course_details_pages(Request $request, $slug)
@@ -349,7 +380,6 @@ public function get_course_details_pages(Request $request, $slug)
                     'manage_venues.venue_title'
                 )
                 ->first();
-
     // Check if course exists, if not return a 404 error or a suitable response
     if (!$course) {
         return abort(404, 'Course not found');
@@ -359,6 +389,9 @@ public function get_course_details_pages(Request $request, $slug)
     $subcategory = DB::table('courses_sub_categories')
                     ->where('id', $course->course_type) // Assuming 'course_type' relates to subcategory
                     ->first();
+    $parentcategory = DB::table('courses_sub_categories')
+                    ->where('id', $subcategory->parent_id) // Assuming 'course_type' relates to subcategory
+                    ->first();
                     $courses_list = DB::table('course')
                     ->where('course_type', $course->course_type)
                     ->whereDate('course_end_date', '<', $currentDate)
@@ -366,7 +399,7 @@ public function get_course_details_pages(Request $request, $slug)
                     ->get();
 
     // Pass the course and subcategory to the view
-    return view('user.pages.course_details', compact('course', 'subcategory','courses_list'));
+    return view('user.pages.course_details', compact('parentcategory','course', 'subcategory','courses_list'));
 }
 public function souvenir(Request $request)
 {
@@ -620,7 +653,42 @@ public function faculty_responsibility(Request $request) {
 
     return view('user.pages.faculty_responsibility', compact('data'));
 }
+function upcoming_events(){
+    date_default_timezone_set('Asia/Kolkata'); // Set timezone to Asia/Kolkata
+    $today = date('Y-m-d H:i:s'); 
+    $upcoming_course = DB::table('course')
+    ->Join('courses_sub_categories', 'course.course_type', '=', 'courses_sub_categories.id')
 
+    ->select('course.id','course.course_name', 'course.coordinator_id', 'course.course_start_date', 'course.course_end_date')
+       ->where('course_start_date', '>', $today)
+        ->where('page_status', 1)
+        ->where('courses_sub_categories.status', 1)
+        ->get();
+
+        
+        return view('user.pages.upcoming_events', compact('upcoming_course'));
+}
+function running_events(){
+    date_default_timezone_set('Asia/Kolkata'); // Set timezone to Asia/Kolkata
+    $today = date('Y-m-d H:i:s'); 
+    // $current_course = DB::table('course')
+    // ->select('id','course_name', 'coordinator_id', 'course_start_date', 'course_end_date')
+    //     ->where('course_start_date', '<=', $today)
+    //     ->where('course_end_date', '>=', $today)
+    //     ->where('page_status', 1)
+    //     ->get();
+
+        $current_course = DB::table('course')
+        ->Join('courses_sub_categories', 'course.course_type', '=', 'courses_sub_categories.id')
+     
+        ->select('course.id','course.course_name', 'course.coordinator_id', 'course.course_start_date', 'course.course_end_date')
+            ->where('course.course_start_date', '<=', $today)
+            ->where('course.course_end_date', '>=', $today)
+            ->where('course.page_status', 1)
+            ->where('courses_sub_categories.status', 1)
+            ->get();
+        return view('user.pages.running_events', compact('current_course'));
+}
 
 
 

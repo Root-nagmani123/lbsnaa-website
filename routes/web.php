@@ -97,6 +97,7 @@ Route::get('/faculty', [HomeFrontController::class, 'faculty'])->name('user.facu
 Route::get('/staff', [HomeFrontController::class, 'staff'])->name('user.staff');
 Route::get('/vacancy', [HomeFrontController::class, 'vacancy'])->name('user.vacancy');
 Route::get('/cms/training_cal', [HomeFrontController::class, 'training_cal'])->name('user.training_cal');
+Route::get('/course__subCourselisting/{slug}', [HomeFrontController::class, 'get_course_subcourse_list_pages'])->name('user.course_subcourse_slug');
 Route::get('/course_listing/{slug}', [HomeFrontController::class, 'get_course_list_pages'])->name('user.courseslug');
 Route::get('/course_full_destails/{slug}', [HomeFrontController::class, 'get_course_details_pages'])->name('user.courseDetailslug');
 Route::get('/rti', [HomeFrontController::class, 'rti_main_page'])->name('user.get_rti_page');
@@ -112,6 +113,8 @@ Route::get('/photogallery', [HomeFrontController::class, 'photogallery'])->name(
 Route::get('/view_all_photogallery', [HomeFrontController::class, 'view_all_photogallery'])->name('user.view_all_photogallery');
 Route::get('/organization', [HomeFrontController::class, 'organization'])->name('user.organization');
 Route::POST('/feedback_store', [HomeFrontController::class, 'storeFeedback'])->name('feedback.store');
+Route::get('/upcoming_events', [HomeFrontController::class, 'upcoming_events'])->name('user.upcomingCourses');
+Route::get('/running_events', [HomeFrontController::class, 'running_events'])->name('user.runningCourses');
 
 
 //micro 

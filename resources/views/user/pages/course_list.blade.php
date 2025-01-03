@@ -12,6 +12,14 @@
                         <li class="breadcrumb-item">
                             <a href="{{ route('home') }}" style="color: #af2910;">Home</a>
                         </li>
+                        <li class="breadcrumb-item">
+                            <a href="{{ route('user.navigationpagesbyslug', ['slug' => 'training']) }}"
+                                class="text-danger">Training Courses</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="{{ route('user.course_subcourse_slug', ['slug' => $parent_category->slug]) }}"
+                                class="text-danger">{{ $parent_category->category_name }}</a>
+                        </li>
                         <li class="breadcrumb-item active" aria-current="page" style="color: #af2910;">
                             {{ $subcategory->category_name }}
                         </li>
@@ -41,7 +49,8 @@
         <section class="py-4">
             <div class="container">
                 <h4 class="mb-3">Current Courses:</h4>
-                @if($currentCourse)
+                @if(count($currentCourse) >0)
+                 @foreach($currentCourse as $currentCourse)
                     <div class="current-course-box mb-3 p-3 border rounded bg-light">
                         <h5 class="fw-bold">{{ $currentCourse->course_name }}</h5>
                         <p>
@@ -51,6 +60,7 @@
                             {{ \Carbon\Carbon::parse($currentCourse->course_end_date)->format('d F, Y') }}
                         </p>
                     </div>
+                    @endforeach
                 @else
                     <p class="text-muted">No current courses available for this category.</p>
                 @endif

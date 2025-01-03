@@ -116,7 +116,7 @@
                     <td style="background-color: {{ $subcategory['color'] }};">{{ $serial++ }}</td>
                     <td style="background-color: {{ $subcategory['color'] }};">{{ $course['course_name'] }}</td>
                     <td style="background-color: {{ $subcategory['color'] }};">{{ $course['support_section'] }}</td>
-                    <td style="background-color: {{ $subcategory['color'] }};">Course Coordinator Here</td> <!-- Add logic to fetch coordinator if available -->
+                    <td style="background-color: {{ $subcategory['color'] }};">{{ $course['coordinator_id'] }}</td> <!-- Add logic to fetch coordinator if available -->
                     <td style="background-color: {{ $subcategory['color'] }};">
                         @if ($course['course_start_date'] && $course['course_end_date'])
                             {{ $duration }}
