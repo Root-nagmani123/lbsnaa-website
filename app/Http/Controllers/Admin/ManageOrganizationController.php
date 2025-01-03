@@ -29,7 +29,7 @@ class ManageOrganizationController extends Controller
         $years = range($startYear, $currentYear); // Create an array of years
 
         // Fetch the codes from the manage_cadres table
-        $cadres = DB::table('manage_cadres')->pluck('code', 'id'); // Get id as key and code as value
+        $cadres = DB::table('manage_cadres')->where('status',1)->pluck('code', 'id'); // Get id as key and code as value
         return view('admin.faculty_members.create', compact('cadres','years'));
     }
 

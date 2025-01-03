@@ -272,7 +272,6 @@
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="registration_on">Registration on :</label>
-                                <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input class="form-check-input" type="radio" value="1" id="registration_on"
                                         name="registration_on" {{ $course->registration_on == 1 ? 'checked' : '' }}>
