@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\User;
 
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB; 
@@ -10,18 +9,6 @@ use DOMDocument;
 use Carbon\Carbon;
 class HomePagesMicroController extends Controller
 { 
-
-    
-    // public function media_gallery()
-    // {
-    //     // echo 'test';die;
-    //     // Fetch all data from the table using Query Builder
-    //     $photoGalleries = DB::table('micro_manage_photo_galleries')->where('status', 1)->get();
-    //     $courses = DB::table('course')->select('id', 'course_name')->get();
-    //     // Pass data to the view
-    //     return view('user.pages.microsites.media_gallery', compact('photoGalleries','courses'));
-    // }
-
     public function media_gallery(Request $request)
     {
         // Get the 'slug' from the request
@@ -41,19 +28,6 @@ class HomePagesMicroController extends Controller
         // Pass data to the view
         return view('user.pages.microsites.media_gallery', compact('photoGalleries', 'courses', 'slug'));
     }
-
-    // public function mediagallery($slug = null)
-    // {
-    //     $query = DB::table('research_centres')->where('status', 1);
-    //     if ($slug) {
-    //         // Filter by research_centre_slug if provided
-    //         $query->where('research_centre_slug', $slug);
-    //     }
-    //     $research_centres = $query->get();
-
-    //     $quickLinks = DB::table('micro_quick_links')->where('categorytype', 2)->where('status', 1)->get();
-    //     return view('user.pages.microsites.mediagallery',compact('quickLinks','research_centres','slug'));
-    // }
 
     public function mediagallery(Request $request)
     {
@@ -151,39 +125,35 @@ class HomePagesMicroController extends Controller
         return view('user.pages.microsites.media_gallery', compact('photoGalleries', 'courses'));
     }
 
-
-
-    public function calendar(Request $request)
-    {
-        // Get the current month and year, or use query parameters
-        $month = $request->input('month', Carbon::now()->format('m'));
-        $year = $request->input('year', Carbon::now()->format('Y'));
-
-        // Create a Carbon instance for the given month and year
-        $date = Carbon::createFromDate($year, $month, 1);
-        $daysInMonth = $date->daysInMonth;
-
-        // Get the first day of the month (0 = Sunday, 1 = Monday, ...)
-        $startDay = $date->dayOfWeek;
-
-        return view('user.pages.microsites.calendar', compact('month', 'year', 'daysInMonth', 'startDay'));
-    }
-
     public function news(Request $request)
     {
-        // Fetch all records from the news table using the query builder
-        $newsItems = DB::table('managenews')
-            ->where('status', 1)
+        // Get the slug from the request
+        $slug = $request->query('slug'); // Fetch the 'slug' query parameter from the URL
+        // Fetch all records from the managenews table joined with research_centres table
+        $newsItems = DB::table('managenews as mn')
+            ->join('research_centres as rc', 'mn.research_centreid', '=', 'rc.id') // Join the tables based on research_centreid
+            ->where('mn.status', 1) // Filter by status (active news)
+            ->where('rc.research_centre_slug', $slug) // Filter by research_centre_slug from the request slug
+            ->select('mn.*', 'rc.*') // Select all columns from managenews and research_centres
             ->get();
-
         // Pass the data to the view
         return view('user.pages.microsites.news', compact('newsItems'));
     }
 
-    public function newsdetails($id)
+
+    public function newsdetails(Request $request, $id)
     {
-        // Fetch the specific news item by ID
-        $news = DB::table('managenews')->where('id', $id)->first();
+        // Get the slug from the request (query parameter) or from the route parameter if it's provided
+        $slug = $request->query('slug'); // Fetch the 'slug' query parameter from the URL
+
+        // Fetch the specific news item by ID and Slug
+        $news = DB::table('managenews')
+            ->join('research_centres as rc', 'managenews.research_centreid', '=', 'rc.id') // Join with the research_centres table
+            ->where('managenews.id', $id) // Filter by the specific news ID
+            ->where('rc.research_centre_slug', $slug) // Filter by the research centre slug from the request
+            ->where('managenews.status', 1) // Ensure the news is active
+            ->select('managenews.*', 'rc.*') // Select all columns from managenews and research_centres
+            ->first(); // Fetch a single result
 
         // Decode the multiple images JSON array
         if ($news && $news->multiple_images) {
@@ -194,52 +164,31 @@ class HomePagesMicroController extends Controller
         return view('user.pages.microsites.newsdetails', compact('news'));
     }
 
-
-
-    // // Method to show the video gallery
-    // public function videoGallery()
-    // {
-    //     // Fetch all videos from the 'micro_video_galleries' table
-    //     $videos = DB::table('micro_video_galleries')
-    //         ->where('page_status', 1)  // Ensure only active videos are fetched
-    //         ->get();
-
-    //     // Pass the videos to the view
-    //     return view('user.pages.microsites.video_gallery', compact('videos'));
-    // }
-
-    // public function videoGallery($slug = null)
-    // {
-    //     // Fetch videos from the 'micro_video_galleries' table, filtered by the slug if provided
-    //     $query = DB::table('micro_video_galleries')
-    //         ->where('page_status', 1);  // Ensure only active videos are fetched
-
-    //     if ($slug) {
-    //         // If the slug is provided, filter the videos by it (you can adjust this as needed)
-    //         $query->where('slug', $slug);  // Example: assuming the videos table has a 'slug' field
-    //     }
-
-    //     $videos = $query->get();  // Get the results
-
-    //     // Pass the videos and slug to the view
-    //     return view('user.pages.microsites.video_gallery', compact('videos', 'slug'));
-    // }
-
-    public function videoGallery($slug = null)
+    public function videoGallery(Request $request)
     {
-        // Build the base query for the video gallery with join
-        $query = DB::table('micro_video_galleries as video_gallery')
-            ->join('research_centres as research_centres', 'video_gallery.research_centre', '=', 'research_centres.id')  // Join with the research_centres table
-            ->where('video_gallery.page_status', 1);  // Ensure only active videos are fetched
-        // If the slug is provided, filter the videos by the slug
-        if ($slug) {
-            $query->where('research_centres.research_centre_slug', $slug);  // Filter by slug in the research_centres table
-        }
-        // Get the results from the query
-        $videos = $query->select('video_gallery.*', 'research_centres.*')->get();  // Select all columns from both tables
-        // Pass the videos and slug to the view
+        // Get the 'slug' parameter from the request
+        $slug = $request->query('slug');
+    
+        // Fetch video gallery data with research centres
+        $videos = DB::table('micro_video_galleries as video_gallery')
+            ->join('research_centres as research_centres', 'video_gallery.research_centre', '=', 'research_centres.id') // Join research centres
+            ->select(
+                'video_gallery.*',  // Select all columns from video_gallery
+                'research_centres.research_centre_slug as centre_name', // Custom name for research centre
+                'research_centres.research_centre_slug as centre_slug' // Slug column
+            )
+            ->where('video_gallery.page_status', 1) // Only active videos
+            ->when($slug, function ($query, $slug) {
+                return $query->where('research_centres.research_centre_slug', $slug); // Filter by slug if provided
+            })
+            ->get();
+   
+        // Return view with data
         return view('user.pages.microsites.video_gallery', compact('videos', 'slug'));
     }
+    
+    
+
 
 
 

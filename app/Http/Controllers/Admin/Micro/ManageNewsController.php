@@ -35,9 +35,10 @@ class ManageNewsController extends Controller
     }
 
 
-    // // Store new news
+    // Store new news
     public function store(Request $request)
     {
+        // Validation    
         $request->validate([
             'language' => 'required',
             'research_centre' => 'required',
@@ -45,43 +46,44 @@ class ManageNewsController extends Controller
             'short_description' => 'required',
             'meta_title' => 'required',
             'description' => 'required',
-            'main_image' => 'required|image|mimes:jpeg,png,jpg',
-            'start_date' => 'required|date', // Expecting DD-MM-YYYY format
+            'main_image' => 'required|image|mimes:jpeg,png,jpg|max:5120', // Main image max 5MB
             'status' => 'required',
-            'end_date' => 'required|after_or_equal:start_date', // Expecting DD-MM-YYYY format
+            'start_date' => 'required|date', // No need to check the format, just check it's a valid date
+            'end_date' => 'required|date|after_or_equal:start_date', // Ensure end date is after or equal to start date
             'multiple_images' => 'required|array',
-            'multiple_images.*' => 'image|mimes:jpeg,png,jpg|max:10240', // max 10MB for each file
+            'multiple_images.*' => 'image|mimes:jpeg,png,jpg|max:10240', // Each file max 10MB
         ], [
+            // Custom error messages
             'language.required' => 'Please select a language.',
             'research_centre.required' => 'Please select a research centre.',
-            'title.required' => 'Please fill this field.',
-            'short_description.required' => 'Please provide a short description.',
+            'title.required' => 'The title field is required.',
+            'short_description.required' => 'The short description is required.',
             'meta_title.required' => 'Please enter a meta title.',
             'description.required' => 'Please fill in the description field.',
-            'main_image.required' => 'Please upload a main image. MAX 5MB',
-            'main_image.image' => 'The main image must be a valid image file.',
+            'main_image.required' => 'Please upload the main image (max 5MB).',
+            'main_image.image' => 'The main image must be an image file.',
             'main_image.mimes' => 'The main image must be a file of type: jpeg, png, jpg.',
-            'start_date.required' => 'Please select a start date.',
-            'start_date.date_format' => 'The start date must be in the format DD-MM-YYYY.',
+            'main_image.max' => 'The main image must not exceed 5MB in size.',
+            'start_date.required' => 'Please provide the start date.',
             'status.required' => 'Please select the status.',
-            'end_date.required' => 'Please select an end date.',
-            'end_date.date_format' => 'The end date must be in the format DD-MM-YYYY.',
-            'multiple_images.required' => 'Please upload at least one image. MAX 10MB',
+            'end_date.required' => 'Please provide the end date.',
+            'end_date.after_or_equal' => 'The end date must not be earlier than the start date.',
+            'multiple_images.required' => 'Please upload at least one image.',
             'multiple_images.array' => 'The multiple images field must be an array.',
             'multiple_images.*.image' => 'Each uploaded file must be an image.',
-            'multiple_images.*.mimes' => 'Each image must be a file of type: jpeg, png, jpg, gif, svg.',
-            'multiple_images.*.max' => 'Each image must not exceed 2MB in size.',
+            'multiple_images.*.mimes' => 'Each image must be a file of type: jpeg, png, jpg.',
+            'multiple_images.*.max' => 'Each image must not exceed 10MB in size.',
         ]);
-        
-
+    
+        // Create a new news instance
         $news = new Managenews();
-
-        // Handle file upload for main image
+    
+        // Handle main image upload
         if ($request->hasFile('main_image')) {
             $mainImagePath = $request->file('main_image')->move(public_path('Managenews_images'), time() . '_' . $request->file('main_image')->getClientOriginalName());
             $news->main_image = 'Managenews_images/' . basename($mainImagePath); // Save relative path
         }
-
+    
         // Handle multiple images upload
         if ($request->hasFile('multiple_images')) {
             $multipleImages = [];
@@ -91,37 +93,42 @@ class ManageNewsController extends Controller
             }
             $news->multiple_images = json_encode($multipleImages); // Store as JSON string
         }
-
-        // Convert start_date and end_date to YYYY-MM-DD format using Carbon
-        $news->start_date = Carbon::createFromFormat('d-m-Y', $request->start_date)->format('Y-m-d');
-        $news->end_date = Carbon::createFromFormat('d-m-Y', $request->end_date)->format('Y-m-d');
-
-        // Set other news attributes
+    
+        // Convert dates to 'YYYY-MM-DD' format using Carbon
+        // After validation
+        $news->start_date = Carbon::parse($request->start_date)->format('Y-m-d'); // Ensure correct date format for MySQL
+        $news->end_date = Carbon::parse($request->end_date)->format('Y-m-d'); // Ensure correct date format for MySQL
+    
+        // Assign other attributes
         $news->language = $request->language;
         $news->research_centreid = $request->research_centre;
         $news->title = $request->title;
         $news->short_description = $request->short_description;
         $news->meta_title = $request->meta_title;
-        $news->meta_keywords = $request->meta_keyword;
-        $news->meta_description = $request->meta_description;
+        $news->meta_keywords = $request->meta_keyword ?? ''; // Optional field
+        $news->meta_description = $request->meta_description ?? ''; // Optional field
         $news->description = $request->description;
         $news->status = $request->status;
-
-        // Save the news instance
+    
+        // Save the news record to the database
         $news->save();
-
-        // Create a new audit record
+    
+        // Create an audit log entry
         MicroManageAudit::create([
             'Module_Name' => 'News Module',
             'Time_Stamp' => time(),
-            'Created_By' => null, // Set to authenticated user ID if needed
+            'Created_By' => null, // Use authenticated user ID if available
             'Updated_By' => null, // No update on creation
             'Action_Type' => 'Insert',
             'IP_Address' => $request->ip(),
         ]);
-
+    
+        // Redirect with success message
         return redirect()->route('Managenews.index')->with('success', 'News created successfully.');
     }
+    
+
+
 
 
     // Edit form
@@ -141,21 +148,7 @@ class ManageNewsController extends Controller
     // Update news
     public function update(Request $request, $id)
     {
-        // $request->validate([
-        //     'language' => 'required',
-        //     'research_centre' => 'required',
-        //     'title' => 'required',
-        //     'short_description' => 'required',
-        //     'meta_title' => 'required',
-        //     'description' => 'required',
-        //     // 'main_image' => 'required|image|mimes:jpeg,png,jpg',
-        //     // 'start_date' => 'required|date_format:d-m-Y', // Expecting DD-MM-YYYY format
-        //     'status' => 'required',
-        //     // 'end_date' => 'required|date_format:d-m-Y', // Expecting DD-MM-YYYY format
-
-        //     // 'multiple_images' => 'required|array',
-        //     // 'multiple_images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validate each file is an image
-        // ]);
+        
         $request->validate([
             'language' => 'required',
             'research_centre' => 'required',
@@ -180,7 +173,7 @@ class ManageNewsController extends Controller
             'main_image.max' => 'The main image must not exceed 5MB.',
             'multiple_images.*.image' => 'Each uploaded file in multiple images must be a valid image.',
             'multiple_images.*.mimes' => 'Each uploaded file in multiple images must be in jpeg, png, or jpg format.',
-            'multiple_images.*.max' => 'Each uploaded image must not exceed 5MB.',
+            'multiple_images.*.max' => 'Each uploaded image must not exceed 10MB.',
         ]);
         
 

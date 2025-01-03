@@ -127,28 +127,6 @@ height: 300px; background-size: content; background-position: center; border-rad
                         {{ strip_tags($research_centre->description) }}
                     </p> 
                 @endforeach
-
-                    <!-- <h4 class="fw-bold text-primary">
-                        The Ministry of Rural Development and Planning Commission assigned following objectives to B. N.
-                        Yugandhar Centre for Rural Studies:
-                    </h4>
-                    <p class="mb-0" style="text-align: left;">Preparation and Canvassing of questionnaires on Tenancy,
-                        Land Ceiling, Land Records, Land Consolidation, Government Waste Land, Homelessness, Rural
-                        Development, including Poverty Alleviation Programmes and generation of empirical data on all
-                        these programmes by the IAS Officer Trainees during their district training.</p> -->
-                    <!-- <p class="mb-0 mt-2" style="text-align: left;">Preparation and Canvassing of questionnaires on
-                        Tenancy, Land Ceiling, Land Records, Land Consolidation, Government Waste Land, Homelessness,
-                        Rural Development, including Poverty Alleviation Programmes and generation of empirical data on
-                        all these programmes by the IAS Officer Trainees during their district training.</p>
-                    <p class="mb-0 mt-2" style="text-align: left;">Preparation and Canvassing of questionnaires on
-                        Tenancy, Land Ceiling, Land Records, Land Consolidation, Government Waste Land, Homelessness,
-                        Rural Development, including Poverty Alleviation Programmes and generation of empirical data on
-                        all these programmes by the IAS Officer Trainees during their district training.</p>
-                    <p class="mb-0 mt-2" style="text-align: left;">Preparation and Canvassing of questionnaires on
-                        Tenancy, Land Ceiling, Land Records, Land Consolidation, Government Waste Land, Homelessness,
-                        Rural Development, including Poverty Alleviation Programmes and generation of empirical data on
-                        all these programmes by the IAS Officer Trainees during their district training.</p> -->
-
                 
                 </div>
 
@@ -171,51 +149,20 @@ height: 300px; background-size: content; background-position: center; border-rad
                             </a>
                         @endforeach
 
+                        @foreach ($research_centres as $research_centre)
+                            <a href="{{ route('news', ['slug' => $research_centre->research_centre_slug]) }}"
 
-
-
-                            <!-- <a href="{{ route('mediagallery') }}"
                                 class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border"
                                 style="width: 200px !important">
                                 <div class="p-3">
-                                    <img src="{{ asset('assets/images/image (2).png') }}" alt="mentor 19"
+                                    <img src="{{ asset('assets/images/newspaper (1).png') }}" alt="mentor 19"
                                         class="avatar avatar-xl">
                                 </div>
                                 <div class="mt-3">
-                                    <h3 class="text-center">Photo Gallery</h3>
+                                    <h3 class="text-center">Latest News</h3>
                                 </div>
-                            </a> -->
-
-                            @foreach ($research_centres as $research_centre)
-                                <a href="{{ route('calendar', ['slug' => $research_centre->research_centre_slug]) }}"
-
-                                    class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border"
-                                    style="width: 200px !important">
-                                    <div class="p-3">
-                                        <img src="{{ asset('assets/images/calendar (2).png') }}" alt="mentor 19"
-                                            class="avatar avatar-xl">
-                                    </div>
-                                    <div class="mt-3">
-                                        <h3 class="text-center">Training Calender</h3>
-                                    </div>
-                                </a>
-                            @endforeach
-                            
-
-                            @foreach ($research_centres as $research_centre)
-                                <a href="{{ route('news', ['slug' => $research_centre->research_centre_slug]) }}"
-
-                                    class="bg-white text-center shadow-sm text-wrap rounded-4 w-100 border card-lift border"
-                                    style="width: 200px !important">
-                                    <div class="p-3">
-                                        <img src="{{ asset('assets/images/newspaper (1).png') }}" alt="mentor 19"
-                                            class="avatar avatar-xl">
-                                    </div>
-                                    <div class="mt-3">
-                                        <h3 class="text-center">Latest News</h3>
-                                    </div>
-                                </a>
-                            @endforeach
+                            </a>
+                        @endforeach
 
                         </div>
                     </div>

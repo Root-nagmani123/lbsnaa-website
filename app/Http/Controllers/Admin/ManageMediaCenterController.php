@@ -34,6 +34,7 @@ class ManageMediaCenterController extends Controller
             'audio_title_en' => 'required|string',
             'audio_title_hi' => 'nullable|string',
             'audio_upload' => 'required|mimes:mp3,mp4|max:5120',  // 15 MB limit
+            // 'audio_upload' => 'required|mimes:mp3,mp4|max:15360',  // 15 MB limit
             'page_status' => 'required|integer|in:1,0',
         ];
         
@@ -54,7 +55,7 @@ class ManageMediaCenterController extends Controller
         // Validate request
         $validatedData = $request->validate($rules, $messages);
 
-        // Save the data
+        // Save the data 
         $audio = new ManageMediaCenter();
         $audio->category_name = $request->category_name;
         $audio->audio_title_en = $request->audio_title_en;

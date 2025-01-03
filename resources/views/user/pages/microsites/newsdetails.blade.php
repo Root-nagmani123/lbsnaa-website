@@ -43,7 +43,7 @@
                     <h2 class="h1 fw-bold text-primary">
                         {{$news->title}}
                     </h2>
-        <p><?= $news->description ?></p>
+                    <p><?= $news->description ?></p>
         
                     </div>
                 </div>

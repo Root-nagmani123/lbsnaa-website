@@ -38,10 +38,9 @@
                     alt="logo" width="300"></a>
             <!-- Button -->
 
-            <!-- research_centre_name -->
             @php
-                // Get the slug from the query parameter or default to null
-                $slug = request()->query('slug');
+                // Get the slug from the query parameter or the last segment of the URL
+                $slug = request()->query('slug') ?: request()->segment(count(request()->segments()));
 
                 // Query to get the research centre data based on the slug
                 $centre_name = null;
@@ -54,8 +53,6 @@
             @endphp
 
             <a class="navbar-brand" href="#">
-                <!-- <img src="{{ asset('assets/images/microsites/crs.jpg') }}" alt="logo" width="500"> -->
-                
                 <!-- Display the research centre name if available -->
                 @if($centre_name)
                     <span>{{ $centre_name->research_centre_name }}</span>
@@ -63,6 +60,7 @@
                     <span>Default Centre Name</span> <!-- Default name if no match is found -->
                 @endif
             </a>
+
 
 
             <!-- <a class="navbar-brand" href="#"><img src="{{ asset('assets/images/microsites/crs.jpg') }}"
@@ -83,6 +81,7 @@
                         ->where('is_deleted', 0)
                         ->where('parent_id', 0)
                         ->get();
+                        
                 @endphp
 
                 @foreach ($menus as $menu)
@@ -93,6 +92,7 @@
                             ->where('parent_id', $menu->id)
                             ->exists();
                         $class = $arrow ? 'nav-link dropdown-toggle' : 'nav-link';
+                        
                     @endphp
                     <li class="nav-item dropdown">
                         <a class="{{ $class }}"
