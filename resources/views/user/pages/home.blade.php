@@ -400,7 +400,6 @@
     white-space: nowrap;
     will-change: transform;
 }
-
 </style>
 
 @include('user.includes.footer')

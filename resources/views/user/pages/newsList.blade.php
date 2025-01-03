@@ -21,20 +21,18 @@
     </div>
 </section>
 
-<section class="container-fluid">
-    <div class="row mb-3">
-        <div class="col-md-9"></div>
-        <div class="col-md-3 text-end">
-            <a href="{{ route('user.news_old_listing') }}" class="btn btn-outline-primary fw-semibold btn-sm">Archive</a>
-        </div>
-    </div> 
-</section>
-
 <section class="py-6">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row g-4">
+            <div class="row mb-3">
+                <div class="col-md-9"></div>
+                <div class="col-md-3 text-end">
+                    <a href="{{ route('user.news_old_listing') }}"
+                        class="btn btn-outline-primary fw-semibold btn-sm">Archive</a>
+                </div>
+            </div>
             @foreach($news as $slider)
-            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
                 <!-- Card -->
                 <div class="card shadow-lg card-lift h-100">
                     <div class="card-header p-0">
@@ -45,18 +43,26 @@
                     </div>
                     <!-- Card body -->
                     <div class="card-body d-flex flex-column">
-                        <a href="#"
-                            class="fs-6 mb-2 fw-semibold d-block text-success">Posted On: {{ \Carbon\Carbon::parse($slider->start_date)->format('d F, Y') }}</a>
+                        <a href="#" class="fs-6 mb-2 fw-semibold d-block text-success">Posted On:
+                            {{ \Carbon\Carbon::parse($slider->start_date)->format('d F, Y') }}</a>
                         <h3 class="fs-5">
-                            <a href="{{ route('user.newsbyslug', $slider->title_slug) }}" class="text-dark text-decoration-none">
+                            <a href="{{ route('user.newsbyslug', $slider->title_slug) }}"
+                                class="text-dark text-decoration-none">
                                 {{ $slider->title }}
                             </a>
                         </h3>
                         <p class="text-truncate" style="max-height: 3rem;">{{ $slider->short_description }}</p>
                     </div>
                     <!-- Card footer -->
-                    <div class="card-footer bg-white border-0 text-end">
-                        <a href="{{ route('user.newsbyslug', $slider->title_slug) }}" class="text-primary">Read More</a>
+                    <div class="card-footer bg-white border-0 text-start">
+                        <a href="{{ route('user.newsbyslug', $slider->title_slug) }}" class="text-primary">Read More
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor"
+                                class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8">
+                                </path>
+                            </svg>
+                        </a>
                     </div>
                 </div>
             </div>
