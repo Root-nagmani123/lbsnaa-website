@@ -192,7 +192,7 @@
                         </div> -->
 
                         <!-- Start Date -->
-                        <div class="col-lg-6">
+                        <!-- <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label for="start_date" class="label">Start Date</label>
                                 <span class="star">*</span>
@@ -216,7 +216,46 @@
                                     @enderror
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
+
+                        <div class="col-lg-6">
+    <div class="form-group mb-4">
+        <label for="start_date" class="label">Start Date</label>
+        <span class="star">*</span>
+        <div class="form-group position-relative">
+            <input 
+                type="date" 
+                name="start_date" 
+                id="start_date" 
+                class="form-control text-dark ps-5 h-58" 
+                value="{{ old('start_date') }}" 
+                onchange="setMinEndDate()"
+            >
+            @error('start_date')
+                <div style="color: red;">{{ $message }}</div>
+            @enderror
+        </div>
+    </div>
+</div>
+
+<div class="col-lg-6">
+    <div class="form-group mb-4">
+        <label for="end_date" class="label">End Date</label>
+        <span class="star">*</span>
+        <div class="form-group position-relative">
+            <input 
+                type="date" 
+                name="end_date" 
+                id="end_date" 
+                class="form-control text-dark ps-5 h-58" 
+                value="{{ old('end_date') }}"
+            >
+            @error('end_date')
+                <div style="color: red;">{{ $message }}</div>
+            @enderror
+        </div>
+    </div>
+</div>
 
 
 
@@ -270,72 +309,9 @@ $('#meta_description').summernote({
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <!-- Initialize Flatpickr -->
-<!-- <script>
-document.addEventListener("DOMContentLoaded", function() {
-    // Initialize Flatpickr for start_date
-    flatpickr("#start_date", {
-        dateFormat: "d-m-Y", // Use the desired date format
-        allowInput: true, // Allow manual input
-    });
-
-    // Initialize Flatpickr for end_date with dynamic minDate
-    flatpickr("#end_date", {
-        dateFormat: "d-m-Y", // Use the desired date format
-        allowInput: true, // Allow manual input
-        minDate: document.querySelector('#start_date').value ||
-        null, // Set minDate if start_date exists
-    });
-
-    // Update end_date minDate when start_date changes
-    document.getElementById('start_date').addEventListener('change', function() {
-        let startDate = this.value;
-        let endDatePicker = flatpickr("#end_date");
-        endDatePicker.set("minDate", startDate); // Dynamically update minDate for end_date
-    });
-});
-</script> -->
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
-<!-- <script>
-document.addEventListener("DOMContentLoaded", function() {
-    // Get today's date in YYYY-MM-DD format
-    let today = new Date().toISOString().split('T')[0];
-
-    // Set min attributes for start_date and end_date to today (optional if required)
-    document.querySelector('input[name="start_date"]').setAttribute('min', today);
-    document.querySelector('input[name="end_date"]').setAttribute('min', today);
-
-    // Initialize Flatpickr for start_date
-    // flatpickr("#start_date", {
-    //     dateFormat: "d-m-Y", // Use the desired date format
-    //     allowInput: true, // Allow manual input
-    //     maxDate: document.querySelector('#end_date').value || null, // Set maxDate for start_date initially
-    // });
-
-    // // Initialize Flatpickr for end_date with dynamic minDate
-    // flatpickr("#end_date", {
-    //     dateFormat: "d-m-Y", // Use the desired date format
-    //     allowInput: true, // Allow manual input
-    //     minDate: document.querySelector('#start_date').value || today, // Set minDate for end_date initially
-    // });
-
-    // // Update end_date minDate when start_date changes
-    // document.getElementById('start_date').addEventListener('change', function() {
-    //     let startDate = this.value;
-    //     let endDatePicker = flatpickr("#end_date");
-    //     endDatePicker.set("minDate", startDate); // Dynamically update minDate for end_date
-    // });
-
-    // // Update start_date maxDate when end_date changes
-    // document.getElementById('end_date').addEventListener('change', function() {
-    //     let endDate = this.value;
-    //     let startDatePicker = flatpickr("#start_date");
-    //     startDatePicker.set("maxDate", endDate); // Dynamically update maxDate for start_date
-    // });
-});
-</script> -->
 
 <script>
     // JavaScript to allow only today's date and future dates
@@ -364,11 +340,5 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 </script>
-
-
-
-
-
-
 
 @endsection

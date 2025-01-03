@@ -45,20 +45,16 @@
                         <p>{{ $news->meta_title }}</p>
                         <!-- Media content -->
                     </div>
-                    <div class="card-footer" style="border-top:none;">
+                    <!-- <div class="card-footer" style="border-top:none;"> 
                         <a href="{{ route('news.details', $news->id) }}" class="text-inherit text-primary">Read More</a>
+                    </div> -->
+                    <div class="card-footer" style="border-top:none;">
+                        <a href="{{ route('news.details', ['id' => $news->id, 'slug' => $news->research_centre_slug]) }}" class="text-inherit text-primary">Read More</a>
                     </div>
+
                 </div>
             </div>
             @endforeach
-            <!-- <div class="col-xl-12 col-lg-12 col-md-12 col-12 text-center mt-4">
-                <a href="#" class="btn btn-primary">
-                    <div class="spinner-border spinner-border-sm me-2" role="status">
-                        <span class="visually-hidden">Loading...</span>
-                    </div>
-                    Load More
-                </a>
-            </div> -->
         </div>
 </section>
 

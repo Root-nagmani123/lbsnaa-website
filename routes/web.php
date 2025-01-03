@@ -115,11 +115,9 @@ Route::POST('/feedback_store', [HomeFrontController::class, 'storeFeedback'])->n
 
 
 //micro 
-// Route::get('/lbsnaa-sub', [HomeFrontmicroController::class,'index'])->name('user.micrositebyslug');
 Route::get('/lbsnaa-sub/{slug}', [HomeFrontmicroController::class, 'index'])->name('user.micrositebyslug');
-Route::get('/lbsnaa-sub/micromenu/{slug}', [HomeFrontmicroController::class, 'get_navigation_pages'])->name('user.navigationmenubyslug');
+Route::get('/lbsnaa-subs/micromenu/{slug}', [HomeFrontmicroController::class, 'get_navigation_pages'])->name('user.navigationmenubyslug');
 //micro 
-
 
 
 
@@ -127,9 +125,8 @@ Route::get('/lbsnaa-sub/micromenu/{slug}', [HomeFrontmicroController::class, 'ge
 // Indrajeet Home page dynamic
 Route::get('/lbsnaa-sub_n/media_gallery', [HomePagesMicroController::class,'media_gallery'])->name('user.media_gallery');
 Route::get('/photo-galleries/filterGallery', [HomePagesMicroController::class, 'filterGallery'])->name('photoGalleries.filterGallery');
-Route::get('/lbsnaa-sub/calendar', [HomePagesMicroController::class, 'calendar'])->name('calendar');
-Route::get('/lbsnaa-sub/news', [HomePagesMicroController::class, 'news'])->name('news');
-Route::get('/lbsnaa-sub/news/{id}', [HomePagesMicroController::class, 'newsdetails'])->name('news.details');
+Route::get('/lbsnaa-sub_n/news', [HomePagesMicroController::class, 'news'])->name('news');
+Route::get('/lbsnaa-sub_nn/news/{id}', [HomePagesMicroController::class, 'newsdetails'])->name('news.details');
 Route::get('/lbsnaa-sub_m/mediagallery', [HomePagesMicroController::class, 'mediagallery'])->name('mediagallery');
 Route::get('/lbsnaa-sub_v/video-gallery', [HomePagesMicroController::class, 'videoGallery'])->name('videoGallery');
 
@@ -394,10 +391,8 @@ Route::post('/users/permissions/update', [UserManagementController::class, 'upda
     Route::resource('manage_tender', ManageTenderController::class);
     Route::resource('manage_vacancy', ManageVacancyController::class);
     Route::get('/manage_vacancy/{id}/edit', [ManageVacancyController::class, 'edit'])->name('manage_vacancy.edit');
-    Route::resource('manage_events', ManageEventsController::class);
 
-    Route::get('/manage_events/{id}/edit', [ManageEventsController::class, 'edit'])->name('manage_events.edit');
-    Route::put('/manage_events/{id}', [ManageEventsController::class, 'update'])->name('manage_events.update');
+    
     Route::get('/manage-audit', [ManageAuditController::class, 'index'])->name('manage_audit.index');
 
     Route::get('/micro_manage_audit', [MicroManageAuditController::class, 'index'])->name('micro_manage_audit.index');
@@ -411,7 +406,6 @@ Route::post('/users/permissions/update', [UserManagementController::class, 'upda
     Route::resource('micro_manage_vacancy', MicroManageVacancyController::class);
     Route::put('/micro-manage-vacancy/{id}', [MicroManageVacancyController::class, 'update'])->name('micro_manage_vacancy.update');
     Route::get('/micro_manage_vacancy/{id}/edit', [MicroManageVacancyController::class, 'edit'])->name('micro_manage_vacancy.edit');
-    // Route::delete('/admin/micro_manage_vacancy/{id}', [MicroManageVacancyController::class, 'destroy'])->name('micro_manage_vacancy.destroy');
  
 
     Route::resource('micro-video-gallery', MicroVideoGalleryController::class);
