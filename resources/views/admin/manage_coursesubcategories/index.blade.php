@@ -14,7 +14,7 @@
         </li>
         <li>
             <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Course Category/Sub Category</span>
-        </li>
+        </li> 
     </ul>
 </div>
 <div class="card bg-white border-0 rounded-10 mb-4">
@@ -77,7 +77,7 @@
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-primary text-white btn-sm"
-                                            onclick="return confirm('Are you sure you want to delete?')">
+                                        onclick="return confirmDelete('{{ $cat->status }}')">
                                             Delete
                                         </button>
                                     </form>
@@ -99,3 +99,13 @@
     </div>
 </div>
 @endsection
+<script>
+        function confirmDelete(pageStatus) {
+        if (pageStatus == 1) {
+            alert('Active course cannot be deleted.');
+            return false; // Prevent form submission
+        } else {
+            return confirm('Are you sure you want to delete?'); // Show confirmation if page_status is not 1
+        }
+    }
+    </script>
