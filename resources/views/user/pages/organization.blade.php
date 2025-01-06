@@ -17,9 +17,9 @@
         </div>
     </div>
 </section>
-<section class="py-5 bg-light">
+<section class="py-5">
     <div class="container-fluid">
-        <div class="tree">
+        <div class="tree gap-2">
             @if (!empty($hierarchy))
                 @foreach ($hierarchy as $node)
                     @include('partials.organization-node', ['node' => $node])
