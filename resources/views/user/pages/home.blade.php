@@ -96,26 +96,8 @@
                     </div>
                     <div class="card-body pt-2" style=" height: 100px;">
                         <h4 class="mb-3">Director Message</h4>
-                        <a href="{{ url('menu/director-message') }}" class="icon-link icon-link-hover link-primary">
-                            <span>Message</span>
-
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor"
-                                class="bi bi-arrow-right" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd"
-                                    d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8">
-                                </path>
-                            </svg>
-                        </a> <br>
-                        <a href="{{ url('menu/previous-directors') }}" class="icon-link icon-link-hover link-primary">
-                            <span>Previous Director</span>
-
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor"
-                                class="bi bi-arrow-right" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd"
-                                    d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8">
-                                </path>
-                            </svg>
-                        </a>
+                        <a href="{{ url('menu/director-message') }}" class="icon-link icon-link-hover link-primary">Message</a> <br>
+                        <a href="{{ url('menu/previous-directors') }}" class="icon-link icon-link-hover link-primary">Previous Director</a>
                     </div>
                 </div>
             </div>
@@ -145,14 +127,14 @@
                            
                         </ul>
                         
-                            <a href="{{ route('user.runningCourses') }}">View All</a>
+                            
                         
                         @else
                             <span>No Course Available</span>
                             @endif
                     </div>
-                    <div class="card-footer" style="border:none;">
-
+                    <div class="card-footer" style="border:none;float: right;text-align: right;">
+                    <button class="btn btn-primary btn-sm"> <a href="{{ route('user.runningCourses') }}" style="color: white;">View All</a></button>
                     </div>
                 </div>
             </div>
@@ -180,13 +162,14 @@
                             @endforeach
                            
                         </ul>
-                        <a href="{{ route('user.upcomingCourses') }}">View All</a>
+                        
                         @else
                             <span>No Course Available</span>
                             @endif
                     </div>
-                    <div class="card-footer" style="border:none;">
-
+                    <div class="card-footer" style="border:none;float: right;text-align: right;">
+                        <button class="btn btn-primary btn-sm"><a href="{{ route('user.upcomingCourses') }}" style="color: white;">View All</a></button>
+                    
                     </div>
                 </div>
             </div>
@@ -198,16 +181,7 @@
                     </div>
                     <div class="card-body pt-2" style="height: 100px;">
                         <h4 class="mb-3">Training Calendar</h4>
-                        <a href="{{ url('cms/training_cal') }}" class="icon-link icon-link-hover link-primary">
-                            <small>Training Calendar of LBSNAA</small>
-
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor"
-                                class="bi bi-arrow-right" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd"
-                                    d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8">
-                                </path>
-                            </svg>
-                        </a>
+                        <a href="{{ url('cms/training_cal') }}" class="icon-link icon-link-hover link-primary">Training Calendar of LBSNAA</a>
                     </div>
                 </div>
             </div>
@@ -219,28 +193,9 @@
                     </div>
                     <div class="card-body pt-2" style="height: 100px;">
                         <h4 class="mb-3">Life at Academy</h4>
-                        <a href="{{ url('menu/the-academy-experience') }}"
-                            class="icon-link icon-link-hover link-primary">
-                            <small>The Academy Experience</small>
-
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor"
-                                class="bi bi-arrow-right" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd"
-                                    d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8">
-                                </path>
-                            </svg>
+                        <a href="{{ url('menu/the-academy-experience') }}" class="icon-link icon-link-hover link-primary">The Academy Experience
                         </a><br>
-                        <a href="{{ url('menu/a-day-in-the-life-of-a-trainee') }}"
-                            class="icon-link icon-link-hover link-primary">
-                            <small>A day in the life of a Trainee</small>
-
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor"
-                                class="bi bi-arrow-right" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd"
-                                    d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8">
-                                </path>
-                            </svg>
-                        </a>
+                        <a href="{{ url('menu/a-day-in-the-life-of-a-trainee') }}" class="icon-link icon-link-hover link-primary">A day in the life of a Trainee</a>
                     </div>
                 </div>
             </div>
@@ -252,26 +207,8 @@
                     </div>
                     <div class="card-body pt-2" style="height: 100px;">
                         <h4 class="mb-3">Academy Souvenir</h4>
-                        <a href="{{ url('souvenir?pro_category=7')}}" class="icon-link icon-link-hover link-primary">
-                            <small>Memorabilia</small>
-
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor"
-                                class="bi bi-arrow-right" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd"
-                                    d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8">
-                                </path>
-                            </svg>
-                        </a><br>
-                        <a href="{{ url('souvenir?pro_category=6')}}" class="icon-link icon-link-hover link-primary">
-                            <small>Apparel</small>
-
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor"
-                                class="bi bi-arrow-right" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd"
-                                    d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8">
-                                </path>
-                            </svg>
-                        </a>
+                        <a href="{{ url('souvenir?pro_category=7')}}" class="icon-link icon-link-hover link-primary">Memorabilia</a><br>
+                        <a href="{{ url('souvenir?pro_category=6')}}" class="icon-link icon-link-hover link-primary">Apparel</a>
                     </div>
                 </div>
             </div>
