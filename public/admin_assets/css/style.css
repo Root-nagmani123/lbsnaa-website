@@ -1,6 +1,4 @@
 ﻿@charset "UTF-8";
-@import "../../../css2";
-@import "../../../css2-1";
 :root,
 [data-bs-theme="light"] {
   --bs-blue: #0d6efd;

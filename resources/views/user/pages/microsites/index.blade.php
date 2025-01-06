@@ -39,6 +39,9 @@
                             <img src="{{ asset('storage/' . $slider->slider_image) }}" class="d-block img-fluid"
                                 alt="{{ $slider->slider_text }}"
                                 style="width: 100%; height: 400px; object-fit: cover; border-radius: 10px;">
+                                <!-- <div class="carousel-caption d-none d-md-block">
+                <h3 class="text-white">{{ $slider->slider_text }}</h3>
+            </div> -->
                         </div>
                         @endforeach
                     </div>
@@ -136,7 +139,7 @@
                     <div class="card-header bg-danger">
                         <h5 class="text-white">Quick Links</h5>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body" style="max-height: 500px; overflow-y: scroll;">
                         <ul class="list-group list-group-flush">
                             @foreach($quickLinks as $link)
                             <li class="list-group-item">

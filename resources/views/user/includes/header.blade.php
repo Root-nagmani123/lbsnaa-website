@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="{{ asset('assets/css/theme.min.css') }}">
     <link rel="canonical" href="LBSNAA">
     <link href="{{ asset('assets/libs/tiny-slider/dist/tiny-slider.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('assets/libs/glightbox/dist/css/glightbox.min.css') }}">
     <link rel="icon" type="image/png" href="{{ asset('admin_assets/images/favicon.ico') }}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="{{ asset('assets/js/orgchart.js') }}"></script>
