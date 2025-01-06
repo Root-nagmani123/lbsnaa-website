@@ -1,6 +1,6 @@
 @include('user.includes.header')
 <section class="py-4">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row align-items-center pb-lg-2">
             <div class="mb-4 mb-lg-0 bg-gray-200 rounded-4 py-2">
                 <nav aria-label="breadcrumb ">
@@ -18,7 +18,7 @@
     </div>
 </section>
 <section class="py-5 bg-light">
-    <div class="container">
+    <div class="container-fluid">
         <div class="tree">
             @if (!empty($hierarchy))
                 @foreach ($hierarchy as $node)

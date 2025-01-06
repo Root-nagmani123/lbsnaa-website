@@ -43,7 +43,7 @@
 
         <!-- Current Courses Section -->
         <section class="py-4">
-            <div class="container">
+            <div class="container-fluid">
                 <h4 class="mb-3">List Courses:</h4>
                 @if(count($sub_category) >0)
                  @foreach($sub_category as $currentCourse)

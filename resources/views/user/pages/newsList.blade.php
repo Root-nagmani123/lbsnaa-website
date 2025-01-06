@@ -82,14 +82,15 @@
             </div>
         </div>
         -->
+        @else
+<h4 class="text-center">News does not exist</h4>
+@endif
     </div>
 </section>
 
 
 
-@else
-<h4>News does not exist</h4>
-@endif
+
 
 
 @include('user.includes.footer')

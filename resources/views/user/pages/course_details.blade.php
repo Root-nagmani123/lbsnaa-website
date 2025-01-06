@@ -113,10 +113,10 @@
 
 @else
 <section class="py-4">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-12">
-                <h4>Course not found!</h4>
+                <h4 class="text-center">Course not found!</h4>
             </div>
         </div>
     </div>
