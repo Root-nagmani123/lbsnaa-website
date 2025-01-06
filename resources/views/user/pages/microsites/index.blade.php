@@ -64,7 +64,7 @@
                     <div class="card-header bg-danger">
                         <h5 class="text-white">What's New</h5>
                     </div>
-                    <div class="card-body" style="height:340px;">
+                    <div class="card-body" style="height:340px;overflow-y: scroll;">
                         <ul class="list-group list-group-flush">
                             @foreach($whatsNew as $news)
                             <li class="list-group-item">
