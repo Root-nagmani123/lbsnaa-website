@@ -12,7 +12,7 @@
                             <a href="{{ route('home')}}" style="color: #af2910;">Home</a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="#" style="color: #af2910;">Running Courses</a>
+                            <a href="#" style="color: #af2910;">Running Events</a>
                         </li>
                     </ol>
                 </nav>
