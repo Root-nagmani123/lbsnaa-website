@@ -5,7 +5,7 @@
 <!-- Page Content -->
 <section class="py-4">
     <div class="container-fluid">
-        <div class="row align-items-center pb-lg-2 mb-4">
+        <div class="row align-items-center">
             <!-- image -->
             <div class="mb-4 mb-lg-0 bg-gray-200 rounded-4 py-2">
                 <nav aria-label="breadcrumb ">
@@ -23,36 +23,33 @@
     </div>
 </section>
 
-<section class="p-2">
-<div class="row">
+<section class="py-2">
+<div class="container-fluid">
             <div class="col-12">
-                <div class="mb-4">
-                    <h2 class="h1 fw-bold text-primary">
+            <div class="mb-4">
+            <h2 class="h1 fw-bold text-primary">
                     Traning Calendar
                     </h2>
+            </div>
                 </div>
-                </div>
-        </div>
-        <div class="card-header">
-                <div class="d-flex justify-content-between align-items-center pb-20 mb-20 mb-2">
-                    
-                    <div class="contsearch">
-                        <form id="form2" action="{{ url()->current() }}" method="GET">
-                            <fieldset class="d-flex align-items-center">
-                                <label for="" class="form-label">Filter Year</label>
-                            <select name="year" class="form-select form-select-sm me-2">
+        <form id="form2" action="{{ url()->current() }}" method="GET">
+                        <div class="row mb-4">
+                                    <div class="col-lg-1">
+                                    <label for="" class="form-label">Filter Year</label>
+                                    </div>
+                                    <div class="col-lg-3">
+                                    <select name="year" class="form-control ps-5 text-dark h-58">
                                 <option value="">Select a year</option>
                                 @for($year = date('Y') - 9; $year <= date('Y'); $year++)
                                     <option value="{{ $year }}">{{ $year }}</option>
                                 @endfor
                             </select>
-                                <input id="btn2" type="submit" value="Submit" class="btn btn-outline-primary btn-sm">
-                            </fieldset>
+                                    </div>
+                                    <div class="col-lg-3">
+                                    <button type="submit" id="btn2" class="btn btn-outline-primary">Submit</button>
+                                    </div>
+                                </div>
                         </form>
-                    </div>
-                </div>
-            </div>
-    <div class="container-fluid">
     <div class="card bg-white border-0 rounded-10 mb-4">
     <div class="card-body p-4">
       <div class="default-table-area members-list">
@@ -194,7 +191,6 @@
       </div>
     </div>
   </div>
-    </div>
 </section>
 
 
