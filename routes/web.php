@@ -117,6 +117,10 @@ Route::get('/upcoming_events', [HomeFrontController::class, 'upcoming_events'])-
 Route::get('/running_events', [HomeFrontController::class, 'running_events'])->name('user.runningCourses');
 
 
+Route::get('/sitemap', [HomeFrontController::class, 'sitemap'])->name('user.sitemap');
+Route::get('/search', [HomeFrontController::class, 'search'])->name('user.search');
+
+
 //micro 
 Route::get('/lbsnaa-sub/{slug}', [HomeFrontmicroController::class, 'index'])->name('user.micrositebyslug');
 Route::get('/lbsnaa-subs/micromenu/{slug}', [HomeFrontmicroController::class, 'get_navigation_pages'])->name('user.navigationmenubyslug');

@@ -31,6 +31,11 @@
                         class="material-icons menu-icon">restart_alt</i></a>
             </li>
             <li class="nav-item">
+            <ul>
+    <li><a href="javascript:void(0);" title="Increase font size" onclick="set_font_size('increase')">A<sup>+</sup><span class="hidethis">Increase font size</span></a></li>
+    <li><a href="javascript:void(0);" title="Reset font size" onclick="set_font_size('')">A <span class="hidethis">Reset font size</span></a></li>
+    <li><a href="javascript:void(0);" title="Decrease font size" onclick="set_font_size('decrease')">A<sup>-</sup> <span class="hidethis">Decrease font size</span></a></li>
+    </ul>
                 <a class="nav-link" href="#"><i class="material-icons menu-icon">volume_up</i></a>
             </li>
             <li class="nav-item">
@@ -40,7 +45,10 @@
                 <a class="nav-link" aria-disabled="true"><i class="material-icons menu-icon">group</i></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" aria-disabled="true"><i class="material-icons menu-icon">search</i></a>
+                <a class="nav-link" href="{{ route('user.sitemap') }}"><i class="material-icons menu-icon">S</i></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('user.search') }}"><i class="material-icons menu-icon">search</i></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" aria-disabled="true"><i class="material-icons menu-icon">language</i></a>

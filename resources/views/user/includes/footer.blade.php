@@ -191,6 +191,33 @@ const slider = tns({
     edgePadding: 0,
     loop: true
 });
+
+function set_font_size(action) {
+    var body = document.body;
+    var currentSize = window.getComputedStyle(body, null).getPropertyValue('font-size');
+    var fontSize = parseFloat(currentSize);
+
+    if (action === 'increase') {
+        body.style.fontSize = (fontSize * 1.1) + 'px'; // Increase by 10%
+    } else if (action === 'decrease') {
+        body.style.fontSize = (fontSize * 0.9) + 'px'; // Decrease by 10%
+    } else {
+        body.style.fontSize = '16px'; // Reset to default size
+    }
+}
+
+// Function to change the style (normal or high contrast)
+function chooseStyle(action, value) {
+    var body = document.body;
+    
+    if (action === 'change') {
+        body.classList.add('high-contrast'); // Add high contrast class
+        body.classList.remove('normal');     // Remove normal style class
+    } else {
+        body.classList.add('normal');        // Add normal style class
+        body.classList.remove('high-contrast'); // Remove high contrast style
+    }
+}
 </script>
 
 
