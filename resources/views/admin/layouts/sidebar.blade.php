@@ -23,6 +23,12 @@
                     <span class="title">Dashboard</span>
                 </a>
             </li>
+            @php
+            $isManageUserAllowed = in_array('User Management', array_column($permisson->toArray(), 'parent')) ||
+            (Auth::check() && Auth::user()->user_type == 1);
+            @endphp
+
+            @if ($isManageUserAllowed)
             <li class="menu-item">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="material-icons menu-icon">supervisor_account</i>
@@ -59,13 +65,26 @@
                 </ul>
 
             </li>
+            @endif
+            @php
+            $isManageUserAllowed = in_array('View Profile', array_column($permisson->toArray(), 'parent')) ||
+            (Auth::check() && Auth::user()->user_type == 1);
+            @endphp
+
+            @if ($isManageUserAllowed)
             <li class="menu-item open">
                 <a href="{{ route('view-profile.index') }}" class="menu-link">
                     <i class="material-icons menu-icon">badge</i>
                     <span class="title">View Profile</span>
                 </a>
             </li>
+            @endif
+            @php
+            $isManageUserAllowed = in_array('Manage CMS', array_column($permisson->toArray(), 'parent')) ||
+            (Auth::check() && Auth::user()->user_type == 1);
+            @endphp
 
+            @if ($isManageUserAllowed)
             <li class="menu-item">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="material-icons menu-icon">wysiwyg</i>
@@ -86,6 +105,14 @@
                 </ul>
                 @endif
             </li>
+            @endif
+            @php
+            $isManageUserAllowed = in_array('Manage Organization Module', array_column($permisson->toArray(), 'parent'))
+            ||
+            (Auth::check() && Auth::user()->user_type == 1);
+            @endphp
+
+            @if ($isManageUserAllowed)
             <li class="menu-item">
                 <a href="javascript:void(0);" class="menu-link menu-toggle"><i
                         class="material-icons menu-icon">corporate_fare
@@ -94,7 +121,8 @@
                 </a>
                 <ul class="menu-sub">
                     @php
-                    $isManageUserAllowed = in_array('Manage Organization Chart', array_column($permisson->toArray(), 'child')) ||
+                    $isManageUserAllowed = in_array('Manage Organization Chart', array_column($permisson->toArray(),
+                    'child')) ||
                     (Auth::check() && Auth::user()->user_type == 1);
                     @endphp
 
@@ -146,6 +174,14 @@
                     @endif
                 </ul>
             </li>
+            @endif
+            @php
+            $isManageUserAllowed = in_array('Training Master Management', array_column($permisson->toArray(), 'parent'))
+            ||
+            (Auth::check() && Auth::user()->user_type == 1);
+            @endphp
+
+            @if ($isManageUserAllowed)
 
             <li class="menu-item">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -170,7 +206,8 @@
                     @endif
 
                     @php
-                    $isManageUserAllowed = in_array('Manage Coordinator', array_column($permisson->toArray(), 'child')) ||
+                    $isManageUserAllowed = in_array('Manage Coordinator', array_column($permisson->toArray(), 'child'))
+                    ||
                     (Auth::check() && Auth::user()->user_type == 1);
                     @endphp
 
@@ -288,7 +325,7 @@
 
                 </ul>
             </li>
-
+            @endif
             @php
             $isManageUserAllowed = in_array('Manage News', array_column($permisson->toArray(), 'child')) ||
             (Auth::check() && Auth::user()->user_type == 1);
@@ -330,7 +367,13 @@
                 </a>
             </li>
             @endif
+            @php
+            $isManageUserAllowed_p = in_array('Manage Souvenir Module', array_column($permisson->toArray(), 'parent'))
+            ||
+            (Auth::check() && Auth::user()->user_type == 1);
+            @endphp
 
+            @if ($isManageUserAllowed_p)
             <li class="menu-item {{ Request::routeIs('souvenir.index') ? 'open' : '' }}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="material-icons menu-icon">description</i>
@@ -339,7 +382,8 @@
                 <ul class="menu-sub">
 
                     @php
-                    $isManageUserAllowed = in_array('Manage Master Categories', array_column($permisson->toArray(), 'child')) ||
+                    $isManageUserAllowed = in_array('Manage Master Categories', array_column($permisson->toArray(),
+                    'child')) ||
                     (Auth::check() && Auth::user()->user_type == 1);
                     @endphp
 
@@ -353,7 +397,8 @@
                     @endif
 
                     @php
-                    $isManageUserAllowed = in_array('Manage Academy Souvenir', array_column($permisson->toArray(), 'child')) ||
+                    $isManageUserAllowed = in_array('Manage Academy Souvenir', array_column($permisson->toArray(),
+                    'child')) ||
                     (Auth::check() && Auth::user()->user_type == 1);
                     @endphp
 
@@ -367,6 +412,13 @@
                     @endif
                 </ul>
             </li>
+            @endif
+            @php
+            $isManageUserAllowed_p = in_array('Manage Course Module', array_column($permisson->toArray(), 'parent')) ||
+            (Auth::check() && Auth::user()->user_type == 1);
+            @endphp
+
+            @if ($isManageUserAllowed_p)
             <li class="menu-item">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="material-icons menu-icon">task</i>
@@ -375,7 +427,8 @@
                 <ul class="menu-sub">
 
                     @php
-                    $isManageUserAllowed = in_array('Manage Course Category/Subcategory', array_column($permisson->toArray(), 'child')) ||
+                    $isManageUserAllowed = in_array('Manage Course Category/Subcategory',
+                    array_column($permisson->toArray(), 'child')) ||
                     (Auth::check() && Auth::user()->user_type == 1);
                     @endphp
 
@@ -402,7 +455,7 @@
 
                 </ul>
             </li>
-
+            @endif
             @php
             $isManageUserAllowed = in_array('Manage Survey List', array_column($permisson->toArray(), 'child')) ||
             (Auth::check() && Auth::user()->user_type == 1);
@@ -474,6 +527,12 @@
                 </a>
             </li>
             @endif
+            @php
+            $isManageUserAllowed_p = in_array('Manage Media Center', array_column($permisson->toArray(), 'parent')) ||
+            (Auth::check() && Auth::user()->user_type == 1);
+            @endphp
+
+            @if ($isManageUserAllowed_p)
             <li class="menu-item">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="material-icons menu-icon">mediation</i>
@@ -555,7 +614,7 @@
                     @endif
                 </ul>
             </li>
-
+            @endif
             @php
             $isManageUserAllowed = in_array('Manage Audit', array_column($permisson->toArray(), 'child')) ||
             (Auth::check() && Auth::user()->user_type == 1);
@@ -585,17 +644,18 @@
                 </a>
             </li>
             @endif
-            <li class="menu-item">
-                <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <i class="material-icons menu-icon">wysiwyg</i>
-                    <span class="title">CMS Page</span>
-                </a>
-                @php
+            @php
             $isManageUserAllowed = in_array('Mirco Manage Menu', array_column($permisson->toArray(), 'child')) ||
             (Auth::check() && Auth::user()->user_type == 1);
             @endphp
 
             @if ($isManageUserAllowed)
+            <li class="menu-item">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <i class="material-icons menu-icon">wysiwyg</i>
+                    <span class="title">CMS Page</span>
+                </a>
+
                 <ul class="menu-sub">
                     <li class="menu-item">
                         <a href="{{ route('micromenus.index') }}" class="menu-link">
@@ -645,7 +705,8 @@
             </li>
             @endif
             @php
-            $isManageUserAllowed = in_array('Manage Organization Setup', array_column($permisson->toArray(), 'child')) ||
+            $isManageUserAllowed = in_array('Manage Organization Setup', array_column($permisson->toArray(), 'child'))
+            ||
             (Auth::check() && Auth::user()->user_type == 1);
             @endphp
 
@@ -670,42 +731,52 @@
                 </a>
             </li>
             @endif
+            @php
+            $isManageUserAllowed_p = in_array('Mirco Manage Media Center', array_column($permisson->toArray(), 'parent'))
+            ||
+            (Auth::check() && Auth::user()->user_type == 1);
+            @endphp
+
+            @if ($isManageUserAllowed_p)
             <li class="menu-item">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="material-icons menu-icon">mediation</i>
                     <span class="title">Mirco Manage Media Center</span>
                 </a>
                 <ul class="menu-sub">
-            @php
-            $isManageUserAllowed = in_array('Mirco Home Banner', array_column($permisson->toArray(), 'child')) ||
-            (Auth::check() && Auth::user()->user_type == 1);
-            @endphp
+                    @php
+                    $isManageUserAllowed = in_array('Mirco Home Banner', array_column($permisson->toArray(), 'child'))
+                    ||
+                    (Auth::check() && Auth::user()->user_type == 1);
+                    @endphp
 
-            @if ($isManageUserAllowed)
+                    @if ($isManageUserAllowed)
                     <li class="menu-item">
                         <a href="{{ route('slider.index') }}" class="menu-link">
                             Mirco Home Banner
                         </a>
                     </li>
                     @endif
-            @php
-            $isManageUserAllowed = in_array('Mirco Photo Gallery', array_column($permisson->toArray(), 'child')) ||
-            (Auth::check() && Auth::user()->user_type == 1);
-            @endphp
+                    @php
+                    $isManageUserAllowed = in_array('Mirco Photo Gallery', array_column($permisson->toArray(), 'child'))
+                    ||
+                    (Auth::check() && Auth::user()->user_type == 1);
+                    @endphp
 
-            @if ($isManageUserAllowed)
+                    @if ($isManageUserAllowed)
                     <li class="menu-item">
                         <a href="{{ route('micro-photo-gallery.index') }}" class="menu-link">
                             Mirco Photo Gallery
                         </a>
                     </li>
                     @endif
-            @php
-            $isManageUserAllowed = in_array('Mirco Video Gallery', array_column($permisson->toArray(), 'child')) ||
-            (Auth::check() && Auth::user()->user_type == 1);
-            @endphp
+                    @php
+                    $isManageUserAllowed = in_array('Mirco Video Gallery', array_column($permisson->toArray(), 'child'))
+                    ||
+                    (Auth::check() && Auth::user()->user_type == 1);
+                    @endphp
 
-            @if ($isManageUserAllowed)
+                    @if ($isManageUserAllowed)
                     <li class="menu-item">
                         <a href="{{ route('micro-video-gallery.index') }}" class="menu-link">
                             Mirco Video Gallery
@@ -716,22 +787,26 @@
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
                             Mirco Photo Gallery/ Video Gallery
                         </a>
-            @php
-            $isManageUserAllowed = in_array('Mirco Add Category', array_column($permisson->toArray(), 'child')) ||
-            (Auth::check() && Auth::user()->user_type == 1);
-            @endphp
+                        @php
+                        $isManageUserAllowed = in_array('Mirco Add Category', array_column($permisson->toArray(),
+                        'child')) ||
+                        (Auth::check() && Auth::user()->user_type == 1);
+                        @endphp
 
-            @if ($isManageUserAllowed)
+                        @if ($isManageUserAllowed)
                         <ul class="menu-sub">
                             <li class="menu-item">
                                 <a href="{{ route('photovideogallery.index') }}" class="menu-link">
-                                   Mirco Add Category
+                                    Mirco Add Category
                                 </a>
                             </li>
                         </ul>
                         @endif
                     </li>
                 </ul>
+
+            </li>
+            @endif
             @php
             $isManageUserAllowed = in_array('Micro Manage Audit', array_column($permisson->toArray(), 'child')) ||
             (Auth::check() && Auth::user()->user_type == 1);

@@ -56,46 +56,57 @@
                         </tr>
                     </thead>
                     <tbody>
-                    @foreach($users as $user)
-            <tr>
-                <td>{{ $user->id }}</td>
-                <td>{{ $user->name }}</td>
-                <td>{{ $user->email }}</td>
-                <td>
-                    @if($user->status == 1)
-                    <span class="badge bg-success bg-opacity-10 text-success py-2 px-3 fw-semibold">Active</span>
-                    @elseif($user->status == 2)
-                    <span class="badge bg-danger bg-opacity-10 text-danger py-2 px-3 fw-semibold">Inactive</span>
-                    @else
-                    <span class="badge bg-secondary bg-opacity-10 text-secondary py-2 px-3 fw-semibold">SuperAdmin</span>
-                    @endif
-                </td>
-                <td>
-                    @if($user->user_type == 2)
-                    <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-warning text-white">Edit</a>
-                    <form action="{{ route('users.delete', $user->id) }}" method="POST" style="display:inline-block;">
-                        @csrf
-                        <button type="submit" class="btn btn-sm btn-danger text-white"
-                            onclick="return confirm('Are you sure?')">Delete</button>
-                    </form>
+                        @foreach($users as $user)
+                        <tr>
+                            <td>{{ $user->id }}</td>
+                            <td>{{ $user->name }}</td>
+                            <td>{{ $user->email }}</td>
+                            <td>
+                                @if($user->user_type == 2)
+                                        @if($user->status == 1)
+                                        <span
+                                            class="badge bg-success bg-opacity-10 text-success py-2 px-3 fw-semibold">Active</span>
+                                        @elseif(($user->status == 2) || ($user->status == 0))
+                                        <span
+                                            class="badge bg-danger bg-opacity-10 text-danger py-2 px-3 fw-semibold">Inactive</span>
+                                        @endif
+                                @elseif($user->user_type == 1)
 
-                    <!-- Status Change Buttons -->
-                    <form action="{{ route('users.updateStatus', $user->id) }}" method="POST"
-                        style="display:inline-block;">
-                        @csrf
-                        @if($user->status == 1)
-                        <button type="submit" name="status" value="2" class="btn btn-sm btn-danger text-white">Set
-                            Inactive</button>
-                        @else
-                        <button type="submit" name="status" value="1" class="btn btn-sm btn-success text-white">Set Active</button>
-                        @endif
-                    </form>
-                    <a href="{{ route('users.permissions', $user->id) }}" class="btn btn-sm btn-primary text-white">Set
-                        Permissions</a>
-                    @endif
-                </td>
-            </tr>
-            @endforeach
+                                <span
+                                    class="badge bg-secondary bg-opacity-10 text-secondary py-2 px-3 fw-semibold">SuperAdmin</span>
+                                @endif
+                            </td>
+                            <td>
+                                @if($user->user_type == 2)
+                                <a href="{{ route('users.edit', $user->id) }}"
+                                    class="btn btn-sm btn-warning text-white">Edit</a>
+                                <form action="{{ route('users.delete', $user->id) }}" method="POST"
+                                    style="display:inline-block;">
+                                    @csrf
+                                    <button type="submit" class="btn btn-sm btn-danger text-white"
+                                        onclick="return confirm('Are you sure?')">Delete</button>
+                                </form>
+
+                                <!-- Status Change Buttons -->
+                                <form action="{{ route('users.updateStatus', $user->id) }}" method="POST"
+                                    style="display:inline-block;">
+                                    @csrf
+                                    @if($user->status == 1)
+                                    <button type="submit" name="status" value="2"
+                                        class="btn btn-sm btn-danger text-white">Set
+                                        Inactive</button>
+                                    @else
+                                    <button type="submit" name="status" value="1"
+                                        class="btn btn-sm btn-success text-white">Set Active</button>
+                                    @endif
+                                </form>
+                                <a href="{{ route('users.permissions', $user->id) }}"
+                                    class="btn btn-sm btn-primary text-white">Set
+                                    Permissions</a>
+                                @endif
+                            </td>
+                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

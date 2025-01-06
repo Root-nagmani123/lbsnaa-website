@@ -17,7 +17,7 @@ class UserManagementController extends Controller
         return view('admin.UserManagement.module_list', compact('permissions'));
         // echo 'hi';die;
     }
-
+ 
     public function store(Request $request)
     {
         $request->validate([
@@ -147,33 +147,41 @@ public function permissions($id)
 {
     $user = DB::table('users')->find($id);
     $modules = DB::table('modules')->get();
-
-    // Fetch existing permissions for the user
     $permissions = DB::table('user_permissions')
         ->where('user_id', $id)
-        ->pluck('is_allowed', 'module_id')
-        ->toArray();
-
+        ->select('id','user_id','module_id','is_allowed')
+        ->get(); 
     return view('admin.UserManagement.permissions', compact('user', 'modules', 'permissions'));
 }
 
 public function updatePermissions(Request $request)
 {
-    $userId = $request->input('user_id');
-    $permissions = $request->input('permissions', []);
+    $validated = $request->validate([
+        'module_id' => 'required|integer',
+        'user_id' => 'required|integer',
+        'is_allowed' => 'required|boolean',
+    ]);
 
-    // Remove all current permissions for the user
-    DB::table('user_permissions')->where('user_id', $userId)->delete();
+    $existingPermission = DB::table('user_permissions')
+        ->where('user_id', $validated['user_id'])
+        ->where('module_id', $validated['module_id'])
+        ->first();
 
-    // Insert updated permissions
-    foreach ($permissions as $moduleId => $isAllowed) {
+    if ($existingPermission) {
+        // Update the existing permission
+        DB::table('user_permissions')
+            ->where('id', $existingPermission->id)
+            ->update(['is_allowed' => $validated['is_allowed']]);
+    } else {
+        // Insert a new permission
         DB::table('user_permissions')->insert([
-            'user_id' => $userId,
-            'module_id' => $moduleId,
-            'is_allowed' => $isAllowed,
+            'user_id' => $validated['user_id'],
+            'module_id' => $validated['module_id'],
+            'is_allowed' => $validated['is_allowed'],
         ]);
     }
 
-    return redirect()->route('users.index')->with('success', 'Permissions updated successfully!');
+    return response()->json(['success' => true]);
 }
+
 }

@@ -135,6 +135,11 @@ class HomeFrontController extends Controller
             // echo 'joining';die;
            return redirect('organization');
         
+        
+        }elseif ($slug == 'faculty-responsibility') {
+            // echo 'joining';die;
+           return redirect('faculty_responsibility');
+        
         }
 
         $breadcrumb = $this->generateBreadcrumb($slug);
