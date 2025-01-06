@@ -29,6 +29,7 @@ class ManageResearchCentreController extends Controller
         $validatedData = $request->validate([
             'language' => 'required|in:1,2',
             'research_centre_name' => 'required|string|max:255',
+            'home_title' => 'required|string',
             'description' => 'required|string',
             'status' => 'required|boolean',
         ]);
@@ -36,6 +37,7 @@ class ManageResearchCentreController extends Controller
         DB::table('research_centres')->insert([
             'language' => $validatedData['language'],
             'research_centre_name' => $validatedData['research_centre_name'],
+            'home_title' => $validatedData['home_title'],
             'research_centre_slug' => Str::slug($validatedData['research_centre_name'], '-'),
             'description' => $validatedData['description'],
             'status' => $validatedData['status'],
@@ -66,6 +68,7 @@ class ManageResearchCentreController extends Controller
         $validatedData = $request->validate([
             'language' => 'required|in:1,2',
             'research_centre_name' => 'required|string|max:255',
+            'home_title' => 'required|string',
             'description' => 'nullable|string',
             'status' => 'required|boolean',
         ]);
@@ -73,6 +76,7 @@ class ManageResearchCentreController extends Controller
         DB::table('research_centres')->where('id', $id)->update([
             'language' => $validatedData['language'],
             'research_centre_name' => $validatedData['research_centre_name'],
+            'home_title' => $validatedData['home_title'],
             'research_centre_slug' => Str::slug($validatedData['research_centre_name'], '-'),
             'description' => $validatedData['description'],
             'status' => $validatedData['status'],

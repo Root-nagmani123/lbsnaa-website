@@ -39,7 +39,6 @@
             <a class="navbar-brand" href="{{ route('home') }}"><img src="{{ asset('assets/images/microsites/logo.png') }}"
                     alt="logo" width="400"></a>
             <!-- Button -->
-
             @php
                 // Get the slug from the query parameter or the last segment of the URL
                 $slug = request()->query('slug') ?: request()->segment(count(request()->segments()));
@@ -54,25 +53,19 @@
                 }
             @endphp
 
-            @if($centre_name)
-                    <h2 class="text-dark">{{ $centre_name->research_centre_name }}<br>
-                    <small>({{ $centre_name->research_centre_slug }})</small></h2>
-                    
-                @else
-                    <h4>Default Centre Name</h4> <!-- Default name if no match is found -->
-                @endif
+            @if ($centre_name)
+                <h2 class="text-dark">{{ $centre_name->research_centre_name }}<br>
+                <small class="text-center">({{ $centre_name->research_centre_slug }})</small></h2>
+            @else
+                <h4>Default Centre Name</h4> <!-- Default name if no match is found -->
+            @endif
 
-
-
-            <!-- <a class="navbar-brand" href="#"><img src="{{ asset('assets/images/microsites/crs.jpg') }}"
-                    alt="logo" width="500"></a> -->
 
 
                     
         </div>
     </nav>
     <nav class="navbar navbar-expand-lg">
-
         <!-- Collapse -->
         <div class="collapse navbar-collapse" id="navbar-default">
             <ul class="navbar-nav mx-auto">

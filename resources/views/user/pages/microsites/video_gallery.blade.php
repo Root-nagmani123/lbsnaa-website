@@ -24,19 +24,18 @@
 <div class="container-fluid my-4">
     <div class="row g-4">
         @foreach ($videos as $video)
-        <div class="col-md-4 col-sm-12 d-flex align-items-stretch">
+        <div class="col-lg-3 col-md-6 col-sm-12 d-flex">
             <!-- Bootstrap Card -->
-            <div class="card h-100 shadow-sm">
-                <!-- Card Image -->
-                 <!-- Video Player -->
+            <div class="card h-100 shadow-sm w-100">
+                <!-- Card Image / Video Player -->
                     <video controls>
-                        <source src="{{ asset('storage/' . $video->video_upload) }}" type="video/mp4" style="object-fit: cover; height: 200px; width: 100%;">
+                        <source src="{{ asset('storage/' . $video->video_upload) }}" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 <!-- Card Body -->
                 <div class="card-body d-flex flex-column">
                     <!-- Video Category -->
-                    <h5 class="card-title text-primary">{{ $video->category_name }}</h5>
+                    <h5 class="card-title text-primary mb-2">{{ $video->category_name }}</h5>
                     <!-- Video Titles -->
                     <h6 class="text-muted">{{ $video->video_title_en }}</h6>
                     <p class="text-muted">{{ $video->video_title_hi }}</p>
@@ -46,6 +45,7 @@
         @endforeach
     </div>
 </div>
+
  
  
 @include('user.pages.microsites.includes.footer')

@@ -26,7 +26,7 @@
             <form action="{{ route('researchcentres.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-4">
                         <div class="form-group mb-4">
                             <label for="language" class="label">Page Language</label>
                             <span class="star">*</span>
@@ -41,7 +41,7 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-4">
                         <div class="form-group mb-4">
                             <label for="research_centre_name" class="label">Research center name</label>
                             <span class="star">*</span>
@@ -50,6 +50,19 @@
                                     class="form-control text-dark ps-5 h-58" value="{{ old('research_centre_name') }}">
                             </div>
                             @error('research_centre_name')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group mb-4">
+                            <label for="home_title" class="label">Home title</label>
+                            <span class="star">*</span>
+                            <div class="form-group position-relative">
+                                <input type="text" name="home_title" id="home_title"
+                                    class="form-control text-dark ps-5 h-58" value="{{ old('home_title') }}">
+                            </div>
+                            @error('home_title')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
