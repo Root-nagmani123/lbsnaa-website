@@ -37,7 +37,7 @@
     <nav class="navbar">
         <div class="container-fluid px-0">
             <a class="navbar-brand" href="{{ route('home') }}"><img src="{{ asset('assets/images/microsites/logo.png') }}"
-                    alt="logo" width="400"></a>
+                    alt="logo" width="350"></a>
             <!-- Button -->
             @php
                 // Get the slug from the query parameter or the last segment of the URL
