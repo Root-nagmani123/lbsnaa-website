@@ -42,37 +42,83 @@
         </div>
         @endif
         <div class="default-table-area members-list">
-            <form action="{{ route('users.permissions.update') }}" method="POST">
-                @csrf
-                <input type="hidden" name="user_id" value="{{ $user->id }}">
-                <div class="table-responsive">
-                    <table class="table align-middle" id="myTable">
-                        <thead>
-                            <tr class="text-center">
-                                <th class="col">Module</th>
-                                <th class="col">Sub-module</th>
-                                <th class="col">Permission</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($modules as $module)
-                            <tr>
-                                <td>{{ $module->parent }}</td>
-                                <td>{{ $module->child }}</td>
-                                <td>
-                                    <div class="form-check form-switch">
-                                        <input class="form-check-input status-toggle" type="checkbox" role="switch"
-                                            data-table="modules" data-column="status" data-id="{{$module->id}}"
-                                            {{$module->status ? 'checked' : ''}}>
-                                    </div>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>   
-                    </table>
-            </form>
+        <form action="{{ route('users.permissions.update') }}" method="POST">
+    @csrf
+    <input type="hidden" name="user_id" value="{{ $user->id }}">
+    <div class="table-responsive">
+        <table class="table align-middle" id="myTable">
+            <thead>
+                <tr class="text-center">
+                    <th class="col">Module</th>
+                    <th class="col">Sub-module</th>
+                    <th class="col">Permission</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($modules as $module)
+                <tr>
+                    <td>{{ $module->parent }}</td>
+                    <td>{{ $module->child }}</td>
+                    <td>
+                        <div class="form-check form-switch">
+                        <input class="form-check-input status-toggle_permission" type="checkbox" role="switch"
+                                            data-table="modules" data-column="status" data-id="{{$module->id}}"   data-module-id="{{ $module->id }}" 
+                                            @php
+            $isManageUserAllowed = in_array($module->id, array_column($permissions->where('is_allowed', 1)->toArray(), 'module_id'));
+            @endphp
+            @if ($isManageUserAllowed)
+            checked
+            @endif
+                                          >
+                        </div>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+</form>
+
         </div>
     </div>
 </div>
 </div>
 @endsection
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const checkboxes = document.querySelectorAll('.status-toggle_permission');
+
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function () {
+            const moduleId = this.getAttribute('data-module-id');
+            const isAllowed = this.checked ? 1 : 0;
+
+            fetch('/admin/users/permissions/update', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({
+                    module_id: moduleId,
+                    user_id: {{ $user->id }},
+                    is_allowed: isAllowed
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+
+                if (data.success) {
+                    console.log('Permission updated successfully.');
+                } else {
+                    console.error('Failed to update permission:', data.message);
+                }
+                window.location.reload();
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    });
+});
+
+    </script>
