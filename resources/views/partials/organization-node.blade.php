@@ -39,9 +39,23 @@
     </div>
 </div>
 @if (!empty($node->children))
-<div class="branch">
+<div class="child-container branch">
     @foreach ($node->children as $child)
     @include('partials.organization-node', ['node' => $child])
     @endforeach
 </div>
 @endif
+<style>
+    /* Add spacing between child cards */
+.child-container {
+    display: flex; /* Ensures the child cards are laid out in a row */
+    flex-wrap: wrap; /* Allows cards to wrap to the next row on small screens */
+    gap: 10px; /* Space between the cards */
+    justify-content: center; /* Centers the child cards */
+}
+
+.card {
+    margin: 10px; /* Additional margin for fine-tuning */
+}
+
+</style>
