@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB; 
 use DOMDocument;
 use Carbon\Carbon;
+use App\Models\Admin\Menu;
 class HomeFrontController extends Controller
 {
     public function index()
@@ -719,6 +720,42 @@ function running_events(){
             ->where('courses_sub_categories.status', 1)
             ->get();
         return view('user.pages.running_events', compact('current_course'));
+}
+function sitemap(){
+    $quickLinks = DB::table('quick_links')->where('is_deleted',0)->where('status',1)->get();
+    $footerLinks = DB::table('menus')->where('txtpostion',3)->where('menu_status',1)->get();
+    $menuTree = $this->buildMenuTree();
+    return view('user.pages.sitemap', compact('menuTree', 'quickLinks', 'footerLinks'));
+    
+}
+private function buildMenuTree($parentId = null)
+{
+    $parentId = $parentId ?? 0;
+    $menus = Menu::where('parent_id', $parentId)
+        ->whereIn('txtpostion', [1, 2])
+        ->where('is_deleted', 0)
+        ->where('menu_status', 1)
+        ->get();
+
+    $tree = [];
+
+    foreach ($menus as $menu) {
+        $tree[] = [
+            'id' => $menu->id,
+            'title' => $menu->menutitle,
+            'children' => $this->buildMenuTree($menu->id), // Recursive call
+        ];
+    }
+
+    return $tree;
+}
+function search(Request $request){
+    // Logic to handle search query
+    $query = $request->input('query');
+
+    // Perform a search and return results (you can integrate with an API or search engine here)
+    
+    return view('user.pages.search',compact('query'));
 }
 
 
