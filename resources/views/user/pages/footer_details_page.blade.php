@@ -27,7 +27,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-xl-12 col-md-12 col-12">
-                <div class="mb-6 mb-lg-8">
+                <div class="mb-2">
                     <h2 class="h1 fw-bold text-primary">
                     {{$nav_page->menutitle}}
                     </h2>

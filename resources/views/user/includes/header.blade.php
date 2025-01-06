@@ -29,22 +29,41 @@
                 <a class="nav-link" aria-current="page" href="#news"><i
                         class="material-icons menu-icon">restart_alt</i></a>
             </li>
-            <li class="nav-item">
-            <ul>
-    <li><a href="javascript:void(0);" title="Increase font size" onclick="set_font_size('increase')">A<sup>+</sup><span class="hidethis">Increase font size</span></a></li>
-    <li><a href="javascript:void(0);" title="Reset font size" onclick="set_font_size('')">A <span class="hidethis">Reset font size</span></a></li>
-    <li><a href="javascript:void(0);" title="Decrease font size" onclick="set_font_size('decrease')">A<sup>-</sup> <span class="hidethis">Decrease font size</span></a></li>
-    </ul>
-                <a class="nav-link" href="#"><i class="material-icons menu-icon">volume_up</i></a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="material-icons menu-icon">volume_up</i></a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="javascript:void(0);" title="Increase font size"
+                            onclick="set_font_size('increase')">A<sup>+</sup></a></li>
+                    <li><a class="dropdown-item" href="javascript:void(0);" title="Reset font size" onclick="set_font_size('')">A</a></li>
+                    <li><a class="dropdown-item" href="javascript:void(0);" title="Decrease font size"
+                            onclick="set_font_size('decrease')">A<sup>-</sup></a></li>
+                </ul>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#"><i class="material-icons menu-icon">accessible</i></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" aria-disabled="true"><i class="material-icons menu-icon">group</i></a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="material-icons menu-icon">group</i></a>
+                @php
+                        $social_media_links = DB::table('social_media_links')->get();
+                        @endphp
+                <ul class="dropdown-menu">
+                    <li> <a href="{{ $social_media_links[0]->facebook_url; }}" class="me-2 dropdown-item" target="_blank">
+                            <i class="bi bi-facebook fa-2x" style="color: #af2910;"></i>
+                        </a></li>
+                    <li> <a href="{{ $social_media_links[0]->twitter_url; }}" class="me-2 dropdown-item" target="_blank">
+                            <i class="bi bi-twitter-x" style="color: #af2910;"></i>
+                        </a></li>
+                    <li><a href="{{ $social_media_links[0]->youtube_url; }}" class="me-2 dropdown-item" target="_blank">
+                            <i class="bi bi-youtube" style="color:#af2910;"></i>
+                        </a></li>
+                        <li><a href="{{ $social_media_links[0]->linkedin_url; }}" class="me-2 dropdown-item" target="_blank">
+                            <i class="bi bi-linkedin" style="color:#af2910;"></i>
+                        </a></li>
+                </ul>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('user.sitemap') }}"><i class="material-icons menu-icon">S</i></a>
+                <a class="nav-link" href="{{ route('user.sitemap') }}"><i class="material-icons menu-icon">route</i></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('user.search') }}"><i class="material-icons menu-icon">search</i></a>
@@ -114,7 +133,8 @@
 
                         $output .= '<li class="dropdown-submenu dropstart">';
                             $output .= '<a class="dropdown-item ' . ($hasChildren ? 'dropdown-toggle' : '') . '"
-                                href="' . route('user.navigationpagesbyslug', $submenu->menu_slug) . '"> ' . $submenu->menutitle . '</a>';
+                                href="' . route('user.navigationpagesbyslug', $submenu->menu_slug) . '"> ' .
+                                $submenu->menutitle . '</a>';
 
                             if ($hasChildren) {
                             $output .= renderMenuItems($submenu->id);
@@ -137,8 +157,11 @@
                         </a>
                     </li>
                     @elseif($menu->menutitle === 'Research Centers')
-                    <li class="nav-item dropdown {{ DB::table('menus')->where('parent_id', $menu->id)->exists() ? 'dropdown' : '' }}">
-                        <a class="nav-link {{ DB::table('menus')->where('parent_id', $menu->id)->exists() ? 'dropdown-toggle' : '' }}" href="{{ route('user.navigationpagesbyslug', $menu->menu_slug) }}" {{ DB::table('menus')->where('parent_id', $menu->id)->exists() ? 'data-bs-toggle="dropdown"' : '' }}>
+                    <li
+                        class="nav-item dropdown {{ DB::table('menus')->where('parent_id', $menu->id)->exists() ? 'dropdown' : '' }}">
+                        <a class="nav-link {{ DB::table('menus')->where('parent_id', $menu->id)->exists() ? 'dropdown-toggle' : '' }}"
+                            href="{{ route('user.navigationpagesbyslug', $menu->menu_slug) }}"
+                            {{ DB::table('menus')->where('parent_id', $menu->id)->exists() ? 'data-bs-toggle="dropdown"' : '' }}>
                             {{ $menu->menutitle }}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-arrow clickable" data-href="#">
@@ -170,20 +193,19 @@
     </nav>
 
     <script>
-    document.addEventListener('DOMContentLoaded', function () {
-    const dropdowns = document.querySelectorAll('.dropdown-submenu');
+    document.addEventListener('DOMContentLoaded', function() {
+        const dropdowns = document.querySelectorAll('.dropdown-submenu');
 
-    dropdowns.forEach(function (dropdown) {
-        dropdown.addEventListener('mouseenter', function () {
-            const submenu = this.querySelector('.dropdown-menu');
-            if (submenu) submenu.style.display = 'block';
-        });
+        dropdowns.forEach(function(dropdown) {
+            dropdown.addEventListener('mouseenter', function() {
+                const submenu = this.querySelector('.dropdown-menu');
+                if (submenu) submenu.style.display = 'block';
+            });
 
-        dropdown.addEventListener('mouseleave', function () {
-            const submenu = this.querySelector('.dropdown-menu');
-            if (submenu) submenu.style.display = 'none';
+            dropdown.addEventListener('mouseleave', function() {
+                const submenu = this.querySelector('.dropdown-menu');
+                if (submenu) submenu.style.display = 'none';
+            });
         });
     });
-});
-
     </script>
