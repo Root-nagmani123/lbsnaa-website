@@ -51,7 +51,7 @@
         <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
             <!-- Logo -->
             <a href="{{ route('home') }}" class="navbar-brand me-auto logo d-flex align-items-center">
-                <img src="{{ asset('admin_assets/images/logo.png') }}" alt="logo-icon" class="img-fluid" width="250">
+                <img src="{{ asset('admin_assets/images/logo.png') }}" alt="logo-icon" class="img-fluid" width="350">
             </a>
 
             <!-- Navbar Toggle Button (For mobile view) -->

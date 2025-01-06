@@ -24,7 +24,7 @@
     </div>
 </section>
 
-<section class="py-1">
+<section class="py-1 bg-light">
     <div class="container-fluid">
         <div class="row">
             <div class="col-xl-12 col-md-12 col-12">
@@ -38,15 +38,17 @@
         </div>
         @if(count($news_images)> 0)
         <div class="row">
-            <div class="col-xl-12 col-md-12 col-12 gap-3">
-                @foreach($news_images as $val)
-                <img src="{{ asset($val) }}" style="height: 200px; object-fit: cover">
 
-                @endforeach
+            @foreach($news_images as $val)
+            <div class="col-md-3 col-12 gap-3 mb-4">
+                <img src="{{ asset($val) }}" style="height: 200px; object-fit: cover; width: 100%;"
+                    class="img-fluid rounded-4" alt="Image">
             </div>
+            @endforeach
+
         </div>
         @endif
-        <p><?= $news->description;?></p>
+        <p class="lead mb-2"><?= $news->description;?></p>
     </div>
 </section>
 

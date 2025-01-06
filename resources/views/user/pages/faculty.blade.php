@@ -39,7 +39,7 @@
             <div class="card-body p-4">
                 <div class="default-table-area members-list">
                     <div class="table-responsive">
-                        <table class="table align-middle" id="myTable">
+                        <table class="table align-middle table-striped" id="myTable">
                             <thead>
                                 <tr class="text-center">
                                     <th class="col">#</th>

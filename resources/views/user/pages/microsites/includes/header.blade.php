@@ -25,6 +25,8 @@
   <link href="{{ asset('assets/libs/tiny-slider/dist/tiny-slider.css') }}" rel="stylesheet">
   <link rel="stylesheet" href="assets/libs/glightbox/dist/css/glightbox.min.css') }}">
   <link rel="icon" type="image/png" href="{{ asset('admin_assets/images/favicon.ico') }}">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
 
   <title>Research Center | Lal Bahadur Shastri National Academy of Administration</title>
 
@@ -35,7 +37,7 @@
     <nav class="navbar">
         <div class="container-fluid px-0">
             <a class="navbar-brand" href="{{ route('home') }}"><img src="{{ asset('assets/images/microsites/logo.png') }}"
-                    alt="logo" width="300"></a>
+                    alt="logo" width="400"></a>
             <!-- Button -->
 
             @php
@@ -52,14 +54,13 @@
                 }
             @endphp
 
-            <a class="navbar-brand" href="#">
-                <!-- Display the research centre name if available -->
-                @if($centre_name)
-                    <span>{{ $centre_name->research_centre_name }}</span>
+            @if($centre_name)
+                    <h2 class="text-dark">{{ $centre_name->research_centre_name }}<br>
+                    <small>({{ $centre_name->research_centre_slug }})</small></h2>
+                    
                 @else
-                    <span>Default Centre Name</span> <!-- Default name if no match is found -->
+                    <h4>Default Centre Name</h4> <!-- Default name if no match is found -->
                 @endif
-            </a>
 
 
 
