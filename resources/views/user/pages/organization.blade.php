@@ -8,8 +8,7 @@
                         <li class="breadcrumb-item">
                             <a href="{{ route('home')}}" style="color: #af2910;">Home</a>
                         </li>
-                        <li class="breadcrumb-item">
-                            <a href="#" style="color: #af2910;">Organizational Structure</a>
+                        <li class="breadcrumb-item active">Organizational Structure
                         </li>
                     </ol>
                 </nav>
@@ -19,105 +18,137 @@
 </section>
 <section class="py-5">
     <div class="container-fluid">
-        <div class="tree gap-2">
+        <div class="org-chart">
+            <!-- Render the top level (First Layer) -->
             @if (!empty($hierarchy))
+            <div class="level">
                 @foreach ($hierarchy as $node)
-                    @include('partials.organization-node', ['node' => $node])
+                @include('partials.organization-node', ['node' => $node])
                 @endforeach
+            </div>
+            @endif
+
+            <!-- Render the second layer -->
+            @if (!empty($hierarchy))
+            @foreach ($hierarchy as $node)
+            @if (!empty($node->children))
+            <div class="line"></div>
+            <div class="level">
+                @foreach ($node->children as $child)
+                @include('partials.organization-node', ['node' => $child])
+                @endforeach
+            </div>
+
+            <!-- Render the third layer (children of second-layer nodes) -->
+            @if (!empty($child->children))
+            <div class="line"></div>
+            <div class="level">
+                @foreach ($child->children as $grandchild)
+                @include('partials.organization-node', ['node' => $grandchild])
+                @endforeach
+            </div>
+            @endif
+            @endif
+            @endforeach
             @endif
         </div>
     </div>
 </section>
 
+
+
 <style>
-    .tree {
+.org-chart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.level {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 20px 0;
+}
+
+.card {
+    background-color: #dcdcdc;
+    border: 1px solid #dcdcdc;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 10px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    min-width: 150px;
+    max-width: 200px;
+}
+
+.card h3 {
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.card p {
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.card a {
+    display: inline-block;
+    margin: 5px 0;
+    padding: 5px 10px;
+    background-color: #af2910;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #fff;
+    font-size: 12px;
+    transition: background-color 0.3s;
+}
+
+.card a:hover {
+    background-color: #fff;
+    color:#af2910;
+    border: 1px solid #af2910;
+}
+
+.line {
+    width: 2px;
+    height: 20px;
+    background-color: #af2910;
+    margin: 0 auto;
+}
+
+.connector {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-    position: relative;
 }
 
-.chart-box {
-    display: inline-block;
-    margin: 20px;
-    text-align: center;
-    border: 2px solid #af2910;
-    border-radius: 10px;
-    padding: 10px;
-    background-color: #f9f9f9;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 200px; /* Adjust width based on content */
-}
-
-.branch {
-    display: flex;
-    justify-content: center;
-    position: relative;
-}
-
-.branch::before {
+.connector::before,
+.connector::after {
     content: '';
-    position: absolute;
-    top: -20px; /* Adjust to position the arrow correctly */
-    left: 50%;
-    width: 2px;
-    height: 20px;
-    background-color: #af2910; /* Color for the line */
+    width: 50px;
+    height: 2px;
+    background-color: #444;
 }
 
-.node {
-    position: relative;
-    display: inline-block;
-    margin: 20px;
-    padding: 10px;
+.connector::before {
+    margin-right: 10px;
 }
 
-.node::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    width: 2px;
-    height: 20px; /* Length of the arrow */
-    background-color: #af2910;
+.connector::after {
+    margin-left: 10px;
 }
 
-.node > .branch::before {
-    content: '';
-    position: absolute;
-    top: -20px; /* Adjust the positioning to match the vertical distance */
-    left: 50%;
-    width: 2px;
-    height: 20px;
-    background-color: #af2910;
+@media (max-width: 768px) {
+    .card {
+        min-width: 120px;
+    }
+
+    .connector::before,
+    .connector::after {
+        width: 25px;
+    }
 }
-
-/* Optional: Add styling for the arrow to make it look more like a line */
-.arrow {
-    border-left: 2px solid #af2910; /* Line connecting parent to child */
-    position: absolute;
-    top: 0;
-    left: 50%;
-    width: 0;
-    height: 20px; /* Adjust arrow length */
-}
-
-.card-body {
-    padding: 15px;
-}
-
-.card-title {
-    font-size: 18px;
-    font-weight: bold;
-    color: #af2910;
-}
-
-small {
-    font-size: 14px;
-    color: #555;
-}
-
-
 </style>
 @include('user.includes.footer')
