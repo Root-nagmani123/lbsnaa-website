@@ -178,107 +178,108 @@
             </div>
         </div>
     </div>
-    @endsection
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-    $(document).ready(function() {
-        // When the 'parent' select box changes
-        $('#parent').change(function() {
-            var parentValue = $(this).val(); // Get the selected value
+</div>
+@endsection
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    // When the 'parent' select box changes
+    $('#parent').change(function() {
+        var parentValue = $(this).val(); // Get the selected value
 
-            // Clear the child select box
-            $('#child').empty();
+        // Clear the child select box
+        $('#child').empty();
 
-            // Add the default option to the child select box
-            $('#child').append('<option value="">Select Sub-Module</option>');
+        // Add the default option to the child select box
+        $('#child').append('<option value="">Select Sub-Module</option>');
 
-            // Based on the parent value, append corresponding options to the child select box
-            if (parentValue === "User Management") {
-                $('#child').append('<option value="Manage User">Manage User</option>');
-                $('#child').append('<option value="Manage Module">Manage Module</option>');
-            } else if (parentValue === "Manage CMS") {
-                $('#child').append('<option value="Manage Menu">Manage Menu</option>');
-            } else if (parentValue === "Manage Organization Module") {
-                $('#child').append(
-                    '<option value="Manage Organization Chart">Manage Organization Chart</option>');
-                $('#child').append('<option value="Manage Faculty">Manage Faculty</option>');
-                $('#child').append('<option value="Manage Staff">Manage Staff</option>');
-                $('#child').append('<option value="Manage Sections">Manage Sections</option>');
-            } else if (parentValue === "Training Master Management") {
-                $('#child').append('<option value="Manage Organiser">Manage Organiser</option>');
-                $('#child').append('<option value="Manage Coordinator">Manage Coordinator</option>');
-                $('#child').append('<option value="Manage Venue">Manage Venue</option>');
-                $('#child').append('<option value="Manage Founder">Manage Founder</option>');
-                $('#child').append('<option value="Manage Cadre">Manage Cadre</option>');
-                $('#child').append('<option value="Manage Category">Manage Category</option>');
-                $('#child').append('<option value="Manage Country">Manage Country</option>');
-                $('#child').append('<option value="Manage State">Manage State</option>');
-                $('#child').append('<option value="Manage Districts">Manage Districts</option>');
-                $('#child').append('<option value="Manage Exam">Manage Exam</option>');
-            } else if (parentValue === "Manage News") {
-                $('#child').append('<option value="Manage News">Manage News</option>');
-            } else if (parentValue === "Quick Links") {
-                $('#child').append('<option value="Quick Links">Quick Links</option>');
-            } else if (parentValue === "Manage Tender") {
-                $('#child').append('<option value="Manage Tender">Manage Tender</option>');
-            } else if (parentValue === "Manage Souvenir Module") {
-                $('#child').append(
-                    '<option value="Manage Master Categories">Manage Master Categories</option>');
-                $('#child').append(
-                    '<option value="Manage Academy Souvenir">Manage Academy Souvenir</option>');
+        // Based on the parent value, append corresponding options to the child select box
+        if (parentValue === "User Management") {
+            $('#child').append('<option value="Manage User">Manage User</option>');
+            $('#child').append('<option value="Manage Module">Manage Module</option>');
+        } else if (parentValue === "Manage CMS") {
+            $('#child').append('<option value="Manage Menu">Manage Menu</option>');
+        } else if (parentValue === "Manage Organization Module") {
+            $('#child').append(
+                '<option value="Manage Organization Chart">Manage Organization Chart</option>');
+            $('#child').append('<option value="Manage Faculty">Manage Faculty</option>');
+            $('#child').append('<option value="Manage Staff">Manage Staff</option>');
+            $('#child').append('<option value="Manage Sections">Manage Sections</option>');
+        } else if (parentValue === "Training Master Management") {
+            $('#child').append('<option value="Manage Organiser">Manage Organiser</option>');
+            $('#child').append('<option value="Manage Coordinator">Manage Coordinator</option>');
+            $('#child').append('<option value="Manage Venue">Manage Venue</option>');
+            $('#child').append('<option value="Manage Founder">Manage Founder</option>');
+            $('#child').append('<option value="Manage Cadre">Manage Cadre</option>');
+            $('#child').append('<option value="Manage Category">Manage Category</option>');
+            $('#child').append('<option value="Manage Country">Manage Country</option>');
+            $('#child').append('<option value="Manage State">Manage State</option>');
+            $('#child').append('<option value="Manage Districts">Manage Districts</option>');
+            $('#child').append('<option value="Manage Exam">Manage Exam</option>');
+        } else if (parentValue === "Manage News") {
+            $('#child').append('<option value="Manage News">Manage News</option>');
+        } else if (parentValue === "Quick Links") {
+            $('#child').append('<option value="Quick Links">Quick Links</option>');
+        } else if (parentValue === "Manage Tender") {
+            $('#child').append('<option value="Manage Tender">Manage Tender</option>');
+        } else if (parentValue === "Manage Souvenir Module") {
+            $('#child').append(
+                '<option value="Manage Master Categories">Manage Master Categories</option>');
+            $('#child').append(
+                '<option value="Manage Academy Souvenir">Manage Academy Souvenir</option>');
 
-            } else if (parentValue === "Manage Course Module") {
-                $('#child').append(
-                    '<option value="Manage Course Category/Subcategory">Manage Course Category/Subcategory</option>'
-                    );
-                $('#child').append('<option value="Manage Course">Manage Course</option>');
-            } else if (parentValue === "Manage Survey List") {
-                $('#child').append('<option value="Manage Survey List">Manage Survey List</option>');
-            } else if (parentValue === "Manage Vacancy") {
-                $('#child').append('<option value="Manage Vacancy">Manage Vacancy</option>');
-            } else if (parentValue === "Manage Social Media") {
-                $('#child').append('<option value="Manage Social Media">Manage Social Media</option>');
-            } else if (parentValue === "Manage Logo") {
-                $('#child').append('<option value="Manage Logo">Manage Logo</option>');
-            } else if (parentValue === "Feedback List") {
-                $('#child').append('<option value="Feedback List">Feedback List</option>');
-            } else if (parentValue === "Manage Media Center") {
-                $('#child').append('<option value="Home Banner">Home Banner</option>');
-                $('#child').append('<option value="Audio Gallery">Audio Gallery</option>');
-                $('#child').append('<option value="Photo Gallery">Photo Gallery</option>');
-                $('#child').append('<option value="Video Gallery">Video Gallery</option>');
-                $('#child').append('<option value="Add Category">Add Category</option>');
-            } else if (parentValue === "Manage Audit") {
-                $('#child').append('<option value="Manage Audit">Manage Audit</option>');
-            } else if (parentValue === "Research Center") {
-                $('#child').append('<option value="Research Center">Research Center</option>');
-            } else if (parentValue === "Mirco Manage Menu") {
-                $('#child').append('<option value="Mirco Manage Menu">Mirco Manage Menu</option>');
-            } else if (parentValue === "Micro Quick Links") {
-                $('#child').append('<option value="Micro Quick Links">Micro Quick Links</option>');
-            } else if (parentValue === "Mirco Manage News") {
-                $('#child').append('<option value="Mirco Manage News">Mirco Manage News</option>');
-            } else if (parentValue === "Manage Training Programs") {
-                $('#child').append(
-                    '<option value="Manage Training Programs">Manage Training Programs</option>');
-            } else if (parentValue === "Manage Organization Setup") {
-                $('#child').append(
-                    '<option value="Manage Organization Setup">Manage Organization Setup</option>');
-            } else if (parentValue === "Mirco Manage Vacancy") {
-                $('#child').append(
+        } else if (parentValue === "Manage Course Module") {
+            $('#child').append(
+                '<option value="Manage Course Category/Subcategory">Manage Course Category/Subcategory</option>'
+            );
+            $('#child').append('<option value="Manage Course">Manage Course</option>');
+        } else if (parentValue === "Manage Survey List") {
+            $('#child').append('<option value="Manage Survey List">Manage Survey List</option>');
+        } else if (parentValue === "Manage Vacancy") {
+            $('#child').append('<option value="Manage Vacancy">Manage Vacancy</option>');
+        } else if (parentValue === "Manage Social Media") {
+            $('#child').append('<option value="Manage Social Media">Manage Social Media</option>');
+        } else if (parentValue === "Manage Logo") {
+            $('#child').append('<option value="Manage Logo">Manage Logo</option>');
+        } else if (parentValue === "Feedback List") {
+            $('#child').append('<option value="Feedback List">Feedback List</option>');
+        } else if (parentValue === "Manage Media Center") {
+            $('#child').append('<option value="Home Banner">Home Banner</option>');
+            $('#child').append('<option value="Audio Gallery">Audio Gallery</option>');
+            $('#child').append('<option value="Photo Gallery">Photo Gallery</option>');
+            $('#child').append('<option value="Video Gallery">Video Gallery</option>');
+            $('#child').append('<option value="Add Category">Add Category</option>');
+        } else if (parentValue === "Manage Audit") {
+            $('#child').append('<option value="Manage Audit">Manage Audit</option>');
+        } else if (parentValue === "Research Center") {
+            $('#child').append('<option value="Research Center">Research Center</option>');
+        } else if (parentValue === "Mirco Manage Menu") {
+            $('#child').append('<option value="Mirco Manage Menu">Mirco Manage Menu</option>');
+        } else if (parentValue === "Micro Quick Links") {
+            $('#child').append('<option value="Micro Quick Links">Micro Quick Links</option>');
+        } else if (parentValue === "Mirco Manage News") {
+            $('#child').append('<option value="Mirco Manage News">Mirco Manage News</option>');
+        } else if (parentValue === "Manage Training Programs") {
+            $('#child').append(
+                '<option value="Manage Training Programs">Manage Training Programs</option>');
+        } else if (parentValue === "Manage Organization Setup") {
+            $('#child').append(
+                '<option value="Manage Organization Setup">Manage Organization Setup</option>');
+        } else if (parentValue === "Mirco Manage Vacancy") {
+            $('#child').append(
                 '<option value="Mirco Manage Vacancy">Mirco Manage Vacancy</option>');
-            } else if (parentValue === "Mirco Manage Media Center") {
-                $('#child').append('<option value="Mirco Home Banner">Mirco Home Banner</option>');
-                $('#child').append('<option value="Mirco Photo Gallery">Mirco Photo Gallery</option>');
-                $('#child').append('<option value="Mirco Video Gallery">Mirco Video Gallery</option>');
-                $('#child').append('<option value="Mirco Add Category">Mirco Add Category</option>');
+        } else if (parentValue === "Mirco Manage Media Center") {
+            $('#child').append('<option value="Mirco Home Banner">Mirco Home Banner</option>');
+            $('#child').append('<option value="Mirco Photo Gallery">Mirco Photo Gallery</option>');
+            $('#child').append('<option value="Mirco Video Gallery">Mirco Video Gallery</option>');
+            $('#child').append('<option value="Mirco Add Category">Mirco Add Category</option>');
 
-            } else if (parentValue === "Micro Manage Audit") {
-                $('#child').append('<option value="Micro Manage Audit">Micro Manage Audit</option>');
-            } else {
-                // Default case if none of the specified parent values match
-                // $('#child').append('<option value="Other Sub-Module">Other Sub-Module</option>');
-            }
-        });
+        } else if (parentValue === "Micro Manage Audit") {
+            $('#child').append('<option value="Micro Manage Audit">Micro Manage Audit</option>');
+        } else {
+            // Default case if none of the specified parent values match
+            // $('#child').append('<option value="Other Sub-Module">Other Sub-Module</option>');
+        }
     });
-    </script>
+});
+</script>
