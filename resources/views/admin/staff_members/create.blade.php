@@ -2,7 +2,7 @@
 
 @section('title', 'Admin Dashboard')
 
-@section('content')
+@section('content') 
 <div class="row justify-content-center">
     <div class="col-lg-12">
         <div class="card bg-white border-0 rounded-10 mb-4">
@@ -117,6 +117,7 @@
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="country_code">Country Code :</label>
+                                <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark ps-5 h-58" name="country_code" id="country_code"  value="{{ old('country_code') }}">
                                 </div>
@@ -125,6 +126,7 @@
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="std_code">STD Code :</label>
+                                <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="number" class="form-control text-dark ps-5 h-58" name="std_code" id="std_code"  value="{{ old('std_code') }}">
                                 </div>
@@ -155,6 +157,7 @@
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="phone_pt_office">Phone P&T Office :</label>
+                                <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="number" class="form-control text-dark ps-5 h-58" name="phone_pt_office" id="phone_pt_office" value="{{ old('phone_pt_office') }}">
                                     @error('phone_pt_office')

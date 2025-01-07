@@ -83,8 +83,11 @@
                                 <form action="{{ route('users.delete', $user->id) }}" method="POST"
                                     style="display:inline-block;">
                                     @csrf
-                                    <button type="submit" class="btn btn-sm btn-danger text-white"
-                                        onclick="return confirm('Are you sure?')">Delete</button>
+                                   
+                                        <button type="submit" class="btn btn-primary text-white btn-sm"
+                                        onclick="return confirmDelete('{{ $user->status }}')">
+                                            Delete
+                                        </button>
                                 </form>
 
                                 <!-- Status Change Buttons -->
@@ -105,7 +108,7 @@
                                     Permissions</a>
                                 @endif
                             </td>
-                        </tr>
+                        </tr> 
                         @endforeach
                     </tbody>
                 </table>
@@ -114,3 +117,13 @@
     </div>
 </div>
 @endsection
+<script>
+    function confirmDelete(pageStatus) {
+        if (pageStatus == 1) {
+            alert('Active user cannot be deleted.');
+            return false; // Prevent form submission
+        } else {
+            return confirm('Are you sure you want to delete?'); // Show confirmation if page_status is not 1
+        }
+    }
+</script>
