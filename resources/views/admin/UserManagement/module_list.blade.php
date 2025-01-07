@@ -105,65 +105,27 @@
                             <div class="form-group mb-4">
                                 <label for="parent" class="label">Module</label>
                                 <span class="star">*</span>
-                                <div class="fomr-group position-relative">
+                                <div class="form-group position-relative">
                                     <select name="parent" id="parent" class="form-control text-dark ps-5 h-58">
-                                        <option value="" selected>Select Module</option>
+                                        <option value="0" selected>Select Module</option>
                                         <option value="User Management">User Management</option>
                                         <option value="Manage CMS">Manage CMS</option>
                                         <option value="Manage Organization Module">Manage Organization Module</option>
                                         <option value="Training Master Management">Training Master Management</option>
-                                        <option value="Manage Course Module">Manage Course Module</option>
-                                        <option value="Quick Link">Quick Link</option>
                                         <option value="Manage News">Manage News</option>
-                                        <option value="Manage Training Programs">Manage Training Programs</option>
-                                        <option value="Manage Media Center">Manage Media Center</option>
-                                        <option value="Research Center">Research Center</option>
-                                        <option value="Mirco Manage Media Center">Mirco Manage Media Center</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="form-group mb-4">
-                                <label for="child" class="label">Sub-module</label>
-                                <span class="star">*</span>
-                                <div class="fomr-group position-relative">
-                                    <select name="child" id="child" class="form-control text-dark ps-5 h-58">
-                                        <option value="" selected>Select Sub-Module</option>
-                                        <option value="Manage User">Manage User</option>
-                                        <option value="Manage Module">Manage Module</option>
-                                        <option value="Manage Menu">Manage Menu</option>
-                                        <option value="Manage Organization Chart">Manage Organization Chart</option>
-                                        <option value="Manage Faculty">Manage Faculty</option>
-                                        <option value="Manage Staff">Manage Staff</option>
-                                        <option value="Manage Sections">Manage Sections</option>
-                                        <option value="Manage Organiser">Manage Organiser</option>
-                                        <option value="Manage Coordinator">Manage Coordinator</option>
-                                        <option value="Manage Venue">Manage Venue</option>
-                                        <option value="Manage Founder">Manage Founder</option>
-                                        <option value="Manage Cadre">Manage Cadre</option>
-                                        <option value="Manage Category">Manage Category</option>
-                                        <option value="Manage Country">Manage Country</option>
-                                        <option value="Manage State">Manage State</option>
-                                        <option value="Manage Districts">Manage Districts</option>
-                                        <option value="Manage Exam">Manage Exam</option>
-                                        <option value="Manage News">Manage News</option>
-                                        <option value="Quick Links">Quick Links</option>
+                                        <option value="Quick Links">Quick Link</option>
                                         <option value="Manage Tender">Manage Tender</option>
-                                        <option value="Manage Master Categories">Manage Master Categories</option>
-                                        <option value="Manage Academy Souvenir">Manage Academy Souvenir</option>
-                                        <option value="Manage Course Category/Subcategory">Manage Course Category/Subcategory</option>
-                                        <option value="Manage Course">Manage Course</option>
+                                        <option value="Manage Souvenir Module">Manage Souvenir Module</option>
+
+                                        <option value="Manage Course Module">Manage Course Module</option>
+
+
                                         <option value="Manage Survey List">Manage Survey List</option>
                                         <option value="Manage Vacancy">Manage Vacancy</option>
                                         <option value="Manage Social Media">Manage Social Media</option>
                                         <option value="Manage Logo">Manage Logo</option>
                                         <option value="Feedback List">Feedback List</option>
-                                        <option value="Home Banner">Home Banner</option>
-                                        <option value="Audio Gallery">Audio Gallery</option>
-                                        <option value="Photo Gallery">Photo Gallery</option>
-                                        <option value="Video Gallery">Video Gallery</option>
-                                        <option value="Add Category">Add Category</option>
+                                        <option value="Manage Media Center">Manage Media Center</option>
                                         <option value="Manage Audit">Manage Audit</option>
                                         <option value="Research Center">Research Center</option>
                                         <option value="Mirco Manage Menu">Mirco Manage Menu</option>
@@ -172,21 +134,31 @@
                                         <option value="Manage Training Programs">Manage Training Programs</option>
                                         <option value="Manage Organization Setup">Manage Organization Setup</option>
                                         <option value="Mirco Manage Vacancy">Mirco Manage Vacancy</option>
-                                        <option value="Mirco Home Banner">Mirco Home Banner</option>
-                                        <option value="Mirco Photo Gallery">Mirco Photo Gallery</option>
-                                        <option value="Mirco Video Gallery">Mirco Video Gallery</option>
-                                        <option value="Mirco Add Category">Mirco Add Category</option>
+                                        <option value="Mirco Manage Media Center">Mirco Manage Media Center</option>
                                         <option value="Micro Manage Audit">Micro Manage Audit</option>
-                                       
                                     </select>
                                 </div>
                             </div>
                         </div>
+
+                        <div class="col-lg-4">
+                            <div class="form-group mb-4">
+                                <label for="child" class="label">Sub-module</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <select name="child" id="child" class="form-control text-dark ps-5 h-58">
+                                        <option value="" selected>Select Sub-Module</option>
+                                        <!-- Options will be populated dynamically based on the parent selection -->
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="col-lg-4">
                             <div class="form-group mb-4">
                                 <label for="status" class="label">Status</label>
                                 <span class="star">*</span>
-                                <div class="fomr-group position-relative">
+                                <div class="form-group position-relative">
                                     <select name="status" id="status" class="form-control text-dark ps-5 h-58">
                                         <option value="" selected>Select Status</option>
                                         <option value="1">Active</option>
@@ -196,13 +168,117 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success text-white">Submit</button>
+                        <button type="button" class="btn btn-secondary text-white"
+                            data-bs-dismiss="modal">Close</button>
+                    </div>
+                </form>
             </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-success text-white">Submit</button>
-                <button type="button" class="btn btn-secondary text-white" data-bs-dismiss="modal">Close</button>
-            </div>
-            </form>
         </div>
     </div>
-</div>
-@endsection
+    @endsection
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        // When the 'parent' select box changes
+        $('#parent').change(function() {
+            var parentValue = $(this).val(); // Get the selected value
+
+            // Clear the child select box
+            $('#child').empty();
+
+            // Add the default option to the child select box
+            $('#child').append('<option value="">Select Sub-Module</option>');
+
+            // Based on the parent value, append corresponding options to the child select box
+            if (parentValue === "User Management") {
+                $('#child').append('<option value="Manage User">Manage User</option>');
+                $('#child').append('<option value="Manage Module">Manage Module</option>');
+            } else if (parentValue === "Manage CMS") {
+                $('#child').append('<option value="Manage Menu">Manage Menu</option>');
+            } else if (parentValue === "Manage Organization Module") {
+                $('#child').append(
+                    '<option value="Manage Organization Chart">Manage Organization Chart</option>');
+                $('#child').append('<option value="Manage Faculty">Manage Faculty</option>');
+                $('#child').append('<option value="Manage Staff">Manage Staff</option>');
+                $('#child').append('<option value="Manage Sections">Manage Sections</option>');
+            } else if (parentValue === "Training Master Management") {
+                $('#child').append('<option value="Manage Organiser">Manage Organiser</option>');
+                $('#child').append('<option value="Manage Coordinator">Manage Coordinator</option>');
+                $('#child').append('<option value="Manage Venue">Manage Venue</option>');
+                $('#child').append('<option value="Manage Founder">Manage Founder</option>');
+                $('#child').append('<option value="Manage Cadre">Manage Cadre</option>');
+                $('#child').append('<option value="Manage Category">Manage Category</option>');
+                $('#child').append('<option value="Manage Country">Manage Country</option>');
+                $('#child').append('<option value="Manage State">Manage State</option>');
+                $('#child').append('<option value="Manage Districts">Manage Districts</option>');
+                $('#child').append('<option value="Manage Exam">Manage Exam</option>');
+            } else if (parentValue === "Manage News") {
+                $('#child').append('<option value="Manage News">Manage News</option>');
+            } else if (parentValue === "Quick Links") {
+                $('#child').append('<option value="Quick Links">Quick Links</option>');
+            } else if (parentValue === "Manage Tender") {
+                $('#child').append('<option value="Manage Tender">Manage Tender</option>');
+            } else if (parentValue === "Manage Souvenir Module") {
+                $('#child').append(
+                    '<option value="Manage Master Categories">Manage Master Categories</option>');
+                $('#child').append(
+                    '<option value="Manage Academy Souvenir">Manage Academy Souvenir</option>');
+
+            } else if (parentValue === "Manage Course Module") {
+                $('#child').append(
+                    '<option value="Manage Course Category/Subcategory">Manage Course Category/Subcategory</option>'
+                    );
+                $('#child').append('<option value="Manage Course">Manage Course</option>');
+            } else if (parentValue === "Manage Survey List") {
+                $('#child').append('<option value="Manage Survey List">Manage Survey List</option>');
+            } else if (parentValue === "Manage Vacancy") {
+                $('#child').append('<option value="Manage Vacancy">Manage Vacancy</option>');
+            } else if (parentValue === "Manage Social Media") {
+                $('#child').append('<option value="Manage Social Media">Manage Social Media</option>');
+            } else if (parentValue === "Manage Logo") {
+                $('#child').append('<option value="Manage Logo">Manage Logo</option>');
+            } else if (parentValue === "Feedback List") {
+                $('#child').append('<option value="Feedback List">Feedback List</option>');
+            } else if (parentValue === "Manage Media Center") {
+                $('#child').append('<option value="Home Banner">Home Banner</option>');
+                $('#child').append('<option value="Audio Gallery">Audio Gallery</option>');
+                $('#child').append('<option value="Photo Gallery">Photo Gallery</option>');
+                $('#child').append('<option value="Video Gallery">Video Gallery</option>');
+                $('#child').append('<option value="Add Category">Add Category</option>');
+            } else if (parentValue === "Manage Audit") {
+                $('#child').append('<option value="Manage Audit">Manage Audit</option>');
+            } else if (parentValue === "Research Center") {
+                $('#child').append('<option value="Research Center">Research Center</option>');
+            } else if (parentValue === "Mirco Manage Menu") {
+                $('#child').append('<option value="Mirco Manage Menu">Mirco Manage Menu</option>');
+            } else if (parentValue === "Micro Quick Links") {
+                $('#child').append('<option value="Micro Quick Links">Micro Quick Links</option>');
+            } else if (parentValue === "Mirco Manage News") {
+                $('#child').append('<option value="Mirco Manage News">Mirco Manage News</option>');
+            } else if (parentValue === "Manage Training Programs") {
+                $('#child').append(
+                    '<option value="Manage Training Programs">Manage Training Programs</option>');
+            } else if (parentValue === "Manage Organization Setup") {
+                $('#child').append(
+                    '<option value="Manage Organization Setup">Manage Organization Setup</option>');
+            } else if (parentValue === "Mirco Manage Vacancy") {
+                $('#child').append(
+                '<option value="Mirco Manage Vacancy">Mirco Manage Vacancy</option>');
+            } else if (parentValue === "Mirco Manage Media Center") {
+                $('#child').append('<option value="Mirco Home Banner">Mirco Home Banner</option>');
+                $('#child').append('<option value="Mirco Photo Gallery">Mirco Photo Gallery</option>');
+                $('#child').append('<option value="Mirco Video Gallery">Mirco Video Gallery</option>');
+                $('#child').append('<option value="Mirco Add Category">Mirco Add Category</option>');
+
+            } else if (parentValue === "Micro Manage Audit") {
+                $('#child').append('<option value="Micro Manage Audit">Micro Manage Audit</option>');
+            } else {
+                // Default case if none of the specified parent values match
+                // $('#child').append('<option value="Other Sub-Module">Other Sub-Module</option>');
+            }
+        });
+    });
+    </script>

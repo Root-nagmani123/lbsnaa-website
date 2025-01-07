@@ -170,7 +170,7 @@ Route::get('/users', [UserManagementController::class, 'users_index'])->name('us
 Route::get('/users/add', [UserManagementController::class, 'users_create'])->name('users.create'); // Show add form
 Route::post('/users/store', [UserManagementController::class, 'users_store'])->name('users.store'); // Add user
 Route::get('/users/edit/{id}', [UserManagementController::class, 'users_edit'])->name('users.edit'); // Show edit form
-Route::post('/users/update/{id}', [UserManagementController::class, 'users_update'])->name('users.update'); // Update user
+Route::put('/users/update/{id}', [UserManagementController::class, 'users_update'])->name('users.update'); // Update user
 Route::post('/users/delete/{id}', [UserManagementController::class, 'users_destroy'])->name('users.delete'); // Delete user
 Route::post('/users/updateStatus/{id}', [UserManagementController::class, 'updateStatus'])->name('users.updateStatus');
 

@@ -47,7 +47,9 @@ class LoginController extends Controller
     }
 
     // Retrieve the user by email
-    $user = User::where('email', $request->email)->first();
+    $user = User::where('email', $request->email)
+    ->where('status', 1)
+    ->first();
 
     // Use Hash::check() to verify the password
     if ($user && Hash::check($request->password, $user->password)) {

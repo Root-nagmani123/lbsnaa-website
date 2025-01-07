@@ -28,7 +28,7 @@ class HomeFrontController extends Controller
             'course.course_name',
             'course.coordinator_id',
             'course.course_start_date',
-            'course.course_end_date',
+            'course.course_end_date', 
             'courses_sub_categories.status as child_status',
             'parent_categories.status as parent_status' // Include parent status
         )
@@ -688,13 +688,34 @@ public function faculty_responsibility(Request $request) {
 function upcoming_events(){
     date_default_timezone_set('Asia/Kolkata'); // Set timezone to Asia/Kolkata
     $today = date('Y-m-d H:i:s'); 
-    $upcoming_course = DB::table('course')
-    ->Join('courses_sub_categories', 'course.course_type', '=', 'courses_sub_categories.id')
+    // $upcoming_course = DB::table('course')
+    // ->Join('courses_sub_categories', 'course.course_type', '=', 'courses_sub_categories.id')
 
-    ->select('course.id','course.course_name', 'course.coordinator_id', 'course.course_start_date', 'course.course_end_date')
-       ->where('course_start_date', '>', $today)
-        ->where('page_status', 1)
-        ->where('courses_sub_categories.status', 1)
+    // ->select('course.id','course.course_name', 'course.coordinator_id', 'course.course_start_date', 'course.course_end_date')
+    //    ->where('course_start_date', '>', $today)
+    //     ->where('page_status', 1)
+    //     ->where('courses_sub_categories.status', 1)
+    //     ->get();
+
+        $upcoming_course = DB::table('course')
+        ->join('courses_sub_categories', 'course.course_type', '=', 'courses_sub_categories.id')
+        ->leftJoin('courses_sub_categories as parent_categories', 'courses_sub_categories.parent_id', '=', 'parent_categories.id') // Join to get parent category
+        ->select(
+            'course.id',
+            'course.course_name',
+            'course.coordinator_id',
+            'course.course_start_date',
+            'course.course_end_date',
+            'courses_sub_categories.status as child_status',
+            'parent_categories.status as parent_status' // Include parent status
+        )
+        ->where('course.course_start_date', '>', $today)
+        ->where('course.page_status', 1)
+        ->where('courses_sub_categories.status', 1) // Filter for active child categories
+        ->where(function ($query) {
+            $query->whereNull('parent_categories.status') // Include records with no parent
+                  ->orWhere('parent_categories.status', 1); // Or active parent categories
+        })
         ->get();
 
         
@@ -710,15 +731,37 @@ function running_events(){
     //     ->where('page_status', 1)
     //     ->get();
 
-        $current_course = DB::table('course')
-        ->Join('courses_sub_categories', 'course.course_type', '=', 'courses_sub_categories.id')
+        // $current_course = DB::table('course')
+        // ->Join('courses_sub_categories', 'course.course_type', '=', 'courses_sub_categories.id')
      
-        ->select('course.id','course.course_name', 'course.coordinator_id', 'course.course_start_date', 'course.course_end_date')
-            ->where('course.course_start_date', '<=', $today)
-            ->where('course.course_end_date', '>=', $today)
-            ->where('course.page_status', 1)
-            ->where('courses_sub_categories.status', 1)
-            ->get();
+        // ->select('course.id','course.course_name', 'course.coordinator_id', 'course.course_start_date', 'course.course_end_date')
+        //     ->where('course.course_start_date', '<=', $today)
+        //     ->where('course.course_end_date', '>=', $today)
+        //     ->where('course.page_status', 1)
+        //     ->where('courses_sub_categories.status', 1)
+        //     ->get();
+
+            $current_course = DB::table('course')
+        ->join('courses_sub_categories', 'course.course_type', '=', 'courses_sub_categories.id')
+        ->leftJoin('courses_sub_categories as parent_categories', 'courses_sub_categories.parent_id', '=', 'parent_categories.id') // Join to get parent category
+        ->select(
+            'course.id',
+            'course.course_name',
+            'course.coordinator_id',
+            'course.course_start_date',
+            'course.course_end_date', 
+            'courses_sub_categories.status as child_status',
+            'parent_categories.status as parent_status' // Include parent status
+        )
+        ->where('course.course_start_date', '<=', $today)
+        ->where('course.course_end_date', '>=', $today)
+        ->where('course.page_status', 1)
+        ->where('courses_sub_categories.status', 1) // Filter for active child categories
+        ->where(function ($query) {
+            $query->whereNull('parent_categories.status') // Include records with no parent
+                  ->orWhere('parent_categories.status', 1); // Or active parent categories
+        })
+        ->get();
         return view('user.pages.running_events', compact('current_course'));
 }
 function sitemap(){

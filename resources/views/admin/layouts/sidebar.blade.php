@@ -12,7 +12,7 @@
 
     <aside id="layout-menu" class="layout-menu menu-vertical menu" data-simplebar="">
         <ul class="menu-inner">
-            <li class="menu-title small text-uppercase">
+            <li class="menu-title small text-uppercase"> 
                 <span class="menu-title-text">Main Website
                     <?php $permisson = permisson_navigation(); //print_r($permisson); ?></span>
             </li>
@@ -66,19 +66,13 @@
 
             </li>
             @endif
-            @php
-            $isManageUserAllowed = in_array('View Profile', array_column($permisson->toArray(), 'parent')) ||
-            (Auth::check() && Auth::user()->user_type == 1);
-            @endphp
-
-            @if ($isManageUserAllowed)
+           
             <li class="menu-item open">
                 <a href="{{ route('view-profile.index') }}" class="menu-link">
                     <i class="material-icons menu-icon">badge</i>
                     <span class="title">View Profile</span>
                 </a>
             </li>
-            @endif
             @php
             $isManageUserAllowed = in_array('Manage CMS', array_column($permisson->toArray(), 'parent')) ||
             (Auth::check() && Auth::user()->user_type == 1);
