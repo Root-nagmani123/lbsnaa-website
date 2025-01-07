@@ -54,8 +54,8 @@
             @endphp
 
             @if ($centre_name)
-                <h2 class="text-dark">{{ $centre_name->research_centre_name }}<br>
-                <small class="text-center">({{ $centre_name->research_centre_slug }})</small></h2>
+            <h2 class="text-dark">{{ $centre_name->research_centre_name }}<br><span class="text-center" style="font-size:14px;">({{ $centre_name->sub_heading }})</span></h2>
+            
             @else
                 <h4>Default Centre Name</h4> <!-- Default name if no match is found -->
             @endif

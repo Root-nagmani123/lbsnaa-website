@@ -26,7 +26,7 @@
             <form action="{{ route('researchcentres.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                         <div class="form-group mb-4">
                             <label for="language" class="label">Page Language</label>
                             <span class="star">*</span>
@@ -41,7 +41,7 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
                         <div class="form-group mb-4">
                             <label for="research_centre_name" class="label">Research center name</label>
                             <span class="star">*</span>
@@ -54,7 +54,20 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-6">
+                        <div class="form-group mb-4">
+                            <label for="sub_heading" class="label">Sub Heading</label>
+                            <span class="star">*</span>
+                            <div class="form-group position-relative">
+                                <input type="text" name="sub_heading" id="sub_heading"
+                                    class="form-control text-dark ps-5 h-58" value="{{ old('sub_heading') }}">
+                            </div>
+                            @error('sub_heading')
+                            <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
                         <div class="form-group mb-4">
                             <label for="home_title" class="label">Home title</label>
                             <span class="star">*</span>
