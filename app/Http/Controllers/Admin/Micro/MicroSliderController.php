@@ -142,10 +142,11 @@ class MicroSliderController extends Controller
             'slider_image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'slider_text' => 'required|string|max:255',
             'slider_description' => 'required|string',
-            'research_centre' => 'required|string',
+            'research_centre' => 'required',
             'language' => 'required|integer|in:1,2',
             'status' => 'required|integer|in:1,0',
         ]);
+        // dd($validated);
     
         $slider = MicroSlider::findOrFail($id);
         if ($request->hasFile('slider_image')) {
@@ -154,6 +155,9 @@ class MicroSliderController extends Controller
         $slider->slider_text = $validated['slider_text'];
         $slider->slider_description = $validated['slider_description'];
         $slider->status = $validated['status'];
+        $slider->research_centre = $validated['research_centre'];
+        $slider->language = $validated['language'];
+        // $slider->slider_image = $validated['slider_image'];
         $slider->save();
     
         MicroManageAudit::create([
