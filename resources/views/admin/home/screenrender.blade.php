@@ -24,27 +24,36 @@
                 <div class="d-flex justify-content-between align-items-center border-bottom pb-20 mb-20">
                     <h4 class="fw-semibold fs-18 mb-0"> Screen Render</h4>
                 </div>
-                @if (session('success'))
-                <div class="alert alert-success">{{ session('success') }}</div>
+                @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
+                @if(session('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ session('error') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
                 @endif
                 <form action="{{ route('screenrender.update') }}" method="POST">
                     @csrf
                     <div class="mb-3">
-                        <label for="heading" class="form-label">Heading</label>
+                        <label for="heading" class="label">Heading</label>
                         <input type="text" name="heading" id="heading" class="form-control"
                             value="{{ old('heading', $screenRender->heading) }}">
                     </div>
                     <div class="mb-3">
-                        <label for="title" class="form-label">Title</label>
+                        <label for="title" class="label">Title</label>
                         <input type="text" name="title" id="title" class="form-control"
                             value="{{ old('title', $screenRender->title) }}">
                     </div>
                     <div class="mb-3">
-                        <label for="description" class="form-label">Description</label>
+                        <label for="description" class="label">Description</label>
                         <textarea name="description" id="description" class="form-control"
                             rows="5">{{ old('description', $screenRender->description) }}</textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary">Update</button>
+                    <button type="submit" class="btn btn-success text-white fw-semibold">Update</button>
                 </form>
             </div>
         </div>

@@ -23,13 +23,39 @@
 <section class="py-2">
     <div class="container-fluid">
         <div class="card p-3">
-            <div class="d-flex justify-content-between align-items-center pb-20 mb-20 mb-2">
+            <div class="d-flex justify-content-between align-items-center pb-2 mb-2">
                 <h2 class="fw-semibold fs-18 mb-0">Sitemap</h2>
             </div>
             <div class="row">
-                @foreach($menuTree as $menu)
-                @include('user.pages.sitemap-menu-item', ['menu' => $menu])
-                @endforeach
+                <div class="col-12">
+                    <ul class="tree">
+                        @foreach($menuTree as $menu)
+                        <li>
+                            <a href="{{ $menu['url'] ?? '#' }}">{{ $menu['title'] }}</a>
+                            @if(!empty($menu['children']))
+                            <ul>
+                                @foreach($menu['children'] as $child)
+                                <li>
+                                    <a href="{{ $child['url'] ?? '#' }}">{{ $child['title'] }}</a>
+                                    @if(!empty($child['children']))
+                                    <ul>
+                                        @foreach($child['children'] as $grandchild)
+                                        <li>
+                                            <a href="{{ $grandchild['url'] ?? '#' }}">{{ $grandchild['title'] }}</a>
+                                        </li>
+                                        @endforeach
+                                    </ul>
+                                    @endif
+                                </li>
+                                @endforeach
+                            </ul>
+                            @endif
+                        </li>
+                        @endforeach
+                    </ul>
+                </div>
+
+                <!-- Quick Links -->
                 <h3 class="mb-3 mt-3">Quick Links</h3>
                 <ul class="list-group" style="margin-left:30px;">
                     @foreach($quickLinks as $quick_link)
@@ -42,7 +68,6 @@
                         @elseif(!empty($quick_link->file))
                         <a href="{{ asset('quick-links-files/'.$quick_link->file) }}" target="_blank"
                             class="text-decoration-none text-dark">
-
                             {{ $quick_link->text }}
                         </a>
                         @else
@@ -51,22 +76,20 @@
                     </li>
                     @endforeach
                 </ul>
+
+                <!-- Footer Links -->
                 <h3 class="mb-3 mt-3">Footer Links</h3>
                 <ul class="list-group" style="margin-left:30px;">
-                    @foreach($footerLinks as $i => $footer_link)
+                    @foreach($footerLinks as $footer_link)
                     <li>
                         @if($footer_link->texttype == 1)
-                        {{-- Content --}}
                         <a href="{{ url('footer_menu/'.$footer_link->menu_slug) }}" class="text-dark">{{ $footer_link->menutitle }}</a>
                         @elseif($footer_link->texttype == 2)
-                        {{-- PDF File Upload --}}
                         <a href="{{ asset($footer_link->pdf_file) }}" target="_blank" class="text-dark">{{ $footer_link->menutitle }}</a>
                         @elseif($footer_link->texttype == 3)
-                        {{-- Website URL --}}
                         <a href="{{ str_starts_with($footer_link->website_url, 'http') ? $footer_link->website_url : 'http://' . $footer_link->website_url }}"
                             target="_blank" class="text-dark">{{ $footer_link->menutitle }}</a>
                         @else
-                        {{-- Default or Unhandled Type --}}
                         <a href="#">{{ $footer_link->menutitle }}</a>
                         @endif
                     </li>
@@ -76,6 +99,60 @@
         </div>
     </div>
 </section>
+<style>
+    .tree {
+    list-style: none;
+    padding-left: 20px;
+    position: relative;
+}
+
+.tree li {
+    margin: 0 0 10px 20px;
+    position: relative;
+    padding-left: 15px;
+}
+
+.tree li::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 10px;
+    height: 100%;
+    border-left: 2px solid #ccc;
+}
+
+.tree li::after {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 0;
+    width: 10px;
+    height: 2px;
+    background: #ccc;
+}
+
+.tree li:last-child::before {
+    height: 10px;
+}
+
+.tree li a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.tree li a:hover {
+    text-decoration: underline;
+}
+
+.tree ul {
+    list-style: none;
+    padding-left: 20px;
+    margin-left: 10px;
+    border-left: 2px solid #ccc;
+}
+
+</style>
 
 @include('user.includes.footer')
-

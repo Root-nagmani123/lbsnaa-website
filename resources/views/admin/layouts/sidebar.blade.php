@@ -508,19 +508,7 @@
             </li>
             @endif
 
-            @php
-            $isManageUserAllowed = in_array('Feedback List', array_column($permisson->toArray(), 'child')) ||
-            (Auth::check() && Auth::user()->user_type == 1);
-            @endphp
-
-            @if ($isManageUserAllowed)
-            <li class="menu-item">
-                <a href="{{ route('admin.feedback_list') }}" class="menu-link">
-                    <i class="material-icons menu-icon">chat</i>
-                    <span class="title">Feedback List</span>
-                </a>
-            </li>
-            @endif
+           
             @php
             $isManageUserAllowed = in_array('Screen Reader Access', array_column($permisson->toArray(), 'child')) ||
             (Auth::check() && Auth::user()->user_type == 1);
