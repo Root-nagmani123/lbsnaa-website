@@ -32,9 +32,9 @@
                             <div class="profile-img">
                                 <img src="{{ asset('admin_assets/images/avatar-14.jpg') }}"
                                     class="rounded-circle border border-2 border-white wh-57 mb-4" alt="user">
-                                <h4 class="fs-16 fw-semibold mb-1">Viru</h4>
-                                <span class="fs-14">Super Admin</span> <br>
-                                <span class="fs-14"><b>Login ID</b>:- {{ $user->name ?? 'N/A' }}</span> <br>
+                                    @php $user = Auth::user(); @endphp
+                                  
+                                <h4 class="fs-16 fw-semibold mb-1">{{ $user->name }}</h4>
                                 <span class="fs-14"><b>Email ID</b>:- {{ $user->email ?? 'N/A' }}</span>
                             </div>
                         </div>

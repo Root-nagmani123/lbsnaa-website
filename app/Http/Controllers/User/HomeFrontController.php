@@ -800,7 +800,11 @@ function search(Request $request){
     
     return view('user.pages.search',compact('query'));
 }
+function screenReader(Request $request){
+    $screenRender = DB::table('screenrender')->first();
 
+    return view('user.pages.screenRender', compact('screenRender'));
+}
 
 
 

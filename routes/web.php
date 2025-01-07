@@ -119,6 +119,7 @@ Route::get('/running_events', [HomeFrontController::class, 'running_events'])->n
 
 Route::get('/sitemap', [HomeFrontController::class, 'sitemap'])->name('user.sitemap');
 Route::get('/search', [HomeFrontController::class, 'search'])->name('user.search');
+Route::get('/screen-reader', [HomeFrontController::class, 'screenReader'])->name('user.screen-reader');
 
 
 //micro 
@@ -187,7 +188,8 @@ Route::post('/users/permissions/update', [UserManagementController::class, 'upda
 
 
 
-
+Route::get('screen_reader_data', [HomeController::class, 'screen_reader'])->name('admin.screen_reader');
+Route::post('/screenrender/update', [HomeController::class, 'screen_reader_update'])->name('screenrender.update');
     Route::get('sliders', [HomeController::class, 'slider_list'])->name('admin.slider_list');
     Route::get('sliders/create', [HomeController::class, 'slider_create'])->name('admin.slider_create');
     Route::post('sliders', [HomeController::class, 'slider_store'])->name('admin.slider_store');

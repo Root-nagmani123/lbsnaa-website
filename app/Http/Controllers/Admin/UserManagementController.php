@@ -21,7 +21,7 @@ class UserManagementController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'parent' => 'required|unique:modules,parent',
+            'parent' => 'required|unique:modules',
             'child' => 'nullable|string',
             'status' => 'required|in:0,1',
         ]);
@@ -41,7 +41,7 @@ class UserManagementController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'parent' => 'required|unique:modules,parent,' . $id,
+            'parent' => 'required|unique:modules,' . $id,
             'child' => 'nullable|string',
         ]);
 
@@ -146,7 +146,7 @@ class UserManagementController extends Controller
 public function permissions($id)
 {
     $user = DB::table('users')->find($id);
-    $modules = DB::table('modules')->get();
+    $modules = DB::table('modules')->where('status',1)->get();
     $permissions = DB::table('user_permissions')
         ->where('user_id', $id)
         ->select('id','user_id','module_id','is_allowed')

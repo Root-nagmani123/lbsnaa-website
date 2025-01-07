@@ -249,12 +249,12 @@ if (!function_exists('permisson_navigation')) {
         $user = Auth::user();
         if ($user->user_type != 1) { // Not a SuperAdmin
            return $modules = DB::table('modules as m')
-            ->leftJoin('user_permissions as up', function ($join) use ($user) {
+            ->Join('user_permissions as up', function ($join) use ($user) {
                 $join->on('m.id', '=', 'up.module_id')
-                    ->where('up.user_id', '=', $user->id)
-                    ->where('up.is_allowed', '=', 1); // Only allowed modules
+                    ->where('up.user_id', $user->id)
+                    ->where('up.is_allowed', 1); // Only allowed modules
             })
-            ->select('m.id', 'm.parent', 'm.child', 'm.status')
+            ->select('m.id', 'm.parent', 'm.child', 'm.status','up.is_allowed')
             ->where('m.status', 1) // Only active modules
             ->get();
             }else{

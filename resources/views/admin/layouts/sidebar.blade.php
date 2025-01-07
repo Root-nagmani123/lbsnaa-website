@@ -522,6 +522,32 @@
             </li>
             @endif
             @php
+            $isManageUserAllowed = in_array('Screen Reader Access', array_column($permisson->toArray(), 'child')) ||
+            (Auth::check() && Auth::user()->user_type == 1);
+            @endphp
+
+            @if ($isManageUserAllowed)
+            <li class="menu-item">
+                <a href="{{ route('admin.screen_reader') }}" class="menu-link">
+                    <i class="material-icons menu-icon">chat</i>
+                    <span class="title">Screen Reader Access</span>
+                </a>
+            </li>
+            @endif
+            @php
+            $isManageUserAllowed = in_array('Feedback List', array_column($permisson->toArray(), 'child')) ||
+            (Auth::check() && Auth::user()->user_type == 1);
+            @endphp
+
+            @if ($isManageUserAllowed)
+            <li class="menu-item">
+                <a href="{{ route('admin.feedback_list') }}" class="menu-link">
+                    <i class="material-icons menu-icon">chat</i>
+                    <span class="title">Feedback List</span>
+                </a>
+            </li>
+            @endif
+            @php
             $isManageUserAllowed_p = in_array('Manage Media Center', array_column($permisson->toArray(), 'parent')) ||
             (Auth::check() && Auth::user()->user_type == 1);
             @endphp

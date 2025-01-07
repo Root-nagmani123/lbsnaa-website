@@ -411,6 +411,23 @@ public function footer_images_status_update(Request $request, $id)
 
         return response()->json(['success' => 'Status updated successfully.']);
     }
+    function screen_reader(){
+        $screenRender = DB::table('screenrender')->first();
+        // print_r($screenRender);die;
+        return view('admin.home.screenrender', compact('screenRender'));
+    }
+    function screen_reader_update(Request $request){
+        DB::table('screenrender')->updateOrInsert(
+            ['id' => 1], // Ensure the single row
+            [
+                'heading' => $request->input('heading'),
+                'title' => $request->input('title'),
+                'description' => $request->input('description'),
+            ]
+        );
+    
+        return redirect()->back()->with('success', 'Screen render updated successfully!');
+    }
 
     
 }

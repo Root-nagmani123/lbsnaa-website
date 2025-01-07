@@ -38,7 +38,8 @@
                                                 <div class="d-flex align-items-center justify-content-between">
                                                     <div class="d-none d-xxl-block">
                                                         <div class="d-flex align-content-center">
-                                                            <h3>Viru</h3>
+                                                        @php $user = Auth::user(); @endphp
+                                                            <h3>{{ $user->name }}</h3>
                                                             <div class="down">
                                                                 <i data-feather="chevron-down"></i>
                                                             </div>
