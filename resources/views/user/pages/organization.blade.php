@@ -57,7 +57,42 @@
 
 
 
+
+
+
 <style>
+    .org-chart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.level {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.card {
+    background-color: #2c2c3e;
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 10px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    min-width: 150px;
+    max-width: 200px;
+}
+
+.line {
+    width: 2px;
+    height: 20px;
+    background-color: #444;
+    margin: 0 auto;
+}
+
 .org-chart {
     display: flex;
     flex-direction: column;
