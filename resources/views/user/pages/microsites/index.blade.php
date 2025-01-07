@@ -26,22 +26,17 @@
         <div class="row">
             <!-- Slider Section -->
             <div class="col-12 col-lg-9 mb-4">
-                <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
-                    <div class="carousel-indicators">
-                        @foreach ($sliders as $i => $slider)
-                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ $i }}"
-                            class="{{ $i == 0 ? 'active' : '' }}" aria-label="{{ $slider->slider_text }}"></button>
-                        @endforeach
-                    </div>
+                <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel"
+                    data-bs-interval="3000">
                     <div class="carousel-inner">
                         @foreach ($sliders as $key => $slider)
                         <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
                             <img src="{{ asset('storage/' . $slider->slider_image) }}" class="d-block img-fluid"
                                 alt="{{ $slider->slider_text }}"
                                 style="width: 100%; height: 400px; object-fit: cover; border-radius: 10px;">
-                                <!-- <div class="carousel-caption d-none d-md-block">
-                <h3 class="text-white">{{ $slider->slider_text }}</h3>
-            </div> -->
+                            <div class="carousel-caption d-none d-md-block">
+                                <h3 class="text-white slider-caption">{{ $slider->slider_text }}</h3>
+                            </div>
                         </div>
                         @endforeach
                     </div>
@@ -57,6 +52,7 @@
                     </button>
                 </div>
             </div>
+
 
             <!-- What's New Section -->
             <div class="col-12 col-lg-3 mb-4">
@@ -106,7 +102,8 @@
             <!-- Research Centres -->
             <div class="col-12 col-lg-9 mb-4">
                 @foreach($research_centres as $research_centre)
-                <h2 class="text-danger text-center uppercase">{{($research_centre->home_title) }} <br><span><img src="{{ asset('assets/images/devider.png') }}" alt=""></span></h2>
+                <h2 class="text-danger text-center uppercase">{{($research_centre->home_title) }} <br><span><img
+                            src="{{ asset('assets/images/devider.png') }}" alt=""></span></h2>
                 <p style="text-align: justify;" class="mb-4">{{ strip_tags($research_centre->description) }}</p>
                 @endforeach
 

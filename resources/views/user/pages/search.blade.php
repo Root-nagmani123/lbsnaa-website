@@ -12,7 +12,7 @@
                             <a href="{{ route('home')}}" style="color: #af2910;">Home</a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="#" style="color: #af2910;">search</a>
+                            <a href="#" style="color: #af2910;">Search</a>
                         </li>
                     </ol>
                 </nav>
@@ -24,7 +24,7 @@
     <div class="container-fluid">
         <div class="card p-3">
             <div class="d-flex justify-content-between align-items-center pb-20 mb-20 mb-2">
-                <h2 class="fw-semibold fs-18 mb-0">search</h2>
+                <h2 class="fw-semibold fs-18 mb-0">Search</h2>
             </div>
             <script async src="https://cse.google.com/cse.js?cx=92ab3f09e86df4584"></script>
     <style>

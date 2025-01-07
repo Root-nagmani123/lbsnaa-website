@@ -29,6 +29,28 @@
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
 
   <title>Research Center | Lal Bahadur Shastri National Academy of Administration</title>
+  <style>
+         .slider-caption {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width: 100%;
+    height: 100%; /* Cover the full height of the carousel */
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+    color: #fff;
+    font-weight: 600;
+    font-size: 100%;
+    line-height: 135%;
+    padding: 10px;
+    display: flex; /* Use flexbox for centering */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+    </style>
 
 </head>
 

@@ -3,13 +3,13 @@
 <!-- Page Content -->
 <!-- slider start -->
 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
-    <div class="carousel-indicators">
+    <!-- <div class="carousel-indicators">
         @foreach($sliders as $i => $slider)
         <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ $i }}"
             class="{{ $i == 0 ? 'active' : '' }}" aria-current="{{ $i == 0 ? 'true' : 'false' }}"
             aria-label="{{ $slider->text }}"></button>
         @endforeach
-    </div>
+    </div> -->
 
     <!-- Dynamic Slider -->
     <div class="carousel-inner">
