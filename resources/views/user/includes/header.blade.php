@@ -20,28 +20,49 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="{{ asset('assets/js/orgchart.js') }}"></script>
     <title>Home | Lal Bahadur Shastri National Academy of Administration</title>
+    <style>
+         .slider-caption {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width: 100%;
+    height: 100%; /* Cover the full height of the carousel */
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+    color: #fff;
+    font-weight: 600;
+    font-size: 100%;
+    line-height: 135%;
+    padding: 10px;
+    display: flex; /* Use flexbox for centering */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+    </style>
 </head>
 
 <body class="d-flex flex-column min-vh-100 bg-white">
-    <div class="container-fluid">
+    <div class="container-fluid bg-light">
         <ul class="nav justify-content-end py-1">
             <li class="nav-item">
                 <a class="nav-link" aria-current="page" href="#news"><i
                         class="material-icons menu-icon">restart_alt</i></a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"><i class="material-icons menu-icon">volume_up</i></a>
+            </li>
             <li class="nav-item dropdown">
-            <a  class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" ><i class="material-icons menu-icon">accessible</i></a>
-                   <ul class="dropdown-menu">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="material-icons menu-icon">accessible</i></a>
+                <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="javascript:void(0);" title="Increase font size"
                             onclick="set_font_size('increase')">A<sup>+</sup></a></li>
                     <li><a class="dropdown-item" href="javascript:void(0);" title="Reset font size" onclick="set_font_size('')">A</a></li>
                     <li><a class="dropdown-item" href="javascript:void(0);" title="Decrease font size"
                             onclick="set_font_size('decrease')">A<sup>-</sup></a></li>
                 </ul>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="{{ route('user.screen-reader')}}"><i class="material-icons menu-icon">volume_up</i></a>
-             
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="material-icons menu-icon">group</i></a>

@@ -13,16 +13,16 @@
 
     <!-- Dynamic Slider -->
     <div class="carousel-inner">
-        @foreach($sliders as $key => $slider)
-        <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
-            <img src="{{ asset('slider-images/' . $slider->image) }}" class="d-block w-100 img-fluid"
-                alt="{{ $slider->text }}" style="object-fit: cover;">
-            <div class="carousel-caption d-none d-md-block">
-                <h3 class="text-white">{{ $slider->text }}</h3>
-            </div>
+    @foreach($sliders as $key => $slider)
+    <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+        <img src="{{ asset('slider-images/' . $slider->image) }}" class="d-block img-fluid" alt="{{ $slider->text }}">
+        <div class="carousel-caption">
+            <h3 class="text-center slider-caption">{{ $slider->text }}</h3>
         </div>
-        @endforeach
     </div>
+    @endforeach
+</div>
+
 
     <!-- Carousel Controls -->
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
@@ -33,11 +33,6 @@
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
     </button>
-
-    <!-- Play/Pause Button -->
-    <!-- <button id="playPauseBtn1" class="btn btn-secondary mt-2" style="position: absolute; bottom: 20px; right: 20px;">
-        <i class="material-icons menu-icon">pause</i>
-    </button> -->
 </div>
 
 <!-- floating notification start -->
