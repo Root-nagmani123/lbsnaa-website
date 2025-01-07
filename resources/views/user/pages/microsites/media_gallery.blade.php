@@ -79,7 +79,7 @@
                         <h5 class="card-title">{{ $gallery->image_title_english }}</h5>
                         <p class="card-text">{{ $gallery->image_title_hindi }}</p>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
         @endforeach

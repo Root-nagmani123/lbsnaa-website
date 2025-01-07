@@ -67,7 +67,7 @@
     </nav>
     <nav class="navbar navbar-expand-lg">
         <!-- Collapse -->
-        <div class="collapse navbar-collapse" id="navbar-default">
+        <!-- <div class="collapse navbar-collapse" id="navbar-default">
             <ul class="navbar-nav mx-auto">
                 @php
                     $menus = DB::table('micromenus')
@@ -98,7 +98,60 @@
                     </li>
                 @endforeach
             </ul>
-        </div>
+        </div> -->
+
+
+
+        <div class="collapse navbar-collapse" id="navbar-default">
+    <ul class="navbar-nav mx-auto">
+        @php
+            // URL se slug ko fetch karte hain (Path ya Query se)
+            $slug = request()->route('slug') ?: request()->query('slug');
+            
+            // Agar slug available ho toh query run karein
+            if ($slug) {
+                $menus = DB::table('micromenus')
+                    ->join('research_centres', 'micromenus.research_centreid', '=', 'research_centres.id')
+                    ->where('micromenus.menu_status', 1)
+                    ->where('micromenus.is_deleted', 0)
+                    ->where('micromenus.parent_id', 0)
+                    ->where('research_centres.research_centre_slug', $slug)
+                    ->select('micromenus.*')
+                    ->get();
+            } else {
+                // Agar slug nahi hai, default menu fetch karein
+                $menus = DB::table('micromenus')
+                    ->where('menu_status', 1)
+                    ->where('is_deleted', 0)
+                    ->where('parent_id', 0)
+                    ->get();
+            }
+        @endphp
+
+        @foreach ($menus as $menu)
+            @php
+                // Check if menu has child items
+                $arrow = DB::table('micromenus')
+                    ->where('menu_status', 1)
+                    ->where('is_deleted', 0)
+                    ->where('parent_id', $menu->id)
+                    ->exists();
+                $class = $arrow ? 'nav-link dropdown-toggle' : 'nav-link';
+            @endphp
+            <li class="nav-item dropdown">
+                <a class="{{ $class }}"
+                    href="{{ $menu->menutitle == 'Research Center' ? '#' : route('user.navigationmenubyslug', $menu->menu_slug) }}"
+                    {{ $arrow ? 'data-bs-toggle=dropdown aria-haspopup=true aria-expanded=false' : '' }}>
+                    {{ $menu->menutitle }}
+                </a>
+                {!! renderMicroMenuItems($menu->id) !!}
+            </li>
+        @endforeach
+    </ul>
+</div>
+
+
+
 
     </nav>
 </header>
