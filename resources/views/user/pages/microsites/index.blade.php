@@ -172,9 +172,10 @@ height: 300px; background-size: content; background-position: center; border-rad
                     <div class="card-header" style="background-color: #af2910;">
                         <h5 class="text-white">Quick Links</h5>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body"> 
                         <ul class="mt-2 mb-2 list-group list-group-flush">
                             @foreach($quickLinks as $link)
+                            <!-- dd($link); -->
                             <li class="text-start list-group-item">
                                 @if($link->website_url)
                                 <!-- For website URL -->

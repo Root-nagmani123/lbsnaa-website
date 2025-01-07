@@ -21,12 +21,19 @@ class HomePagesMicroController extends Controller
             ->where('research_centres.research_centre_slug', $slug)  // Filter by the slug
             ->select('photo_gallery.*', 'research_centres.*')  // Select all columns from both tables
             ->get();
-        
         // Fetch courses (if needed)
         $courses = DB::table('course')->select('id', 'course_name')->get();
+
+        $categorys = DB::table('micro_media_categories as mc')
+            ->join('research_centres as rc', 'mc.research_centre', '=', 'rc.id')
+            ->where('mc.status', 1) // Filter by status (active news)
+            ->where('rc.research_centre_slug', $slug) // Use the slug from the query string
+            ->select('mc.name','mc.id','category_image')
+            ->get();
+        // dd($categorys);
         
         // Pass data to the view
-        return view('user.pages.microsites.media_gallery', compact('photoGalleries', 'courses', 'slug'));
+        return view('user.pages.microsites.media_gallery', compact('photoGalleries', 'courses', 'slug', 'categorys'));
     }
 
     public function mediagallery(Request $request)
@@ -40,58 +47,18 @@ class HomePagesMicroController extends Controller
         $quickLinks = DB::table('micro_quick_links')->where('categorytype', 2)->where('status', 1)->get();
         return view('user.pages.microsites.mediagallery', compact('quickLinks', 'research_centre', 'slug'));
     }
-        
-
-
-    // public function filterGallery(Request $request)
-    // {
-    //     // Get filter inputs
-    //     $keyword = $request->input('keyword');
-    //     $category = $request->input('category');
-    //     $year = $request->input('year');
-
-    //     // Query for the gallery with filters
-    //     $photoGalleries = DB::table('micro_manage_photo_galleries')
-    //         ->join('course', 'course.id', '=', 'micro_manage_photo_galleries.course_id') // Join condition
-    //         ->select(
-    //             'micro_manage_photo_galleries.*',
-    //             'course.course_name as course_name', // Ensure this matches the actual column name in your table
-    //             'course.description as course_description'
-    //         )
-
-    //         ->when($keyword, function ($query, $keyword) {
-    //             return $query->where(function ($q) use ($keyword) {
-    //                 $q->where('micro_manage_photo_galleries.image_title_english', 'like', "%$keyword%")
-    //                   ->orWhere('micro_manage_photo_galleries.image_title_hindi', 'like', "%$keyword%");
-    //             });
-    //         })
-            
-    //         ->when($category, function ($query, $category) {
-    //             return $query->where('micro_manage_photo_galleries.course_id', $category);
-    //         })
-    //         ->when($year, function ($query, $year) {
-    //             return $query->whereYear('micro_manage_photo_galleries.created_at', $year);
-    //         })
-    //         ->where('micro_manage_photo_galleries.status', 1)
-    //         ->get();
-
-    //     // Fetch all courses for the dropdown
-    //     $courses = DB::table('course')->select('id', 'course_name')->get();
-
-    //     // Pass the data to the view
-    //     return view('user.pages.microsites.media_gallery', compact('photoGalleries', 'courses'));
-    // }
 
     public function filterGallery(Request $request)
     {
+        // dd($request);
         // Get filter inputs
         $keyword = $request->input('keyword');
         $category = $request->input('category');
         $year = $request->input('year');
-        $slug = $request->query('slug');  // Get the 'slug' from the query string
+        $slug = $request->query('slug'); // Get the 'slug' from the query string
 
         // Query for the gallery with filters and slug
-        $photoGalleries = DB::table('micro_manage_photo_galleries')
+        $filterGallery = DB::table('micro_manage_photo_galleries')
             ->join('course', 'course.id', '=', 'micro_manage_photo_galleries.course_id') // Join condition
             ->join('research_centres', 'research_centres.id', '=', 'micro_manage_photo_galleries.research_centre') // Join with research_centres table
             ->select(
@@ -113,17 +80,18 @@ class HomePagesMicroController extends Controller
                 return $query->whereYear('micro_manage_photo_galleries.created_at', $year);
             })
             ->when($slug, function ($query, $slug) {
-                return $query->where('research_centres.research_centre_slug', $slug);  // Filter by the slug
+                return $query->where('research_centres.research_centre_slug', $slug); // Filter by the slug
             })
             ->where('micro_manage_photo_galleries.status', 1)
             ->get();
 
-        // Fetch all courses for the dropdown
-        $courses = DB::table('course')->select('id', 'course_name')->get();
-            dd($courses);
+           dd(filterGallery);
         // Pass the data to the view
-        return view('user.pages.microsites.media_gallery', compact('photoGalleries', 'courses'));
+        return view('user.pages.microsites.media_gallery', compact('filterGallery'));
     }
+
+    
+
 
     public function news(Request $request)
     {
@@ -187,10 +155,23 @@ class HomePagesMicroController extends Controller
         return view('user.pages.microsites.video_gallery', compact('videos', 'slug'));
     }
     
-    
+    public function show($id, Request $request)
+    {
+        $slug = $request->query('slug');
+        // $category = DB::table('micro_media_categories')->where('slug', $slug)->first();
 
+        $category = DB::table('micro_manage_photo_galleries as mmpg')
+        ->join('micro_media_categories as mmc', 'mmpg.media_categories', '=', 'mmc.id') // Adjust column names
+        ->where('mmpg.media_categories', $id) // Filter by ID
+        ->where('mmpg.status', 1)
+        ->select('mmpg.image_files', 'mmc.name') // Select all columns from media_categories and specific ones from categories
+        ->get();
 
+        // dd($category);
 
+        if (!$category) abort(404, 'Category not found.');
+        return view('user.pages.microsites.category_details', compact('category'));
+    }
 
 
 }

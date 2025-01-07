@@ -124,11 +124,18 @@ Route::get('/lbsnaa-subs/micromenu/{slug}', [HomeFrontmicroController::class, 'g
 
 // Indrajeet Home page dynamic
 Route::get('/lbsnaa-sub_n/media_gallery', [HomePagesMicroController::class,'media_gallery'])->name('user.media_gallery');
-Route::get('/photo-galleries/filterGallery', [HomePagesMicroController::class, 'filterGallery'])->name('photoGalleries.filterGallery');
+Route::get('/lbsnaa-sub_n/photo-galleries/filterGallery', [HomePagesMicroController::class, 'filterGallery'])->name('photoGalleries.filterGallery');
 Route::get('/lbsnaa-sub_n/news', [HomePagesMicroController::class, 'news'])->name('news');
 Route::get('/lbsnaa-sub_nn/news/{id}', [HomePagesMicroController::class, 'newsdetails'])->name('news.details');
 Route::get('/lbsnaa-sub_m/mediagallery', [HomePagesMicroController::class, 'mediagallery'])->name('mediagallery');
 Route::get('/lbsnaa-sub_v/video-gallery', [HomePagesMicroController::class, 'videoGallery'])->name('videoGallery');
+
+// Route for displaying category details
+// Route::get('/lbsnaa-sub_c/category/{id}', [HomePagesMicroController::class, 'show'])->name('category.details');
+// Route::get('/category/{slug}', [CategoryController::class, 'show'])->name('category.details');
+Route::get('/lbsnaa-sub_c/category/{id}/{slug}', [HomePagesMicroController::class, 'show'])->name('category.details');
+
+
 
 
 

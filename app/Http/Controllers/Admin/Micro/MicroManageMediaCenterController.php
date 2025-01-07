@@ -30,7 +30,7 @@ class MicroManageMediaCenterController extends Controller
 
         // Passing both categories and researchCentres to the view
         return view('admin.micro.manage_media_center.manage_categories.index', compact('categories', 'researchCentres'));
-
+ 
     }
 
 
