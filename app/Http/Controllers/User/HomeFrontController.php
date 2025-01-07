@@ -786,6 +786,7 @@ private function buildMenuTree($parentId = null)
         $tree[] = [
             'id' => $menu->id,
             'title' => $menu->menutitle,
+            'menu_slug' => $menu->menu_slug,
             'children' => $this->buildMenuTree($menu->id), // Recursive call
         ];
     }

@@ -39,7 +39,7 @@
                      data-bs-target="#staticBackdrop" data-name="{{ $node->name }}"
                      data-image="{{ asset($node->image) }}" data-designation="{{ $node->designation }}"
                      data-email="{{ $node->email }}" data-phone="{{ $node->phone_pt_office }}"
-                     data-description="{{ $node->description }}">
+                     data-description="<?= $node->description ?>">
                      Bio Data
                  </button>
 
