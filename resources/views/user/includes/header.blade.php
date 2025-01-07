@@ -52,7 +52,7 @@
                         class="material-icons menu-icon">restart_alt</i></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('user.screen-reader')}}"><i class="material-icons menu-icon">volume_up</i></a>
+                <a class="nav-link" href="#"><i class="material-icons menu-icon">volume_up</i></a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="material-icons menu-icon">accessible</i></a>

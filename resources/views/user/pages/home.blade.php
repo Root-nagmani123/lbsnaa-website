@@ -2,10 +2,10 @@
 
 <!-- Page Content -->
 <!-- slider start -->
-<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
     <div class="carousel-indicators">
         @foreach($sliders as $i => $slider)
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ $i }}"
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{$i}}"
             class="{{ $i == 0 ? 'active' : '' }}" aria-current="{{ $i == 0 ? 'true' : 'false' }}"
             aria-label="{{ $slider->text }}"></button>
         @endforeach
@@ -13,15 +13,16 @@
 
     <!-- Dynamic Slider -->
     <div class="carousel-inner">
-        @foreach($sliders as $key => $slider)
-        <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
-            <img src="{{ asset('slider-images/' . $slider->image) }}" class="d-block img-fluid" alt="{{ $slider->text }}">
-            <div class="carousel-caption">
-                <h3 class="text-center slider-caption">{{ $slider->text }}</h3>
-            </div>
+    @foreach($sliders as $key => $slider)
+    <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+        <img src="{{ asset('slider-images/' . $slider->image) }}" class="d-block img-fluid" alt="{{ $slider->text }}">
+        <div class="carousel-caption">
+            <h3 class="text-center slider-caption">{{ $slider->text }}</h3>
         </div>
-        @endforeach
     </div>
+    @endforeach
+</div>
+
 
     <!-- Carousel Controls -->
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
@@ -33,7 +34,6 @@
         <span class="visually-hidden">Next</span>
     </button>
 </div>
-
 
 <!-- floating notification start -->
 <section class="py-3">
