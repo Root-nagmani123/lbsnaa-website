@@ -126,9 +126,13 @@
             </ul>
         </div> -->
 
-
-
         <div class="collapse navbar-collapse" id="navbar-default">
+
+
+
+
+
+
         <ul class="navbar-nav mx-auto">
     @php
         // URL se slug ko fetch karte hain (Path ya Query se)
@@ -156,7 +160,7 @@
 
     @foreach ($menus as $menu)
         @php
-            // Check if menu has child items
+            // Fetch child menus for the current menu
             $childMenus = DB::table('micromenus')
                 ->where('menu_status', 1)
                 ->where('is_deleted', 0)
@@ -165,11 +169,14 @@
 
             $arrow = $childMenus->isNotEmpty();
             $class = $arrow ? 'nav-link dropdown-toggle' : 'nav-link';
+
+            // Generate the base slug for the parent menu
+            $baseSlug = urlencode($slug ?: $menu->menu_slug);
         @endphp 
 
         <li class="nav-item dropdown">
             <a class="{{ $class }}"
-                href="{{ $menu->menu_slug ? route('user.navigationmenubyslug', $menu->menu_slug) . '?slug=' . urlencode($menu->menu_slug) : '#' }}"
+                href="{{ route('user.navigationmenubyslug', $menu->menu_slug) . '?slug=' . $baseSlug }}"
                 {{ $arrow ? 'data-bs-toggle=dropdown aria-haspopup=true aria-expanded=false' : '' }}>
                 {{ $menu->menutitle }}
             </a>
@@ -179,7 +186,7 @@
                     @foreach ($childMenus as $child)
                         <li>
                             <a class="dropdown-item"
-                                href="{{ route('user.navigationmenubyslug', $child->menu_slug) . '?slug=' . urlencode($child->menu_slug) }}">
+                                href="{{ route('user.navigationmenubyslug', $child->menu_slug) . '?slug=' . $baseSlug }}">
                                 {{ $child->menutitle }}
                             </a>
                         </li>
@@ -190,10 +197,17 @@
     @endforeach
 </ul>
 
-</div>
 
 
 
 
+
+
+
+
+
+
+
+        </div>
     </nav>
 </header>
