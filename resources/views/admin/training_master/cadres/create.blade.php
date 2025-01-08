@@ -45,7 +45,7 @@
                                 <label class="label" for="code">Cadres Code :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="code"
+                                    <input type="text" class="form-control text-dark  h-58" name="code"
                                         id="code" value="{{ old('code') }}">
                                     @error('code')
                                         <div style="color: red;">{{ $message }}</div>
@@ -61,7 +61,7 @@
                                 <label class="label" for="description">Cadres Desc :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="description"
+                                    <input type="text" class="form-control text-dark  h-58" name="description"
                                         id="description" value="{{ old('description') }}">
                                     @error('description')
                                         <div style="color: red;">{{ $message }}</div>
@@ -77,7 +77,7 @@
                                 <label class="label" for="texttype">Status :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="status" id="status">
+                                    <select class="form-select form-control  h-58" name="status" id="status">
                                     <option value="" class="text-dark" selected>Select</option>
                                         <option value="1" class="text-dark" {{ old('status') == '1' ? 'checked' : '' }}>Active</option>
                                         <option value="0" class="text-dark" {{ old('status') == '0' ? 'checked' : '' }}>Inactive</option>

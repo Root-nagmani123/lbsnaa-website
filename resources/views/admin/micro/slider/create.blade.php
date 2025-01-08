@@ -54,7 +54,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <select name="research_centre" id="research_centre_id"
-                                        class="form-control text-dark ps-5 h-58">
+                                        class="form-control text-dark  h-58">
                                         <option value="">Select Research Centre</option>
                                         @foreach ($researchCentres as $id => $name)
                                         <option value="{{ $id }}" {{ old('research_centre') == $id ? 'selected' : '' }}>
@@ -74,7 +74,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="file" name="slider_image" id="slider_image"
-                                        class="form-control text-dark ps-5 h-58" value="{{ old('slider_image') }}">
+                                        class="form-control text-dark  h-58" value="{{ old('slider_image') }}">
                                         <span class="star">Best Size for banner is : 1,365px × 475px</span>
                                     @error('slider_image')
                                     <div class="text-danger">{{ $message }}</div>
@@ -88,7 +88,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" name="slider_text" id="slider_text"
-                                        class="form-control text-dark ps-5 h-58" value="{{ old('slider_text') }}">
+                                        class="form-control text-dark  h-58" value="{{ old('slider_text') }}">
                                     @error('slider_text')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -112,7 +112,7 @@
                                 <label for="status" class="label">Status</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select name="status" id="status" class="form-control text-dark ps-5 h-58">
+                                    <select name="status" id="status" class="form-control text-dark  h-58">
                                         <option value="" selected>Select Status</option>
                                         <option value="1" {{ old('status') == '1' ? 'selected' : '' }}>Active</option>
                                         <option value="0" {{ old('status') == '0' ? 'selected' : '' }}>Inactive</option>

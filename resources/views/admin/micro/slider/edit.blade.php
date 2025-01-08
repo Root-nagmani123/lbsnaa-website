@@ -46,7 +46,7 @@
                                 <label class="label" for="research_centre">Select Research Centre:</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="research_centre"
+                                    <select class="form-select form-control  h-58" name="research_centre"
                                         id="research_centre" required>
                                         <option value="" disabled
                                             {{ is_null($slider->research_centre) ? 'selected' : '' }}>
@@ -68,7 +68,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="file" name="slider_image" id="slider_image"
-                                        class="form-control text-dark ps-5 h-58">
+                                        class="form-control text-dark  h-58">
                                     <span class="star">Best Size for banner is : 1,365px × 475px</span>
                                     <img src="{{ asset('storage/' . $slider->slider_image) }}" alt="Current Image"
                                         width="150" class="mt-2">
@@ -81,7 +81,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" name="slider_text" id="slider_text"
-                                        class="form-control text-dark ps-5 h-58" value="{{ $slider->slider_text }}"
+                                        class="form-control text-dark  h-58" value="{{ $slider->slider_text }}"
                                         required>
                                 </div>
 
@@ -93,7 +93,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <textarea name="slider_description" id="slider_description"
-                                        class="form-control text-dark ps-5 h-58"
+                                        class="form-control text-dark  h-58"
                                         required>{{ $slider->slider_description }}</textarea>
                                 </div>
                             </div>
@@ -103,7 +103,7 @@
                                 <label for="status" class="label">Status </label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select name="status" id="status" class="form-control text-dark ps-5 h-58" required>
+                                    <select name="status" id="status" class="form-control text-dark  h-58" required>
                                         <option value="1" {{ $slider->status == '1' ? 'selected' : '' }}>Active</option>
                                         <option value="0" {{ $slider->status == '0' ? 'selected' : '' }}>Inactive
                                         </option>

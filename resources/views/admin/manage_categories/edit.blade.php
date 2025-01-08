@@ -37,7 +37,7 @@
                                 <label class="label" for="media_gallery">Media Gallery :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="media_gallery"
+                                    <select class="form-select form-control  h-58" name="media_gallery"
                                         id="media_gallery">
                                         <option value="Photo Gallery" class="text-dark"
                                             {{ $category->media_gallery == 'Photo Gallery' ? 'selected' : '' }}>Photo
@@ -54,7 +54,7 @@
                                 <label class="label" for="name">Name :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="name" id="name"
+                                    <input type="text" class="form-control text-dark  h-58" name="name" id="name"
                                         value="{{ old('name', $category->name) }}">
                                     @error('name')
                                         <div class="text-danger">{{ $message }}</div>
@@ -67,7 +67,7 @@
                                 <label class="label" for="hindi_name">Hindi Name :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="hindi_name"
+                                    <input type="text" class="form-control text-dark  h-58" name="hindi_name"
                                         id="hindi_name" value="{{ old('hindi_name', $category->hindi_name) }}">
                                     @error('hindi_name')
                                         <div class="text-danger">{{ $message }}</div>
@@ -80,7 +80,7 @@
                                 <label class="label" for="category_image">Category Image:</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="file" class="form-control text-dark ps-5 h-58" name="category_image" id="category_image" accept="image/*">
+                                    <input type="file" class="form-control text-dark  h-58" name="category_image" id="category_image" accept="image/*">
                                     @error('category_image')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror 
@@ -96,7 +96,7 @@
                                 <label class="label" for="status">Status :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="status" id="status">
+                                    <select class="form-select form-control  h-58" name="status" id="status">
                                         <option value="1" class="text-dark"
                                             {{ $category->status == '1' ? 'selected' : '' }}>Active</option>
                                         <option value="0" class="text-dark"

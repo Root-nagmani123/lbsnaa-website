@@ -4,7 +4,6 @@
 
 @section('content')
 <div class="d-sm-flex text-center justify-content-between align-items-center mb-4">
-    <h3 class="mb-sm-0 mb-1 fs-18">Manage User Management</h3>
     <ul class="ps-0 mb-0 list-unstyled d-flex justify-content-center">
         <li>
             <a href="{{ route('admin.index') }}" class="text-decoration-none">
@@ -106,7 +105,7 @@
                                 <label for="parent" class="label">Module</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select name="parent" id="parent" class="form-control text-dark ps-5 h-58">
+                                    <select name="parent" id="parent" class="form-control text-dark  h-58">
                                         <option value="0" selected>Select Module</option>
                                         <option value="User Management">User Management</option>
                                         <option value="Manage CMS">Manage CMS</option>
@@ -146,7 +145,7 @@
                                 <label for="child" class="label">Sub-module</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select name="child" id="child" class="form-control text-dark ps-5 h-58">
+                                    <select name="child" id="child" class="form-control text-dark  h-58">
                                         <option value="" selected>Select Sub-Module</option>
                                         <!-- Options will be populated dynamically based on the parent selection -->
                                     </select>
@@ -159,7 +158,7 @@
                                 <label for="status" class="label">Status</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select name="status" id="status" class="form-control text-dark ps-5 h-58">
+                                    <select name="status" id="status" class="form-control text-dark  h-58">
                                         <option value="" selected>Select Status</option>
                                         <option value="1">Active</option>
                                         <option value="0">Inactive</option>

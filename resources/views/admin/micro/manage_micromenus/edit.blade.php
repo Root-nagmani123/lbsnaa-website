@@ -52,7 +52,7 @@
                                 <label class="label" for="research_centre">Select Research Centre :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="research_centre"
+                                    <select class="form-select form-control  h-58" name="research_centre"
                                         id="research_centre">
                                         <option value="" {{ is_null($menu->research_centreid) ? 'selected' : '' }}>
                                             Select
@@ -76,7 +76,7 @@
                                 <label class="label" for="menutitle">Menu Title :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="menutitle"
+                                    <input type="text" class="form-control text-dark  h-58" name="menutitle"
                                         id="menutitle" value="{{ $menu->menutitle }}">
                                     @error('menutitle')
                                     <div class="text-danger">{{ $message }}</div>
@@ -89,7 +89,7 @@
                                 <label class="label" for="texttype">Menu Type :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58"
+                                    <select class="form-select form-control  h-58"
                                         aria-label="Default select example" name="texttype" id="texttype"
                                         autocomplete="off" onchange="addmenutype(this.value)" required>
                                         <option class="text-dark">Select</option>
@@ -113,7 +113,7 @@
                                         <label class="label" for="content">Content :</label>
                                         <span class="star">*</span>
                                         <div class="form-group position-relative">
-                                            <textarea class="form-control ps-5 text-dark"
+                                            <textarea class="form-control  text-dark"
                                                 placeholder="Some demo text ... " cols="30" rows="5" name="content"
                                                 id="content">{{ $menu->content }}</textarea>
                                             @error('content')
@@ -128,7 +128,7 @@
                                             <label class="label" for="meta_title">Meta Title:</label>
                                             <span class="star">*</span>
                                             <div class="form-group position-relative">
-                                                <input type="text" class="form-control text-dark ps-5 h-58"
+                                                <input type="text" class="form-control text-dark  h-58"
                                                     name="meta_title" id="meta_title" value="{{ $menu->meta_title }}">
                                                 @error('meta_title')
                                                 <div class="text-danger">{{ $message }}</div>
@@ -141,7 +141,7 @@
                                             <label class="label" for="meta_keyword">Meta Keyword :</label>
                                             <span class="star">*</span>
                                             <div class="form-group position-relative">
-                                                <input type="text" class="form-control text-dark ps-5 h-58"
+                                                <input type="text" class="form-control text-dark  h-58"
                                                     name="meta_keyword" id="meta_keyword"
                                                     value="{{ $menu->meta_keyword }}">
                                                 @error('meta_keyword')
@@ -156,7 +156,7 @@
                                         <label class="label" for="meta_description">Meta Description :</label>
                                         <span class="star">*</span>
                                         <div class="form-group position-relative">
-                                            <textarea class="form-control ps-5 text-dark"
+                                            <textarea class="form-control  text-dark"
                                                 placeholder="Some demo text ... " cols="30" rows="5"
                                                 name="meta_description"
                                                 id="meta_description">{{ $menu->meta_description }}</textarea>
@@ -197,7 +197,7 @@
                                         <label class="label" for="website_url">Website URL:</label>
                                         <span class="star">*</span>
                                         <div class="form-group position-relative">
-                                            <input type="text" class="form-control text-dark ps-5 h-58"
+                                            <input type="text" class="form-control text-dark  h-58"
                                                 name="website_url" id="website_url" value="{{ $menu->website_url }}">
                                             @error('website_url')
                                             <div class="text-danger">{{ $message }}</div>
@@ -210,7 +210,7 @@
                                         <label class="label" for="web_site_target">Web Site Target :</label>
                                         <span class="star">*</span>
                                         <div class="form-group position-relative">
-                                            <select class="form-select form-control ps-5 h-58" name="web_site_target"
+                                            <select class="form-select form-control  h-58" name="web_site_target"
                                                 id="web_site_target" autocomplete="off">
                                                 <option class="text-dark"
                                                     {{ $menu->menucategory == 0 ? 'selected' : '' }}>
@@ -230,7 +230,7 @@
                                 <label class="label" for="menucategory">Primary Link :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="menucategory"
+                                    <select class="form-select form-control  h-58" name="menucategory"
                                         id="menucategory" autocomplete="off">
                                         <option value="0" selected class="text-dark">It is Root Category</option>
                                         {!! $menuOptions !!}
@@ -246,7 +246,7 @@
                                 <label class="label" for="txtpostion">Content Position :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" id="txtpostion"
+                                    <select class="form-select form-control  h-58" id="txtpostion"
                                         name="txtpostion">
                                         <option class="text-dark">Select</option>
                                         <option value="1" class="text-dark"
@@ -278,7 +278,7 @@
                                         <label class="label" for="start_date">Start Date:</label>
                                         <span class="star">*</span>
                                         <div class="form-group position-relative">
-                                            <input type="date" class="form-control text-dark ps-5 h-58"
+                                            <input type="date" class="form-control text-dark  h-58"
                                                 name="start_date" id="start_date" value="{{ $menu->start_date }}">
                                             @error('start_date')
                                             <div class="text-danger">{{ $message }}</div>
@@ -291,7 +291,7 @@
                                         <label class="label" for="termination_date">Termination Date :</label>
                                         <span class="star">*</span>
                                         <div class="form-group position-relative">
-                                            <input type="text" class="form-control text-dark ps-5 h-58"
+                                            <input type="text" class="form-control text-dark  h-58"
                                                 name="termination_date" id="termination_date"
                                                 value="{{ $menu->termination_date }}">
                                             @error('termination_date')
@@ -307,7 +307,7 @@
                                 <label class="label" for="menu_status">Status :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" id="menu_status"
+                                    <select class="form-select form-control  h-58" id="menu_status"
                                         name="menu_status">
                                         <option class="text-dark">Select</option>
                                         <option value="1" class="text-dark"

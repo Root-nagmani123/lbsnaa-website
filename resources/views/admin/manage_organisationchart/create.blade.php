@@ -50,7 +50,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <select name="parentcategory" id="parentcategory"
-                                        class="form-select form-control ps-5 h-58">
+                                        class="form-select form-control  h-58">
                                         <option value="">Select Employee</option>
                                         @foreach ($records as $record)
                                         <option value={{ $record->id }} {{ $record->id == $organisation_chart->employee_name ? 'selected' : '' }}>{{ $record->name }}</option>
@@ -69,9 +69,9 @@
                                 <label class="label" for="menutitle">Select Category :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <!-- <input type="text" id="employee_name" name="employee_name" autocomplete="" class="form-control text-dark ps-5 h-58"> -->
+                                    <!-- <input type="text" id="employee_name" name="employee_name" autocomplete="" class="form-control text-dark  h-58"> -->
                                     <select name="employee_name" id="employee_name"
-                                        class="form-select form-control ps-5 h-58">
+                                        class="form-select form-control  h-58">
                                         <option value="" class="text-dark">Select </option>
                                         @foreach ($records as $record)
                                         <option value={{ $record->id }}>{{ $record->name }}</option>
@@ -89,7 +89,7 @@
                             <div class="form-group mb-4">
                                 <label class="label">Page Status:</label>
                                 <span class="star">*</span>
-                                <select name="status" class="form-select form-control ps-5 h-58">
+                                <select name="status" class="form-select form-control  h-58">
                                     <option value="" class="text-dark" selected>Select</option>
                                     <option value="1" class="text-dark">Active</option>
                                     <option value="0" class="text-dark">Inactive</option>

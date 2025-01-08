@@ -113,7 +113,7 @@
                         class="card border shadow-sm text-center" style="width: 200px;">
                         <div class="card-body">
                             <img src="{{ asset('assets/images/image (2).png') }}" alt="Gallery" class="img-fluid">
-                            <h6 class="mt-3">Photo Gallery</h6>
+                            <h6 class="mt-3">Gallery</h6>
                         </div>
                     </a>
                     @endforeach

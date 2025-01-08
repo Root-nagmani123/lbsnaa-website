@@ -40,7 +40,7 @@
                                 <label class="label" for="category_name">Category Name :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="category_name" id="category_name">
+                                    <select class="form-select form-control  h-58" name="category_name" id="category_name">
                                         <option value="" class="text-dark">Select</option>
                                         <option value="Audio" class="text-dark"  {{ old('category_name') == 'Audio' ? 'selected' : '' }}>Audio</option>
                                     </select>
@@ -55,7 +55,7 @@
                                 <label class="label" for="audio_title_en">Audio Title (English) :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="audio_title_en"
+                                    <input type="text" class="form-control text-dark  h-58" name="audio_title_en"
                                         id="audio_title_en" value="{{ old('audio_title_en') }}">
                                     @error('audio_title_en')
                                         <div class="text-danger">{{ $message }}</div>
@@ -68,7 +68,7 @@
                                 <label class="label" for="audio_title_hi">Audio Title (Hindi) :</label>
                                 
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="audio_title_hi"
+                                    <input type="text" class="form-control text-dark  h-58" name="audio_title_hi"
                                         id="audio_title_hi"  value="{{ old('audio_title_hi') }}">
                                 </div>
                             </div>
@@ -78,7 +78,7 @@
                                 <label class="label" for="audio_upload">Audio Upload (.mp3 only) :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="file" class="form-control text-dark ps-5 h-58" name="audio_upload"
+                                    <input type="file" class="form-control text-dark  h-58" name="audio_upload"
                                         id="audio_upload" accept=".mp3"  value="{{ old('audio_upload') }}">
                                     @error('audio_upload')
                                         <div class="text-danger">{{ $message }}</div>
@@ -91,7 +91,7 @@
                                 <label class="label" for="page_status">Page Status :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="page_status" id="page_status">
+                                    <select class="form-select form-control  h-58" name="page_status" id="page_status">
                                         <option value="" class="text-dark" selected>Select</option>
                                         <option value="1" class="text-dark" {{ old('page_status') == '1' ? 'selected' : '' }}>Active</option>
                                         <option value="0" class="text-dark" {{ old('page_status') == '0' ? 'selected' : '' }}>Inactive</option>

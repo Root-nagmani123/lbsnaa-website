@@ -51,7 +51,7 @@
                             <span class="star">*</span>
                             <div class="form-group position-relative">
                                 <select name="research_centre" id="research_centre_id"
-                                    class="form-control text-dark ps-5 h-58">
+                                    class="form-control text-dark  h-58">
                                     <option value="">Select Research Centre</option>
                                     @foreach ($researchCentres as $id => $name)
                                     <option value="{{ $id }}" {{ old('research_centre') == $id ? 'selected' : '' }}>
@@ -70,7 +70,7 @@
                             <label for="program_name" class="label">Program Name</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
-                                <input type="text" name="program_name" class="form-control text-dark ps-5 h-58"
+                                <input type="text" name="program_name" class="form-control text-dark  h-58"
                                     value="{{ old('program_name') }}">
                                 @error('program_name')
                                 <div class="text-danger">{{ $message }}</div>
@@ -84,7 +84,7 @@
                             <label for="venue" class="label">Venue</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
-                                <input type="text" name="venue" class="form-control text-dark ps-5 h-58"
+                                <input type="text" name="venue" class="form-control text-dark  h-58"
                                     value="{{ old('venue') }}">
                                 @error('venue')
                                 <div class="text-danger">{{ $message }}</div>
@@ -97,7 +97,7 @@
                         <div class="form-group mb-4">
                             <label for="program_coordinator" class="label">Program Coordinator</label>
                             <div class="form-group position-relative">
-                                <input type="text" name="program_coordinator" class="form-control text-dark ps-5 h-58"
+                                <input type="text" name="program_coordinator" class="form-control text-dark  h-58"
                                     value="{{ old('program_coordinator') }}">
                             </div>
 
@@ -108,7 +108,7 @@
                             <label for="program_description" class="label">Program Description</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
-                                <input type="text" name="program_description" class="form-control text-dark ps-5 h-58"
+                                <input type="text" name="program_description" class="form-control text-dark  h-58"
                                     value="{{ old('program_description') }}" id="program_description">
                                 @error('program_description')
                                 <div class="text-danger">{{ $message }}</div>
@@ -122,7 +122,7 @@
                             <label for="start_date" class="label">Start Date</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
-                                <input type="date" name="start_date" class="form-control text-dark ps-5 h-58"
+                                <input type="date" name="start_date" class="form-control text-dark  h-58"
                                     value="{{ old('start_date') }}">
                                 @error('start_date')
                                 <div class="text-danger">{{ $message }}</div>
@@ -136,7 +136,7 @@
                             <label for="end_date" class="label">End Date</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
-                                <input type="date" name="end_date" class="form-control text-dark ps-5 h-58"
+                                <input type="date" name="end_date" class="form-control text-dark  h-58"
                                     value="{{ old('end_date') }}">
                                 @error('end_date')
                                 <div class="text-danger">{{ $message }}</div>
@@ -149,7 +149,7 @@
                         <div class="form-group mb-4">
                             <label for="important_links" class="label">Important Links</label>
                             <div class="form-group position-relative">
-                                <input type="text" name="important_links" class="form-control text-dark ps-5 h-58"
+                                <input type="text" name="important_links" class="form-control text-dark  h-58"
                                     value="{{ old('important_links') }}" id="important_links">
                             </div>
 
@@ -161,7 +161,7 @@
                             <span class="star">*</span>
                             <div class="form-group position-relative">
                                 <select name="registration_status" id="registration_status"
-                                    class="form-control text-dark ps-5 h-58">
+                                    class="form-control text-dark  h-58">
                                     <option value="" selected>Select</option>
                                     <option value="1" class="text-dark"
                                         {{ old('registration_status') == '1' ? 'selected' : '' }}>On</option>

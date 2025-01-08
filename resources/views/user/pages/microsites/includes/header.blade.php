@@ -91,7 +91,7 @@
                     
         </div>
     </nav>
-    <nav class="navbar navbar-expand-lg">
+    <nav class="navbar navbar-expand-lg bg-light">
         <!-- Collapse -->
         <!-- <div class="collapse navbar-collapse" id="navbar-default">
             <ul class="navbar-nav mx-auto">
@@ -133,7 +133,7 @@
 
 
 
-        <ul class="navbar-nav mx-auto">
+        <ul class="navbar-nav me-auto">
     @php
         // URL se slug ko fetch karte hain (Path ya Query se)
         $slug = request()->route('slug') ?: request()->query('slug');
@@ -174,7 +174,7 @@
             $baseSlug = urlencode($slug ?: $menu->menu_slug);
         @endphp 
 
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown ">
             <a class="{{ $class }}"
                 href="{{ route('user.navigationmenubyslug', $menu->menu_slug) . '?slug=' . $baseSlug }}"
                 {{ $arrow ? 'data-bs-toggle=dropdown aria-haspopup=true aria-expanded=false' : '' }}>

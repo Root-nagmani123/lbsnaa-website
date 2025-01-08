@@ -32,7 +32,7 @@
                                 <label class="label" for="type">Type :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="type" id="type">
+                                    <select class="form-select form-control  h-58" name="type" id="type">
                                         <option value="" class="text-dark" selected>Select</option>
                                         <option value="Academy Souvenir" class="text-dark">Academy Souvenir</option>
                                     </select>
@@ -47,7 +47,7 @@
                                 <label class="label" for="category_name">Category Name :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="category_name" id="category_name">
+                                    <input type="text" class="form-control text-dark  h-58" name="category_name" id="category_name">
                                     @error('category_name')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -59,7 +59,7 @@
                                 <label for="category_name_hindi" class="label">Category Name Hindi</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="category_name_hindi" id="category_name_hindi">
+                                    <input type="text" class="form-control text-dark  h-58" name="category_name_hindi" id="category_name_hindi">
                                     @error('category_name_hindi')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -72,7 +72,7 @@
                                 <label class="label" for="status">Status :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="status" id="status">
+                                    <select class="form-select form-control  h-58" name="status" id="status">
                                     <option value="" class="text-dark" selected>Select</option>
                                         <option value="1" class="text-dark">Active</option>
                                         <option value="0" class="text-dark">Inactive</option>

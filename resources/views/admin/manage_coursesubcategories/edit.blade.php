@@ -48,7 +48,7 @@
                                 <label class="label" for="category_name">Category Name :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="category_name"
+                                    <input type="text" class="form-control text-dark  h-58" name="category_name"
                                         id="category_name" value="{{ $subcategory->category_name }}" required>
                                 </div>
                             </div>
@@ -59,7 +59,7 @@
                                     <div class="col-6">
                                         <!-- Color Picker Input -->
                                         <label for="color_theme" class="label">Choose Color:</label>
-                                        <input type="color" class="form-control text-dark ps-5 h-58" name="color_theme"
+                                        <input type="color" class="form-control text-dark  h-58" name="color_theme"
                                             id="color_theme" value="{{ old('color_theme', $subcategory->color_theme) }}"
                                             required>
                                     </div>
@@ -82,7 +82,7 @@
                                 <label class="label" for="parent_id">Parent Category :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="parent_id" id="parent_id"
+                                    <select class="form-select form-control  h-58" name="parent_id" id="parent_id"
                                         required>
                                         <option value="" >It is Root Category</option>
                                         @foreach($categories as $category)
@@ -109,7 +109,7 @@
                                 <label class="label" for="status">Product Status :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="status" id="status"
+                                    <select class="form-select form-control  h-58" name="status" id="status"
                                         required>
                                         <option value="1" class="text-dark"
                                             {{ $subcategory->status == '1' ? 'selected' : '' }}>Active</option>

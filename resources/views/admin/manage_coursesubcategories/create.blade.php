@@ -47,7 +47,7 @@
                                 <label class="label" for="category_name">Category Name :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="category_name"
+                                    <input type="text" class="form-control text-dark  h-58" name="category_name"
                                         id="category_name">
                                         @error('category_name')
                                     <div class="text-danger">{{ $message }}</div>
@@ -61,7 +61,7 @@
                                     <div class="col-6">
                                         <!-- Color Picker Input -->
                                         <label for="color_theme" class="label">Choose Color:</label>
-                                        <input type="color" class="form-control text-dark ps-5 h-58" name="color_theme"
+                                        <input type="color" class="form-control text-dark  h-58" name="color_theme"
                                             id="color_theme">
                                             @error('color_theme')
                                                 <div class="text-danger">{{ $message }}</div>
@@ -88,7 +88,7 @@
                                 <label class="label" for="parent_id">Parent Category :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="parent_id" id="parent_id">
+                                    <select class="form-select form-control  h-58" name="parent_id" id="parent_id">
                                         <option value="" selected>It is Root Category</option>
                                         {!! buildCategoryOptions($subcategories) !!}
                                     </select>
@@ -115,7 +115,7 @@
                                 <label class="label" for="status">Product Status :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="status" id="status">
+                                    <select class="form-select form-control  h-58" name="status" id="status">
                                         <option value="" class="text-dark" selected>Select</option>
                                         <option value="1" class="text-dark">Active</option>
                                         <option value="0" class="text-dark">Inactive</option>

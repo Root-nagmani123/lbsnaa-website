@@ -43,7 +43,7 @@
                                 <label class="label" for="survey_title">Survey Title :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="survey_title"
+                                    <input type="text" class="form-control text-dark  h-58" name="survey_title"
                                         id="survey_title">
                                 </div>
                                 @error('survey_title')
@@ -56,7 +56,7 @@
                                 <label class="label" for="startdate">Start Date :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="date" class="form-control text-dark ps-5 h-58" name="startdate"
+                                    <input type="date" class="form-control text-dark  h-58" name="startdate"
                                         id="startdate">
                                 </div>
                                 @error('startdate')
@@ -69,7 +69,7 @@
                                 <label class="label" for="expairydate">End Date :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="date" class="form-control text-dark ps-5 h-58" name="expairydate"
+                                    <input type="date" class="form-control text-dark  h-58" name="expairydate"
                                         id="expairydate">
                                 </div>
                                 @error('expairydate')
@@ -82,7 +82,7 @@
                                 <label class="label" for="status">Status :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="status" id="status">
+                                    <select class="form-select form-control  h-58" name="status" id="status">
                                         <option value="" class="text-dark" selected>Select</option>
                                         <option value="1" class="text-dark">Active</option>
                                         <option value="0" class="text-dark">Inactive</option>

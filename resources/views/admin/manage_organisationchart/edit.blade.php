@@ -50,7 +50,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <select name="parentcategory" id="parentcategory"
-                                        class="form-select form-control ps-5 h-58">
+                                        class="form-select form-control  h-58">
                                         <option value="" class="text-dark">Select Employee</option>
                                         @foreach ($faculty as $parent)
                                         <option class="text-dark" value="{{ $parent->id }}"
@@ -70,9 +70,9 @@
                                 <label class="label">Select Category :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <!-- <input type="text" id="employee_name" name="employee_name" value="{{ $record->employee_name }}" class="form-control text-dark ps-5 h-58"> -->
+                                    <!-- <input type="text" id="employee_name" name="employee_name" value="{{ $record->employee_name }}" class="form-control text-dark  h-58"> -->
                                     <select name="employee_name" id="employee_name"
-                                        class="form-select form-control ps-5 h-58">
+                                        class="form-select form-control  h-58">
                                         <option value="" class="text-dark">Select </option>
                                         @foreach ($faculty as $parent)
                                         <option class="text-dark" value="{{ $parent->id }}"
@@ -90,7 +90,7 @@
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label">Page Status:</label>
-                                <select name="status" class="form-select form-control ps-5 h-58">
+                                <select name="status" class="form-select form-control  h-58">
                                     <option value="1" {{ $record->status == 1 ? 'selected' : '' }}>Active</option>
                                     <option value="0" {{ $record->status == 0 ? 'selected' : '' }}>Inactive</option>
                                 </select>

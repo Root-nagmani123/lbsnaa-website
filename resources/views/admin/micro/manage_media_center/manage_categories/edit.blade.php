@@ -38,7 +38,7 @@
                                 <label for="research_centre_id" class="label">Select Research Center</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select name="research_centre" id="research_centre_id" class="form-control text-dark ps-5 h-58">
+                                    <select name="research_centre" id="research_centre_id" class="form-control text-dark  h-58">
                                         <option value="">Select Research Centre</option>
                                         @foreach ($researchCentres as $id => $name)
                                             <option value="{{ $id }}" {{ old('research_centre', $category->research_centre) == $id ? 'selected' : '' }}>
@@ -59,7 +59,7 @@
                                 <label class="label" for="media_gallery">Media Gallery :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="media_gallery"
+                                    <select class="form-select form-control  h-58" name="media_gallery"
                                         id="media_gallery" required>
                                         <option value="" class="text-dark">Select</option>
                                         <option value="1" class="text-dark"
@@ -77,7 +77,7 @@
                                 <label class="label" for="name">Name :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="name" id="name"
+                                    <input type="text" class="form-control text-dark  h-58" name="name" id="name"
                                         value="{{ old('name', $category->name) }}">
                                 </div>
                             </div>
@@ -86,7 +86,7 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="hindi_name">Hindi Name :</label>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="hindi_name"
+                                    <input type="text" class="form-control text-dark  h-58" name="hindi_name"
                                         id="hindi_name" value="{{ old('hindi_name', $category->hindi_name) }}">
                                 </div>
                             </div>
@@ -98,7 +98,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <!-- File input for image -->
-                                    <input type="file" class="form-control text-dark ps-5 h-58" name="category_image"
+                                    <input type="file" class="form-control text-dark  h-58" name="category_image"
                                         id="category_image" accept="image/*">
                                     
                                     <!-- If there is an existing image, show it -->
@@ -119,7 +119,7 @@
                                 <label class="label" for="status">Status :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="status" id="status"
+                                    <select class="form-select form-control  h-58" name="status" id="status"
                                         required>
                                         <option value="1" class="text-dark"
                                             {{ $category->status == 1? 'selected' : '' }}>Active</option>

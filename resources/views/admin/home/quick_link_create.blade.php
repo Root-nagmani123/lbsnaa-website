@@ -40,7 +40,7 @@
 
                         <div class="col-lg-6 mb-4">
                             <label for="text" class="label">Text <span class="star">*</span></label>
-                            <input type="text" name="text" class="form-control text-dark ps-5 h-58" required>
+                            <input type="text" name="text" class="form-control text-dark  h-58" required>
                         </div>
 
                         <!-- Hidden Input Field -->
@@ -49,7 +49,7 @@
                         <!-- Link Type -->
                         <div class="col-lg-6 mb-4">
                             <label for="link_type" class="label">Link Type <span class="star">*</span></label>
-                            <select id="link_type" class="form-control h-58 text-dark ps-5" name="link_type"
+                            <select id="link_type" class="form-control h-58 text-dark " name="link_type"
                                 onchange="toggleLinkInput()">
                                 <option value="" selected>Select</option>
                                 <option value="url">URL</option>
@@ -62,13 +62,13 @@
                     <div class="row" id="url_input" style="display: none;">
                         <div class="col-lg-6 mb-4">
                             <label for="url" class="label">URL <span class="star">*</span></label>
-                            <input type="text" name="url" class="form-control text-dark ps-5 h-58">
+                            <input type="text" name="url" class="form-control text-dark  h-58">
                             <small class="text-muted">Provide a URL if you're not uploading a document.</small>
                         </div>
 
                         <div class="col-lg-6 mb-4">
                             <label for="url_type" class="label">URL Type</label>
-                            <select name="url_type" id="url_type" class="form-control h-58 text-dark ps-5">
+                            <select name="url_type" id="url_type" class="form-control h-58 text-dark ">
                                 <option value="" selected>Select</option>
                                 <option value="internal">Internal Link</option>
                                 <option value="external">External Link</option>
@@ -80,7 +80,7 @@
                     <div class="row" id="file_input" style="display: none;">
                         <div class="col-lg-6 mb-4">
                             <label for="file" class="label">Document (PDF) <span class="star">*</span></label>
-                            <input type="file" name="file" class="form-control text-dark ps-5 h-58">
+                            <input type="file" name="file" class="form-control text-dark  h-58">
                             <small class="text-muted">Provide a file if you're not entering a URL.</small>
                         </div>
                     </div>
@@ -89,7 +89,7 @@
                     <div class="row">
                         <div class="col-lg-6 mb-4">
                             <label for="status" class="label">Status <span class="star">*</span></label>
-                            <select name="status" id="status" class="form-control h-58 text-dark ps-5">
+                            <select name="status" id="status" class="form-control h-58 text-dark ">
                                 <option value="" selected>Select</option>
                                 <option value="1">Active</option>
                                 <option value="0">Inactive</option>

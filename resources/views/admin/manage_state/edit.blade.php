@@ -32,7 +32,7 @@
                                 <label class="label" for="state_name">State Name :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="state_name" id="state_name" value="{{ $states->state_name }}" required>
+                                    <input type="text" class="form-control text-dark  h-58" name="state_name" id="state_name" value="{{ $states->state_name }}" required>
                                 </div>
                             </div>
                         </div>
@@ -41,7 +41,7 @@
                                 <label class="label" for="state_name_hindi">State Name in Hindi :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="state_name_hindi" id="state_name_hindi" value="{{ $states->state_name_hindi }}" required>
+                                    <input type="text" class="form-control text-dark  h-58" name="state_name_hindi" id="state_name_hindi" value="{{ $states->state_name_hindi }}" required>
                                 </div>
                             </div>
                         </div>
@@ -50,7 +50,7 @@
                                 <label class="label" for="texttype">Status :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="status" id="status" required>
+                                    <select class="form-select form-control  h-58" name="status" id="status" required>
                                         <option value="1" class="text-dark" {{ $states->status == 1? 'selected' : '' }}>Active</option>
                                         <option value="0" class="text-dark" {{ $states->status == 0? 'selected' : '' }}>Inactive</option>
                                     </select>

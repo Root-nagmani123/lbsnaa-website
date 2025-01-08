@@ -47,7 +47,7 @@
                                 <label class="label" for="menutitle">Section Title :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="section_title"
+                                    <input type="text" class="form-control text-dark  h-58" name="section_title"
                                         id="section_title" value="{{ $category->section_title }}" required>
                                 </div>
                             </div>
@@ -57,7 +57,7 @@
                                 <label class="label" for="texttype">Category Description :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58"
+                                    <input type="text" class="form-control text-dark  h-58"
                                         name="category_description" id="category_description"
                                         value="{{ $category->category_description }}" required>
                                 </div>
@@ -68,7 +68,7 @@
                                 <label class="label" for="texttype">Status :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="status" id="status"
+                                    <select class="form-select form-control  h-58" name="status" id="status"
                                         required>
                                         <option value="1" class="text-dark"
                                             {{ $category->status == 1? 'selected' : '' }}>Active</option>

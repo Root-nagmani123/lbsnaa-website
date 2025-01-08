@@ -47,7 +47,7 @@
                                 <label class="label" for="exm_code">Exam Code :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="exm_code"
+                                    <input type="text" class="form-control text-dark  h-58" name="exm_code"
                                         id="exm_code" value="{{ $exams->exam_code }}" required>
                                 </div>
                             </div>
@@ -56,7 +56,7 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="exm_desc">Exam Description :</label>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="exm_desc"
+                                    <input type="text" class="form-control text-dark  h-58" name="exm_desc"
                                         id="exm_desc" value="{{ $exams->exam_description }}">
                                 </div>
                             </div>
@@ -67,7 +67,7 @@
                                 <span class="star">*</span>
                                 <label class="label" for="exm_user_id">Accept numeric input only</label>
                                 <div class="form-group position-relative">
-                                    <input type="number" class="form-control text-dark ps-5 h-58" name="exm_user_id"
+                                    <input type="number" class="form-control text-dark  h-58" name="exm_user_id"
                                         id="exm_user_id" value="{{ $exams->user_id }}" required>
                                 </div>
                             </div>
@@ -77,7 +77,7 @@
                                 <label class="label" for="exm_date">Transaction Date :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="exm_date"
+                                    <input type="text" class="form-control text-dark  h-58" name="exm_date"
                                         id="exm_date" placeholder="DD-MM-YYYY"
                                         value="{{ old('exm_date', \Carbon\Carbon::parse($exams->transaction_date)->format('d-m-Y')) }}">
                                     @error('exm_date')
@@ -93,7 +93,7 @@
                                 <label class="label" for="exm_date">Transaction Date :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="exm_date"
+                                    <input type="text" class="form-control text-dark  h-58" name="exm_date"
                                         id="exm_date" placeholder="DD-MM-YYYY"
                                         value="{{ old('exm_date', \Carbon\Carbon::parse($exams->transaction_date)->format('d-m-Y')) }}">
                                     @error('exm_date')
@@ -132,7 +132,7 @@
                                 <label class="label" for="status">Status :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="status" id="status"
+                                    <select class="form-select form-control  h-58" name="status" id="status"
                                         required>
                                         <option value="1" class="text-dark" {{ $exams->status == 1 ? 'selected' : '' }}>
                                             Active</option>

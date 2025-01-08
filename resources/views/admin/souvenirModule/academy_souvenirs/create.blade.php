@@ -57,7 +57,7 @@
                                 <label class="label" for="product_category">Product Category :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="product_category" id="product_category">
+                                    <select class="form-select form-control  h-58" name="product_category" id="product_category">
                                         <option value="" class="text-dark" selected>Select Category</option>
                                         @foreach ($categories as $category)
                                         <option value="{{ $category->id }}" class="text-dark">{{ $category->category_name }}</option>
@@ -74,7 +74,7 @@
                                 <label class="label" for="product_title">Product Title :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="product_title"
+                                    <input type="text" class="form-control text-dark  h-58" name="product_title"
                                         id="product_title" value="{{ old('product_title') }}">
                                         @error('product_title')
                                         <div class="text-danger">{{ $message }}</div>
@@ -87,7 +87,7 @@
                                 <label class="label" for="product_type">Product Type :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="product_type" id="product_type">
+                                    <select class="form-select form-control  h-58" name="product_type" id="product_type">
                                         <option value="" class="text-dark">Select</option>
                                         <option value="Sale" class="text-dark">Sale</option>
                                         <option value="Download" class="text-dark">Download</option>
@@ -104,7 +104,7 @@
                                     <label class="label" for="product_price">Product Price :</label>
                                     <span class="star">*</span>
                                     <div class="form-group position-relative">
-                                        <input type="number" class="form-control text-dark ps-5 h-58" name="product_price"
+                                        <input type="number" class="form-control text-dark  h-58" name="product_price"
                                             id="product_price" step="0.01" >
                                             @error('product_price')
                                         <div class="text-danger">{{ $message }}</div>
@@ -116,7 +116,7 @@
                                 <div class="form-group mb-4">
                                     <label class="label" for="product_discounted_price">Product Discounted Price :</label>
                                     <div class="form-group position-relative">
-                                        <input type="number" class="form-control text-dark ps-5 h-58" name="product_discounted_price"
+                                        <input type="number" class="form-control text-dark  h-58" name="product_discounted_price"
                                             id="product_discounted_price" step="0.01" >
                                             @error('product_discounted_price')
                                         <div class="text-danger">{{ $message }}</div>
@@ -129,7 +129,7 @@
                                     <label class="label" for="contact_email_id">Contact Email :</label>
                                     <span class="star">*</span>
                                     <div class="form-group position-relative">
-                                        <input type="email" class="form-control text-dark ps-5 h-58" name="contact_email_id"
+                                        <input type="email" class="form-control text-dark  h-58" name="contact_email_id"
                                             id="contact_email_id" >
                                             @error('contact_email_id')
                                         <div class="text-danger">{{ $message }}</div>
@@ -144,7 +144,7 @@
                                     <label class="label" for="document_upload">Document Upload :</label>
                                     <span class="star">*</span>
                                     <div class="form-group position-relative">
-                                        <input type="file" class="form-control text-dark ps-5 h-58" name="document_upload"
+                                        <input type="file" class="form-control text-dark  h-58" name="document_upload"
                                             id="document_upload">
                                             @error('document_upload')
                                         <div class="text-danger">{{ $message }}</div>
@@ -158,7 +158,7 @@
                                 <label class="label" for="upload_image">Upload Image :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="file" class="form-control text-dark ps-5 h-58" name="upload_image"
+                                    <input type="file" class="form-control text-dark  h-58" name="upload_image"
                                         id="upload_image">
                                     @error('upload_image')
                                         <div class="text-danger">{{ $message }}</div>
@@ -179,7 +179,7 @@
                                 <label class="label" for="product_status">Product Status :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="product_status" id="product_status">
+                                    <select class="form-select form-control  h-58" name="product_status" id="product_status">
                                         <option value="" class="text-dark" selected>Select</option>
                                         <option value="1" class="text-dark">Active</option>
                                         <option value="0" class="text-dark">Inactive</option>

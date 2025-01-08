@@ -48,7 +48,7 @@
                                 <label class="label" for="title">Section Title :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="title" id="title" value="{{ old('title') }}">
+                                    <input type="text" class="form-control text-dark  h-58" name="title" id="title" value="{{ old('title') }}">
                                     @error('title')
                                         <div style="color: red;">{{ $message }}</div>
                                     @enderror
@@ -60,7 +60,7 @@
                                 <label class="label" for="status">Status :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="status" id="status">
+                                    <select class="form-select form-control  h-58" name="status" id="status">
                                     <option value="" class="text-dark" selected>Select</option>
                                         <option value="1" class="text-dark">Active</option>
                                         <option value="0" class="text-dark">Inactive</option>

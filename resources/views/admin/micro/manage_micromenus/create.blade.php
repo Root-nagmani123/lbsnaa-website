@@ -61,7 +61,7 @@
                                 <label class="label" for="menutitle">Menu Title :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="menutitle"
+                                    <input type="text" class="form-control text-dark  h-58" name="menutitle"
                                         id="menutitle">
                                     @error('menutitle')
                                     <div class="text-danger">{{ $message }}</div>
@@ -74,7 +74,7 @@
                                 <label class="label" for="texttype">Menu Type :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58"
+                                    <select class="form-select form-control  h-58"
                                         aria-label="Default select example" name="texttype" id="texttype"
                                         autocomplete="off" onchange="addmenutype(this.value)">
                                         <option selected value="" class="text-dark">Select</option>
@@ -95,7 +95,7 @@
                                         <label class="label" for="content">Content :</label>
                                         <span class="star">*</span>
                                         <div class="form-group position-relative">
-                                            <textarea class="form-control ps-5 text-dark" rows="5" name="content"
+                                            <textarea class="form-control  text-dark" rows="5" name="content"
                                                 id="content"></textarea>
                                         </div>
                                     </div>
@@ -106,7 +106,7 @@
                                             <label class="label" for="meta_title">Meta Title:</label>
                                             <span class="star">*</span>
                                             <div class="form-group position-relative">
-                                                <input type="text" class="form-control text-dark ps-5 h-58"
+                                                <input type="text" class="form-control text-dark  h-58"
                                                     name="meta_title" id="meta_title">
                                             </div>
                                         </div>
@@ -116,7 +116,7 @@
                                             <label class="label" for="meta_keyword">Meta Keyword :</label>
                                             <span class="star">*</span>
                                             <div class="form-group position-relative">
-                                                <input type="text" class="form-control text-dark ps-5 h-58"
+                                                <input type="text" class="form-control text-dark  h-58"
                                                     name="meta_keyword" id="meta_keyword">
                                             </div>
                                         </div>
@@ -127,7 +127,7 @@
                                         <label class="label" for="meta_description">Meta Description :</label>
                                         <span class="star">*</span>
                                         <div class="form-group position-relative">
-                                            <textarea class="form-control ps-5 text-dark"
+                                            <textarea class="form-control  text-dark"
                                                 placeholder="Some demo text ... " cols="30" rows="5"
                                                 name="meta_description" id="meta_description"></textarea>
                                         </div>
@@ -159,7 +159,7 @@
                                         <label class="label" for="website_url">Website URL:</label>
                                         <span class="star">*</span>
                                         <div class="form-group position-relative">
-                                            <input type="text" class="form-control text-dark ps-5 h-58"
+                                            <input type="text" class="form-control text-dark  h-58"
                                                 name="website_url" id="website_url">
                                                 @error('website_url')
                                             <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
@@ -172,7 +172,7 @@
                                         <label class="label" for="web_site_target">Web Site Target :</label>
                                         <span class="star">*</span>
                                         <div class="form-group position-relative">
-                                            <select class="form-select form-control ps-5 h-58" name="web_site_target"
+                                            <select class="form-select form-control  h-58" name="web_site_target"
                                                 id="web_site_target" autocomplete="off">
                                                 <option selected class="text-dark">Select</option>
                                                 <option value="1" class="text-dark">Internal Link</option>
@@ -191,7 +191,7 @@
                                 <label class="label" for="menucategory">Primary Link :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="menucategory"
+                                    <select class="form-select form-control  h-58" name="menucategory"
                                         id="menucategory" autocomplete="off">
                                         <option value="0" selected class="text-dark">It is Root Category</option>
                                         {!! $menuOptions !!}
@@ -207,7 +207,7 @@
                                 <label class="label" for="txtpostion">Content Position :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" id="txtpostion"
+                                    <select class="form-select form-control  h-58" id="txtpostion"
                                         autocomplete="off" autocomplete="off" name="txtpostion"
                                         onchange="showDateFields(this.value)">
                                         <option selected value="" class="text-dark">Select</option>
@@ -230,7 +230,7 @@
                                 <label class="label" for="menu_status">Status :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" id="menu_status"
+                                    <select class="form-select form-control  h-58" id="menu_status"
                                         name="menu_status">
                                         <option value="">Select</option>
                                         <option value="1" class="text-dark">Active</option>

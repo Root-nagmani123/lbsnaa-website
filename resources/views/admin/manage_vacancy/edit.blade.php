@@ -56,7 +56,7 @@
                                 <label class="label" for="job_title">Job Title :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="job_title"
+                                    <input type="text" class="form-control text-dark  h-58" name="job_title"
                                         id="job_title" value="{{ old('job_title', $vacancy->job_title) }}">
                                     @error('job_title')
                                         <div class="text-danger">{{ $message }}</div>
@@ -83,7 +83,7 @@
                                 <label class="label" for="content_type">Content Type :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="content_type"
+                                    <select class="form-select form-control  h-58" name="content_type"
                                         id="content_type" required>
                                         <!-- <option value="" class="text-dark">Select</option> -->
                                         <option value="PDF" class="text-dark"
@@ -101,7 +101,7 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="document_upload">Document Upload :</label>
                                 <div class="form-group position-relative">
-                                    <input type="file" class="form-control text-dark ps-5 h-58" name="document_upload"
+                                    <input type="file" class="form-control text-dark  h-58" name="document_upload"
                                         id="document_upload">
                                     @if ($vacancy->document_upload)
                                     <a href="{{  asset('storage/' . $vacancy->document_upload) }}" target="_blank">View
@@ -115,7 +115,7 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="website_link">Website Link :</label>
                                 <div class="form-group position-relative">
-                                    <input type="url" class="form-control text-dark ps-5 h-58" name="website_link"
+                                    <input type="url" class="form-control text-dark  h-58" name="website_link"
                                         id="website_link" value="{{ old('website_link', $vacancy->website_link) }}">
 
                                     @error('website_link')
@@ -129,7 +129,7 @@
                                 <label class="label" for="publish_date">Publish Date :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="date" class="form-control text-dark ps-5 h-58" name="publish_date"
+                                    <input type="date" class="form-control text-dark  h-58" name="publish_date"
                                         id="publish_date" value="{{ old('publish_date', $vacancy->publish_date) }}">
                                     @error('publish_date')
                                         <div class="text-danger">{{ $message }}</div>
@@ -142,7 +142,7 @@
                                 <label class="label" for="expiry_date">Expiry Date :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="date" class="form-control text-dark ps-5 h-58" name="expiry_date"
+                                    <input type="date" class="form-control text-dark  h-58" name="expiry_date"
                                         id="expiry_date" value="{{ old('expiry_date', $vacancy->expiry_date) }}">
                                     @error('expiry_date')
                                         <div class="text-danger">{{ $message }}</div>
@@ -155,7 +155,7 @@
                                 <label class="label" for="texttype">Status :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="status" id="status"
+                                    <select class="form-select form-control  h-58" name="status" id="status"
                                         required>
                                         <option value="1" class="text-dark"
                                             {{ $vacancy->status == '1' ? 'selected' : '' }}>Active</option>

@@ -45,7 +45,7 @@
                                 <label class="label" for="venue_title">Venue Title :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="venue_title"
+                                    <input type="text" class="form-control text-dark  h-58" name="venue_title"
                                         id="venue_title"  value="{{ old('venue_title') }}">
 
                                     @error('venue_title')
@@ -59,7 +59,7 @@
                                 <label class="label" for="venue_detail">Venue Detail :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="venue_detail"
+                                    <input type="text" class="form-control text-dark  h-58" name="venue_detail"
                                         id="venue_detail" value="{{ old('venue_detail') }}">
 
                                     @error('venue_detail')
@@ -73,7 +73,7 @@
                                 <label class="label" for="texttype">Status :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="status" id="status">
+                                    <select class="form-select form-control  h-58" name="status" id="status">
                                         <option value="" class="text-dark" selected>Select</option>
                                         <option value="1" class="text-dark" {{ old('status') == '1' ? 'checked' : '' }}>Active</option>
                                         <option value="0" class="text-dark" {{ old('status') == '0' ? 'checked' : '' }}>Inactive</option>

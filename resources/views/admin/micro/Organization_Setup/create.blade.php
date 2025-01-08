@@ -50,7 +50,7 @@
                             <span class="star">*</span>
                             <div class="form-group position-relative">
                                 <select name="research_centre" id="research_centre_id"
-                                    class="form-control text-dark ps-5 h-58">
+                                    class="form-control text-dark  h-58">
                                     <option value="">Select Research Centre</option>
                                     @foreach ($researchCentres as $id => $name)
                                     <option value="{{ $id }}" {{ old('research_centre') == $id ? 'selected' : '' }}>
@@ -68,7 +68,7 @@
                             <label for="employee_name" class="label">Employee Name</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
-                                <input type="text" name="employee_name" class="form-control text-dark ps-5 h-58"
+                                <input type="text" name="employee_name" class="form-control text-dark  h-58"
                                     id="employee_name" value="{{ old('employee_name') }}">
                                 @error('employee_name')
                                 <div class="text-danger">{{ $message }}</div>
@@ -81,7 +81,7 @@
                             <label for="designation" class="label">Designation</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
-                                <input type="text" name="designation" class="form-control text-dark ps-5 h-58"
+                                <input type="text" name="designation" class="form-control text-dark  h-58"
                                     id="designation" value="{{ old('designation') }}">
                                 @error('designation')
                                 <div class="text-danger">{{ $message }}</div>
@@ -94,7 +94,7 @@
                             <label for="email" class="label">Email</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
-                                <input type="email" name="email" class="form-control text-dark ps-5 h-58" id="email"
+                                <input type="email" name="email" class="form-control text-dark  h-58" id="email"
                                     value="{{ old('email') }}">
                                 @error('email')
                                 <div class="text-danger">{{ $message }}</div>
@@ -111,7 +111,7 @@
                                 <input 
                                     type="email" 
                                     name="email" 
-                                    class="form-control text-dark ps-5 h-58" 
+                                    class="form-control text-dark  h-58" 
                                     id="email" 
                                     value="{{ old('email') }}"
                                     pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}" 
@@ -128,7 +128,7 @@
                             <label for="program_description" class="label">Program Description</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
-                                <textarea name="program_description" class="form-control text-dark ps-5 h-58"
+                                <textarea name="program_description" class="form-control text-dark  h-58"
                                     value="{{ old('program_description') }}" id="program_description"></textarea>
                                 @error('program_description')
                                 <div class="text-danger">{{ $message }}</div>
@@ -141,7 +141,7 @@
                             <label for="main_image" class="label">Main Image</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
-                                <input type="file" name="main_image" class="form-control text-dark ps-5 h-58"
+                                <input type="file" name="main_image" class="form-control text-dark  h-58"
                                     id="main_image" value="{{ old('main_image') }}">
                                 @error('main_image')
                                     <div class="text-danger">{{ $message }}</div>
@@ -155,7 +155,7 @@
                             <label for="main_image" class="label">Main Image</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
-                                <input type="file" name="main_image" class="form-control text-dark ps-5 h-58"
+                                <input type="file" name="main_image" class="form-control text-dark  h-58"
                                     id="main_image" accept=".jpg,.jpeg,.png">
                                 <small id="file-name" class="text-muted"></small>
                                 @error('main_image')
@@ -171,7 +171,7 @@
                             <label for="page_status" class="label">Page Status</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
-                                <select name="page_status" class="form-control text-dark ps-5 h-58" id="page_status">
+                                <select name="page_status" class="form-control text-dark  h-58" id="page_status">
                                     <option value="" class="col">Select</option>
                                     <option value="1" class="col" {{ old('page_status') == '1' ? 'selected' : '' }}>
                                         Active</option>

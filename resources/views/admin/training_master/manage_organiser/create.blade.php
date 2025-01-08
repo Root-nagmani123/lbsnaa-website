@@ -40,7 +40,7 @@
                                 <label class="label" for="organiser_name">Organiser Name :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="organiser_name"
+                                    <input type="text" class="form-control text-dark  h-58" name="organiser_name"
                                         id="organiser_name" value="{{ old('organiser_name') }}">
                                     @error('organiser_name')
                                         <div style="color: red;">{{ $message }}</div>
@@ -54,7 +54,7 @@
                                 <label class="label" for="status">Status:</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="status" id="status">
+                                    <select class="form-select form-control  h-58" name="status" id="status">
                                         <option value="" class="text-dark" selected>Select</option>
                                         <option value="1" class="text-dark" {{ old('status') == '1' ? 'selected' : '' }}>Active</option>
                                         <option value="0" class="text-dark" {{ old('status') == '0' ? 'selected' : '' }}>Inactive</option>

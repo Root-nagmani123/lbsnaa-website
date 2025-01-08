@@ -32,7 +32,7 @@
                             <div class="form-group mb-4">
                                 <label for="name" class="label">Name</label>
                                 <div class="form-group position-relative">
-                                    <input type="text" name="name" class="form-control ps-5 h-58 text-dark"
+                                    <input type="text" name="name" class="form-control h-58 text-dark"
                                         value="{{ $user->name }}">
                                     @error('name') <div class="text-danger">{{ $message }}</div> @enderror
                                 </div>
@@ -42,7 +42,7 @@
                             <div class="form-group mb-4">
                                 <label for="email" class="label">Email</label>
                                 <div class="form-group position-relative">
-                                    <input type="email" name="email" class="form-control ps-5 h-58 text-dark"
+                                    <input type="email" name="email" class="form-control h-58 text-dark"
                                         value="{{ $user->email }}">
                                     @error('email') <div class="text-danger">{{ $message }}</div> @enderror
                                 </div>
@@ -53,7 +53,7 @@
                                 <label for="password" class="label">Password (Leave blank to keep current
                                     password)</label>
                                 <div class="fomr-group position-relative">
-                                    <input type="password" name="password" class="form-control ps-5 h-58 text-dark">
+                                    <input type="password" name="password" class="form-control h-58 text-dark">
                                 </div>
                             </div>
                         </div>

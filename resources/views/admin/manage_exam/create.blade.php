@@ -48,7 +48,7 @@
                                 <label class="label" for="exm_code">Exam Code :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="exm_code"
+                                    <input type="text" class="form-control text-dark  h-58" name="exm_code"
                                         id="exm_code" value="{{ old('exm_code') }}">
                                     @error('exm_code')
                                     <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
@@ -60,7 +60,7 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="exm_desc">Exam Description :</label>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="exm_desc"
+                                    <input type="text" class="form-control text-dark  h-58" name="exm_desc"
                                         id="exm_desc" value="{{ old('exm_desc') }}">
                                 </div>
                             </div>
@@ -71,7 +71,7 @@
                                 <label class="label" for="exm_user_id">Accept numeric input only</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="number" class="form-control text-dark ps-5 h-58" name="exm_user_id"
+                                    <input type="number" class="form-control text-dark  h-58" name="exm_user_id"
                                         id="exm_user_id" value="{{ old('name') }}">
                                     @error('exm_user_id')
                                     <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
@@ -84,7 +84,7 @@
                                 <label class="label" for="exm_date">Transaction Date :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="exm_date" id="exm_date"
+                                    <input type="text" class="form-control text-dark  h-58" name="exm_date" id="exm_date"
                                      placeholder="DD-MM-YYYY"  value="{{ old('exm_date') }}">
                                     @error('exm_date')
                                         <div style="color: red;">{{ $message }}</div>
@@ -98,7 +98,7 @@
                                 <label class="label" for="exm_date">Transaction Date :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="exm_date"
+                                    <input type="text" class="form-control text-dark  h-58" name="exm_date"
                                         id="exm_date" placeholder="DD-MM-YYYY" value="{{ old('exm_date') }}">
                                     @error('exm_date')
                                     <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
@@ -137,7 +137,7 @@
                                 <label class="label" for="status">Status :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="status" id="status">
+                                    <select class="form-select form-control  h-58" name="status" id="status">
                                         <option value="" class="text-dark" selected>Select</option>
                                         <option value="1" class="text-dark"
                                             {{ old('status') == '1' ? 'selected' : '' }}>Active</option>

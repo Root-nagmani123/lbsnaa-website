@@ -43,7 +43,7 @@
                             <label for="research_centre" class="label">Research Centre</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
-                            <select class="form-select form-control ps-5 h-58" name="research_centre" id="research_centre" required>
+                            <select class="form-select form-control  h-58" name="research_centre" id="research_centre" required>
                         <option value="" disabled {{ is_null($organizationSetup->research_centre) ? 'selected' : '' }}>
                             Select Research Centre
                         </option>
@@ -62,7 +62,7 @@
                             <label for="employee_name" class="label">Employee Name</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
-                                <input type="text" name="employee_name" class="form-control text-dark ps-5 h-58"
+                                <input type="text" name="employee_name" class="form-control text-dark  h-58"
                                     id="employee_name" required value="{{ old('employee_name', $organizationSetup->employee_name) }}">
                             </div>
                         </div>
@@ -72,7 +72,7 @@
                             <label for="designation" class="label">Designation</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
-                                <input type="text" name="designation" class="form-control text-dark ps-5 h-58"
+                                <input type="text" name="designation" class="form-control text-dark  h-58"
                                     id="designation" required value="{{ old('designation', $organizationSetup->designation) }}">
                             </div>
                         </div>
@@ -82,7 +82,7 @@
                             <label for="email" class="label">Email</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
-                                <input type="email" name="email" class="form-control text-dark ps-5 h-58" id="email"
+                                <input type="email" name="email" class="form-control text-dark  h-58" id="email"
                                     value="{{ old('email', $organizationSetup->email) }}">
                                 @error('email')
                                     <div class="text-danger">{{ $message }}</div>
@@ -95,7 +95,7 @@
                             <label for="program_description" class="label">Program Description</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
-                                <textarea name="program_description" class="form-control text-dark ps-5 h-58" id="program_description"
+                                <textarea name="program_description" class="form-control text-dark  h-58" id="program_description"
                                     required>{{ old('program_description', $organizationSetup->program_description) }}</textarea>
                             </div>
                         </div>
@@ -105,7 +105,7 @@
                             <label for="main_image" class="label">Main Image</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
-                                <input type="file" name="main_image" class="form-control text-dark ps-5 h-58"
+                                <input type="file" name="main_image" class="form-control text-dark  h-58"
                                     id="main_image" >
                                     <small class="form-text text-muted">Leave blank to keep the current image.</small>
                             </div>
@@ -120,7 +120,7 @@
                             <label for="page_status" class="label">Page Status</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
-                                <select name="page_status" class="form-control text-dark ps-5 h-58" id="page_status">
+                                <select name="page_status" class="form-control text-dark  h-58" id="page_status">
                                     <option value="1" class="text-dark" {{ $organizationSetup->page_status == 1? 'selected' : '' }}>Active</option>
                                     <option value="0" class="text-dark" {{ $organizationSetup->page_status == 0? 'selected' : '' }}>Inactive</option>
                                 </select>

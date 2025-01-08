@@ -41,7 +41,7 @@
                                 <label class="label" for="category_name">Category Name :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="category_name" id="category_name">
+                                    <select class="form-select form-control  h-58" name="category_name" id="category_name">
                                         <option value="Audio" class="text-dark" {{ $audio->category_name == 'Audio' ? 'selected' : '' }}>Audio</option>
                                     </select>
                                 </div>
@@ -52,7 +52,7 @@
                                 <label class="label" for="audio_title_en">Audio Title (English) :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="audio_title_en"
+                                    <input type="text" class="form-control text-dark  h-58" name="audio_title_en"
                                         id="audio_title_en" value="{{ $audio->audio_title_en }}">
                                     @error('audio_title_en')
                                         <div class="text-danger">{{ $message }}</div>
@@ -64,7 +64,7 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="audio_title_hi">Audio Title (Hindi) :</label>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="audio_title_hi"
+                                    <input type="text" class="form-control text-dark  h-58" name="audio_title_hi"
                                         id="audio_title_hi" value="{{ $audio->audio_title_hi }}">
                                 </div>
                             </div>
@@ -74,7 +74,7 @@
                                 <label class="label" for="audio_upload">Audio Upload (.mp4 only) :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="file" class="form-control text-dark ps-5 h-58" name="audio_upload"
+                                    <input type="file" class="form-control text-dark  h-58" name="audio_upload"
                                         id="audio_upload" accept=".mp4,.mp3"  value="{{ $audio->audio_upload }}">
                                 </div>
                             </div>
@@ -85,7 +85,7 @@
                                 <label class="label" for="audio_upload">Audio Upload (.mp3 only) :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="file" class="form-control text-dark ps-5 h-58" name="audio_upload"
+                                    <input type="file" class="form-control text-dark  h-58" name="audio_upload"
                                         id="audio_upload" accept=".mp3" value="{{ $audio->audio_upload }}">
                                 </div>
                                 @if($audio->audio_upload)
@@ -115,7 +115,7 @@
                                 <label class="label" for="page_status">Page Status :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="page_status" id="page_status" required>
+                                    <select class="form-select form-control  h-58" name="page_status" id="page_status" required>
                                         <option value="1" class="text-dark" {{ $audio->page_status == 1? 'selected' : '' }}>Active</option>
                                         <option value="0" class="text-dark" {{ $audio->page_status == 0? 'selected' : '' }}>Inactive</option>
                                     </select>

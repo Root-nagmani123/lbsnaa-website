@@ -69,7 +69,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <select name="categorytype" id="categorytype"
-                                        class="form-control text-dark ps-5 h-58">
+                                        class="form-control text-dark  h-58">
                                         <option value="">Select Category</option>
                                         <option value="1" {{ $quickLink->categorytype == 1 ? 'selected' : '' }}>What's
                                             New
@@ -88,7 +88,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" name="txtename" id="txtename"
-                                        class="form-control text-dark ps-5 h-58" value="{{ $quickLink->txtename }}">
+                                        class="form-control text-dark  h-58" value="{{ $quickLink->txtename }}">
                                         @error('txtename')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -101,7 +101,7 @@
                                 <label for="menu_type" class="label">Menu Type</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select name="menu_type" id="menu_type" class="form-control text-dark ps-5 h-58">
+                                    <select name="menu_type" id="menu_type" class="form-control text-dark  h-58">
                                         <option value="">Select</option>
                                         <option value="1" {{ $quickLink->menu_type == 1 ? 'selected' : '' }}>Content
                                         </option>
@@ -126,7 +126,7 @@
                                         <span class="star">*</span>
                                         <div class="form-group position-relative">
                                             <input type="text" name="meta_title" id="meta_title"
-                                                class="form-control text-dark ps-5 h-58"
+                                                class="form-control text-dark  h-58"
                                                 value="{{ $quickLink->meta_title }}">
                                                 @error('meta_title')
                                     <div class="text-danger">{{ $message }}</div>
@@ -139,7 +139,7 @@
                                         <label for="meta_keyword" class="label">Meta Keyword</label>
                                         <div class="form-group position-relative">
                                             <input type="text" name="meta_keyword" id="meta_keyword"
-                                                class="form-control text-dark ps-5 h-58"
+                                                class="form-control text-dark  h-58"
                                                 value="{{ $quickLink->meta_keyword }}">
                                         </div>
                                     </div>
@@ -172,7 +172,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="file" name="pdf_file" id="pdf_file"
-                                        class="form-control text-dark ps-5 h-58">
+                                        class="form-control text-dark  h-58">
                                     @if ($quickLink->pdf_file)
                                     <small>Current file: <a href="{{ asset('storage/' . $quickLink->pdf_file) }}"
                                             target="_blank">View File</a></small>
@@ -187,7 +187,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="url" name="website_url" id="website_url"
-                                        class="form-control text-dark ps-5 h-58" value="{{ $quickLink->website_url }}">
+                                        class="form-control text-dark  h-58" value="{{ $quickLink->website_url }}">
                                 </div>
                             </div>
                         </div>
@@ -198,7 +198,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" name="start_date" id="start_date"
-                                        class="form-control text-dark ps-5 h-58"
+                                        class="form-control text-dark  h-58"
                                         value="{{ old('start_date', $startDate) }}">
                                 </div>
                             </div>
@@ -210,7 +210,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" name="termination_date" id="termination_date"
-                                        class="form-control text-dark ps-5 h-58"
+                                        class="form-control text-dark  h-58"
                                         value="{{ old('termination_date', $terminationDate) }}">
                                 </div>
                             </div>
@@ -223,7 +223,7 @@
                                 <label for="status" class="label">Page Status</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select name="status" id="status" class="form-control text-dark ps-5 h-58">
+                                    <select name="status" id="status" class="form-control text-dark  h-58">
                                         <option value="1" {{ $quickLink->status == 1 ? 'selected' : '' }}>Active
                                         </option>
                                         <option value="0" {{ $quickLink->status == 0 ? 'selected' : '' }}>Inactive

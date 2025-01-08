@@ -48,7 +48,7 @@
                                 <label for="category_name" class="label">Category Name</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select name="category_name" id="category_name" class="form-control text-dark ps-5 h-58">
+                                    <select name="category_name" id="category_name" class="form-control text-dark  h-58">
                                         <option value="">Select Category Name</option>
                                         @foreach ($categories as $category)
                                         <option value="{{ $category->id }}" {{ old('category_name') == $category->id ? 'selected' : '' }}>

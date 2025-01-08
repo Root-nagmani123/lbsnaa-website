@@ -34,7 +34,7 @@
                                 <label class="label" for="district_name">District Name :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="district_name" id="district_name" value="{{ $districts->district_name }}" required>
+                                    <input type="text" class="form-control text-dark  h-58" name="district_name" id="district_name" value="{{ $districts->district_name }}" required>
                                 </div>
                             </div>
                         </div>
@@ -43,7 +43,7 @@
                                 <label class="label" for="status">Status :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="status" id="status" required>
+                                    <select class="form-select form-control  h-58" name="status" id="status" required>
                                         <option value="1" class="text-dark" {{ $districts->status ==1? 'selected' : '' }}>Active</option>
                                         <option value="0" class="text-dark" {{ $districts->status == 0? 'selected' : '' }}>Inactive</option>
                                     </select>

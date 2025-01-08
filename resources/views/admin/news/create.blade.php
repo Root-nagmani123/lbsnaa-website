@@ -47,7 +47,7 @@
                                 <label class="label" for="title">Title :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="title" id="title" value="{{ old('title') }}">
+                                    <input type="text" class="form-control text-dark  h-58" name="title" id="title" value="{{ old('title') }}">
                                     @error('title')
                                         <div style="color: red;">{{ $message }}</div>
                                     @enderror
@@ -60,7 +60,7 @@
                                 <label for="short_description" class="label">Short Description</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <textarea name="short_description" id="short_description" class="form-control ps-5 text-dark">{{ old('short_description') }}</textarea>
+                                    <textarea name="short_description" id="short_description" class="form-control  text-dark">{{ old('short_description') }}</textarea>
                                     @error('short_description')
                                         <div style="color: red;">{{ $message }}</div>
                                     @enderror
@@ -73,7 +73,7 @@
                                 <label class="label" for="meta_title">Meta Title :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="meta_title" id="meta_title" value="{{ old('meta_title') }}">
+                                    <input type="text" class="form-control text-dark  h-58" name="meta_title" id="meta_title" value="{{ old('meta_title') }}">
                                     @error('meta_title')
                                         <div style="color: red;">{{ $message }}</div>
                                     @enderror
@@ -86,7 +86,7 @@
                                 <label for="meta_keywords" class="label">Meta Keywords :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="meta_keywords" id="meta_keywords" value="{{ old('meta_keywords') }}">
+                                    <input type="text" class="form-control text-dark  h-58" name="meta_keywords" id="meta_keywords" value="{{ old('meta_keywords') }}">
                                     @error('meta_keywords')
                                         <div style="color: red;">{{ $message }}</div>
                                     @enderror
@@ -99,7 +99,7 @@
                                 <label for="meta_description" class="label">Meta Description</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <textarea name="meta_description" id="meta_description" class="form-control ps-5 text-dark">{{ old('meta_description') }}</textarea>
+                                    <textarea name="meta_description" id="meta_description" class="form-control  text-dark">{{ old('meta_description') }}</textarea>
                                     @error('meta_description')
                                         <div style="color: red;">{{ $message }}</div>
                                     @enderror
@@ -112,7 +112,7 @@
                                 <label for="description" class="label">Description</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <textarea name="description" id="description" class="form-control ps-5 text-dark">{{ old('description') }}</textarea>
+                                    <textarea name="description" id="description" class="form-control  text-dark">{{ old('description') }}</textarea>
                                     @error('description')
                                         <div style="color: red;">{{ $message }}</div>
                                     @enderror
@@ -125,7 +125,7 @@
                                 <label for="main_image" class="label">Main Image</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="file" name="main_image" id="main_image" class="form-control text-dark ps-5 h-58">
+                                    <input type="file" name="main_image" id="main_image" class="form-control text-dark  h-58">
                                     @error('main_image')
                                         <div style="color: red;">{{ $message }}</div>
                                     @enderror
@@ -138,7 +138,7 @@
                                 <label for="multiple_images" class="label">Upload Multiple Image</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="file" name="multiple_images[]" id="multiple_images" class="form-control text-dark ps-5 h-58" multiple>
+                                    <input type="file" name="multiple_images[]" id="multiple_images" class="form-control text-dark  h-58" multiple>
                                     @error('multiple_images')
                                         <div style="color: red;">{{ $message }}</div>
                                     @enderror
@@ -151,7 +151,7 @@
                                 <label for="start_date" class="label">Start Date</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="date" name="start_date" id="start_date" class="form-control text-dark ps-5 h-58" value="{{ old('start_date') }}">
+                                    <input type="date" name="start_date" id="start_date" class="form-control text-dark  h-58" value="{{ old('start_date') }}">
                                     @error('start_date')
                                         <div style="color: red;">{{ $message }}</div>
                                     @enderror
@@ -164,7 +164,7 @@
                                 <label for="end_date" class="label">End Date</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="date" name="end_date" id="end_date" class="form-control text-dark ps-5 h-58" value="{{ old('end_date') }}">
+                                    <input type="date" name="end_date" id="end_date" class="form-control text-dark  h-58" value="{{ old('end_date') }}">
                                     @error('end_date')
                                         <div style="color: red;">{{ $message }}</div>
                                     @enderror
@@ -177,7 +177,7 @@
                                 <label class="label" for="status">Status :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="status" id="status">
+                                    <select class="form-select form-control  h-58" name="status" id="status">
                                         <option value="" class="text-dark" selected>Select</option>
                                         <option value="1" class="text-dark" {{ old('status') == '1' ? 'selected' : '' }}>Active</option>
                                         <option value="0" class="text-dark" {{ old('status') == '0' ? 'selected' : '' }}>Inactive</option>

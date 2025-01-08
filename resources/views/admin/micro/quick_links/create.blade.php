@@ -46,7 +46,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <select name="research_centre_id" id="research_centre_id"
-                                        class="form-control text-dark ps-5 h-58">
+                                        class="form-control text-dark  h-58">
                                         <option value="">Select Research Centre</option>
                                         @foreach ($researchCentres as $id => $name)
                                         <option value="{{ $id }}">{{ $name }}</option>
@@ -64,7 +64,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <select name="category_type" id="category_type"
-                                        class="form-control text-dark ps-5 h-58">
+                                        class="form-control text-dark  h-58">
                                         <option value="">Select Category</option>
                                         <option value="1">What's New</option>
                                         <option value="2">Quick Link</option>
@@ -80,7 +80,7 @@
                                 <label for="name" class="label">Name</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" name="name" id="name" class="form-control text-dark ps-5 h-58">
+                                    <input type="text" name="name" id="name" class="form-control text-dark  h-58">
                                     @error('name')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -92,7 +92,7 @@
                                 <label for="menu_type" class="label">Menu Type</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select name="menu_type" id="menu_type" class="form-control text-dark ps-5 h-58">
+                                    <select name="menu_type" id="menu_type" class="form-control text-dark  h-58">
                                         <option value="">Select</option>
                                         <option value="1">Content</option>
                                         <option value="2">PDF file Upload</option>
@@ -112,7 +112,7 @@
                                         <span class="star">*</span>
                                         <div class="form-group position-relative">
                                             <input type="text" name="meta_title" id="meta_title"
-                                                class="form-control text-dark ps-5 h-58">
+                                                class="form-control text-dark  h-58">
                                             @error('meta_title')
                                             <div class="text-danger">{{ $message }}</div>
                                             @enderror
@@ -124,7 +124,7 @@
                                         <label for="meta_keyword" class="label">Meta Keyword</label>
                                         <div class="form-group position-relative">
                                             <input type="text" name="meta_keyword" id="meta_keyword"
-                                                class="form-control text-dark ps-5 h-58">
+                                                class="form-control text-dark  h-58">
                                         </div>
                                     </div>
                                 </div>
@@ -159,7 +159,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="file" name="pdf_file" id="pdf_file"
-                                        class="form-control text-dark ps-5 h-58">
+                                        class="form-control text-dark  h-58">
                                     @error('pdf_file')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -172,7 +172,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="url" name="website_url" id="website_url"
-                                        class="form-control text-dark ps-5 h-58">
+                                        class="form-control text-dark  h-58">
                                     @error('website_url')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -186,7 +186,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="date" name="start_date" id="start_date"
-                                        class="form-control text-dark ps-5 h-58">
+                                        class="form-control text-dark  h-58">
                                     @error('start_date')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -199,7 +199,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="date" name="termination_date" id="termination_date"
-                                        class="form-control text-dark ps-5 h-58">
+                                        class="form-control text-dark  h-58">
                                     @error('termination_date')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -213,7 +213,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" name="start_date" id="start_date"
-                                        class="form-control text-dark ps-5 h-58">
+                                        class="form-control text-dark  h-58">
                                     @error('start_date')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -227,7 +227,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" name="termination_date" id="termination_date"
-                                        class="form-control text-dark ps-5 h-58">
+                                        class="form-control text-dark  h-58">
                                     @error('termination_date')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -241,7 +241,7 @@
                                 <label for="status" class="label">Page Status</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select name="status" id="status" class="form-control text-dark ps-5 h-58">
+                                    <select name="status" id="status" class="form-control text-dark  h-58">
                                         <option value="" selected>Select</option>
                                         <option value="1">Active</option>
                                         <option value="0">Inactive</option>

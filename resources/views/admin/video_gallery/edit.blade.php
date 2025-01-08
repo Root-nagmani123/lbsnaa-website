@@ -56,7 +56,7 @@
                             <label class="label" for="audio_title_en">Video Title (English) :</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
-                                <input type="text" class="form-control text-dark ps-5 h-58" id="audio_title_en"
+                                <input type="text" class="form-control text-dark  h-58" id="audio_title_en"
                                     name="audio_title_en" value="{{ $media->audio_title_en }}">
                                 @error('audio_title_en')
                                     <div class="text-danger">{{ $message }}</div>
@@ -69,7 +69,7 @@
                         <div class="form-group mb-4">
                             <label class="label" for="audio_title_hi">Video Title (Hindi) :</label>
                             <div class="form-group position-relative">
-                                <input type="text" class="form-control text-dark ps-5 h-58" id="audio_title_hi"
+                                <input type="text" class="form-control text-dark  h-58" id="audio_title_hi"
                                     name="audio_title_hi" value="{{ $media->audio_title_hi }}">
                             </div>
                         </div>
@@ -81,7 +81,7 @@
                             <label class="label" for="video_upload">YouTube Video Link:</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
-                                <input type="url" class="form-control text-dark ps-5 h-58" id="video_upload"
+                                <input type="url" class="form-control text-dark  h-58" id="video_upload"
                                     name="video_upload" placeholder="https://www.youtube.com/watch?v=example"
                                     value="{{ old('video_upload', $media->video_upload ?? '') }}">
                                 @error('video_upload')

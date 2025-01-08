@@ -41,7 +41,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     
-                                    <input class="form-check-input form-control ps-5 h-58" type="text"
+                                    <input class="form-check-input form-control  h-58" type="text"
                                         name="course-search" id="course-search"
                                         placeholder="Type to search for category..." value="{{ old('course-search') }}">
 
@@ -82,7 +82,7 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="image_relate_with_news">Image Relate With News</label>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="image_relate_with_news"
+                                    <select class="form-select form-control  h-58" name="image_relate_with_news"
                                         id="image_relate_with_news">
                                         <option value="">Select News</option>
                                         <option value="News"
@@ -99,7 +99,7 @@
                                 <label class="label" for="news-search">Related News :</label>
                                 <div class="form-group position-relative">
                                     
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="news-search"
+                                    <input type="text" class="form-control text-dark  h-58" name="news-search"
                                         id="news-search" placeholder="Type to search for news..."
                                         value="{{ old('news-search') }}">
                                     
@@ -121,7 +121,7 @@
                                 <label class="label" for="image_relate_with_training">Image Relate with Training
                                     :</label>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="image_relate_with_training"
+                                    <select class="form-select form-control  h-58" name="image_relate_with_training"
                                         id="image_relate_with_training">
                                         <option value="">Select Training Programme</option>
                                         <option value="Training Programme"
@@ -138,7 +138,7 @@
                                 <label class="label" for="training-search">Related Training Programme :</label>
                                 <div class="form-group position-relative">
                                     <!-- Text Input -->
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="training-search"
+                                    <input type="text" class="form-control text-dark  h-58" name="training-search"
                                         id="training-search" placeholder="Type to search for training programmes..."
                                         value="{{ old('training-search') }}">
                                     <!-- Hidden Field -->
@@ -156,7 +156,7 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="image_relate_with_events">Image Relate with Events :</label>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="image_relate_with_events"
+                                    <select class="form-select form-control  h-58" name="image_relate_with_events"
                                         id="image_relate_with_events">
                                         <option value="" class="text-dark">Select Events</option>
                                         <option value="Related Events" class="text-dark"
@@ -171,7 +171,7 @@
                                 <label for="media_categories" class="label">Media Category</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select name="media_categories" id="media_categories" class="form-control text-dark ps-5 h-58">
+                                    <select name="media_categories" id="media_categories" class="form-control text-dark  h-58">
                                         <option value="">Select Category Center</option>
                                         @foreach ($mediaCategories as $category)
                                         <option value="{{ $category->id }}" {{ old('media_categories') == $category->id ? 'selected' : '' }}>
@@ -192,7 +192,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     
-                                    <input type="text" id="event-search" class="form-control text-dark ps-5 h-58"
+                                    <input type="text" id="event-search" class="form-control text-dark  h-58"
                                         name="event-search" placeholder="Type to search for events..."
                                         value="{{ old('event-search') }}">
                                     
@@ -210,7 +210,7 @@
                                 <label class="label" for="image_title_english">Image Title (English) :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58"
+                                    <input type="text" class="form-control text-dark  h-58"
                                         name="image_title_english" id="image_title_english"
                                         value="{{ old('image_title_english', $gallery->image_title_english ?? '') }}">
                                     @error('image_title_english')
@@ -223,7 +223,7 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="image_title_hindi">Image Title (Hindi) :</label>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="image_title_hindi"
+                                    <input type="text" class="form-control text-dark  h-58" name="image_title_hindi"
                                         id="image_title_hindi"
                                         value="{{ old('image_title_hindi', $gallery->image_title_hindi ?? '') }}">
                                 </div>
@@ -237,7 +237,7 @@
                                 <label class="label">Image Files:</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="file" name="image_files[]" class="form-control text-dark ps-5 h-58"
+                                    <input type="file" name="image_files[]" class="form-control text-dark  h-58"
                                         accept="image/*">
                                     @error('image_files')
                                     <div class="text-danger">{{ $message }}</div>
@@ -256,7 +256,7 @@
                                 <label class="label" for="status">Status:</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="status" id="status">
+                                    <select class="form-select form-control  h-58" name="status" id="status">
                                         <option value="" class="text-dark">Select</option>
                                         <option value="1" class="text-dark"
                                             {{ old('status') == '1' ? 'selected' : '' }}>Active</option>

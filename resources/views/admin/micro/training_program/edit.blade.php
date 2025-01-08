@@ -48,7 +48,7 @@
                             <label class="label" for="research_centre">Select Research Centre:</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
-                                <select class="form-select form-control ps-5 h-58" name="research_centre"
+                                <select class="form-select form-control  h-58" name="research_centre"
                                     id="research_centre" required>
                                     <option value="" disabled
                                         {{ is_null($trainingProgram->research_centre) ? 'selected' : '' }}>
@@ -70,7 +70,7 @@
                             <label class="label">Program Name</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
-                                <input type="text" name="program_name" class="form-control text-dark ps-5 h-58"
+                                <input type="text" name="program_name" class="form-control text-dark  h-58"
                                     value="{{ $trainingProgram->program_name }}">
                                 @error('program_name')
                                     <div class="text-danger">{{ $message }}</div>
@@ -83,7 +83,7 @@
                             <label class="label">Venue</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
-                                <input type="text" name="venue" class="form-control text-dark ps-5 h-58"
+                                <input type="text" name="venue" class="form-control text-dark  h-58"
                                     value="{{ $trainingProgram->venue }}">
                                 @error('venue')
                                     <div class="text-danger">{{ $message }}</div>
@@ -96,7 +96,7 @@
                         <div class="form-group mb-4">
                             <label class="label">Program Co-ordinator</label>
                             <div class="form-group position-relative">
-                                <input type="text" name="program_coordinator" class="form-control text-dark ps-5 h-58"
+                                <input type="text" name="program_coordinator" class="form-control text-dark  h-58"
                                     value="{{ $trainingProgram->program_coordinator }}">
                             </div>
                         </div>
@@ -106,7 +106,7 @@
                             <label class="label">Program Description</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
-                                <textarea name="program_description" class="form-control text-dark ps-5 h-58" id="program_description">
+                                <textarea name="program_description" class="form-control text-dark  h-58" id="program_description">
                                     {{ $trainingProgram->program_description }}</textarea>
                                 @error('program_description')
                                     <div class="text-danger">{{ $message }}</div>
@@ -119,7 +119,7 @@
                             <label class="label">Start Date</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
-                                <input type="date" name="start_date" class="form-control text-dark ps-5 h-58"
+                                <input type="date" name="start_date" class="form-control text-dark  h-58"
                                     value="{{ $trainingProgram->start_date }}">
                                 @error('start_date')
                                     <div class="text-danger">{{ $message }}</div>
@@ -132,7 +132,7 @@
                             <label class="label">End Date</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
-                                <input type="date" name="end_date" class="form-control text-dark ps-5 h-58"
+                                <input type="date" name="end_date" class="form-control text-dark  h-58"
                                     value="{{ $trainingProgram->end_date }}">
                                 @error('end_date')
                                     <div class="text-danger">{{ $message }}</div>
@@ -144,7 +144,7 @@
                         <div class="form-group mb-4">
                             <label class="label">Important Links</label>
                             <div class="form-group position-relative">
-                                <input type="text" name="important_links" class="form-control text-dark ps-5 h-58"
+                                <input type="text" name="important_links" class="form-control text-dark  h-58"
                                     value="{{ $trainingProgram->important_links }}" id="important_links">
                             </div>
 
@@ -156,7 +156,7 @@
                             <span class="star">*</span>
                             <div class="form-group position-relative">
                                 <select name="registration_status" id="registration_status"
-                                    class="form-control text-dark ps-5 h-58">
+                                    class="form-control text-dark  h-58">
                                     <option value="1" class="text-dark"
                                         {{ $trainingProgram->registration_status == 1? 'selected' : '' }}>On</option>
                                     <option value="2" class="text-dark"
@@ -170,7 +170,7 @@
                             <label class="label">Page Status</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
-                                <select name="page_status" class="form-control text-dark ps-5 h-58">
+                                <select name="page_status" class="form-control text-dark  h-58">
                                     <option value="1" {{ $trainingProgram->page_status == 1? 'selected' : '' }}>Active
                                     </option>
                                     <option value="0" {{ $trainingProgram->page_status == 0? 'selected' : '' }}>Inactive

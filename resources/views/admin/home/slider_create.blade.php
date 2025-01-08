@@ -54,7 +54,8 @@
                                 <label class="label" for="image">Slider Image :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="file" class="form-control text-dark ps-5 h-58" name="image" id="image">
+                                    <input type="file" class="form-control text-dark  h-58" name="image" id="image">
+                                    <small>Best Size for banner is : 600px × 475px</small>
                                     @error('image')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -66,7 +67,7 @@
                                 <label class="label" for="text">Slider Text :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="text" id="text">
+                                    <input type="text" class="form-control text-dark  h-58" name="text" id="text">
                                     @error('text')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -78,7 +79,7 @@
                                 <label class="label" for="description">Slider Description :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <textarea class="form-control ps-5 text-dark"
+                                    <textarea class="form-control  text-dark"
                                         name="description"></textarea>
                                         @error('description')
                                         <div class="text-danger">{{ $message }}</div>
@@ -91,7 +92,7 @@
                                 <label class="label" for="status">Status :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="status" id="status">
+                                    <select class="form-select form-control  h-58" name="status" id="status">
                                         <option value="" class="text-dark">Select</option>
                                         <option value="1" class="text-dark">Active</option>
                                         <option value="0" class="text-dark">Inactive</option>

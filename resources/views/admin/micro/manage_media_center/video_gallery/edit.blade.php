@@ -35,7 +35,7 @@
                                 <label for="category_name" class="label">Category Name</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select name="category_name" id="category_name" class="form-control text-dark ps-5 h-58">
+                                    <select name="category_name" id="category_name" class="form-control text-dark  h-58">
                                         <option value="">Select Category Name</option>
                                         @foreach ($categories as $category)
                                             <option value="{{ $category->id }}" 
@@ -56,7 +56,7 @@
                                 <label for="research_centre_id" class="label">Select Research Center</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select name="research_centre" id="research_centre_id" class="form-control text-dark ps-5 h-58">
+                                    <select name="research_centre" id="research_centre_id" class="form-control text-dark  h-58">
                                         <option value="">Select Research Centre</option>
                                         @foreach ($researchCentres as $id => $name)
                                             <option value="{{ $id }}" {{ old('research_centre', $video->research_centre) == $id ? 'selected' : '' }}>
@@ -76,7 +76,7 @@
                                 <label class="label" for="video_title_en">Video Title (English) :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="video_title_en"
+                                    <input type="text" class="form-control text-dark  h-58" name="video_title_en"
                                         id="video_title_en" value="{{ $video->video_title_en }}">
                                     @error('video_title_en')
                                         <div class="text-danger">{{ $message }}</div>
@@ -88,7 +88,7 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="video_title_hi">Audio Title (Hindi) :</label>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="video_title_hi"
+                                    <input type="text" class="form-control text-dark  h-58" name="video_title_hi"
                                         id="video_title_hi" value="{{ $video->video_title_hi }}">
                                 </div>
                             </div>
@@ -114,7 +114,7 @@
                                 <label class="label" for="page_status">Page Status :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="page_status"
+                                    <select class="form-select form-control  h-58" name="page_status"
                                         id="page_status">
                                         <option value="1" class="text-dark"
                                             {{ $video->page_status == '1' ? 'selected' : '' }}>Active</option>

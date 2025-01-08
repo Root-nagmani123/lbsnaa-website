@@ -56,7 +56,7 @@
                                 <label class="label" for="job_title">Job Title :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="job_title"
+                                    <input type="text" class="form-control text-dark  h-58" name="job_title"
                                         id="job_title" value="{{ old('job_title') }}">
 
                                     @error('job_title')
@@ -85,7 +85,7 @@
                                 <label class="label" for="content_type">Content Type :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="content_type"
+                                    <select class="form-select form-control  h-58" name="content_type"
                                         id="content_type">
                                         <option value="" class="text-dark">Select</option>
                                         <option value="PDF" class="text-dark"  {{ old('content_type') == 'PDF' ? 'selected' : '' }}>PDF File Upload</option>
@@ -102,7 +102,7 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="document_upload">Document Upload :</label>
                                 <div class="form-group position-relative">
-                                    <input type="file" class="form-control text-dark ps-5 h-58" name="document_upload"
+                                    <input type="file" class="form-control text-dark  h-58" name="document_upload"
                                         id="document_upload"  value="{{ old('document_upload') }}">
 
                                     @error('document_upload')
@@ -115,7 +115,7 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="website_link">Website Link :</label>
                                 <div class="form-group position-relative">
-                                    <input type="url" class="form-control text-dark ps-5 h-58" name="website_link"
+                                    <input type="url" class="form-control text-dark  h-58" name="website_link"
                                         id="website_link"   value="{{ old('website_link') }}">
 
                                     @error('website_link')
@@ -129,7 +129,7 @@
                                 <label class="label" for="publish_date">Publish Date :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="date" class="form-control text-dark ps-5 h-58" name="publish_date"
+                                    <input type="date" class="form-control text-dark  h-58" name="publish_date"
                                         id="publish_date" value="{{ old('publish_date') }}">
 
                                     @error('publish_date')
@@ -143,7 +143,7 @@
                                 <label class="label" for="expiry_date">Expiry Date :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="date" class="form-control text-dark ps-5 h-58" name="expiry_date"
+                                    <input type="date" class="form-control text-dark  h-58" name="expiry_date"
                                         id="expiry_date" value="{{ old('expiry_date') }}">
 
                                     @error('expiry_date')
@@ -157,7 +157,7 @@
                                 <label class="label" for="texttype">Status :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="status" id="status">
+                                    <select class="form-select form-control  h-58" name="status" id="status">
                                         <option value="" class="text-dark">Select</option>
                                         <option value="1" class="text-dark" {{ old('status') == '1' ? 'selected' : '' }}>Active</option>
                                         <option value="0" class="text-dark" {{ old('status') == '0' ? 'selected' : '' }}>Inactive</option>

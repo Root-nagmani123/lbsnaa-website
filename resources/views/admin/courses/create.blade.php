@@ -49,7 +49,7 @@
                                 <label class="label" for="course_name">Course Name :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="course_name"
+                                    <input type="text" class="form-control text-dark  h-58" name="course_name"
                                         id="course_name" value="{{ old('course_name') }}">
                                     @error('course_name')
                                     <div class="text-danger">{{ $message }}</div>
@@ -62,7 +62,7 @@
                                 <label class="label" for="abbreviation">Abbreviation :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="abbreviation"
+                                    <input type="text" class="form-control text-dark  h-58" name="abbreviation"
                                         id="abbreviation" value="{{ old('abbreviation') }}">
                                     @error('abbreviation')
                                     <div class="text-danger">{{ $message }}</div>
@@ -75,7 +75,7 @@
                                 <label class="label" for="meta_title">Meta Title :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="meta_title"
+                                    <input type="text" class="form-control text-dark  h-58" name="meta_title"
                                         id="meta_title" value="{{ old('meta_title') }}">
                                     @error('meta_title')
                                     <div class="text-danger">{{ $message }}</div>
@@ -87,7 +87,7 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="meta_keyword">Meta Keyword :</label>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="meta_keyword"
+                                    <input type="text" class="form-control text-dark  h-58" name="meta_keyword"
                                         id="meta_keyword" value="{{ old('meta_keyword') }}">
                                     @error('meta_keyword')
                                     <div class="text-danger">{{ $message }}</div>
@@ -99,7 +99,7 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="meta_description">Meta Description:</label>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58"  value="{{ old('meta_description') }}" name="meta_description" id="meta_description">
+                                    <input type="text" class="form-control text-dark  h-58"  value="{{ old('meta_description') }}" name="meta_description" id="meta_description">
                                 </div>
                             </div>
                         </div>
@@ -117,7 +117,7 @@
                                 <label class="label" for="course_start_date">Course Start Date :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="date" class="form-control text-dark ps-5 h-58" name="course_start_date"
+                                    <input type="date" class="form-control text-dark  h-58" name="course_start_date"
                                         id="course_start_date"  value="{{ old('course_start_date') }}">
                                     @error('course_start_date')
                                     <div class="text-danger">{{ $message }}</div>
@@ -130,7 +130,7 @@
                                 <label class="label" for="course_end_date">Course End Date :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="date" class="form-control text-dark ps-5 h-58" name="course_end_date"
+                                    <input type="date" class="form-control text-dark  h-58" name="course_end_date"
                                         id="course_end_date"  value="{{ old('course_end_date') }}">
                                     @error('course_end_date')
                                     <div class="text-danger">{{ $message }}</div>
@@ -143,7 +143,7 @@
                                 <label class="label" for="support_section">Support Section :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="support_section"
+                                    <select class="form-select form-control  h-58" name="support_section"
                                         id="support_section">
                                         <option value="" class="text-dark" selected>Select Section</option>
                                         @foreach($section_category as $section)
@@ -165,7 +165,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <select 
-                                        class="form-select form-control ps-5 h-58" 
+                                        class="form-select form-control  h-58" 
                                         name="support_section" 
                                         id="support_section">
                                         <option value="" class="text-dark" selected disabled>Select Section</option>
@@ -191,7 +191,7 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="organised">Organised By :</label>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="organised"
+                                    <input type="text" class="form-control text-dark  h-58" name="organised"
                                         id="organised"  value="{{ old('organised') }}">
                                 </div>
                             </div>
@@ -201,7 +201,7 @@
                                 <label class="label" for="coordinator_id">Coordinator Name :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="coordinator_id"
+                                    <input type="text" class="form-control text-dark  h-58" name="coordinator_id"
                                         id="coordinator_id"  value="{{ old('coordinator_id') }}">
                                 </div>
                             </div>
@@ -211,7 +211,7 @@
                                 <label class="label" for="asst_coordinator_1_id">1st Asst. Co-ordinator :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58"
+                                    <input type="text" class="form-control text-dark  h-58"
                                         name="asst_coordinator_1_id" id="asst_coordinator_1_id"  value="{{ old('asst_coordinator_1_id') }}">
                                 </div>
                             </div>
@@ -220,7 +220,7 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="asst_coordinator_2_id">2nd Asst. Co-ordinator :</label>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58"
+                                    <input type="text" class="form-control text-dark  h-58"
                                         name="asst_coordinator_2_id" id="asst_coordinator_2_id" 
                                          value="{{ old('asst_coordinator_2_id') }}">
                                 </div>
@@ -230,7 +230,7 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="asst_coordinator_3_id">3rd Asst. Co-ordinator :</label>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58"
+                                    <input type="text" class="form-control text-dark  h-58"
                                         name="asst_coordinator_3_id" id="asst_coordinator_3_id"
                                         value="{{ old('asst_coordinator_3_id') }}">
                                 </div>
@@ -240,7 +240,7 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="asst_coordinator_4_id">4th Asst. Co-ordinator :</label>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58"
+                                    <input type="text" class="form-control text-dark  h-58"
                                         name="asst_coordinator_4_id" id="asst_coordinator_4_id"
                                         value="{{ old('asst_coordinator_4_id') }}">
                                 </div>
@@ -250,7 +250,7 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="asst_coordinator_5_id">5th Asst. Co-ordinator :</label>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58"
+                                    <input type="text" class="form-control text-dark  h-58"
                                         name="asst_coordinator_5_id" id="asst_coordinator_5_id"
                                         value="{{ old('asst_coordinator_5_id') }}">
                                 </div>
@@ -260,7 +260,7 @@
                             <div class="form-group mb-0">
                                 <label class="label" for="important_links">Important Links :</label>
                                 <div class="form-group position-relative">
-                                    <textarea class="form-control ps-5 text-dark" id="important_links"
+                                    <textarea class="form-control  text-dark" id="important_links"
                                         name="important_links"></textarea>
                                 </div>
                             </div>
@@ -289,7 +289,7 @@
                                 <label class="label" for="venue_id">Venue:</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="venue_id" id="venue_id">
+                                    <select class="form-select form-control  h-58" name="venue_id" id="venue_id">
                                         <option value="" class="text-dark" selected>Select Venue</option>
                                         @foreach($manage_venues as $venues)
                                         <option value="{{ $venues->id }}" class="text-dark">{{ $venues->venue_title }}
@@ -306,7 +306,7 @@
                             <div class="form-group mb-0">
                                 <label class="label" for="funded">Funded By :</label>
                                 <div class="form-group position-relative">
-                                    <textarea class="form-control ps-5 text-dark" id="funded"
+                                    <textarea class="form-control  text-dark" id="funded"
                                         name="funded"></textarea>
                                 </div>
                             </div>
@@ -339,7 +339,7 @@
                                 <label class="label" for="page_status">Status :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="page_status"
+                                    <select class="form-select form-control  h-58" name="page_status"
                                         id="page_status">
                                         <option value="" class="text-dark" selected>Select</option>
                                         <option value="1" class="text-dark">Active</option>
@@ -356,7 +356,7 @@
                             <div class="form-group mb-0">
                                 <label class="label" for="important_links">Important Links:</label>
                                 <div class="form-group position-relative">
-                                    <textarea class="form-control ps-5 text-dark" id="important_links" name="important_links">{{ old('important_links') }}</textarea>
+                                    <textarea class="form-control  text-dark" id="important_links" name="important_links">{{ old('important_links') }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -384,7 +384,7 @@
                                 <label class="label" for="venue_id">Venue:</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="venue_id" id="venue_id">
+                                    <select class="form-select form-control  h-58" name="venue_id" id="venue_id">
                                         <option value="" class="text-dark" selected disabled>Select Venue</option>
                                         @foreach($manage_venues as $venues)
                                         <option value="{{ $venues->id }}" {{ old('venue_id') == $venues->id ? 'selected' : '' }} class="text-dark">
@@ -404,7 +404,7 @@
                             <div class="form-group mb-0">
                                 <label class="label" for="funded">Funded By:</label>
                                 <div class="form-group position-relative">
-                                    <textarea class="form-control ps-5 text-dark" id="funded" name="funded">{{ old('funded') }}</textarea>
+                                    <textarea class="form-control  text-dark" id="funded" name="funded">{{ old('funded') }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -435,7 +435,7 @@
                                 <label class="label" for="page_status">Status:</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="page_status" id="page_status">
+                                    <select class="form-select form-control  h-58" name="page_status" id="page_status">
                                         <option value="" class="text-dark" selected disabled>Select</option>
                                         <option value="1" {{ old('page_status') == '1' ? 'selected' : '' }} class="text-dark">Active</option>
                                         <option value="0" {{ old('page_status') == '0' ? 'selected' : '' }} class="text-dark">Inactive</option>

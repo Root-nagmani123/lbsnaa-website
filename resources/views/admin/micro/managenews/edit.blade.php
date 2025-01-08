@@ -60,7 +60,7 @@
                                 <label class="label" for="research_centre">Select Research Centre :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="research_centre"
+                                    <select class="form-select form-control  h-58" name="research_centre"
                                         id="research_centre">
                                         <option value="" {{ is_null($news->research_centreid) ? 'selected' : '' }}>
                                             Select Research Centre</option>
@@ -82,7 +82,7 @@
                                 <label class="label" for="title">Title :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="title" id="title"
+                                    <input type="text" class="form-control text-dark  h-58" name="title" id="title"
                                         value="{{ old('title', $news->title) }}">
                                     @error('title')
                                     <div class="text-danger">{{ $message }}</div>
@@ -96,7 +96,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <textarea name="short_description" id="short_description"
-                                        class="form-control ps-5 text-dark">{{ old('short_description', $news->short_description) }}</textarea>
+                                        class="form-control  text-dark">{{ old('short_description', $news->short_description) }}</textarea>
                                     @error('short_description')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -108,7 +108,7 @@
                                 <label class="label" for="meta_title">Meta Title :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="meta_title"
+                                    <input type="text" class="form-control text-dark  h-58" name="meta_title"
                                         id="meta_title" value="{{ old('meta_title', $news->meta_title) }}">
                                     @error('meta_title')
                                     <div class="text-danger">{{ $message }}</div>
@@ -120,7 +120,7 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="meta_keywords">Meta Keywords :</label>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="meta_keywords"
+                                    <input type="text" class="form-control text-dark  h-58" name="meta_keywords"
                                         id="meta_keywords" value="{{ old('meta_keywords', $news->meta_keywords) }}">
                                 </div>
                             </div>
@@ -131,7 +131,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <textarea name="meta_description" id="meta_description"
-                                        class="form-control ps-5 text-dark">{{ old('meta_description', $news->meta_description) }}</textarea>
+                                        class="form-control  text-dark">{{ old('meta_description', $news->meta_description) }}</textarea>
                                     @error('meta_description')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -144,7 +144,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <textarea name="description" id="description"
-                                        class="form-control ps-5 text-dark">{{ old('description', $news->description) }}</textarea>
+                                        class="form-control  text-dark">{{ old('description', $news->description) }}</textarea>
                                     @error('description')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -157,7 +157,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="file" name="main_image" id="main_image"
-                                        class="form-control text-dark ps-5 h-58" value="{{ old('main_image', $news->main_image) }}">
+                                        class="form-control text-dark  h-58" value="{{ old('main_image', $news->main_image) }}">
                                     <small>Current: <img src="{{ asset( $news->main_image) }}" alt="Current Image"
                                             style="max-width: 150px;"></small>
                                     @error('main_image')
@@ -172,7 +172,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="file" name="multiple_images" id="multiple_images"
-                                        class="form-control text-dark ps-5 h-58" value="{{ old('multiple_images', $news->multiple_images) }}">
+                                        class="form-control text-dark  h-58" value="{{ old('multiple_images', $news->multiple_images) }}">
                                     <small>Current Images:
                                         @foreach (json_decode($news->multiple_images) as $image)
                                         <img src="{{ asset($image) }}" alt="Current Image"
@@ -191,7 +191,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="date" name="start_date" id="start_date"
-                                        class="form-control text-dark ps-5 h-58"
+                                        class="form-control text-dark  h-58"
                                         value="{{ old('start_date', $news->start_date) }}">
                                     @error('start_date')
                                     <div class="text-danger">{{ $message }}</div>
@@ -205,7 +205,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="date" name="end_date" id="end_date"
-                                        class="form-control text-dark ps-5 h-58"
+                                        class="form-control text-dark  h-58"
                                         value="{{ old('end_date', $news->end_date) }}">
                                     @error('end_date')
                                     <div class="text-danger">{{ $message }}</div>
@@ -218,7 +218,7 @@
                                 <label class="label" for="status">Status :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="status" id="status"
+                                    <select class="form-select form-control  h-58" name="status" id="status"
                                         required>
                                         <option value="1" class="text-dark" {{ $news->status == 1? 'selected' : '' }}>
                                             Active</option>

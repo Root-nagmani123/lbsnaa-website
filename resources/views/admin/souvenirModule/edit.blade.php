@@ -33,7 +33,7 @@
                                 <label class="label" for="type">Type :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                <select class="form-select form-control ps-5 h-58" name="type" id="type" required>
+                                <select class="form-select form-control  h-58" name="type" id="type" required>
                                         <option value="1" class="text-dark" {{ $category->type == 1 ? 'selected' : '' }}>Academy Souvenir</option>
                                         <option value="2" class="text-dark" {{ $category->type == 2 ? 'selected' : '' }}>Life Academy Souvenir</option>
                                     </select>
@@ -48,7 +48,7 @@
                                 <label class="label" for="category_name">Category Name :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="category_name" id="category_name" value="{{ $category->category_name }}">
+                                    <input type="text" class="form-control text-dark  h-58" name="category_name" id="category_name" value="{{ $category->category_name }}">
                                     @error('category_name')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -60,7 +60,7 @@
                                 <label for="category_name_hindi" class="label">Category Name Hindi</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="category_name_hindi" id="category_name_hindi" value="{{ $category->category_name_hindi }}">
+                                    <input type="text" class="form-control text-dark  h-58" name="category_name_hindi" id="category_name_hindi" value="{{ $category->category_name_hindi }}">
                                     @error('category_name_hindi')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -73,7 +73,7 @@
                                 <label class="label" for="status">Status :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="status" id="status" required>
+                                    <select class="form-select form-control  h-58" name="status" id="status" required>
                                         <option value="1" class="text-dark" {{ $category->status == 1 ? 'selected' : '' }}>Active</option>
                                         <option value="0" class="text-dark" {{ $category->status == 0 ? 'selected' : '' }}>Inactive</option>
                                     </select>

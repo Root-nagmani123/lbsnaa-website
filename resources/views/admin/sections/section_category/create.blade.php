@@ -42,7 +42,7 @@
                                 <label for="name" class="label">Name</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" name="name" class="form-control text-dark ps-5 h-58" required>
+                                    <input type="text" name="name" class="form-control text-dark  h-58" required>
                                 </div>
                             </div>
                         </div>
@@ -51,7 +51,7 @@
                             <div class="form-group mb-4">
                                 <label for="descripption" class="label">Description</label>
                                 <div class="form-group position-relative">
-                                    <textarea name="description" class="form-control ps-5 text-dark" id="descripption"
+                                    <textarea name="description" class="form-control  text-dark" id="descripption"
                                         rows="5"></textarea>
                                 </div>
                             </div>
@@ -76,7 +76,7 @@
                             <div class="form-group mb-4">
                                 <label for="alternative_incharge_1st" class="label">Alternative Incharge 1st</label>
                                 <div class="form-group position-relative">
-                                    <!-- <input type="text" name="alternative_incharge_1st" class="form-control text-dark ps-5 h-58"> -->
+                                    <!-- <input type="text" name="alternative_incharge_1st" class="form-control text-dark  h-58"> -->
                                     <select name="alternative_incharge_1st" id="alternative_incharge_1st"
                                         class="form-control">
                                         <option value="">Select  Incharge</option>
@@ -93,7 +93,7 @@
                             <div class="form-group mb-4">
                                 <label for="alternative_incharge_2st" class="label">Alternative Incharge 2nd</label>
                                 <div class="form-group position-relative">
-                                    <!-- <input type="text" name="alternative_incharge_2st" class="form-control text-dark ps-5 h-58"> -->
+                                    <!-- <input type="text" name="alternative_incharge_2st" class="form-control text-dark  h-58"> -->
                                     <select name="alternative_incharge_2st" id="alternative_incharge_2st"
                                         class="form-control">
                                         <option value="">Select  Incharge</option>
@@ -110,7 +110,7 @@
                             <div class="form-group mb-4">
                                 <label for="alternative_incharge_3st" class="label">Alternative Incharge 3rd</label>
                                 <div class="form-group position-relative">
-                                    <!-- <input type="text" name="alternative_incharge_3st" class="form-control text-dark ps-5 h-58"> -->
+                                    <!-- <input type="text" name="alternative_incharge_3st" class="form-control text-dark  h-58"> -->
                                     <select name="alternative_incharge_3st" id="alternative_incharge_3st"
                                         class="form-control">
                                         <option value="">Select  Incharge</option>
@@ -127,7 +127,7 @@
                             <div class="form-group mb-4">
                                 <label for="alternative_incharge_4st" class="label">Alternative Incharge 4th</label>
                                 <div class="form-group postion-relative">
-                                    <!-- <input type="text" name="alternative_incharge_4st" class="form-control text-dark ps-5 h-58"> -->
+                                    <!-- <input type="text" name="alternative_incharge_4st" class="form-control text-dark  h-58"> -->
                                     <select name="alternative_incharge_4st" id="alternative_incharge_4st"
                                         class="form-control">
                                         <option value="">Select  Incharge</option>
@@ -144,7 +144,7 @@
                             <div class="form-group mb-4">
                                 <label for="alternative_incharge_5st" class="label">Alternative Incharge 5th</label>
                                 <div class="form-group postion-relative">
-                                    <!-- <input type="text" name="alternative_incharge_5st" class="form-control text-dark ps-5 h-58"> -->
+                                    <!-- <input type="text" name="alternative_incharge_5st" class="form-control text-dark  h-58"> -->
                                     <select name="alternative_incharge_5st" id="alternative_incharge_5st"
                                         class="form-control">
                                         <option value="">Select  Incharge</option>
@@ -162,7 +162,7 @@
                             <div class="form-group mb-4">
                                 <label for="section_head" class="label">Section Head</label>
                                 <div class="form-group postion-relative">
-                                    <input type="text" name="section_head" class="form-control text-dark ps-5 h-58">
+                                    <input type="text" name="section_head" class="form-control text-dark  h-58">
                                 </div>
                             </div>
 
@@ -172,7 +172,7 @@
                                 <label for="phone_internal_office" class="label">Phone Internal Office</label>
                                 <div class="form-group postion-relative">
                                     <input type="text" name="phone_internal_office"
-                                        class="form-control text-dark ps-5 h-58">
+                                        class="form-control text-dark  h-58">
                                 </div>
                             </div>
 
@@ -182,7 +182,7 @@
                                 <label for="phone_internal_residence" class="label">Phone Internal Residence</label>
                                 <div class="form-group postion-relative">
                                     <input type="text" name="phone_internal_residence"
-                                        class="form-control text-dark ps-5 h-58">
+                                        class="form-control text-dark  h-58">
                                 </div>
 
                             </div>
@@ -192,7 +192,7 @@
                             <div class="form-group mb-4">
                                 <label for="phone_p_t_office" class="label">Phone P&T Office</label>
                                 <div class="form-group postion-relative">
-                                    <input type="text" name="phone_p_t_office" class="form-control text-dark ps-5 h-58">
+                                    <input type="text" name="phone_p_t_office" class="form-control text-dark  h-58">
                                 </div>
                             </div>
                         </div>
@@ -201,7 +201,7 @@
                                 <label for="phone_p_t_residence" class="label">Phone P&T Residence</label>
                                 <div class="form-group position-relative">
                                     <input type="text" name="phone_p_t_residence"
-                                        class="form-control text-dark ps-5 h-58">
+                                        class="form-control text-dark  h-58">
                                 </div>
                             </div>
                         </div>
@@ -209,7 +209,7 @@
                             <div class="form-group mb-4">
                                 <label for="fax" class="label">Fax</label>
                                 <div class="form-group position-relative">
-                                    <input type="text" name="fax" class="form-control text-dark ps-5 h-58">
+                                    <input type="text" name="fax" class="form-control text-dark  h-58">
                                 </div>
 
                             </div>
@@ -219,7 +219,7 @@
                             <div class="form-group mb-4">
                                 <label for="email" class="label">Email</label>
                                 <div class="form-group position-relative">
-                                    <input type="email" name="email" class="form-control text-dark ps-5 h-58">
+                                    <input type="email" name="email" class="form-control text-dark  h-58">
                                 </div>
 
                             </div>
@@ -230,7 +230,7 @@
                                 <label for="status" class="label">Status</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select name="status" class="form-control text-dark ps-5 h-58" required>
+                                    <select name="status" class="form-control text-dark  h-58" required>
                                         <option value="" class="text-dark" selected>Select</option>
                                         <option value="1">Active</option>
                                         <option value="0">Inactive</option>

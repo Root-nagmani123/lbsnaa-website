@@ -37,7 +37,7 @@
                             <div class="form-group mb-4">
                                 <label class="label">Category Name:</label>
                                 <div class="form-group position-relative">
-                                    <input type="text" id="course-search" class="form-control text-dark ps-5 h-58"
+                                    <input type="text" id="course-search" class="form-control text-dark  h-58"
                                         placeholder="Type to search for course..." value="{{ old('aaa', $aaa ?? '') }}">
                                     <!-- Hidden input to store the course_id -->
                                     <input type="hidden" name="course_id" id="selected-course-id"
@@ -55,7 +55,7 @@
                             <div class="form-group mb-4">
                                 <label class="label">Select Category Centre</label>
                                 <div class="form-group position-relative">
-                                <select name="media_categories" id="media_categories" class="form-control text-dark ps-5 h-58">
+                                <select name="media_categories" id="media_categories" class="form-control text-dark  h-58">
                                     <option value="">Select Category Centre</option>
                                     @foreach ($mediaCategories as $id => $name)
                                         <option value="{{ $id }}" {{ old('media_categories', $gallery->media_categories ?? '') == $id ? 'selected' : '' }}>
@@ -71,7 +71,7 @@
                                 <label for="related_news" class="label">Related News:</label>
                                 <div class="form-group position-relative">
                                     
-                                    <input type="text" id="news-search" class="form-control text-dark ps-5 h-58"
+                                    <input type="text" id="news-search" class="form-control text-dark  h-58"
                                         placeholder="Type to search for courses..."
                                         value="{{ old('bbb', $bbb ?? '') }}">
                                     
@@ -103,7 +103,7 @@
                                 <label for="related_training_program" class="label">Related Training Programme:</label>
                                 <div class="form-group position-relative">
                                     <!-- Display training program name -->
-                                    <input type="text" id="training-search" class="form-control text-dark ps-5 h-58"
+                                    <input type="text" id="training-search" class="form-control text-dark  h-58"
                                         placeholder="Type to search for training programmes..."
                                         value="{{ old('ccc', $ccc ?? '') }}">
                                     <!-- Store the selected training ID -->
@@ -132,7 +132,7 @@
                             <div class="form-group mb-4">
                                 <label class="label">Related Events:</label>
                                 <div class="form-group position-relative">
-                                    <input type="text" id="event-search" class="form-control text-dark ps-5 h-58"
+                                    <input type="text" id="event-search" class="form-control text-dark  h-58"
                                         placeholder="Type to search for events..." value="{{ old('ddd', $ddd ?? '') }}">
                                     <input type="hidden" name="related_events" id="selected-event-id"
                                         value="{{ old('related_events', $gallery->related_events ?? '') }}">
@@ -148,7 +148,7 @@
                                 <div class="form-group position-relative">
                                     <input type="text" name="image_title_english"
                                         value="{{ old('image_title_english', $gallery->image_title_english ?? '') }}"
-                                        required class="form-control text-dark ps-5 h-58">
+                                        required class="form-control text-dark  h-58">
                                     @error('job_title')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -161,7 +161,7 @@
                                 <div class="form-group position-relative">
                                     <input type="text" name="image_title_hindi"
                                         value="{{ old('image_title_hindi', $gallery->image_title_hindi ?? '') }}"
-                                        class="form-control text-dark ps-5 h-58">
+                                        class="form-control text-dark  h-58">
                                 </div>
                             </div>
                         </div>
@@ -179,7 +179,7 @@
                                     @foreach($imageFiles as $index => $file)
                                     <div class="file-group mb-3">
                                         <!-- File input for replacing image -->
-                                        <input type="file" name="image_files[{{ $index }}]" class="form-control text-dark ps-5 h-58 mb-2 file-input" accept="image/*" data-index="{{ $index }}">
+                                        <input type="file" name="image_files[{{ $index }}]" class="form-control text-dark  h-58 mb-2 file-input" accept="image/*" data-index="{{ $index }}">
                                         
                                         <!-- Hidden input to track replaced files -->
                                         <input type="hidden" name="replaced_files[{{ $index }}]" class="replaced-file" value="">
@@ -206,7 +206,7 @@
                             <div class="form-group mb-4">
                                 <label class="label">Status</label>
                                 <div class="form-group position-relative">
-                                    <select name="status" required class="form-control text-dark ps-5 h-58">
+                                    <select name="status" required class="form-control text-dark  h-58">
                                         <option value="1"
                                             {{ (old('status', $gallery->status) == '1') ? 'selected' : '' }}>
                                             Active</option>
@@ -479,7 +479,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const fileGroup = document.createElement('div');
         fileGroup.classList.add('file-group', 'mt-2');
         fileGroup.innerHTML = `
-            <input type="file" name="image_files[]" class="form-control text-dark ps-5 h-58" accept="image/*">
+            <input type="file" name="image_files[]" class="form-control text-dark  h-58" accept="image/*">
             <button type="button" class="btn btn-primary remove-file mt-2 mb-2 text-white">Remove</button>
         `;
         fileContainer.appendChild(fileGroup);
@@ -542,7 +542,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const fileGroup = document.createElement('div');
         fileGroup.classList.add('file-group', 'mt-2');
         fileGroup.innerHTML = `
-            <input type="file" name="image_files[new][]" class="form-control text-dark ps-5 h-58 mb-2" accept="image/*">
+            <input type="file" name="image_files[new][]" class="form-control text-dark  h-58 mb-2" accept="image/*">
             <button type="button" class="btn btn-danger remove-new-file text-white mb-2">Remove</button>
         `;
         fileContainer.appendChild(fileGroup);

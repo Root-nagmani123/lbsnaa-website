@@ -46,7 +46,7 @@
                                 <label class="label" for="txtename">Title :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="txtename"
+                                    <input type="text" class="form-control text-dark  h-58" name="txtename"
                                         id="txtename" readonly="readonly" value="{{ $socialMedia->title ?? '' }}">
                                 </div>
                             </div>
@@ -56,7 +56,7 @@
                                 <label class="label" for="facebook">Facebook URL :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="facebook"
+                                    <input type="text" class="form-control text-dark  h-58" name="facebook"
                                         id="facebook" value="{{ $socialMedia->facebook_url ?? '' }}">
                                 </div>
                             </div>
@@ -66,7 +66,7 @@
                                 <label class="label" for="twitter">Twitter URL :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="twitter"
+                                    <input type="text" class="form-control text-dark  h-58" name="twitter"
                                         id="twitter" value="{{ $socialMedia->twitter_url ?? '' }}">
                                 </div>
                             </div>
@@ -76,7 +76,7 @@
                                 <label class="label" for="googleplus">Youtube URL :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="googleplus"
+                                    <input type="text" class="form-control text-dark  h-58" name="googleplus"
                                         id="googleplus" value="{{ $socialMedia->youtube_url ?? '' }}">
                                 </div>
                             </div>
@@ -86,7 +86,7 @@
                                 <label class="label" for="linkedin">Linkedin URL :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="linkedin"
+                                    <input type="text" class="form-control text-dark  h-58" name="linkedin"
                                         id="linkedin" value="{{ $socialMedia->linkedin_url ?? '' }}">
                                 </div>
                             </div>
@@ -96,7 +96,7 @@
                                 <label class="label" for="txtstatus">Page Status :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="txtstatus" id="txtstatus"
+                                    <select class="form-select form-control  h-58" name="txtstatus" id="txtstatus"
                                         required readonly="readonly">
                                         <option value="1" class="text-dark"
                                             {{ isset($socialMedia) && $socialMedia->status == 1 ? 'selected' : '' }}>

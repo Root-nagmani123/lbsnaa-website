@@ -45,7 +45,7 @@
                             <label class="label" for="title">Title :</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
-                                <input type="text" class="form-control text-dark ps-5 h-58" id="title" name="title">
+                                <input type="text" class="form-control text-dark  h-58" id="title" name="title">
 
                                 @error('title')
                                 <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
@@ -58,7 +58,7 @@
                             <label class="label" for="link">URL :</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
-                                <input type="text" class="form-control text-dark ps-5 h-58" id="link" name="link">
+                                <input type="text" class="form-control text-dark  h-58" id="link" name="link">
 
                                 @error('link')
                                 <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
@@ -72,7 +72,7 @@
                             <label class="label" for="image">Image :</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
-                                <input type="file" class="form-control text-dark ps-5 h-58" id="image" name="image">
+                                <input type="file" class="form-control text-dark  h-58" id="image" name="image">
 
                                 @error('image')
                                 <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
@@ -86,7 +86,7 @@
                             <label class="label" for="description">Description :</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
-                                <textarea name="description" id="description" class="form-control ps-5 text-dark"
+                                <textarea name="description" id="description" class="form-control  text-dark"
                                     rows="5"></textarea>
 
                                 @error('description')
@@ -99,7 +99,7 @@
                         <div class="form-group mb-4">
                             <label class="label" for="status">Status :</label>
                             <span class="star">*</span>
-                            <select name="status" id="status" class="form-control text-dark ps-5 h-58">
+                            <select name="status" id="status" class="form-control text-dark  h-58">
                                 <option value="" selected>Select</option>
                                 <option value="1">Active</option>
                                 <option value="0">Inactive</option>

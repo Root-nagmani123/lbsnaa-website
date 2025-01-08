@@ -47,7 +47,7 @@
                             <span class="star">*</span>
                             <div class="form-group position-relative">
                                 <input type="text" name="research_centre_name" id="research_centre_name"
-                                    class="form-control text-dark ps-5 h-58" value="{{ old('research_centre_name') }}">
+                                    class="form-control text-dark  h-58" value="{{ old('research_centre_name') }}">
                             </div>
                             @error('research_centre_name')
                             <div class="text-danger">{{ $message }}</div>
@@ -60,7 +60,7 @@
                             <span class="star">*</span>
                             <div class="form-group position-relative">
                                 <input type="text" name="sub_heading" id="sub_heading"
-                                    class="form-control text-dark ps-5 h-58" value="{{ old('sub_heading') }}">
+                                    class="form-control text-dark  h-58" value="{{ old('sub_heading') }}">
                             </div>
                             @error('sub_heading')
                             <div class="text-danger">{{ $message }}</div>
@@ -73,7 +73,7 @@
                             <span class="star">*</span>
                             <div class="form-group position-relative">
                                 <input type="text" name="home_title" id="home_title"
-                                    class="form-control text-dark ps-5 h-58" value="{{ old('home_title') }}">
+                                    class="form-control text-dark  h-58" value="{{ old('home_title') }}">
                             </div>
                             @error('home_title')
                             <div class="text-danger">{{ $message }}</div>

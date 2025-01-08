@@ -34,7 +34,7 @@
                                 <label class="label" for="name">Name :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="name" id="name"
+                                    <input type="text" class="form-control text-dark  h-58" name="name" id="name"
                                         value="{{ $staff->name }}">
                                     @error('name')
                                         <div style="color: red;">{{ $message }}</div>  <!-- Display error if any -->
@@ -47,7 +47,7 @@
                                 <label class="label" for="name_in_hindi">Name in Hindi :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="name_in_hindi"
+                                    <input type="text" class="form-control text-dark  h-58" name="name_in_hindi"
                                         id="name_in_hindi" value="{{ $staff->name_in_hindi }}">
                                     @error('name_in_hindi')
                                         <div style="color: red;">{{ $message }}</div>  <!-- Display error if any -->
@@ -60,7 +60,7 @@
                                 <label class="label" for="email">Email :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="email" class="form-control text-dark ps-5 h-58" name="email" id="email"
+                                    <input type="email" class="form-control text-dark  h-58" name="email" id="email"
                                         value="{{ $staff->email }}">
                                     @error('email')
                                         <div style="color: red;">{{ $message }}</div>  <!-- Display error if any -->
@@ -72,7 +72,7 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="image">Upload Image :</label>
                                 <div class="form-group position-relative">
-                                    <input type="file" class="form-control text-dark ps-5 h-58" name="image" id="image">
+                                    <input type="file" class="form-control text-dark  h-58" name="image" id="image">
                                     @if($staff->image)
                                     <img src="{{ asset($staff->image) }}" alt="Staff Image" width="100">
                                     @endif
@@ -87,7 +87,7 @@
                                 <label for="description" class="label">Description</label>
                                 <div class="form-group position-relative">
                                     <textarea name="description" id="description"
-                                        class="form-control ps-5 text-dark">{{ $staff->description }}</textarea>
+                                        class="form-control  text-dark">{{ $staff->description }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -96,7 +96,7 @@
                                 <label for="description_in_hindi" class="label">Description in Hindi</label>
                                 <div class="form-group position-relative">
                                     <textarea name="description_in_hindi" id="description_in_hindi"
-                                        class="form-control ps-5 text-dark">{{ $staff->description_in_hindi }}</textarea>
+                                        class="form-control  text-dark">{{ $staff->description_in_hindi }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -105,7 +105,7 @@
                                 <label class="label" for="designation">Designation :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="designation"
+                                    <input type="text" class="form-control text-dark  h-58" name="designation"
                                         id="designation" value="{{ $staff->designation }}">
                                     @error('designation')
                                         <div style="color: red;">{{ $message }}</div>  <!-- Display error if any -->
@@ -117,7 +117,7 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="designation_in_hindi">Designation in Hindi :</label>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58"
+                                    <input type="text" class="form-control text-dark  h-58"
                                         name="designation_in_hindi" id="designation_in_hindi"
                                         value="{{ $staff->designation_in_hindi }}">
                                 </div>
@@ -127,7 +127,7 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="section">Section :</label>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="section" id="section">
+                                    <select class="form-select form-control  h-58" name="section" id="section">
                                         <option value="Section 1" class="text-dark"
                                             {{ $staff->section == 'Section 1' ? 'selected' : '' }}>Select 1</option>
                                         <option value="Section 2" class="text-dark"
@@ -140,7 +140,7 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="country_code">Country Code :</label>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="country_code"
+                                    <input type="text" class="form-control text-dark  h-58" name="country_code"
                                         id="country_code" value="{{ $staff->country_code }}">
                                 </div>
                             </div>
@@ -149,7 +149,7 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="std_code">STD Code :</label>
                                 <div class="form-group position-relative">
-                                    <input type="number" class="form-control text-dark ps-5 h-58" name="std_code"
+                                    <input type="number" class="form-control text-dark  h-58" name="std_code"
                                         id="std_code" value="{{ $staff->std_code }}">
                                 </div>
                             </div>
@@ -158,7 +158,7 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="phone_internal_office">Phone Internal Office :</label>
                                 <div class="form-group position-relative">
-                                    <input type="number" class="form-control text-dark ps-5 h-58"
+                                    <input type="number" class="form-control text-dark  h-58"
                                         name="phone_internal_office" id="phone_internal_office"
                                         value="{{ $staff->phone_internal_office }}">
                                     @error('phone_internal_office')
@@ -171,7 +171,7 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="phone_internal_residence">Phone Internal Residence :</label>
                                 <div class="form-group position-relative">
-                                    <input type="number" class="form-control text-dark ps-5 h-58"
+                                    <input type="number" class="form-control text-dark  h-58"
                                         name="phone_internal_residence" id="phone_internal_residence"
                                         value="{{ $staff->phone_internal_residence }}">
                                     @error('phone_internal_residence')
@@ -184,7 +184,7 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="phone_pt_office">Phone P&T Office :</label>
                                 <div class="form-group position-relative">
-                                    <input type="number" class="form-control text-dark ps-5 h-58" name="phone_pt_office"
+                                    <input type="number" class="form-control text-dark  h-58" name="phone_pt_office"
                                         id="phone_pt_office" value="{{ $staff->phone_pt_office }}">
                                     @error('phone_pt_office')
                                         <div style="color: red;">{{ $message }}</div>  <!-- Display error if any -->
@@ -196,7 +196,7 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="phone_pt_residence">Phone P&T Residence :</label>
                                 <div class="form-group position-relative">
-                                    <input type="number" class="form-control text-dark ps-5 h-58"
+                                    <input type="number" class="form-control text-dark  h-58"
                                         name="phone_pt_residence" id="phone_pt_residence"
                                         value="{{ $staff->phone_pt_residence }}">
                                     @error('phone_pt_residence')
@@ -210,7 +210,7 @@
                                 <label class="label" for="mobile">Mobile :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="number" class="form-control text-dark ps-5 h-58" name="mobile"
+                                    <input type="number" class="form-control text-dark  h-58" name="mobile"
                                         id="mobile" value="{{ $staff->mobile }}">
                                     @error('mobile')
                                     <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
@@ -222,7 +222,7 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="abbreviation">Abbreviation :</label>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="abbreviation"
+                                    <input type="text" class="form-control text-dark  h-58" name="abbreviation"
                                         id="abbreviation" value="{{ $staff->abbreviation }}">
                                 </div>
                             </div>
@@ -231,7 +231,7 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="rank">Rank :</label>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="rank" id="rank"
+                                    <input type="text" class="form-control text-dark  h-58" name="rank" id="rank"
                                         value="{{ $staff->rank }}">
                                 </div>
                             </div>
@@ -240,7 +240,7 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="present_at_station">Present at Station :</label>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="present_at_station"
+                                    <select class="form-select form-control  h-58" name="present_at_station"
                                         id="present_at_station">
                                         <option value="1" class="text-dark"
                                             {{ $staff->present_at_station == 1 ? 'selected' : '' }}>Yes</option>
@@ -254,7 +254,7 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="acm_member">ACM Member :</label>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="acm_member" id="acm_member"
+                                    <select class="form-select form-control  h-58" name="acm_member" id="acm_member"
                                         >
                                         <option value="1" class="text-dark"
                                             {{ $staff->acm_member == 1 ? 'selected' : '' }}>Yes</option>
@@ -268,7 +268,7 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="acm_status_in_committee">ACM Status in Committee :</label>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58"
+                                    <input type="text" class="form-control text-dark  h-58"
                                         name="acm_status_in_committee" id="acm_status_in_committee"
                                         value="{{ $staff->acm_status_in_committee }}">
                                 </div>
@@ -278,7 +278,7 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="co_opted_member">Co-Opted Member :</label>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="co_opted_member"
+                                    <select class="form-select form-control  h-58" name="co_opted_member"
                                         id="co_opted_member" required>
                                         <option value="1" class="text-dark"
                                             {{ $staff->co_opted_member == 1 ? 'selected' : '' }}>Yes</option>
@@ -293,7 +293,7 @@
                                 <label class="label" for="page_status">Page Status :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="page_status"
+                                    <select class="form-select form-control  h-58" name="page_status"
                                         id="page_status" required>
                                         <option value="1" class="text-dark"
                                             {{ $staff->page_status == 1 ? 'selected' : '' }}>Active</option>

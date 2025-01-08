@@ -32,7 +32,7 @@
                                 <label class="label" for="state_name">State Name :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="state_name" id="state_name">
+                                    <input type="text" class="form-control text-dark  h-58" name="state_name" id="state_name">
                                     @error('state_name')
                                         <div style="color: red;">{{ $message }}</div>
                                     @enderror
@@ -44,7 +44,7 @@
                                 <label class="label" for="state_name_hindi">State Name in Hindi :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="state_name_hindi" id="state_name_hindi">
+                                    <input type="text" class="form-control text-dark  h-58" name="state_name_hindi" id="state_name_hindi">
                                     @error('state_name_hindi')
                                         <div style="color: red;">{{ $message }}</div>
                                     @enderror
@@ -56,7 +56,7 @@
                                 <label class="label" for="texttype">Status :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="status" id="status">
+                                    <select class="form-select form-control  h-58" name="status" id="status">
                                     <option value="" class="text-dark" selected>Select</option>    
                                     <option value="1" class="text-dark">Active</option>
                                         <option value="0" class="text-dark">Inactive</option>

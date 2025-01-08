@@ -36,7 +36,7 @@
                                 <label for="text" class="label">Text</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" name="text" class="form-control text-dark ps-5 h-58"
+                                    <input type="text" name="text" class="form-control text-dark  h-58"
                                         value="{{ $quickLink->text }}" required>
                                 </div>
                             </div>
@@ -46,7 +46,7 @@
                                 <label for="link_type" class="label">Link Type</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select id="link_type" class="form-control h-58 text-dark ps-5" name="link_type"
+                                    <select id="link_type" class="form-control h-58 text-dark " name="link_type"
                                         onchange="toggleLinkInput()">
                                         <option value="url" {{ $quickLink->url ? 'selected' : '' }}>URL</option>
                                         <option value="file" {{ $quickLink->file ? 'selected' : '' }}>Document</option>
@@ -61,14 +61,14 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" name="url" value="{{ $quickLink->url }}"
-                                        class="form-control text-dark ps-5 h-58">
+                                        class="form-control text-dark  h-58">
                                     <small class="text-muted">Provide a URL if you're not uploading a document.</small>
                                 </div>
                             </div>
                             <div class="form-group mb-4">
                                 <label for="url_data" class="label">URL type</label>
                                 <div class="form-group position-relative">
-                                    <select name="url_type" id="url_type" class="form-control h-58 text-dark ps-5">
+                                    <select name="url_type" id="url_type" class="form-control h-58 text-dark ">
                                         <option value="" selected>Select</option>
                                         <option value="internal" {{ $quickLink->url_type == "internal" ? 'selected' : '' }}>Internal Link</option>
                                         <option value="external" {{ $quickLink->url_type == 'external' ? 'selected' : '' }}>External Link</option>
@@ -82,7 +82,7 @@
                                 <label for="file" class="label">Document (PDF)</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="file" name="file" class="form-control text-dark ps-5 h-58">
+                                    <input type="file" name="file" class="form-control text-dark  h-58">
                                     <small class="text-muted">Upload a new document to replace the current one (PDF
                                         only).</small>
 
@@ -98,7 +98,7 @@
                         <label for="status" class="label">Status</label>
                         <span class="star">*</span>
                         <div class="form-group position-relative">
-                            <select name="status" id="status" class="form-control h-58 text-dark ps-5">
+                            <select name="status" id="status" class="form-control h-58 text-dark ">
                                 <option value="" selected>Select</option>
                                 <option value="1" {{ $quickLink->status == 1 ? 'selected' : '' }}>Active</option>
                                 <option value="0" {{ $quickLink->status == 0 ? 'selected' : '' }}>Inactive</option>

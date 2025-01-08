@@ -46,7 +46,7 @@
                                 <label class="label" for="menutitle">Menu Title :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="menutitle"
+                                    <input type="text" class="form-control text-dark  h-58" name="menutitle"
                                         id="menutitle">
                                         <small id="titleFeedback" class="text-danger"></small>
                                     @error('menutitle')
@@ -60,7 +60,7 @@
                                 <label class="label" for="txtpostion">Content Position :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" id="txtpostion"
+                                    <select class="form-select form-control  h-58" id="txtpostion"
                                         autocomplete="off" autocomplete="off" name="txtpostion"
                                         onchange="updateMenuTypeOptions(this.value)">
                                         <option selected class="text-dark">Select</option>
@@ -83,13 +83,13 @@
                                 <label class="label" for="texttype">Menu Type :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <!-- <select name="texttype" id="texttype" class="form-control text-dark ps-5 h-58">
+                                    <!-- <select name="texttype" id="texttype" class="form-control text-dark  h-58">
                                         <option value="">Select</option>
                                         <option value="1">Content</option>
                                         <option value="2">PDF file Upload</option>
                                         <option value="3">Website URL</option>
                                     </select> -->
-                                    <select name="texttype" id="texttype" class="form-control text-dark ps-5 h-58">
+                                    <select name="texttype" id="texttype" class="form-control text-dark  h-58">
                                         <option value="" {{ old('texttype') == '' ? 'selected' : '' }}>Select</option>
                                         <option value="1" {{ old('texttype') == '1' ? 'selected' : '' }}>Content
                                         </option>
@@ -112,7 +112,7 @@
                                         <div class="form-group mb-4">
                                             <label class="label" for="meta_title">Meta Title:</label>
                                             <div class="form-group position-relative">
-                                                <input type="text" class="form-control text-dark ps-5 h-58"
+                                                <input type="text" class="form-control text-dark  h-58"
                                                     name="meta_title" id="meta_title">
                                             </div>
                                         </div>
@@ -121,7 +121,7 @@
                                         <div class="form-group mb-4">
                                             <label class="label" for="meta_keyword">Meta Keyword :</label>
                                             <div class="form-group position-relative">
-                                                <input type="text" class="form-control text-dark ps-5 h-58"
+                                                <input type="text" class="form-control text-dark  h-58"
                                                     name="meta_keyword" id="meta_keyword">
                                             </div>
                                         </div>
@@ -131,7 +131,7 @@
                                     <div class="form-group mb-4">
                                         <label class="label" for="content">Description :</label>
                                         <div class="form-group position-relative">
-                                            <textarea class="form-control ps-5 text-dark" rows="5" name="content"
+                                            <textarea class="form-control  text-dark" rows="5" name="content"
                                                 id="content"></textarea>
                                         </div>
                                     </div>
@@ -140,7 +140,7 @@
                                     <div class="form-group mb-4">
                                         <label class="label" for="meta_description">Meta Description :</label>
                                         <div class="form-group position-relative">
-                                            <textarea class="form-control ps-5 text-dark"
+                                            <textarea class="form-control  text-dark"
                                                 placeholder="Some demo text ... " cols="30" rows="5"
                                                 name="meta_description" id="meta_description"></textarea>
                                         </div>
@@ -153,7 +153,7 @@
                                 <label class="label" for="pdf_file">Upload PDF</label>
                                 <div class="fomr-group position-relative">
                                     <input id="pdf_file" type="file" name="pdf_file" accept=".pdf"
-                                        class="form-control text-dark ps-5 h-58">
+                                        class="form-control text-dark  h-58">
                                     @error('pdf_file')
                                     <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
                                     @enderror
@@ -166,7 +166,7 @@
                                     <div class="form-group mb-4">
                                         <label class="label" for="website_url">Website URL:</label>
                                         <div class="form-group position-relative">
-                                            <input type="text" class="form-control text-dark ps-5 h-58"
+                                            <input type="text" class="form-control text-dark  h-58"
                                                 name="website_url" id="website_url">
                                         </div>
                                     </div>
@@ -175,7 +175,7 @@
                                     <div class="form-group mb-4">
                                         <label class="label" for="web_site_target">Web Site Target :</label>
                                         <div class="form-group position-relative">
-                                            <select class="form-select form-control ps-5 h-58" name="web_site_target"
+                                            <select class="form-select form-control  h-58" name="web_site_target"
                                                 id="web_site_target" autocomplete="off">
                                                 <option selected value="0" class="text-dark">Select</option>
                                                 <option value="1" class="text-dark">Internal Link</option>
@@ -192,7 +192,7 @@
                                 <label class="label" for="menucategory">Primary Link :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="menucategory"
+                                    <select class="form-select form-control  h-58" name="menucategory"
                                         id="menucategory" autocomplete="off">
                                         <option value="0" class="text-dark"
                                             {{ old('menucategory', 0) == 0 ? 'selected' : '' }}>
@@ -216,7 +216,7 @@
                                         <label class="label" for="start_date">Start Date:</label>
                                         <span class="star">*</span>
                                         <div class="form-group position-relative">
-                                            <input type="date" class="form-control text-dark ps-5 h-58"
+                                            <input type="date" class="form-control text-dark  h-58"
                                                 name="start_date" id="start_date" onfocus="(this.type='date')"
                                                 onblur="(this.type='text')">
                                             @error('start_date')
@@ -230,7 +230,7 @@
                                         <label class="label" for="termination_date">Termination Date :</label>
                                         <span class="star">*</span>
                                         <div class="form-group position-relative">
-                                            <input type="text" class="form-control text-dark ps-5 h-58"
+                                            <input type="text" class="form-control text-dark  h-58"
                                                 name="termination_date" id="termination_date" placeholder="dd/mm/yyyy"
                                                 onfocus="(this.type='date')" onblur="(this.type='text')">
                                             @error('termination_date')
@@ -246,7 +246,7 @@
                                 <label class="label" for="menu_status">Status :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" id="menu_status"
+                                    <select class="form-select form-control  h-58" id="menu_status"
                                         name="menu_status">
                                         <option class="text-dark">Select</option>
                                         <option value="1" class="text-dark">Active</option>

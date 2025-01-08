@@ -53,7 +53,7 @@
                                 <label class="label" for="image">Slider Image :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="file" class="form-control text-dark ps-5 h-58 mb-2" name="image" id="image">
+                                    <input type="file" class="form-control text-dark  h-58 mb-2" name="image" id="image">
                                     <small>Current Image:</small> <img src="{{ asset('slider-images/' . $slider->image) }}" width="100" class="img-fluid">
                                 </div>
                             </div>
@@ -63,7 +63,7 @@
                                 <label class="label" for="text">Slider Text :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="text" id="text" value="{{ $slider->text }}">
+                                    <input type="text" class="form-control text-dark  h-58" name="text" id="text" value="{{ $slider->text }}">
                                 </div>
                             </div>
                         </div>
@@ -72,7 +72,7 @@
                                 <label class="label" for="description">Slider Description :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <textarea class="form-control ps-5 text-dark"
+                                    <textarea class="form-control  text-dark"
                                         name="description">{{ $slider->description }}</textarea>
                                 </div>
                             </div>
@@ -82,7 +82,7 @@
                                 <label class="label" for="status">Status :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="status" id="status"
+                                    <select class="form-select form-control  h-58" name="status" id="status"
                                         required>
                                         <option value="1" class="text-dark" {{ $slider->status == 1? 'selected' : '' }}>Active</option>
                                         <option value="0" class="text-dark" {{ $slider->status == 0? 'selected' : '' }}>Inactive</option>

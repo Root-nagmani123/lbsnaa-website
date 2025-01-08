@@ -45,7 +45,7 @@
                                 <label class="label" for="title">Section Title :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark ps-5 h-58" name="title" id="title" value="{{ $section->title }}">
+                                    <input type="text" class="form-control text-dark  h-58" name="title" id="title" value="{{ $section->title }}">
                                 </div>
                             </div>
                         </div>
@@ -54,7 +54,7 @@
                                 <label class="label" for="status">Status :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="status" id="status"
+                                    <select class="form-select form-control  h-58" name="status" id="status"
                                         required>
                                         <option value="1" class="text-dark" {{ $section->status ? 'selected' : '' }}>
                                             Active</option>

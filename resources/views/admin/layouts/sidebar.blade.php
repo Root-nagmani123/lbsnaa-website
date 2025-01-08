@@ -517,7 +517,7 @@
             @if ($isManageUserAllowed)
             <li class="menu-item">
                 <a href="{{ route('admin.screen_reader') }}" class="menu-link">
-                    <i class="material-icons menu-icon">chat</i>
+                    <i class="material-icons menu-icon">chrome_reader_mode</i>
                     <span class="title">Screen Reader Access</span>
                 </a>
             </li>
