@@ -76,7 +76,11 @@
             @endphp
 
             @if ($centre_name)
-            <h2 class="text-dark">{{ $centre_name->research_centre_name }}<br><span class="text-center" style="font-size:14px;">{{ $centre_name->sub_heading }}</span></h2>
+            <h2 class="text-dark">{{ $centre_name->research_centre_name }}<br><span class="text-center" style="font-size:14px;">
+                @if (!empty($centre_name->sub_heading))
+                    ( {{ $centre_name->sub_heading }} )
+                @endif
+            </span></h2>
             
             @else
                 <h4>Default Centre Name</h4> <!-- Default name if no match is found -->
