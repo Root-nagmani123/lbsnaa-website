@@ -87,13 +87,17 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-    const checkboxes = document.querySelectorAll('.status-toggle_permission');
+    // Event delegation: Listen for changes on the entire document
+    document.addEventListener('change', function (event) {
+        // Check if the event target has the 'status-toggle_permission' class
+        if (event.target.classList.contains('status-toggle_permission')) {
+            // alert(); // Debugging: To confirm the event is triggered
 
-    checkboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', function () {
-            const moduleId = this.getAttribute('data-module-id');
-            const isAllowed = this.checked ? 1 : 0;
-
+            // Get module ID and user permission status
+            const moduleId = event.target.getAttribute('data-module-id');
+            const isAllowed = event.target.checked ? 1 : 0;
+          
+            // Perform AJAX request to update the permission
             fetch('/admin/users/permissions/update', {
                 method: 'POST',
                 headers: {
@@ -117,8 +121,10 @@
                 window.location.reload();
             })
             .catch(error => console.error('Error:', error));
-        });
+        }
     });
+
 });
+
 
     </script>

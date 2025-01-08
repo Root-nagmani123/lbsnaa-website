@@ -495,7 +495,7 @@
             @endif
 
             @php
-            $isManageUserAllowed = in_array('Manage User', array_column($permisson->toArray(), 'child')) ||
+            $isManageUserAllowed = in_array('Manage Logo', array_column($permisson->toArray(), 'child')) ||
             (Auth::check() && Auth::user()->user_type == 1);
             @endphp
 
@@ -791,17 +791,18 @@
                         </a>
                     </li>
                     @endif
-                    <li class="menu-item">
-                        <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            Mirco Photo Gallery/ Video Gallery
-                        </a>
-                        @php
+                    @php
                         $isManageUserAllowed = in_array('Mirco Add Category', array_column($permisson->toArray(),
                         'child')) ||
                         (Auth::check() && Auth::user()->user_type == 1);
                         @endphp
 
                         @if ($isManageUserAllowed)
+                    <li class="menu-item">
+                        <a href="javascript:void(0);" class="menu-link menu-toggle">
+                            Mirco Photo Gallery/ Video Gallery
+                        </a>
+                       
                         <ul class="menu-sub">
                             <li class="menu-item">
                                 <a href="{{ route('photovideogallery.index') }}" class="menu-link">
@@ -809,8 +810,9 @@
                                 </a>
                             </li>
                         </ul>
-                        @endif
+                        
                     </li>
+                    @endif
                 </ul>
 
             </li>
