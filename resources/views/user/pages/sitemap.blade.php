@@ -36,12 +36,11 @@
                     <li class="me-2">
                         @if(!empty($quick_link->url))
                         <a href="{{ $quick_link->url_type == 'external' ? (str_starts_with($quick_link->url, 'http') ? $quick_link->url : 'http://' . $quick_link->url) : url($quick_link->url) }}"
-                            target="_blank" class="text-decoration-none text-dark">
+                            target="_blank">
                             {{ $quick_link->text }}
                         </a>
                         @elseif(!empty($quick_link->file))
-                        <a href="{{ asset('quick-links-files/'.$quick_link->file) }}" target="_blank"
-                            class="text-decoration-none text-dark">
+                        <a href="{{ asset('quick-links-files/'.$quick_link->file) }}" target="_blank">
 
                             {{ $quick_link->text }}
                         </a>
@@ -57,14 +56,14 @@
                     <li>
                         @if($footer_link->texttype == 1)
                         {{-- Content --}}
-                        <a href="{{ url('footer_menu/'.$footer_link->menu_slug) }}" class="text-dark">{{ $footer_link->menutitle }}</a>
+                        <a href="{{ url('footer_menu/'.$footer_link->menu_slug) }}">{{ $footer_link->menutitle }}</a>
                         @elseif($footer_link->texttype == 2)
                         {{-- PDF File Upload --}}
-                        <a href="{{ asset($footer_link->pdf_file) }}" target="_blank" class="text-dark">{{ $footer_link->menutitle }}</a>
+                        <a href="{{ asset($footer_link->pdf_file) }}" target="_blank">{{ $footer_link->menutitle }}</a>
                         @elseif($footer_link->texttype == 3)
                         {{-- Website URL --}}
                         <a href="{{ str_starts_with($footer_link->website_url, 'http') ? $footer_link->website_url : 'http://' . $footer_link->website_url }}"
-                            target="_blank" class="text-dark">{{ $footer_link->menutitle }}</a>
+                            target="_blank">{{ $footer_link->menutitle }}</a>
                         @else
                         {{-- Default or Unhandled Type --}}
                         <a href="#">{{ $footer_link->menutitle }}</a>
