@@ -30,10 +30,10 @@
             <!-- Keyword Search -->
             <label for="keyword" class="fw-semibold label">Search:</label>
             <input type="text" name="keyword" id="keyword" placeholder="Keyword Search" value="{{ request('keyword') }}"
-                class="form-control ps-5 h-58 w-25">
+                class="form-control  h-58 w-25">
 
             <!-- Category Dropdown -->
-            <select name="category" class="form-control ps-5 h-58 w-25">
+            <select name="category" class="form-control  h-58 w-25">
                 <option value="">All Categories</option>
                 @foreach ($courses as $course)
                 <option value="{{ $course->id }}" {{ request('category') == $course->id ? 'selected' : '' }}>
@@ -43,7 +43,7 @@
             </select>
 
             <!-- Year Dropdown -->
-            <select name="year" class="form-control ps-5 h-58 w-25">
+            <select name="year" class="form-control  h-58 w-25">
                 <option value="">All Years</option>
                 @for($year = date('Y'); $year >= 2000; $year--)
                 <option value="{{ $year }}" {{ request('year') == $year ? 'selected' : '' }}>{{ $year }}</option>
@@ -79,7 +79,7 @@
                         <h5 class="card-title">{{ $gallery->image_title_english }}</h5>
                         <p class="card-text">{{ $gallery->image_title_hindi }}</p>
                     </div>
-                </a>
+                </div>
             </div>
         </div>
         @endforeach
@@ -93,7 +93,7 @@
     @else
     <p style="text-align: center; color: #999; font-size: 18px;">No photos available.</p>
     @endif
-    @endif
+@endif
 </section>
 @include('user.pages.microsites.includes.footer')
 
@@ -106,3 +106,4 @@ function clearFilters() {
     window.location.href = "{{ route('photoGalleries.filterGallery') }}";
 }
 </script>
+
