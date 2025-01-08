@@ -146,7 +146,7 @@ class UserManagementController extends Controller
 public function permissions($id)
 {
     $user = DB::table('users')->find($id);
-    $modules = DB::table('modules')->get();
+    $modules = DB::table('modules')->where('status',1)->get();
     $permissions = DB::table('user_permissions')
         ->where('user_id', $id)
         ->select('id','user_id','module_id','is_allowed')
