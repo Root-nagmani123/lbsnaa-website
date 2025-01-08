@@ -30,20 +30,6 @@
                     @method('PUT')
                     <!-- This will force the form to send a PUT request -->
                     <div class="row">
-                        <!-- <div class="col-lg-6">
-                            <div class="form-group mb-4">
-                                <label class="label" for="category_name">Category Name :</label>
-                                <span class="star">*</span>
-                                <div class="form-group position-relative">
-                                    <select class="form-select form-control ps-5 h-58" name="category_name"
-                                        id="category_name">
-                                        <option value="Audio" class="text-dark"
-                                            {{ $video->category_name == 'Audio' ? 'selected' : '' }}>Audio</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div> -->
-
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label for="category_name" class="label">Category Name</label>
@@ -107,19 +93,22 @@
                                 </div>
                             </div>
                         </div>
+                        
+
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
-                                <label class="label" for="audio_upload">Audio Upload (.mp4 only) :</label>
+                                <label for="video_upload">YouTube Video Link :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="file" class="form-control text-dark ps-5 h-58" name="video_upload"
-                                        id="audio_upload" accept=".mp4,.mp3">
+                                    <input type="url" name="video_upload" id="video_upload" class="form-control"
+                                        value="{{ $video->video_upload }}" >
                                     @error('video_upload')
-                                        <div class="text-danger">{{ $message }}</div>
+                                    <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="page_status">Page Status :</label>
@@ -135,20 +124,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
-                            <!-- Display the current video if exists -->
-                            @if($video->video_upload)
-                            <div class="form-group mb-4">
-                                <label for="" class="label">Video</label>
-                                <video width="100%" height="300" controls>
-                                    <source src="{{ asset('storage/' . $video->video_upload) }}" type="video/mp4">
-                                    Your browser does not support the video tag.
-                                </video>
-                            </div>
-                            @else
-                            <p>No video uploaded</p>
-                            @endif
-                        </div>
+                        
                         <div class="d-flex ms-sm-3 ms-md-0">
                             <button class="btn btn-success text-white fw-semibold" type="submit">Update</button> &nbsp;
                             <a href="{{ route('micro-video-gallery.index') }}"

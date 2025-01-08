@@ -98,17 +98,19 @@
                                 <input type="text" name="video_title_hi" id="video_title_hi" class="form-control" value="{{ old('video_title_hi') }}">
                             </div>
                         </div>
+
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
-                                <label for="video_upload">Video Upload (.mp4 only) :</label>
+                                <label for="video_upload">YouTube Video Link :</label>
                                 <span class="star">*</span>
-                                <input type="file" name="video_upload" id="video_upload" class="form-control"
-                                    accept=".mp4" value="{{ old('video_upload') }}">
+                                <input type="url" name="video_upload" id="video_upload" class="form-control"
+                                    value="{{ old('video_upload') }}" placeholder="Enter YouTube video URL">
                                 @error('video_upload')
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
+
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label for="page_status">Page Status :</label>

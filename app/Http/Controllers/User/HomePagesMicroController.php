@@ -93,20 +93,45 @@ class HomePagesMicroController extends Controller
     
 
 
+    // public function news(Request $request)
+    // {
+    //     // Get the slug from the request
+    //     $slug = $request->query('slug'); // Fetch the 'slug' query parameter from the URL
+    //     // Fetch all records from the managenews table joined with research_centres table
+    //     $newsItems = DB::table('managenews as mn')
+    //         ->join('research_centres as rc', 'mn.research_centreid', '=', 'rc.id') // Join the tables based on research_centreid
+    //         ->where('mn.status', 1) // Filter by status (active news)
+    //         ->where('rc.research_centre_slug', $slug) // Filter by research_centre_slug from the request slug
+    //         ->select('mn.*', 'rc.*') // Select all columns from managenews and research_centres
+    //         ->get();
+    //     // Pass the data to the view
+    //     return view('user.pages.microsites.news', compact('newsItems'));
+    // } 
+
     public function news(Request $request)
     {
         // Get the slug from the request
         $slug = $request->query('slug'); // Fetch the 'slug' query parameter from the URL
+
         // Fetch all records from the managenews table joined with research_centres table
         $newsItems = DB::table('managenews as mn')
             ->join('research_centres as rc', 'mn.research_centreid', '=', 'rc.id') // Join the tables based on research_centreid
             ->where('mn.status', 1) // Filter by status (active news)
             ->where('rc.research_centre_slug', $slug) // Filter by research_centre_slug from the request slug
+            ->where(function ($query) {
+                $query->where('mn.start_date', '<=', now()) // Start date is in the past or today
+                    ->where(function ($query) {
+                        $query->whereNull('mn.end_date') // End date is null (ongoing news)
+                            ->orWhere('mn.end_date', '>=', now()); // Or end date is in the future
+                    });
+            })
             ->select('mn.*', 'rc.*') // Select all columns from managenews and research_centres
             ->get();
+
         // Pass the data to the view
         return view('user.pages.microsites.news', compact('newsItems'));
     }
+
 
 
     public function newsdetails(Request $request, $id)

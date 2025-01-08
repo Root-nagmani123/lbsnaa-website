@@ -20,24 +20,40 @@ class MicroManagePhotoGalleryController extends Controller
         $galleries = DB::table('micro_manage_photo_galleries as sub')
         ->leftJoin('courses as parent', 'sub.course_id', '=', 'parent.id') // Correct join
         ->leftJoin('courses as second_row', 'sub.related_training_program', '=', 'second_row.id') // Correct join
-        ->leftJoin('courses as third_row', 'sub.related_news', '=', 'third_row.id') // Correct join
-        ->leftJoin('courses as four_row', 'sub.related_events', '=', 'four_row.id') // Correct join
+        ->leftJoin('micro_media_categories as third_row', 'sub.media_categories', '=', 'third_row.id') // Correct join
+        ->leftJoin('research_centres as four_row', 'sub.research_centre', '=', 'four_row.id') // Correct join
         ->select(
             'sub.*',                    // All columns from micro_manage_photo_galleries
             'parent.id as course_id',   // Alias for parent.id to avoid overwriting sub.id
             'parent.name',              // Course name from parent
             'second_row.name as media_cat_name', // Media category name
-            'third_row.name as related_news',
-            'four_row.name as related_events'
+            'third_row.name as name',
+            'four_row.research_centre_name as research_centre_name'
         )
         ->get();
 
-        // Fetching active research centres where status == 1
+
+        $getdata = DB::table('micro_manage_photo_galleries')
+        ->where('status', 1)
+        ->get(); // Fetching photo galleries where status is active
+
+        // Fetching the active research centres
         $researchCentres = DB::table('research_centres')
-        ->where('status', 1) // Filter only active records
-        ->pluck('research_centre_name', 'id'); 
-         
-        // print_r($galleries);
+            ->whereIn('research_centre_name', $getdata->pluck('research_centre')->toArray()) // Filter using plucked 'research_centre' values
+            ->where('status', 1) // Filter only active research centres
+            ->pluck('research_centre_name', 'id'); // Pluck research centre name and id
+
+        // dd($researchCentres);
+
+        
+        // Fetch active media categories
+        $mediaCategories = DB::table('micro_media_categories')
+                            ->where('status', 1)
+                            ->pluck('name', 'id'); // Use pluck for a key-value array
+        
+        
+
+        // print_r($researchCentres);
         return view('admin.micro.manage_media_center.manage_photo.index', compact('galleries', 'researchCentres'));
     }
 
@@ -62,7 +78,7 @@ class MicroManagePhotoGalleryController extends Controller
             'image_title_english' => 'required|string|max:255', // Ensure the English title is provided
             'research_centre' => 'required',
             'status' => 'required|integer|in:1,0', // Ensure status is one of the valid values
-            'course_id' => 'required|integer|exists:courses,id', // Ensure course ID exists in the database
+            // 'course_id' => 'required|integer|exists:courses,id', // Ensure course ID exists in the database
             'media_categories' => 'required', // Ensure course ID exists in the database
             
         ], [
@@ -72,8 +88,8 @@ class MicroManagePhotoGalleryController extends Controller
             'image_files.*.max' => 'Each image must not exceed 2MB.',
             'image_title_english.required' => 'Please enter the English title.',
             'status.required' => 'Please select a valid status.',
-            'course_id.required' => 'Please select a course.',
-            'course_id.exists' => 'The selected course is invalid.',
+            // 'course_id.required' => 'Please select a course.',
+            // 'course_id.exists' => 'The selected course is invalid.',
             'research_centre.required' => 'Please select research center.',
         ]);
 
@@ -192,7 +208,7 @@ class MicroManagePhotoGalleryController extends Controller
             'image_title_english' => 'required|string|max:255', // Validate English title
             'research_centre' => 'required',
             'status' => 'required|integer|in:1,0', // Validate status (either 1 or 0)
-            'course_id' => 'required|integer|exists:courses,id', // Validate course ID exists
+            // 'course_id' => 'required|integer|exists:courses,id', // Validate course ID exists
             
         ], [
             // Custom error messages

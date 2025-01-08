@@ -48,8 +48,8 @@
                     <thead>
                         <tr class="text-center">
                             <th class="col">#</th>
-                            <th class="col">Category Name</th>
-                            <th class="col">Media Category</th>
+                            <th class="col">Research Center</th>
+                            <th class="col">Category</th>
                             <th class="col">Option</th>
                             <th class="col">Actions</th>
                             <th class="col">Status</th>
@@ -62,17 +62,15 @@
                         <tr>
                             <!-- <pre>{{ print_r($gallery) }}</pre> -->
                             <td class="text-center">{{ $index + 1 }}</td> <!-- Display index here -->
+                            <td>{{ $gallery->research_centre_name ?? 'N/A' }}</td>
                             <td>{{ $gallery->name ?? 'N/A' }}</td>
-                            <td>{{ $gallery->media_cat_name ?? 'N/A' }}</td>
                             <td>
                                 <button type="button" class="btn btn-outline-primary fw-semibold btn-sm view-slider"
                                     data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                                    data-research_centre_name="{{ $gallery->research_centre_name }}"
                                     data-name="{{ $gallery->name }}"
-                                    data-media_cat_name="{{ $gallery->media_cat_name }}"
                                     data-image_title_english="{{ $gallery->image_title_english }}"
                                     data-image_title_hindi="{{ $gallery->image_title_hindi }}"
-                                    data-related_news="{{ $gallery->related_news }}"
-                                    data-related_events="{{ $gallery->related_events }}"
                                     data-image_files="{{ $gallery->image_files }}">
                                     View
                                 </button>
@@ -163,7 +161,7 @@ document.addEventListener('DOMContentLoaded', function() {
         button.addEventListener('click', function() {
             // Extract data from the button
             const name = this.dataset.name;
-            const media_cat_name = this.dataset.media_cat_name;
+            const research_centre_name = this.dataset.research_centre_name;
             const publish_date = this.dataset.publish_date;
             const image_title_english = this.dataset.image_title_english;
             const image_title_hindi = this.dataset.image_title_hindi;
@@ -191,7 +189,7 @@ document.addEventListener('DOMContentLoaded', function() {
             modalBody.innerHTML = `
                 <div>
                     <p><strong>Category Name:</strong> ${name}</p>
-                    <p><strong>Related Training Program:</strong> ${media_cat_name}</p>
+                    <p><strong>Research Centre:</strong> ${research_centre_name}</p>
                     <p><strong>Image Title (English):</strong> ${image_title_english}</p>
                     <p><strong>Image TItle (Hindi):</strong> ${image_title_hindi}</p>
                     <p><strong>Images:</strong></p>

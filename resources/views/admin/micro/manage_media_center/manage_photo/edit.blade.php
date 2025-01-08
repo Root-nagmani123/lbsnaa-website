@@ -33,7 +33,7 @@
                     @csrf
                     @method('PUT')
 
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label">Category Name:</label>
@@ -41,10 +41,10 @@
                                 <div class="form-group position-relative">
                                     <input type="text" id="course-search" class="form-control text-dark ps-5 h-58"
                                         placeholder="Type to search for course..." value="{{ old('aaa', $aaa ?? '') }}">
-                                    <!-- Hidden input to store the course_id -->
+                                    
                                     <input type="hidden" name="course_id" id="selected-course-id"
                                         value="{{ old('course_id', $gallery->course_id ?? '') }}">
-                                    <!-- Dropdown for suggestions -->
+                                    
                                     <div id="course-suggestions" class="dropdown-menu"
                                         style="display: none; position: relative;">
                                         @error('course_id')
@@ -53,7 +53,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="col-lg-5">
                             <div class="form-group mb-4">
@@ -93,25 +93,25 @@
                                 </div>
                             </div>
                         </div> -->
-                        <div class="col-lg-6" id="related_training_field">
+                        <!-- <div class="col-lg-6" id="related_training_field">
                             <div class="form-group mb-4">
                                 <label for="related_training_program" class="label">Related Training Programme:</label>
                                 <div class="form-group position-relative">
-                                    <!-- Display training program name -->
+                                    
                                     <input type="text" id="training-search" class="form-control text-dark ps-5 h-58"
                                         placeholder="Type to search for training programmes..."
                                         value="{{ old('ccc', $ccc ?? '') }}">
-                                    <!-- Store the selected training ID -->
+                                    
                                     <input type="hidden" name="related_training_program" id="selected-training-id"
                                         value="{{ $gallery->related_training_program }}">
                                     <div id="training-suggestions" class="dropdown-menu"
                                         style="display: none; position: relative;"></div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
-                                <label class="label">Select Category Centre</label>
+                                <label class="label">Select Category Center</label>
                                 <div class="form-group position-relative">
                                 <select name="media_categories" id="media_categories" class="form-control text-dark ps-5 h-58">
                                     <option value="">Select Category Centre</option>

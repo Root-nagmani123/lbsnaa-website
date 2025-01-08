@@ -50,7 +50,7 @@ class HomeFrontmicroController extends Controller
             $query->where('research_centres.research_centre_slug', $slug);
         }
         $research_centres = $query->get();
-
+        // dd($research_centres);
         // Return the view with the necessary data
         return view('user.pages.microsites.index', compact('sliders', 'quickLinks', 'whatsNew', 'research_centres', 'slug'));
     }
@@ -86,14 +86,40 @@ class HomeFrontmicroController extends Controller
         return array_reverse($breadcrumb);
     }
 
-    public function get_navigation_pages($slug)
-    {
+    // public function get_navigation_pages($slug)
+    // {
        
-        $breadcrumb = $this->generateBreadcrumb($slug);
-        //  print_r($breadcrumb);die;
-        $quickLinks = DB::table('micro_quick_links')->where('categorytype', 2)->where('status', 1)->get();
-        $nav_page =  DB::table('micromenus')->where('menu_status', 1)->where('is_deleted', 0)->where('menu_slug', $slug)->first();
+    //     $breadcrumb = $this->generateBreadcrumb($slug);
+    //     //  print_r($breadcrumb);die;
+    //     $quickLinks = DB::table('micro_quick_links')->where('categorytype', 2)->where('status', 1)->get();
+    //     $nav_page =  DB::table('micromenus')->where('menu_status', 1)->where('is_deleted', 0)->where('menu_slug', $slug)->first();
         
+    //     return view('user.pages.microsites.navigationmenubyslug', compact('nav_page', 'breadcrumb', 'quickLinks'));
+    // }
+
+    // public function get_navigation_pages($slug, $childSlug = null)
+    // {
+
+    //     $breadcrumb = $this->generateBreadcrumb($slug);
+    //     // dd($breadcrumb);
+    //     $quickLinks = DB::table('micro_quick_links')->where('categorytype', 2)->where('status', 1)->get();
+    //     $nav_page = DB::table('micromenus')->where('menu_status', 1)->where('is_deleted', 0)->where('menu_slug', $slug)->first();
+
+    //     return view('user.pages.microsites.navigationmenubyslug', compact('nav_page', 'breadcrumb', 'quickLinks'));
+    // }
+
+    public function get_navigation_pages($slug, $childSlug = null)
+    {
+        // Generate breadcrumb based on slug
+        $breadcrumb = $this->generateBreadcrumb($slug);
+        // dd($breadcrumb);
+        // Fetch data for rendering
+        $nav_page = DB::table('micromenus')->where('menu_status', 1)->where('is_deleted', 0)->where('menu_slug', $slug)->first();
+        $quickLinks = DB::table('micro_quick_links')->where('categorytype', 2)->where('status', 1)->get();
+
+        // Return view with variables
         return view('user.pages.microsites.navigationmenubyslug', compact('nav_page', 'breadcrumb', 'quickLinks'));
     }
+
+
 }
