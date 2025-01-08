@@ -12,9 +12,6 @@
             </a>
         </li>
         <li>
-            <span class="fs-14 heading-font text-dark ms-2">> User Management</span>
-        </li>
-        <li>
             <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Manage Module</span>
         </li>
     </ul>

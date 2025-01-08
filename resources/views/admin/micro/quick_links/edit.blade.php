@@ -4,7 +4,6 @@
 
 @section('content')
 <div class="d-sm-flex text-center justify-content-between align-items-center mb-4">
-    <h3 class="mb-sm-0 mb-1 fs-18">Manage Whats New / Quick Link</h3>
     <ul class="ps-0 mb-0 list-unstyled d-flex justify-content-center">
         <li>
             <a href="{{ route('admin.index') }}" class="text-decoration-none">
@@ -103,8 +102,8 @@
                                 <div class="form-group position-relative">
                                     <select name="menu_type" id="menu_type" class="form-control text-dark  h-58">
                                         <option value="">Select</option>
-                                        <option value="1" {{ $quickLink->menu_type == 1 ? 'selected' : '' }}>Content
-                                        </option>
+                                        <!-- <option value="1" {{ $quickLink->menu_type == 1 ? 'selected' : '' }}>Content
+                                        </option> -->
                                         <option value="2" {{ $quickLink->menu_type == 2 ? 'selected' : '' }}>PDF file
                                             Upload
                                         </option>
@@ -213,6 +212,9 @@
                                         class="form-control text-dark  h-58"
                                         value="{{ old('termination_date', $terminationDate) }}">
                                 </div>
+                                @error('menu_type')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                             </div>
                         </div>
 
