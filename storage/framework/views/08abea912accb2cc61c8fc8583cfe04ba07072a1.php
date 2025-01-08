@@ -1,4 +1,4 @@
-@include('user.pages.microsites.includes.header')
+<?php echo $__env->make('user.pages.microsites.includes.header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
 <!-- Page Content -->
 
@@ -29,16 +29,16 @@
                 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel"
                     data-bs-interval="3000">
                     <div class="carousel-inner">
-                        @foreach ($sliders as $key => $slider)
-                        <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
-                            <img src="{{ asset('storage/' . $slider->slider_image) }}" class="d-block img-fluid"
-                                alt="{{ $slider->slider_text }}"
+                        <?php $__currentLoopData = $sliders; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $slider): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <div class="carousel-item <?php echo e($key == 0 ? 'active' : ''); ?>">
+                            <img src="<?php echo e(asset('storage/' . $slider->slider_image)); ?>" class="d-block img-fluid"
+                                alt="<?php echo e($slider->slider_text); ?>"
                                 style="width: 100%; height: 400px; object-fit: cover; border-radius: 10px;">
                             <div class="carousel-caption d-none d-md-block">
-                                <h3 class="text-white slider-caption">{{ $slider->slider_text }}</h3>
+                                <h3 class="text-white slider-caption"><?php echo e($slider->slider_text); ?></h3>
                             </div>
                         </div>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
                         data-bs-slide="prev">
@@ -62,10 +62,10 @@
                     </div>
                     <div class="card-body" style="height:340px;overflow-y: scroll;">
                         <ul class="list-group list-group-flush">
-                            @foreach($whatsNew as $news)
+                            <?php $__currentLoopData = $whatsNew; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $news): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <li class="list-group-item">
-                                @if($news->website_url)
-                                <a href="{{ $news->website_url }}" class="text-primary" target="_blank">
+                                <?php if($news->website_url): ?>
+                                <a href="<?php echo e($news->website_url); ?>" class="text-primary" target="_blank">
                                     <span>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                             fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
@@ -74,10 +74,10 @@
                                             </path>
                                         </svg>
                                     </span>
-                                    {{ $news->txtename }} 
+                                    <?php echo e($news->txtename); ?> 
                                 </a>
-                                @elseif($news->pdf_file)
-                                <a href="{{ asset('storage/' . $news->pdf_file) }}" class="text-primary"
+                                <?php elseif($news->pdf_file): ?>
+                                <a href="<?php echo e(asset('storage/' . $news->pdf_file)); ?>" class="text-primary"
                                     target="_blank">
                                     <span>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
@@ -87,11 +87,12 @@
                                             </path>
                                         </svg>
                                     </span>
-                                    {{ $news->txtename }}
+                                    <?php echo e($news->txtename); ?>
+
                                 </a>
-                                @endif
+                                <?php endif; ?>
                             </li>
-                            @endforeach
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </ul>
                     </div>
                 </div>
@@ -101,33 +102,33 @@
         <div class="row">
             <!-- Research Centres -->
             <div class="col-12 col-lg-9 mb-4">
-                @foreach($research_centres as $research_centre)
-                <h2 class="text-danger text-center uppercase">{{($research_centre->home_title) }} <br><span><img
-                            src="{{ asset('assets/images/devider.png') }}" alt=""></span></h2>
-                            <p style="text-align: justify;" class="mb-4">{!! $research_centre->description !!}</p>
+                <?php $__currentLoopData = $research_centres; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $research_centre): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <h2 class="text-danger text-center uppercase"><?php echo e(($research_centre->home_title)); ?> <br><span><img
+                            src="<?php echo e(asset('assets/images/devider.png')); ?>" alt=""></span></h2>
+                            <p style="text-align: justify;" class="mb-4"><?php echo $research_centre->description; ?></p>
 
-                @endforeach
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                 <div class="d-flex flex-wrap gap-3">
-                    @foreach ($research_centres as $research_centre)
-                    <a href="{{ route('mediagallery', ['slug' => $research_centre->research_centre_slug]) }}"
+                    <?php $__currentLoopData = $research_centres; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $research_centre): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <a href="<?php echo e(route('mediagallery', ['slug' => $research_centre->research_centre_slug])); ?>"
                         class="card border shadow-sm text-center" style="width: 200px;">
                         <div class="card-body">
-                            <img src="{{ asset('assets/images/image (2).png') }}" alt="Gallery" class="img-fluid">
+                            <img src="<?php echo e(asset('assets/images/image (2).png')); ?>" alt="Gallery" class="img-fluid">
                             <h6 class="mt-3">Gallery</h6>
                         </div>
                     </a>
-                    @endforeach
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
-                    @foreach ($research_centres as $research_centre)
-                    <a href="{{ route('news', ['slug' => $research_centre->research_centre_slug]) }}"
+                    <?php $__currentLoopData = $research_centres; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $research_centre): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <a href="<?php echo e(route('news', ['slug' => $research_centre->research_centre_slug])); ?>"
                         class="card border shadow-sm text-center" style="width: 200px;">
                         <div class="card-body">
-                            <img src="{{ asset('assets/images/newspaper (1).png') }}" alt="News" class="img-fluid">
+                            <img src="<?php echo e(asset('assets/images/newspaper (1).png')); ?>" alt="News" class="img-fluid">
                             <h6 class="mt-3">Latest News</h6>
                         </div>
                     </a>
-                    @endforeach
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </div>
             </div>
 
@@ -139,10 +140,10 @@
                     </div>
                     <div class="card-body" style="max-height: 500px; overflow-y: scroll;">
                         <ul class="list-group list-group-flush">
-                            @foreach($quickLinks as $link)
+                            <?php $__currentLoopData = $quickLinks; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $link): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <li class="list-group-item">
-                                @if($link->website_url)
-                                <a href="{{ $link->website_url }}" class="text-primary" target="_blank">
+                                <?php if($link->website_url): ?>
+                                <a href="<?php echo e($link->website_url); ?>" class="text-primary" target="_blank">
                                     <span>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                             fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
@@ -151,10 +152,11 @@
                                             </path>
                                         </svg>
                                     </span> 
-                                    {{ $link->txtename }}
+                                    <?php echo e($link->txtename); ?>
+
                                 </a>
-                                @elseif($link->pdf_file)
-                                <a href="{{ asset('storage/' . $link->pdf_file) }}" class="text-primary"
+                                <?php elseif($link->pdf_file): ?>
+                                <a href="<?php echo e(asset('storage/' . $link->pdf_file)); ?>" class="text-primary"
                                     target="_blank">
                                     <span>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
@@ -164,11 +166,12 @@
                                             </path>
                                         </svg>
                                     </span>
-                                    {{ $link->txtename }}
+                                    <?php echo e($link->txtename); ?>
+
                                 </a>
-                                @endif
+                                <?php endif; ?>
                             </li>
-                            @endforeach
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </ul>
                     </div>
                 </div>
@@ -177,4 +180,4 @@
     </div>
 </section>
 
-@include('user.pages.microsites.includes.footer')
+<?php echo $__env->make('user.pages.microsites.includes.footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp11\htdocs\lbsnaa-website\resources\views/user/pages/microsites/index.blade.php ENDPATH**/ ?>

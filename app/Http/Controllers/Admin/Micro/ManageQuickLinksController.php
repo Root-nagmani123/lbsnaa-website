@@ -46,7 +46,7 @@ class ManageQuickLinksController extends Controller
             'pdf_file' => 'nullable|file|mimes:pdf|max:2048',
             'website_url' => 'nullable|url',
             'start_date' => 'required|date',
-            'termination_date' => 'required|date',
+            'termination_date' => 'required|date|after:start_date',
             'status' => 'required|in:1,0',
         ]);
 
@@ -134,7 +134,7 @@ class ManageQuickLinksController extends Controller
             'pdf_file' => 'nullable|file|mimes:pdf|max:2048',
             'website_url' => 'nullable|url',
             'start_date' => 'nullable|date_format:d-m-Y', // Ensure it's in DD-MM-YYYY format
-            'termination_date' => 'nullable|date_format:d-m-Y', // Ensure it's in DD-MM-YYYY format
+            'termination_date' => 'required|date_format:d-m-Y|after_or_equal:start_date', // Ensure termination_date is after start_date
             'status' => 'required|in:1,0',
         ]);
 

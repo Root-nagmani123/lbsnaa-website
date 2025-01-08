@@ -8,23 +8,23 @@
     <meta name="author" content="Codescandy">
 
     <!-- Favicon icon-->
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/favicon.ico') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="<?php echo e(asset('assets/favicon.ico')); ?>">
 
   <!-- darkmode js -->
-  <script src="{{ asset('assets/js/vendors/darkMode.js') }}"></script>
+  <script src="<?php echo e(asset('assets/js/vendors/darkMode.js')); ?>"></script>
 
   <!-- Libs CSS -->
-  <link href="{{ asset('assets/fonts/feather/feather.css') }}" rel="stylesheet">
-  <link href="{{ asset('assets/libs/bootstrap-icons/font/bootstrap-icons.min.css') }}" rel="stylesheet">
-  <link href="{{ asset('assets/libs/simplebar/dist/simplebar.min.css') }}" rel="stylesheet">
+  <link href="<?php echo e(asset('assets/fonts/feather/feather.css')); ?>" rel="stylesheet">
+  <link href="<?php echo e(asset('assets/libs/bootstrap-icons/font/bootstrap-icons.min.css')); ?>" rel="stylesheet">
+  <link href="<?php echo e(asset('assets/libs/simplebar/dist/simplebar.min.css')); ?>" rel="stylesheet">
 
   <!-- Theme CSS -->
-  <link rel="stylesheet" href="{{ asset('assets/css/theme.min.css') }}">
+  <link rel="stylesheet" href="<?php echo e(asset('assets/css/theme.min.css')); ?>">
 
   <link rel="canonical" href="LBSNAA">
-  <link href="{{ asset('assets/libs/tiny-slider/dist/tiny-slider.css') }}" rel="stylesheet">
+  <link href="<?php echo e(asset('assets/libs/tiny-slider/dist/tiny-slider.css')); ?>" rel="stylesheet">
   <link rel="stylesheet" href="assets/libs/glightbox/dist/css/glightbox.min.css') }}">
-  <link rel="icon" type="image/png" href="{{ asset('admin_assets/images/favicon.ico') }}">
+  <link rel="icon" type="image/png" href="<?php echo e(asset('admin_assets/images/favicon.ico')); ?>">
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
 
@@ -58,10 +58,10 @@
 <header class="d-none d-lg-block sticky-top">
     <nav class="navbar">
         <div class="container-fluid px-0">
-            <a class="navbar-brand" href="{{ route('home') }}"><img src="{{ asset('assets/images/microsites/logo.png') }}"
+            <a class="navbar-brand" href="<?php echo e(route('home')); ?>"><img src="<?php echo e(asset('assets/images/microsites/logo.png')); ?>"
                     alt="logo" width="350"></a>
             <!-- Button -->
-            @php
+            <?php
                 // Get the slug from the query parameter or the last segment of the URL
                 $slug = request()->query('slug') ?: request()->segment(count(request()->segments()));
 
@@ -73,18 +73,18 @@
                         ->where('research_centre_slug', $slug) // Match the slug
                         ->first(); // Get the first matching result
                 }
-            @endphp
+            ?>
 
-            @if ($centre_name)
-            <h2 class="text-dark">{{ $centre_name->research_centre_name }}<br><span class="text-center" style="font-size:14px;">
-                @if (!empty($centre_name->sub_heading))
-                    ( {{ $centre_name->sub_heading }} )
-                @endif
+            <?php if($centre_name): ?>
+            <h2 class="text-dark"><?php echo e($centre_name->research_centre_name); ?><br><span class="text-center" style="font-size:14px;">
+                <?php if(!empty($centre_name->sub_heading)): ?>
+                    ( <?php echo e($centre_name->sub_heading); ?> )
+                <?php endif; ?>
             </span></h2>
             
-            @else
+            <?php else: ?>
                 <h4>Default Centre Name</h4> <!-- Default name if no match is found -->
-            @endif
+            <?php endif; ?>
 
 
 
@@ -95,17 +95,17 @@
         <!-- Collapse -->
         <!-- <div class="collapse navbar-collapse" id="navbar-default">
             <ul class="navbar-nav mx-auto">
-                @php
+                <?php
                     $menus = DB::table('micromenus')
                         ->where('menu_status', 1)
                         ->where('is_deleted', 0)
                         ->where('parent_id', 0)
                         ->get();
                         
-                @endphp
+                ?>
 
-                @foreach ($menus as $menu)
-                    @php
+                <?php $__currentLoopData = $menus; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $menu): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php
                         $arrow = DB::table('micromenus')
                             ->where('menu_status', 1)
                             ->where('is_deleted', 0)
@@ -113,16 +113,18 @@
                             ->exists();
                         $class = $arrow ? 'nav-link dropdown-toggle' : 'nav-link';
                         
-                    @endphp
+                    ?>
                     <li class="nav-item dropdown">
-                        <a class="{{ $class }}"
-                            href="{{ $menu->menutitle == 'Research Center' ? '#' : route('user.navigationmenubyslug', $menu->menu_slug) }}"
-                            {{ $arrow ? 'data-bs-toggle=dropdown aria-haspopup=true aria-expanded=false' : '' }}>
-                            {{ $menu->menutitle }}
+                        <a class="<?php echo e($class); ?>"
+                            href="<?php echo e($menu->menutitle == 'Research Center' ? '#' : route('user.navigationmenubyslug', $menu->menu_slug)); ?>"
+                            <?php echo e($arrow ? 'data-bs-toggle=dropdown aria-haspopup=true aria-expanded=false' : ''); ?>>
+                            <?php echo e($menu->menutitle); ?>
+
                         </a>
-                        {!! renderMicroMenuItems($menu->id) !!}
+                        <?php echo renderMicroMenuItems($menu->id); ?>
+
                     </li>
-                @endforeach
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </ul>
         </div> -->
 
@@ -131,8 +133,8 @@
 
 
 
-        <ul class="navbar-nav me-auto">
-            @php
+        <ul class="navbar-nav mx-auto">
+            <?php
                 // Fetch slug from the query string, falling back to the route slug if not present
                 $slug = request()->query('slug') ?: request()->route('slug'); 
 
@@ -189,12 +191,12 @@
                         echo "</li>";
                     }
                 }
-            @endphp
+            ?>
 
-            @php
+            <?php
                 // Display the top-level menus (parent menus with parent_id = 0) filtered by slug
                 displayMenu(0, $slug, true);
-            @endphp
+            ?>
         </ul>
 
 
@@ -202,3 +204,4 @@
         </div>
     </nav>
 </header>
+<?php /**PATH C:\xampp11\htdocs\lbsnaa-website\resources\views/user/pages/microsites/includes/header.blade.php ENDPATH**/ ?>
