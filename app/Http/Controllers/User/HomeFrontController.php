@@ -781,7 +781,7 @@ private function buildMenuTree($parentId = null)
         ->get();
 
     $tree = [];
-
+    
     foreach ($menus as $menu) {
         $tree[] = [
             'id' => $menu->id,

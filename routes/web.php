@@ -124,7 +124,12 @@ Route::get('/screen-reader', [HomeFrontController::class, 'screenReader'])->name
 
 //micro 
 Route::get('/lbsnaa-sub/{slug}', [HomeFrontmicroController::class, 'index'])->name('user.micrositebyslug');
-Route::get('/lbsnaa-subs/micromenu/{slug}', [HomeFrontmicroController::class, 'get_navigation_pages'])->name('user.navigationmenubyslug');
+// Route::get('/lbsnaa-subs/micromenu/{slug}', [HomeFrontmicroController::class, 'get_navigation_pages'])->name('user.navigationmenubyslug');
+Route::get('/lbsnaa-subs/micromenu/{slug}/{childSlug?}', [HomeFrontmicroController::class, 'get_navigation_pages'])
+    ->name('user.navigationmenubyslug');
+
+
+
 //micro 
 
 

@@ -54,19 +54,30 @@
                             <th class="col">Language</th>
                             <th class="col">Research Centre Name</th>
                             <th class="col">Description</th>
+                            <th class="col">Option</th>
                             <th class="col">Status</th>
                             <th class="col">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($researchCentres as $centre)
-                        <tr>
+                        <tr> 
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $centre->language == 1 ? 'English' : 'Hindi' }}</td>
                             <td>{{ $centre->research_centre_name }}</td>
                             <!-- <td>{{ str_replace(['<p>', '</p>'], '', $centre->description) }}</td> -->
                             <td>{{ strip_tags($centre->description) }}</td>
+                            <td>
+                                <button type="button" class="btn btn-outline-primary fw-semibold btn-sm view-slider"
+                                    data-bs-toggle="modal" data-bs-target="#staticBackdrop"
 
+                                    data-language="{{ $centre->language == 1 ? 'English' : 'Hindi' }}"
+                                    data-research_centre_name="{{ $centre->research_centre_name }}"
+                                    data-home_title="{{ $centre->home_title }}"
+                                    data-description="{{ strip_tags($centre->description) }}">
+                                    View
+                                </button>
+                            </td>
                             <td>
                                 <div class="d-flex flex-column flex-sm-row gap-2">
                                     <a href="{{ route('researchcentres.edit', $centre->id) }}"
@@ -108,4 +119,78 @@
         </div>
     </div>
 </div>
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Research Center Details</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="sliderText">Title</label>
+                    <p id="sliderText"></p> <!-- Text will be injected here -->
+                </div>
+                <div class="form-group">
+                    <label for="sliderDescription">Type</label>
+                    <p id="sliderDescription"></p> <!-- Description will be injected here -->
+                </div>
+                <div class="form-group">
+                    <label for="sliderDescription">publish_date</label>
+                    <p id="sliderDescription"></p> <!-- Description will be injected here -->
+                </div>
+                <div class="form-group">
+                    <label for="sliderDescription">Type</label>
+                    <p id="sliderDescription"></p> <!-- Description will be injected here -->
+                </div>
+                <div class="form-group">
+                    <label for="sliderImage">Image</label>
+                    <img id="sliderImage" src="" width="100" /> <!-- Image will be injected here -->
+                </div>
+                <div class="form-group">
+                    <label for="sliderLanguage">Language</label>
+                    <p id="sliderLanguage"></p> <!-- Language will be injected here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection
+
+
+<script>
+
+document.addEventListener('DOMContentLoaded', function() {
+    const viewButtons = document.querySelectorAll('.view-slider');
+    const modalTitle = document.getElementById('staticBackdropLabel');
+    const modalBody = document.querySelector('.modal-body');
+
+    viewButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Extract data attributes with default fallback
+            const language = this.dataset.language || 'N/A';
+            const research_centre_name = this.dataset.research_centre_name || 'N/A';
+            const description = this.dataset.description || 'N/A';
+            const home_title = this.dataset.home_title || 'N/A';
+
+            const image = this.dataset.image;
+            const website_link = this.dataset.website_link;
+            const job_description = this.dataset.job_description || 'N/A';
+        
+
+            // Update modal title and body
+            modalTitle.textContent = 'Research Center Details';
+            modalBody.innerHTML = `
+                <div>
+                    <p><strong>Language:</strong> ${language}</p>
+                    <p><strong>Research Centre Name Type:</strong> ${research_centre_name}</p>
+                    <p><strong>Home Title Type:</strong> ${home_title}</p>
+                    <p><strong>Description:</strong> ${description}</p>
+                </div>`;
+        });
+    });
+});
+</script>

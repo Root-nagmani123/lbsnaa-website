@@ -35,31 +35,31 @@
                     @endif
                     <div class="row">
 
-                        <div class="col-lg-6">
+                        <!-- <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="course-search">Category Name :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <!-- Input field for the course name -->
+                                    
                                     <input class="form-check-input form-control ps-5 h-58" type="text"
                                         name="course-search" id="course-search"
                                         placeholder="Type to search for category..." value="{{ old('course-search') }}">
 
-                                    <!-- Hidden field to store selected course ID -->
+                                    
                                     <input type="hidden" name="course_id" id="selected-course-id"
                                         value="{{ old('course_id') }}">
 
-                                    <!-- Dropdown to show course suggestions -->
+                                    
                                     <div id="course-suggestions" class="dropdown-menu"
                                         style="display: none; position: relative;"></div>
 
-                                    <!-- Error message -->
+                                    
                                     @error('course_id')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
@@ -116,7 +116,7 @@
 
                         <!-- Dropdown to select related content for Training Programme -->
 
-                        <div class="col-lg-6">
+                        <!-- <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="image_relate_with_training">Image Relate with Training
                                     :</label>
@@ -130,7 +130,7 @@
                                     </select>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <!-- Placeholder for Training Programme-related fields -->
                         <div class="col-lg-6" id="related_training_field" style="display: none;">

@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class MicroMenuController extends Controller
-{
+{ 
     public function index() 
     {
         $menus = micromenu::where('is_deleted', 0)->get();
@@ -87,7 +87,7 @@ class MicroMenuController extends Controller
 
         // Return view with filtered research centres and menu options
         return view('admin.micro.manage_micromenus.create', compact('menuOptions', 'researchCentres'));
-    }
+    } 
 
 
     private function buildMenuOptions($parentId = null, $spacing = '')
@@ -123,10 +123,10 @@ class MicroMenuController extends Controller
         ]);
         // dd($request->all());
         // Check if 'web_site_target' has a valid integer value, or redirect back if invalid
-        if ($request->input('web_site_target') == 'Select') {
-            return redirect()->back()->with('error', 'Please select a valid website target.');
-        }
-
+        // if ($request->input('web_site_target') == 'Select') {
+        //     return redirect()->back()->with('error', 'Please select a valid website target.');
+        // }
+        // dd($request);
         // Create new menu entry
         $menu = new micromenu();
         $menu->language = $request->language;
@@ -158,7 +158,7 @@ class MicroMenuController extends Controller
         } elseif ($request->texttype == 3) {
             $menu->website_url = $request->website_url;
         }
-       
+    //    dd($menu);
         // Save the menu to the database
         $menu->save();
 

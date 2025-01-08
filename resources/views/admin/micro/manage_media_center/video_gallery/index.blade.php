@@ -50,7 +50,7 @@
                             <th class="col">#</th> <!-- Index Column -->
                             <th class="col">Video Title (English)</th>
                             <th class="col">Video Title (Hindi)</th>
-                            <th class="col">Video</th> <!-- Video Display Column -->
+                            <th class="col">Youtube Link Video</th> <!-- Video Display Column -->
                             <th class="col">Option</th>
                             <th class="col">Page Status</th>
                             <th class="col">Actions</th>
@@ -63,17 +63,8 @@
                             <td>{{ $video->video_title_en }}</td>
                             <td>{{ $video->video_title_hi }}</td>
                             <!-- Display the uploaded video -->
-                            <td>
-                                @if($video->video_upload)
-                                <!-- Assuming video_upload is the file path in your database -->
-                                <video width="150" height="100" controls>
-                                    <source src="{{ asset('storage/' . $video->video_upload) }}" type="video/mp4">
-                                    Your browser does not support the video tag.
-                                </video>
-                                @else
-                                No Video Uploaded
-                                @endif
-                            </td>
+                            
+                            <td><a href="{{ $video->video_upload }}" target="_blank">Play Video</a></td>
 
                             <td>
                                 <button type="button" class="btn btn-outline-primary fw-semibold btn-sm view-slider"
@@ -189,13 +180,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <p><strong>Category Name:</strong> ${category_name}</p>
                     <p><strong>Video Title (Hindi):</strong> ${audio_title_hi}</p>
                     <p><strong>Video Title (English):</strong> ${audio_title_en}</p>
-                    <p><strong>Video:</strong></p>
-                    ${video_upload ? `
-                        <video width="560" height="315" controls style="width:300px; height:300px;">
-                            <source src="${videoUrl}" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    ` : `<p>No video available</p>`}  <!-- Embed video if path exists, otherwise show error -->
+                    
                 </div>`;
         });
     });
