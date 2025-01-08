@@ -3,8 +3,7 @@
                       $keyword = str_replace(' ', '+', $node->name);
                       @endphp
                       <div class="p-3">
-                          <img src="{{ asset($node->image) }}" alt="mentor 5"
-                              class="avatar avatar-lg rounded-circle">
+                          <img src="{{ asset($node->image) }}" alt="mentor 5" class="avatar avatar-lg rounded-circle">
                           <!--content-->
                           <div class="mt-3">
                               <h3 class="mb-0 h4">{{ $node->name }}</h3>
@@ -15,7 +14,7 @@
                       <a href="#" data-bs-toggle="modal" data-bs-target="#bioDataModal" data-name="{{ $node->name }}"
                           data-image="{{ asset($node->image) }}" data-designation="{{ $node->designation }}"
                           data-email="{{ $node->email }}" data-phone="{{ $node->phone_pt_office }}"
-                          data-description="{{ $node->description }}">
+                          data-description="{{ htmlspecialchars($node->description, ENT_QUOTES, 'UTF-8') }}">
                           Bio Data
                       </a>
                   </div>
@@ -31,15 +30,27 @@
                                       aria-label="Close"></button>
                               </div>
                               <div class="modal-body">
-                                  <div class="text-center">
-                                      <img id="modalImage" src="" alt="Image" class="img-fluid rounded mb-3"
-                                          style="max-height: 200px;">
+                                  <div class="row">
+                                      <div class="col-lg-3 ">
+                                          <img id="modalImage" src="" alt="Image"
+                                              class="img-fluid rounded-4" style="height:150px;width:150px;">
+                                      </div>
+                                      <div class="col-lg-3">
+                                        <h3>Name:-</h3>
+                                        <p>Designation:-</p>
+                                        <p>Email:-</p>
+                                        <p>Phone:-</p>
+                                      </div>
+                                      <div class="col-lg-6">
+                                          <h3 id="modalName"></h3>
+                                          <p id="modalDesignation"></p>
+                                          <p id="modalEmail"></p>
+                                          <p id="modalPhone"></p>
+                                      </div>
+                                      <div class="col-lg-12 mt-3">
+                                      <p id="modalDescription"></p>
+                                      </div>
                                   </div>
-                                  <h3 id="modalName"></h3>
-                                  <p id="modalDesignation"></p>
-                                  <p><strong>Email:</strong> <span id="modalEmail"></span></p>
-                                  <p><strong>Phone:</strong> <span id="modalPhone"></span></p>
-                                  <p id="modalDescription"></p>
                               </div>
                           </div>
                       </div>
@@ -65,7 +76,9 @@ document.addEventListener('DOMContentLoaded', () => {
         bioDataModal.querySelector('#modalDesignation').textContent = designation;
         bioDataModal.querySelector('#modalEmail').textContent = email;
         bioDataModal.querySelector('#modalPhone').textContent = phone;
-        bioDataModal.querySelector('#modalDescription').textContent = description;
+
+        // Decode HTML entities for description and render as HTML
+        bioDataModal.querySelector('#modalDescription').innerHTML = description;
     });
 });
                   </script>
