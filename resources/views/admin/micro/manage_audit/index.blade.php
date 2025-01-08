@@ -3,7 +3,7 @@
 
 @section('content')
 <div class="d-sm-flex text-center justify-content-between align-items-center mb-4">
-    <h3 class="mb-sm-0 mb-1 fs-18">Manage Audit Logs</h3>
+    <!-- <h3 class="mb-sm-0 mb-1 fs-18">Manage Audit Logs</h3> -->
     <ul class="ps-0 mb-0 list-unstyled d-flex justify-content-center">
         <li>
             <a href="{{ route('admin.index') }}" class="text-decoration-none">
