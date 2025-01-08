@@ -47,7 +47,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark ps-5 h-58" name="txtename"
-                                        id="txtename" disabled value="{{ $socialMedia->title ?? '' }}">
+                                        id="txtename" readonly="readonly" value="{{ $socialMedia->title ?? '' }}">
                                 </div>
                             </div>
                         </div>
@@ -97,7 +97,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <select class="form-select form-control ps-5 h-58" name="txtstatus" id="txtstatus"
-                                        required disabled>
+                                        required readonly="readonly">
                                         <option value="1" class="text-dark"
                                             {{ isset($socialMedia) && $socialMedia->status == 1 ? 'selected' : '' }}>
                                             Active</option>

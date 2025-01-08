@@ -21,16 +21,16 @@ class SocialmediaController extends Controller
     // Store or update the social media links
     public function SocialmediaStore(Request $request)
     {
-
-        $request->validate([
-            'language' => 'required',
-            'txtename' => 'required',
-            'facebook' => 'required|url',
-            'twitter' => 'required|url',
-            'googleplus' => 'required|url',
-            'linkedin' => 'required|url',
-            'txtstatus' => 'required|integer',
-        ]);
+print_r($_POST);
+        // $request->validate([
+        //     'language' => 'required',
+        //     'txtename' => 'required',
+        //     'facebook' => 'required',
+        //     'twitter' => 'required',
+        //     'googleplus' => 'required',
+        //     'linkedin' => 'required',
+        //     'txtstatus' => 'required',
+        // ]); 
 
         // Check if data exists, update; otherwise, insert
         $exists = DB::table('social_media_links')->first();
