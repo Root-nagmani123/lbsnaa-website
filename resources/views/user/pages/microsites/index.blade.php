@@ -104,7 +104,8 @@
                 @foreach($research_centres as $research_centre)
                 <h2 class="text-danger text-center uppercase">{{($research_centre->home_title) }} <br><span><img
                             src="{{ asset('assets/images/devider.png') }}" alt=""></span></h2>
-                <p style="text-align: justify;" class="mb-4">{{ strip_tags($research_centre->description) }}</p>
+                            <p style="text-align: justify;" class="mb-4">{!! $research_centre->description !!}</p>
+
                 @endforeach
 
                 <div class="d-flex flex-wrap gap-3">

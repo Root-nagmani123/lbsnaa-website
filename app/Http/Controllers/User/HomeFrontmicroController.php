@@ -21,25 +21,52 @@ class HomeFrontmicroController extends Controller
             ->get();
 
         // Fetch "quick links" and "what's new" based on the same condition
+        // $whatsNew = DB::table('micro_quick_links')
+        //     ->join('research_centres', 'micro_quick_links.research_centre_id', '=', 'research_centres.id')  // Join with 'research_centres'
+        //     ->where('micro_quick_links.categorytype', 1)
+        //     ->where('micro_quick_links.status', 1)
+        //     ->when($slug, function($query) use ($slug) {
+        //         return $query->where('research_centres.research_centre_slug', $slug);  // Filter by slug if provided
+        //     })
+        //     ->select('micro_quick_links.*', 'research_centres.research_centre_name as research_centre_name')
+        //     ->get();
+
         $whatsNew = DB::table('micro_quick_links')
-            ->join('research_centres', 'micro_quick_links.research_centre_id', '=', 'research_centres.id')  // Join with 'research_centres'
-            ->where('micro_quick_links.categorytype', 1)
-            ->where('micro_quick_links.status', 1)
-            ->when($slug, function($query) use ($slug) {
-                return $query->where('research_centres.research_centre_slug', $slug);  // Filter by slug if provided
-            })
-            ->select('micro_quick_links.*', 'research_centres.research_centre_name as research_centre_name')
-            ->get();
+        ->join('research_centres', 'micro_quick_links.research_centre_id', '=', 'research_centres.id')  // Join with 'research_centres'
+        ->where('micro_quick_links.categorytype', 1)
+        ->where('micro_quick_links.status', 1)
+        ->when($slug, function ($query) use ($slug) {
+            return $query->where('research_centres.research_centre_slug', $slug);  // Filter by slug if provided
+        })
+        ->whereDate('micro_quick_links.start_date', '<=', now())  // Ensure start_date is before or equal to today
+        ->whereDate('micro_quick_links.termination_date', '>=', now())  // Ensure termination_date is after or equal to today
+        ->select('micro_quick_links.*', 'research_centres.research_centre_name as research_centre_name')
+        ->get();
+
+
+        // $quickLinks = DB::table('micro_quick_links')
+        //     ->join('research_centres', 'micro_quick_links.research_centre_id', '=', 'research_centres.id')  // Join with 'research_centres'
+        //     ->where('micro_quick_links.categorytype', 2)
+        //     ->where('micro_quick_links.status', 1)
+        //     ->when($slug, function($query) use ($slug) {
+        //         return $query->where('research_centres.research_centre_slug', $slug);  // Filter by slug if provided
+        //     })
+        //     ->select('micro_quick_links.*', 'research_centres.research_centre_name as research_centre_name')
+        //     ->get();
 
         $quickLinks = DB::table('micro_quick_links')
-            ->join('research_centres', 'micro_quick_links.research_centre_id', '=', 'research_centres.id')  // Join with 'research_centres'
-            ->where('micro_quick_links.categorytype', 2)
-            ->where('micro_quick_links.status', 1)
-            ->when($slug, function($query) use ($slug) {
-                return $query->where('research_centres.research_centre_slug', $slug);  // Filter by slug if provided
-            })
-            ->select('micro_quick_links.*', 'research_centres.research_centre_name as research_centre_name')
-            ->get();
+        ->join('research_centres', 'micro_quick_links.research_centre_id', '=', 'research_centres.id')  // Join with 'research_centres'
+        ->where('micro_quick_links.categorytype', 2)
+        ->where('micro_quick_links.status', 1)
+        ->when($slug, function ($query) use ($slug) {
+            return $query->where('research_centres.research_centre_slug', $slug);  // Filter by slug if provided
+        })
+        ->whereDate('micro_quick_links.start_date', '<=', now())  // Ensure start_date is before or equal to today
+        ->whereDate('micro_quick_links.termination_date', '>=', now())  // Ensure termination_date is after or equal to today
+        ->select('micro_quick_links.*', 'research_centres.research_centre_name as research_centre_name')
+        ->get();
+
+
 
             // dd($quickLinks);
 

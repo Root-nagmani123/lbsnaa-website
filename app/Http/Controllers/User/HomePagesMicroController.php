@@ -44,7 +44,21 @@ class HomePagesMicroController extends Controller
         $research_centre = DB::table('research_centres')->where('status', 1)
             ->where('research_centre_slug', $slug)
             ->first();
-        $quickLinks = DB::table('micro_quick_links')->where('categorytype', 2)->where('status', 1)->get();
+
+        // $quickLinks = DB::table('micro_quick_links')->where('categorytype', 2)->where('status', 1)->get();
+        $quickLinks = DB::table('micro_quick_links')
+        ->join('research_centres', 'micro_quick_links.research_centre_id', '=', 'research_centres.id')  // Join with 'research_centres'
+        ->where('micro_quick_links.categorytype', 2)
+        ->where('micro_quick_links.status', 1)
+        ->when($slug, function ($query) use ($slug) {
+            return $query->where('research_centres.research_centre_slug', $slug);  // Filter by slug if provided
+        })
+        ->whereDate('micro_quick_links.start_date', '<=', now())  // Ensure start_date is before or equal to today
+        ->whereDate('micro_quick_links.termination_date', '>=', now())  // Ensure termination_date is after or equal to today
+        ->select('micro_quick_links.*', 'research_centres.research_centre_name as research_centre_name')
+        ->get();
+
+
         return view('user.pages.microsites.mediagallery', compact('quickLinks', 'research_centre', 'slug'));
     }
 

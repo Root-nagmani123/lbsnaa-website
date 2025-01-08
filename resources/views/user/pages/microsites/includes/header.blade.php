@@ -131,80 +131,71 @@
 
 
 
-
-
         <ul class="navbar-nav mx-auto">
-    @php
-        // URL se slug ko fetch karte hain (Path ya Query se)
-        $slug = request()->route('slug') ?: request()->query('slug');
-        
-        // Parent menus fetch
-        if ($slug) {
-            $menus = DB::table('micromenus')
-                ->join('research_centres', 'micromenus.research_centreid', '=', 'research_centres.id')
-                ->where('micromenus.menu_status', 1)
-                ->where('micromenus.is_deleted', 0)
-                ->where('micromenus.parent_id', 0)
-                ->where('research_centres.research_centre_slug', $slug)
-                ->select('micromenus.*')
-                ->get();
-        } else {
-            // Default parent menu fetch
-            $menus = DB::table('micromenus')
-                ->where('menu_status', 1)
-                ->where('is_deleted', 0)
-                ->where('parent_id', 0)
-                ->get();
-        }
-    @endphp
+            @php
+                // Fetch slug from the query string, falling back to the route slug if not present
+                $slug = request()->query('slug') ?: request()->route('slug'); 
 
-    @foreach ($menus as $menu)
-        @php
-            // Fetch child menus for the current menu
-            $childMenus = DB::table('micromenus')
-                ->where('menu_status', 1)
-                ->where('is_deleted', 0)
-                ->where('parent_id', $menu->id)
-                ->get();
+                // Function to fetch and display menus recursively
+                function displayMenu($parentId, $slug, $isRoot = false) {
+                    // Query to fetch menus
+                    $query = DB::table('micromenus')
+                        ->join('research_centres', 'micromenus.research_centreid', '=', 'research_centres.id')
+                        ->where('micromenus.menu_status', 1)
+                        ->where('micromenus.is_deleted', 0)
+                        ->where('micromenus.parent_id', $parentId);
 
-            $arrow = $childMenus->isNotEmpty();
-            $class = $arrow ? 'nav-link dropdown-toggle' : 'nav-link';
+                    // Apply slug filter only at the root level
+                    if ($isRoot && $slug) {
+                        $query->where('research_centres.research_centre_slug', $slug);
+                    }
 
-            // Generate the base slug for the parent menu
-            $baseSlug = urlencode($slug ?: $menu->menu_slug);
-        @endphp 
+                    $menus = $query->select('micromenus.*')->get();
 
-        <li class="nav-item dropdown">
-            <a class="{{ $class }}"
-                href="{{ route('user.navigationmenubyslug', $menu->menu_slug) . '?slug=' . $baseSlug }}"
-                {{ $arrow ? 'data-bs-toggle=dropdown aria-haspopup=true aria-expanded=false' : '' }}>
-                {{ $menu->menutitle }}
-            </a>
+                    // If no menus are found, display a message
+                    if ($menus->isEmpty()) {
+                        echo "<li>No menus found for the selected slug: {$slug}</li>";
+                        return;
+                    }
 
-            @if ($arrow)
-                <ul class="dropdown-menu">
-                    @foreach ($childMenus as $child)
-                        <li>
-                            <a class="dropdown-item"
-                                href="{{ route('user.navigationmenubyslug', $child->menu_slug) . '?slug=' . $baseSlug }}">
-                                {{ $child->menutitle }}
-                            </a>
-                        </li>
-                    @endforeach
-                </ul>
-            @endif
-        </li>
-    @endforeach
-</ul>
+                    foreach ($menus as $menu) {
+                        // Check if the current menu has child menus
+                        $childMenus = DB::table('micromenus')
+                            ->where('menu_status', 1)
+                            ->where('is_deleted', 0)
+                            ->where('parent_id', $menu->id)
+                            ->get();
 
+                        // Determine if the menu has a dropdown
+                        $arrow = $childMenus->isNotEmpty();
+                        $class = $arrow ? 'nav-link dropdown-toggle' : 'nav-link';
 
+                        // Preserve the current slug in the menu link
+                        $menuLink = route('user.navigationmenubyslug', $menu->menu_slug) . '?slug=' . urlencode($slug);
 
+                        // Output the menu item
+                        echo "<li class='nav-item dropdown'>";
+                        echo "<a class='{$class}' href='{$menuLink}'" . ($arrow ? " data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'" : '') . ">";
+                        echo $menu->menutitle;
+                        echo "</a>";
 
+                        // Recursively display child menus if available
+                        if ($arrow) {
+                            echo "<ul class='dropdown-menu'>";
+                            displayMenu($menu->id, $slug, false); // Recursive call
+                            echo "</ul>";
+                        }
 
+                        echo "</li>";
+                    }
+                }
+            @endphp
 
-
-
-
+            @php
+                // Display the top-level menus (parent menus with parent_id = 0) filtered by slug
+                displayMenu(0, $slug, true);
+            @endphp
+        </ul>
 
 
 
