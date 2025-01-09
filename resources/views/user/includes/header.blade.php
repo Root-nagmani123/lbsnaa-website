@@ -43,11 +43,47 @@
         align-items: center;
         text-align: center;
     }
+
+    /* Default behavior: nested dropdowns open to the right */
+    .dropdown-submenu {
+        position: relative;
+    }
+
+    .dropdown-submenu>.dropdown-menu {
+        top: 0;
+        left: 100%;
+        /* Default: open to the right */
+        margin-top: 0;
+        margin-left: 0;
+    }
+
+    /* Open to the left when screen edge is near */
+    .dropdown-menu.dropdown-menu-left {
+        left: auto;
+        right: 100%;
+        /* Open to the left */
+    }
+.dropdown-submenu.dropend .dropdown-menu {
+    left: 100%; /* Opens to the right */
+    right: auto;
+}
+
+.dropdown-submenu.dropstart .dropdown-menu {
+    left: auto;
+    right: 100%; /* Opens to the left */
+}
+
+
+    @media (min-width: 768px) {
+        .bar {
+            display: none;
+        }
+    }
     </style>
 </head>
 
 <body class="d-flex flex-column min-vh-100 bg-white">
-    <div class="container-fluid bg-light">
+    <div class="container-fluid bg-light bar">
         <div class="row align-items-end py-1">
             <ul class="nav justify-content-end">
                 <!-- Tooltip Items -->
@@ -130,7 +166,7 @@
         <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
             <!-- Logo -->
             <a href="{{ route('home') }}" class="navbar-brand me-auto logo d-flex align-items-center">
-                <img src="{{ asset('admin_assets/images/logo.png') }}" alt="logo-icon" class="img-fluid" width="350">
+                <img src="{{ asset('admin_assets/images/logo.png') }}" alt="logo-icon" class="img-fluid" width="250">
             </a>
 
             <!-- Navbar Toggle Button (For mobile view) -->
@@ -184,26 +220,21 @@
                         ->where('parent_id', $submenu->id)
                         ->exists();
 
-                        $output .= '<li class="dropdown-submenu dropstart">';
-                            $output .= '<a
-                                class="dropdown-item ' . ($hasChildren ? 'dropdown-toggle d-flex align-items-center' : '') . '"
-                                href="' . route('user.navigationpagesbyslug', $submenu->menu_slug) . '">';
-                                $output .= $submenu->menutitle;
-                                if ($hasChildren) {
-                                $output .= '<i class="bi bi-chevron-left ms-auto"></i>';
-                                }
-                                $output .= '</a>';
+                        $output .= '<li class="dropdown-submenu dynamic-direction">';
+                            $output .= '<a class="dropdown-item dropdown-toggle' . ($hasChildren ? '' : '') . '"
+                            href="' . route('user.navigationpagesbyslug', $submenu->menu_slug) . '"> ' .
+                            $submenu->menutitle . '</a>';
 
                             if ($hasChildren) {
                             $output .= renderMenuItems($submenu->id);
                             }
 
                             $output .= '</li>';
-                        }
+
 
                         $output .= '</ul>';
                     return $output;
-                    }
+                    }}
                     @endphp
 
                     <!-- Navbar Menu Items -->
@@ -251,19 +282,30 @@
     </nav>
 
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const dropdowns = document.querySelectorAll('.dropdown-submenu');
+ document.addEventListener('DOMContentLoaded', function () {
+    const submenus = document.querySelectorAll('.dynamic-direction');
 
-        dropdowns.forEach(function(dropdown) {
-            dropdown.addEventListener('mouseenter', function() {
-                const submenu = this.querySelector('.dropdown-menu');
-                if (submenu) submenu.style.display = 'block';
-            });
+    submenus.forEach(function (submenu) {
+        submenu.addEventListener('mouseenter', function () {
+            const dropdownMenu = submenu.querySelector('.dropdown-menu');
+            if (!dropdownMenu) return;
 
-            dropdown.addEventListener('mouseleave', function() {
-                const submenu = this.querySelector('.dropdown-menu');
-                if (submenu) submenu.style.display = 'none';
-            });
+            // Reset classes
+            submenu.classList.remove('dropend', 'dropstart');
+
+            // Get submenu and dropdown positions
+            const submenuRect = submenu.getBoundingClientRect();
+            const dropdownRect = dropdownMenu.getBoundingClientRect();
+            const viewportWidth = window.innerWidth;
+
+            // Check if the dropdown will overflow to the right
+            if (submenuRect.right + dropdownRect.width > viewportWidth) {
+                submenu.classList.add('dropstart');
+            } else {
+                submenu.classList.add('dropend');
+            }
         });
     });
+});
+
     </script>
