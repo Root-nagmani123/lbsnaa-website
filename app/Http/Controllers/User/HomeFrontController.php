@@ -12,7 +12,7 @@ class HomeFrontController extends Controller
     {
         date_default_timezone_set('Asia/Kolkata');
         $today = date('Y-m-d'); 
-        $sliders =  DB::table('sliders')->where('status',1)->where('is_deleted',0)->get();
+        $sliders =  DB::table('sliders')->where('status',1)->where('is_deleted',0)->orderBy('id', 'desc')->get();
         $news =  DB::table('news')->where('status',1)->where('start_date', '<=', $today)
         ->where('end_date', '>=', $today)->get();
         $quick_links = DB::table('quick_links')->where('is_deleted',0)->where('status',1)->get();
@@ -452,7 +452,7 @@ public function souvenir(Request $request)
         $query->where('product_title', 'LIKE', '%' . $request->keywords . '%');
     }
 
-    $souvenir = $query->select('id', 'product_title', 'product_price','product_type','document_upload', 'contact_email_id', 'upload_image', 'product_description')->where('product_status', '1')->get();
+    $souvenir = $query->select('id', 'product_title', 'product_discounted_price','product_price','product_type','document_upload', 'contact_email_id', 'upload_image', 'product_description')->where('product_status', '1')->get();
 
     // Return to view
     return view('user.pages.souvenir_list', compact('categories', 'souvenir','keywords'));
@@ -585,20 +585,41 @@ function photogallery(Request $request){
         ->where('media_gallery', 'Photo Gallery')
         ->where('status', 1)
         ->get();
+        $news = DB::table('news')
+        ->when($keywords, function ($query, $keywords) {
+            return $query->where('title', 'LIKE', '%' . $keywords . '%');
+        })
+        ->when($category, function ($query, $category) {
+            return $query->where('title_slug', $category);
+        })
+        ->when($year, function ($query, $year) {
+            return $query->whereYear('end_date', $year);
+        })
+        ->where('status', 1)
+        ->select('id', 'title', 'title_slug', 'main_image')
+        ->get();
+        // print_r($news);die;
 
-    return view('user.pages.photogallery', compact('media_cat'));
+    return view('user.pages.photogallery', compact('media_cat','news'));
 }
 function view_all_photogallery(Request $request){
     
     $catid = $request->input('glrid');
+    $type = $request->input('type');
 
+if($type == 'galary'){
     $media_d = DB::table('manage_photo_galleries')
     ->leftjoin('manage_media_categories', 'manage_photo_galleries.media_categories', '=', 'manage_media_categories.id')
         ->where('media_categories', $catid)
         ->where('manage_photo_galleries.status', 1)
         ->select('manage_photo_galleries.id','manage_photo_galleries.image_title_english','manage_photo_galleries.image_files','manage_media_categories.name')
         ->get();
-    return view('user.pages.all_photogallery', compact('media_d'));
+}else if($type == 'news'){
+    $media_d = DB::table('news')->select('id','title','multiple_images','main_image')->where('id', $catid)->where('status', 1)->get();
+
+}
+  
+    return view('user.pages.all_photogallery', compact('media_d','type'));
 }
 public function organization(Request $request)
 {

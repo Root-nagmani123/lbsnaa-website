@@ -1,10 +1,10 @@
 <?php
 // app/Helpers/menu_helpers.php
 if (!function_exists('renderMenu')) {
-    function renderMenu($menu, $indent = '', &$counter = 1)
+    function renderMenu($menu, $indent = '', &$counter)
     {
         $output = '<tr>';
-        $output .= '<td>' . $counter . '</td>'; // Use the counter for numbering
+        $output .= '<td>' . $counter++ . '</td>'; // Use the counter for numbering
         $output .= '<td>' . $indent . htmlspecialchars($menu->menutitle) . '</td>';
         $output .= '<td>' . ($menu->parent_id ? htmlspecialchars(\App\Models\Admin\Menu::find($menu->parent_id)->menutitle) : 'Root Category') . '</td>';
         $output .= '<td>' . getMenuPosition($menu->txtpostion) . '</td>';
@@ -36,7 +36,7 @@ if (!function_exists('renderMenu')) {
     
         $output .= '</tr>';
 
-        $counter++; // Increment the counter
+        // $counter++; // Increment the counter
 
         // Render child menus, passing the counter
         foreach ($menu->children as $child) {

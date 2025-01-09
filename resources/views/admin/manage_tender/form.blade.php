@@ -84,6 +84,25 @@
             </div>
             @endif
 
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="form-group mb-4">
+            <label class="label">Corrigendum (PDF Only):</label>
+           
+            <div class="form-group position-relative">
+                <input type="file" name="corrigendum" class="form-control" accept=".pdf">
+            </div>
+
+            @if(isset($manageTender->corrigendum))
+            <div class="mt-2">
+                @if(pathinfo($manageTender->corrigendum, PATHINFO_EXTENSION) == 'pdf')
+                <label>Current File (PDF):</label><br>
+                <a href="{{ asset('storage/tender/' . $manageTender->corrigendum) }}" target="_blank">View PDF</a>
+                @endif
+            </div>
+            @endif
+
             @error('file')
             <div class="text-danger">{{ $message }}</div>
             @enderror
