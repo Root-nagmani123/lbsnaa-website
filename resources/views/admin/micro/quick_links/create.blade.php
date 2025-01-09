@@ -94,7 +94,7 @@
                                 <div class="form-group position-relative">
                                     <select name="menu_type" id="menu_type" class="form-control text-dark  h-58">
                                         <option value="">Select</option>
-                                        <option value="1">Content</option>
+                                        <!-- <option value="1">Content</option> -->
                                         <option value="2">PDF file Upload</option>
                                         <option value="3">Website URL</option>
                                     </select>
@@ -229,7 +229,7 @@
                                     <input type="text" name="termination_date" id="termination_date"
                                         class="form-control text-dark  h-58">
                                     @error('termination_date')
-                                    <div class="text-danger">{{ $message }}</div>
+                                    <div class="text-danger">{{ $message }}</div> 
                                     @enderror
                                 </div>
                             </div>

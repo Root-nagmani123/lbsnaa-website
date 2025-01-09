@@ -29,16 +29,16 @@
                 <p>No YouTube links available</p>
             </div>
         @else
-            @foreach ($videos as $video)
+            @foreach ($videos as $video) 
             <div class="col-lg-3 col-md-6 col-sm-12 d-flex">
                 <!-- Bootstrap Card -->
                 <div class="card h-100 shadow-sm w-100">
                     <div class="card-body d-flex flex-column">
                         <!-- Video Category -->
-                        <h5 class="card-title text-primary mb-2">{{ $video->category_name }}</h5>
+                        <h5 class="card-title text-primary mb-2">{{ $video->video_upload }}</h5>
                         <!-- Video Titles -->
-                        <h6 class="text-muted">{{ $video->video_title_en }}</h6>
-                        <p class="text-muted">{{ $video->video_title_hi }}</p>
+                        <!-- <h6 class="text-muted">{{ $video->video_title_en }}</h6>
+                        <p class="text-muted">{{ $video->video_title_hi }}</p> -->
                     </div>
                 </div>
             </div>

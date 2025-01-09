@@ -212,13 +212,6 @@ class OrganizationSetupController extends Controller
     }
     
 
-    // public function destroy(OrganizationSetup $organizationSetup)
-    // {
-    //     $organizationSetup->delete();
-
-    //     return redirect()->route('organization_setups.index')->with('success', 'Organization setup deleted successfully.');
-    // }
-
     public function destroy(OrganizationSetup $organizationSetup)
     {
         // Check if the organization setup status is 1 (Active/Inactive based on your logic)

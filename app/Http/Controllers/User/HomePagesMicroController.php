@@ -13,15 +13,21 @@ class HomePagesMicroController extends Controller
     {
         // Get the 'slug' from the request
         $slug = $request->query('slug');
-        
-        // Fetch all data from the photo galleries and research centres using a join
-        $photoGalleries = DB::table('micro_manage_photo_galleries as photo_gallery')
-            ->join('research_centres as research_centres', 'photo_gallery.research_centre', '=', 'research_centres.id')
-            ->where('photo_gallery.status', 1)
-            ->where('research_centres.research_centre_slug', $slug)  // Filter by the slug
-            ->select('photo_gallery.*', 'research_centres.*')  // Select all columns from both tables
+
+        $photoGalleries = DB::table('research_centres as rc') // Alias `research_centres` as `rc`
+            ->join('micro_media_categories as mmc', 'rc.id', '=', 'mmc.research_centre')
+            // ->join('micro_manage_photo_galleries as mmpg', 'mmpg.media_categories', '=', 'mmc.id') // Join `micro_media_categories` with `research_centres`
+            ->where('rc.status', 1) // Ensure `research_centres` is active
+            ->where('mmc.status', 1) // Ensure `micro_media_categories` is active
+            ->where('rc.research_centre_slug', $slug) // Filter by the provided slug
+            ->select(
+                'rc.id as research_centre_id', // ID from `research_centres`
+                'mmc.name as media_category_name',
+                'mmc.category_image as category_image',
+                'mmc.id as category_id',
+            )
             ->get();
-        // Fetch courses (if needed)
+
         $courses = DB::table('course')->select('id', 'course_name')->get();
 
         $categorys = DB::table('micro_media_categories as mc')
@@ -30,7 +36,7 @@ class HomePagesMicroController extends Controller
             ->where('rc.research_centre_slug', $slug) // Use the slug from the query string
             ->select('mc.name','mc.id','category_image')
             ->get();
-        // dd($categorys);
+        // dd($photoGalleries);
         
         // Pass data to the view
         return view('user.pages.microsites.media_gallery', compact('photoGalleries', 'courses', 'slug', 'categorys'));
@@ -99,28 +105,11 @@ class HomePagesMicroController extends Controller
             ->where('micro_manage_photo_galleries.status', 1)
             ->get();
 
-           dd(filterGallery);
+        //    dd(filterGallery);
         // Pass the data to the view
         return view('user.pages.microsites.media_gallery', compact('filterGallery'));
     }
 
-    
-
-
-    // public function news(Request $request)
-    // {
-    //     // Get the slug from the request
-    //     $slug = $request->query('slug'); // Fetch the 'slug' query parameter from the URL
-    //     // Fetch all records from the managenews table joined with research_centres table
-    //     $newsItems = DB::table('managenews as mn')
-    //         ->join('research_centres as rc', 'mn.research_centreid', '=', 'rc.id') // Join the tables based on research_centreid
-    //         ->where('mn.status', 1) // Filter by status (active news)
-    //         ->where('rc.research_centre_slug', $slug) // Filter by research_centre_slug from the request slug
-    //         ->select('mn.*', 'rc.*') // Select all columns from managenews and research_centres
-    //         ->get();
-    //     // Pass the data to the view
-    //     return view('user.pages.microsites.news', compact('newsItems'));
-    // } 
 
     public function news(Request $request)
     {
@@ -139,12 +128,16 @@ class HomePagesMicroController extends Controller
                             ->orWhere('mn.end_date', '>=', now()); // Or end date is in the future
                     });
             })
-            ->select('mn.*', 'rc.*') // Select all columns from managenews and research_centres
+            ->select('mn.id as managenews_id', 'mn.*', 'rc.*') // Include the primary key of managenews explicitly
             ->get();
+
+        // Debugging to verify the data
+        // dd($newsItems);
 
         // Pass the data to the view
         return view('user.pages.microsites.news', compact('newsItems'));
     }
+
 
 
 
@@ -166,6 +159,7 @@ class HomePagesMicroController extends Controller
         if ($news && $news->multiple_images) {
             $news->multiple_images = json_decode($news->multiple_images, true);
         }
+        // dd($news);
 
         // Pass the news item to the view
         return view('user.pages.microsites.newsdetails', compact('news'));
@@ -189,7 +183,7 @@ class HomePagesMicroController extends Controller
                 return $query->where('research_centres.research_centre_slug', $slug); // Filter by slug if provided
             })
             ->get();
-   
+            // dd($videos);
         // Return view with data
         return view('user.pages.microsites.video_gallery', compact('videos', 'slug'));
     }
@@ -211,6 +205,45 @@ class HomePagesMicroController extends Controller
         if (!$category) abort(404, 'Category not found.');
         return view('user.pages.microsites.category_details', compact('category'));
     }
+
+    public function mediaGalleryDetails($id, Request $request)
+    {
+        // Get the slug from the request
+        $slug = $request->query('slug');
+
+        // Fetch the gallery details based on ID and slug
+        $gallery_details = DB::table('micro_manage_photo_galleries as mmpg')
+            ->join('research_centres as rc', 'mmpg.research_centre', '=', 'rc.id')
+            ->where('mmpg.media_categories', $id) // Filter by the category ID
+            ->where('rc.research_centre_slug', $slug) // Filter by the slug
+            ->select('mmpg.*', 'rc.research_centre_name')
+            ->get(); // Fetch a single record
+
+        if (!$gallery_details) {
+            abort(404, 'Gallery not found');
+        }
+        // dd($gallery_details);
+        // Pass data to the view
+        return view('user.pages.microsites.media_gallery_details', compact('gallery_details'));
+    }
+
+    public function getAllOrganizations($slug)
+    {
+        // Fetch the data from the database
+        $organizations = DB::table('mirco_organization_setups as org')
+            ->join('research_centres as rc', 'org.research_centre', '=', 'rc.id')
+            ->where('org.page_status', 1)
+            ->where('rc.research_centre_slug', $slug)
+            ->select('org.designation', 'org.email', 'org.program_description','org.main_image','org.employee_name','org.id')
+            ->get();
+
+        // If data is available, return the view with the data
+        return view('user.pages.microsites.organizations', compact('organizations'));
+    }
+    
+
+
+
 
 
 }

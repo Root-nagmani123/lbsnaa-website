@@ -23,26 +23,22 @@
 </section>
 
 <section class="container-fluid">
-    <!-- Filter Form -->
-    <div style="margin: 20px 0;">
+    <!-- <div style="margin: 20px 0;">
         <form action="{{ route('photoGalleries.filterGallery') }}" method="GET" id="filterForm"
             style="display: flex; gap: 10px; align-items: center;">
-            <!-- Keyword Search -->
             <label for="keyword" class="fw-semibold label">Search:</label>
             <input type="text" name="keyword" id="keyword" placeholder="Keyword Search" value="{{ request('keyword') }}"
                 class="form-control  h-58 w-25">
 
-            <!-- Category Dropdown -->
             <select name="category" class="form-control  h-58 w-25">
                 <option value="">All Categories</option>
-                @foreach ($courses as $course)
-                <option value="{{ $course->id }}" {{ request('category') == $course->id ? 'selected' : '' }}>
-                    {{ $course->course_name }}
+                @foreach ($photoGalleries as $gallery)
+                <option value="{{ $gallery->category_id }}" {{ request('category') == $gallery->category_id ? 'selected' : '' }}>
+                    {{ $gallery->media_category_name }}
                 </option>
                 @endforeach
             </select>
 
-            <!-- Year Dropdown -->
             <select name="year" class="form-control  h-58 w-25">
                 <option value="">All Years</option>
                 @for($year = date('Y'); $year >= 2000; $year--)
@@ -50,44 +46,37 @@
                 @endfor
             </select>
 
-            <!-- Submit Button -->
             <button type="submit" class="btn btn-outline-primary fw-semibold">Submit</button>
 
-            <!-- Clear Button -->
             <button type="button" onclick="clearFilters()" class="fw-semibold btn btn-outline-secondary">Clear</button>
         </form>
-    </div>
+    </div> -->
+
     <!-- Gallery Display -->
     @if($photoGalleries->isNotEmpty())
     <div class="row">
         @foreach ($photoGalleries as $gallery)
-        @php
-        $imageFiles = json_decode($gallery->image_files, true);
-        @endphp
-
-        @if(is_array($imageFiles) && !empty($imageFiles))
-        @foreach ($imageFiles as $imageFile)
         <div class="col-md-3 mb-4">
             <div class="card">
+
                 <div class="card-body" style="padding:0;">
-                    <img src="{{ asset('storage/' . $imageFile) }}" class="img-fluid rounded"
-                        alt="{{ $gallery->image_title_english }}"
-                        style="width: 100%; height: 250px; object-fit: cover;">
+                    <a href="{{ route('media_gallery_details', ['id' => $gallery->category_id, 'slug' => $slug]) }}"> <!-- Use route helper -->
+                        <img src="{{ asset('storage/uploads/category_images/' . $gallery->category_image) }}" class="img-fluid rounded" 
+                        alt="{{ $gallery->category_image }}" style="width: 100%; height: 250px; object-fit: cover;">
+                    </a>
                 </div>
+
+
+
+
                 <div class="card-footer" style="border:none;">
                     <div class="form-field mt-2">
-                        <h5 class="card-title">{{ $gallery->image_title_english }}</h5>
-                        <p class="card-text">{{ $gallery->image_title_hindi }}</p>
+                        <p class="card-text">{{ $gallery->media_category_name }}</p>
                     </div>
                 </div>
+
             </div>
         </div>
-        @endforeach
-        @else
-        <div class="col-12">
-            <p style="text-align: center; color: #999;">No valid images available for this gallery.</p>
-        </div>
-        @endif
         @endforeach
     </div>
     @else
@@ -97,7 +86,7 @@
 </section>
 @include('user.pages.microsites.includes.footer')
 
-<script>
+<script> 
 function clearFilters() {
     // Reset the form
     document.getElementById('filterForm').reset();

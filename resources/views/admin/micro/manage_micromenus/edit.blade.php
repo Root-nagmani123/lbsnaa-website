@@ -95,10 +95,10 @@
                                         <option class="text-dark">Select</option>
                                         <option value="1" class="text-dark"
                                             {{ $menu->texttype == 1 ? 'selected' : '' }}>Content</option>
-                                        <option value="2" class="text-dark"
+                                        <!-- <option value="2" class="text-dark"
                                             {{ $menu->texttype == 2 ? 'selected' : '' }}>PDF file Upload</option>
                                         <option value="3" class="text-dark"
-                                            {{ $menu->texttype == 3 ? 'selected' : '' }}>Web Site Url</option>
+                                            {{ $menu->texttype == 3 ? 'selected' : '' }}>Web Site Url</option> -->
                                     </select>
                                     @error('texttype')
                                     <div class="text-danger">{{ $message }}</div>
@@ -251,7 +251,7 @@
                                         <option class="text-dark">Select</option>
                                         <option value="1" class="text-dark"
                                             {{ $menu->txtpostion == 1 ? 'selected' : '' }}>Header Menu</option>
-                                        <option value="2" class="text-dark"
+                                        <!-- <option value="2" class="text-dark"
                                             {{ $menu->txtpostion == 2 ? 'selected' : '' }}>Bottom Menu</option>
                                         <option value="3" class="text-dark"
                                             {{ $menu->txtpostion == 3 ? 'selected' : '' }}>Footer Menu</option>
@@ -263,7 +263,7 @@
                                         <option value="6" class="text-dark"
                                             {{ $menu->txtpostion == 6 ? 'selected' : '' }}>Other Pages</option>
                                         <option value="7" class="text-dark"
-                                            {{ $menu->txtpostion == 7 ? 'selected' : '' }}>Latest Updates</option>
+                                            {{ $menu->txtpostion == 7 ? 'selected' : '' }}>Latest Updates</option> -->
                                     </select>
                                     @error('txtpostion')
                                     <div class="text-danger">{{ $message }}</div>

@@ -39,7 +39,7 @@
                         <div class="card-header" style="border:none;padding:0;">
                             <img src="{{ asset($news->main_image) }}" class="card-img-top" alt="blogpost"
                                 style="object-fit: cover;height:250px;">
-                        </div>
+                        </div> 
                         <!-- Card body -->
                         <div class="card-body d-flex flex-column" style="height:200px;">
                             <a href="#" class="fs-5 mb-2 fw-semibold d-block text-success">Posted On :-
@@ -49,7 +49,7 @@
                             <!-- Media content -->
                         </div>
                         <div class="card-footer" style="border-top:none;">
-                            <a href="{{ route('news.details', ['id' => $news->id, 'slug' => $news->research_centre_slug]) }}"
+                            <a href="{{ route('news.details', ['id' => $news->managenews_id, 'slug' => $news->research_centre_slug]) }}"
                                 class="text-inherit text-primary">Read More</a>
                         </div>
                     </div>

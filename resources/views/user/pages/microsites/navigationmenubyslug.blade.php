@@ -17,7 +17,6 @@
                             @foreach ($breadcrumb as $crumb)
                                 @if (!$loop->last)
                                     <li class="breadcrumb-item">
-                                        <!-- <a href="{{ route('user.navigationmenubyslug', $crumb['slug']) }}">{{ $crumb['title'] }}</a> -->
                                         <a href="{{ route('user.navigationmenubyslug', $crumb['slug']) }}?slug={{ request()->query('slug') ?: $crumb['slug'] }}">{{ $crumb['title'] }}</a>
 
                                     </li>
@@ -25,20 +24,6 @@
                                     <li class="breadcrumb-item active" aria-current="page">{{ $crumb['title'] }}</li>
                                 @endif
                             @endforeach
-
-                            <!-- @foreach ($breadcrumb as $crumb)
-                                @if (!$loop->last)
-                                    <li class="breadcrumb-item">
-                                        @if (!empty($crumb['slug']))
-                                            <a href="{{ route('user.navigationmenubyslug', $crumb['slug']) }}">{{ $crumb['title'] }}</a>
-                                        @else
-                                            {{ $crumb['title'] }}
-                                        @endif
-                                    </li>
-                                @else
-                                    <li class="breadcrumb-item active" aria-current="page">{{ $crumb['title'] }}</li>
-                                @endif
-                            @endforeach -->
 
                         </ol>
                     </nav>

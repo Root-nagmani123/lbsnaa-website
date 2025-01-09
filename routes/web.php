@@ -128,6 +128,10 @@ Route::get('/lbsnaa-sub/{slug}', [HomeFrontmicroController::class, 'index'])->na
 Route::get('/lbsnaa-subs/micromenu/{slug}/{childSlug?}', [HomeFrontmicroController::class, 'get_navigation_pages'])
     ->name('user.navigationmenubyslug');
 
+Route::get('lbsnaa-sub_mgd/media_gallery_details/{id}', [HomePagesMicroController::class, 'mediaGalleryDetails'])->name('media_gallery_details');
+
+Route::get('lbsnaa-sub_org/organizations/{slug}', [HomePagesMicroController::class, 'getAllorganizations'])->name('user.organizations');
+
 
 
 //micro 

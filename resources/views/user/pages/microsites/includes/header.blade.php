@@ -83,7 +83,7 @@
             </span></h2>
             
             @else
-                <h4>Default Centre Name</h4> <!-- Default name if no match is found -->
+                
             @endif
 
 
@@ -153,10 +153,7 @@
                     $menus = $query->select('micromenus.*')->get();
 
                     // If no menus are found, display a message
-                    if ($menus->isEmpty()) {
-                        echo "<li>No menus found for the selected slug: {$slug}</li>";
-                        return;
-                    }
+                    
 
                     foreach ($menus as $menu) {
                         // Check if the current menu has child menus
