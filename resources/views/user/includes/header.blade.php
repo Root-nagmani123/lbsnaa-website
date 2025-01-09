@@ -74,7 +74,7 @@
 }
 
 
-    @media (min-width: 768px) {
+    @media (max-width: 768px) {
         .bar {
             display: none;
         }
