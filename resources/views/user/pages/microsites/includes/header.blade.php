@@ -79,17 +79,16 @@
                 }
                 @endphp
 
-                @if ($centre_name)
-                <h2 class="text-dark">{{ $centre_name->research_centre_name }}<br><span class="text-center"
-                        style="font-size:14px;">
-                        @if (!empty($centre_name->sub_heading))
-                        ( {{ $centre_name->sub_heading }} )
-                        @endif
-                    </span></h2>
-
-                @else
-                <h4>Default Centre Name</h4> <!-- Default name if no match is found -->
+            @if ($centre_name)
+            <h2 class="text-dark">{{ $centre_name->research_centre_name }}<br><span class="text-center" style="font-size:14px;">
+                @if (!empty($centre_name->sub_heading))
+                    ( {{ $centre_name->sub_heading }} )
                 @endif
+            </span></h2>
+            
+            @else
+                
+            @endif
 
                 <!-- Navbar Toggle Button (For mobile view) -->
             </div>
@@ -158,10 +157,8 @@
 
                     $menus = $query->select('micromenus.*')->get();
 
-                    if ($menus->isEmpty()) {
-                    echo "<li class='nav-item'><span class='nav-link text-muted'>No menus found</span></li>";
-                    return;
-                    }
+                    // If no menus are found, display a message
+                    
 
                     foreach ($menus as $menu) {
                     $childMenus = DB::table('micromenus')

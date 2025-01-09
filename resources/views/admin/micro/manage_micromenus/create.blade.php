@@ -79,8 +79,8 @@
                                         autocomplete="off" onchange="addmenutype(this.value)">
                                         <option selected value="" class="text-dark">Select</option>
                                         <option value="1" class="text-dark">Content</option>
-                                        <option value="2" class="text-dark">PDF file Upload</option>
-                                        <option value="3" class="text-dark">Web Site Url</option>
+                                        <!-- <option value="2" class="text-dark">PDF file Upload</option>
+                                        <option value="3" class="text-dark">Web Site Url</option> -->
                                     </select>
                                     @error('texttype')
                                     <div class="text-danger">{{ $message }}</div>
@@ -212,12 +212,12 @@
                                         onchange="showDateFields(this.value)">
                                         <option selected value="" class="text-dark">Select</option>
                                         <option value="1" class="text-dark">Header Menu</option>
-                                        <option value="2" class="text-dark">Bottom Menu</option>
+                                        <!-- <option value="2" class="text-dark">Bottom Menu</option>
                                         <option value="3" class="text-dark">Footer Menu</option>
                                         <option value="4" class="text-dark">Director Message Menu</option>
                                         <option value="5" class="text-dark">Life Academy Menu</option>
                                         <option value="6" class="text-dark">Other Pages</option>
-                                        <option value="7" class="text-dark">Latest Updates</option>
+                                        <option value="7" class="text-dark">Latest Updates</option> -->
                                     </select>
                                     @error('txtpostion')
                                     <div class="text-danger">{{ $message }}</div>

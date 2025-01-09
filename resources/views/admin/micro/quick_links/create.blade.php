@@ -228,7 +228,7 @@
                                     <input type="text" name="termination_date" id="termination_date"
                                         class="form-control text-dark  h-58">
                                     @error('termination_date')
-                                    <div class="text-danger">{{ $message }}</div>
+                                    <div class="text-danger">{{ $message }}</div> 
                                     @enderror
                                 </div>
                             </div>

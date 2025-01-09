@@ -200,7 +200,7 @@
                                         class="form-control text-dark  h-58"
                                         value="{{ old('start_date', $startDate) }}">
                                 </div>
-                            </div>
+                            </div> 
                         </div>
 
                         <div class="col-lg-6">
@@ -212,8 +212,8 @@
                                         class="form-control text-dark  h-58"
                                         value="{{ old('termination_date', $terminationDate) }}">
                                 </div>
-                                @error('menu_type')
-                                    <div class="text-danger">{{ $message }}</div>
+                                @error('termination_date')
+                                    <div class="text-danger">{{ $message }}</div> 
                                     @enderror
                             </div>
                         </div>
@@ -252,22 +252,25 @@
 <link rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker.min.css">
 
+
+<!-- Flatpickr CSS -->
+<link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
+
+<!-- Flatpickr JS -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
 <script>
-$(document).ready(function() {
-    // Initialize start_date and termination_date inputs with the datepicker
-    $('#start_date').datepicker({
-        format: 'dd-mm-yyyy', // Set format to DD-MM-YYYY
-        autoclose: true // Auto-close the picker when a date is selected
+    document.addEventListener('DOMContentLoaded', function() {
+        flatpickr("#start_date", {
+            dateFormat: "d-m-Y", // DD-MM-YYYY format
+            allowInput: true
+        });
+        flatpickr("#termination_date", {
+            dateFormat: "d-m-Y", // DD-MM-YYYY format
+            allowInput: true
+        });
     });
-
-    $('#termination_date').datepicker({
-        format: 'dd-mm-yyyy', // Set format to DD-MM-YYYY
-        autoclose: true // Auto-close the picker when a date is selected
-    });
-});
 </script>
-
-
 
 <script>
 document.getElementById('menu_type').addEventListener('change', function() {
@@ -276,5 +279,7 @@ document.getElementById('menu_type').addEventListener('change', function() {
     document.getElementById('pdf-field').style.display = value === '2' ? 'block' : 'none';
     document.getElementById('website-field').style.display = value === '3' ? 'block' : 'none';
 });
+
+
 </script>
 @endsection

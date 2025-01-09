@@ -113,40 +113,65 @@ class HomeFrontmicroController extends Controller
         return array_reverse($breadcrumb);
     }
 
-    // public function get_navigation_pages($slug)
-    // {
-       
-    //     $breadcrumb = $this->generateBreadcrumb($slug);
-    //     //  print_r($breadcrumb);die;
-    //     $quickLinks = DB::table('micro_quick_links')->where('categorytype', 2)->where('status', 1)->get();
-    //     $nav_page =  DB::table('micromenus')->where('menu_status', 1)->where('is_deleted', 0)->where('menu_slug', $slug)->first();
-        
-    //     return view('user.pages.microsites.navigationmenubyslug', compact('nav_page', 'breadcrumb', 'quickLinks'));
-    // }
 
-    // public function get_navigation_pages($slug, $childSlug = null)
+    // public function get_navigation_pages($slug, $childSlug = null,Request $request)
     // {
-
+    //     // Generate breadcrumb based on slug
     //     $breadcrumb = $this->generateBreadcrumb($slug);
     //     // dd($breadcrumb);
-    //     $quickLinks = DB::table('micro_quick_links')->where('categorytype', 2)->where('status', 1)->get();
+    //     // Fetch data for rendering
     //     $nav_page = DB::table('micromenus')->where('menu_status', 1)->where('is_deleted', 0)->where('menu_slug', $slug)->first();
 
+
+
+    //     $quickLinks = DB::table('micro_quick_links')
+    //     ->join('research_centres', 'micro_quick_links.research_centre_id', '=', 'research_centres.id')  // Join with 'research_centres'
+    //     ->where('micro_quick_links.categorytype', 2)
+    //     ->where('micro_quick_links.status', 1)
+    //     ->when($slug, function ($query) use ($slug) {
+    //         return $query->where('research_centres.research_centre_slug', $slug);  // Filter by slug if provided
+    //     })
+    //     ->whereDate('micro_quick_links.start_date', '<=', now())  // Ensure start_date is before or equal to today
+    //     ->whereDate('micro_quick_links.termination_date', '>=', now())  // Ensure termination_date is after or equal to today
+    //     ->select('micro_quick_links.*', 'research_centres.research_centre_name as research_centre_name')
+    //     ->get();
+
+    //     // $quickLinks = DB::table('micro_quick_links')->where('categorytype', 2)->where('status', 1)->get();
+
+    //     // Return view with variables
     //     return view('user.pages.microsites.navigationmenubyslug', compact('nav_page', 'breadcrumb', 'quickLinks'));
     // }
 
-    public function get_navigation_pages($slug, $childSlug = null)
-    {
-        // Generate breadcrumb based on slug
-        $breadcrumb = $this->generateBreadcrumb($slug);
-        // dd($breadcrumb);
-        // Fetch data for rendering
-        $nav_page = DB::table('micromenus')->where('menu_status', 1)->where('is_deleted', 0)->where('menu_slug', $slug)->first();
-        $quickLinks = DB::table('micro_quick_links')->where('categorytype', 2)->where('status', 1)->get();
 
-        // Return view with variables
-        return view('user.pages.microsites.navigationmenubyslug', compact('nav_page', 'breadcrumb', 'quickLinks'));
-    }
+
+public function get_navigation_pages($slug, $childSlug = null)
+{
+    // Generate breadcrumb based on slug
+    $breadcrumb = $this->generateBreadcrumb($slug);
+
+    // Fetch data for rendering
+    $nav_page = DB::table('micromenus')
+        ->where('menu_status', 1)
+        ->where('is_deleted', 0)
+        ->where('menu_slug', $slug)
+        ->first();
+
+    $quickLinks = DB::table('micro_quick_links')
+        ->join('research_centres', 'micro_quick_links.research_centre_id', '=', 'research_centres.id')
+        ->where('micro_quick_links.categorytype', 2)
+        ->where('micro_quick_links.status', 1)
+        ->when($slug, function ($query) use ($slug) {
+            return $query->where('research_centres.research_centre_slug', $slug);
+        })
+        ->whereDate('micro_quick_links.start_date', '<=', now())  // Ensure start_date is before or equal to today
+        ->whereDate('micro_quick_links.termination_date', '>=', now())  // Ensure termination_date is after or equal to today
+        ->select('micro_quick_links.*', 'research_centres.research_centre_name as research_centre_name')
+        ->get();
+
+    // Return view with variables
+    return view('user.pages.microsites.navigationmenubyslug', compact('nav_page', 'breadcrumb', 'quickLinks'));
+}
+
 
 
 }
