@@ -36,20 +36,15 @@
                 <!-- Card -->
                 <div class="card shadow-lg card-lift h-100">
                     <div class="card-header p-0">
-                        <a href="#">
-                            <img src="{{ isset($slider->main_image) && !empty($slider->main_image) ? asset($slider->main_image) : asset('assets/images/4.jpg') }}"
-                                class="card-img-top" alt="blogpost" style="height: 200px; object-fit: cover;">
-                        </a>
+                    <img src="{{ isset($slider->main_image) && !empty($slider->main_image) ? asset($slider->main_image) : asset('assets/images/4.jpg') }}"
+                    class="card-img-top" alt="blogpost" style="height: 200px; object-fit: cover;">
                     </div>
                     <!-- Card body -->
                     <div class="card-body d-flex flex-column">
-                        <a href="#" class="fs-6 mb-2 fw-semibold d-block text-success">Posted On:
-                            {{ \Carbon\Carbon::parse($slider->start_date)->format('d F, Y') }}</a>
+                        <p class="fs-6 mb-2 fw-semibold d-block text-success">Posted On:
+                            {{ \Carbon\Carbon::parse($slider->start_date)->format('d F, Y') }}</p>
                         <h3 class="fs-5">
-                            <a href="{{ route('user.newsbyslug', $slider->title_slug) }}"
-                                class="text-dark text-decoration-none">
-                                {{ $slider->title }}
-                            </a>
+                        {{ $slider->title }}
                         </h3>
                         <p class="text-truncate" style="max-height: 3rem;">{{ $slider->short_description }}</p>
                     </div>
@@ -83,8 +78,8 @@
         </div>
         -->
         @else
-<h4 class="text-center">News does not exist</h4>
-@endif
+        <h4 class="text-center">News does not exist</h4>
+        @endif
     </div>
 </section>
 

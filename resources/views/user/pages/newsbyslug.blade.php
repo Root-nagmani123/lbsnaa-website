@@ -24,15 +24,15 @@
     </div>
 </section>
 
-<section class="py-1 bg-light">
+<section class="py-1">
     <div class="container-fluid">
         <div class="row">
             <div class="col-xl-12 col-md-12 col-12">
                 <div class="mb-6 mb-lg-8">
-                    <h2 class="h1 fw-bold text-primary">
+                    <h4 class="fw-bold text-primary">
                         {{$news->title}}
-                    </h2>
-                    <p class="mb-0 lead">Posted On: {{date('d M, Y',strtotime($news->start_date))}}</p>
+                    </h4>
+                    <small class="mb-0">Posted On: {{date('d M, Y',strtotime($news->start_date))}}</small>
                 </div>
             </div>
         </div>

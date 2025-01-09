@@ -12,14 +12,24 @@ $footer_links = DB::table('menus')->where('txtpostion',3)->where('menu_status',1
             <div class="offset-xl-1 col-xl-10 col-md-12 col-12">
                 <!-- row -->
                 <div class="row">
-                    @foreach($footer_icons as $i => $footer_icon)
-                    <div class="col d-flex justify-content-center align-items-center">
-                        <div class="mb-3 mt-3">
-                            <a href="{{ $footer_icon->link }}" target="_blank"><img src="{{ asset('footer-images/' . $footer_icon->image) }}" alt="{{ $footer_icon->title }}" title="{{ $footer_icon->title }}" class="img-fluid"
-                            style=" max-width: 150px; max-height: 60px; object-fit: contain;"></a>
+
+                    <div class="logo-slider-container">
+                        <div class="logo-slider">
+                            @foreach($footer_icons as $i => $footer_icon)
+                            <div class="logo-item">
+                                <a href="{{ $footer_icon->link }}" target="_blank">
+                                    <img src="{{ asset('footer-images/' . $footer_icon->image) }}"
+                                        alt="{{ $footer_icon->title }}" title="{{ $footer_icon->title }}"
+                                        class="img-fluid"
+                                        style="max-width: 150px; max-height: 60px; object-fit: cover;">
+                                </a>
+                            </div>
+                            @endforeach
                         </div>
                     </div>
-                    @endforeach
+
+
+
                 </div>
             </div>
         </div>
@@ -72,7 +82,8 @@ $footer_links = DB::table('menus')->where('txtpostion',3)->where('menu_status',1
                                 .getFullYear()));
                             </script>
                         </span>
-                        <span>Copyright Ministry of Electronics & IT <a href="https://www.digitalindia.gov.in/" target="_blank" style="color: #af2910;">(NeGD)</a>, Government of India.</span>. All
+                        <span>Copyright Ministry of Electronics & IT <a href="https://www.digitalindia.gov.in/"
+                                target="_blank" style="color: #af2910;">(NeGD)</a>, Government of India.</span>. All
                         Rights
                         Reserved
                     </span>
@@ -120,50 +131,50 @@ $footer_links = DB::table('menus')->where('txtpostion',3)->where('menu_status',1
 </div>
 
 <script>
-    // JavaScript to handle marquee play/pause
-    const marqueeContainer = document.getElementById('marqueeContainer');
-    const playPauseBtn = document.getElementById('playPauseBtn');
-    let isPaused = false;
-    let animationFrame;
-    let currentTransform = 0; // Keep track of the current position
+// JavaScript to handle marquee play/pause
+const marqueeContainer = document.getElementById('marqueeContainer');
+const playPauseBtn = document.getElementById('playPauseBtn');
+let isPaused = false;
+let animationFrame;
+let currentTransform = 0; // Keep track of the current position
 
-    // Marquee function
-    function startMarquee() {
-        const marqueeSpeed = 2; // Speed in pixels per frame
+// Marquee function
+function startMarquee() {
+    const marqueeSpeed = 2; // Speed in pixels per frame
 
-        function animate() {
-            currentTransform -= marqueeSpeed;
+    function animate() {
+        currentTransform -= marqueeSpeed;
 
-            // Reset position when the entire content scrolls out
-            if (Math.abs(currentTransform) >= marqueeContainer.scrollWidth) {
-                currentTransform = marqueeContainer.offsetWidth;
-            }
-
-            marqueeContainer.style.transform = `translateX(${currentTransform}px)`;
-
-            if (!isPaused) {
-                animationFrame = requestAnimationFrame(animate);
-            }
+        // Reset position when the entire content scrolls out
+        if (Math.abs(currentTransform) >= marqueeContainer.scrollWidth) {
+            currentTransform = marqueeContainer.offsetWidth;
         }
 
-        animate();
+        marqueeContainer.style.transform = `translateX(${currentTransform}px)`;
+
+        if (!isPaused) {
+            animationFrame = requestAnimationFrame(animate);
+        }
     }
 
-    // Start marquee on page load
-    startMarquee();
+    animate();
+}
 
-    // Play/Pause functionality
-    playPauseBtn.addEventListener('click', () => {
-        if (isPaused) {
-            isPaused = false;
-            playPauseBtn.innerHTML = '<i class="material-icons menu-icon">pause</i>';
-            startMarquee();
-        } else {
-            isPaused = true;
-            playPauseBtn.innerHTML = '<i class="material-icons menu-icon">play_arrow</i>';
-            cancelAnimationFrame(animationFrame);
-        }
-    });
+// Start marquee on page load
+startMarquee();
+
+// Play/Pause functionality
+playPauseBtn.addEventListener('click', () => {
+    if (isPaused) {
+        isPaused = false;
+        playPauseBtn.innerHTML = '<i class="material-icons menu-icon">pause</i>';
+        startMarquee();
+    } else {
+        isPaused = true;
+        playPauseBtn.innerHTML = '<i class="material-icons menu-icon">play_arrow</i>';
+        cancelAnimationFrame(animationFrame);
+    }
+});
 </script>
 <script>
 // Tiny Slider Configuration for Three Items per Row, with first item larger
@@ -209,12 +220,12 @@ function set_font_size(action) {
 // Function to change the style (normal or high contrast)
 function chooseStyle(action, value) {
     var body = document.body;
-    
+
     if (action === 'change') {
         body.classList.add('high-contrast'); // Add high contrast class
-        body.classList.remove('normal');     // Remove normal style class
+        body.classList.remove('normal'); // Remove normal style class
     } else {
-        body.classList.add('normal');        // Add normal style class
+        body.classList.add('normal'); // Add normal style class
         body.classList.remove('high-contrast'); // Remove high contrast style
     }
 }
@@ -237,6 +248,79 @@ function chooseStyle(action, value) {
 <script src="{{ asset('assets/js/vendors/tnsSlider.js') }}"></script>
 <script src="{{ asset('assets/js/vendors/glight.js') }}"></script>
 
+<style>
+    .logo-slider-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.logo-slider {
+    display: flex;
+    transition: transform 0.3s ease-in-out;
+    will-change: transform;
+}
+
+.logo-item {
+    flex: 0 0 auto;
+    width: 150px; /* Adjust width as needed */
+    margin: 0 10px;
+}
+
+.slider-prev, .slider-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.slider-prev {
+    left: 0;
+}
+
+.slider-next {
+    right: 0;
+}
+
+</style>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const slider = document.querySelector('.logo-slider');
+    const sliderContainer = document.querySelector('.logo-slider-container');
+    const sliderWidth = slider.scrollWidth;
+    const containerWidth = sliderContainer.clientWidth;
+
+    let scrollAmount = 0;
+    const scrollStep = 160; // Adjust based on logo width + margin
+    const intervalTime = 3000; // Time in milliseconds for each slide
+    let autoSlide;
+
+    const startAutoSlide = () => {
+        autoSlide = setInterval(() => {
+            scrollAmount += scrollStep;
+            if (scrollAmount >= sliderWidth - containerWidth) {
+                scrollAmount = 0; // Reset to the start
+            }
+            slider.style.transform = `translateX(-${scrollAmount}px)`;
+        }, intervalTime);
+    };
+
+    const stopAutoSlide = () => clearInterval(autoSlide);
+
+    // Start automatic sliding
+    startAutoSlide();
+
+    // Optional: Pause on hover
+    sliderContainer.addEventListener('mouseenter', stopAutoSlide);
+    sliderContainer.addEventListener('mouseleave', startAutoSlide);
+});
+
+</script>
 </body>
 
 </html>

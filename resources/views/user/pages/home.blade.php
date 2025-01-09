@@ -15,7 +15,8 @@
     <div class="carousel-inner">
         @foreach($sliders as $key => $slider)
         <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
-            <img src="{{ asset('slider-images/' . $slider->image) }}" class="d-block img-fluid" alt="{{ $slider->text }}">
+            <img src="{{ asset('slider-images/' . $slider->image) }}" class="d-block img-fluid"
+                alt="{{ $slider->text }}">
             <div class="carousel-caption">
                 <h3 class="text-center slider-caption">{{ $slider->text }}</h3>
             </div>
@@ -86,13 +87,15 @@
             <div class="col-md-2 col-12 mb-4">
                 <div class="card card-lift text-center text-lg-start h-100">
                     <div class="p-3 p-lg-4 text-center">
-                        <img src="{{ asset('assets/images/icons/1.jpg') }}" alt="" class="avatar avatar-xl rounded-circle"
-                            style="object-fit: cover;">
+                        <img src="{{ asset('assets/images/icons/1.jpg') }}" alt=""
+                            class="avatar avatar-xl rounded-circle" style="object-fit: cover;">
                     </div>
                     <div class="card-body pt-2" style=" height: 100px;">
                         <h4 class="mb-3">Director Message</h4>
-                        <a href="{{ url('menu/director-message') }}" class="icon-link icon-link-hover link-primary">Message</a> <br>
-                        <a href="{{ url('menu/previous-directors') }}" class="icon-link icon-link-hover link-primary">Previous Director</a>
+                        <a href="{{ url('menu/director-message') }}"
+                            class="icon-link icon-link-hover link-primary">Message</a> <br>
+                        <a href="{{ url('menu/previous-directors') }}"
+                            class="icon-link icon-link-hover link-primary">Previous Director</a>
                     </div>
                 </div>
             </div>
@@ -106,7 +109,7 @@
                         <h4 class="mb-3">Runing Courses</h4>
                         @if(count($current_course) > 0)
                         <ul>
-                       @php $i = 0; @endphp
+                            @php $i = 0; @endphp
                             @foreach ($current_course as $course)
                             <li>
                                 <a href="{{ route('user.courseDetailslug', ['slug' => $course->id]) }}"
@@ -119,17 +122,18 @@
                             </li>
                             @php $i++; @endphp
                             @endforeach
-                           
+
                         </ul>
-                        
-                            
-                        
+
+
+
                         @else
-                            <span>No Course Available</span>
-                            @endif
+                        <span>No Course Available</span>
+                        @endif
                     </div>
                     <div class="card-footer" style="border:none;float: right;text-align: right;">
-                    <button class="btn btn-primary btn-sm"> <a href="{{ route('user.runningCourses') }}" style="color: white;">View All</a></button>
+                        <button class="btn btn-primary btn-sm"> <a href="{{ route('user.runningCourses') }}"
+                                style="color: white;">View All</a></button>
                     </div>
                 </div>
             </div>
@@ -143,7 +147,7 @@
                         <h4 class="mb-3">Upcoming Courses</h4>
                         @if(count($upcoming_course) > 0)
                         <ul>
-                           
+
                             @foreach ($upcoming_course as $course)
                             <li>
                                 <a href="{{ route('user.courseDetailslug', ['slug' => $course->id]) }}"
@@ -155,16 +159,17 @@
                                 {{ date('d F, Y', strtotime($course->course_end_date)) }}
                             </li>
                             @endforeach
-                           
+
                         </ul>
-                        
+
                         @else
-                            <span>No Course Available</span>
-                            @endif
+                        <span>No Course Available</span>
+                        @endif
                     </div>
                     <div class="card-footer" style="border:none;float: right;text-align: right;">
-                        <button class="btn btn-primary btn-sm"><a href="{{ route('user.upcomingCourses') }}" style="color: white;">View All</a></button>
-                    
+                        <button class="btn btn-primary btn-sm"><a href="{{ route('user.upcomingCourses') }}"
+                                style="color: white;">View All</a></button>
+
                     </div>
                 </div>
             </div>
@@ -176,7 +181,8 @@
                     </div>
                     <div class="card-body pt-2" style="height: 100px;">
                         <h4 class="mb-3">Training Calendar</h4>
-                        <a href="{{ url('cms/training_cal') }}" class="icon-link icon-link-hover link-primary">Training Calendar of LBSNAA</a>
+                        <a href="{{ url('cms/training_cal') }}" class="icon-link icon-link-hover link-primary">Training
+                            Calendar of LBSNAA</a>
                     </div>
                 </div>
             </div>
@@ -188,9 +194,11 @@
                     </div>
                     <div class="card-body pt-2" style="height: 100px;">
                         <h4 class="mb-3">Life at Academy</h4>
-                        <a href="{{ url('menu/the-academy-experience') }}" class="icon-link icon-link-hover link-primary">The Academy Experience
+                        <a href="{{ url('menu/the-academy-experience') }}"
+                            class="icon-link icon-link-hover link-primary">The Academy Experience
                         </a><br>
-                        <a href="{{ url('menu/a-day-in-the-life-of-a-trainee') }}" class="icon-link icon-link-hover link-primary">A day in the life of a Trainee</a>
+                        <a href="{{ url('menu/a-day-in-the-life-of-a-trainee') }}"
+                            class="icon-link icon-link-hover link-primary">A day in the life of a Trainee</a>
                     </div>
                 </div>
             </div>
@@ -202,8 +210,10 @@
                     </div>
                     <div class="card-body pt-2" style="height: 100px;">
                         <h4 class="mb-3">Academy Souvenir</h4>
-                        <a href="{{ url('souvenir?pro_category=7')}}" class="icon-link icon-link-hover link-primary">Memorabilia</a><br>
-                        <a href="{{ url('souvenir?pro_category=6')}}" class="icon-link icon-link-hover link-primary">Apparel</a>
+                        <a href="{{ url('souvenir?pro_category=7')}}"
+                            class="icon-link icon-link-hover link-primary">Memorabilia</a><br>
+                        <a href="{{ url('souvenir?pro_category=6')}}"
+                            class="icon-link icon-link-hover link-primary">Apparel</a>
                     </div>
                 </div>
             </div>
@@ -223,58 +233,50 @@
                         </div>
                     </div>
                 </div>
-                <div id="multiItemCarousel" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-inner">
-                        <!-- Group cards in sets of 3 -->
-                        @foreach ($news->chunk(3) as $chunk)
-                        <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                            <div class="row">
-                                @foreach ($chunk as $slider)
-                                <div class="col-lg-4 col-12 gap-3">
-                                    <div class="card">
-                                        <div class="card-header p-0 border-0">
-                                            <img src="{{ isset($slider->main_image) && !empty($slider->main_image) ? asset($slider->main_image) : asset('assets/images/4.jpg') }}"
-                                                class="card-img-top" alt="blogpost"
-                                                style="object-fit: cover; height: 250px">
-                                        </div>
-                                        <div class="card-body" style="height: 200px; overflow-y: hidden;">
-                                            <span class="fs-5 mb-2 fw-semibold d-block text-success">Posted On:
-                                                {{ \Carbon\Carbon::parse($slider->start_date)->format('d F, Y') }}</span>
-                                            <h3>{{ $slider->title }}</h3>
-                                            <p>{{ $slider->short_description }}</p>
-                                        </div>
-                                        <div class="card-footer border-0" style="height:50px;">
-                                            <a href="{{ route('user.newsbyslug', $slider->title_slug) }}"
-                                                class="icon-link icon-link-hover link-primary fw-semibold">
-                                                <span>Read More</span>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                                    fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                                                    <path fill-rule="evenodd"
-                                                        d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8">
-                                                    </path>
-                                                </svg>
-                                            </a>
-                                        </div>
-                                    </div>
+                <div id="cardCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+    <!-- Carousel Inner (carousel items) -->
+    <div class="carousel-inner">
+        @foreach ($news->chunk(3) as $chunk) <!-- Group cards into chunks of 3 for each slide -->
+            <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                <div class="row">
+                    @foreach ($chunk as $slider)
+                        <!-- Card -->
+                        <div class="col-lg-4 col-md-6 col-12 mb-4">
+                            <div class="card">
+                                <div class="card-header p-0 border-0">
+                                    <img src="{{ isset($slider->main_image) && !empty($slider->main_image) ? asset($slider->main_image) : asset('assets/images/4.jpg') }}"
+                                        class="card-img-top img-fluid" alt="blogpost"
+                                        style="object-fit: cover; height: 250px; width: 100%;">
                                 </div>
-                                @endforeach
+                                <div class="card-body" style="height: 200px; overflow-y: hidden;">
+                                    <span class="fs-5 mb-2 fw-semibold d-block text-success">Posted On:
+                                        {{ \Carbon\Carbon::parse($slider->start_date)->format('d F, Y') }}</span>
+                                    <h3>{{ $slider->title }}</h3>
+                                    <p>{{ $slider->short_description }}</p>
+                                </div>
+                                <div class="card-footer border-0" style="height:50px;">
+                                    <a href="{{ route('user.newsbyslug', $slider->title_slug) }}"
+                                        class="icon-link icon-link-hover link-primary fw-semibold">
+                                        <span>Read More</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                            fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd"
+                                                d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8">
+                                            </path>
+                                        </svg>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                        @endforeach
-                    </div>
-
-                    <!-- Controls -->
-                    <button class="carousel-control-prev" type="button" data-bs-target="#multiItemCarousel"
-                        data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#multiItemCarousel"
-                        data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
+                    @endforeach
                 </div>
+            </div>
+        @endforeach
+    </div>
+</div>
+
+
+
             </div>
             <div class="col-12 col-md-3">
                 <!-- Quick Links Section -->
