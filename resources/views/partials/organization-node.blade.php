@@ -12,11 +12,13 @@
                       </div>
                       <a href="{{ route('user.faculty_responsibility') }}?keywords={{ $keyword }}">Responsibility</a>
                       <a href="#" data-bs-toggle="modal" data-bs-target="#bioDataModal" data-name="{{ $node->name }}"
-                          data-image="{{ asset($node->image) }}" data-designation="{{ $node->designation }}"
-                          data-email="{{ $node->email }}" data-phone="{{ $node->phone_pt_office }}"
-                          data-description="{{ htmlspecialchars($node->description, ENT_QUOTES, 'UTF-8') }}">
-                          Bio Data
-                      </a>
+   data-image="{{ asset($node->image) }}" data-designation="{{ $node->designation }}"
+   data-email="{{ $node->email }}" data-phone="{{ $node->phone_pt_office }}"
+   data-description-id="description-{{ $node->id }}">
+    Bio Data
+</a>
+<input type="hidden" id="description-{{ $node->id }}" name="description" value="{{ htmlspecialchars($node->description, ENT_QUOTES, 'UTF-8') }}" />
+
                   </div>
 
                   <!-- Modal Structure -->
@@ -68,8 +70,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const designation = button.getAttribute('data-designation');
         const email = button.getAttribute('data-email');
         const phone = button.getAttribute('data-phone');
-        const description = button.getAttribute('data-description');
+        const descriptionId = button.getAttribute('data-description-id');
 
+// Fetch the hidden input value using the descriptionId
+const description = document.getElementById(descriptionId).value;
+
+// Decode HTML entities
+const textarea = document.createElement('textarea');
+textarea.innerHTML = description;
+const decodedDescription = textarea.value;
+console.log(decodedDescription);
         // Update the modal's content
         bioDataModal.querySelector('#modalImage').src = image;
         bioDataModal.querySelector('#modalName').textContent = name;
@@ -78,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
         bioDataModal.querySelector('#modalPhone').textContent = phone;
 
         // Decode HTML entities for description and render as HTML
-        bioDataModal.querySelector('#modalDescription').innerHTML = description;
+        bioDataModal.querySelector('#modalDescription').innerHTML = decodedDescription;
     });
 });
                   </script>

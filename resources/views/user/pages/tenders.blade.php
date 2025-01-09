@@ -46,6 +46,7 @@
                                 <th>Publish Date</th>
                                 <th>Last Date</th>
                                 <th>Document</th>
+                                <th>Corrigendum</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -59,6 +60,14 @@
                                 <td>
                                     @if(!empty($value->file))
                                     <a href="{{ asset('storage/tender/'.$value->file) }}"
+                                        class="btn btn-sm btn-outline-primary" target="_blank">Download</a>
+                                    @else
+                                    <span class="text-muted">N/A</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if(!empty($value->corrigendum))
+                                    <a href="{{ asset('storage/tender/'.$value->corrigendum) }}"
                                         class="btn btn-sm btn-outline-primary" target="_blank">Download</a>
                                     @else
                                     <span class="text-muted">N/A</span>

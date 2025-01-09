@@ -17,7 +17,10 @@ class HomeController extends Controller
     // List all sliders
     public function slider_list()
     {
-        $sliders = Slider::where('is_deleted', 0)->get();
+        $sliders = Slider::where('is_deleted', 0)
+        ->orderBy('id', 'desc')
+        ->get();
+    
         return view('admin.home.slider_list', compact('sliders'));
     }
 

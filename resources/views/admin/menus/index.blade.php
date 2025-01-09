@@ -45,7 +45,7 @@
             {{ session('error') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-        @endif
+        @endif 
         
         <div class="default-table-area members-list">
             <div class="table-responsive">
@@ -61,8 +61,9 @@
                         </tr>
                     </thead>
                     <tbody>
+                    @php $counter = 1; @endphp 
                         @foreach($menuTree as $menu)
-                        {!! renderMenu($menu) !!}
+                        {!! renderMenu($menu, '', $counter) !!}
                         @endforeach
                     </tbody>
                 </table>

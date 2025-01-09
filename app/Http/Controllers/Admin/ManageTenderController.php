@@ -24,6 +24,7 @@ class ManageTenderController extends Controller
 
     public function store(Request $request)
     {
+        // print_r($_FILES);die;
         // Validate the form input
         $validated = $request->validate([
             'language' => 'required', // Ensure language is entered
@@ -52,11 +53,18 @@ class ManageTenderController extends Controller
 
         // Handle the file upload
         if ($request->hasFile('file')) {
-	        $filename = time() . '.' . $request->file->extension();
-	        $request->file->move(storage_path('app/public/tender/'), $filename);
-	        $validated['file'] = $filename;
-	    }
-
+            $filename = time() . '_file.' . $request->file('file')->getClientOriginalExtension();
+            $request->file('file')->move(storage_path('app/public/tender/'), $filename);
+            $validated['file'] = $filename;
+        }
+        
+        if ($request->hasFile('corrigendum')) {
+            $filename_corrigendum = time() . '_corrigendum.' . $request->file('corrigendum')->getClientOriginalExtension();
+            $request->file('corrigendum')->move(storage_path('app/public/tender/'), $filename_corrigendum);
+            $validated['corrigendum'] = $filename_corrigendum;
+        }
+        
+        
         // Save the tender
         $tender = ManageTender::create([
             'language' => $validated['language'],
@@ -64,10 +72,12 @@ class ManageTenderController extends Controller
             'title' => $validated['title'],
             'description' => $validated['description'],
             'file' => $filename ?? null,
+            'corrigendum' => $filename_corrigendum ?? null,
             'publish_date' => $validated['publish_date'],
             'expiry_date' => $validated['expiry_date'],
             'status' => $validated['status'],
         ]);
+        // die;
 
         // Save the audit record
         ManageAudit::create([
@@ -113,13 +123,22 @@ class ManageTenderController extends Controller
         ]);
     
         // Handle file upload
-        if ($request->hasFile('file')) {
-            $filename = $request->file->store('tender', 'public');
-        } else {
-            // Keep the existing file if no new file is uploaded
-            $filename = $manageTender->file;
-        }
+      // Handle file upload or retain existing file
+      if ($request->hasFile('file')) {
+        $filePath = $request->file('file')->store('tender', 'public');
+        $filename = basename($filePath); // Extract only the filename
+    } else {
+        $filename = $manageTender->file; // Keep the existing filename
+    }
     
+    if ($request->hasFile('corrigendum')) {
+        $corrigendumPath = $request->file('corrigendum')->store('tender', 'public');
+        $filename_corrigendum = basename($corrigendumPath); // Extract only the filename
+    } else {
+        $filename_corrigendum = $manageTender->corrigendum; // Keep the existing filename
+    }
+
+     
         // Update the tender record
         $manageTender->update([
             'language' => $request->language,
@@ -127,6 +146,7 @@ class ManageTenderController extends Controller
             'title' => $request->title,
             'description' => $request->description,
             'file' => $filename,
+            'corrigendum' => $filename_corrigendum,
             'publish_date' => $request->publish_date,
             'expiry_date' => $request->expiry_date,
             'status' => $request->status,

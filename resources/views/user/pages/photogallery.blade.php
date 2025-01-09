@@ -55,6 +55,12 @@
                                 {{ $media->name }}
                             </option>
                             @endforeach
+                            @foreach($news as $media)
+                            <option value="{{ $media->title_slug }}"
+                                {{ request('txtcategory') == $media->title_slug ? 'selected' : '' }}>
+                                {{ $media->title }}
+                            </option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="col-md-3">
@@ -77,14 +83,14 @@
             </div>
         </div>
 
-
+<?php //print_r($news);die; ?>
         <!-- Gallery Images -->
         <div class="row g-3">
-            @if(count($media_cat) > 0)
+            @if((count($media_cat) > 0) || (count($news) > 0))
             @foreach($media_cat as $media)
             <div class="col-sm-6 col-md-4 col-lg-3">
                 <div class="card h-100 shadow-sm">
-                    <a href="{{ url('view_all_photogallery') }}?glrid={{ $media->id }}">
+                    <a href="{{ route('user.view_all_photogallery') }}?type=galary&glrid={{ $media->id }}">
                         <img src="{{ $media->category_image ? url('uploads/category_images/' . $media->category_image) : url('path/to/default-image.jpg') }}"
                             alt="{{ $media->name }}" class="card-img-top img-fluid rounded-top"
                             style="height:300px; object-fit: cover;">
@@ -96,7 +102,23 @@
                 </div>
             </div>
             @endforeach
+            @foreach($news as $media)
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="card h-100 shadow-sm">
+                    <a href="{{ route('user.view_all_photogallery') }}?type=news&glrid={{ $media->id }}">
+                        <img src="{{asset( $media->main_image)}}"
+                            alt="{{ $media->title }}" class="card-img-top img-fluid rounded-top"
+                            style="height:300px; object-fit: cover;">
+                    </a>
+
+                    <div class="card-body text-center">
+                        <h5 class="card-title mb-0">{{ $media->title }}</h5>
+                    </div>
+                </div>
+            </div>
+            @endforeach
             @else
+            
             <div class="col-12">
                 <h5 class="text-center">No media categories available.</h5>
             </div>

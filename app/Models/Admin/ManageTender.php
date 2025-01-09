@@ -9,7 +9,7 @@ class ManageTender extends Model
     use HasFactory;
 
     protected $fillable = [
-        'language', 'type', 'title', 'description', 'file', 
+        'language', 'type', 'title', 'description', 'file','corrigendum', 
         'publish_date', 'expiry_date', 'status',
     ];
 

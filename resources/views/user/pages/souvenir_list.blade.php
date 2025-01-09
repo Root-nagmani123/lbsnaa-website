@@ -86,8 +86,35 @@
                             style="height: 200px; object-fit: cover;">
                         <p class="description mt-3 text-truncate">
                             <?php echo (Str::limit($product->product_description, 50, '...'));?></p>
-                        @if ($product->product_type == 'Sale')    
-                        <p class="price fw-bold text-primary"><span>₹</span> {{ $product->product_price }}</p>
+                        @if ($product->product_type == 'Sale')   
+                        @php
+                            // Calculate the discount percentage
+                            $originalPrice = $product->product_price;
+                            $discountedPrice = $product->product_discounted_price;
+                            $discountPercentage = $originalPrice > 0 ? round((($originalPrice - $discountedPrice) / $originalPrice) * 100, 2) : 0;
+                        @endphp 
+                        @if($discountedPrice > 0)
+                        <p class="price fw-bold text-primary">
+                                <span>₹</span> 
+                                <del>{{ number_format($originalPrice, 2) }}</del>
+                            </p>
+
+                            <!-- Discounted Price -->
+                            <p class="price fw-bold text-success">
+                                <span>₹</span> 
+                                {{ number_format($originalPrice-$discountedPrice, 2) }}
+                            </p>
+
+                            <!-- Discount Percentage -->
+                            <p class="discount text-danger">
+                                Save {{ $discountPercentage }}%
+                            </p>
+                            @else
+                            <p class="price fw-bold text-primary">
+                                <span>₹</span> 
+                                {{ number_format($originalPrice, 2) }}
+                            </p>
+                            @endif
                         <p class="mt-auto small">
                             <span class="text-muted">For Purchase, kindly contact:</span><br>
                             <a href="mailto:{{ $product->contact_email_id }}">{{ $product->contact_email_id }}</a>
