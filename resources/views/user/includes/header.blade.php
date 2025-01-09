@@ -153,7 +153,7 @@
                         ->where('parent_id', $submenu->id)
                         ->exists();
 
-                        $output .= '<li class="dropdown-submenu dropstart">';
+                        $output .= '<li class="dropdown-submenu dropend">';
                             $output .= '<a class="dropdown-item ' . ($hasChildren ? 'dropdown-toggle' : '') . '"
                                 href="' . route('user.navigationpagesbyslug', $submenu->menu_slug) . '"> ' .
                                 $submenu->menutitle . '</a>';

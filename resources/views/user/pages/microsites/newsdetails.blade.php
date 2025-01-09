@@ -29,12 +29,12 @@
             <div class="col-xl-12 col-md-12 col-12">
                 <div class="mb-6 mb-lg-8">
                     <!-- Display all images -->
-                    <div class="row gap-3">
+                    <div class="row">
                         @if(!empty($news->multiple_images))
                         @foreach ($news->multiple_images as $image)
-                        <div class="col-md-3 mb-2">
+                        <div class="col-lg-3 mb-2">
                             <div class="card">
-                                <img src="{{ asset($image) }}" style="object-fit: cover;" class="img-fluid">
+                                <img src="{{ asset($image) }}" style="object-fit: cover; height:250px;" class="img-fluid rounded-4">
                             </div>
                         </div>
                         @endforeach

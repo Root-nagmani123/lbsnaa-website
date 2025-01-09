@@ -28,14 +28,16 @@
             @foreach ($organizations as $organization)
                 <div class="col-md-3 mb-4">
                     <div class="card">
-                        <div class="card-body" style="padding:0;">
-                            <img src="{{ asset($organization->main_image) }}" class="img-fluid rounded" 
-                            alt="organization Image" style="width: 100%; height: 50px; object-fit: cover; margin-bottom: 10px;">
+                        <div class="card-header text-center" style="border:0;">
+                        <img src="{{ asset($organization->main_image) }}" class="avatar avatar-xl rounded-circle" 
+                        alt="organization Image" style="object-fit: cover;">
+                        </div>
+                        <div class="card-body">
                             <div class="card-footer" style="border:none;">
                                 <div class="form-field mt-2">
-                                    <p class="card-text" data-bs-toggle="modal" data-bs-target="#organizationModal{{ $organization->id }}">
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#organizationModal{{ $organization->id }}">
                                         {{ $organization->employee_name }}
-                                    </p>
+                                    </a>
                                     <p class="card-text">{{ $organization->designation }}</p>
                                     <p class="card-text">{{ $organization->email }}</p>
                                 </div>
@@ -53,16 +55,11 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <img src="{{ asset($organization->main_image) }}" class="img-fluid rounded" 
-                                alt="organization Image" style="width: 100%; height: 50px; object-fit: cover; margin-bottom: 10px;">
+                                <img src="{{ asset($organization->main_image) }}" class="avatar avatar-xl rounded-circle mb-4" 
+                                alt="organization Image" style="object-fit: cover;">
                                 <p><strong> {{ $organization->employee_name }}, {{ $organization->designation }} </strong></p>
                                 <p><strong>Email:</strong> {{ $organization->email }}</p>
                                 <p>{{ strip_tags($organization->program_description) }}</p>
-
-                                <!-- Add more fields as needed -->
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </div>

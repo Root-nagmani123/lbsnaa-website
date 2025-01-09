@@ -12,7 +12,7 @@
                             <a href="{{ route('home') }}" style="color: #af2910;">Home</a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="#" style="color: #af2910;">Media Gallery </a>
+                            <a href="#" style="color: #af2910;">Media Gallery</a>
                         </li>
                         <li class="breadcrumb-item active" aria-current="page">Photo Gallery Details</li>
                     </ol>
@@ -21,42 +21,32 @@
         </div>
     </div>
 </section>
-
 <section class="container-fluid">
     <!-- Gallery Display -->
     @if($gallery_details->isNotEmpty())
     <div class="row">
         @foreach ($gallery_details as $gallery)
-        <div class="col-md-3 mb-4">
+        <div class="col-md-3 col-sm-6 col-12 mb-4">
             <div class="card">
-
-            <div class="card-body" style="padding:0;">
-                @php
+                <div class="card-body p-0">
+                    @php
                     // Decode the JSON array of image files
                     $imageFiles = json_decode($gallery->image_files, true);
-                @endphp
-                
-                @if(!empty($imageFiles) && is_array($imageFiles))
-                    <!-- Loop through each image in the array -->
-                    @foreach ($imageFiles as $image)
-                        <img src="{{ asset('storage/' . $image) }}" class="img-fluid rounded" 
-                        alt="Gallery Image" style="width: 100%; height: 250px; object-fit: cover; margin-bottom: 10px;">
-                        <div class="card-footer" style="border:none;">
-                            
-                        <div class="form-field mt-2">
-                            <p class="card-text">{{ $gallery->research_centre_name }}</p>
-                        </div>
-            </div>
-                    @endforeach
-                @else
-                    <!-- If no images, display a placeholder -->
-                    <img src="{{ asset('storage/uploads/default-placeholder.png') }}" class="img-fluid rounded" 
-                    alt="No Image Available" style="width: 100%; height: 250px; object-fit: cover;">
-                @endif
-            </div>
+                    @endphp
 
-            
-
+                    @if(!empty($imageFiles) && is_array($imageFiles))
+                    <!-- Display the first image in the array -->
+                    <img src="{{ asset('storage/' . $imageFiles[0]) }}" class="img-fluid rounded-top" alt="Gallery Image"
+                        style="width: 100%; height: 250px; object-fit: cover;">
+                    @else
+                    <!-- Fallback image if no image is found -->
+                    <img src="{{ asset('storage/uploads/default-placeholder.png') }}" class="img-fluid rounded-top"
+                        alt="No Image Available" style="width: 100%; height: 250px; object-fit: cover;">
+                    @endif
+                </div>
+                <div class="card-footer text-center">
+                    <p class="card-text mb-0">{{ $gallery->research_centre_name }}</p>
+                </div>
             </div>
         </div>
         @endforeach
@@ -65,8 +55,7 @@
     <p style="text-align: center; color: #999; font-size: 18px;">No photos available.</p>
     @endif
 </section>
+
 @endif
 
 @include('user.pages.microsites.includes.footer')
-
-
