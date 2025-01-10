@@ -61,6 +61,7 @@ class MicroManagePhotoGalleryController extends Controller
     {
         $mediaCategories = DB::table('micro_media_categories')
             ->where('status', 1)
+            ->where('media_gallery', 1)
             ->get(); // Retrieve records with status == 1  
         $researchCentres = DB::table('research_centres')
             ->where('status', 1)  // Filter where status is 1
@@ -165,6 +166,7 @@ class MicroManagePhotoGalleryController extends Controller
         // Fetch active media categories
         $mediaCategories = DB::table('micro_media_categories')
                             ->where('status', 1)
+                            ->where('media_gallery', 1)
                             ->pluck('name', 'id'); // Use pluck for a key-value array
 
         // Fetch related data only if the fields are not null

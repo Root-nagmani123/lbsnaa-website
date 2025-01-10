@@ -19,6 +19,7 @@ class HomePagesMicroController extends Controller
             // ->join('micro_manage_photo_galleries as mmpg', 'mmpg.media_categories', '=', 'mmc.id') // Join `micro_media_categories` with `research_centres`
             ->where('rc.status', 1) // Ensure `research_centres` is active
             ->where('mmc.status', 1) // Ensure `micro_media_categories` is active
+            ->where('mmc.media_gallery', 1) // Ensure `micro_media_categories` is active
             ->where('rc.research_centre_slug', $slug) // Filter by the provided slug
             ->select(
                 'rc.id as research_centre_id', // ID from `research_centres`
@@ -51,7 +52,6 @@ class HomePagesMicroController extends Controller
             ->where('research_centre_slug', $slug)
             ->first();
 
-        // $quickLinks = DB::table('micro_quick_links')->where('categorytype', 2)->where('status', 1)->get();
         $quickLinks = DB::table('micro_quick_links')
         ->join('research_centres', 'micro_quick_links.research_centre_id', '=', 'research_centres.id')  // Join with 'research_centres'
         ->where('micro_quick_links.categorytype', 2)
@@ -135,7 +135,7 @@ class HomePagesMicroController extends Controller
         // dd($newsItems);
 
         // Pass the data to the view
-        return view('user.pages.microsites.news', compact('newsItems'));
+        return view('user.pages.microsites.news', compact('newsItems','slug'));
     }
 
 
@@ -162,7 +162,7 @@ class HomePagesMicroController extends Controller
         // dd($news);
 
         // Pass the news item to the view
-        return view('user.pages.microsites.newsdetails', compact('news'));
+        return view('user.pages.microsites.newsdetails', compact('news','slug'));
     }
 
     public function videoGallery(Request $request)
@@ -224,7 +224,7 @@ class HomePagesMicroController extends Controller
         }
         // dd($gallery_details);
         // Pass data to the view
-        return view('user.pages.microsites.media_gallery_details', compact('gallery_details'));
+        return view('user.pages.microsites.media_gallery_details', compact('gallery_details','slug'));
     }
 
     public function getAllOrganizations($slug)
@@ -242,22 +242,39 @@ class HomePagesMicroController extends Controller
     }
 
 
-    public function handleTrainingsPage($slug)
+    public function handleTrainingsPage(Request $request, $slug)
     {
+        $slug = $request->query('slug', $slug);
         // Check if 'slug' is present
         if (!$slug) {
             return abort(400, 'Missing slug parameter.');
         }
         // Fetch the data from the database using the slug
+        $today = Carbon::today();  // Get today's date
+
         $trainingprograms = DB::table('micro_manage_training_programs as mmtp')
             ->join('research_centres as rc', 'mmtp.research_centre', '=', 'rc.id')
             ->where('mmtp.page_status', 1)
             ->where('rc.research_centre_slug', $slug)
+            ->whereDate('mmtp.start_date', '<=', $today)  // Start date must be less than or equal to today
+            ->whereDate('mmtp.end_date', '>=', $today)    // End date must be greater than or equal to today
             ->select('mmtp.program_name', 'mmtp.venue', 'mmtp.start_date', 'mmtp.end_date', 'mmtp.registration_status', 'mmtp.id')
+            ->get();
+        
+        $quickLinks = DB::table('micro_quick_links')
+            ->join('research_centres', 'micro_quick_links.research_centre_id', '=', 'research_centres.id')  // Join with 'research_centres'
+            ->where('micro_quick_links.categorytype', 2)
+            ->where('micro_quick_links.status', 1)
+            ->when($slug, function ($query) use ($slug) {
+                return $query->where('research_centres.research_centre_slug', $slug);  // Filter by slug if provided
+            })
+            ->whereDate('micro_quick_links.start_date', '<=', now())  // Ensure start_date is before or equal to today
+            ->whereDate('micro_quick_links.termination_date', '>=', now())  // Ensure termination_date is after or equal to today
+            ->select('micro_quick_links.*', 'research_centres.research_centre_name as research_centre_name')
             ->get();
         // dd($trainingprograms);
         // Return the view with the training programs data
-        return view('user.pages.microsites.training_program', compact('trainingprograms'));
+        return view('user.pages.microsites.training_program', compact('trainingprograms','quickLinks','slug'));
     }
 
        
