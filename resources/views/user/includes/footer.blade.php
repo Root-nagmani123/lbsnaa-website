@@ -5,38 +5,54 @@ $footer_links = DB::table('menus')->where('txtpostion',3)->where('menu_status',1
 <!-- quick link section -->
 <!-- card section end -->
 <!-- footer -->
+ <style>
+    .logo-slider-container {
+    display: flex;
+    justify-content: center; /* Center the content horizontally */
+    align-items: center; /* Center the content vertically */
+    height: 100%; /* Adjust height as needed */
+}
+
+.logo-slider.single-logo {
+    display: flex;
+    justify-content: center; /* Center the single logo */
+    align-items: center; /* Center vertically if needed */
+}
+
+.logo-slider.single-logo .logo-item {
+    margin: 0 auto; /* Ensure the logo is centered */
+}
+
+ </style>
 <section class="py-4 bg-white mt-auto mb-4">
     <!-- container -->
     <div class="container-fluid">
-        <div class="row">
-            <div class="offset-xl-1 col-xl-10 col-md-12 col-12">
-                <!-- row -->
-                <div class="row">
-
-                    <div class="logo-slider-container">
-                        <div class="logo-slider">
-                            @foreach($footer_icons as $i => $footer_icon)
-                            <div class="logo-item">
-                                <a href="{{ $footer_icon->link }}" target="_blank">
-                                    <img src="{{ asset('footer-images/' . $footer_icon->image) }}"
-                                        alt="{{ $footer_icon->title }}" title="{{ $footer_icon->title }}"
-                                        class="img-fluid"
-                                        style="max-width: 150px; max-height: 60px; object-fit: cover;">
-                                </a>
-                            </div>
-                            @endforeach
+    <div class="row">
+        <div class="col-xl-12 col-md-12 col-12">
+            <!-- row -->
+            <div class="row">
+                <div class="logo-slider-container">
+                    <div class="logo-slider {{ count($footer_icons) === 1 ? 'single-logo' : '' }}">
+                        @foreach($footer_icons as $footer_icon)
+                        <div class="logo-item">
+                            <a href="{{ $footer_icon->link }}" target="_blank">
+                                <img src="{{ asset('footer-images/' . $footer_icon->image) }}"
+                                    alt="{{ $footer_icon->title }}" title="{{ $footer_icon->title }}"
+                                    class="img-fluid"
+                                    style="max-width: 150px; max-height: 60px; object-fit: cover;">
+                            </a>
                         </div>
+                        @endforeach
                     </div>
-
-
-
                 </div>
             </div>
         </div>
     </div>
+</div>
+
     <!-- footer -->
     <footer class="pt-2 pb-3">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row justify-content-center text-center align-items-center">
                 <div class="col-12 col-md-12 px-0">
                     <nav class="nav nav-footer justify-content-center">
