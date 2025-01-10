@@ -82,97 +82,117 @@
             display: none;
         }
     }
+    .dropdown-menu {
+    white-space: normal; /* Allow text to wrap */
+    word-wrap: break-word; /* Break long words onto the next line */
+    max-width: 300px; /* Optional: Set a maximum width for better readability */
+}
+
+.dropdown-item {
+    white-space: normal; /* Allow text wrapping inside menu items */
+    word-wrap: break-word; /* Ensure long words wrap properly */
+}
+
     </style>
 </head>
 
 <body class="d-flex flex-column min-vh-100 bg-white">
     <div class="container-fluid bg-light bar">
-    <div class="row py-1 align-items-center">
-    <div class="col-md-4 d-flex align-items-center" style="font-size: 13px;">
-        <img class="img-fluid"
-            src="https://cdn.digitalindiacorporation.in/wp-content/themes/di-child/assets/images/ind-flag.svg.gzip"
-            alt="indian_flag" style="font-size: 13px;"> &nbsp;&nbsp;
-        <a href="https://www.india.gov.in/" target="_blank"
-            style="font-size: 16px; color: #af2910; font-weight: 600;">भारत सरकार | Government of India</a>
-    </div>
-    <div class="col-md-8">
-        <ul class="nav justify-content-end align-items-center">
-            <!-- Tooltip Items -->
-            <li class="nav-item">
-                <a class="nav-link" href="#news" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                    title="Skip to main content">
-                    <i class="material-icons menu-icon">restart_alt</i>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('user.screen-reader') }}" data-bs-toggle="tooltip"
-                    data-bs-placement="bottom" title="Screen Reader">
-                    <i class="material-icons menu-icon">volume_up</i>
-                </a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                    aria-expanded="false" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Accessibility">
-                    <i class="material-icons menu-icon">accessible</i>
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="javascript:void(0);" onclick="set_font_size('increase')">A<sup>+</sup></a></li>
-                    <li><a class="dropdown-item" href="javascript:void(0);" onclick="set_font_size('')">A</a></li>
-                    <li><a class="dropdown-item" href="javascript:void(0);" onclick="set_font_size('decrease')">A<sup>-</sup></a></li>
+        <div class="row py-1 align-items-center">
+            <div class="col-md-4 d-flex align-items-center" style="font-size: 13px;">
+                <img class="img-fluid"
+                    src="https://cdn.digitalindiacorporation.in/wp-content/themes/di-child/assets/images/ind-flag.svg.gzip"
+                    alt="indian_flag" style="font-size: 13px;"> &nbsp;&nbsp;
+                <a href="https://www.india.gov.in/" target="_blank"
+                    style="font-size: 16px; color: #af2910; font-weight: 600;">भारत सरकार | Government of India</a>
+            </div>
+            <div class="col-md-8">
+                <ul class="nav justify-content-end align-items-center">
+                    <!-- Tooltip Items -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="#news" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                            title="Skip to main content">
+                            <i class="material-icons menu-icon">restart_alt</i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('user.screen-reader') }}" data-bs-toggle="tooltip"
+                            data-bs-placement="bottom" title="Screen Reader">
+                            <i class="material-icons menu-icon">volume_up</i>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                            title="Accessibility">
+                            <i class="material-icons menu-icon">accessible</i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="javascript:void(0);"
+                                    onclick="set_font_size('increase')">A<sup>+</sup></a></li>
+                            <li><a class="dropdown-item" href="javascript:void(0);" onclick="set_font_size('')">A</a>
+                            </li>
+                            <li><a class="dropdown-item" href="javascript:void(0);"
+                                    onclick="set_font_size('decrease')">A<sup>-</sup></a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                            title="Social Media Links">
+                            <i class="material-icons menu-icon">group</i>
+                        </a>
+                        @php
+                        $social_media_links = DB::table('social_media_links')->get();
+                        @endphp
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="{{ $social_media_links[0]->facebook_url }}" class="dropdown-item"
+                                    target="_blank" data-bs-toggle="tooltip" title="Facebook">
+                                    <i class="bi bi-facebook fa-2x" style="color: #af2910;"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ $social_media_links[0]->twitter_url }}" class="dropdown-item"
+                                    target="_blank" data-bs-toggle="tooltip" title="Twitter">
+                                    <i class="bi bi-twitter-x" style="color: #af2910;"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ $social_media_links[0]->youtube_url }}" class="dropdown-item"
+                                    target="_blank" data-bs-toggle="tooltip" title="YouTube">
+                                    <i class="bi bi-youtube" style="color:#af2910;"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ $social_media_links[0]->linkedin_url }}" class="dropdown-item"
+                                    target="_blank" data-bs-toggle="tooltip" title="LinkedIn">
+                                    <i class="bi bi-linkedin" style="color:#af2910;"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('user.sitemap') }}" data-bs-toggle="tooltip"
+                            data-bs-placement="bottom" title="Sitemap">
+                            <i class="material-icons menu-icon">account_tree</i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('user.search') }}" data-bs-toggle="tooltip"
+                            data-bs-placement="bottom" title="Search">
+                            <i class="material-icons menu-icon">search</i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-disabled="true" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                            title="Language Options">
+                            <i class="material-icons menu-icon">language</i>
+                        </a>
+                    </li>
                 </ul>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                    aria-expanded="false" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Social Media Links">
-                    <i class="material-icons menu-icon">group</i>
-                </a>
-                @php
-                $social_media_links = DB::table('social_media_links')->get();
-                @endphp
-                <ul class="dropdown-menu">
-                    <li>
-                        <a href="{{ $social_media_links[0]->facebook_url }}" class="dropdown-item" target="_blank" data-bs-toggle="tooltip" title="Facebook">
-                            <i class="bi bi-facebook fa-2x" style="color: #af2910;"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ $social_media_links[0]->twitter_url }}" class="dropdown-item" target="_blank" data-bs-toggle="tooltip" title="Twitter">
-                            <i class="bi bi-twitter-x" style="color: #af2910;"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ $social_media_links[0]->youtube_url }}" class="dropdown-item" target="_blank" data-bs-toggle="tooltip" title="YouTube">
-                            <i class="bi bi-youtube" style="color:#af2910;"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ $social_media_links[0]->linkedin_url }}" class="dropdown-item" target="_blank" data-bs-toggle="tooltip" title="LinkedIn">
-                            <i class="bi bi-linkedin" style="color:#af2910;"></i>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('user.sitemap') }}" data-bs-toggle="tooltip"
-                    data-bs-placement="bottom" title="Sitemap">
-                    <i class="material-icons menu-icon">account_tree</i>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('user.search') }}" data-bs-toggle="tooltip"
-                    data-bs-placement="bottom" title="Search">
-                    <i class="material-icons menu-icon">search</i>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" aria-disabled="true" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                    title="Language Options">
-                    <i class="material-icons menu-icon">language</i>
-                </a>
-            </li>
-        </ul>
-    </div>
-</div>
+            </div>
+        </div>
 
     </div>
     <nav class="navbar navbar-expand-lg shadow-none sticky-top">
@@ -219,8 +239,7 @@
                     return '';
                     }
 
-                    $output = '<ul class="dropdown-menu"
-                        style="width: 300px;white-space: normal;overflow-wrap: break-word;">';
+                    $output = '<ul class="dropdown-menu">';
 
                         foreach ($submenus as $submenu) {
                         if ($submenu->menutitle === 'RTI' || $submenu->menutitle === 'research-centers') {
@@ -233,12 +252,12 @@
                         ->where('parent_id', $submenu->id)
                         ->exists();
 
-                        $output .= '<li class="dropdown-submenu dynamic-direction">';
+                        // Add 'w-100' class to ensure full width for the list item
+                        $output .= '<li class="dropdown-submenu dynamic-direction w-100">';
                             $output .= '<a
                                 class="dropdown-item ' . ($hasChildren ? 'dropdown-toggle d-flex align-items-center' : '') . '"
                                 href="' . route('user.navigationpagesbyslug', $submenu->menu_slug) . '">' .
                                 $submenu->menutitle . '</a>';
-
 
                             if ($hasChildren) {
                             $output .= renderMenuItems($submenu->id);
