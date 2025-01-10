@@ -96,7 +96,7 @@
     </style>
 </head>
 
-<body class="d-flex flex-column min-vh-100 bg-white">
+<body class="d-flex flex-column min-vh-100 bg-white" style="overflow: hidden">
     <div class="container-fluid bg-light bar">
         <div class="row py-1 align-items-center">
             <div class="col-md-4 d-flex align-items-center" style="font-size: 13px;">
