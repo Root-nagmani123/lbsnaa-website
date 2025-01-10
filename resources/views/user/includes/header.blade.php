@@ -206,8 +206,7 @@
                     return '';
                     }
 
-                    $output = '<ul class="dropdown-menu">
-                        ';
+                    $output = '<ul class="dropdown-menu">';
 
                         foreach ($submenus as $submenu) {
                         if ($submenu->menutitle === 'RTI' || $submenu->menutitle === 'research-centers') {
@@ -221,23 +220,24 @@
                         ->exists();
 
                         $output .= '<li class="dropdown-submenu dynamic-direction">';
-                            $output .= '<a class="dropdown-item dropdown-toggle' . ($hasChildren ? '' : '') . '"
-                            href="' . route('user.navigationpagesbyslug', $submenu->menu_slug) . '"> ' .
-                            $submenu->menutitle . '</a>';
+                        $output .= '<a class="dropdown-item ' . ($hasChildren ? 'dropdown-toggle d-flex align-items-center' : '') . '" href="' . route('user.navigationpagesbyslug', $submenu->menu_slug) . '">' . $submenu->menutitle;
+                        if ($hasChildren) {
+                        $output .= '<i class="bi bi-chevron-right ms-auto"></i>';
+                        }
+                        $output .= '</a>';
 
-                            if ($hasChildren) {
-                            $output .= renderMenuItems($submenu->id);
-                            }
+                        if ($hasChildren) {
+                        $output .= renderMenuItems($submenu->id);
+                        }
 
-                            $output .= '</li>';
-
+                        $output .= '</li>';
+                        }
 
                         $output .= '</ul>';
                     return $output;
-                    }}
+                    }
                     @endphp
 
-                    <!-- Navbar Menu Items -->
                     @foreach($menus as $menu)
                     @if($menu->menutitle === 'RTI')
                     <li class="nav-item">
@@ -246,18 +246,14 @@
                         </a>
                     </li>
                     @elseif($menu->menutitle === 'Research Centers')
-                    <li
-                        class="nav-item dropdown {{ DB::table('menus')->where('parent_id', $menu->id)->exists() ? 'dropdown' : '' }}">
-                        <a class="nav-link {{ DB::table('menus')->where('parent_id', $menu->id)->exists() ? 'dropdown-toggle' : '' }}"
-                            href="{{ route('user.navigationpagesbyslug', $menu->menu_slug) }}"
-                            {{ DB::table('menus')->where('parent_id', $menu->id)->exists() ? 'data-bs-toggle="dropdown"' : '' }}>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="{{ route('user.navigationpagesbyslug', $menu->menu_slug) }}" data-bs-toggle="dropdown">
                             {{ $menu->menutitle }}
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-arrow clickable" data-href="#">
+                        <ul class="dropdown-menu">
                             @foreach($Research_Center_list as $reserch_c)
                             <li>
-                                <a class="dropdown-item"
-                                    href="{{ url('lbsnaa-sub') }}/{{ $reserch_c->research_centre_slug }}">
+                                <a class="dropdown-item" href="{{ url('lbsnaa-sub') }}/{{ $reserch_c->research_centre_slug }}">
                                     {{ $reserch_c->research_centre_name }}
                                 </a>
                             </li>
@@ -265,11 +261,8 @@
                         </ul>
                     </li>
                     @else
-                    <li
-                        class="nav-item {{ DB::table('menus')->where('parent_id', $menu->id)->exists() || $menu->menutitle === 'Training' ? 'dropdown' : '' }}">
-                        <a class="nav-link {{ DB::table('menus')->where('parent_id', $menu->id)->exists() || $menu->menutitle === 'Training' ? 'dropdown-toggle' : '' }}"
-                            href="{{ route('user.navigationpagesbyslug', $menu->menu_slug) }}"
-                            {{ DB::table('menus')->where('parent_id', $menu->id)->exists() || $menu->menutitle === 'Training' ? 'data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"' : '' }}>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="{{ route('user.navigationpagesbyslug', $menu->menu_slug) }}" data-bs-toggle="dropdown">
                             {{ $menu->menutitle }}
                         </a>
                         {!! renderMenuItems($menu->id, $menu->menutitle === 'Training') !!}
