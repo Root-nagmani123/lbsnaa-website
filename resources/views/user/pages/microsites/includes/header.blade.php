@@ -104,40 +104,12 @@
                 </button>
             </div>
             <!-- Collapse -->
-            <!-- <div class="collapse navbar-collapse" id="navbar-default">
-            <ul class="navbar-nav mx-auto">
-                @php
-                    $menus = DB::table('micromenus')
-                        ->where('menu_status', 1)
-                        ->where('is_deleted', 0)
-                        ->where('parent_id', 0)
-                        ->get();
-                        
-                @endphp
-
-                @foreach ($menus as $menu)
-                    @php
-                        $arrow = DB::table('micromenus')
-                            ->where('menu_status', 1)
-                            ->where('is_deleted', 0)
-                            ->where('parent_id', $menu->id)
-                            ->exists();
-                        $class = $arrow ? 'nav-link dropdown-toggle' : 'nav-link';
-                        
-                    @endphp
-                    <li class="nav-item dropdown">
-                        <a class="{{ $class }}"
-                            href="{{ $menu->menutitle == 'Research Center' ? '#' : route('user.navigationmenubyslug', $menu->menu_slug) }}"
-                            {{ $arrow ? 'data-bs-toggle=dropdown aria-haspopup=true aria-expanded=false' : '' }}>
-                            {{ $menu->menutitle }}
-                        </a>
-                        {!! renderMicroMenuItems($menu->id) !!}
-                    </li>
-                @endforeach
-            </ul>
-        </div> -->
 
             <div class="collapse navbar-collapse" id="navbar-default">
+
+
+
+            
                 <ul class="navbar-nav me-auto navmenu">
                     @php
                     // Fetch slug from the query string or route

@@ -138,7 +138,7 @@ class OrganizationSetupController extends Controller
                 Rule::unique('mirco_organization_setups')->ignore($organizationSetup->id), // Ignore the current record
                 'max:255',
             ],
-            'program_description' => 'required|string|max:500',
+            'program_description' => 'required|string|max:10000',
             'main_image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // Optional field with validation for image type and size
             'page_status' => 'required|integer|in:1,0',
         ];

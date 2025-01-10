@@ -73,7 +73,7 @@
                                         <p>{{ $organization->email }}</p>
                                     </div>
                                     <div class="col-lg-12">
-                                    <p>{{ strip_tags($organization->program_description) }}</p>
+                                    {!! html_entity_decode($organization->program_description) !!}
                                     </div>
                                 </div>
                             </div>
