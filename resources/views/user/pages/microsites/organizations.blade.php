@@ -8,9 +8,9 @@
             <div class="mb-4 mb-lg-0 bg-gray-200 rounded-4 py-2">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb p-2">
-                        <li class="breadcrumb-item">
-                            <a href="{{ route('home') }}" style="color: #af2910;">Home</a>
-                        </li>
+                    <li class="breadcrumb-item">
+                        <a href="{{ route('user.micrositebyslug', ['slug' => $slug]) }}" style="color: #af2910;">Home</a>
+                    </li>
                         <li class="breadcrumb-item">
                             <a href="#" style="color: #af2910;">Organization </a>
                         </li>

@@ -238,8 +238,34 @@ class HomePagesMicroController extends Controller
             ->get();
 
         // If data is available, return the view with the data
-        return view('user.pages.microsites.organizations', compact('organizations'));
+        return view('user.pages.microsites.organizations', compact('organizations','slug'));
     }
+
+
+    public function handleTrainingsPage($slug)
+    {
+        // Check if 'slug' is present
+        if (!$slug) {
+            return abort(400, 'Missing slug parameter.');
+        }
+        // Fetch the data from the database using the slug
+        $trainingprograms = DB::table('micro_manage_training_programs as mmtp')
+            ->join('research_centres as rc', 'mmtp.research_centre', '=', 'rc.id')
+            ->where('mmtp.page_status', 1)
+            ->where('rc.research_centre_slug', $slug)
+            ->select('mmtp.program_name', 'mmtp.venue', 'mmtp.start_date', 'mmtp.end_date', 'mmtp.registration_status', 'mmtp.id')
+            ->get();
+        // dd($trainingprograms);
+        // Return the view with the training programs data
+        return view('user.pages.microsites.training_program', compact('trainingprograms'));
+    }
+
+       
+
+
+
+
+
     
 
 
