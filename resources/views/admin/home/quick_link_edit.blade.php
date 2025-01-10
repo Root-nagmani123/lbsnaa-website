@@ -23,7 +23,15 @@
                 <div class="d-flex justify-content-between align-items-center border-bottom pb-20 mb-20">
                     <h4 class="fw-semibold fs-18 mb-0">Edit Quick Links</h4>
                 </div>
-
+                @if($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
                 <form action="{{ route('admin.quick_links.update', $quickLink->id) }}" method="POST"
                     enctype="multipart/form-data">
                     @csrf
@@ -68,7 +76,7 @@
                                 <label for="url_data" class="label">URL type</label>
                                 <div class="form-group position-relative">
                                     <select name="url_type" id="url_type" class="form-control h-58 text-dark ">
-                                        <option value="" selected>Select</option>
+                                        <option value="" >Select</option>
                                         <option value="internal" {{ $quickLink->url_type == "internal" ? 'selected' : '' }}>Internal Link</option>
                                         <option value="external" {{ $quickLink->url_type == 'external' ? 'selected' : '' }}>External Link</option>
                                     </select>
