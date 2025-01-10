@@ -5,7 +5,7 @@ $footer_links = DB::table('menus')->where('txtpostion',3)->where('menu_status',1
 <!-- quick link section -->
 <!-- card section end -->
 <!-- footer -->
-<section class="py-4 bg-white mt-auto">
+<section class="py-4 bg-white mt-auto mb-4">
     <!-- container -->
     <div class="container-fluid">
         <div class="row">

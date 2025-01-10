@@ -17,7 +17,7 @@
         <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
             <img src="{{ asset('slider-images/' . $slider->image) }}" class="d-block img-fluid"
                 alt="{{ $slider->text }}">
-            <div class="carousel-caption">
+            <div class="carousel-caption" style="bottom: 0 !important;">
                 <h3 class="text-center slider-caption">{{ $slider->text }}</h3>
             </div>
         </div>
