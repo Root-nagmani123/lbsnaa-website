@@ -289,8 +289,7 @@
                             @foreach($quick_links as $key => $quick_link)
                             <li class="text-start list-group-item">
                                 @if(!empty($quick_link->url))
-                                <a href="{{ $quick_link->url_type == 'external' ? (str_starts_with($quick_link->url, 'http') ? $quick_link->url : 'http://' . $quick_link->url) : url($quick_link->url) }}"
-                                    target="_blank" class="text-decoration-none text-primary">
+                                <a href="{{ $quick_link->url_type == 'external' ? (str_starts_with($quick_link->url, 'http') ? $quick_link->url : 'http://' . $quick_link->url) : url($quick_link->url) }}" class="text-decoration-none text-primary">
                                     <span>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                             fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">

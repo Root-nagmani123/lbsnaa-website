@@ -59,6 +59,7 @@
                 <div class="card card-hover border">
                     <div class="card-header bg-danger">
                         <h5 class="text-white">What's New</h5>
+                        
                     </div>
                     <div class="card-body" style="height:340px;overflow-y: scroll;">
                         <ul class="list-group list-group-flush">

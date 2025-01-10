@@ -27,16 +27,15 @@
     @if($trainingprograms->isNotEmpty())
     <div class="row">
         @foreach ($trainingprograms as $index => $training)
-        <div class="col-md-3 mb-4">
-            <div class="card">
-                <table class="table table-bordered">
+       <div class="col-lg-9 col-12">
+       <table class="table table-striped table-hover table-bordered">
                     <thead>
                         <tr>
-                            <th>Sr. No.</th>
-                            <th>Program Name</th>
-                            <th>Venue</th>
-                            <th>Date</th>
-                            <th>Registration</th>
+                            <th class="col">Sr. No.</th>
+                            <th class="col">Program Name</th>
+                            <th class="col">Venue</th>
+                            <th class="col">Date</th>
+                            <th class="col">Registration</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -49,13 +48,52 @@
                         </tr>
                     </tbody>
                 </table>
-            </div>
-        </div>
+       </div>
+       
         @endforeach
-    </div>
-    @else
+        @else
     <p>No training programs available at the moment.</p>
     @endif
+    <!-- Quick Links -->
+    <div class="col-12 col-lg-3 mb-4">
+    <div class="card card-hover border">
+                    <div class="card-header" style="background-color: #af2910;">
+                        <h3 class="text-white">Quick Links</h3>
+                    </div>
+                    <div class="card-body" style="padding: 0;">
+                        <ul class="mt-2 mb-2 list-group list-group-flush">
+                            @foreach($quickLinks as $link)
+                                <li class="text-start list-group-item">
+                                    @if($link->website_url)
+                                        <!-- For website URL -->
+                                        <a href="{{ $link->website_url }}" class="text-primary" target="_blank">
+                                            <span>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"></path>
+                                                </svg>
+                                            </span>
+                                            {{ $link->txtename }}
+                                        </a>
+                                    @elseif($link->pdf_file)
+                                        <!-- For PDF URL -->
+                                        <a href="{{ asset('storage/' . $link->pdf_file) }}" class="text-primary" target="_blank">
+                                            <span>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-file-earmark-pdf" viewBox="0 0 16 16">
+                                                    <path d="M9 1H3a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7l-5-6zm0 1.5V6h5L9 2.5zM4 2h5v4H4V2zM3 12V4h5v4h5v4H3z"/>
+                                                </svg>
+                                            </span>
+                                            {{ $link->txtename }}
+                                        </a>
+                                    @endif
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+    </div>
+    
 </section>
 
 @include('user.pages.microsites.includes.footer')

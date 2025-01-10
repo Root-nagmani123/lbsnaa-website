@@ -63,15 +63,18 @@
         right: 100%;
         /* Open to the left */
     }
-.dropdown-submenu.dropend .dropdown-menu {
-    left: 100%; /* Opens to the right */
-    right: auto;
-}
 
-.dropdown-submenu.dropstart .dropdown-menu {
-    left: auto;
-    right: 100%; /* Opens to the left */
-}
+    .dropdown-submenu.dropend .dropdown-menu {
+        left: 100%;
+        /* Opens to the right */
+        right: auto;
+    }
+
+    .dropdown-submenu.dropstart .dropdown-menu {
+        left: auto;
+        right: 100%;
+        /* Opens to the left */
+    }
 
 
     @media (max-width: 768px) {
@@ -206,7 +209,7 @@
                     return '';
                     }
 
-                    $output = '<ul class="dropdown-menu">';
+                    $output = '<ul class="dropdown-menu" style="width: 300px;white-space: normal;overflow-wrap: break-word;">';
 
                         foreach ($submenus as $submenu) {
                         if ($submenu->menutitle === 'RTI' || $submenu->menutitle === 'research-centers') {
@@ -220,17 +223,17 @@
                         ->exists();
 
                         $output .= '<li class="dropdown-submenu dynamic-direction">';
-                        $output .= '<a class="dropdown-item ' . ($hasChildren ? 'dropdown-toggle d-flex align-items-center' : '') . '" href="' . route('user.navigationpagesbyslug', $submenu->menu_slug) . '">' . $submenu->menutitle;
-                        if ($hasChildren) {
-                        $output .= '<i class="bi bi-chevron-right ms-auto"></i>';
-                        }
-                        $output .= '</a>';
+                            $output .= '<a
+                                class="dropdown-item ' . ($hasChildren ? 'dropdown-toggle d-flex align-items-center' : '') . '"
+                                href="' . route('user.navigationpagesbyslug', $submenu->menu_slug) . '">' .
+                                $submenu->menutitle . '</a>';
 
-                        if ($hasChildren) {
-                        $output .= renderMenuItems($submenu->id);
-                        }
 
-                        $output .= '</li>';
+                            if ($hasChildren) {
+                            $output .= renderMenuItems($submenu->id);
+                            }
+
+                            $output .= '</li>';
                         }
 
                         $output .= '</ul>';
@@ -247,13 +250,16 @@
                     </li>
                     @elseif($menu->menutitle === 'Research Centers')
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="{{ route('user.navigationpagesbyslug', $menu->menu_slug) }}" data-bs-toggle="dropdown">
+                        <a class="nav-link dropdown-toggle"
+                            href="{{ route('user.navigationpagesbyslug', $menu->menu_slug) }}"
+                            data-bs-toggle="dropdown">
                             {{ $menu->menutitle }}
                         </a>
                         <ul class="dropdown-menu">
                             @foreach($Research_Center_list as $reserch_c)
                             <li>
-                                <a class="dropdown-item" href="{{ url('lbsnaa-sub') }}/{{ $reserch_c->research_centre_slug }}">
+                                <a class="dropdown-item"
+                                    href="{{ url('lbsnaa-sub') }}/{{ $reserch_c->research_centre_slug }}">
                                     {{ $reserch_c->research_centre_name }}
                                 </a>
                             </li>
@@ -262,7 +268,9 @@
                     </li>
                     @else
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="{{ route('user.navigationpagesbyslug', $menu->menu_slug) }}" data-bs-toggle="dropdown">
+                        <a class="nav-link dropdown-toggle"
+                            href="{{ route('user.navigationpagesbyslug', $menu->menu_slug) }}"
+                            data-bs-toggle="dropdown">
                             {{ $menu->menutitle }}
                         </a>
                         {!! renderMenuItems($menu->id, $menu->menutitle === 'Training') !!}
@@ -275,30 +283,29 @@
     </nav>
 
     <script>
- document.addEventListener('DOMContentLoaded', function () {
-    const submenus = document.querySelectorAll('.dynamic-direction');
+    document.addEventListener('DOMContentLoaded', function() {
+        const submenus = document.querySelectorAll('.dynamic-direction');
 
-    submenus.forEach(function (submenu) {
-        submenu.addEventListener('mouseenter', function () {
-            const dropdownMenu = submenu.querySelector('.dropdown-menu');
-            if (!dropdownMenu) return;
+        submenus.forEach(function(submenu) {
+            submenu.addEventListener('mouseenter', function() {
+                const dropdownMenu = submenu.querySelector('.dropdown-menu');
+                if (!dropdownMenu) return;
 
-            // Reset classes
-            submenu.classList.remove('dropend', 'dropstart');
+                // Reset classes
+                submenu.classList.remove('dropend', 'dropstart');
 
-            // Get submenu and dropdown positions
-            const submenuRect = submenu.getBoundingClientRect();
-            const dropdownRect = dropdownMenu.getBoundingClientRect();
-            const viewportWidth = window.innerWidth;
+                // Get submenu and dropdown positions
+                const submenuRect = submenu.getBoundingClientRect();
+                const dropdownRect = dropdownMenu.getBoundingClientRect();
+                const viewportWidth = window.innerWidth;
 
-            // Check if the dropdown will overflow to the right
-            if (submenuRect.right + dropdownRect.width > viewportWidth) {
-                submenu.classList.add('dropstart');
-            } else {
-                submenu.classList.add('dropend');
-            }
+                // Check if the dropdown will overflow to the right
+                if (submenuRect.right + dropdownRect.width > viewportWidth) {
+                    submenu.classList.add('dropstart');
+                } else {
+                    submenu.classList.add('dropend');
+                }
+            });
         });
     });
-});
-
     </script>
