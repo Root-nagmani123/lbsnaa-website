@@ -75,11 +75,16 @@
         right: 100%;
         /* Opens to the left */
     }
-
+.logo{
+    width: 350px;
+}
 
     @media (max-width: 768px) {
         .bar {
             display: none;
+        }
+        .logo{
+            width:250px;
         }
     }
     .dropdown-menu {
@@ -198,7 +203,7 @@
         <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
             <!-- Logo -->
             <a href="{{ route('home') }}" class="navbar-brand me-auto logo d-flex align-items-center">
-                <img src="{{ asset('admin_assets/images/logo.png') }}" alt="logo-icon" class="img-fluid" width="250">
+                <img src="{{ asset('admin_assets/images/logo.png') }}" alt="logo-icon" class="img-fluid logo">
             </a>
 
             <!-- Navbar Toggle Button (For mobile view) -->
@@ -252,7 +257,7 @@
                         ->exists();
 
                         // Add 'w-100' class to ensure full width for the list item
-                        $output .= '<li class="dropdown-submenu dynamic-direction w-100">';
+                        $output .= '<li class="dropdown-submenu dynamic-direction w-100 border-bottom">';
                             $output .= '<a
                                 class="dropdown-item ' . ($hasChildren ? 'dropdown-toggle d-flex align-items-center' : '') . '"
                                 href="' . route('user.navigationpagesbyslug', $submenu->menu_slug) . '">' .
@@ -286,7 +291,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             @foreach($Research_Center_list as $reserch_c)
-                            <li>
+                            <li class="border-bottom">
                                 <a class="dropdown-item"
                                     href="{{ url('lbsnaa-sub') }}/{{ $reserch_c->research_centre_slug }}">
                                     {{ $reserch_c->research_centre_name }}
