@@ -133,6 +133,13 @@ Route::get('lbsnaa-sub_mgd/media_gallery_details/{id}', [HomePagesMicroControlle
 Route::get('lbsnaa-sub_org/organizations/{slug}', [HomePagesMicroController::class, 'getAllorganizations'])->name('user.organizations');
 
 
+Route::middleware(['check.trainings'])->group(function () {
+    // Define the route that will use the controller
+    Route::get('lbsnaa-sub_tp/trainings/{slug}', [HomePagesMicroController::class, 'handleTrainingsPage'])
+        ->name('user.trainings');  // Set the correct route name here
+});
+
+
 
 //micro 
 

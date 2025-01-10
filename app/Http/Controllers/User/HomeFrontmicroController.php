@@ -167,9 +167,9 @@ public function get_navigation_pages($slug, $childSlug = null)
         ->whereDate('micro_quick_links.termination_date', '>=', now())  // Ensure termination_date is after or equal to today
         ->select('micro_quick_links.*', 'research_centres.research_centre_name as research_centre_name')
         ->get();
-
+        // dd($slug);
     // Return view with variables
-    return view('user.pages.microsites.navigationmenubyslug', compact('nav_page', 'breadcrumb', 'quickLinks'));
+    return view('user.pages.microsites.navigationmenubyslug', compact('nav_page', 'breadcrumb', 'quickLinks','slug'));
 }
 
 
