@@ -32,24 +32,44 @@
                     </h2>
             </div>
                 </div>
-        <form id="form2" action="{{ url()->current() }}" method="GET">
-                        <div class="row mb-4">
-                                    <div class="col-lg-1">
-                                    <label for="" class="form-label">Filter Year</label>
-                                    </div>
-                                    <div class="col-lg-3">
-                                    <select name="year" class="form-control ps-5 text-dark h-58">
-                                <option value="">Select a year</option>
-                                @for($year = date('Y') - 9; $year <= date('Y'); $year++)
-                                    <option value="{{ $year }}">{{ $year }}</option>
-                                @endfor
-                            </select>
-                                    </div>
-                                    <div class="col-lg-3">
-                                    <button type="submit" id="btn2" class="btn btn-outline-primary">Submit</button>
-                                    </div>
-                                </div>
-                        </form>
+                <form id="form2" action="{{ url()->current() }}" method="GET">
+    <div class="row mb-4">
+        <div class="col-lg-1">
+            <label for="select_year" class="form-label">Filter Year</label>
+        </div>
+        <div class="col-lg-3">
+            <select name="select_year" id="select_year" class="form-control ps-5 text-dark h-58">
+                <option value="">Select Year</option>
+                @php
+                    $currentYear = date('Y'); // Current year
+                    $currentMonth = date('m'); // Current month
+                    $startYear = $currentYear - 3; // Start year (adjust as needed)
+
+                    // Determine the current financial year
+                    if ($currentMonth >= 4) {
+                        // Financial year starts in April, so it's the current year - next year
+                        $selectedYearStart = $currentYear;
+                        $selectedYearEnd = $currentYear + 1;
+                    } else {
+                        // If before April, financial year is previous year - current year
+                        $selectedYearStart = $currentYear - 1;
+                        $selectedYearEnd = $currentYear;
+                    }
+                @endphp
+                @for ($year = $startYear; $year <= $currentYear + 3; $year++)
+                    <option value="{{ $year }}" 
+                        {{ ($year == $selectedYearEnd) ? 'selected' : '' }}>
+                        {{ $year - 1 }} - {{ $year }}
+                    </option>
+                @endfor
+            </select>
+        </div>
+        <div class="col-lg-3">
+            <button type="submit" id="btn2" class="btn btn-outline-primary">Submit</button>
+        </div>
+    </div>
+</form>
+
     <div class="card bg-white border-0 rounded-10 mb-4">
     <div class="card-body p-4">
       <div class="default-table-area members-list">

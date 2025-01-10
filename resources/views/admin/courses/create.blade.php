@@ -21,6 +21,16 @@
                 <div class="d-sm-flex text-center justify-content-between align-items-center border-bottom pb-20 mb-20">
                     <h4 class="fw-semibold fs-18 mb-sm-0">Add New Course</h4>
                 </div>
+                @if($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
                 <form action="{{ route('admin.courses.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
@@ -30,10 +40,12 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <label class="me-3">
-                                        <input type="radio" name="language" value="1" {{ old('language') == '1' ? 'checked' : '' }}> English
+                                        <input type="radio" name="language" value="1"
+                                            {{ old('language') == '1' ? 'checked' : '' }}> English
                                     </label>
                                     <label>
-                                        <input type="radio" name="language" value="2" {{ old('language') == '2' ? 'checked' : '' }}> Hindi
+                                        <input type="radio" name="language" value="2"
+                                            {{ old('language') == '2' ? 'checked' : '' }}> Hindi
                                     </label>
                                 </div>
                                 @error('language')
@@ -98,7 +110,9 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="meta_description">Meta Description:</label>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark  h-58"  value="{{ old('meta_description') }}" name="meta_description" id="meta_description">
+                                    <input type="text" class="form-control text-dark  h-58"
+                                        value="{{ old('meta_description') }}" name="meta_description"
+                                        id="meta_description">
                                 </div>
                             </div>
                         </div>
@@ -107,7 +121,7 @@
                                 <label class="label" for="description">Description:</label>
                                 <div class="form-group position-relative">
                                     <textarea class="form-control" id="description" placeholder="Enter the Description"
-                                        name="description" rows="5"  value="{{ old('description') }}"></textarea>
+                                        name="description" rows="5" value="{{ old('description') }}"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -117,7 +131,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="date" class="form-control text-dark  h-58" name="course_start_date"
-                                        id="course_start_date"  value="{{ old('course_start_date') }}">
+                                        id="course_start_date" value="{{ old('course_start_date') }}">
                                     @error('course_start_date')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -130,7 +144,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="date" class="form-control text-dark  h-58" name="course_end_date"
-                                        id="course_end_date"  value="{{ old('course_end_date') }}">
+                                        id="course_end_date" value="{{ old('course_end_date') }}">
                                     @error('course_end_date')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -156,24 +170,19 @@
                                     @enderror
                                 </div>
                             </div>
-                        </div> --> 
+                        </div> -->
 
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="support_section">Support Section :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select 
-                                        class="form-select form-control  h-58" 
-                                        name="support_section" 
+                                    <select class="form-select form-control  h-58" name="support_section"
                                         id="support_section">
                                         <option value="" class="text-dark" selected disabled>Select Section</option>
                                         @foreach($section_category as $section)
-                                        <option 
-                                            value="{{ $section->id }}" 
-                                            class="text-dark" 
-                                            {{ old('support_section') == $section->id ? 'selected' : '' }}
-                                        >
+                                        <option value="{{ $section->id }}" class="text-dark"
+                                            {{ old('support_section') == $section->id ? 'selected' : '' }}>
                                             {{ $section->name }}
                                         </option>
                                         @endforeach
@@ -191,7 +200,7 @@
                                 <label class="label" for="organised">Organised By :</label>
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark  h-58" name="organised"
-                                        id="organised"  value="{{ old('organised') }}">
+                                        id="organised" value="{{ old('organised') }}">
                                 </div>
                             </div>
                         </div>
@@ -200,8 +209,24 @@
                                 <label class="label" for="coordinator_id">Coordinator Name :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark  h-58" name="coordinator_id"
-                                        id="coordinator_id"  value="{{ old('coordinator_id') }}">
+                                    <!-- <input type="text" class="form-control text-dark  h-58" name="coordinator_id"
+                                        id="coordinator_id"  value="{{ old('coordinator_id') }}"> -->
+                                    <select class="form-select form-control  h-58" name="coordinator_id"
+                                        id="coordinator_id">
+                                        <option value="" class="text-dark">Select Name</option>
+                                        @foreach($staff_members as $member)
+                                        <option value="{{ $member->name }}" class="text-dark"
+                                            {{ old('coordinator_id') == $member->name ? 'selected' : '' }}>
+                                            {{ $member->name }}
+                                        </option>
+                                        @endforeach
+                                        @foreach($faculty_members as $member)
+                                        <option value="{{ $member->name }}" class="text-dark"
+                                            {{ old('coordinator_id') == $member->name ? 'selected' : '' }}>
+                                            {{ $member->name }}
+                                        </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -210,8 +235,24 @@
                                 <label class="label" for="asst_coordinator_1_id">1st Asst. Co-ordinator :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark  h-58"
-                                        name="asst_coordinator_1_id" id="asst_coordinator_1_id"  value="{{ old('asst_coordinator_1_id') }}">
+                                    <!-- <input type="text" class="form-control text-dark  h-58"
+                                        name="asst_coordinator_1_id" id="asst_coordinator_1_id"  value="{{ old('asst_coordinator_1_id') }}"> -->
+                                    <select class="form-select form-control  h-58" name="asst_coordinator_1_id"
+                                        id="asst_coordinator_1_id">
+                                        <option value="" class="text-dark">Select Name</option>
+                                        @foreach($staff_members as $member)
+                                        <option value="{{ $member->name }}" class="text-dark"
+                                            {{ old('asst_coordinator_1_id') == $member->name ? 'selected' : '' }}>
+                                            {{ $member->name }}
+                                        </option>
+                                        @endforeach
+                                        @foreach($faculty_members as $member)
+                                        <option value="{{ $member->name }}" class="text-dark"
+                                            {{ old('asst_coordinator_1_id') == $member->name ? 'selected' : '' }}>
+                                            {{ $member->name }}
+                                        </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -219,9 +260,30 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="asst_coordinator_2_id">2nd Asst. Co-ordinator :</label>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark  h-58"
+                                    <!-- <input type="text" class="form-control text-dark  h-58"
                                         name="asst_coordinator_2_id" id="asst_coordinator_2_id" 
-                                         value="{{ old('asst_coordinator_2_id') }}">
+                                         value="{{ old('asst_coordinator_2_id') }}"> -->
+                                    <select class="form-select form-control h-58" name="asst_coordinator_2_id"
+                                        id="asst_coordinator_2_id">
+                                        <option value="" class="text-dark">Select Name</option>
+
+                                        {{-- Staff Members --}}
+                                        @foreach($staff_members as $member)
+                                        <option value="{{ $member->name }}" class="text-dark"
+                                            {{ old('asst_coordinator_2_id') == $member->name ? 'selected' : '' }}>
+                                            {{ $member->name }}
+                                        </option>
+                                        @endforeach
+
+                                        {{-- Faculty Members --}}
+                                        @foreach($faculty_members as $member)
+                                        <option value="{{ $member->name }}" class="text-dark"
+                                            {{ old('asst_coordinator_2_id') == $member->name ? 'selected' : '' }}>
+                                            {{ $member->name }}
+                                        </option>
+                                        @endforeach
+                                    </select>
+
                                 </div>
                             </div>
                         </div>
@@ -229,9 +291,25 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="asst_coordinator_3_id">3rd Asst. Co-ordinator :</label>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark  h-58"
+                                    <!-- <input type="text" class="form-control text-dark  h-58"
                                         name="asst_coordinator_3_id" id="asst_coordinator_3_id"
-                                        value="{{ old('asst_coordinator_3_id') }}">
+                                        value="{{ old('asst_coordinator_3_id') }}"> -->
+                                    <select class="form-select form-control  h-58" name="asst_coordinator_3_id"
+                                        id="asst_coordinator_3_id">
+                                        <option value="" class="text-dark" selected>Select Name</option>
+                                        @foreach($staff_members as $member)
+                                        <option value="{{ $member->name }}" class="text-dark"
+                                            {{ old('asst_coordinator_3_id') == $member->name ? 'selected' : '' }}>
+                                            {{ $member->name }}
+                                        </option>
+                                        @endforeach
+                                        @foreach($faculty_members as $member)
+                                        <option value="{{ $member->name }}" class="text-dark"
+                                            {{ old('asst_coordinator_3_id') == $member->name ? 'selected' : '' }}>
+                                            {{ $member->name }}
+                                        </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -239,9 +317,25 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="asst_coordinator_4_id">4th Asst. Co-ordinator :</label>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark  h-58"
+                                    <!-- <input type="text" class="form-control text-dark  h-58"
                                         name="asst_coordinator_4_id" id="asst_coordinator_4_id"
-                                        value="{{ old('asst_coordinator_4_id') }}">
+                                        value="{{ old('asst_coordinator_4_id') }}"> -->
+                                    <select class="form-select form-control  h-58" name="asst_coordinator_4_id"
+                                        id="asst_coordinator_4_id">
+                                        <option value="" class="text-dark" selected>Select Name</option>
+                                        @foreach($staff_members as $member)
+                                        <option value="{{ $member->name }}" class="text-dark"
+                                            {{ old('asst_coordinator_4_id') == $member->name ? 'selected' : '' }}>
+                                            {{ $member->name }}
+                                        </option>
+                                        @endforeach
+                                        @foreach($faculty_members as $member)
+                                        <option value="{{ $member->name }}" class="text-dark"
+                                            {{ old('asst_coordinator_4_id') == $member->name ? 'selected' : '' }}>
+                                            {{ $member->name }}
+                                        </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -249,113 +343,36 @@
                             <div class="form-group mb-4">
                                 <label class="label" for="asst_coordinator_5_id">5th Asst. Co-ordinator :</label>
                                 <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark  h-58"
+                                    <!-- <input type="text" class="form-control text-dark  h-58"
                                         name="asst_coordinator_5_id" id="asst_coordinator_5_id"
-                                        value="{{ old('asst_coordinator_5_id') }}">
-                                </div>
-                            </div>
-                        </div>
-                        <!-- <div class="col-lg-6">
-                            <div class="form-group mb-0">
-                                <label class="label" for="important_links">Important Links :</label>
-                                <div class="form-group position-relative">
-                                    <textarea class="form-control  text-dark" id="important_links"
-                                        name="important_links"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group mb-4">
-                                <label class="label" for="course_type">Course Type:</label>
-                                <div class="form-group position-relative">
-
-
-                                    <select name="course_type" class="form-control" id="course_type">
-                                        <option value="0">It is Root Category</option>
-                                        @foreach($tree as $category)
-                                        <option value="{{ $category->id }}"
-                                            {{ isset($selectedCategoryId) && $selectedCategoryId == $category->id ? 'selected' : '' }}>
-                                            {!! $category->name_with_prefix !!}
+                                        value="{{ old('asst_coordinator_5_id') }}"> -->
+                                    <select class="form-select form-control  h-58" name="asst_coordinator_5_id"
+                                        id="asst_coordinator_5_id">
+                                        <option value="" class="text-dark">Select Name</option>
+                                        @foreach($staff_members as $member)
+                                        <option value="{{ $member->name }}" class="text-dark"
+                                            {{ old('asst_coordinator_5_id') == $member->name ? 'selected' : '' }}>
+                                            {{ $member->name }}
+                                        </option>
+                                        @endforeach
+                                        @foreach($faculty_members as $member)
+                                        <option value="{{ $member->name }}" class="text-dark"
+                                            {{ old('asst_coordinator_5_id') == $member->name ? 'selected' : '' }}>
+                                            {{ $member->name }}
                                         </option>
                                         @endforeach
                                     </select>
+                                </div>
+                            </div>
+                        </div>
 
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group mb-4">
-                                <label class="label" for="venue_id">Venue:</label>
-                                <span class="star">*</span>
-                                <div class="form-group position-relative">
-                                    <select class="form-select form-control  h-58" name="venue_id" id="venue_id">
-                                        <option value="" class="text-dark" selected>Select Venue</option>
-                                        @foreach($manage_venues as $venues)
-                                        <option value="{{ $venues->id }}" class="text-dark">{{ $venues->venue_title }}
-                                        </option>
-                                        @endforeach
-                                    </select>
-                                    @error('venue_id')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group mb-0">
-                                <label class="label" for="funded">Funded By :</label>
-                                <div class="form-group position-relative">
-                                    <textarea class="form-control  text-dark" id="funded"
-                                        name="funded"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group mb-4">
-                                <label class="label" for="registration_on">Registration on :</label>
-                                <span class="star">*</span>
-                                <div class="form-group position-relative">
-                                    <input class="form-check-input" type="radio" value="1" id="registration_on"
-                                        name="registration_on">
-                                    <label class="form-check-label" for="registration_on">
-                                        On
-                                    </label>
-                                </div>
-                                <div class="form-group position-relative">
-                                    <input class="form-check-input" type="radio" value="0" id="registration_on"
-                                        name="registration_on">
-                                    <label class="form-check-label" for="registration_on">
-                                        Off
-                                    </label>
-                                </div>
-                                @error('registration_on')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group mb-4">
-                                <label class="label" for="page_status">Status :</label>
-                                <span class="star">*</span>
-                                <div class="form-group position-relative">
-                                    <select class="form-select form-control  h-58" name="page_status"
-                                        id="page_status">
-                                        <option value="" class="text-dark" selected>Select</option>
-                                        <option value="1" class="text-dark">Active</option>
-                                        <option value="0" class="text-dark">Inactive</option>
-                                    </select>
-                                    @error('page_status')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div> -->
                         <!-- Important Links -->
                         <div class="col-lg-6">
                             <div class="form-group mb-0">
                                 <label class="label" for="important_links">Important Links:</label>
                                 <div class="form-group position-relative">
-                                    <textarea class="form-control  text-dark" id="important_links" name="important_links">{{ old('important_links') }}</textarea>
+                                    <textarea class="form-control  text-dark" id="important_links"
+                                        name="important_links">{{ old('important_links') }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -366,9 +383,11 @@
                                 <label class="label" for="course_type">Course Type:</label>
                                 <div class="form-group position-relative">
                                     <select name="course_type" class="form-control" id="course_type">
-                                        <option value="0" {{ old('course_type') == "0" ? 'selected' : '' }}>It is Root Category</option>
+                                        <option value="0" {{ old('course_type') == "0" ? 'selected' : '' }}>It is Root
+                                            Category</option>
                                         @foreach($tree as $category)
-                                        <option value="{{ $category->id }}" {{ old('course_type', $selectedCategoryId ?? '') == $category->id ? 'selected' : '' }}>
+                                        <option value="{{ $category->id }}"
+                                            {{ old('course_type', $selectedCategoryId ?? '') == $category->id ? 'selected' : '' }}>
                                             {!! $category->name_with_prefix !!}
                                         </option>
                                         @endforeach
@@ -386,7 +405,8 @@
                                     <select class="form-select form-control  h-58" name="venue_id" id="venue_id">
                                         <option value="" class="text-dark" selected disabled>Select Venue</option>
                                         @foreach($manage_venues as $venues)
-                                        <option value="{{ $venues->id }}" {{ old('venue_id') == $venues->id ? 'selected' : '' }} class="text-dark">
+                                        <option value="{{ $venues->id }}"
+                                            {{ old('venue_id') == $venues->id ? 'selected' : '' }} class="text-dark">
                                             {{ $venues->venue_title }}
                                         </option>
                                         @endforeach
@@ -403,30 +423,13 @@
                             <div class="form-group mb-0">
                                 <label class="label" for="funded">Funded By:</label>
                                 <div class="form-group position-relative">
-                                    <textarea class="form-control  text-dark" id="funded" name="funded">{{ old('funded') }}</textarea>
+                                    <textarea class="form-control  text-dark" id="funded"
+                                        name="funded">{{ old('funded') }}</textarea>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Registration On -->
-                        <div class="col-lg-6">
-                            <div class="form-group mb-4">
-                                <label class="label" for="registration_on">Registration On:</label>
-                                <div class="form-group position-relative">
-                                    <div>
-                                        <input class="form-check-input" type="radio" value="1" id="registration_on_yes" name="registration_on" {{ old('registration_on') == '1' ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="registration_on_yes">On</label>
-                                    </div>
-                                    <div>
-                                        <input class="form-check-input" type="radio" value="0" id="registration_on_no" name="registration_on" {{ old('registration_on') == '0' ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="registration_on_no">Off</label>
-                                    </div>
-                                    @error('registration_on')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
 
                         <!-- Page Status -->
                         <div class="col-lg-6">
@@ -436,8 +439,10 @@
                                 <div class="form-group position-relative">
                                     <select class="form-select form-control  h-58" name="page_status" id="page_status">
                                         <option value="" class="text-dark" selected disabled>Select</option>
-                                        <option value="1" {{ old('page_status') == '1' ? 'selected' : '' }} class="text-dark">Active</option>
-                                        <option value="0" {{ old('page_status') == '0' ? 'selected' : '' }} class="text-dark">Inactive</option>
+                                        <option value="1" {{ old('page_status') == '1' ? 'selected' : '' }}
+                                            class="text-dark">Active</option>
+                                        <option value="0" {{ old('page_status') == '0' ? 'selected' : '' }}
+                                            class="text-dark">Inactive</option>
                                     </select>
                                     @error('page_status')
                                     <div class="text-danger">{{ $message }}</div>
@@ -448,7 +453,8 @@
 
                         <div class="d-flex ms-sm-3 ms-md-0">
                             <button class="btn btn-success text-white fw-semibold" type="submit">Submit</button>&nbsp;
-                            <a href="{{ route('admin.courses.index') }}" class="btn btn-secondary text-white fw-semibold">Back</a>
+                            <a href="{{ route('admin.courses.index') }}"
+                                class="btn btn-secondary text-white fw-semibold">Back</a>
                         </div>
                     </div>
                 </form>
@@ -464,6 +470,6 @@ $('#description').summernote({
     tabsize: 2,
     height: 300
 });
-</script>  
+</script>
 <!-- here this code end of the editer js -->
 @endsection

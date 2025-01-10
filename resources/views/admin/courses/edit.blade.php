@@ -159,7 +159,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <!-- <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="coordinator_id">Coordinator ID :</label>
                                 <div class="form-group position-relative">
@@ -217,7 +217,148 @@
                                         value="{{ $course->asst_coordinator_5_id }}">
                                 </div>
                             </div>
+                        </div> -->
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="coordinator_id">Coordinator ID :</label>
+                                <div class="form-group position-relative">
+                                    <select class="form-select form-control h-58" name="coordinator_id" id="coordinator_id">
+                                        <option value="" class="text-dark">Select Name</option>
+                                        @foreach($staff_members as $member)
+                                        <option value="{{ $member->name }}" class="text-dark"
+                                            {{ $course->coordinator_id == $member->name ? 'selected' : '' }}>
+                                            {{ $member->name }}
+                                        </option>
+                                        @endforeach
+                                        @foreach($faculty_members as $member)
+                                        <option value="{{ $member->name }}" class="text-dark"
+                                            {{ $course->coordinator_id == $member->name ? 'selected' : '' }}>
+                                            {{ $member->name }}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
                         </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="asst_coordinator_1_id">1st Asst. Co-ordinator :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <select class="form-select form-control h-58" name="asst_coordinator_1_id" id="asst_coordinator_1_id">
+                                        <option value="" class="text-dark">Select Name</option>
+                                        @foreach($staff_members as $member)
+                                        <option value="{{ $member->name }}" class="text-dark"
+                                            {{ $course->asst_coordinator_1_id == $member->name ? 'selected' : '' }}>
+                                            {{ $member->name }}
+                                        </option>
+                                        @endforeach
+                                        @foreach($faculty_members as $member)
+                                        <option value="{{ $member->name }}" class="text-dark"
+                                            {{ $course->asst_coordinator_1_id == $member->name ? 'selected' : '' }}>
+                                            {{ $member->name }}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="asst_coordinator_2_id">2nd Asst. Co-ordinator :</label>
+                                <div class="form-group position-relative">
+                                    <select class="form-select form-control h-58" name="asst_coordinator_2_id" id="asst_coordinator_2_id">
+                                        <option value="" class="text-dark">Select Name</option>
+                                        @foreach($staff_members as $member)
+                                        <option value="{{ $member->name }}" class="text-dark"
+                                            {{ $course->asst_coordinator_2_id == $member->name ? 'selected' : '' }}>
+                                            {{ $member->name }}
+                                        </option>
+                                        @endforeach
+                                        @foreach($faculty_members as $member)
+                                        <option value="{{ $member->name }}" class="text-dark"
+                                            {{ $course->asst_coordinator_2_id == $member->name ? 'selected' : '' }}>
+                                            {{ $member->name }}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="asst_coordinator_3_id">3rd Asst. Co-ordinator :</label>
+                                <div class="form-group position-relative">
+                                    <select class="form-select form-control h-58" name="asst_coordinator_3_id" id="asst_coordinator_3_id">
+                                        <option value="" class="text-dark">Select Name</option>
+                                        @foreach($staff_members as $member)
+                                        <option value="{{ $member->name }}" class="text-dark"
+                                            {{ $course->asst_coordinator_3_id == $member->name ? 'selected' : '' }}>
+                                            {{ $member->name }}
+                                        </option>
+                                        @endforeach
+                                        @foreach($faculty_members as $member)
+                                        <option value="{{ $member->name }}" class="text-dark"
+                                            {{ $course->asst_coordinator_3_id == $member->name ? 'selected' : '' }}>
+                                            {{ $member->name }}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Repeat for 4th and 5th Assistant Coordinators -->
+
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="asst_coordinator_4_id">4th Asst. Co-ordinator :</label>
+                                <div class="form-group position-relative">
+                                    <select class="form-select form-control h-58" name="asst_coordinator_4_id" id="asst_coordinator_4_id">
+                                        <option value="" class="text-dark">Select Name</option>
+                                        @foreach($staff_members as $member)
+                                        <option value="{{ $member->name }}" class="text-dark"
+                                            {{ $course->asst_coordinator_4_id == $member->name ? 'selected' : '' }}>
+                                            {{ $member->name }}
+                                        </option>
+                                        @endforeach
+                                        @foreach($faculty_members as $member)
+                                        <option value="{{ $member->name }}" class="text-dark"
+                                            {{ $course->asst_coordinator_4_id == $member->name ? 'selected' : '' }}>
+                                            {{ $member->name }}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="asst_coordinator_5_id">5th Asst. Co-ordinator :</label>
+                                <div class="form-group position-relative">
+                                    <select class="form-select form-control h-58" name="asst_coordinator_5_id" id="asst_coordinator_5_id">
+                                        <option value="" class="text-dark">Select Name</option>
+                                        @foreach($staff_members as $member)
+                                        <option value="{{ $member->name }}" class="text-dark"
+                                            {{ $course->asst_coordinator_5_id == $member->name ? 'selected' : '' }}>
+                                            {{ $member->name }}
+                                        </option>
+                                        @endforeach
+                                        @foreach($faculty_members as $member)
+                                        <option value="{{ $member->name }}" class="text-dark"
+                                            {{ $course->asst_coordinator_5_id == $member->name ? 'selected' : '' }}>
+                                            {{ $member->name }}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="col-lg-6">
                             <div class="form-group mb-0">
                                 <label class="label" for="important_links">Important Links :</label>
@@ -268,25 +409,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
-                            <div class="form-group mb-4">
-                                <label class="label" for="registration_on">Registration on :</label>
-                                <div class="form-group position-relative">
-                                    <input class="form-check-input" type="radio" value="1" id="registration_on"
-                                        name="registration_on" {{ $course->registration_on == 1 ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="registration_on">
-                                        On
-                                    </label>
-                                </div>
-                                <div class="form-group position-relative">
-                                    <input class="form-check-input" type="radio" value="0" id="registration_on"
-                                        name="registration_on" {{ $course->registration_on == 0 ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="registration_on">
-                                        Off
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
+                       
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="page_status">Status :</label>

@@ -259,6 +259,9 @@ public function footer_image_update(Request $request, $id)
     }
 
     // Update footer image data
+    $footerImage->title = $request->title;
+    $footerImage->link = $request->link;
+    $footerImage->description = $request->description;
     $footerImage->language = $request->language;
     $footerImage->status = $request->status ?? 0;
     $footerImage->save();
@@ -364,27 +367,46 @@ public function footer_images_status_update(Request $request, $id)
     // Update an existing quick link
     public function quick_link_update(Request $request, $id)
     {
+        // print_r($_POST);die;
         $request->validate([
-            'text' => 'required',
+            'text' => 'required|string|max:255',
+            'url' => 'nullable',
+            'url_type' => 'nullable', // Adjust values as needed
+            'status' => 'nullable|boolean',
+            'file' => 'nullable', // Restrict file types and size
         ]);
-
+    
         $quickLink = QuickLink::findOrFail($id);
-
-        
+    
         // Handle file upload if a file is uploaded
         if ($request->hasFile('file')) {
+            // Delete the old file if it exists
+            if ($quickLink->file && file_exists(public_path('quick-links-files/' . $quickLink->file))) {
+                unlink(public_path('quick-links-files/' . $quickLink->file));
+            }
+        
+            // Save the new file
             $fileName = time() . '.' . $request->file->extension();
             $request->file->move(public_path('quick-links-files'), $fileName);
+        
+            // Assign the new file name to the model
             $quickLink->file = $fileName;
         }
     
         // Update quick link data
         $quickLink->text = $request->text;
-        $quickLink->url = $request->url ?? null;
+        if($request->link_type  == 'file' ){
+            $quickLink->url =  null;
+        }else if($request->link_type == 'url'){
+            $quickLink->file = null;
+        }
+       
+    
         $quickLink->url_type = $request->url_type ?? null;
         $quickLink->status = $request->status ?? 0;
         $quickLink->save();
-
+    
+        // Log the update action in ManageAudit
         ManageAudit::create([
             'Module_Name' => 'Quick Link', // Static value
             'Time_Stamp' => time(), // Current timestamp
@@ -393,9 +415,11 @@ public function footer_images_status_update(Request $request, $id)
             'Action_Type' => 'Update', // Static value
             'IP_Address' => $request->ip(), // Get IP address from request
         ]);
-
+    
+        // Redirect with success message
         return redirect()->route('admin.quick_links.index')->with('success', 'Quick Link updated successfully.');
     }
+    
 
     // Soft delete a quick link
     public function quick_link_destroy($id)
