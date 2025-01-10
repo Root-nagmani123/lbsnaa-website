@@ -61,7 +61,6 @@
                     <div class="col-lg-6">
                         <div class="form-group mb-4">
                             <label for="sub_heading" class="label">Sub Heading</label>
-                            <span class="star">*</span>
                             <div class="form-group position-relative">
                                 <input type="text" name="sub_heading" id="sub_heading"
                                     class="form-control text-dark  h-58"
@@ -75,7 +74,6 @@
                     <div class="col-lg-6">
                         <div class="form-group mb-4">
                             <label for="home_title" class="label">Home Title</label>
-                            <span class="star">*</span>
                             <div class="form-group position-relative">
                                 <input type="text" name="home_title" id="home_title"
                                     class="form-control text-dark  h-58"

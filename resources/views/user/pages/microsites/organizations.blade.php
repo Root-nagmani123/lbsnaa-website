@@ -48,18 +48,34 @@
 
                 <!-- Modal -->
                 <div class="modal fade" id="organizationModal{{ $organization->id }}" tabindex="-1" aria-labelledby="organizationModalLabel{{ $organization->id }}" aria-hidden="true">
-                    <div class="modal-dialog">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                         <div class="modal-content">
                             <div class="modal-header">
                                 
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <img src="{{ asset($organization->main_image) }}" class="avatar avatar-xl rounded-circle mb-4" 
-                                alt="organization Image" style="object-fit: cover;">
-                                <p><strong> {{ $organization->employee_name }}, {{ $organization->designation }} </strong></p>
-                                <p><strong>Email:</strong> {{ $organization->email }}</p>
-                                <p>{{ strip_tags($organization->program_description) }}</p>
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <img src="{{ asset($organization->main_image) }}" class="img-fluid rounded-4 mb-4" 
+                                        alt="organization Image" style="object-fit: cover;height:100px;">
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <p>Name:-</p>
+                                        <p>Designation:-</p>
+                                        <p>Email:-</p>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <p><strong>
+                                        {{ $organization->employee_name }}
+                                        </strong></p>
+                                        <p>{{ $organization->designation }}</p>
+                                        <p>{{ $organization->email }}</p>
+                                    </div>
+                                    <div class="col-lg-12">
+                                    <p>{{ strip_tags($organization->program_description) }}</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

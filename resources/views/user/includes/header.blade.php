@@ -89,7 +89,7 @@
                 <!-- Tooltip Items -->
                 <li class="nav-item">
                     <a class="nav-link" href="#news" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                        title="Refresh News">
+                        title="Skip to main content">
                         <i class="material-icons menu-icon">restart_alt</i>
                     </a>
                 </li>
