@@ -82,7 +82,7 @@ class MicroMenuController extends Controller
                             ->where('status', 1)
                             ->pluck('research_centre_name', 'id'); // Replace 'name' and 'id' with your actual column names.
 
-        // Build menu options
+
         $menuOptions = $this->buildMenuOptions();
 
         // Return view with filtered research centres and menu options
@@ -121,12 +121,7 @@ class MicroMenuController extends Controller
             'menu_status' => 'required|in:1,0',
             
         ]);
-        // dd($request->all());
-        // Check if 'web_site_target' has a valid integer value, or redirect back if invalid
-        // if ($request->input('web_site_target') == 'Select') {
-        //     return redirect()->back()->with('error', 'Please select a valid website target.');
-        // }
-        // dd($request);
+
         // Create new menu entry
         $menu = new micromenu();
         $menu->language = $request->language;
@@ -177,18 +172,64 @@ class MicroMenuController extends Controller
     }
 
 
+    // public function edit($id)
+    // {
+    //     $menu = micromenu::find($id);
+    //     $menus = micromenu::all();
+    //     $menuOptions = $this->getMenuOptions($menus, $menu->menucategory);
+    //     $researchCentres = DB::table('research_centres')
+    //     ->select('id', 'research_centre_name')
+    //     ->pluck('research_centre_name', 'id')
+    //     ->toArray();
+
+    //     return view('admin.micro.manage_micromenus.edit', compact('menu', 'menuOptions','researchCentres'));
+    // }
+
+
     public function edit($id)
-    {
-        $menu = micromenu::find($id);
-        $menus = micromenu::all();
-        $menuOptions = $this->getMenuOptions($menus, $menu->menucategory);
-        $researchCentres = DB::table('research_centres')
+{
+    // Fetch the menu details using Query Builder
+    $menu = DB::table('micromenus')->where('id', $id)->first();
+
+    if (!$menu) {
+        return redirect()->back()->with('error', 'Menu not found.');
+    }
+
+    // Fetch all menus related to the same research centre
+    $menus = DB::table('micromenus')
+        ->where('research_centreid', $menu->research_centreid) // Filter menus by research_centre_id
+        ->get();
+
+    // Build the menu options for the dropdown
+    $menuOptions = $this->buildMenuOptionsss($menus, $menu->menucategory);
+
+    // Fetch all research centres
+    $researchCentres = DB::table('research_centres')
         ->select('id', 'research_centre_name')
         ->pluck('research_centre_name', 'id')
         ->toArray();
 
-        return view('admin.micro.manage_micromenus.edit', compact('menu', 'menuOptions','researchCentres'));
+    return view('admin.micro.manage_micromenus.edit', compact('menu', 'menuOptions', 'researchCentres'));
+}
+
+// Function to build menu options hierarchically
+private function buildMenuOptionsss($menus, $selectedCategory = null, $parentId = 0, $level = 0)
+{
+    $html = '';
+
+    foreach ($menus->where('parent_id', $parentId) as $menu) {
+        $indent = str_repeat('&nbsp;', $level * 4); // Add indentation for hierarchy
+        $isSelected = $menu->id == $selectedCategory ? 'selected' : ''; // Mark selected option
+        $html .= "<option value=\"{$menu->id}\" {$isSelected}>{$indent}{$menu->menutitle}</option>";
+
+        // Recursively add child menus
+        $html .= $this->buildMenuOptionsss($menus, $selectedCategory, $menu->id, $level + 1);
     }
+
+    return $html;
+}
+
+
 
     private function getMenuOptions($menus, $selectedCategoryId, $parentId = 0, $indent = '')
     {
@@ -248,21 +289,27 @@ class MicroMenuController extends Controller
         return redirect()->route('micromenus.index')->with('success', 'Menu updated successfully.');
     }
 
+
+
     public function delete($id)
     {
-        // Retrieve the menu from the database
         $menu = micromenu::findOrFail($id);
-        // Check if the menu's status is 1 (Inactive)
+
         if ($menu->menu_status == 1) {
-            // If the status is inactive, prevent deletion and show an error message
             return redirect()->route('micromenus.index')->with('error', 'Active menus cannot be deleted.');
         }
-        // If the menu is not inactive, mark it as deleted (soft delete)
+
+        // Mark the menu as deleted
         $menu->is_deleted = 1;
-        $menu->save();
-        // Redirect with a success message
-        return redirect()->route('micromenus.index')->with('success', 'Menu marked as deleted successfully.');
+        $saved = $menu->save();
+
+        if ($saved) {
+            return redirect()->route('micromenus.index')->with('success', 'Menu marked as deleted successfully.');
+        } else {
+            return redirect()->route('micromenus.index')->with('error', 'Failed to delete the menu.');
+        }
     }
+
 
 
     public function toggleStatus(Request $request, $id)
@@ -274,4 +321,70 @@ class MicroMenuController extends Controller
 
         return response()->json(['status' => $menu->menu_status]);
     }
+    
+
+    public function getDropdownMenu(Request $request)
+    {
+        try {
+            // Log the input to debug
+            \Log::info('Request Data:', $request->all());
+
+            $researchCentreId = $request->input('research_centre_id');
+            if (!$researchCentreId) {
+                return response()->json(['error' => 'Research Centre ID is missing'], 400);
+            }
+
+            // Log the research centre ID
+            \Log::info('Research Centre ID:', ['id' => $researchCentreId]);
+
+            // Query the database
+            $categories = DB::table('micromenus')
+                ->where('menu_status', 1)
+                ->where('is_deleted', 0)
+                ->where('research_centreid', $researchCentreId)
+                ->get();
+            // Log the query result
+            \Log::info('Categories:', $categories->toArray());
+
+            if ($categories->isEmpty()) {
+                return response()->json(['error' => 'No categories found for the selected research centre.'], 404);
+            }
+
+            $menuOptions = $this->buildMenuOptionss($categories);
+
+            // Log the menu options
+            \Log::info('Menu Options:', ['options' => $menuOptions]);
+
+            return response()->json(['menuOptions' => $menuOptions]);
+
+        } catch (\Exception $e) {
+            // Log the exception details
+            \Log::error('Error in getDropdownMenu:', [
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine()
+            ]);
+
+            return response()->json(['error' => 'An unexpected error occurred.'], 500);
+        }
+    }
+
+
+    private function buildMenuOptionss($categories, $parentId = 0, $level = 0)
+    {
+        $html = '';
+        foreach ($categories->where('parent_id', $parentId) as $category) {
+            $indent = str_repeat('&nbsp;', $level * 4);
+            $html .= "<option value=\"{$category->id}\">{$indent}{$category->menutitle}</option>";
+            $html .= $this->buildMenuOptionss($categories, $category->id, $level + 1);
+        }
+        return $html;
+    }
+
+
+
+
+
+
+
 }

@@ -139,13 +139,10 @@ Route::middleware(['check.trainings'])->group(function () {
         ->name('user.trainings');  // Set the correct route name here
 });
 
-
-
-//micro 
-
-
-
-
+Route::get('lbsnaa-sub_de/training/{id}/{slug}', [HomePagesMicroController::class, 'details'])->name('user.details');
+Route::post('/get-research-centres', [MicroVideoGalleryController::class, 'getResearchCentres'])->name('user.dropdowns.getResearchCentres'); // Fetch research centres
+Route::get('/get-menus', [MicroMenuController::class, 'getDropdownMenu'])->name('get.menus');
+//micro
 // Indrajeet Home page dynamic
 Route::get('/lbsnaa-sub_n/media_gallery', [HomePagesMicroController::class,'media_gallery'])->name('user.media_gallery');
 Route::get('/lbsnaa-sub_n/photo-galleries/filterGallery', [HomePagesMicroController::class, 'filterGallery'])->name('photoGalleries.filterGallery');
@@ -158,10 +155,6 @@ Route::get('/lbsnaa-sub_v/video-gallery', [HomePagesMicroController::class, 'vid
 // Route::get('/lbsnaa-sub_c/category/{id}', [HomePagesMicroController::class, 'show'])->name('category.details');
 // Route::get('/category/{slug}', [CategoryController::class, 'show'])->name('category.details');
 Route::get('/lbsnaa-sub_c/category/{id}/{slug}', [HomePagesMicroController::class, 'show'])->name('category.details');
-
-
-
-
 
 
 Route::middleware('auth')->group(function () {
@@ -184,8 +177,8 @@ Route::post('/admin/menus/{id}/toggle-status', [MenuController::class, 'toggleSt
 
 Route::prefix('admin')->group(function () {
 
-    Route::get('module', [UserManagementController::class, 'index'])->name('UserManagement.module');
-  Route::post('/module', [UserManagementController::class, 'store'])->name('module.store');
+Route::get('module', [UserManagementController::class, 'index'])->name('UserManagement.module');
+Route::post('/module', [UserManagementController::class, 'store'])->name('module.store');
 Route::post('/module/{id}', [UserManagementController::class, 'update'])->name('module.update');
 Route::delete('/module/{id}', [UserManagementController::class, 'destroy'])->name('module.destroy');
 
@@ -459,7 +452,6 @@ Route::post('/screenrender/update', [HomeController::class, 'screen_reader_updat
     // Route::post('researchcentres/{id}/delete', [ManageResearchCentreController::class, 'researchcentresDestroy'])->name('researchcentres.destroy');
     Route::delete('researchcentres/{id}/delete', [ManageResearchCentreController::class, 'researchcentresDestroy'])->name('researchcentres.destroy');
 
-    // Route::resource('micro-photo-gallery', MicroManagePhotoGalleryController::class);
     // Manage micro news route
     Route::resource('Managenews', ManageNewsController::class);
 
@@ -469,12 +461,7 @@ Route::post('/screenrender/update', [HomeController::class, 'screen_reader_updat
     Route::post('/admin/micromenu', [MicroMenuController::class, 'store'])->name('micromenus.store');
     Route::get('/admin/micromenu/{id}/edit', [MicroMenuController::class, 'edit'])->name('micromenus.edit');
     Route::put('/admin/micromenu/{id}', [MicroMenuController::class, 'update'])->name('micromenu.update');
-    Route::get('/admin/micromenu/{id}/delete', [MicroMenuController::class, 'delete'])->name('micromenu.delete');
-
-
-    // Route::delete('/admin/micromenu/{id}/delete', [MicroMenuController::class, 'destroy'])->name('admin.micromenu.delete');
-
-
+    Route::delete('/admin/micromenu/{id}/delete', [MicroMenuController::class, 'delete'])->name('micromenu.delete');
 
     Route::post('/micromenu/{id}/toggle-status', [MicroMenuController::class, 'toggleStatus'])->name('micromenus.toggleStatus');
 

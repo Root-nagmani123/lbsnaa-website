@@ -123,7 +123,7 @@
                                     </select>
                                 </div>
                             </div>
-                        </div>
+                        </div> 
                         
                         <div class="d-flex ms-sm-3 ms-md-0">
                             <button class="btn btn-success text-white fw-semibold" type="submit">Update</button> &nbsp;
@@ -136,5 +136,40 @@
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+    $('#category_name').change(function () {
+        var categoryId = $(this).val();
 
+        if (categoryId) {
+            $.ajax({
+                url: "{{ route('user.dropdowns.getResearchCentres') }}",
+                method: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: { category_id: categoryId },
+                success: function (response) {
+                    $('#research_centre').empty().append('<option value="">Select Research Centre</option>');
+                    $.each(response.data, function (key, value) {
+                        $('#research_centre').append('<option value="' + key + '">' + value + '</option>');
+                    });
+
+                    @if(old('research_centre'))
+                        $('#research_centre').val('{{ old('research_centre') }}');
+                    @endif
+                },
+                error: function (xhr) {
+                    alert('Error loading data.');
+                }
+            });
+        } else {
+            $('#research_centre').empty().append('<option value="">Select Research Centre</option>');
+        }
+    });
+});
+
+
+</script>
 @endsection

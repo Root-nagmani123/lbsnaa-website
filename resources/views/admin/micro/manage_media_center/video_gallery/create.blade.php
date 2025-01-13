@@ -28,24 +28,10 @@
                 <form action="{{ route('micro-video-gallery.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-                        <!-- <div class="col-lg-6">
-                            <div class="form-group mb-4">
-                                <label for="category_name">Category Name :</label>
-                                <span class="star">*</span>
-                                <select name="category_name" id="category_name" class="form-control">
-                                    <option value="">Select</option>
-                                    <option value="Video"  {{ old('category_name') == 'Video' ? 'selected' : '' }}>Video</option>
-                                </select>
-                                @error('category_name')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div> -->
-
 
                         <div class="col-lg-6">
-                            <div class="form-group mb-4">
-                                <label for="category_name" class="label">Category Name</label>
+                            <div class="form-group mb-4"> 
+                                <label for="category_name" class="label">Media Category</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <select name="category_name" id="category_name" class="form-control text-dark  h-58">
@@ -63,22 +49,19 @@
                             </div>
                         </div>
 
-
                         <div class="col-lg-6">
-                            <div class="form-group mb-4">
-                                <label for="select_research_centre">Select Research Centre:</label>
-                                <span class="star">*</span>
-                                <select name="research_centre" class="form-control">
-                                    <option value="" selected>Select Research Centre</option>
-                                    @foreach ($researchCentres as $id => $name)
-                                    <option value="{{ $id }}">{{ $name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('research_centre')
+                            <label for="research_centre">Research Centre</label>
+                            <span class="star">*</span>
+                            <select name="research_centre" id="research_centre" class="form-control">
+                                <option value="">Select Research Centre</option>
+                            </select>
+                            @error('research_centre')
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror
-                            </div>
                         </div>
+
+                        
+
 
 
                         <div class="col-lg-6">
@@ -138,3 +121,39 @@
     </div>
 </div>
 @endsection
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+    $('#category_name').change(function () {
+        var categoryId = $(this).val();
+
+        if (categoryId) {
+            $.ajax({
+                url: "{{ route('user.dropdowns.getResearchCentres') }}",
+                method: "POST",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: { category_id: categoryId },
+                success: function (response) {
+                    $('#research_centre').empty().append('<option value="">Select Research Centre</option>');
+                    $.each(response.data, function (key, value) {
+                        $('#research_centre').append('<option value="' + key + '">' + value + '</option>');
+                    });
+
+                    @if(old('research_centre'))
+                        $('#research_centre').val('{{ old('research_centre') }}');
+                    @endif
+                },
+                error: function (xhr) {
+                    alert('Error loading data.');
+                }
+            });
+        } else {
+            $('#research_centre').empty().append('<option value="">Select Research Centre</option>');
+        }
+    });
+});
+
+
+</script>

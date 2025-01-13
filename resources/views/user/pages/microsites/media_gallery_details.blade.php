@@ -12,7 +12,7 @@
                             <a href="{{ route('user.micrositebyslug', ['slug' => $slug]) }}" style="color: #af2910;">Home</a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="#" style="color: #af2910;">Media Gallery</a>
+                            <a href="/lbsnaa-sub_m/mediagallery?slug={{ $slug }}" style="color: #af2910;">Media Gallery</a>
                         </li>
                         <li class="breadcrumb-item active" aria-current="page">Photo Gallery Details</li>
                     </ol>

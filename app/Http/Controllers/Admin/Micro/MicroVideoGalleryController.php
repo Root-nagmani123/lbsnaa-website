@@ -19,7 +19,7 @@ class MicroVideoGalleryController extends Controller
         // Fetching active research centres where status == 1
         $researchCentres = DB::table('research_centres')
         ->where('status', 1) // Filter only active records
-        ->pluck('research_centre_name', 'id');
+        ->pluck('research_centre_name', 'id'); 
 
         return view('admin.micro.manage_media_center.video_gallery.index', compact('videos','researchCentres'));
     }
@@ -97,10 +97,11 @@ class MicroVideoGalleryController extends Controller
             ->where('status', '=', 1) // Explicitly specify the condition
             ->where('media_gallery', 2)
             ->get();
-        // dd($categories);
-        $researchCentres = DB::table('research_centres')
-            ->where('status', 1)  // Filter where status is 1
-            ->pluck('research_centre_name', 'id');  // Replace 'research_centre_name' and 'id' with your actual column names
+            // Fetch all research centres for dropdown
+        $researchCentres = DB::table('micro_video_galleries as mvg')
+        ->join('research_centres as rc', 'mvg.research_centre', '=', 'rc.id')
+        ->where('mvg.id', $id)
+        ->pluck('rc.research_centre_name', 'rc.id');
 
         // Return the edit view with video and categories data
         return view('admin.micro.manage_media_center.video_gallery.edit', compact('video', 'categories','researchCentres'));
@@ -187,5 +188,37 @@ class MicroVideoGalleryController extends Controller
 
         return redirect()->route('micro-video-gallery.index')->with('success', 'Video deleted successfully.');
     }
+
+    public function getResearchCentres(Request $request)
+    {
+        // Validate request
+        $request->validate([
+            'category_id' => 'required|integer',
+        ]);
+
+        $categoryId = $request->category_id;
+
+         // Fetch research centres based on category_id using JOIN
+        $researchCentres = DB::table('micro_media_categories as mmc')
+        ->join('research_centres as rc', 'mmc.research_centre', '=', 'rc.id') // JOIN दोनों टेबल्स को
+        ->where('mmc.id', $categoryId) // 'category_id' के आधार पर शोध सेंटर्स प्राप्त करें
+        ->pluck('rc.research_centre_name', 'rc.id'); // research_centre_name और id प्राप्त करें
+
+        if ($researchCentres->isEmpty()) {
+            return response()->json([
+                'data' => [],
+                'message' => "No research centres found"
+            ], 200);
+        }
+
+        return response()->json([
+            'data' => $researchCentres,
+            'message' => "Research centres fetched successfully"
+        ], 200);
+    }
+
+    
+    
+
 
 }

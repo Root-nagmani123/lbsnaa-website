@@ -11,10 +11,10 @@
                         <li class="breadcrumb-item">
                             <a href="{{ route('user.micrositebyslug', ['slug' => $slug]) }}" style="color: #af2910;">Home</a>
                         </li>
-                        <li class="breadcrumb-item">
+                        <!-- <li class="breadcrumb-item">
                             <a href="#" style="color: #af2910;">Training Program </a>
-                        </li>
-                        <li class="breadcrumb-item active" aria-current="page">Training Program Details</li>
+                        </li> -->
+                        <li class="breadcrumb-item active" aria-current="page">Training Program</li>
                     </ol>
                 </nav>
             </div>
@@ -27,7 +27,7 @@
     @if($trainingprograms->isNotEmpty())
     <div class="row">
         @foreach ($trainingprograms as $index => $training)
-       <div class="col-lg-9 col-12">
+       <div class="col-lg-9 col-12"> 
        <table class="table table-striped table-hover table-bordered">
                     <thead>
                         <tr>
@@ -41,7 +41,11 @@
                     <tbody>
                         <tr>
                             <td>{{ $index + 1 }}</td>
-                            <td>{{ $training->program_name }}</td>
+                            <td>
+                                <a href="{{ route('user.details', ['id' => $training->id, 'slug' => $training->research_centre_slug]) }}">
+                                    {{ $training->program_name }}
+                                </a>
+                            </td>
                             <td>{{ $training->venue }}</td>
                             <td>{{ $training->start_date }} To {{ $training->end_date }}</td>
                             <td>{{ $training->registration_status == 1 ? 'On' : 'Off' }}</td>
@@ -56,7 +60,7 @@
     @endif
     <!-- Quick Links -->
     <div class="col-12 col-lg-3 mb-4">
-    <div class="card card-hover border">
+        <div class="card card-hover border">
                     <div class="card-header" style="background-color: #af2910;">
                         <h3 class="text-white">Quick Links</h3>
                     </div>
