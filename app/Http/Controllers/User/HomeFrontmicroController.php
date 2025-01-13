@@ -92,9 +92,40 @@ class HomeFrontmicroController extends Controller
 
 
 
+    // public function get_navigation_pages(Request $request, $slug, $childSlug = null)
+    // {
+    //     $slug = $request->query('slug', $slug); // If there's a query parameter, use that, otherwise fallback to the route parameter
+    //     // Generate breadcrumb based on slug
+    //     $breadcrumb = $this->generateBreadcrumb($slug);
+    //     // dd($breadcrumb);
+    //     // Fetch data for rendering
+    //     $nav_page = DB::table('micromenus')
+    //         ->where('menu_status', 1)
+    //         ->where('is_deleted', 0)
+    //         ->where('menu_slug', $slug)
+    //         ->first();
+
+    //     $quickLinks = DB::table('micro_quick_links')
+    //         ->join('research_centres', 'micro_quick_links.research_centre_id', '=', 'research_centres.id')  // Join with 'research_centres'
+    //         ->where('micro_quick_links.categorytype', 2)
+    //         ->where('micro_quick_links.status', 1)
+    //         ->when($slug, function ($query) use ($slug) {
+    //             return $query->where('research_centres.research_centre_slug', $slug);  // Filter by slug if provided
+    //         })
+    //         ->whereDate('micro_quick_links.start_date', '<=', now())  // Ensure start_date is before or equal to today
+    //         ->whereDate('micro_quick_links.termination_date', '>=', now())  // Ensure termination_date is after or equal to today
+    //         ->select('micro_quick_links.*', 'research_centres.research_centre_name as research_centre_name')
+    //         ->get();
+
+    //     // Return view with variables
+    //     return view('user.pages.microsites.navigationmenubyslug', compact('nav_page', 'breadcrumb', 'quickLinks','slug'));
+    // }
+
     public function get_navigation_pages(Request $request, $slug, $childSlug = null)
     {
-        $slug = $request->query('slug', $slug); // If there's a query parameter, use that, otherwise fallback to the route parameter
+        
+        // $slug = $request->query('slug', $slug); // If there's a query parameter, use that, otherwise fallback to the route parameter
+        // dd($slug);
         // Generate breadcrumb based on slug
         $breadcrumb = $this->generateBreadcrumb($slug);
         // Fetch data for rendering
@@ -103,6 +134,8 @@ class HomeFrontmicroController extends Controller
             ->where('is_deleted', 0)
             ->where('menu_slug', $slug)
             ->first();
+
+        $slug = $request->query('slug', $slug);
 
         $quickLinks = DB::table('micro_quick_links')
             ->join('research_centres', 'micro_quick_links.research_centre_id', '=', 'research_centres.id')  // Join with 'research_centres'
@@ -115,11 +148,9 @@ class HomeFrontmicroController extends Controller
             ->whereDate('micro_quick_links.termination_date', '>=', now())  // Ensure termination_date is after or equal to today
             ->select('micro_quick_links.*', 'research_centres.research_centre_name as research_centre_name')
             ->get();
-
+            // dd($slug);
         // Return view with variables
-        return view('user.pages.microsites.navigationmenubyslug', compact('nav_page', 'breadcrumb', 'quickLinks','slug'));
+        return view('user.pages.microsites.navigationmenubyslug', compact('nav_page', 'breadcrumb','quickLinks','slug'));
     }
-
-
 
 }

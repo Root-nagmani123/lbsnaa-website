@@ -40,18 +40,20 @@
                                 @enderror
                             </div>
                         </div>
+
+
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label for="select_research_centre">Select Research Centre:</label>
                                 <span class="star">*</span>
-                                <select name="research_centre" class="form-control">
+                                <select id="select_research_centre" name="research_centre" class="form-control">
                                     <option value="" selected>Select Research Centre</option>
                                     @foreach ($researchCentres as $id => $name)
-                                    <option value="{{ $id }}">{{ $name }}</option>
+                                        <option value="{{ $id }}">{{ $name }}</option>
                                     @endforeach
                                 </select>
                                 @error('research_centre')
-                                <div class="text-danger">{{ $message }}</div>
+                                    <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
@@ -184,24 +186,23 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> 
                         </div>
+
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
-                                <label class="label" for="menucategory">Primary Link :</label>
+                                <label for="menucategory">Primary Link :</label>
                                 <span class="star">*</span>
-                                <div class="form-group position-relative">
-                                    <select class="form-select form-control  h-58" name="menucategory"
-                                        id="menucategory" autocomplete="off">
-                                        <option value="0" selected class="text-dark">It is Root Category</option>
-                                        {!! $menuOptions !!}
-                                    </select>
-                                    @error('menucategory')
+                                <select class="form-control" name="menucategory" id="menucategory">
+                                    <option value="0" selected>It is Root Category</option>
+                                </select>
+                                @error('menucategory')
                                     <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                                @enderror
                             </div>
                         </div>
+
+
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="txtpostion">Content Position :</label>
@@ -305,4 +306,40 @@ function showDateFields(value) {
         }
     }
 </script>
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#select_research_centre').on('change', function () {
+            let researchCentreId = $(this).val();
+
+            // Clear previous menu options
+            $('#menucategory').html('<option value="0">It is Root Category</option>');
+
+            if (researchCentreId) {
+                $.ajax({
+                    url: "{{ route('get.menus') }}",
+                    type: "GET",
+                    data: { research_centre_id: researchCentreId },
+                    success: function (response) {
+                        if (response.menuOptions) {
+                            $('#menucategory').append(response.menuOptions);
+                        } else if (response.error) {
+                            alert(response.error);
+                        }
+                    },
+                    // error: function (xhr) {
+                    //     console.error('Error fetching menus:', xhr.responseText);
+                    //     alert('An error occurred while fetching menu options.');
+                    // }
+                });
+            }
+        });
+    });
+</script>
+
+
+
 @endsection

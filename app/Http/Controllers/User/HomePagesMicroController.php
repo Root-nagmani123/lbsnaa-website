@@ -258,8 +258,8 @@ class HomePagesMicroController extends Controller
             ->where('rc.research_centre_slug', $slug)
             ->whereDate('mmtp.start_date', '<=', $today)  // Start date must be less than or equal to today
             ->whereDate('mmtp.end_date', '>=', $today)    // End date must be greater than or equal to today
-            ->select('mmtp.program_name', 'mmtp.venue', 'mmtp.start_date', 'mmtp.end_date', 'mmtp.registration_status', 'mmtp.id')
-            ->get();
+            ->select('mmtp.program_name', 'mmtp.venue', 'mmtp.start_date', 'mmtp.end_date', 'mmtp.registration_status', 'mmtp.id', 'rc.research_centre_slug')
+            ->get(); 
         
         $quickLinks = DB::table('micro_quick_links')
             ->join('research_centres', 'micro_quick_links.research_centre_id', '=', 'research_centres.id')  // Join with 'research_centres'
@@ -277,7 +277,38 @@ class HomePagesMicroController extends Controller
         return view('user.pages.microsites.training_program', compact('trainingprograms','quickLinks','slug'));
     }
 
-       
+    public function details(Request $request, $id, $slug)
+    {
+        $slug = $request->query('slug', $slug);
+        $today = now(); // Current date and time
+    
+        // Fetch training details using the provided ID
+        $trainingdetails = DB::table('micro_manage_training_programs as mmtp')
+            ->join('research_centres as rc', 'mmtp.research_centre', '=', 'rc.id')
+            ->where('mmtp.page_status', 1)
+            ->where('mmtp.id', $id) // Use ID directly passed from the route
+            ->whereDate('mmtp.start_date', '<=', $today) // Start date <= today
+            ->whereDate('mmtp.end_date', '>=', $today) // End date >= today
+            ->select('rc.research_centre_slug','mmtp.program_name', 'mmtp.venue', 'mmtp.start_date', 'mmtp.end_date', 'mmtp.registration_status', 'mmtp.id', 'mmtp.program_coordinator','mmtp.program_description')
+            ->first(); // Use first() instead of get() for a single record
+    
+        // Debugging to check the output (optional)
+        $quickLinks = DB::table('micro_quick_links')
+        ->join('research_centres', 'micro_quick_links.research_centre_id', '=', 'research_centres.id')  // Join with 'research_centres'
+        ->where('micro_quick_links.categorytype', 2)
+        ->where('micro_quick_links.status', 1)
+        ->when($slug, function ($query) use ($slug) {
+            return $query->where('research_centres.research_centre_slug', $slug);  // Filter by slug if provided
+        })
+        ->whereDate('micro_quick_links.start_date', '<=', now())  // Ensure start_date is before or equal to today
+        ->whereDate('micro_quick_links.termination_date', '>=', now())  // Ensure termination_date is after or equal to today
+        ->select('micro_quick_links.*', 'research_centres.research_centre_name as research_centre_name')
+        ->get();
+
+        // Return view with training details
+        return view('user.pages.microsites.training_details', compact('trainingdetails','slug','quickLinks'));
+    }
+    
 
 
 

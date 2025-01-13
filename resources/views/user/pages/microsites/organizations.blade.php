@@ -12,9 +12,6 @@
                             <a href="{{ route('user.micrositebyslug', ['slug' => $slug]) }}"
                                 style="color: #af2910;">Home</a>
                         </li>
-                        <li class="breadcrumb-item">
-                            <a href="#" style="color: #af2910;">Organization</a>
-                        </li>
                         <li class="breadcrumb-item active" aria-current="page">Organization Details</li>
                     </ol>
                 </nav>

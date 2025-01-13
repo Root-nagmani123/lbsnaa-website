@@ -10,10 +10,10 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <!-- Home link -->
-                            <li class="breadcrumb-item">
+                            <li class="breadcrumb-item"> 
                                 <!-- <a href="#" style="color: #af2910;">Home</a> -->
+                                
                                 <a href="{{ route('user.micrositebyslug', ['slug' => $slug]) }}" style="color: #af2910;">Home</a>
-    
                             </li>
                             <!-- Dynamic breadcrumbs -->
                             @foreach ($breadcrumb as $crumb)
@@ -72,7 +72,6 @@
                                             {{ $link->txtename }}
                                         </a>
                                     @elseif($link->pdf_file)
-                                        <!-- For PDF URL -->
                                         <a href="{{ asset('storage/' . $link->pdf_file) }}" class="text-primary" target="_blank">
                                             <span>
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-file-earmark-pdf" viewBox="0 0 16 16">

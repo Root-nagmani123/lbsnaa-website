@@ -52,7 +52,7 @@
                                 <label class="label" for="research_centre">Select Research Centre :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control  h-58" name="research_centre"
+                                    <!-- <select class="form-select form-control  h-58" name="research_centre"
                                         id="research_centre">
                                         <option value="" {{ is_null($menu->research_centreid) ? 'selected' : '' }}>
                                             Select
@@ -62,14 +62,22 @@
                                             {{ (string) $menu->research_centreid === (string) $id ? 'selected' : '' }}>
                                             {{ $name }}</option>
                                         @endforeach
+                                    </select> -->
+                                    <select name="research_centre" class="form-control">
+                                        <option value="" selected>Select Research Centre</option>
+                                        @foreach ($researchCentres as $id => $name)
+                                            <option value="{{ $id }}" {{ $menu->research_centreid == $id ? 'selected' : '' }}>
+                                                {{ $name }}
+                                            </option>
+                                        @endforeach
                                     </select>
                                     @error('research_centre')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
-
                         </div>
+
 
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
@@ -225,22 +233,36 @@
                                 </div>
                             </div>
                         </div>
+
+
+
                         <div class="col-lg-6 mt-4">
                             <div class="form-group mb-4">
                                 <label class="label" for="menucategory">Primary Link :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control  h-58" name="menucategory"
-                                        id="menucategory" autocomplete="off">
-                                        <option value="0" selected class="text-dark">It is Root Category</option>
-                                        {!! $menuOptions !!}
-                                    </select>
+                                <select name="menucategory" id="menucategory" class="form-control">
+                                    <option value="0">It is Root Category</option>
+                                    {!! $menuOptions !!}
+                                </select>
                                     @error('menucategory')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
                         </div>
+
+
+                        <!-- <div class="form-group mb-4">
+                            <label for="menucategory">Primary Link:</label>
+                            <select name="menucategory" id="menucategory" class="form-control">
+                                <option value="0">It is Root Category</option>
+                                {!! $menuOptions !!}
+                            </select>
+                        </div> -->
+
+
+
                         <div class="col-lg-6 mt-4">
                             <div class="form-group mb-4">
                                 <label class="label" for="txtpostion">Content Position :</label>
