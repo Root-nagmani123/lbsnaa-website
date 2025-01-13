@@ -106,7 +106,12 @@
             <!-- Collapse -->
 
             <div class="collapse navbar-collapse" id="navbar-default">
-                <!-- <a href="{{ $slug }}"><span> Home </span></a> -->
+            @php
+                // Check if 'slug' is in the query string, otherwise get it from the route
+                $slug = request()->query('slug') ?: request()->route('slug');
+            @endphp
+
+            <a href="{{ url('/lbsnaa-sub/' . $slug) }}"><span>Home</span></a>                
                 <ul class="navbar-nav me-auto navmenu">
                     @php
                         $slug = request()->query('slug') ?: request()->route('slug');

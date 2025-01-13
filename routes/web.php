@@ -132,6 +132,8 @@ Route::get('lbsnaa-sub_mgd/media_gallery_details/{id}', [HomePagesMicroControlle
 
 Route::get('lbsnaa-sub_org/organizations/{slug}', [HomePagesMicroController::class, 'getAllorganizations'])->name('user.organizations');
 
+Route::get('lbsnaa-sub_wna/whatnewall/{slug}', [HomePagesMicroController::class, 'whatnewall'])->name('user.whatnewall');
+
 
 Route::middleware(['check.trainings'])->group(function () {
     // Define the route that will use the controller
@@ -153,7 +155,9 @@ Route::get('/lbsnaa-sub_v/video-gallery', [HomePagesMicroController::class, 'vid
 
 // Route for displaying category details
 // Route::get('/lbsnaa-sub_c/category/{id}', [HomePagesMicroController::class, 'show'])->name('category.details');
-// Route::get('/category/{slug}', [CategoryController::class, 'show'])->name('category.details');
+Route::get('lbsnaa-sub_ar/archive/{slug}', [HomePagesMicroController::class, 'archive'])->name('user.archive');
+Route::get('lbsnaa-sub_ad/archive_details/{id}', [HomePagesMicroController::class, 'archive_details'])->name('user.archive_details');
+
 Route::get('/lbsnaa-sub_c/category/{id}/{slug}', [HomePagesMicroController::class, 'show'])->name('category.details');
 
 
