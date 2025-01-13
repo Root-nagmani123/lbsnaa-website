@@ -145,16 +145,16 @@ class HomePagesMicroController extends Controller
     {
         // Get the slug from the request (query parameter) or from the route parameter if it's provided
         $slug = $request->query('slug'); // Fetch the 'slug' query parameter from the URL
-
+        // dd($id);
         // Fetch the specific news item by ID and Slug
         $news = DB::table('managenews')
             ->join('research_centres as rc', 'managenews.research_centreid', '=', 'rc.id') // Join with the research_centres table
             ->where('managenews.id', $id) // Filter by the specific news ID
             ->where('rc.research_centre_slug', $slug) // Filter by the research centre slug from the request
             ->where('managenews.status', 1) // Ensure the news is active
-            ->select('managenews.*', 'rc.*') // Select all columns from managenews and research_centres
+            ->select('managenews.*') // Select all columns from managenews and research_centres
             ->first(); // Fetch a single result
-
+            // dd($news);
         // Decode the multiple images JSON array
         if ($news && $news->multiple_images) {
             $news->multiple_images = json_decode($news->multiple_images, true);
@@ -164,6 +164,57 @@ class HomePagesMicroController extends Controller
         // Pass the news item to the view
         return view('user.pages.microsites.newsdetails', compact('news','slug'));
     }
+
+    public function archive(Request $request, $slug)
+    {
+        // Use the slug from the route parameter instead of fetching it from the query string
+        $slug = $request->route('slug');
+
+        // Fetch all records from the managenews table joined with research_centres table
+        $archives = DB::table('managenews as mn')
+            ->join('research_centres as rc', 'mn.research_centreid', '=', 'rc.id') // Join the tables based on research_centreid
+            ->where('mn.status', 1) // Filter by status (active news)
+            ->where('rc.research_centre_slug', $slug) // Filter by research_centre_slug from the slug parameter
+            ->where('mn.start_date', '<', now()) // Exclude records with a future start date
+            ->where(function ($query) {
+                $query->whereNull('mn.end_date') // End date is null (ongoing news)
+                    ->orWhere('mn.end_date', '>=', now()); // Or end date is in the future
+            })
+            ->select('mn.id as managenews_id', 'mn.*', 'rc.*') // Include the primary key of managenews explicitly
+            ->get();
+
+        // Debugging output
+        // dd($archives);
+
+        // Pass the data to the view
+        return view('user.pages.microsites.archive', compact('archives', 'slug'));
+    }
+
+
+    public function archive_details(Request $request, $id)
+    {
+        // Get the slug from the request (query parameter) or from the route parameter if it's provided
+        $slug = $request->query('slug'); // Fetch the 'slug' query parameter from the URL
+        // dd($id);
+        // Fetch the specific news item by ID and Slug
+        $archive_details = DB::table('managenews')
+            ->join('research_centres as rc', 'managenews.research_centreid', '=', 'rc.id') // Join with the research_centres table
+            ->where('managenews.id', $id) // Filter by the specific news ID
+            ->where('rc.research_centre_slug', $slug) // Filter by the research centre slug from the request
+            ->where('managenews.status', 1) // Ensure the news is active
+            ->select('managenews.*') // Select all columns from managenews and research_centres
+            ->first(); // Fetch a single result
+            // dd($news);
+        // Decode the multiple images JSON array
+        if ($archive_details && $archive_details->multiple_images) {
+            $archive_details->multiple_images = json_decode($archive_details->multiple_images, true);
+        }
+        // dd($archive_details);
+
+        // Pass the news item to the view
+        return view('user.pages.microsites.archive_details', compact('archive_details','slug'));
+    }
+
 
     public function videoGallery(Request $request)
     {
@@ -311,6 +362,24 @@ class HomePagesMicroController extends Controller
     
 
 
+    public function whatnewall(Request $request, $slug)
+    {
+        // Join the tables to get data from both 'micro_quick_links' and 'research_centres'
+        $whatnewalls = DB::table('micro_quick_links')  // Start from the 'micro_quick_links' table
+                        ->join('research_centres', 'micro_quick_links.research_centre_id', '=', 'research_centres.id') // Join 'research_centres'
+                        ->where('research_centres.research_centre_slug', $slug)  // Filtering based on the slug
+                        ->where('micro_quick_links.categorytype', 1)
+                        ->where('micro_quick_links.status', 1)
+                        ->whereDate('micro_quick_links.start_date', '<=', now())  // Ensure start_date is before or equal to today
+                        ->whereDate('micro_quick_links.termination_date', '>=', now())  // Ensure termination_date is after or equal to today
+                        ->select('micro_quick_links.*')  // Select all columns from 'micro_quick_links'
+                        ->get();
+    
+        // dd($whatnewalls);  // For debugging, remove this after confirming the data
+    
+        // Pass the data and slug to the view
+        return view('user.pages.microsites.whatnewall', compact('whatnewalls', 'slug'));
+    }
 
 
 

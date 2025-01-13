@@ -108,8 +108,9 @@
                             <label for="program_description" class="label">Program Description</label>
                             <span class="star">*</span>
                             <div class="form-group position-relative">
-                                <input type="text" name="program_description" class="form-control text-dark  h-58"
-                                    value="{{ old('program_description') }}" id="program_description">
+                            <textarea name="program_description" class="form-control text-dark  h-58"
+                            value="{{ old('program_description') }}" id="program_description"></textarea>
+
                                 @error('program_description')
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror

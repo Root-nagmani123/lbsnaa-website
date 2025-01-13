@@ -1,5 +1,5 @@
 @include('user.pages.microsites.includes.header')
-@if(isset($news))
+@if(isset($archive_details))
 <!-- Page Content -->
 <section class="py-4">
     <div class="container-fluid">
@@ -11,11 +11,11 @@
                         <li class="breadcrumb-item">
                             <a href="{{ route('user.micrositebyslug', ['slug' => $slug]) }}" style="color: #af2910;">Home</a>
                         </li>
-                        <li class="breadcrumb-item">
+                        <!-- <li class="breadcrumb-item"> -->
                             <!-- <a href="#" style="color: #af2910;">Academy News</a> -->
-                            <a href="/lbsnaa-sub_n/news?slug={{ $slug }}" style="color: #af2910;">Academy News</a>
-                        </li>
-                        <li class="breadcrumb-item active" aria-current="page">{{$news->title}}</li>
+                            <!-- <a href="/lbsnaa-sub_n/news?slug={{ $slug }}" style="color: #af2910;">Academy News</a> -->
+                        <!-- </li> -->
+                        <li class="breadcrumb-item active" aria-current="page">{{$archive_details->title}}</li>
                     </ol>
                 </nav>
             </div>
@@ -31,8 +31,8 @@
                 <div class="mb-6 mb-lg-8">
                     <!-- Display all images -->
                     <div class="row">
-                        @if(!empty($news->multiple_images))
-                        @foreach ($news->multiple_images as $image)
+                        @if(!empty($archive_details->multiple_images))
+                        @foreach ($archive_details->multiple_images as $image)
                         <div class="col-lg-3 mb-2">
                             <div class="card">
                                 <img src="{{ asset($image) }}" style="object-fit: cover; height:250px;" class="img-fluid rounded-4">
@@ -45,11 +45,11 @@
                     </div>
                     <div class="py-4">
                         <p class="text-success fw-bold"><em>Posted On:</em>
-                            {{date('d M, Y',strtotime($news->start_date))}}</p>
+                            {{date('d M, Y',strtotime($archive_details->start_date))}}</p>
                         <h2 class="h1 fw-bold text-primary">
-                            {{$news->title}}
+                            {{$archive_details->title}}
                         </h2>
-                        <p><?= $news->description ?></p>
+                        <p><?= $archive_details->description ?></p>
 
                     </div>
                 </div>
