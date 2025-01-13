@@ -11,8 +11,8 @@
                         <li class="breadcrumb-item">
                             <a href="{{ route('user.micrositebyslug', ['slug' => $slug]) }}" style="color: #af2910;">Home</a>
                         </li>
-                        <li class="breadcrumb-item">
-                            <a href="#" style="color: #af2910;">Training Details </a>
+                        <li class="breadcrumb-item"> 
+                            <a href="/lbsnaa-sub_tp/trainings/{{ $slug }}" style="color: #af2910;">Training Details</a>
                         </li>
                         <li class="breadcrumb-item active" aria-current="page">Training Program Details</li>
                     </ol>

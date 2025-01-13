@@ -106,103 +106,80 @@
             <!-- Collapse -->
 
             <div class="collapse navbar-collapse" id="navbar-default">
-            <ul class="navbar-nav me-auto navmenu">
-    @php
-        $slug = request()->query('slug') ?: request()->route('slug');
-        
-        // Debugging: Check if slug is correct
-        
+                <!-- <a href="{{ $slug }}"><span> Home </span></a> -->
+                <ul class="navbar-nav me-auto navmenu">
+                    @php
+                        $slug = request()->query('slug') ?: request()->route('slug');
+                        
+                        // Debugging: Check if slug is correct
+                        
 
-        function displayMenu($parentId, $slug, $isRoot = false) {
-            $query = DB::table('micromenus')
-                ->join('research_centres', 'micromenus.research_centreid', '=', 'research_centres.id')
-                ->where('micromenus.menu_status', 1)
-                ->where('micromenus.is_deleted', 0)
-                ->where('micromenus.parent_id', $parentId);
+                        function displayMenu($parentId, $slug, $isRoot = false) {
+                            $query = DB::table('micromenus')
+                                ->join('research_centres', 'micromenus.research_centreid', '=', 'research_centres.id')
+                                ->where('micromenus.menu_status', 1)
+                                ->where('micromenus.is_deleted', 0)
+                                ->where('micromenus.parent_id', $parentId);
 
-            if ($isRoot && $slug) {
-                // Ensure slug is properly filtering menus
-                $query->where('research_centres.research_centre_slug', $slug);
-            }
+                            if ($isRoot && $slug) {
+                                // Ensure slug is properly filtering menus
+                                $query->where('research_centres.research_centre_slug', $slug);
+                            }
 
-            $menus = $query->select('micromenus.*')->get();
+                            $menus = $query->select('micromenus.*')->get();
 
-            // Debugging: Check if menus are fetched
-           
+                            // Debugging: Check if menus are fetched
+                        
 
-            foreach ($menus as $menu) {
-                $childMenus = DB::table('micromenus')
-                    ->where('menu_status', 1)
-                    ->where('is_deleted', 0)
-                    ->where('parent_id', $menu->id)
-                    ->get();
+                            foreach ($menus as $menu) {
+                                $childMenus = DB::table('micromenus')
+                                    ->where('menu_status', 1)
+                                    ->where('is_deleted', 0)
+                                    ->where('parent_id', $menu->id)
+                                    ->get();
 
-                $hasChildren = $childMenus->isNotEmpty();
-                $menuLink = route('user.navigationmenubyslug', $menu->menu_slug) . '?slug=' . urlencode($slug);
-                $dropdownClass = $hasChildren ? 'dropdown-item dropdown-toggle' : 'dropdown-item';
+                                $hasChildren = $childMenus->isNotEmpty();
+                                $menuLink = route('user.navigationmenubyslug', $menu->menu_slug) . '?slug=' . urlencode($slug);
+                                $dropdownClass = $hasChildren ? 'dropdown-item dropdown-toggle' : 'dropdown-item';
 
-                echo "<li class='nav-item " . ($hasChildren ? "dropdown-submenu" : "") . " dropend'>";
-                    echo "<a href='{$menuLink}' class='{$dropdownClass}'" . ($hasChildren ? " data-bs-toggle='dropdown'" : "") . ">";
-                    echo $menu->menutitle;
-                    echo "</a>";
+                                echo "<li class='nav-item " . ($hasChildren ? "dropdown-submenu" : "") . " dropend'>";
+                                    echo "<a href='{$menuLink}' class='{$dropdownClass}'" . ($hasChildren ? " data-bs-toggle='dropdown'" : "") . ">";
+                                    echo $menu->menutitle;
+                                    echo "</a>";
 
-                    if ($hasChildren) {
-                        echo "<ul class='dropdown-menu'>";
-                            displayMenu($menu->id, $slug, false);
-                        echo "</ul>";
-                    }
+                                    if ($hasChildren) {
+                                        echo "<ul class='dropdown-menu'>";
+                                            displayMenu($menu->id, $slug, false);
+                                        echo "</ul>";
+                                    }
 
-                echo "</li>";
-            }
-        }
+                                echo "</li>";
+                            }
+                        }
 
-        displayMenu(0, $slug, true);
-    @endphp
-</ul>
-
-
-
-
-
-
+                        displayMenu(0, $slug, true);
+                    @endphp
+                </ul>
             </div>
         </nav>
     </header>
 
     <!-- JavaScript to handle parent menu click -->
-<!-- <script>
+
+<script>
     document.addEventListener('DOMContentLoaded', function () {
         const dropdownLinks = document.querySelectorAll('.dropdown-toggle');
 
         dropdownLinks.forEach(link => {
             link.addEventListener('click', function (e) {
                 const href = this.getAttribute('href');
-                
-                // If the link has an href, redirect when clicked
+
+                // Ensure page reloads with correct href
                 if (href && href !== '#') {
-                    window.location.href = href;
+                    window.location.href = href; // Redirect to the correct page
                 }
             });
         });
     });
-</script> -->
-
-
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const dropdownLinks = document.querySelectorAll('.dropdown-toggle');
-
-    dropdownLinks.forEach(link => {
-        link.addEventListener('click', function (e) {
-            const href = this.getAttribute('href');
-
-            // Ensure page reloads with correct href
-            if (href && href !== '#') {
-                window.location.href = href; // Redirect to the correct page
-            }
-        });
-    });
-});
-
 </script>
 
