@@ -1,24 +1,26 @@
-                  <div class="card">
+                  <div class="card" style="width: 18rem;">
                       @php
                       $keyword = str_replace(' ', '+', $node->name);
                       @endphp
-                      <div class="p-3">
-                          <img src="{{ asset($node->image) }}" alt="mentor 5" class="avatar avatar-lg rounded-circle">
+                      <div class="card-body" style="padding:0;">
+                          <img src="{{ asset($node->image) }}" alt="mentor 5" class="avatar avatar-xl rounded-circle">
                           <!--content-->
-                          <div class="mt-3">
+                          <div class="m-2">
                               <h3 class="mb-0 h4">{{ $node->name }}</h3>
                               <span class="text-gray-800">{{ $node->designation }}</span>
                           </div>
                       </div>
+                      <div class="card-footer" style="border:0;background-color:transparent;padding:0;">
                       <a href="{{ route('user.faculty_responsibility') }}?keywords={{ $keyword }}">Responsibility</a>
                       <a href="#" data-bs-toggle="modal" data-bs-target="#bioDataModal" data-name="{{ $node->name }}"
-   data-image="{{ asset($node->image) }}" data-designation="{{ $node->designation }}"
-   data-email="{{ $node->email }}" data-phone="{{ $node->phone_pt_office }}"
-   data-description-id="description-{{ $node->id }}">
-    Bio Data
-</a>
-<input type="hidden" id="description-{{ $node->id }}" name="description" value="{{ htmlspecialchars($node->description, ENT_QUOTES, 'UTF-8') }}" />
-
+                          data-image="{{ asset($node->image) }}" data-designation="{{ $node->designation }}"
+                          data-email="{{ $node->email }}" data-phone="{{ $node->phone_pt_office }}"
+                          data-description-id="description-{{ $node->id }}">
+                          Bio Data
+                      </a>
+                      <input type="hidden" id="description-{{ $node->id }}" name="description"
+                          value="{{ htmlspecialchars($node->description, ENT_QUOTES, 'UTF-8') }}" />
+                      </div>
                   </div>
 
                   <!-- Modal Structure -->
@@ -34,14 +36,14 @@
                               <div class="modal-body">
                                   <div class="row">
                                       <div class="col-lg-3 ">
-                                          <img id="modalImage" src="" alt="Image"
-                                              class="img-fluid rounded-4" style="height:150px;width:150px;">
+                                          <img id="modalImage" src="" alt="Image" class="img-fluid rounded-4"
+                                              style="height:150px;width:150px;">
                                       </div>
                                       <div class="col-lg-3">
-                                        <h3>Name:-</h3>
-                                        <p>Designation:-</p>
-                                        <p>Email:-</p>
-                                        <p>Phone:-</p>
+                                          <h3>Name:-</h3>
+                                          <p>Designation:-</p>
+                                          <p>Email:-</p>
+                                          <p>Phone:-</p>
                                       </div>
                                       <div class="col-lg-6">
                                           <h3 id="modalName"></h3>
@@ -50,7 +52,7 @@
                                           <p id="modalPhone"></p>
                                       </div>
                                       <div class="col-lg-12 mt-3">
-                                      <p id="modalDescription"></p>
+                                          <p id="modalDescription"></p>
                                       </div>
                                   </div>
                               </div>
@@ -72,14 +74,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const phone = button.getAttribute('data-phone');
         const descriptionId = button.getAttribute('data-description-id');
 
-// Fetch the hidden input value using the descriptionId
-const description = document.getElementById(descriptionId).value;
+        // Fetch the hidden input value using the descriptionId
+        const description = document.getElementById(descriptionId).value;
 
-// Decode HTML entities
-const textarea = document.createElement('textarea');
-textarea.innerHTML = description;
-const decodedDescription = textarea.value;
-console.log(decodedDescription);
+        // Decode HTML entities
+        const textarea = document.createElement('textarea');
+        textarea.innerHTML = description;
+        const decodedDescription = textarea.value;
+        console.log(decodedDescription);
         // Update the modal's content
         bioDataModal.querySelector('#modalImage').src = image;
         bioDataModal.querySelector('#modalName').textContent = name;
