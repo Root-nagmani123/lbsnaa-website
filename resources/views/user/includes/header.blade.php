@@ -90,6 +90,7 @@
     .dropdown-menu {
     white-space: normal; /* Allow text to wrap */
     word-wrap: break-word; /* Break long words onto the next line */
+    max-width: 450px; /* Set a maximum width for the dropdown menu */
 }
 
 .dropdown-item {
