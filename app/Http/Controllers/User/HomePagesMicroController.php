@@ -175,20 +175,18 @@ class HomePagesMicroController extends Controller
             ->join('research_centres as rc', 'mn.research_centreid', '=', 'rc.id') // Join the tables based on research_centreid
             ->where('mn.status', 1) // Filter by status (active news)
             ->where('rc.research_centre_slug', $slug) // Filter by research_centre_slug from the slug parameter
-            ->where('mn.start_date', '<', now()) // Exclude records with a future start date
+            ->where('mn.start_date', '<=', now()) // Start date is in the past or today
             ->where(function ($query) {
-                $query->whereNull('mn.end_date') // End date is null (ongoing news)
-                    ->orWhere('mn.end_date', '>=', now()); // Or end date is in the future
+                $query->whereNotNull('mn.end_date') // Ensure end_date is not null
+                    ->where('mn.end_date', '<', now()); // Include only expired records (end_date is in the past)
             })
             ->select('mn.id as managenews_id', 'mn.*', 'rc.*') // Include the primary key of managenews explicitly
             ->get();
 
-        // Debugging output
-        // dd($archives);
-
         // Pass the data to the view
         return view('user.pages.microsites.archive', compact('archives', 'slug'));
     }
+
 
 
     public function archive_details(Request $request, $id)
@@ -364,6 +362,9 @@ class HomePagesMicroController extends Controller
 
     public function whatnewall(Request $request, $slug)
     {
+        $slug = $request->query('slug', $slug);
+
+        $today = now(); // Current date and time
         // Join the tables to get data from both 'micro_quick_links' and 'research_centres'
         $whatnewalls = DB::table('micro_quick_links')  // Start from the 'micro_quick_links' table
                         ->join('research_centres', 'micro_quick_links.research_centre_id', '=', 'research_centres.id') // Join 'research_centres'
@@ -375,10 +376,23 @@ class HomePagesMicroController extends Controller
                         ->select('micro_quick_links.*')  // Select all columns from 'micro_quick_links'
                         ->get();
     
+
+
+        $quickLinks = DB::table('micro_quick_links')
+        ->join('research_centres', 'micro_quick_links.research_centre_id', '=', 'research_centres.id')  // Join with 'research_centres'
+        ->where('micro_quick_links.categorytype', 2)
+        ->where('micro_quick_links.status', 1)
+        ->when($slug, function ($query) use ($slug) {
+            return $query->where('research_centres.research_centre_slug', $slug);  // Filter by slug if provided
+        })
+        ->whereDate('micro_quick_links.start_date', '<=', now())  // Ensure start_date is before or equal to today
+        ->whereDate('micro_quick_links.termination_date', '>=', now())  // Ensure termination_date is after or equal to today
+        ->select('micro_quick_links.*', 'research_centres.research_centre_name as research_centre_name')
+        ->get();
         // dd($whatnewalls);  // For debugging, remove this after confirming the data
     
         // Pass the data and slug to the view
-        return view('user.pages.microsites.whatnewall', compact('whatnewalls', 'slug'));
+        return view('user.pages.microsites.whatnewall', compact('whatnewalls', 'quickLinks', 'slug'));
     }
 
 
