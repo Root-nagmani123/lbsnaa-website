@@ -58,8 +58,15 @@
             <div class="col-12 col-lg-3 mb-4">
                 <div class="card card-hover border">
                     <div class="card-header bg-danger">
-                        <h5 class="text-white">What's New</h5>
-                        <a href="{{ route('user.whatnewall', ['slug' => $slug]) }}">View All</a>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <h5 class="text-white">What's New</h5>
+
+                            </div>
+                            <div class="col-lg-6 text-end">
+                                <a href="{{ route('user.whatnewall', ['slug' => $slug]) }}" style="text-decoration: none;color: #fff">View All</a>
+                            </div>
+                        </div>
                     </div>
                     <div class="card-body" style="height:340px;overflow-y: scroll;">
                         <ul class="list-group list-group-flush">
@@ -75,7 +82,7 @@
                                             </path>
                                         </svg>
                                     </span>
-                                    {{ $news->txtename }} 
+                                    {{ $news->txtename }}
                                 </a>
                                 @elseif($news->pdf_file)
                                 <a href="{{ asset('storage/' . $news->pdf_file) }}" class="text-primary"
@@ -105,7 +112,7 @@
                 @foreach($research_centres as $research_centre)
                 <h2 class="text-danger text-center uppercase">{{($research_centre->home_title) }} <br><span><img
                             src="{{ asset('assets/images/devider.png') }}" alt=""></span></h2>
-                            <p style="text-align: justify;" class="mb-4">{!! $research_centre->description !!}</p>
+                <p style="text-align: justify;" class="mb-4">{!! $research_centre->description !!}</p>
 
                 @endforeach
 
@@ -151,7 +158,7 @@
                                                 d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z">
                                             </path>
                                         </svg>
-                                    </span> 
+                                    </span>
                                     {{ $link->txtename }}
                                 </a>
                                 @elseif($link->pdf_file)
