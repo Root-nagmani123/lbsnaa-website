@@ -95,7 +95,7 @@
         /* Allow text to wrap */
         word-wrap: break-word;
         /* Break long words onto the next line */
-        max-width: 450px;
+        
         /* Set a maximum width for the dropdown menu */
 
     }
@@ -105,6 +105,7 @@
         /* Allow text wrapping inside menu items */
         word-wrap: break-word;
         /* Ensure long words wrap properly */
+        max-width: 350px;
     }
     </style>
 </head>
@@ -117,7 +118,7 @@
                     src="https://cdn.digitalindiacorporation.in/wp-content/themes/di-child/assets/images/ind-flag.svg.gzip"
                     alt="indian_flag" style="font-size: 13px;"> &nbsp;&nbsp;
                 <a href="https://www.india.gov.in/" target="_blank"
-                    style="font-size: 16px; color: #af2910; font-weight: 600;">भारत सरकार | Government of India</a>
+                    style="font-size: 16px; color: #af2910;">भारत सरकार | Government of India</a>
             </div>
             <div class="col-md-8">
                 <ul class="nav justify-content-end align-items-center">
