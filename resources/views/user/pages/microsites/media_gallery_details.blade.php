@@ -39,37 +39,29 @@
         <div class="col-md-3 col-sm-6 col-12 mb-4">
             <div class="card">
                 <div class="card-body p-0">
-
-                            @if(!empty($imageFiles) && is_array($imageFiles))
-                                <!-- Loop through all images -->
-                                @foreach ($imageFiles as $imageFile)
-                                    <img src="{{ asset('storage/' . $imageFile) }}" 
-                                         class="img-fluid rounded-top mb-2" 
-                                         alt="Gallery Image" 
-                                         style="width: 100%; height: 250px; object-fit: cover;">
-                                         <div class="card-footer text-center">
-                                            <p class="card-text mb-0">{{ $gallery->image_title_english }}</p>
-                                        </div>
-                                @endforeach 
-                            @else
-                                <!-- Fallback image if no image is found -->
-                                <img src="{{ asset('storage/uploads/default-placeholder.png') }}" 
-                                     class="img-fluid rounded-top" 
-                                     alt="No Image Available" 
-                                     style="width: 100%; height: 250px; object-fit: cover;">
-                            @endif
-                        </div>
-                       
+                    <img src="{{ asset('storage/' . $imageFile) }}"
+                         class="img-fluid rounded-top mb-2"
+                         alt="Gallery Image"
+                         style="width: 100%; height: 250px; object-fit: cover;">
+                    <div class="card-footer text-center">
+                        <p class="card-text mb-0">{{ $gallery->image_title_english }}</p>
                     </div>
                 </div>
-            @endforeach
+            </div>
         </div>
         @endforeach
-
         @else
         <!-- Fallback image if no image is found -->
-        <img src="{{ asset('storage/uploads/default-placeholder.png') }}" class="img-fluid rounded-top"
-            alt="No Image Available" style="width: 100%; height: 250px; object-fit: cover;">
+        <div class="col-md-3 col-sm-6 col-12 mb-4">
+            <div class="card">
+                <div class="card-body p-0">
+                    <img src="{{ asset('storage/uploads/default-placeholder.png') }}"
+                         class="img-fluid rounded-top"
+                         alt="No Image Available"
+                         style="width: 100%; height: 250px; object-fit: cover;">
+                </div>
+            </div>
+        </div>
         @endif
         @endforeach
     </div>
@@ -77,8 +69,6 @@
         <p style="text-align: center; color: #999; font-size: 18px;">No photos available.</p>
     @endif
 </section>
-
-
 @endif
 
 @include('user.pages.microsites.includes.footer')
