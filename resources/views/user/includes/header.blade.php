@@ -44,38 +44,6 @@
         text-align: center;
     }
 
-    /* Default behavior: nested dropdowns open to the right */
-    .dropdown-submenu {
-        position: relative;
-    }
-
-    .dropdown-submenu>.dropdown-menu {
-        top: 0;
-        left: 100%;
-        /* Default: open to the right */
-        margin-top: 0;
-        margin-left: 0;
-    }
-
-    /* Open to the left when screen edge is near */
-    .dropdown-menu.dropdown-menu-left {
-        left: auto;
-        right: 100%;
-        /* Open to the left */
-    }
-
-    .dropdown-submenu.dropend .dropdown-menu {
-        left: 100%;
-        /* Opens to the right */
-        right: auto;
-    }
-
-    .dropdown-submenu.dropstart .dropdown-menu {
-        left: auto;
-        right: 100%;
-        /* Opens to the left */
-    }
-
     .logo {
         width: 350px;
     }
@@ -88,24 +56,6 @@
         .logo {
             width: 250px;
         }
-    }
-
-    .dropdown-menu {
-        white-space: normal;
-        /* Allow text to wrap */
-        word-wrap: break-word;
-        /* Break long words onto the next line */
-        
-        /* Set a maximum width for the dropdown menu */
-
-    }
-
-    .dropdown-item {
-        white-space: normal;
-        /* Allow text wrapping inside menu items */
-        word-wrap: break-word;
-        /* Ensure long words wrap properly */
-        max-width: 350px;
     }
     </style>
 </head>
