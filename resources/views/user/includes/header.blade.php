@@ -75,31 +75,37 @@
         right: 100%;
         /* Opens to the left */
     }
-.logo{
-    width: 350px;
-}
+
+    .logo {
+        width: 350px;
+    }
 
     @media (max-width: 768px) {
         .bar {
             display: none;
         }
-        .logo{
-            width:250px;
+
+        .logo {
+            width: 250px;
         }
     }
+
     .dropdown-menu {
-    white-space: normal; /* Allow text to wrap */
-    word-wrap: break-word; /* Break long words onto the next line */
-    min-width: 400px; /* Set a maximum width for the dropdown menu */
+        white-space: normal;
+        /* Allow text to wrap */
+        word-wrap: break-word;
+        /* Break long words onto the next line */
+        max-width: 450px;
+        /* Set a maximum width for the dropdown menu */
 
-}
+    }
 
-.dropdown-item {
-    white-space: normal; /* Allow text wrapping inside menu items */
-    word-wrap: break-word; /* Ensure long words wrap properly */
-    
-}
-
+    .dropdown-item {
+        white-space: normal;
+        /* Allow text wrapping inside menu items */
+        word-wrap: break-word;
+        /* Ensure long words wrap properly */
+    }
     </style>
 </head>
 
