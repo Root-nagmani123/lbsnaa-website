@@ -64,11 +64,7 @@
                         <img src="{{ asset('storage/uploads/category_images/' . $gallery->category_image) }}" class="img-fluid rounded" 
                         alt="{{ $gallery->category_image }}" style="width: 100%; height: 250px; object-fit: cover;">
                     </a>
-                </div>
-
-
-
-
+                </div> 
                 <div class="card-footer" style="border:none;">
                     <div class="form-field mt-2">
                         <p class="card-text">{{ $gallery->media_category_name }}</p>

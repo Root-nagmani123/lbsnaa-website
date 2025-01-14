@@ -11,11 +11,9 @@
                         <ol class="breadcrumb">
                             <!-- Home link -->
                             <li class="breadcrumb-item"> 
-                                <!-- <a href="#" style="color: #af2910;">Home</a> -->
-                                
                                 <a href="{{ route('user.micrositebyslug', ['slug' => $slug]) }}" style="color: #af2910;">Home</a>
                             </li>
-                            <!-- Dynamic breadcrumbs -->
+                            <!-- Dynamic breadcrumbs --> 
                             @foreach ($breadcrumb as $crumb)
                                 @if (!$loop->last)
                                     <li class="breadcrumb-item">

@@ -24,37 +24,45 @@
 <section class="container-fluid">
     <!-- Gallery Display -->
     @if($gallery_details->isNotEmpty())
-    <div class="row">
-        @foreach ($gallery_details as $gallery)
-        <div class="col-md-3 col-sm-6 col-12 mb-4">
-            <div class="card">
-                <div class="card-body p-0">
-                    @php
-                    // Decode the JSON array of image files
-                    $imageFiles = json_decode($gallery->image_files, true);
-                    @endphp
+        <div class="row">
+            @foreach ($gallery_details as $gallery)
+                <div class="col-md-3 col-sm-6 col-12 mb-4">
+                    <div class="card">
+                        <div class="card-body p-0">
+                            @php
+                                // Decode the JSON array of image files
+                                $imageFiles = json_decode($gallery->image_files, true);
+                            @endphp 
 
-                    @if(!empty($imageFiles) && is_array($imageFiles))
-                    <!-- Display the first image in the array -->
-                    <img src="{{ asset('storage/' . $imageFiles[0]) }}" class="img-fluid rounded-top" alt="Gallery Image"
-                        style="width: 100%; height: 250px; object-fit: cover;">
-                    @else
-                    <!-- Fallback image if no image is found -->
-                    <img src="{{ asset('storage/uploads/default-placeholder.png') }}" class="img-fluid rounded-top"
-                        alt="No Image Available" style="width: 100%; height: 250px; object-fit: cover;">
-                    @endif
+                            @if(!empty($imageFiles) && is_array($imageFiles))
+                                <!-- Loop through all images -->
+                                @foreach ($imageFiles as $imageFile)
+                                    <img src="{{ asset('storage/' . $imageFile) }}" 
+                                         class="img-fluid rounded-top mb-2" 
+                                         alt="Gallery Image" 
+                                         style="width: 100%; height: 250px; object-fit: cover;">
+                                         <div class="card-footer text-center">
+                                            <p class="card-text mb-0">{{ $gallery->name }}</p>
+                                        </div>
+                                @endforeach
+                            @else
+                                <!-- Fallback image if no image is found -->
+                                <img src="{{ asset('storage/uploads/default-placeholder.png') }}" 
+                                     class="img-fluid rounded-top" 
+                                     alt="No Image Available" 
+                                     style="width: 100%; height: 250px; object-fit: cover;">
+                            @endif
+                        </div>
+                       
+                    </div>
                 </div>
-                <div class="card-footer text-center">
-                    <p class="card-text mb-0">{{ $gallery->research_centre_name }}</p>
-                </div>
-            </div>
+            @endforeach
         </div>
-        @endforeach
-    </div>
     @else
-    <p style="text-align: center; color: #999; font-size: 18px;">No photos available.</p>
+        <p style="text-align: center; color: #999; font-size: 18px;">No photos available.</p>
     @endif
 </section>
+
 
 @endif
 
