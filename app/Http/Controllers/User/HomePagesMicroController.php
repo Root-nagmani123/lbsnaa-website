@@ -274,6 +274,8 @@ class HomePagesMicroController extends Controller
         // dd($gallery_details);
 
 
+
+
         if (!$gallery_details) {
             abort(404, 'Gallery not found');
         }

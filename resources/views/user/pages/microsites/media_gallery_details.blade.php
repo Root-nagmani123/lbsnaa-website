@@ -40,12 +40,18 @@
             <div class="card">
                 <div class="card-body p-0">
 
-                    <img src="{{ asset('storage/' . $imageFile) }}" class="img-fluid rounded-top mb-2"
-                        alt="Gallery Image" style="width: 100%; height: 250px; object-fit: cover;">
-                    <div class="card-footer text-center" style="border:none;">
-                        <p class="card-text mb-0">{{ $gallery->name }}</p>
-                    </div>
-
+                    @if(!empty($imageFiles) && is_array($imageFiles))
+                    <!-- Display the first image in the array -->
+                    <img src="{{ asset('storage/' . $imageFiles[0]) }}" class="img-fluid rounded-top" alt="Gallery Image"
+                        style="width: 100%; height: 250px; object-fit: cover;">
+                    @else
+                    <!-- Fallback image if no image is found -->
+                    <img src="{{ asset('storage/uploads/default-placeholder.png') }}" class="img-fluid rounded-top"
+                        alt="No Image Available" style="width: 100%; height: 250px; object-fit: cover;">
+                    @endif
+                </div>
+                <div class="card-footer text-center">
+                    <p class="card-text mb-0">{{ $gallery->name }}</p>
                 </div>
             </div>
         </div>
