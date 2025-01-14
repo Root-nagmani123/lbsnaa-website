@@ -273,9 +273,6 @@ class HomePagesMicroController extends Controller
             ->get(); // Fetch a single record
         // dd($gallery_details);
 
-
-
-
         if (!$gallery_details) {
             abort(404, 'Gallery not found');
         }
