@@ -217,7 +217,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             // Update modal content
-            modalTitle.textContent = 'Tenders / Circulars Details';
+            modalTitle.textContent = 'Vacancies Details';
             modalBody.innerHTML = `
                 <div>
                     <p><strong>Job Title:</strong> ${job_title}</p>
