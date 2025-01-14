@@ -89,7 +89,8 @@
                                     @enderror
                                 </div>
                             </div>
-                        </div> -->
+                        </div>
+                        <!-- Placeholder for Events-related fields -->
 
 
 
