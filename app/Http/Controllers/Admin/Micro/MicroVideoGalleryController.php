@@ -27,11 +27,19 @@ class MicroVideoGalleryController extends Controller
     // Show the form for creating a new video
     public function create()
     {
-        $categories = DB::table('micro_media_categories')
-            ->where('status', 1)
-            ->where('media_gallery', 2)
-            ->get(); // Retrieve records with status == 1 
+        // $categories = DB::table('micro_media_categories')
+        //     ->where('status', 1)
+        //     ->where('media_gallery', 2)
+        //     ->get(); // Retrieve records with status == 1 
         // dd($mediaCategories);
+        $categories = DB::table('micro_media_categories')
+            ->join('research_centres', 'micro_media_categories.research_centre', '=', 'research_centres.id')
+            ->where('micro_media_categories.status', 1)
+            ->where('micro_media_categories.media_gallery', 2)
+            ->select('micro_media_categories.id', 'micro_media_categories.name', 'research_centres.research_centre_name as centre_name')
+            ->get();
+
+
         $researchCentres = DB::table('research_centres')
             ->where('status', 1)  // Filter where status is 1
             ->pluck('research_centre_name', 'id');  // Replace 'research_centre_name' and 'id' with your actual column names
@@ -81,7 +89,7 @@ class MicroVideoGalleryController extends Controller
             'IP_Address' => $request->ip(),
         ]);
 
-        // Redirect with success message
+        // Redirect with success message 
         return redirect()->route('micro-video-gallery.index')->with('success', 'Video added successfully.');
     }
 
@@ -217,7 +225,17 @@ class MicroVideoGalleryController extends Controller
         ], 200);
     }
 
-    
+    public function fetchMediaCategoriesvideo(Request $request)
+    {
+        $categories = DB::table('micro_media_categories')
+            ->where('research_centre', $request->research_centre_id)
+            ->where('status', 1)
+            ->where('media_gallery', 2)
+            ->select('id', 'name')
+            ->get();
+        // dd($categories);
+        return response()->json($categories);
+    }
     
 
 
