@@ -271,7 +271,7 @@ class HomePagesMicroController extends Controller
             ->where('rc.research_centre_slug', $slug) // Filter by the slug
             ->select('mmpg.*', 'rc.research_centre_name','mmc.name')
             ->get(); // Fetch a single record
-
+        // dd($gallery_details);
 
 
         if (!$gallery_details) {
