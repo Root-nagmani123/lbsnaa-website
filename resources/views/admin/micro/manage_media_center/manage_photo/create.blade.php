@@ -35,37 +35,11 @@
                     @endif
                     <div class="row">
 
-                        <!-- <div class="col-lg-6">
-                            <div class="form-group mb-4">
-                                <label class="label" for="course-search">Category Name :</label>
-                                <span class="star">*</span>
-                                <div class="form-group position-relative">
-                                    
-                                    <input class="form-check-input form-control  h-58" type="text"
-                                        name="course-search" id="course-search"
-                                        placeholder="Type to search for category..." value="{{ old('course-search') }}">
- 
-                                    
-                                    <input type="hidden" name="course_id" id="selected-course-id"
-                                        value="{{ old('course_id') }}">
-
-                                    
-                                    <div id="course-suggestions" class="dropdown-menu"
-                                        style="display: none; position: relative;"></div>
-
-                                    
-                                    @error('course_id')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div> -->
-
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
-                                <label for="select_research_centre">Select Research Centre:</label>
+                                <label for="select_research_centre" class="label">Select Research Centre :</label>
                                 <span class="star">*</span>
-                                <select id="select_research_centre" name="research_centre" class="form-control">
+                                <select name="research_centre" class="form-control h-58 text-dark">
                                     <option value="" selected>Select Research Centre</option>
                                     @foreach ($researchCentres as $id => $name)
                                     <option value="{{ $id }}">{{ $name }}</option>
@@ -76,61 +50,6 @@
                                 @enderror
                             </div>
                         </div>
-
-                        <!-- Dropdown to select related content for News -->
-                        <!-- <div class="col-lg-6">
-                            <div class="form-group mb-4">
-                                <label class="label" for="image_relate_with_news">Image Relate With News</label>
-                                <div class="form-group position-relative">
-                                    <select class="form-select form-control  h-58" name="image_relate_with_news"
-                                        id="image_relate_with_news">
-                                        <option value="">Select News</option>
-                                        <option value="News"
-                                            {{ old('image_relate_with_news') == 'News' ? 'selected' : '' }}>News
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div> -->
-
-                        <!-- Placeholder for News-related fields -->
-                        <!-- <div class="col-lg-6" id="related_news_field" style="display: none;">
-                            <div class="form-group mb-4">
-                                <label class="label" for="news-search">Related News :</label>
-                                <div class="form-group position-relative">
-                                    
-                                    <input type="text" class="form-control text-dark  h-58" name="news-search"
-                                        id="news-search" placeholder="Type to search for news..."
-                                        value="{{ old('news-search') }}">
-                                    
-                                    <input type="hidden" name="related_news" id="selected-news-id"
-                                        value="{{ old('related_news') }}">
-                                    
-                                    <div id="news-suggestions" class="dropdown-menu"
-                                        style="display: none; position: relative;"></div>
-                                </div>
-                            </div>
-                        </div> -->
-
-
-
-                        <!-- Dropdown to select related content for Training Programme -->
-
-                        <!-- <div class="col-lg-6">
-                            <div class="form-group mb-4">
-                                <label class="label" for="image_relate_with_training">Image Relate with Training
-                                    :</label>
-                                <div class="form-group position-relative">
-                                    <select class="form-select form-control  h-58" name="image_relate_with_training"
-                                        id="image_relate_with_training">
-                                        <option value="">Select Training Programme</option>
-                                        <option value="Training Programme"
-                                            {{ old('image_relate_with_training') == 'Training Programme' ? 'selected' : '' }}>
-                                            Training Programme</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div> -->
 
                         <!-- Placeholder for Training Programme-related fields -->
                         <div class="col-lg-6" id="related_training_field" style="display: none;">
@@ -152,23 +71,7 @@
                         </div>
 
                         <!-- Dropdown to select related content for Related Events -->
-                        <!-- <div class="col-lg-6">
-                            <div class="form-group mb-4">
-                                <label class="label" for="image_relate_with_events">Image Relate with Events :</label>
-                                <div class="form-group position-relative">
-                                    <select class="form-select form-control  h-58" name="image_relate_with_events"
-                                        id="image_relate_with_events">
-                                        <option value="" class="text-dark">Select Events</option>
-                                        <option value="Related Events" class="text-dark"
-                                            {{ old('image_relate_with_events') == 'Related Events' ? 'selected' : '' }}>
-                                            Related Events</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div> -->
-
-
-                        <!-- <div class="col-lg-6">
+                        <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label for="media_categories" class="label">Media Category</label>
                                 <span class="star">*</span>
@@ -215,24 +118,6 @@
 
                         
                         <!-- Placeholder for Events-related fields -->
-                        <!-- <div class="col-lg-6" id="related_events_field" style="display: none;">
-                            <div class="form-group mb-4">
-                                <label class="label" for="event-search">Related Events :</label>
-                                <span class="star">*</span>
-                                <div class="form-group position-relative">
-                                    
-                                    <input type="text" id="event-search" class="form-control text-dark  h-58"
-                                        name="event-search" placeholder="Type to search for events..."
-                                        value="{{ old('event-search') }}">
-                                    
-                                    <input type="hidden" name="related_events" id="selected-event-id"
-                                        value="{{ old('related_events') }}">
-                                    
-                                    <div id="event-suggestions" class="dropdown-menu"
-                                        style="display: none; position: relative;"></div>
-                                </div>
-                            </div>
-                        </div> -->
 
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
@@ -641,15 +526,15 @@
 // document.addEventListener("DOMContentLoaded", function() {
 //     // Make sure the DOM is fully loaded before running the script
 
-//     // Add event listener to "Add More" button
-//     document.getElementById('add-file').addEventListener('click', function() {
-//         // Create a new file input group
-//         var fileGroup = document.createElement('div');
-//         fileGroup.classList.add('file-group');
-//         fileGroup.innerHTML = `
-//                 <input type="file" name="image_files[]" class="form-control mb-2" accept="image/*">
-//                 <button type="button" class="btn btn-danger remove-file">Remove</button>
-//             `;
+    // Add event listener to "Add More" button
+    document.getElementById('add-file').addEventListener('click', function() {
+        // Create a new file input group
+        var fileGroup = document.createElement('div');
+        fileGroup.classList.add('file-group');
+        fileGroup.innerHTML = `
+                <input type="file" name="image_files[]" class="form-control mb-2 mt-2" accept="image/*">
+                <button type="button" class="btn btn-danger remove-file">Remove</button>
+            `;
 
 //         // Append the new file group to the container
 //         document.getElementById('file-container').appendChild(fileGroup);
