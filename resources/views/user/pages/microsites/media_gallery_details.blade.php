@@ -45,7 +45,7 @@
                     @endif
                 </div>
                 <div class="card-footer text-center">
-                    <p class="card-text mb-0">{{ $gallery->research_centre_name }}</p>
+                    <p class="card-text mb-0">{{ $gallery->name }}</p>
                 </div>
             </div>
         </div>

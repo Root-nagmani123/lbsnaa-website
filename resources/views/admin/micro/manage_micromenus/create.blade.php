@@ -16,7 +16,7 @@
             <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Add Menu</span>
         </li>
     </ul>
-</div>
+</div> 
 <div class="row justify-content-center">
     <div class="col-lg-12">
         <div class="card bg-white border-0 rounded-10 mb-4">
@@ -32,8 +32,8 @@
                                 <label class="label" for="menutitle">Page Language :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="radio" name="language" value="1"> English
-                                    <input type="radio" name="language" value="2"> Hindi
+                                    <input type="radio" name="language" value="1" {{ old('language') == 1 ? 'checked' : '' }}> English
+                                    <input type="radio" name="language" value="2" {{ old('language') == 2 ? 'checked' : '' }}> Hindi
                                 </div>
                                 @error('language')
                                 <div class="text-danger">{{ $message }}</div>
@@ -49,7 +49,8 @@
                                 <select id="select_research_centre" name="research_centre" class="form-control">
                                     <option value="" selected>Select Research Centre</option>
                                     @foreach ($researchCentres as $id => $name)
-                                        <option value="{{ $id }}">{{ $name }}</option>
+                                        <!-- <option value="{{ $id }}">{{ $name }}</option> -->
+                                        <option value="{{ $id }}" {{ old('research_centre') == $id ? 'selected' : '' }}>{{ $name }}</option>
                                     @endforeach
                                 </select>
                                 @error('research_centre')
@@ -64,7 +65,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark  h-58" name="menutitle"
-                                        id="menutitle">
+                                        id="menutitle"  value="{{ old('menutitle') }}">
                                     @error('menutitle')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -81,6 +82,9 @@
                                         autocomplete="off" onchange="addmenutype(this.value)">
                                         <option selected value="" class="text-dark">Select</option>
                                         <option value="1" class="text-dark">Content</option>
+                                        <!-- <option value="1" class="text-dark" {{ old('texttype') == '1' ? 'selected' : '' }}>Content</option> -->
+
+
                                         <!-- <option value="2" class="text-dark">PDF file Upload</option>
                                         <option value="3" class="text-dark">Web Site Url</option> -->
                                     </select>
@@ -98,7 +102,7 @@
                                         <span class="star">*</span>
                                         <div class="form-group position-relative">
                                             <textarea class="form-control  text-dark" rows="5" name="content"
-                                                id="content"></textarea>
+                                                id="content"  value="{{ old('content') }}"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -109,7 +113,7 @@
                                             <span class="star">*</span>
                                             <div class="form-group position-relative">
                                                 <input type="text" class="form-control text-dark  h-58"
-                                                    name="meta_title" id="meta_title">
+                                                    name="meta_title" id="meta_title"  value="{{ old('meta_title') }}">
                                             </div>
                                         </div>
                                     </div>
@@ -119,7 +123,7 @@
                                             <span class="star">*</span>
                                             <div class="form-group position-relative">
                                                 <input type="text" class="form-control text-dark  h-58"
-                                                    name="meta_keyword" id="meta_keyword">
+                                                    name="meta_keyword" id="meta_keyword"  value="{{ old('meta_keyword') }}">
                                             </div>
                                         </div>
                                     </div>
@@ -131,7 +135,7 @@
                                         <div class="form-group position-relative">
                                             <textarea class="form-control  text-dark"
                                                 placeholder="Some demo text ... " cols="30" rows="5"
-                                                name="meta_description" id="meta_description"></textarea>
+                                                name="meta_description" id="meta_description"  value="{{ old('meta_description') }}"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -212,7 +216,9 @@
                                         autocomplete="off" autocomplete="off" name="txtpostion"
                                         onchange="showDateFields(this.value)">
                                         <option selected value="" class="text-dark">Select</option>
-                                        <option value="1" class="text-dark">Header Menu</option>
+                                        <!-- <option value="1" class="text-dark">Header Menu</option> -->
+                                        <option value="1" class="text-dark" {{ old('txtpostion') == '1' ? 'selected' : '' }}>Header Menu</option>
+
                                         <!-- <option value="2" class="text-dark">Bottom Menu</option>
                                         <option value="3" class="text-dark">Footer Menu</option>
                                         <option value="4" class="text-dark">Director Message Menu</option>
@@ -234,8 +240,9 @@
                                     <select class="form-select form-control  h-58" id="menu_status"
                                         name="menu_status">
                                         <option value="">Select</option>
-                                        <option value="1" class="text-dark">Active</option>
-                                        <option value="0" class="text-dark">Inactive</option>
+                                        <option value="1" class="text-dark" {{ old('menu_status') == '1' ? 'selected' : '' }}>Active</option>
+                                        <option value="0" class="text-dark" {{ old('menu_status') == '0' ? 'selected' : '' }}>Inactive</option>
+
                                     </select>
                                     @error('menu_status')
                                     <div class="text-danger">{{ $message }}</div>

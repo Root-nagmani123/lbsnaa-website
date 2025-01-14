@@ -37,6 +37,8 @@ class HomePagesMicroController extends Controller
             ->where('rc.research_centre_slug', $slug) // Use the slug from the query string
             ->select('mc.name','mc.id','category_image')
             ->get();
+        
+        
         // dd($photoGalleries);
         
         // Pass data to the view
@@ -263,15 +265,19 @@ class HomePagesMicroController extends Controller
         // Fetch the gallery details based on ID and slug
         $gallery_details = DB::table('micro_manage_photo_galleries as mmpg')
             ->join('research_centres as rc', 'mmpg.research_centre', '=', 'rc.id')
+            ->join('micro_media_categories as mmc', 'mmpg.media_categories', '=', 'mmc.id')
+
             ->where('mmpg.media_categories', $id) // Filter by the category ID
             ->where('rc.research_centre_slug', $slug) // Filter by the slug
-            ->select('mmpg.*', 'rc.research_centre_name')
+            ->select('mmpg.*', 'rc.research_centre_name','mmc.name')
             ->get(); // Fetch a single record
+
+
 
         if (!$gallery_details) {
             abort(404, 'Gallery not found');
         }
-        // dd($gallery_details);
+
         // Pass data to the view
         return view('user.pages.microsites.media_gallery_details', compact('gallery_details','slug'));
     }
