@@ -20,8 +20,7 @@
 </section>
 <section class="py-2">
     <div class="container-fluid">
-        <div class="p-3">
-            <div class="d-flex justify-content-between align-items-center pb-20 mb-20 mb-2">
+    <div class="d-flex justify-content-between align-items-center pb-20 mb-20 mb-2">
                 <h3 class="fw-semibold fs-18 mb-0">Screen Reader Access</h3>
             </div>
             <div class="row">
@@ -32,7 +31,6 @@
                     <p><?= $screenRender->description ?></p>
                 </div>
             </div>
-        </div>
     </div>
 </section>
 @include('user.includes.footer')

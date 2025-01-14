@@ -11,8 +11,7 @@
                         <li class="breadcrumb-item">
                             <a href="{{ route('home')}}" style="color: #af2910;">Home</a>
                         </li>
-                        <li class="breadcrumb-item">
-                            <a href="#" style="color: #af2910;">Running Events</a>
+                        <li class="breadcrumb-item active">Running Events
                         </li>
                     </ol>
                 </nav>
