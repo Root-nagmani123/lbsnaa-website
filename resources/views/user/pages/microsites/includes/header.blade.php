@@ -111,7 +111,7 @@
                 $slug = request()->query('slug') ?: request()->route('slug');
             @endphp
 
-            <a href="{{ url('/lbsnaa-sub/' . $slug) }}"><span>Home</span></a>                
+            <a href="{{ url('/lbsnaa-sub/' . $slug) }}" style="text-decoration: none;color: black;"><span>Home</span></a>                
                 <ul class="navbar-nav me-auto navmenu">
                     @php
                         $slug = request()->query('slug') ?: request()->route('slug');

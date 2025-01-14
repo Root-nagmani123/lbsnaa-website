@@ -24,19 +24,19 @@
     @if($organizations->isNotEmpty())
     <div class="row">
         @foreach ($organizations as $organization)
-        <div class="col-md-3 mb-4">
-            <div class="card">
+        <div class="col-md-2 mb-4">
+            <div class="card card-lift" style="height: 300px;">
                 <div class="card-header text-center" style="border:0;">
                     <img src="{{ $organization->main_image ? url($organization->main_image) : '' }}"
-                        class="avatar avatar-xl rounded-circle" alt="organization Image" style="object-fit: cover;">
+                        class="avatar avatar-xxl rounded-circle" alt="organization Image" style="object-fit: cover;">
                 </div>
                 <div class="card-body">
                     <div class="form-field mt-2">
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#organizationModal{{ $organization->id }}">
-                            {{ $organization->employee_name ?? '' }}
+                        <h3 class="h3">{{ $organization->employee_name ?? '' }}</h3>
+                        <p class="text-secondary">{{ $organization->designation ?? '' }}</p>
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#organizationModal{{ $organization->id }}" style="color: #af2910;">View Profile
+                            <i class="bi bi-arrow-right"></i>
                         </a>
-                        <p class="card-text">{{ $organization->designation ?? '' }}</p>
-                        <p class="card-text">{{ $organization->email ?? '' }}</p>
                     </div>
                 </div>
             </div>
@@ -62,7 +62,7 @@
                                 <p>Email:-</p>
                             </div>
                             <div class="col-lg-6">
-                                <p><strong>{{ $organization->employee_name ?? '' }}</strong></p>
+                                <h4 class="fw-semibold h4">{{ $organization->employee_name ?? '' }}</h4>
                                 <p>{{ $organization->designation ?? '' }}</p>
                                 <p>{{ $organization->email ?? '' }}</p>
                             </div>
