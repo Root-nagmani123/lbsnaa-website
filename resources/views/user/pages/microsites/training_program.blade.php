@@ -25,10 +25,10 @@
 
 <section class="container-fluid">
     <!-- Gallery Display -->
-    @if($trainingprograms->isNotEmpty())
+
     <div class="row">
-       
         <div class="col-lg-9 col-12">
+            @if($trainingprograms->isNotEmpty())
             <table class="table table-striped table-hover table-bordered">
                 <thead>
                     <tr>
@@ -40,7 +40,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                @foreach ($trainingprograms as $index => $training)
+                    @foreach ($trainingprograms as $index => $training)
                     <tr>
                         <td>{{ $index + 1 }}</td>
                         <td>
@@ -56,13 +56,10 @@
                     @endforeach
                 </tbody>
             </table>
+            @else
+            <p>No training programs available at the moment.</p>
+            @endif
         </div>
-
-       
-        @else
-                    <p>No training programs available at the moment.</p>
-                    @endif
-
         <!-- Quick Links -->
         <div class="col-12 col-lg-3 mb-4">
             <div class="card card-hover border">
@@ -104,10 +101,8 @@
                     </ul>
                 </div>
             </div>
-
         </div>
     </div>
-
 </section>
 
 @include('user.pages.microsites.includes.footer')
