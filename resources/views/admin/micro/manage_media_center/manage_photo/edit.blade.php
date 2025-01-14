@@ -107,7 +107,7 @@
                                     <div id="training-suggestions" class="dropdown-menu"
                                         style="display: none; position: relative;"></div>
                                 </div>
-                            </div>
+                            </div> 
                         </div> -->
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
@@ -237,11 +237,11 @@
 // });
 
 // Event listener for the Training Programme dropdown
-document.getElementById('image_relate_with_training').addEventListener('change', function() {
-    // Show related Training Programme fields if 'Training Programme' is selected, hide otherwise
-    document.getElementById('related_training_field').style.display = this.value === 'Training Programme' ?
-        'block' : 'none';
-});
+// document.getElementById('image_relate_with_training').addEventListener('change', function() {
+//     // Show related Training Programme fields if 'Training Programme' is selected, hide otherwise
+//     document.getElementById('related_training_field').style.display = this.value === 'Training Programme' ?
+//         'block' : 'none';
+// });
 
 // Event listener for the Events dropdown
 // document.getElementById('image_relate_with_events').addEventListener('change', function() {
@@ -254,281 +254,281 @@ document.getElementById('image_relate_with_training').addEventListener('change',
 @endsection
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    const courseSearch = document.getElementById("course-search");
-    const courseSuggestions = document.getElementById("course-suggestions");
-    const selectedCourseId = document.getElementById("selected-course-id");
+// document.addEventListener("DOMContentLoaded", function() {
+//     const courseSearch = document.getElementById("course-search");
+//     const courseSuggestions = document.getElementById("course-suggestions");
+//     const selectedCourseId = document.getElementById("selected-course-id");
 
-    courseSearch.addEventListener("keyup", function() {
-        const query = courseSearch.value;
+//     courseSearch.addEventListener("keyup", function() {
+//         const query = courseSearch.value;
 
-        if (query.length > 1) {
-            fetch(`/admin/search-courses?query=${query}`, {
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest'
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    courseSuggestions.innerHTML = ""; // Clear previous suggestions
+//         if (query.length > 1) {
+//             fetch(`/admin/search-courses?query=${query}`, {
+//                     headers: {
+//                         'X-Requested-With': 'XMLHttpRequest'
+//                     }
+//                 })
+//                 .then(response => response.json())
+//                 .then(data => {
+//                     courseSuggestions.innerHTML = ""; // Clear previous suggestions
 
-                    // If we have results, show the dropdown and populate it
-                    if (data.length > 0) {
-                        courseSuggestions.style.display = "block";
+//                     // If we have results, show the dropdown and populate it
+//                     if (data.length > 0) {
+//                         courseSuggestions.style.display = "block";
 
-                        data.forEach(course => {
-                            const option = document.createElement("a");
-                            option.href = "#";
-                            option.classList.add("dropdown-item");
-                            option.textContent = course.name;
-                            option.dataset.id = course.id;
+//                         data.forEach(course => {
+//                             const option = document.createElement("a");
+//                             option.href = "#";
+//                             option.classList.add("dropdown-item");
+//                             option.textContent = course.name;
+//                             option.dataset.id = course.id;
 
-                            // When a course is clicked, set the input and hide dropdown
-                            option.addEventListener("click", function(e) {
-                                e.preventDefault();
-                                courseSearch.value = course
-                                    .name; // Set visible input for display
-                                selectedCourseId.value = course
-                                    .id; // Set hidden input for submission
-                                courseSuggestions.style.display = "none";
-                            });
+//                             // When a course is clicked, set the input and hide dropdown
+//                             option.addEventListener("click", function(e) {
+//                                 e.preventDefault();
+//                                 courseSearch.value = course
+//                                     .name; // Set visible input for display
+//                                 selectedCourseId.value = course
+//                                     .id; // Set hidden input for submission
+//                                 courseSuggestions.style.display = "none";
+//                             });
 
-                            courseSuggestions.appendChild(option);
-                        });
-                    } else {
-                        courseSuggestions.style.display = "none"; // Hide if no results
-                    }
-                });
-        } else {
-            courseSuggestions.style.display = "none"; // Hide if query is too short
-        }
-    });
+//                             courseSuggestions.appendChild(option);
+//                         });
+//                     } else {
+//                         courseSuggestions.style.display = "none"; // Hide if no results
+//                     }
+//                 });
+//         } else {
+//             courseSuggestions.style.display = "none"; // Hide if query is too short
+//         }
+//     });
 
-    // Hide suggestions if clicked outside
-    document.addEventListener("click", function(e) {
-        if (!courseSuggestions.contains(e.target) && e.target !== courseSearch) {
-            courseSuggestions.style.display = "none";
-        }
-    });
-});
+//     // Hide suggestions if clicked outside
+//     document.addEventListener("click", function(e) {
+//         if (!courseSuggestions.contains(e.target) && e.target !== courseSearch) {
+//             courseSuggestions.style.display = "none";
+//         }
+//     });
+// });
 </script>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    const courseSearch = document.getElementById("news-search");
-    const courseSuggestions = document.getElementById("news-suggestions");
-    const selectedCourseId = document.getElementById("selected-news-id");
+// document.addEventListener("DOMContentLoaded", function() {
+//     const courseSearch = document.getElementById("news-search");
+//     const courseSuggestions = document.getElementById("news-suggestions");
+//     const selectedCourseId = document.getElementById("selected-news-id");
 
-    courseSearch.addEventListener("keyup", function() {
-        const query = courseSearch.value;
+//     courseSearch.addEventListener("keyup", function() {
+//         const query = courseSearch.value;
 
-        if (query.length > 1) {
-            fetch(`/admin/search-courses?query=${query}`, {
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest'
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    courseSuggestions.innerHTML = ""; // Clear previous suggestions
+//         if (query.length > 1) {
+//             fetch(`/admin/search-courses?query=${query}`, {
+//                     headers: {
+//                         'X-Requested-With': 'XMLHttpRequest'
+//                     }
+//                 })
+//                 .then(response => response.json())
+//                 .then(data => {
+//                     courseSuggestions.innerHTML = ""; // Clear previous suggestions
 
-                    // If we have results, show the dropdown and populate it
-                    if (data.length > 0) {
-                        courseSuggestions.style.display = "block";
+//                     // If we have results, show the dropdown and populate it
+//                     if (data.length > 0) {
+//                         courseSuggestions.style.display = "block";
 
-                        data.forEach(course => {
-                            const option = document.createElement("a");
-                            option.href = "#";
-                            option.classList.add("dropdown-item");
-                            option.textContent = course.name;
-                            option.dataset.id = course.id;
+//                         data.forEach(course => {
+//                             const option = document.createElement("a");
+//                             option.href = "#";
+//                             option.classList.add("dropdown-item");
+//                             option.textContent = course.name;
+//                             option.dataset.id = course.id;
 
-                            // When a course is clicked, set the input and hide dropdown
-                            option.addEventListener("click", function(e) {
-                                e.preventDefault();
-                                courseSearch.value = course
-                                    .name; // Set visible input for display
-                                selectedCourseId.value = course
-                                    .id; // Set hidden input for submission
-                                courseSuggestions.style.display = "none";
-                            });
+//                             // When a course is clicked, set the input and hide dropdown
+//                             option.addEventListener("click", function(e) {
+//                                 e.preventDefault();
+//                                 courseSearch.value = course
+//                                     .name; // Set visible input for display
+//                                 selectedCourseId.value = course
+//                                     .id; // Set hidden input for submission
+//                                 courseSuggestions.style.display = "none";
+//                             });
 
-                            courseSuggestions.appendChild(option);
-                        });
-                    } else {
-                        courseSuggestions.style.display = "none"; // Hide if no results
-                    }
-                });
-        } else {
-            courseSuggestions.style.display = "none"; // Hide if query is too short
-        }
-    });
+//                             courseSuggestions.appendChild(option);
+//                         });
+//                     } else {
+//                         courseSuggestions.style.display = "none"; // Hide if no results
+//                     }
+//                 });
+//         } else {
+//             courseSuggestions.style.display = "none"; // Hide if query is too short
+//         }
+//     });
 
-    // Hide suggestions if clicked outside
-    document.addEventListener("click", function(e) {
-        if (!courseSuggestions.contains(e.target) && e.target !== courseSearch) {
-            courseSuggestions.style.display = "none";
-        }
-    });
-});
+//     // Hide suggestions if clicked outside
+//     document.addEventListener("click", function(e) {
+//         if (!courseSuggestions.contains(e.target) && e.target !== courseSearch) {
+//             courseSuggestions.style.display = "none";
+//         }
+//     });
+// });
 </script>
 
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    const courseSearch = document.getElementById("training-search");
-    const courseSuggestions = document.getElementById("training-suggestions");
-    const selectedCourseId = document.getElementById("selected-training-id");
+// document.addEventListener("DOMContentLoaded", function() {
+//     const courseSearch = document.getElementById("training-search");
+//     const courseSuggestions = document.getElementById("training-suggestions");
+//     const selectedCourseId = document.getElementById("selected-training-id");
 
-    courseSearch.addEventListener("keyup", function() {
-        const query = courseSearch.value;
+//     courseSearch.addEventListener("keyup", function() {
+//         const query = courseSearch.value;
 
-        if (query.length > 1) {
-            fetch(`/admin/search-courses?query=${query}`, {
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest'
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    courseSuggestions.innerHTML = ""; // Clear previous suggestions
+//         if (query.length > 1) {
+//             fetch(`/admin/search-courses?query=${query}`, {
+//                     headers: {
+//                         'X-Requested-With': 'XMLHttpRequest'
+//                     }
+//                 })
+//                 .then(response => response.json())
+//                 .then(data => {
+//                     courseSuggestions.innerHTML = ""; // Clear previous suggestions
 
-                    // If we have results, show the dropdown and populate it
-                    if (data.length > 0) {
-                        courseSuggestions.style.display = "block";
+//                     // If we have results, show the dropdown and populate it
+//                     if (data.length > 0) {
+//                         courseSuggestions.style.display = "block";
 
-                        data.forEach(course => {
-                            const option = document.createElement("a");
-                            option.href = "#";
-                            option.classList.add("dropdown-item");
-                            option.textContent = course.name;
-                            option.dataset.id = course.id;
+//                         data.forEach(course => {
+//                             const option = document.createElement("a");
+//                             option.href = "#";
+//                             option.classList.add("dropdown-item");
+//                             option.textContent = course.name;
+//                             option.dataset.id = course.id;
 
-                            // When a course is clicked, set the input and hide dropdown
-                            option.addEventListener("click", function(e) {
-                                e.preventDefault();
-                                courseSearch.value = course
-                                    .name; // Set visible input for display
-                                selectedCourseId.value = course
-                                    .id; // Set hidden input for submission
-                                courseSuggestions.style.display = "none";
-                            });
+//                             // When a course is clicked, set the input and hide dropdown
+//                             option.addEventListener("click", function(e) {
+//                                 e.preventDefault();
+//                                 courseSearch.value = course
+//                                     .name; // Set visible input for display
+//                                 selectedCourseId.value = course
+//                                     .id; // Set hidden input for submission
+//                                 courseSuggestions.style.display = "none";
+//                             });
 
-                            courseSuggestions.appendChild(option);
-                        });
-                    } else {
-                        courseSuggestions.style.display = "none"; // Hide if no results
-                    }
-                });
-        } else {
-            courseSuggestions.style.display = "none"; // Hide if query is too short
-        }
-    });
+//                             courseSuggestions.appendChild(option);
+//                         });
+//                     } else {
+//                         courseSuggestions.style.display = "none"; // Hide if no results
+//                     }
+//                 });
+//         } else {
+//             courseSuggestions.style.display = "none"; // Hide if query is too short
+//         }
+//     });
 
-    // Hide suggestions if clicked outside
-    document.addEventListener("click", function(e) {
-        if (!courseSuggestions.contains(e.target) && e.target !== courseSearch) {
-            courseSuggestions.style.display = "none";
-        }
-    });
-});
+//     // Hide suggestions if clicked outside
+//     document.addEventListener("click", function(e) {
+//         if (!courseSuggestions.contains(e.target) && e.target !== courseSearch) {
+//             courseSuggestions.style.display = "none";
+//         }
+//     });
+// });
 </script>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    const courseSearch = document.getElementById("event-search");
-    const courseSuggestions = document.getElementById("event-suggestions");
-    const selectedCourseId = document.getElementById("selected-event-id");
+// document.addEventListener("DOMContentLoaded", function() {
+//     const courseSearch = document.getElementById("event-search");
+//     const courseSuggestions = document.getElementById("event-suggestions");
+//     const selectedCourseId = document.getElementById("selected-event-id");
 
-    courseSearch.addEventListener("keyup", function() {
-        const query = courseSearch.value;
+//     courseSearch.addEventListener("keyup", function() {
+//         const query = courseSearch.value;
 
-        if (query.length > 1) {
-            fetch(`/admin/search-courses?query=${query}`, {
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest'
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    courseSuggestions.innerHTML = ""; // Clear previous suggestions
+//         if (query.length > 1) {
+//             fetch(`/admin/search-courses?query=${query}`, {
+//                     headers: {
+//                         'X-Requested-With': 'XMLHttpRequest'
+//                     }
+//                 })
+//                 .then(response => response.json())
+//                 .then(data => {
+//                     courseSuggestions.innerHTML = ""; // Clear previous suggestions
 
-                    // If we have results, show the dropdown and populate it
-                    if (data.length > 0) {
-                        courseSuggestions.style.display = "block";
+//                     // If we have results, show the dropdown and populate it
+//                     if (data.length > 0) {
+//                         courseSuggestions.style.display = "block";
 
-                        data.forEach(course => {
-                            const option = document.createElement("a");
-                            option.href = "#";
-                            option.classList.add("dropdown-item");
-                            option.textContent = course.name;
-                            option.dataset.id = course.id;
+//                         data.forEach(course => {
+//                             const option = document.createElement("a");
+//                             option.href = "#";
+//                             option.classList.add("dropdown-item");
+//                             option.textContent = course.name;
+//                             option.dataset.id = course.id;
 
-                            // When a course is clicked, set the input and hide dropdown
-                            option.addEventListener("click", function(e) {
-                                e.preventDefault();
-                                courseSearch.value = course
-                                    .name; // Set visible input for display
-                                selectedCourseId.value = course
-                                    .id; // Set hidden input for submission
-                                courseSuggestions.style.display = "none";
-                            });
+//                             // When a course is clicked, set the input and hide dropdown
+//                             option.addEventListener("click", function(e) {
+//                                 e.preventDefault();
+//                                 courseSearch.value = course
+//                                     .name; // Set visible input for display
+//                                 selectedCourseId.value = course
+//                                     .id; // Set hidden input for submission
+//                                 courseSuggestions.style.display = "none";
+//                             });
 
-                            courseSuggestions.appendChild(option);
-                        });
-                    } else {
-                        courseSuggestions.style.display = "none"; // Hide if no results
-                    }
-                });
-        } else {
-            courseSuggestions.style.display = "none"; // Hide if query is too short
-        }
-    });
+//                             courseSuggestions.appendChild(option);
+//                         });
+//                     } else {
+//                         courseSuggestions.style.display = "none"; // Hide if no results
+//                     }
+//                 });
+//         } else {
+//             courseSuggestions.style.display = "none"; // Hide if query is too short
+//         }
+//     });
 
-    // Hide suggestions if clicked outside
-    document.addEventListener("click", function(e) {
-        if (!courseSuggestions.contains(e.target) && e.target !== courseSearch) {
-            courseSuggestions.style.display = "none";
-        }
-    });
-});
+//     // Hide suggestions if clicked outside
+//     document.addEventListener("click", function(e) {
+//         if (!courseSuggestions.contains(e.target) && e.target !== courseSearch) {
+//             courseSuggestions.style.display = "none";
+//         }
+//     });
+// });
 </script>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    const removedFilesInput = document.getElementById('removed-files'); // Hidden input for removed files
-    const fileContainer = document.getElementById('file-container'); // Container for all files
+// document.addEventListener("DOMContentLoaded", function() {
+//     const removedFilesInput = document.getElementById('removed-files'); // Hidden input for removed files
+//     const fileContainer = document.getElementById('file-container'); // Container for all files
 
-    // Event listener for dynamically adding new file inputs
-    document.getElementById('add-file').addEventListener('click', function() {
-        const fileGroup = document.createElement('div');
-        fileGroup.classList.add('file-group', 'mt-2');
-        fileGroup.innerHTML = `
-            <input type="file" name="image_files[]" class="form-control text-dark  h-58" accept="image/*">
-            <button type="button" class="btn btn-danger remove-file mt-2 text-white">Remove</button>
-        `;
-        fileContainer.appendChild(fileGroup);
+//     // Event listener for dynamically adding new file inputs
+//     document.getElementById('add-file').addEventListener('click', function() {
+//         const fileGroup = document.createElement('div');
+//         fileGroup.classList.add('file-group', 'mt-2');
+//         fileGroup.innerHTML = `
+//             <input type="file" name="image_files[]" class="form-control text-dark  h-58" accept="image/*">
+//             <button type="button" class="btn btn-danger remove-file mt-2 text-white">Remove</button>
+//         `;
+//         fileContainer.appendChild(fileGroup);
 
-        // Attach remove event listener to the new "Remove" button
-        fileGroup.querySelector('.remove-file').addEventListener('click', function() {
-            fileGroup.remove();
-        });
-    });
+//         // Attach remove event listener to the new "Remove" button
+//         fileGroup.querySelector('.remove-file').addEventListener('click', function() {
+//             fileGroup.remove();
+//         });
+//     });
 
-    // Event delegation for removing existing images
-    fileContainer.addEventListener('click', function(event) {
-        if (event.target.classList.contains('remove-existing-file')) {
-            const fileGroup = event.target.closest('.file-group');
-            const fileName = event.target.getAttribute('data-file');
+//     // Event delegation for removing existing images
+//     fileContainer.addEventListener('click', function(event) {
+//         if (event.target.classList.contains('remove-existing-file')) {
+//             const fileGroup = event.target.closest('.file-group');
+//             const fileName = event.target.getAttribute('data-file');
 
-            // Add the removed file to the hidden input value
-            const removedFiles = removedFilesInput.value ? JSON.parse(removedFilesInput.value) : [];
-            removedFiles.push(fileName);
-            removedFilesInput.value = JSON.stringify(removedFiles);
+//             // Add the removed file to the hidden input value
+//             const removedFiles = removedFilesInput.value ? JSON.parse(removedFilesInput.value) : [];
+//             removedFiles.push(fileName);
+//             removedFilesInput.value = JSON.stringify(removedFiles);
 
-            // Remove the file group from the DOM
-            fileGroup.remove();
-        }
-    });
-});
+//             // Remove the file group from the DOM
+//             fileGroup.remove();
+//         }
+//     });
+// });
 </script>

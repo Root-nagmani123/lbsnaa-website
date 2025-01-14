@@ -48,9 +48,9 @@
                                          alt="Gallery Image" 
                                          style="width: 100%; height: 250px; object-fit: cover;">
                                          <div class="card-footer text-center">
-                                            <p class="card-text mb-0">{{ $gallery->name }}</p>
+                                            <p class="card-text mb-0">{{ $gallery->image_title_english }}</p>
                                         </div>
-                                @endforeach
+                                @endforeach 
                             @else
                                 <!-- Fallback image if no image is found -->
                                 <img src="{{ asset('storage/uploads/default-placeholder.png') }}" 

@@ -43,32 +43,49 @@ class MicroManagePhotoGalleryController extends Controller
             ->where('status', 1) // Filter only active research centres
             ->pluck('research_centre_name', 'id'); // Pluck research centre name and id
 
-        // dd($researchCentres);
-
-        
         // Fetch active media categories
         $mediaCategories = DB::table('micro_media_categories')
                             ->where('status', 1)
                             ->pluck('name', 'id'); // Use pluck for a key-value array
         
-        
-
-        // print_r($researchCentres);
         return view('admin.micro.manage_media_center.manage_photo.index', compact('galleries', 'researchCentres'));
     }
 
+    // public function create()
+    // {
+    //     $mediaCategories = DB::table('micro_media_categories')
+    //         ->where('status', 1)
+    //         ->where('media_gallery', 1)
+    //         ->get(); // Retrieve records with status == 1 
+            
+            
+    //     $researchCentres = DB::table('research_centres')
+    //         ->where('status', 1)  // Filter where status is 1
+    //         ->pluck('research_centre_name', 'id');  // Replace 'research_centre_name' and 'id' with your actual column names
+
+    //     return view('admin.micro.manage_media_center.manage_photo.create', compact('mediaCategories','researchCentres')); 
+    // }
+
+
     public function create()
     {
+        // Fetch media categories and join with research centres
         $mediaCategories = DB::table('micro_media_categories')
-            ->where('status', 1)
-            ->where('media_gallery', 1)
-            ->get(); // Retrieve records with status == 1  
-        $researchCentres = DB::table('research_centres')
-            ->where('status', 1)  // Filter where status is 1
-            ->pluck('research_centre_name', 'id');  // Replace 'research_centre_name' and 'id' with your actual column names
+            ->join('research_centres', 'micro_media_categories.research_centre', '=', 'research_centres.id')
+            ->where('micro_media_categories.status', 1)
+            ->where('micro_media_categories.media_gallery', 1)
+            ->select('micro_media_categories.id', 'micro_media_categories.name', 'research_centres.research_centre_name as centre_name')
+            ->get();
 
-        return view('admin.micro.manage_media_center.manage_photo.create', compact('mediaCategories','researchCentres')); 
+        // Fetch research centres for the dropdown
+        $researchCentres = DB::table('research_centres')
+            ->where('status', 1)
+            ->pluck('research_centre_name', 'id');
+
+        // Pass data to the view
+        return view('admin.micro.manage_media_center.manage_photo.create', compact('mediaCategories', 'researchCentres'));
     }
+
  
     public function store(Request $request)
     {
@@ -160,7 +177,7 @@ class MicroManagePhotoGalleryController extends Controller
         ->pluck('research_centre_name', 'id');  // Replace 'research_centre_name' and 'id' with your actual column names
 
         if (!$gallery) {
-            abort(404, 'Gallery not found');
+            abort(404, 'Gallery not found'); 
         }
 
         // Fetch active media categories
@@ -337,5 +354,29 @@ class MicroManagePhotoGalleryController extends Controller
         $photos = MicroManagePhotoGallery::where('gallery_id', $id)->get();  // Returns a collection
         return view('admin.micro.manage_media_center.manage_photo.edit', compact('photos'));
     }
+
+    public function fetchMediaCategories(Request $request)
+    {
+        $categories = DB::table('micro_media_categories')
+            ->where('research_centre', $request->research_centre_id)
+            ->where('status', 1)
+            ->where('media_gallery', 1)
+            ->select('id', 'name')
+            ->get();
+    
+        return response()->json($categories);
+    }
+    
+
+
+
+
+
+
+
+
+
+
+
 
 }

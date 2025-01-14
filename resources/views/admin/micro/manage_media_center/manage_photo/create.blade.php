@@ -44,7 +44,7 @@
                                     <input class="form-check-input form-control  h-58" type="text"
                                         name="course-search" id="course-search"
                                         placeholder="Type to search for category..." value="{{ old('course-search') }}">
-
+ 
                                     
                                     <input type="hidden" name="course_id" id="selected-course-id"
                                         value="{{ old('course_id') }}">
@@ -65,7 +65,7 @@
                             <div class="form-group mb-4">
                                 <label for="select_research_centre">Select Research Centre:</label>
                                 <span class="star">*</span>
-                                <select name="research_centre" class="form-control">
+                                <select id="select_research_centre" name="research_centre" class="form-control">
                                     <option value="" selected>Select Research Centre</option>
                                     @foreach ($researchCentres as $id => $name)
                                     <option value="{{ $id }}">{{ $name }}</option>
@@ -166,7 +166,9 @@
                                 </div>
                             </div>
                         </div> -->
-                        <div class="col-lg-6">
+
+
+                        <!-- <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label for="media_categories" class="label">Media Category</label>
                                 <span class="star">*</span>
@@ -184,7 +186,34 @@
                                     @enderror
                                 </div>
                             </div>
+                        </div> -->
+
+
+
+
+
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label for="media_categories" class="label">Media Category:</label>
+                                <span class="star">*</span>
+                                <select name="media_categories" id="media_categories" class="form-control">
+                                    <option value="" selected>Select Media Category</option>
+                                </select>
+                                @error('media_categories')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
                         </div>
+
+
+
+
+
+
+
+
+
+                        
                         <!-- Placeholder for Events-related fields -->
                         <!-- <div class="col-lg-6" id="related_events_field" style="display: none;">
                             <div class="form-group mb-4">
@@ -291,11 +320,11 @@
 // });
 
 // Event listener for the Training Programme dropdown
-document.getElementById('image_relate_with_training').addEventListener('change', function() {
-    // Show related Training Programme fields if 'Training Programme' is selected, hide otherwise
-    document.getElementById('related_training_field').style.display = this.value === 'Training Programme' ?
-        'block' : 'none';
-});
+// document.getElementById('image_relate_with_training').addEventListener('change', function() {
+//     // Show related Training Programme fields if 'Training Programme' is selected, hide otherwise
+//     document.getElementById('related_training_field').style.display = this.value === 'Training Programme' ?
+//         'block' : 'none';
+// });
 
 // Event listener for the Events dropdown
 // document.getElementById('image_relate_with_events').addEventListener('change', function() {
@@ -306,333 +335,366 @@ document.getElementById('image_relate_with_training').addEventListener('change',
 
 
 // News
-document.addEventListener('DOMContentLoaded', () => {
-    const dropdown = document.getElementById('image_relate_with_news');
-    const relatedNewsField = document.getElementById('related_news_field');
+// document.addEventListener('DOMContentLoaded', () => {
+//     const dropdown = document.getElementById('image_relate_with_news');
+//     const relatedNewsField = document.getElementById('related_news_field');
 
-    // Initial check for old value
-    if (dropdown.value === 'News') {
-        relatedNewsField.style.display = 'block';
-    }
+//     // Initial check for old value
+//     if (dropdown.value === 'News') {
+//         relatedNewsField.style.display = 'block';
+//     }
 
-    // Event listener for dropdown change
-    dropdown.addEventListener('change', (event) => {
-        if (event.target.value === 'News') {
-            relatedNewsField.style.display = 'block';
-        } else {
-            relatedNewsField.style.display = 'none';
-        }
-    });
-});
+//     // Event listener for dropdown change
+//     dropdown.addEventListener('change', (event) => {
+//         if (event.target.value === 'News') {
+//             relatedNewsField.style.display = 'block';
+//         } else {
+//             relatedNewsField.style.display = 'none';
+//         }
+//     });
+// });
 
 
-document.addEventListener('DOMContentLoaded', () => {
-    const dropdownTraining = document.getElementById('image_relate_with_training');
-    const relatedTrainingField = document.getElementById('related_training_field');
+// document.addEventListener('DOMContentLoaded', () => {
+//     const dropdownTraining = document.getElementById('image_relate_with_training');
+//     const relatedTrainingField = document.getElementById('related_training_field');
 
-    // Check initial value on page load
-    if (dropdownTraining.value === 'Training Programme') {
-        relatedTrainingField.style.display = 'block';
-    }
+//     // Check initial value on page load
+//     if (dropdownTraining.value === 'Training Programme') {
+//         relatedTrainingField.style.display = 'block';
+//     }
 
-    // Add event listener for dropdown changes
-    dropdownTraining.addEventListener('change', (event) => {
-        if (event.target.value === 'Training Programme') {
-            relatedTrainingField.style.display = 'block';
-        } else {
-            relatedTrainingField.style.display = 'none';
-        }
-    });
-});
+//     // Add event listener for dropdown changes
+//     dropdownTraining.addEventListener('change', (event) => {
+//         if (event.target.value === 'Training Programme') {
+//             relatedTrainingField.style.display = 'block';
+//         } else {
+//             relatedTrainingField.style.display = 'none';
+//         }
+//     });
+// });
 
-document.addEventListener('DOMContentLoaded', () => {
-    const dropdownEvents = document.getElementById('image_relate_with_events');
-    const relatedEventsField = document.getElementById('related_events_field');
+// document.addEventListener('DOMContentLoaded', () => {
+//     const dropdownEvents = document.getElementById('image_relate_with_events');
+//     const relatedEventsField = document.getElementById('related_events_field');
 
-    // Check the initial value on page load
-    if (dropdownEvents.value === 'Related Events') {
-        relatedEventsField.style.display = 'block';
-    }
+//     // Check the initial value on page load
+//     if (dropdownEvents.value === 'Related Events') {
+//         relatedEventsField.style.display = 'block';
+//     }
 
-    // Add event listener for dropdown changes
-    dropdownEvents.addEventListener('change', (event) => {
-        if (event.target.value === 'Related Events') {
-            relatedEventsField.style.display = 'block';
-        } else {
-            relatedEventsField.style.display = 'none';
-        }
-    });
-});
+//     // Add event listener for dropdown changes
+//     dropdownEvents.addEventListener('change', (event) => {
+//         if (event.target.value === 'Related Events') {
+//             relatedEventsField.style.display = 'block';
+//         } else {
+//             relatedEventsField.style.display = 'none';
+//         }
+//     });
+// });
 </script>
 
 @endsection
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    const courseSearch = document.getElementById("course-search");
-    const courseSuggestions = document.getElementById("course-suggestions");
-    const selectedCourseId = document.getElementById("selected-course-id");
+// document.addEventListener("DOMContentLoaded", function() {
+//     const courseSearch = document.getElementById("course-search");
+//     const courseSuggestions = document.getElementById("course-suggestions");
+//     const selectedCourseId = document.getElementById("selected-course-id");
 
-    courseSearch.addEventListener("keyup", function() {
-        const query = courseSearch.value;
+//     courseSearch.addEventListener("keyup", function() {
+//         const query = courseSearch.value;
 
-        if (query.length > 1) {
-            fetch(`/admin/search-courses?query=${query}`, {
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest'
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    courseSuggestions.innerHTML = ""; // Clear previous suggestions
+//         if (query.length > 1) {
+//             fetch(`/admin/search-courses?query=${query}`, {
+//                     headers: {
+//                         'X-Requested-With': 'XMLHttpRequest'
+//                     }
+//                 })
+//                 .then(response => response.json())
+//                 .then(data => {
+//                     courseSuggestions.innerHTML = ""; // Clear previous suggestions
 
-                    // If we have results, show the dropdown and populate it
-                    if (data.length > 0) {
-                        courseSuggestions.style.display = "block";
+//                     // If we have results, show the dropdown and populate it
+//                     if (data.length > 0) {
+//                         courseSuggestions.style.display = "block";
 
-                        data.forEach(course => {
-                            const option = document.createElement("a");
-                            option.href = "#";
-                            option.classList.add("dropdown-item");
-                            option.textContent = course.name;
-                            option.dataset.id = course.id;
+//                         data.forEach(course => {
+//                             const option = document.createElement("a");
+//                             option.href = "#";
+//                             option.classList.add("dropdown-item");
+//                             option.textContent = course.name;
+//                             option.dataset.id = course.id;
 
-                            // When a course is clicked, set the input and hide dropdown
-                            option.addEventListener("click", function(e) {
-                                e.preventDefault();
-                                courseSearch.value = course
-                                    .name; // Set visible input for display
-                                selectedCourseId.value = course
-                                    .id; // Set hidden input for submission
-                                courseSuggestions.style.display = "none";
-                            });
+//                             // When a course is clicked, set the input and hide dropdown
+//                             option.addEventListener("click", function(e) {
+//                                 e.preventDefault();
+//                                 courseSearch.value = course
+//                                     .name; // Set visible input for display
+//                                 selectedCourseId.value = course
+//                                     .id; // Set hidden input for submission
+//                                 courseSuggestions.style.display = "none";
+//                             });
 
-                            courseSuggestions.appendChild(option);
-                        });
-                    } else {
-                        courseSuggestions.style.display = "none"; // Hide if no results
-                    }
-                });
-        } else {
-            courseSuggestions.style.display = "none"; // Hide if query is too short
-        }
-    });
+//                             courseSuggestions.appendChild(option);
+//                         });
+//                     } else {
+//                         courseSuggestions.style.display = "none"; // Hide if no results
+//                     }
+//                 });
+//         } else {
+//             courseSuggestions.style.display = "none"; // Hide if query is too short
+//         }
+//     });
 
-    // Hide suggestions if clicked outside
-    document.addEventListener("click", function(e) {
-        if (!courseSuggestions.contains(e.target) && e.target !== courseSearch) {
-            courseSuggestions.style.display = "none";
-        }
-    });
-});
+//     // Hide suggestions if clicked outside
+//     document.addEventListener("click", function(e) {
+//         if (!courseSuggestions.contains(e.target) && e.target !== courseSearch) {
+//             courseSuggestions.style.display = "none";
+//         }
+//     });
+// });
 </script>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    const courseSearch = document.getElementById("news-search");
-    const courseSuggestions = document.getElementById("news-suggestions");
-    const selectedCourseId = document.getElementById("selected-news-id");
+// document.addEventListener("DOMContentLoaded", function() {
+//     const courseSearch = document.getElementById("news-search");
+//     const courseSuggestions = document.getElementById("news-suggestions");
+//     const selectedCourseId = document.getElementById("selected-news-id");
 
-    courseSearch.addEventListener("keyup", function() {
-        const query = courseSearch.value;
+//     courseSearch.addEventListener("keyup", function() {
+//         const query = courseSearch.value;
 
-        if (query.length > 1) {
-            fetch(`/admin/search-courses?query=${query}`, {
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest'
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    courseSuggestions.innerHTML = ""; // Clear previous suggestions
+//         if (query.length > 1) {
+//             fetch(`/admin/search-courses?query=${query}`, {
+//                     headers: {
+//                         'X-Requested-With': 'XMLHttpRequest'
+//                     }
+//                 })
+//                 .then(response => response.json())
+//                 .then(data => {
+//                     courseSuggestions.innerHTML = ""; // Clear previous suggestions
 
-                    // If we have results, show the dropdown and populate it
-                    if (data.length > 0) {
-                        courseSuggestions.style.display = "block";
+//                     // If we have results, show the dropdown and populate it
+//                     if (data.length > 0) {
+//                         courseSuggestions.style.display = "block";
 
-                        data.forEach(course => {
-                            const option = document.createElement("a");
-                            option.href = "#";
-                            option.classList.add("dropdown-item");
-                            option.textContent = course.name;
-                            option.dataset.id = course.id;
+//                         data.forEach(course => {
+//                             const option = document.createElement("a");
+//                             option.href = "#";
+//                             option.classList.add("dropdown-item");
+//                             option.textContent = course.name;
+//                             option.dataset.id = course.id;
 
-                            // When a course is clicked, set the input and hide dropdown
-                            option.addEventListener("click", function(e) {
-                                e.preventDefault();
-                                courseSearch.value = course
-                                    .name; // Set visible input for display
-                                selectedCourseId.value = course
-                                    .id; // Set hidden input for submission
-                                courseSuggestions.style.display = "none";
-                            });
+//                             // When a course is clicked, set the input and hide dropdown
+//                             option.addEventListener("click", function(e) {
+//                                 e.preventDefault();
+//                                 courseSearch.value = course
+//                                     .name; // Set visible input for display
+//                                 selectedCourseId.value = course
+//                                     .id; // Set hidden input for submission
+//                                 courseSuggestions.style.display = "none";
+//                             });
 
-                            courseSuggestions.appendChild(option);
-                        });
-                    } else {
-                        courseSuggestions.style.display = "none"; // Hide if no results
-                    }
-                });
-        } else {
-            courseSuggestions.style.display = "none"; // Hide if query is too short
-        }
-    });
+//                             courseSuggestions.appendChild(option);
+//                         });
+//                     } else {
+//                         courseSuggestions.style.display = "none"; // Hide if no results
+//                     }
+//                 });
+//         } else {
+//             courseSuggestions.style.display = "none"; // Hide if query is too short
+//         }
+//     });
 
-    // Hide suggestions if clicked outside
-    document.addEventListener("click", function(e) {
-        if (!courseSuggestions.contains(e.target) && e.target !== courseSearch) {
-            courseSuggestions.style.display = "none";
-        }
-    });
-});
+//     // Hide suggestions if clicked outside
+//     document.addEventListener("click", function(e) {
+//         if (!courseSuggestions.contains(e.target) && e.target !== courseSearch) {
+//             courseSuggestions.style.display = "none";
+//         }
+//     });
+// });
 </script>
 
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    const courseSearch = document.getElementById("training-search");
-    const courseSuggestions = document.getElementById("training-suggestions");
-    const selectedCourseId = document.getElementById("selected-training-id");
+// document.addEventListener("DOMContentLoaded", function() {
+//     const courseSearch = document.getElementById("training-search");
+//     const courseSuggestions = document.getElementById("training-suggestions");
+//     const selectedCourseId = document.getElementById("selected-training-id");
 
-    courseSearch.addEventListener("keyup", function() {
-        const query = courseSearch.value;
+//     courseSearch.addEventListener("keyup", function() {
+//         const query = courseSearch.value;
 
-        if (query.length > 1) {
-            fetch(`/admin/search-courses?query=${query}`, {
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest'
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    courseSuggestions.innerHTML = ""; // Clear previous suggestions
+//         if (query.length > 1) {
+//             fetch(`/admin/search-courses?query=${query}`, {
+//                     headers: {
+//                         'X-Requested-With': 'XMLHttpRequest'
+//                     }
+//                 })
+//                 .then(response => response.json())
+//                 .then(data => {
+//                     courseSuggestions.innerHTML = ""; // Clear previous suggestions
 
-                    // If we have results, show the dropdown and populate it
-                    if (data.length > 0) {
-                        courseSuggestions.style.display = "block";
+//                     // If we have results, show the dropdown and populate it
+//                     if (data.length > 0) {
+//                         courseSuggestions.style.display = "block";
 
-                        data.forEach(course => {
-                            const option = document.createElement("a");
-                            option.href = "#";
-                            option.classList.add("dropdown-item");
-                            option.textContent = course.name;
-                            option.dataset.id = course.id;
+//                         data.forEach(course => {
+//                             const option = document.createElement("a");
+//                             option.href = "#";
+//                             option.classList.add("dropdown-item");
+//                             option.textContent = course.name;
+//                             option.dataset.id = course.id;
 
-                            // When a course is clicked, set the input and hide dropdown
-                            option.addEventListener("click", function(e) {
-                                e.preventDefault();
-                                courseSearch.value = course
-                                    .name; // Set visible input for display
-                                selectedCourseId.value = course
-                                    .id; // Set hidden input for submission
-                                courseSuggestions.style.display = "none";
-                            });
+//                             // When a course is clicked, set the input and hide dropdown
+//                             option.addEventListener("click", function(e) {
+//                                 e.preventDefault();
+//                                 courseSearch.value = course
+//                                     .name; // Set visible input for display
+//                                 selectedCourseId.value = course
+//                                     .id; // Set hidden input for submission
+//                                 courseSuggestions.style.display = "none";
+//                             });
 
-                            courseSuggestions.appendChild(option);
-                        });
-                    } else {
-                        courseSuggestions.style.display = "none"; // Hide if no results
-                    }
-                });
-        } else {
-            courseSuggestions.style.display = "none"; // Hide if query is too short
-        }
-    });
+//                             courseSuggestions.appendChild(option);
+//                         });
+//                     } else {
+//                         courseSuggestions.style.display = "none"; // Hide if no results
+//                     }
+//                 });
+//         } else {
+//             courseSuggestions.style.display = "none"; // Hide if query is too short
+//         }
+//     });
 
-    // Hide suggestions if clicked outside
-    document.addEventListener("click", function(e) {
-        if (!courseSuggestions.contains(e.target) && e.target !== courseSearch) {
-            courseSuggestions.style.display = "none";
-        }
-    });
-});
+//     // Hide suggestions if clicked outside
+//     document.addEventListener("click", function(e) {
+//         if (!courseSuggestions.contains(e.target) && e.target !== courseSearch) {
+//             courseSuggestions.style.display = "none";
+//         }
+//     });
+// });
 </script>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    const courseSearch = document.getElementById("event-search");
-    const courseSuggestions = document.getElementById("event-suggestions");
-    const selectedCourseId = document.getElementById("selected-event-id");
+// document.addEventListener("DOMContentLoaded", function() {
+//     const courseSearch = document.getElementById("event-search");
+//     const courseSuggestions = document.getElementById("event-suggestions");
+//     const selectedCourseId = document.getElementById("selected-event-id");
 
-    courseSearch.addEventListener("keyup", function() {
-        const query = courseSearch.value;
+//     courseSearch.addEventListener("keyup", function() {
+//         const query = courseSearch.value;
 
-        if (query.length > 1) {
-            fetch(`/admin/search-courses?query=${query}`, {
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest'
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    courseSuggestions.innerHTML = ""; // Clear previous suggestions
+//         if (query.length > 1) {
+//             fetch(`/admin/search-courses?query=${query}`, {
+//                     headers: {
+//                         'X-Requested-With': 'XMLHttpRequest'
+//                     }
+//                 })
+//                 .then(response => response.json())
+//                 .then(data => {
+//                     courseSuggestions.innerHTML = ""; // Clear previous suggestions
 
-                    // If we have results, show the dropdown and populate it
-                    if (data.length > 0) {
-                        courseSuggestions.style.display = "block";
+//                     // If we have results, show the dropdown and populate it
+//                     if (data.length > 0) {
+//                         courseSuggestions.style.display = "block";
 
-                        data.forEach(course => {
-                            const option = document.createElement("a");
-                            option.href = "#";
-                            option.classList.add("dropdown-item");
-                            option.textContent = course.name;
-                            option.dataset.id = course.id;
+//                         data.forEach(course => {
+//                             const option = document.createElement("a");
+//                             option.href = "#";
+//                             option.classList.add("dropdown-item");
+//                             option.textContent = course.name;
+//                             option.dataset.id = course.id;
 
-                            // When a course is clicked, set the input and hide dropdown
-                            option.addEventListener("click", function(e) {
-                                e.preventDefault();
-                                courseSearch.value = course
-                                    .name; // Set visible input for display
-                                selectedCourseId.value = course
-                                    .id; // Set hidden input for submission
-                                courseSuggestions.style.display = "none";
-                            });
+//                             // When a course is clicked, set the input and hide dropdown
+//                             option.addEventListener("click", function(e) {
+//                                 e.preventDefault();
+//                                 courseSearch.value = course
+//                                     .name; // Set visible input for display
+//                                 selectedCourseId.value = course
+//                                     .id; // Set hidden input for submission
+//                                 courseSuggestions.style.display = "none";
+//                             });
 
-                            courseSuggestions.appendChild(option);
-                        });
-                    } else {
-                        courseSuggestions.style.display = "none"; // Hide if no results
-                    }
-                });
-        } else {
-            courseSuggestions.style.display = "none"; // Hide if query is too short
-        }
-    });
+//                             courseSuggestions.appendChild(option);
+//                         });
+//                     } else {
+//                         courseSuggestions.style.display = "none"; // Hide if no results
+//                     }
+//                 });
+//         } else {
+//             courseSuggestions.style.display = "none"; // Hide if query is too short
+//         }
+//     });
 
-    // Hide suggestions if clicked outside
-    document.addEventListener("click", function(e) {
-        if (!courseSuggestions.contains(e.target) && e.target !== courseSearch) {
-            courseSuggestions.style.display = "none";
-        }
-    });
-});
+//     // Hide suggestions if clicked outside
+//     document.addEventListener("click", function(e) {
+//         if (!courseSuggestions.contains(e.target) && e.target !== courseSearch) {
+//             courseSuggestions.style.display = "none";
+//         }
+//     });
+// });
 </script>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    // Make sure the DOM is fully loaded before running the script
+// document.addEventListener("DOMContentLoaded", function() {
+//     // Make sure the DOM is fully loaded before running the script
 
-    // Add event listener to "Add More" button
-    document.getElementById('add-file').addEventListener('click', function() {
-        // Create a new file input group
-        var fileGroup = document.createElement('div');
-        fileGroup.classList.add('file-group');
-        fileGroup.innerHTML = `
-                <input type="file" name="image_files[]" class="form-control mb-2" accept="image/*">
-                <button type="button" class="btn btn-danger remove-file">Remove</button>
-            `;
+//     // Add event listener to "Add More" button
+//     document.getElementById('add-file').addEventListener('click', function() {
+//         // Create a new file input group
+//         var fileGroup = document.createElement('div');
+//         fileGroup.classList.add('file-group');
+//         fileGroup.innerHTML = `
+//                 <input type="file" name="image_files[]" class="form-control mb-2" accept="image/*">
+//                 <button type="button" class="btn btn-danger remove-file">Remove</button>
+//             `;
 
-        // Append the new file group to the container
-        document.getElementById('file-container').appendChild(fileGroup);
+//         // Append the new file group to the container
+//         document.getElementById('file-container').appendChild(fileGroup);
 
-        // Bind the event listener for the "Remove" button in the new file group
-        fileGroup.querySelector('.remove-file').addEventListener('click', function() {
-            // Remove the file group when the "Remove" button is clicked
-            fileGroup.remove();
+//         // Bind the event listener for the "Remove" button in the new file group
+//         fileGroup.querySelector('.remove-file').addEventListener('click', function() {
+//             // Remove the file group when the "Remove" button is clicked
+//             fileGroup.remove();
+//         });
+
+//         // Make the "Remove" button visible for the newly added input
+//         fileGroup.querySelector('.remove-file').style.display = 'inline-block';
+//     });
+// });
+</script>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#select_research_centre').on('change', function () {
+            const researchCentreId = $(this).val();
+            // alert(researchCentreId);
+
+            $('#media_categories').html('<option value="" selected>Select Media Category</option>');
+
+            if (researchCentreId) {
+                $.ajax({
+                    url: "{{ route('fetchMediaCategories') }}",
+                    type: "GET",
+                    data: { research_centre_id: researchCentreId },
+                    success: function (data) {
+                        if (data.length > 0) {
+                            data.forEach(function (category) {
+                                $('#media_categories').append(
+                                    `<option value="${category.id}">${category.name}</option>`
+                                );
+                            });
+                        }
+                    },
+                    error: function () {
+                        alert('Failed to fetch media categories. Please try again.');
+                    }
+                });
+            }
         });
-
-        // Make the "Remove" button visible for the newly added input
-        fileGroup.querySelector('.remove-file').style.display = 'inline-block';
     });
-});
 </script>

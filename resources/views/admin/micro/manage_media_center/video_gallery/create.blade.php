@@ -29,7 +29,37 @@
                     @csrf
                     <div class="row">
 
+                        
+
+                        <!-- <div class="col-lg-6">
+                            <label for="research_centre">Research Centre</label>
+                            <span class="star">*</span>
+                            <select name="research_centre" id="research_centre" class="form-control">
+                                <option value="">Select Research Centre</option>
+                            </select>
+                            @error('research_centre')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                        </div> -->
+
                         <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label for="select_research_centre">Select Research Centre:</label>
+                                <span class="star">*</span>
+                                <select id="select_research_centre" name="research_centre" class="form-control">
+                                    <option value="" selected>Select Research Centre</option>
+                                    @foreach ($researchCentres as $id => $name)
+                                    <option value="{{ $id }}">{{ $name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('research_centre')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+
+
+                        <!-- <div class="col-lg-6">
                             <div class="form-group mb-4"> 
                                 <label for="category_name" class="label">Media Category</label>
                                 <span class="star">*</span>
@@ -47,20 +77,20 @@
                                     @enderror
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="col-lg-6">
-                            <label for="research_centre">Research Centre</label>
-                            <span class="star">*</span>
-                            <select name="research_centre" id="research_centre" class="form-control">
-                                <option value="">Select Research Centre</option>
-                            </select>
-                            @error('research_centre')
-                                <div class="text-danger">{{ $message }}</div>
+                            <div class="form-group mb-4">
+                                <label for="category_name" class="label">Media Category:</label>
+                                <span class="star">*</span>
+                                <select name="category_name" id="category_name" class="form-control">
+                                    <option value="" selected>Select Media Category</option>
+                                </select>
+                                @error('category_name')
+                                    <div class="text-danger">{{ $message }}</div>
                                 @enderror
+                            </div>
                         </div>
-
-                        
 
 
 
@@ -154,6 +184,36 @@
         }
     });
 });
+</script>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#select_research_centre').on('change', function () {
+            const researchCentreId = $(this).val();
+            // alert(researchCentreId);
 
+            $('#category_name').html('<option value="" selected>Select Media Category</option>');
+
+            if (researchCentreId) {
+                $.ajax({
+                    url: "{{ route('fetchMediaCategoriesvideo') }}",
+                    type: "GET",
+                    data: { research_centre_id: researchCentreId },
+                    success: function (data) {
+                        if (data.length > 0) {
+                            data.forEach(function (category) {
+                                $('#category_name').append(
+                                    `<option value="${category.id}">${category.name}</option>`
+                                );
+                            });
+                        }
+                    },
+                    error: function () {
+                        alert('Failed to fetch media categories. Please try again.');
+                    }
+                });
+            }
+        });
+    });
 </script>
