@@ -47,6 +47,7 @@
         @if(count($media_d) > 0)
             @if($type == 'gallery')
                 @foreach($media_d as $media)
+               
                     @php
                         // Decoding the JSON data to get the images
                         $multiple_img = json_decode($media->image_files, true);
