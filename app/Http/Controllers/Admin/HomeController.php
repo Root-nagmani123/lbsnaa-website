@@ -315,7 +315,7 @@ public function footer_images_status_update(Request $request, $id)
     }
 
     // Show the form for creating a new quick link
-    public function quick_link_create()
+    public function quick_link_create() 
     {
         return view('admin.home.quick_link_create');
     }
@@ -337,6 +337,7 @@ public function footer_images_status_update(Request $request, $id)
     
       
     QuickLink::create([
+        'language' => $request->language,
         'text' => $request->text,
         'url' => $request->url ?? null,
         'url_type' => $request->url_type ?? null,
@@ -404,6 +405,7 @@ public function footer_images_status_update(Request $request, $id)
     
         $quickLink->url_type = $request->url_type ?? null;
         $quickLink->status = $request->status ?? 0;
+        $quickLink->language = $request->language;
         $quickLink->save();
     
         // Log the update action in ManageAudit

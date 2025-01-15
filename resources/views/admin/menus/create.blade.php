@@ -55,6 +55,15 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-lg-6">
+                                        <div class="form-group mb-4">
+                                            <label class="label" for="meta_title">Meta Title:</label>
+                                            <div class="form-group position-relative">
+                                                <input type="text" class="form-control text-dark  h-58"
+                                                    name="meta_title" id="meta_title">
+                                            </div>
+                                        </div>
+                                    </div>
                         <div class="col-lg-5">
                             <div class="form-group mb-4">
                                 <label class="label" for="txtpostion">Content Position :</label>
@@ -108,15 +117,7 @@
                         <div id="content-field" style="display: none;">
                             <div class="row">
                                 <div class="row mt-4">
-                                    <div class="col-lg-6">
-                                        <div class="form-group mb-4">
-                                            <label class="label" for="meta_title">Meta Title:</label>
-                                            <div class="form-group position-relative">
-                                                <input type="text" class="form-control text-dark  h-58"
-                                                    name="meta_title" id="meta_title">
-                                            </div>
-                                        </div>
-                                    </div>
+                                
                                     <div class="col-lg-6">
                                         <div class="form-group mb-4">
                                             <label class="label" for="meta_keyword">Meta Keyword :</label>
@@ -276,10 +277,10 @@ $('#content').summernote({
     tabsize: 2,
     height: 300
 });
-$('#meta_description').summernote({
-    tabsize: 2,
-    height: 300
-});
+// $('#meta_description').summernote({
+//     tabsize: 2,
+//     height: 300
+// });
 </script>
 <!-- here this code end of the editer js -->
 <script>

@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class QuickLink extends Model
 {
     use HasFactory;
-    protected $fillable = ['text', 'url', 'file', 'status', 'url_type','is_deleted'];
+    protected $fillable = ['language','text', 'url', 'file', 'status', 'url_type','is_deleted'];
 }
