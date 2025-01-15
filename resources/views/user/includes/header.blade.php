@@ -60,7 +60,7 @@
         /* Allow text to wrap */
         word-wrap: break-word;
         /* Break long words onto the next line */
-        max-width: 350px;
+        max-width: 400px;
         /* Optional: Set a maximum width for better readability */
     }
 
@@ -243,10 +243,61 @@
 
                             $output .= '</li>';
                         }
+                        if ($isCourseOrTraining) {
+                        $subcategories = DB::table('courses_sub_categories as sub')
+                        ->leftJoin('courses_sub_categories as parent', 'sub.parent_id', '=', 'parent.id')
+                        ->select('sub.*', 'parent.category_name as parent_category_name')
+                        ->get();
+
+                        $categoryTree = buildCategoryTree($subcategories);
+
+                        foreach ($categoryTree as $category) {
+                        $output .= '<li class="dropdown-submenu dynamic-direction w-100 border-bottom">';
+                            $output .= '<a class="dropdown-item ' . (isset($category['children']) && count($category['children']) > 0 ? 'dropdown-toggle' : '') . '"
+                                href="' . route('user.courseslug', $category['category']->slug) . '"
+                                ' . (isset($category['children']) && count($category['children']) > 0 ? 'data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"' : '') . '>' .
+                                $category['category']->category_name . '</a>';
+                            if (isset($category['children']) && count($category['children']) > 0) {
+                            $output .= renderCourseTree($category['children']);
+                            }
+                            $output .= '</li>';
+                        }
+                        }
 
                         $output .= '</ul>';
                     return $output;
 
+                    }
+                    function buildCategoryTree($categories, $parentId = 0) {
+                    $tree = [];
+                    foreach ($categories as $category) {
+                    if ($category->parent_id == $parentId) {
+                    $children = buildCategoryTree($categories, $category->id);
+                    $tree[] = ['category' => $category, 'children' => $children];
+                    }
+                    }
+                    return $tree;
+                    }
+
+                    function renderCourseTree($tree) {
+                    if (empty($tree)) {
+                    return '';
+                    }
+
+                    $output = '<ul class="dropdown-menu dropdown-menu-arrow">';
+                        foreach ($tree as $node) {
+                        $output .= '<li class="dropdown-submenu dynamic-direction w-100 border-bottom">';
+                            $output .= '<a class="dropdown-item"
+                                href="' . route('user.courseslug', $node['category']->slug) . '">' .
+                                htmlspecialchars($node['category']->category_name) . '</a>';
+                            if (!empty($node['children'])) {
+                            $output .= renderCourseTree($node['children']);
+                            }
+                            $output .= '</li>';
+                        }
+                        $output .= '</ul>';
+
+                    return $output;
                     }
                     @endphp
 
