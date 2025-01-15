@@ -79,16 +79,17 @@
                 }
                 @endphp
 
-            @if ($centre_name)
-            <h2 class="text-dark">{{ $centre_name->research_centre_name }}<br><span class="text-center" style="font-size:14px;">
-                @if (!empty($centre_name->sub_heading))
-                    ( {{ $centre_name->sub_heading }} )
+                @if ($centre_name)
+                <h2 class="text-dark">{{ $centre_name->research_centre_name }}<br><span class="text-center"
+                        style="font-size:14px;">
+                        @if (!empty($centre_name->sub_heading))
+                        ( {{ $centre_name->sub_heading }} )
+                        @endif
+                    </span></h2>
+
+                @else
+
                 @endif
-            </span></h2>
-            
-            @else
-                
-            @endif
 
                 <!-- Navbar Toggle Button (For mobile view) -->
             </div>
@@ -106,77 +107,72 @@
             <!-- Collapse -->
 
             <div class="collapse navbar-collapse" id="navbar-default">
-            @php
+                @php
                 // Check if 'slug' is in the query string, otherwise get it from the route
                 $slug = request()->query('slug') ?: request()->route('slug');
-            @endphp
+                @endphp
 
-            <a href="{{ url('/lbsnaa-sub/' . $slug) }}" style="text-decoration: none;color: black;"><span>Home</span></a>                
+                <a href="{{ url('/lbsnaa-sub/' . $slug) }}"
+                    style="text-decoration: none;color: black;"><span>Home</span></a>
                 <ul class="navbar-nav me-auto navmenu">
                     @php
-                        $slug = request()->query('slug') ?: request()->route('slug');
-                        
-                        // Debugging: Check if slug is correct
-                        
+                    $slug = request()->query('slug') ?: request()->route('slug');
 
-                        function displayMenu($parentId, $slug, $isRoot = false) {
-                            $query = DB::table('micromenus')
-                                ->join('research_centres', 'micromenus.research_centreid', '=', 'research_centres.id')
-                                ->where('micromenus.menu_status', 1)
-                                ->where('micromenus.is_deleted', 0)
-                                ->where('micromenus.parent_id', $parentId);
+                    // Fetch all menus and organize them by parent_id
+                    $allMenus = DB::table('micromenus')
+                    ->join('research_centres', 'micromenus.research_centreid', '=', 'research_centres.id')
+                    ->where('micromenus.menu_status', 1)
+                    ->where('micromenus.is_deleted', 0)
+                    ->select('micromenus.*', 'research_centres.research_centre_slug')
+                    ->get();
 
-                            if ($isRoot && $slug) {
-                                // Ensure slug is properly filtering menus
-                                $query->where('research_centres.research_centre_slug', $slug);
-                            }
+                    $menusByParent = $allMenus->groupBy('parent_id');
 
-                            $menus = $query->select('micromenus.*')->get();
+                    function displayMenu($parentId, $menusByParent, $slug, $isRoot = false) {
+                    if (!isset($menusByParent[$parentId])) {
+                    return;
+                    }
 
-                            // Debugging: Check if menus are fetched
-                        
+                    foreach ($menusByParent[$parentId] as $menu) {
+                    $hasChildren = isset($menusByParent[$menu->id]);
+                    $menuLink = route('user.navigationmenubyslug', $menu->menu_slug) . '?slug=' . urlencode($slug);
+                    $dropdownClass = $hasChildren ? 'dropdown-item dropdown-toggle' : 'dropdown-item';
 
-                            foreach ($menus as $menu) {
-                                $childMenus = DB::table('micromenus')
-                                    ->where('menu_status', 1)
-                                    ->where('is_deleted', 0)
-                                    ->where('parent_id', $menu->id)
-                                    ->get();
+                    echo "<li
+                        class='nav-item " . ($hasChildren ? "dropdown-submenu dropend" : "") . ($isRoot ? "" : " border-bottom") . " dropdown'>
+                        ";
+                        echo "<a href='{$menuLink}' class='{$dropdownClass}'" . ($hasChildren ? "
+                            data-bs-toggle='dropdown'" : "") . ">";
+                            echo $menu->menutitle;
+                            echo "</a>";
 
-                                $hasChildren = $childMenus->isNotEmpty();
-                                $menuLink = route('user.navigationmenubyslug', $menu->menu_slug) . '?slug=' . urlencode($slug);
-                                $dropdownClass = $hasChildren ? 'dropdown-item dropdown-toggle' : 'dropdown-item';
-
-                                echo "<li class='nav-item " . ($hasChildren ? "dropdown-submenu" : "") . " dropend'>";
-                                    echo "<a href='{$menuLink}' class='{$dropdownClass}'" . ($hasChildren ? " data-bs-toggle='dropdown'" : "") . ">";
-                                    echo $menu->menutitle;
-                                    echo "</a>";
-
-                                    if ($hasChildren) {
-                                        echo "<ul class='dropdown-menu'>";
-                                            displayMenu($menu->id, $slug, false);
-                                        echo "</ul>";
-                                    }
-
-                                echo "</li>";
-                            }
+                        if ($hasChildren) {
+                        echo "<ul class='dropdown-menu'>";
+                            displayMenu($menu->id, $menusByParent, $slug, false);
+                            echo "</ul>";
                         }
 
-                        displayMenu(0, $slug, true);
+                        echo "</li>";
+
+                    }
+                    }
+
+                    displayMenu(0, $menusByParent, $slug, true);
                     @endphp
                 </ul>
+
             </div>
         </nav>
     </header>
 
     <!-- JavaScript to handle parent menu click -->
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
         const dropdownLinks = document.querySelectorAll('.dropdown-toggle');
 
         dropdownLinks.forEach(link => {
-            link.addEventListener('click', function (e) {
+            link.addEventListener('click', function(e) {
                 const href = this.getAttribute('href');
 
                 // Ensure page reloads with correct href
@@ -186,5 +182,4 @@
             });
         });
     });
-</script>
-
+    </script>
