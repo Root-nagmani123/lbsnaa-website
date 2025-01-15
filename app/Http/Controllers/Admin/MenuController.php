@@ -144,12 +144,18 @@ class MenuController extends Controller
         $existingMenu = Menu::where('menu_slug', $slug)->first();
         if ($existingMenu) {
             return redirect()->back()->withErrors(['menutitle' => 'This menu title already exists.'])->withInput();
-        }
+        } 
 
         $menu = new Menu();
         $menu->language = $request->txtlanguage;
         $menu->menutitle = $request->menutitle;
-        $menu->menu_slug = Str::slug($request->menutitle, '-');
+        if($request->txtlanguage == '1'){
+            $menu->menu_slug = Str::slug($request->menutitle, '-');
+        }elseif($request->txtlanguage == '2'){
+            $menu->menu_slug = Str::slug($request->meta_title, '-') . '_hi';
+
+        }
+        
         $menu->texttype = $request->texttype;
         $menu->menucategory = $request->menucategory;
         $menu->parent_id = $request->menucategory;
@@ -217,7 +223,13 @@ class MenuController extends Controller
         $menu = Menu::findOrFail($id);
         $menu->language = $request->txtlanguage;
         $menu->menutitle = $request->menutitle;
-        $menu->menu_slug = Str::slug($request->menutitle, '-');
+        if($request->txtlanguage == '1'){
+            $menu->menu_slug = Str::slug($request->menutitle, '-');
+        }elseif($request->txtlanguage == '2'){
+            $menu->menu_slug = Str::slug($request->meta_title, '-') . '_hi';
+
+        }
+        // $menu->menu_slug = Str::slug($request->menutitle, '-');
         $menu->texttype = $request->texttype;
         $menu->menucategory = $request->menucategory;
         $menu->parent_id = $request->menucategory;

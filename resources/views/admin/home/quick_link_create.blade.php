@@ -40,11 +40,30 @@
 @endif
                 <form action="{{ route('admin.quick_links.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="language">Page Language :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <label class="me-3">
+                                        <input type="radio" name="language" value="1"
+                                            {{ old('language') == '1' ? 'checked' : '' }}> English
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="language" value="2"
+                                            {{ old('language') == '2' ? 'checked' : '' }}> Hindi
+                                    </label>
+                                </div>
+                                @error('language')
+                                <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
                     <!-- Main Grid -->
                     <div class="row">
                         <!-- Text Field -->
-
+ 
                         <div class="col-lg-6 mb-4">
                             <label for="text" class="label">Text <span class="star">*</span></label>
                             <input type="text" name="text" class="form-control text-dark  h-58" required>
