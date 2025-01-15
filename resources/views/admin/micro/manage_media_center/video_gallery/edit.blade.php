@@ -30,6 +30,28 @@
                     @method('PUT')
                     <!-- This will force the form to send a PUT request -->
                     <div class="row">
+
+                    
+                        <div class="col-lg-5">
+                            <div class="form-group mb-4">
+                                <label for="research_centre_id" class="label">Select Research Center</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <select name="research_centre" id="research_centre_id" class="form-control text-dark  h-58">
+                                        <option value="">Select Research Centre</option>
+                                        @foreach ($researchCentres as $id => $name)
+                                            <option value="{{ $id }}" {{ old('research_centre', $video->research_centre) == $id ? 'selected' : '' }}>
+                                                {{ $name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('research_centre')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label for="category_name" class="label">Category Name</label>
@@ -51,25 +73,7 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-5">
-                            <div class="form-group mb-4">
-                                <label for="research_centre_id" class="label">Select Research Center</label>
-                                <span class="star">*</span>
-                                <div class="form-group position-relative">
-                                    <select name="research_centre" id="research_centre_id" class="form-control text-dark  h-58">
-                                        <option value="">Select Research Centre</option>
-                                        @foreach ($researchCentres as $id => $name)
-                                            <option value="{{ $id }}" {{ old('research_centre', $video->research_centre) == $id ? 'selected' : '' }}>
-                                                {{ $name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    @error('research_centre')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
+                        
 
                         <div class="col-lg-6">
                             <div class="form-group mb-4">

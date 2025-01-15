@@ -39,7 +39,7 @@
                             <div class="form-group mb-4">
                                 <label for="select_research_centre" class="label">Select Research Centre :</label>
                                 <span class="star">*</span>
-                                <select name="research_centre" class="form-control h-58 text-dark">
+                                <select name="research_centre" id="select_research_centre" class="form-control h-58 text-dark">
                                     <option value="" selected>Select Research Centre</option>
                                     @foreach ($researchCentres as $id => $name)
                                     <option value="{{ $id }}">{{ $name }}</option>
@@ -71,7 +71,7 @@
                         </div>
 
                         <!-- Dropdown to select related content for Related Events -->
-                        <div class="col-lg-6">
+                        <!-- <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label for="media_categories" class="label">Media Category</label>
                                 <span class="star">*</span>
@@ -89,7 +89,7 @@
                                     @enderror
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- Placeholder for Events-related fields -->
 
 
@@ -524,8 +524,8 @@
 </script>
 
 <script>
-// document.addEventListener("DOMContentLoaded", function() {
-//     // Make sure the DOM is fully loaded before running the script
+document.addEventListener("DOMContentLoaded", function() {
+    // Make sure the DOM is fully loaded before running the script
 
     // Add event listener to "Add More" button
     document.getElementById('add-file').addEventListener('click', function() {
@@ -537,19 +537,19 @@
                 <button type="button" class="btn btn-danger remove-file">Remove</button>
             `;
 
-//         // Append the new file group to the container
-//         document.getElementById('file-container').appendChild(fileGroup);
+        // Append the new file group to the container
+        document.getElementById('file-container').appendChild(fileGroup);
 
-//         // Bind the event listener for the "Remove" button in the new file group
-//         fileGroup.querySelector('.remove-file').addEventListener('click', function() {
-//             // Remove the file group when the "Remove" button is clicked
-//             fileGroup.remove();
-//         });
+        // Bind the event listener for the "Remove" button in the new file group
+        fileGroup.querySelector('.remove-file').addEventListener('click', function() {
+            // Remove the file group when the "Remove" button is clicked
+            fileGroup.remove();
+        });
 
-//         // Make the "Remove" button visible for the newly added input
-//         fileGroup.querySelector('.remove-file').style.display = 'inline-block';
-//     });
-// });
+        // Make the "Remove" button visible for the newly added input
+        fileGroup.querySelector('.remove-file').style.display = 'inline-block';
+    });
+});
 </script>
 
 
