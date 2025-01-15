@@ -5,50 +5,55 @@ $footer_links = DB::table('menus')->where('txtpostion',3)->where('menu_status',1
 <!-- quick link section -->
 <!-- card section end -->
 <!-- footer -->
- <style>
-    .logo-slider-container {
+<style>
+.logo-slider-container {
     display: flex;
-    justify-content: center; /* Center the content horizontally */
-    align-items: center; /* Center the content vertically */
-    height: 100%; /* Adjust height as needed */
+    justify-content: center;
+    /* Center the content horizontally */
+    align-items: center;
+    /* Center the content vertically */
+    height: 100%;
+    /* Adjust height as needed */
 }
 
 .logo-slider.single-logo {
     display: flex;
-    justify-content: center; /* Center the single logo */
-    align-items: center; /* Center vertically if needed */
+    justify-content: center;
+    /* Center the single logo */
+    align-items: center;
+    /* Center vertically if needed */
 }
 
 .logo-slider.single-logo .logo-item {
-    margin: 0 auto; /* Ensure the logo is centered */
+    margin: 0 auto;
+    /* Ensure the logo is centered */
 }
-
- </style>
+</style>
 <section class="py-4 bg-white mt-auto mb-4">
     <!-- container -->
     <div class="container-fluid">
-    <div class="row">
-        <div class="col-xl-12 col-md-12 col-12">
-            <!-- row -->
-            <div class="row">
-                <div class="logo-slider-container">
-                    <div class="logo-slider {{ count($footer_icons) === 1 ? 'single-logo' : '' }}">
-                        @foreach($footer_icons as $footer_icon)
-                        <div class="logo-item">
-                            <a href="{{ $footer_icon->link }}" target="_blank">
-                                <img src="{{ asset('footer-images/' . $footer_icon->image) }}"
-                                    alt="{{ $footer_icon->title }}" title="{{ $footer_icon->title }}"
-                                    class="img-fluid"
-                                    style="max-width: 150px; max-height: 60px; object-fit: cover;">
-                            </a>
+        <div class="row">
+            <div class="col-xl-12 col-md-12 col-12">
+                <!-- row -->
+                <div class="row">
+                    <div class="logo-slider-container">
+                        <div class="logo-slider {{ count($footer_icons) === 1 ? 'single-logo' : '' }}">
+                            @foreach($footer_icons as $footer_icon)
+                            <div class="logo-item">
+                                <a href="{{ $footer_icon->link }}" target="_blank">
+                                    <img src="{{ asset('footer-images/' . $footer_icon->image) }}"
+                                        alt="{{ $footer_icon->title }}" title="{{ $footer_icon->title }}"
+                                        class="img-fluid"
+                                        style="max-width: 150px; max-height: 60px; object-fit: cover;">
+                                </a>
+                            </div>
+                            @endforeach
                         </div>
-                        @endforeach
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
     <!-- footer -->
     <footer class="pt-2 pb-3">
@@ -98,11 +103,9 @@ $footer_links = DB::table('menus')->where('txtpostion',3)->where('menu_status',1
                                 .getFullYear()));
                             </script>
                         </span>
-                        <span>Copyright Ministry of Electronics & IT <a href="https://www.digitalindia.gov.in/"
-                                target="_blank" style="color: #af2910;">(NeGD)</a>, Government of India.</span>. All
-                        Rights
-                        Reserved
-                    </span>
+                        <span>Lal Bahadur Shastri National Academy of Administration Mussoorie,Govt of India. All Right
+                            Reserved
+                        </span>
                 </div>
 
                 <!-- Links -->
@@ -265,7 +268,7 @@ function chooseStyle(action, value) {
 <script src="{{ asset('assets/js/vendors/glight.js') }}"></script>
 
 <style>
-    .logo-slider-container {
+.logo-slider-container {
     position: relative;
     width: 100%;
     overflow: hidden;
@@ -279,11 +282,13 @@ function chooseStyle(action, value) {
 
 .logo-item {
     flex: 0 0 auto;
-    width: 150px; /* Adjust width as needed */
+    width: 150px;
+    /* Adjust width as needed */
     margin: 0 10px;
 }
 
-.slider-prev, .slider-next {
+.slider-prev,
+.slider-next {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -302,7 +307,6 @@ function chooseStyle(action, value) {
 .slider-next {
     right: 0;
 }
-
 </style>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
@@ -335,7 +339,6 @@ document.addEventListener('DOMContentLoaded', () => {
     sliderContainer.addEventListener('mouseenter', stopAutoSlide);
     sliderContainer.addEventListener('mouseleave', startAutoSlide);
 });
-
 </script>
 </body>
 

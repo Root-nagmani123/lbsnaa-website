@@ -44,9 +44,9 @@
 
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
-                                <label for="select_research_centre">Select Research Centre:</label>
+                                <label for="select_research_centre" class="label">Select Research Centre:</label>
                                 <span class="star">*</span>
-                                <select id="select_research_centre" name="research_centre" class="form-control">
+                                <select id="select_research_centre" name="research_centre" class="form-control h-58 text-dark">
                                     <option value="" selected>Select Research Centre</option>
                                     @foreach ($researchCentres as $id => $name)
                                         <!-- <option value="{{ $id }}">{{ $name }}</option> -->
@@ -195,9 +195,9 @@
 
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
-                                <label for="menucategory">Primary Link :</label>
+                                <label for="menucategory" class="label">Primary Link :</label>
                                 <span class="star">*</span>
-                                <select class="form-control" name="menucategory" id="menucategory">
+                                <select class="form-control h-58 text-dark" name="menucategory" id="menucategory">
                                     <option value="0" selected>It is Root Category</option>
                                 </select>
                                 @error('menucategory')

@@ -28,16 +28,13 @@
         z-index: 1000;
         width: 100%;
         height: 100%;
-        /* Cover the full height of the carousel */
         background: rgba(0, 0, 0, 0.5);
-        /* Semi-transparent black */
         color: #fff;
         font-weight: 600;
         font-size: 100%;
         line-height: 135%;
         padding: 10px;
         display: flex;
-        /* Use flexbox for centering */
         flex-direction: column;
         justify-content: center;
         align-items: center;
@@ -57,6 +54,23 @@
             width: 250px;
         }
     }
+
+    .dropdown-menu {
+        white-space: normal;
+        /* Allow text to wrap */
+        word-wrap: break-word;
+        /* Break long words onto the next line */
+        max-width: 350px;
+        /* Optional: Set a maximum width for better readability */
+    }
+
+    .dropdown-item {
+        white-space: normal;
+        /* Allow text wrapping inside menu items */
+        word-wrap: break-word;
+        /* Ensure long words wrap properly */
+    }
+    
     </style>
 </head>
 
@@ -67,8 +81,8 @@
                 <img class="img-fluid"
                     src="https://cdn.digitalindiacorporation.in/wp-content/themes/di-child/assets/images/ind-flag.svg.gzip"
                     alt="indian_flag" style="font-size: 13px;"> &nbsp;&nbsp;
-                <a href="https://www.india.gov.in/" target="_blank"
-                    style="font-size: 16px; color: #af2910;">भारत सरकार | Government of India</a>
+                <a href="https://www.india.gov.in/" target="_blank" style="font-size: 16px; color: #af2910;">भारत सरकार
+                    | Government of India</a>
             </div>
             <div class="col-md-8">
                 <ul class="nav justify-content-end align-items-center">
@@ -178,7 +192,7 @@
             </div>
 
             <!-- Navbar Menu -->
-            <div class="collapse navbar-collapse ms-auto" id="navbar-default">
+            <div class="collapse navbar-collapse" id="navbar-default">
                 <ul class="navbar-nav ms-auto navmenu">
                     @php
                     $menus = DB::table('menus')
@@ -232,6 +246,7 @@
 
                         $output .= '</ul>';
                     return $output;
+
                     }
                     @endphp
 
@@ -261,10 +276,10 @@
                         </ul>
                     </li>
                     @else
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle"
-                            href="{{ route('user.navigationpagesbyslug', $menu->menu_slug) }}"
-                            data-bs-toggle="dropdown">
+                    <li
+                        class="nav-item {{ renderMenuItems($menu->id, $menu->menutitle === 'Training') ? 'dropdown' : '' }}">
+                        <a class="nav-link {{ renderMenuItems($menu->id, $menu->menutitle === 'Training') ? 'dropdown-toggle' : '' }}"
+                            href="{{ route('user.navigationpagesbyslug', $menu->menu_slug) }}">
                             {{ $menu->menutitle }}
                         </a>
                         {!! renderMenuItems($menu->id, $menu->menutitle === 'Training') !!}
@@ -303,3 +318,6 @@
         });
     });
     </script>
+</body>
+
+</html>

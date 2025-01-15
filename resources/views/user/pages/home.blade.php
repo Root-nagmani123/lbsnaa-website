@@ -338,6 +338,43 @@
     white-space: nowrap;
     will-change: transform;
 }
-</style>
+#marqueeWrapper {
+    overflow: hidden;
+    position: relative;
+}
 
+#marqueeContainer {
+    display: flex;
+    gap: 3px;
+    flex-nowrap: nowrap;
+    align-items: center;
+    animation: marquee 15s linear infinite;
+    will-change: transform; /* Helps with smoother animations */
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.paused {
+    animation-play-state: paused;
+}
+
+</style>
+<script>
+ document.getElementById('marqueeWrapper').addEventListener('mouseenter', function() {
+    document.getElementById('marqueeContainer').style.animationPlayState = 'paused';
+});
+
+document.getElementById('marqueeWrapper').addEventListener('mouseleave', function() {
+    document.getElementById('marqueeContainer').style.animationPlayState = 'running';
+});
+
+
+</script>
 @include('user.includes.footer')
