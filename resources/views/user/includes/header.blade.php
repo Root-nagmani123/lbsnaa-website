@@ -60,7 +60,7 @@
         /* Allow text to wrap */
         word-wrap: break-word;
         /* Break long words onto the next line */
-        max-width: 400px;
+        max-width: 450px;
         /* Optional: Set a maximum width for better readability */
     }
 
