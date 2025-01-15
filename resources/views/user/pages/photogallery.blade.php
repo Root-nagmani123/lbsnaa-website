@@ -90,7 +90,7 @@
             @foreach($media_cat as $media)
             <div class="col-sm-6 col-md-4 col-lg-3">
                 <div class="card h-100 shadow-sm">
-                    <a href="{{ route('user.view_all_photogallery') }}?type=galary&glrid={{ $media->id }}">
+                    <a href="{{ route('user.view_all_photogallery') }}?type=gallery&glrid={{ $media->id }}">
                         <img src="{{ $media->category_image ? url('uploads/category_images/' . $media->category_image) : url('path/to/default-image.jpg') }}"
                             alt="{{ $media->name }}" class="card-img-top img-fluid rounded-top"
                             style="height:300px; object-fit: cover;">

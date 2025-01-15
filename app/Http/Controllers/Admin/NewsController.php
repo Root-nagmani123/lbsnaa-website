@@ -97,9 +97,10 @@ class NewsController extends Controller
         }
     
         $description = $request->description;
-    
-        $dom = new DOMDocument();
-        $dom->loadHTML($description, 9);
+ 
+        $dom = new DOMDocument('1.0', 'UTF-8');
+        libxml_use_internal_errors(true); // HTML parsing errors को suppress करने के लिए
+        $dom->loadHTML(mb_convert_encoding($description, 'HTML-ENTITIES', 'UTF-8'));
     
         $images = $dom->getElementsByTagName('img');
     
@@ -117,14 +118,18 @@ class NewsController extends Controller
         $news->title = $request->title;
         $news->short_description = $request->short_description;
         $news->meta_title = $request->meta_title;
-        $news->meta_keywords = $request->meta_keyword;
+        $news->meta_keywords = $request->meta_keywords;
         $news->meta_description = $request->meta_description;
         $news->description = $description;
         $news->start_date = $request->start_date;
         $news->end_date = $request->end_date;
         $news->status = $request->status;
-    
+    if($request->language == 1){
         $news->title_slug = Str::slug($request->title, '-');
+    }else if($request->language == 2){
+        $news->title_slug = Str::slug($request->meta_title, '-');
+    }
+       
     
         $news->save();
     
@@ -228,53 +233,44 @@ class NewsController extends Controller
 
         $description = $request->description;
 
-        $dom = new DOMDocument();
-        $dom->loadHTML($description,9);
-
-        $images = $dom->getElementsByTagName('img');
-// print_r($images);die;
-        // foreach ($images as $key => $img) {
-        //     $data = base64_decode(explode(',',explode(';',$img->getAttribute('src'))[1])[1]);
-        //     $image_name = "/ckupload/" . time(). $key.'.png';
-        //     file_put_contents(public_path().$image_name,$data);
-
-        //     $img->removeAttribute('src');
-        //     $img->setAttribute('src',$image_name);
-        // }
-        $images = $dom->getElementsByTagName('img');
-// Debugging: Print images or log them
-// print_r($images); die;
-
-foreach ($images as $key => $img) {
-    $src = $img->getAttribute('src');
-
-    // Check if src contains "data:" prefix and ";base64," to ensure it's a valid data URI
-    if (str_starts_with($src, 'data:') && str_contains($src, ';base64,')) {
-        $srcParts = explode(';', $src);
+        // DOMDocument को UTF-8 में इनिशियलाइज़ करें
+        $dom = new DOMDocument('1.0', 'UTF-8');
+        libxml_use_internal_errors(true); // HTML parsing errors को suppress करने के लिए
+        $dom->loadHTML(mb_convert_encoding($description, 'HTML-ENTITIES', 'UTF-8')); 
         
-        // Extract and decode the base64 data
-        if (isset($srcParts[1]) && str_contains($srcParts[1], ',')) {
-            $dataParts = explode(',', $srcParts[1]);
-            $base64Data = $dataParts[1] ?? '';
-            $data = base64_decode($base64Data);
-
-            if ($data !== false) {
-                $image_name = "/ckupload/" . time() . $key . '.png';
-                file_put_contents(public_path() . $image_name, $data);
-
-                // Update the src attribute to the new file path
-                $img->removeAttribute('src');
-                $img->setAttribute('src', $image_name);
-            } else {
+        $images = $dom->getElementsByTagName('img');
+        
+        foreach ($images as $key => $img) {
+            $src = $img->getAttribute('src');
+        
+            // Check if src contains "data:" prefix and ";base64," to ensure it's a valid data URI
+            if (str_starts_with($src, 'data:') && str_contains($src, ';base64,')) {
+                $srcParts = explode(';', $src);
+                
+                // Extract and decode the base64 data
+                if (isset($srcParts[1]) && str_contains($srcParts[1], ',')) {
+                    $dataParts = explode(',', $srcParts[1]);
+                    $base64Data = $dataParts[1] ?? '';
+                    $data = base64_decode($base64Data);
+        
+                    if ($data !== false) {
+                        $image_name = "/ckupload/" . time() . $key . '.png';
+                        file_put_contents(public_path() . $image_name, $data);
+        
+                        // Update the src attribute to the new file path
+                        $img->removeAttribute('src');
+                        $img->setAttribute('src', $image_name);
+                    }
+                }
             }
-        } else {
         }
-    } else {
-    }
-}
-
-$description = $dom->saveHTML();
-
+        
+        // Save the modified HTML with UTF-8
+        $description = $dom->saveHTML();
+        
+        // Debug the output
+        // echo $description;die;
+        
         // $description = $dom->saveHTML();
 
 
@@ -289,7 +285,12 @@ $description = $dom->saveHTML();
         $news->start_date = $request->start_date;
         $news->end_date = $request->end_date;
         $news->status = $request->status;
-        $news->title_slug = Str::slug($request->title, '-');
+       
+        if($request->language == 1){
+            $news->title_slug = Str::slug($request->title, '-');
+        }else if($request->language == 2){
+            $news->title_slug = Str::slug($request->meta_title, '-');
+        }
 
         // Save the updated news instance
         $news = $news->save();

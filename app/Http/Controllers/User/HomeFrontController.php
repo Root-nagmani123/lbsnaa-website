@@ -553,7 +553,7 @@ function mediagallery(){
 function audiogallery(){
     $media_data = DB::table('manage_media_centers')
     ->where('page_status',1)
-    ->get();
+    ->get(); 
 
     return view('user.pages.audiogallery',compact('media_data'));
     
@@ -607,13 +607,14 @@ function view_all_photogallery(Request $request){
     $catid = $request->input('glrid');
     $type = $request->input('type');
 
-if($type == 'galary'){
+if($type == 'gallery'){
     $media_d = DB::table('manage_photo_galleries')
     ->leftjoin('manage_media_categories', 'manage_photo_galleries.media_categories', '=', 'manage_media_categories.id')
         ->where('media_categories', $catid)
         ->where('manage_photo_galleries.status', 1)
         ->select('manage_photo_galleries.id','manage_photo_galleries.image_title_english','manage_photo_galleries.image_files','manage_media_categories.name')
         ->get();
+        // print_r($media_d);
 }else if($type == 'news'){
     $media_d = DB::table('news')->select('id','title','multiple_images','main_image')->where('id', $catid)->where('status', 1)->get();
 
