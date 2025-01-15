@@ -7,7 +7,7 @@
                 <nav aria-label="breadcrumb ">
                     <ol class="breadcrumb p-2">
                         <li class="breadcrumb-item">
-                            <a href="{{ route('user.micrositebyslug', ['slug' => $slug]) }}" style="color: #af2910;">Home</a>
+                            <a href="{{ route('home') }}" style="color: #af2910;">Home</a>
                         </li>
                         <li class="breadcrumb-item">
                             <a href="{{ route('user.mediagallery')}}" style="color: #af2910;">Media Gallery</a>
