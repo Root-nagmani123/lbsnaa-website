@@ -70,7 +70,6 @@
         word-wrap: break-word;
         /* Ensure long words wrap properly */
     }
-    
     </style>
 </head>
 
@@ -253,9 +252,11 @@
 
                         foreach ($categoryTree as $category) {
                         $output .= '<li class="dropdown-submenu dynamic-direction w-100 border-bottom">';
-                            $output .= '<a class="dropdown-item ' . (isset($category['children']) && count($category['children']) > 0 ? 'dropdown-toggle' : '') . '"
-                                href="' . route('user.courseslug', $category['category']->slug) . '"
-                                ' . (isset($category['children']) && count($category['children']) > 0 ? 'data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"' : '') . '>' .
+                            $output .= '<a
+                                class="dropdown-item ' . (isset($category['children']) && count($category['children']) > 0 ? 'dropdown-toggle' : '') . '"
+                                href="' . route('user.courseslug', $category['category']->slug) . '" ' . (isset($category['
+                                children']) && count($category['children'])> 0 ? 'data-bs-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false"' : '') . '>' .
                                 $category['category']->category_name . '</a>';
                             if (isset($category['children']) && count($category['children']) > 0) {
                             $output .= renderCourseTree($category['children']);
@@ -286,19 +287,31 @@
 
                     $output = '<ul class="dropdown-menu dropdown-menu-arrow">';
                         foreach ($tree as $node) {
-                        $output .= '<li class="dropdown-submenu dynamic-direction w-100 border-bottom">';
-                            $output .= '<a class="dropdown-item"
-                                href="' . route('user.courseslug', $node['category']->slug) . '">' .
-                                htmlspecialchars($node['category']->category_name) . '</a>';
-                            if (!empty($node['children'])) {
+                        $hasChildren = !empty($node['children']);
+                        $dropdownClass = $hasChildren ? 'dropdown-toggle' : '';
+                        $dataAttributes = $hasChildren ? 'data-bs-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false"' : '';
+
+                        // Make the <li> clickable by wrapping everything in <a>
+                                $output .= '
+                        <li class="dropdown-submenu dynamic-direction w-100 border-bottom">';
+                            $output .= '<a class="dropdown-item ' . $dropdownClass . '"
+                                href="' . route('user.courseslug', $node['category']->slug) . '" ' . $dataAttributes . '>';
+                                $output .= htmlspecialchars($node['category']->category_name);
+                                $output .= '</a>';
+
+                            if ($hasChildren) {
                             $output .= renderCourseTree($node['children']);
                             }
+
                             $output .= '</li>';
                         }
-                        $output .= '</ul>';
+                        $output .= '
+                    </ul>';
 
                     return $output;
                     }
+
                     @endphp
 
                     @foreach($menus as $menu)
