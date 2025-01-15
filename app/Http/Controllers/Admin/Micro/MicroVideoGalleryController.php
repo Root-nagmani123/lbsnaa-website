@@ -109,7 +109,7 @@ class MicroVideoGalleryController extends Controller
         $researchCentres = DB::table('micro_video_galleries as mvg')
         ->join('research_centres as rc', 'mvg.research_centre', '=', 'rc.id')
         ->where('mvg.id', $id)
-        ->pluck('rc.research_centre_name', 'rc.id');
+        ->pluck('rc.research_centre_name', 'rc.id'); 
 
         // Return the edit view with video and categories data
         return view('admin.micro.manage_media_center.video_gallery.edit', compact('video', 'categories','researchCentres'));

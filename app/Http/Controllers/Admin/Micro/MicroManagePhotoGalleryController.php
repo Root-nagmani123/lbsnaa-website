@@ -181,10 +181,21 @@ class MicroManagePhotoGalleryController extends Controller
         }
 
         // Fetch active media categories
+        // $mediaCategories = DB::table('micro_media_categories')
+        //                     ->where('status', 1)
+        //                     ->where('media_gallery', 1)
+        //                     ->pluck('name', 'id'); // Use pluck for a key-value array
+
+
         $mediaCategories = DB::table('micro_media_categories')
-                            ->where('status', 1)
-                            ->where('media_gallery', 1)
-                            ->pluck('name', 'id'); // Use pluck for a key-value array
+            ->join('research_centres', 'micro_media_categories.research_centre', '=', 'research_centres.id')
+            ->where('micro_media_categories.status', 1)
+            ->where('micro_media_categories.media_gallery', 1)
+            ->select('micro_media_categories.id', 'micro_media_categories.name', 'research_centres.research_centre_name as centre_name')
+            // ->get();
+            ->pluck('name', 'id');
+
+
 
         // Fetch related data only if the fields are not null
         $related_news = $gallery->related_news 

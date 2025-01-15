@@ -60,7 +60,7 @@
                                 <label for="research_centre_id" class="label">Select Research Center</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select name="research_centre" id="research_centre_id" class="form-control text-dark  h-58">
+                                    <select name="research_centre" id="select_research_centre" class="form-control text-dark  h-58">
                                         <option value="">Select Research Centre</option>
                                         @foreach ($researchCentres as $id => $name)
                                             <option value="{{ $id }}" {{ old('research_centre', $gallery->research_centre) == $id ? 'selected' : '' }}>
@@ -495,40 +495,72 @@
 </script>
 
 <script>
-// document.addEventListener("DOMContentLoaded", function() {
-//     const removedFilesInput = document.getElementById('removed-files'); // Hidden input for removed files
-//     const fileContainer = document.getElementById('file-container'); // Container for all files
+document.addEventListener("DOMContentLoaded", function() {
+    const removedFilesInput = document.getElementById('removed-files'); // Hidden input for removed files
+    const fileContainer = document.getElementById('file-container'); // Container for all files
 
-//     // Event listener for dynamically adding new file inputs
-//     document.getElementById('add-file').addEventListener('click', function() {
-//         const fileGroup = document.createElement('div');
-//         fileGroup.classList.add('file-group', 'mt-2');
-//         fileGroup.innerHTML = `
-//             <input type="file" name="image_files[]" class="form-control text-dark  h-58" accept="image/*">
-//             <button type="button" class="btn btn-danger remove-file mt-2 text-white">Remove</button>
-//         `;
-//         fileContainer.appendChild(fileGroup);
+    // Event listener for dynamically adding new file inputs
+    document.getElementById('add-file').addEventListener('click', function() {
+        const fileGroup = document.createElement('div');
+        fileGroup.classList.add('file-group', 'mt-2');
+        fileGroup.innerHTML = `
+            <input type="file" name="image_files[]" class="form-control text-dark  h-58" accept="image/*">
+            <button type="button" class="btn btn-danger remove-file mt-2 text-white">Remove</button>
+        `;
+        fileContainer.appendChild(fileGroup);
 
-//         // Attach remove event listener to the new "Remove" button
-//         fileGroup.querySelector('.remove-file').addEventListener('click', function() {
-//             fileGroup.remove();
-//         });
-//     });
+        // Attach remove event listener to the new "Remove" button
+        fileGroup.querySelector('.remove-file').addEventListener('click', function() {
+            fileGroup.remove();
+        });
+    });
 
-//     // Event delegation for removing existing images
-//     fileContainer.addEventListener('click', function(event) {
-//         if (event.target.classList.contains('remove-existing-file')) {
-//             const fileGroup = event.target.closest('.file-group');
-//             const fileName = event.target.getAttribute('data-file');
+    // Event delegation for removing existing images
+    fileContainer.addEventListener('click', function(event) {
+        if (event.target.classList.contains('remove-existing-file')) {
+            const fileGroup = event.target.closest('.file-group');
+            const fileName = event.target.getAttribute('data-file');
 
-//             // Add the removed file to the hidden input value
-//             const removedFiles = removedFilesInput.value ? JSON.parse(removedFilesInput.value) : [];
-//             removedFiles.push(fileName);
-//             removedFilesInput.value = JSON.stringify(removedFiles);
+            // Add the removed file to the hidden input value
+            const removedFiles = removedFilesInput.value ? JSON.parse(removedFilesInput.value) : [];
+            removedFiles.push(fileName);
+            removedFilesInput.value = JSON.stringify(removedFiles);
 
-//             // Remove the file group from the DOM
-//             fileGroup.remove();
-//         }
-//     });
-// });
+            // Remove the file group from the DOM
+            fileGroup.remove();
+        }
+    });
+});
+</script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#select_research_centre').on('change', function () {
+            const researchCentreId = $(this).val();
+            // alert(researchCentreId);
+
+            $('#media_categories').html('<option value="" selected>Select Media Category</option>');
+
+            if (researchCentreId) {
+                $.ajax({
+                    url: "{{ route('fetchMediaCategories') }}",
+                    type: "GET",
+                    data: { research_centre_id: researchCentreId },
+                    success: function (data) {
+                        if (data.length > 0) {
+                            data.forEach(function (category) {
+                                $('#media_categories').append(
+                                    `<option value="${category.id}">${category.name}</option>`
+                                );
+                            });
+                        }
+                    },
+                    error: function () {
+                        alert('Failed to fetch media categories. Please try again.');
+                    }
+                });
+            }
+        });
+    });
 </script>

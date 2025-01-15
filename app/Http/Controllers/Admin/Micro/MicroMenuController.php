@@ -181,6 +181,10 @@ class MicroMenuController extends Controller
             'menucategory' => 'required',
             'txtpostion' => 'required',
             'menu_status' => 'required|in:1,0',
+        ], [
+            'texttype.required' => 'Please select menu type.',
+            'txtpostion.required' => 'Please select content position.',
+            'menutitle.required' => 'Please enter menu title.',
         ]);
         // dd($request);
         // Check if the combination of menutitle and research_centre already exists
