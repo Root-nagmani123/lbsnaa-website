@@ -40,14 +40,15 @@
             <!-- What's New Section -->
             <div class="col-12 col-lg-3 mb-4">
                 <div class="card card-hover border">
-                    <div class="card-header bg-danger">
+                    <div class="card-header" style="background-color:#af2910">
                         <div class="row">
                             <div class="col-lg-6">
                                 <h5 class="text-white">What's New</h5>
 
                             </div>
                             <div class="col-lg-6 text-end">
-                                <a href="{{ route('user.whatnewall', ['slug' => $slug]) }}" style="text-decoration: none;color: #fff">View All</a>
+                                <a href="{{ route('user.whatnewall', ['slug' => $slug]) }}"
+                                    style="text-decoration: none;color: #fff">View All</a>
                             </div>
                         </div>
                     </div>
@@ -93,7 +94,7 @@
             <!-- Research Centres -->
             <div class="col-12 col-lg-9 mb-4">
                 @foreach($research_centres as $research_centre)
-                <h2 class="text-danger text-center uppercase">{{($research_centre->home_title) }} <br><span><img
+                <h2 class="text-center uppercase" style="color:#af2910">{{($research_centre->home_title) }} <br><span><img
                             src="{{ asset('assets/images/devider.png') }}" alt=""></span></h2>
                 <p style="text-align: justify;" class="mb-4">{!! $research_centre->description !!}</p>
 
@@ -125,7 +126,7 @@
             <!-- Quick Links -->
             <div class="col-12 col-lg-3 mb-4">
                 <div class="card card-hover border">
-                    <div class="card-header bg-danger">
+                    <div class="card-header" style="background-color:#af2910">
                         <h5 class="text-white">Quick Links</h5>
                     </div>
                     <div class="card-body" style="max-height: 500px; overflow-y: scroll;">
