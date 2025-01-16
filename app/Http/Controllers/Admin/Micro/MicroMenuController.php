@@ -531,7 +531,7 @@ class MicroMenuController extends Controller
 
     public function delete($id)
     {
-        $menu = micromenu::findOrFail($id);
+        $menu = MicroMenu::findOrFail($id);
 
         if ($menu->menu_status == 1) {
             return redirect()->route('micromenus.index')->with('error', 'Active menus cannot be deleted.');
