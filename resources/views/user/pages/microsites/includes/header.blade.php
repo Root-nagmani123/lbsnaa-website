@@ -111,10 +111,10 @@
                 // Check if 'slug' is in the query string, otherwise get it from the route
                 $slug = request()->query('slug') ?: request()->route('slug');
                 @endphp
-
-                <a href="{{ url('/lbsnaa-sub/' . $slug) }}"
-                    style="text-decoration: none;color: black;"><span>Home</span></a>
-                <ul class="navbar-nav me-auto navmenu">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a href="{{ url('/lbsnaa-sub/' . $slug) }}" class="nav-link">Home</a>
+                    </li>
                     @php
                     // Get the slug from the request to identify the current research center
                     $slug = request()->query('slug') ?: request()->route('slug');
