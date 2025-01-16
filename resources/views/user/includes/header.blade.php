@@ -230,7 +230,41 @@
                         ->exists();
 
                         // Add 'w-100' class to ensure full width for the list item
-                        $output .= '<li class="dropdown-submenu dynamic-direction w-100 border-bottom">';
+                        if($submenu->texttype == 3){
+                        $output .= '<li class="check dropdown-submenu dynamic-direction w-100 border-bottom">';
+                        $url = '';
+                            if ($submenu->web_site_target == 1) {
+                                // Internal link
+                                $url = url($submenu->website_url);
+                            } elseif ($submenu->web_site_target == 2) {
+                                  $url = str_starts_with($submenu->website_url, 'http') ? $submenu->website_url : 'http://' . $submenu->website_url;
+                            }
+                            $output .= '<a
+                                class="dropdown-item ' . ($hasChildren ? 'dropdown-toggle d-flex align-items-center' : '') . '"
+                                href="' . $url . '" target="' . ($submenu->web_site_target == 2 ? '_blank' : '_self') . '">' .
+                                $submenu->menutitle . '</a>';
+
+                            if ($hasChildren) {
+                            $output .= renderMenuItems($submenu->id);
+                            }
+
+                            $output .= '</li>';
+                         
+                            
+                        }else if($submenu->texttype == 2){
+                            $output .= '<li class="dropdown-submenu dynamic-direction w-100 border-bottom">';
+                            $output .= '<a 
+                                    class="dropdown-item" 
+                                    href="' . asset($submenu->pdf_file) . '" 
+                                    target="_blank">' . $submenu->menutitle . '</a>';
+
+                            if ($hasChildren) {
+                            $output .= renderMenuItems($submenu->id);
+                            }
+
+                            $output .= '</li>';
+                        }else{
+                         $output .= '<li class="dropdown-submenu dynamic-direction w-100 border-bottom">';
                             $output .= '<a
                                 class="dropdown-item ' . ($hasChildren ? 'dropdown-toggle d-flex align-items-center' : '') . '"
                                 href="' . route('user.navigationpagesbyslug', $submenu->menu_slug) . '">' .
@@ -242,10 +276,13 @@
 
                             $output .= '</li>';
                         }
+                        }
                         if ($isCourseOrTraining) {
                         $subcategories = DB::table('courses_sub_categories as sub')
                         ->leftJoin('courses_sub_categories as parent', 'sub.parent_id', '=', 'parent.id')
                         ->select('sub.*', 'parent.category_name as parent_category_name')
+                        ->where('sub.status', 1)
+                        ->where('parent.status', 1)
                         ->get();
 
                         $categoryTree = buildCategoryTree($subcategories);
@@ -342,10 +379,11 @@
                     @else
                     <li
                         class="nav-item {{ renderMenuItems($menu->id, $menu->menutitle === 'Training') ? 'dropdown' : '' }}">
-                        <a class="nav-link {{ renderMenuItems($menu->id, $menu->menutitle === 'Training') ? 'dropdown-toggle' : '' }}"
+                         <a class="1 nav-link {{ renderMenuItems($menu->id, $menu->menutitle === 'Training') ? 'dropdown-toggle' : '' }}"
                             href="{{ route('user.navigationpagesbyslug', $menu->menu_slug) }}">
                             {{ $menu->menutitle }}
                         </a>
+                      
                         {!! renderMenuItems($menu->id, $menu->menutitle === 'Training') !!}
                     </li>
                     @endif

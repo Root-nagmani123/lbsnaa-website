@@ -311,27 +311,27 @@ document.getElementById('txtpostion').addEventListener('change', function() {
 </script>
 
 <script>
-function updateMenuTypeOptions(selectedValue) {
-    // Get the second dropdown element
-    const menuTypeDropdown = document.getElementById("texttype");
+// function updateMenuTypeOptions(selectedValue) {
+//     // Get the second dropdown element
+//     const menuTypeDropdown = document.getElementById("texttype");
 
-    // Enable all options by default
-    for (let i = 0; i < menuTypeDropdown.options.length; i++) {
-        menuTypeDropdown.options[i].disabled = false;
-    }
+//     // Enable all options by default
+//     for (let i = 0; i < menuTypeDropdown.options.length; i++) {
+//         menuTypeDropdown.options[i].disabled = false;
+//     }
 
-    // If "Header Menu" or "Bottom Menu" is selected
-    if (selectedValue === "1" || selectedValue === "2") {
-        // Disable "PDF file Upload" and "Website URL"
-        menuTypeDropdown.options[2].disabled = true; // PDF file Upload
-        menuTypeDropdown.options[3].disabled = true; // Website URL
+//     // If "Header Menu" or "Bottom Menu" is selected
+//     if (selectedValue === "1" || selectedValue === "2") {
+//         // Disable "PDF file Upload" and "Website URL"
+//         menuTypeDropdown.options[2].disabled = true; // PDF file Upload
+//         menuTypeDropdown.options[3].disabled = true; // Website URL
 
-        // Reset the selection to "Select" if the currently selected option is disabled
-        if (menuTypeDropdown.value === "2" || menuTypeDropdown.value === "3") {
-            menuTypeDropdown.value = "";
-        }
-    }
-}
+//         // Reset the selection to "Select" if the currently selected option is disabled
+//         if (menuTypeDropdown.value === "2" || menuTypeDropdown.value === "3") {
+//             menuTypeDropdown.value = "";
+//         }
+//     }
+// }
 
 function displayFileName() {
     const fileInput = document.getElementById('file-upload');

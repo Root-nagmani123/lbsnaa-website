@@ -45,11 +45,11 @@ class ManageOrganizationController extends Controller
         //     'designation' => 'required|string|max:255',
         //     'page_status' => 'required|in:0,1',
 
-        //     'phone_internal_office' => 'nullable|string|max:10',
-        //     'phone_internal_residence' => 'nullable|string|max:10',
-        //     'phone_pt_office' => 'nullable|string|max:10',
-        //     'phone_pt_residence' => 'nullable|string|max:10',
-        //     'mobile' => 'nullable|string|max:10',
+        //     'phone_internal_office' => 'nullable|string',
+        //     'phone_internal_residence' => 'nullable|string',
+        //     'phone_pt_office' => 'nullable|string',
+        //     'phone_pt_residence' => 'nullable|string',
+        //     'mobile' => 'nullable|string',
             
         // ]);
 
@@ -71,12 +71,12 @@ class ManageOrganizationController extends Controller
             'designation' => 'required|string|max:255',
             'page_status' => 'required|in:0,1',
         
-            'phone_internal_office' => 'nullable|string|max:10',
-            'phone_internal_residence' => 'nullable|string|max:10',
-            'phone_pt_office' => 'nullable|string|max:10',
-            'phone_pt_residence' => 'nullable|string|max:10',
-            'std_code' => 'nullable|string|max:10',
-            'country_code' => 'nullable|string|max:10',
+            'phone_internal_office' => 'nullable|string',
+            'phone_internal_residence' => 'nullable|string',
+            'phone_pt_office' => 'nullable|string',
+            'phone_pt_residence' => 'nullable|string',
+            'std_code' => 'nullable|string',
+            'country_code' => 'nullable|string',
         ]);
         
         
@@ -157,9 +157,9 @@ class ManageOrganizationController extends Controller
             'phone_pt_office' => 'nullable|digits:10',
             'phone_pt_residence' => 'nullable|digits:10',
             'mobile' => 'nullable|digits:10',
-            'std_code' => 'nullable|string|max:10',
-            'country_code' => 'nullable|string|max:10',
-            'phone_pt_office' => 'nullable|string|max:10',
+            'std_code' => 'nullable|string',
+            'country_code' => 'nullable|string',
+            'phone_pt_office' => 'nullable|string',
         ]);
 
         $data = $request->all();
@@ -258,9 +258,9 @@ class ManageOrganizationController extends Controller
             'mobile' => 'required|digits:10|unique:staff_members,mobile', // Ensure valid 10-digit mobile number
         
             // Optional fields with uniqueness and format validation
-            'phone_pt_office' => 'nullable|string|max:10',
-            'std_code' => 'nullable|string|max:10',
-            'country_code' => 'nullable|string|max:10',
+            'phone_pt_office' => 'nullable|string',
+            'std_code' => 'nullable|string',
+            'country_code' => 'nullable|string',
         
             'page_status' => 'required|in:1,0', // Replace with your dropdown options
             'present_at_station' => 'required|in:1,0', // Replace with your dropdown options
@@ -325,9 +325,9 @@ class ManageOrganizationController extends Controller
             'mobile' => 'required|digits:10|unique:staff_members,mobile,' . $id, // Exclude current mobile number
             
             // Optional fields without uniqueness checks
-            'phone_pt_office' => 'nullable|string|max:10',
-            'std_code' => 'nullable|string|max:10',
-            'country_code' => 'nullable|string|max:10',
+            'phone_pt_office' => 'nullable|string',
+            'std_code' => 'nullable|string',
+            'country_code' => 'nullable|string',
 
             'page_status' => 'required|in:1,0', // Replace with your dropdown options
             'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048', // Optional image upload with size and format constraints

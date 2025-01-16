@@ -353,13 +353,19 @@ public function get_course_list_pages(Request $request, $slug){
     $subcategory = DB::table('courses_sub_categories')
         ->where('slug', $slug)
         ->where('status', 1)
-        ->select('id', 'parent_id','category_name', 'color_theme','description')
+        ->select('id', 'parent_id','slug','category_name', 'color_theme','description')
         ->first();
-        $parent_category = DB::table('courses_sub_categories')
-        ->where('id', $subcategory->parent_id)
-        ->where('status', 1)
-        ->select('id', 'category_name', 'slug','color_theme','description')
-        ->first();
+        // print_r($subcategory);die;
+        if($subcategory->parent_id  == 0){
+            $parent_category = $subcategory;
+        }else{
+            $parent_category = DB::table('courses_sub_categories')
+            ->where('id', $subcategory->parent_id)
+            ->where('status', 1)
+            ->select('id', 'category_name', 'slug','color_theme','description')
+            ->first();
+        }
+        
         // print_r($parent_category);die;
 
     // Step 2: Fetch all courses related to this subcategory
@@ -378,7 +384,7 @@ public function get_course_list_pages(Request $request, $slug){
         ->whereDate('course_start_date', '<=', $currentDate)
         ->whereDate('course_end_date', '>=', $currentDate)
         ->get();
-
+//  print_r($parent_category);die;
     return view('user.pages.course_list', compact('parent_category','subcategory', 'currentCourse', 'courses'));
 }
 function get_course_subcourse_list_pages(Request $request, $slug){
