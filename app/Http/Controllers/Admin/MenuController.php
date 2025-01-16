@@ -141,7 +141,7 @@ class MenuController extends Controller
         $slug = Str::slug($request->menutitle, '-');
 
         // Check if slug already exists
-        $existingMenu = Menu::where('menu_slug', $slug)->first();
+        $existingMenu = Menu::where('menu_slug', $slug)->where('is_deleted',0)->first();
         if ($existingMenu) {
             return redirect()->back()->withErrors(['menutitle' => 'This menu title already exists.'])->withInput();
         } 
