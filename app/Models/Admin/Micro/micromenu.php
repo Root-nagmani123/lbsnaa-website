@@ -4,7 +4,7 @@ namespace App\Models\Admin\Micro;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+// dddd
 class micromenu extends Model
 {
     use HasFactory;
