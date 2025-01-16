@@ -132,7 +132,7 @@ class HomeFrontController extends Controller
             $staff = $query->get();
 
          return view('user.pages.staff', compact('staff'));
-        }elseif ($slug == 'organization') {
+        }elseif ($slug == 'organogram') {
             // echo 'joining';die;
            return redirect('organization');
         
