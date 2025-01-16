@@ -377,12 +377,44 @@
                         </ul>
                     </li>
                     @else
+                        
                     <li
                         class="nav-item {{ renderMenuItems($menu->id, $menu->menutitle === 'Training') ? 'dropdown' : '' }}">
-                         <a class="1 nav-link {{ renderMenuItems($menu->id, $menu->menutitle === 'Training') ? 'dropdown-toggle' : '' }}"
-                            href="{{ route('user.navigationpagesbyslug', $menu->menu_slug) }}">
-                            {{ $menu->menutitle }}
+                        @php
+                        // Initialize URL and target for the menu link
+                        $url = '';
+                        $target = '_self'; // Default target
+
+                        // Determine the link URL and target based on conditions
+                        if ($menu->texttype == 3) {
+                            // Case: texttype == 3 (External/Internal Links)
+                            if ($menu->web_site_target == 1) {
+                                // Internal link
+                                $url = url($menu->website_url);
+                            } elseif ($menu->web_site_target == 2) {
+                                // External link
+                                $url = str_starts_with($menu->website_url, 'http') 
+                                    ? $menu->website_url 
+                                    : 'http://' . $menu->website_url;
+                                $target = '_blank'; // Open external links in a new tab
+                            }
+                        } elseif ($menu->texttype == 2) {
+                            // Case: texttype == 2 (PDF Link)
+                            $url = asset($menu->pdf_file);
+                            $target = '_blank'; // PDF files open in a new tab
+                        } else {
+                            // Default Case: Internal Navigation
+                            $url = route('user.navigationpagesbyslug', $menu->menu_slug);
+                        }
+                        @endphp
+
+                        <!-- Render the menu link -->
+                        <a class="nav-link {{ renderMenuItems($menu->id, $menu->menutitle === 'Training') ? 'dropdown-toggle' : '' }}"
+                        href="{{ $url }}"
+                        target="{{ $target }}">
+                        {{ $menu->menutitle }}
                         </a>
+
                       
                         {!! renderMenuItems($menu->id, $menu->menutitle === 'Training') !!}
                     </li>
