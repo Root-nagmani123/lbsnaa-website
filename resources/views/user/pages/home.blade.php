@@ -226,7 +226,7 @@
             <div class="col-12 col-md-9">
                 <div class="mb-3">
                     <div class="card card-hover border">
-                        <div class="card-header bg-danger">
+                        <div class="card-header" style="background-color:#af2910">
                             <h3 class="text-white">LBSNAA Academy News <span class="float-end"><a
                                         href="{{ route('user.news_listing') }}" class="text-white"
                                         style="text-decoration: none;font-size:14px">View All</a></span></h3>
@@ -234,46 +234,47 @@
                     </div>
                 </div>
                 <div id="cardCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
-    <!-- Carousel Inner (carousel items) -->
-    <div class="carousel-inner">
-        @foreach ($news->chunk(3) as $chunk) <!-- Group cards into chunks of 3 for each slide -->
-            <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                <div class="row">
-                    @foreach ($chunk as $slider)
-                        <!-- Card -->
-                        <div class="col-lg-4 col-md-6 col-12 mb-4">
-                            <div class="card">
-                                <div class="card-header p-0 border-0">
-                                    <img src="{{ isset($slider->main_image) && !empty($slider->main_image) ? asset($slider->main_image) : asset('assets/images/4.jpg') }}"
-                                        class="card-img-top img-fluid" alt="blogpost"
-                                        style="object-fit: cover; height: 250px; width: 100%;">
+                    <!-- Carousel Inner (carousel items) -->
+                    <div class="carousel-inner">
+                        @foreach ($news->chunk(3) as $chunk)
+                        <!-- Group cards into chunks of 3 for each slide -->
+                        <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                            <div class="row">
+                                @foreach ($chunk as $slider)
+                                <!-- Card -->
+                                <div class="col-lg-4 col-md-6 col-12 mb-4">
+                                    <div class="card">
+                                        <div class="card-header p-0 border-0">
+                                            <img src="{{ isset($slider->main_image) && !empty($slider->main_image) ? asset($slider->main_image) : asset('assets/images/4.jpg') }}"
+                                                class="card-img-top img-fluid" alt="blogpost"
+                                                style="object-fit: cover; height: 250px; width: 100%;">
+                                        </div>
+                                        <div class="card-body" style="height: 200px; overflow-y: hidden;">
+                                            <span class="fs-5 mb-2 fw-semibold d-block text-success">Posted On:
+                                                {{ \Carbon\Carbon::parse($slider->start_date)->format('d F, Y') }}</span>
+                                            <h3>{{ $slider->title }}</h3>
+                                            <p>{{ $slider->short_description }}</p>
+                                        </div>
+                                        <div class="card-footer border-0" style="height:50px;">
+                                            <a href="{{ route('user.newsbyslug', $slider->title_slug) }}"
+                                                class="icon-link icon-link-hover link-primary fw-semibold">
+                                                <span>Read More</span>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                                    fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd"
+                                                        d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8">
+                                                    </path>
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="card-body" style="height: 200px; overflow-y: hidden;">
-                                    <span class="fs-5 mb-2 fw-semibold d-block text-success">Posted On:
-                                        {{ \Carbon\Carbon::parse($slider->start_date)->format('d F, Y') }}</span>
-                                    <h3>{{ $slider->title }}</h3>
-                                    <p>{{ $slider->short_description }}</p>
-                                </div>
-                                <div class="card-footer border-0" style="height:50px;">
-                                    <a href="{{ route('user.newsbyslug', $slider->title_slug) }}"
-                                        class="icon-link icon-link-hover link-primary fw-semibold">
-                                        <span>Read More</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                            fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd"
-                                                d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8">
-                                            </path>
-                                        </svg>
-                                    </a>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
-                    @endforeach
+                        @endforeach
+                    </div>
                 </div>
-            </div>
-        @endforeach
-    </div>
-</div>
 
 
 
@@ -281,7 +282,7 @@
             <div class="col-12 col-md-3">
                 <!-- Quick Links Section -->
                 <div class="card card-hover border">
-                    <div class="card-header bg-danger">
+                    <div class="card-header" style="background-color:#af2910">
                         <h3 class="text-white">Quick Links</h3>
                     </div>
                     <div class="card-body p-0" style="height: 520px; overflow-y: scroll;">
@@ -289,7 +290,8 @@
                             @foreach($quick_links as $key => $quick_link)
                             <li class="text-start list-group-item">
                                 @if(!empty($quick_link->url))
-                                <a href="{{ $quick_link->url_type == 'external' ? (str_starts_with($quick_link->url, 'http') ? $quick_link->url : 'http://' . $quick_link->url) : url($quick_link->url) }}" class="text-decoration-none text-primary">
+                                <a href="{{ $quick_link->url_type == 'external' ? (str_starts_with($quick_link->url, 'http') ? $quick_link->url : 'http://' . $quick_link->url) : url($quick_link->url) }}"
+                                    class="text-decoration-none text-primary">
                                     <span>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                             fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
@@ -338,6 +340,7 @@
     white-space: nowrap;
     will-change: transform;
 }
+
 #marqueeWrapper {
     overflow: hidden;
     position: relative;
@@ -349,13 +352,15 @@
     flex-nowrap: nowrap;
     align-items: center;
     animation: marquee 15s linear infinite;
-    will-change: transform; /* Helps with smoother animations */
+    will-change: transform;
+    /* Helps with smoother animations */
 }
 
 @keyframes marquee {
     0% {
         transform: translateX(100%);
     }
+
     100% {
         transform: translateX(-100%);
     }
@@ -364,17 +369,14 @@
 .paused {
     animation-play-state: paused;
 }
-
 </style>
 <script>
- document.getElementById('marqueeWrapper').addEventListener('mouseenter', function() {
+document.getElementById('marqueeWrapper').addEventListener('mouseenter', function() {
     document.getElementById('marqueeContainer').style.animationPlayState = 'paused';
 });
 
 document.getElementById('marqueeWrapper').addEventListener('mouseleave', function() {
     document.getElementById('marqueeContainer').style.animationPlayState = 'running';
 });
-
-
 </script>
 @include('user.includes.footer')
