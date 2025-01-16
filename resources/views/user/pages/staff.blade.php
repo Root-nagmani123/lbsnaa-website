@@ -3,7 +3,7 @@
 
 
 <!-- Page Content -->
-<section class="py-4">
+<section class="py-2">
     <div class="container-fluid">
         <div class="row align-items-center pb-lg-2">
             <!-- image -->
@@ -20,26 +20,31 @@
                 </nav>
             </div>
         </div>
-
+    </div>
+</section>
+<section class="py-2">
+    <div class="container-fluid">
         <div class="card bg-white border-0 rounded-10 mb-4">
             <div class="card-header">
-            <div class="d-flex justify-content-between align-items-center pb-20 mb-20 mb-2">
+                <div class="d-flex justify-content-between align-items-center pb-20 mb-20 mb-2">
                     <h3 class="fw-semibold fs-18 mb-0">Staff</h3>
                     <div class="contsearch">
-                <form id="form2" action="{{ url()->current() }}" method="GET">
-                    <fieldset>
-                        <label for="keywords">
-                            <input type="text" id="Keywords" name="keywords" value="{{ request('keywords') }}"
-                                placeholder="Search Staff" fdprocessedid="79mcc" class="form-control form-control-sm">
-                        </label>
+                        <form id="form2" action="{{ url()->current() }}" method="GET">
+                            <fieldset>
+                                <label for="keywords">
+                                    <input type="text" id="Keywords" name="keywords" value="{{ request('keywords') }}"
+                                        placeholder="Search Staff" fdprocessedid="79mcc"
+                                        class="form-control form-control-sm">
+                                </label>
 
-                        <label for="btn2">
-                            <input id="btn2" type="submit" value="Submit" class="btn btn-outline-primary btn-sm" fdprocessedid="6rx09">
-                            <input type="hidden" name="action" value="submit">
-                        </label>
-                    </fieldset>
-                </form>
-            </div>
+                                <label for="btn2">
+                                    <input id="btn2" type="submit" value="Submit" class="btn btn-outline-primary btn-sm"
+                                        fdprocessedid="6rx09">
+                                    <input type="hidden" name="action" value="submit">
+                                </label>
+                            </fieldset>
+                        </form>
+                    </div>
                 </div>
             </div>
             <div class="card-body p-4">
@@ -57,22 +62,22 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            @if(count($staff) > 0)
-                    @foreach($staff as $key => $value)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $value->name }}</td>
-                        <td>{{ $value->designation }}</td>
-                        <td>{{ $value->email }}</td>
-                        <td>{{ $value->mobile }}</td>
-                        <td>{{ $value->phone_internal_residence }}</td>
-                    </tr>
-                    @endforeach
-                    @else
-                    <tr>
-                        <td colspan="5" class="text-center">No records found</td>
-                    </tr>
-                    @endif
+                                @if(count($staff) > 0)
+                                @foreach($staff as $key => $value)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $value->name }}</td>
+                                    <td>{{ $value->designation }}</td>
+                                    <td>{{ $value->email }}</td>
+                                    <td>{{ $value->mobile }}</td>
+                                    <td>{{ $value->phone_internal_residence }}</td>
+                                </tr>
+                                @endforeach
+                                @else
+                                <tr>
+                                    <td colspan="6" class="text-center">No records found</td>
+                                </tr>
+                                @endif
                             </tbody>
                         </table>
                     </div>
