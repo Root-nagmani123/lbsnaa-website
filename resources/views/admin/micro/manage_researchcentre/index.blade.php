@@ -66,7 +66,7 @@
                             <td>{{ $centre->language == 1 ? 'English' : 'Hindi' }}</td>
                             <td>{{ $centre->research_centre_name }}</td>
                             <!-- <td>{{ str_replace(['<p>', '</p>'], '', $centre->description) }}</td> -->
-                            <td>{{ strip_tags($centre->description) }}</td>
+                            <td>{{ Str::limit(strip_tags($centre->description), 50) }}</td>
                             <td>
                                 <button type="button" class="btn btn-outline-primary fw-semibold btn-sm view-slider"
                                     data-bs-toggle="modal" data-bs-target="#staticBackdrop"
@@ -122,7 +122,7 @@
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="staticBackdropLabel">Research Center Details</h1>
