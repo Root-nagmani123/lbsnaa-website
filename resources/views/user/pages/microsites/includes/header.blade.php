@@ -116,18 +116,30 @@
                     style="text-decoration: none;color: black;"><span>Home</span></a>
                 <ul class="navbar-nav me-auto navmenu">
                     @php
+                    // Get the slug from the request to identify the current research center
                     $slug = request()->query('slug') ?: request()->route('slug');
 
-                    // Fetch all menus and organize them by parent_id
+                    // Fetch the current research center's ID based on the slug
+                    $currentResearchCenter = DB::table('research_centres')
+                    ->where('research_centre_slug', $slug)
+                    ->first();
+
+                    if ($currentResearchCenter) {
+                    $researchCenterId = $currentResearchCenter->id;
+
+                    // Fetch menus specific to the current research center
                     $allMenus = DB::table('micromenus')
                     ->join('research_centres', 'micromenus.research_centreid', '=', 'research_centres.id')
                     ->where('micromenus.menu_status', 1)
                     ->where('micromenus.is_deleted', 0)
+                    ->where('micromenus.research_centreid', $researchCenterId)
                     ->select('micromenus.*', 'research_centres.research_centre_slug')
                     ->get();
 
+                    // Organize menus by parent_id
                     $menusByParent = $allMenus->groupBy('parent_id');
 
+                    // Recursive function to display the menu
                     function displayMenu($parentId, $menusByParent, $slug, $isRoot = false) {
                     if (!isset($menusByParent[$parentId])) {
                     return;
@@ -153,13 +165,17 @@
                         }
 
                         echo "</li>";
-
                     }
                     }
 
+                    // Call the function to display the menu
                     displayMenu(0, $menusByParent, $slug, true);
+                    } else {
+                    echo "<li class='nav-item'><span>No menu available for this research center.</span></li>";
+                    }
                     @endphp
                 </ul>
+
 
             </div>
         </nav>
