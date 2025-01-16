@@ -103,10 +103,10 @@
                                         <option class="text-dark">Select</option>
                                         <option value="1" class="text-dark"
                                             {{ $menu->texttype == 1 ? 'selected' : '' }}>Content</option>
-                                        <!-- <option value="2" class="text-dark"
+                                        <option value="2" class="text-dark"
                                             {{ $menu->texttype == 2 ? 'selected' : '' }}>PDF file Upload</option>
                                         <option value="3" class="text-dark"
-                                            {{ $menu->texttype == 3 ? 'selected' : '' }}>Web Site Url</option> -->
+                                            {{ $menu->texttype == 3 ? 'selected' : '' }}>Web Site Url</option>
                                     </select>
                                     @error('texttype')
                                     <div class="text-danger">{{ $message }}</div>

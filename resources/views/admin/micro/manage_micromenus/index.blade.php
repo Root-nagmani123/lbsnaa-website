@@ -50,6 +50,7 @@
                         <tr class="text-center">
                             <th class="col">#</th>
                             <th class="col">Menu Title</th>
+                            <th class="col">Research Center</th>
                             <th class="col">Parent Menu</th>
                             <th class="col">Menu Type</th>
                             <th class="col">Content Position</th>
@@ -61,7 +62,7 @@
                         @foreach($menuTree as $menu)
                         {!! renderMicroMenu($menu) !!}
                         @endforeach
-                    </tbody>
+                    </tbody> 
                 </table>
             </div>
         </div>

@@ -103,7 +103,7 @@ class CoursesubCategoryController extends Controller
             'category_name' => 'required',
             'color_theme' => 'nullable|string',
             'parent_id' => 'nullable',
-            'description' => 'nullable|string',
+            'description' => 'nullable|string', 
             'status' => 'required|in:0,1',
         ]);
 

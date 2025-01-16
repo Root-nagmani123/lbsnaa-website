@@ -82,8 +82,7 @@
                                 <label class="label" for="parent_id">Parent Category :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control  h-58" name="parent_id" id="parent_id"
-                                        required>
+                                    <select class="form-select form-control  h-58" name="parent_id" id="parent_id">
                                         <option value="" >It is Root Category</option>
                                         @foreach($categories as $category)
                                         <option value="{{ $category->id }}" class="text-dark"
