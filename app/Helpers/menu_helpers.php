@@ -48,12 +48,58 @@ if (!function_exists('renderMenu')) {
 }
 
 
+// if (!function_exists('renderMicroMenu')) {
+//     function renderMicroMenu($menu, $indent = '', &$counter = 1)
+//     {
+//         $output = '<tr>';
+//         $output .= '<td>' . $counter . '</td>'; // Use the counter for numbering
+//         $output .= '<td>' . $indent . htmlspecialchars($menu->menutitle) . '</td>';
+//         $output .= '<td>' . htmlspecialchars($menu->rec_name) . '</td>';
+//         $output .= '<td>' . ($menu->parent_id ? htmlspecialchars(\App\Models\Admin\Micro\MicroMenu::find($menu->parent_id)->menutitle) : 'Root Category') . '</td>';
+//         $output .= '<td>' . getMenuType($menu->texttype) . '</td>';
+//         $output .= '<td>' . getMenuPosition($menu->txtpostion) . '</td>';
+//         $output .= '<td>
+//         <div class="d-flex justify-content-center align-items-center gap-2">
+//             <a href="' . route('micromenus.edit', $menu->id) . '" 
+//                 class="btn btn-success text-white btn-sm">
+//                 Edit
+//             </a>
+//             <form action="' . route('micromenu.delete', $menu->id) . '" 
+//                   method="POST" 
+//                   class="m-0">
+//                 ' . csrf_field() . '
+//                 ' . method_field('DELETE') . '
+//                 <button type="submit" class="btn btn-primary text-white btn-sm" 
+//                         onclick="return confirm(\'Are you sure you want to delete?\')">
+//                     Delete
+//                 </button>
+//             </form>
+//         </div>
+//     </td>';
+//         $output .= '<td><div class="form-check form-switch">
+//             <input class="form-check-input status-toggle" type="checkbox" role="switch" data-table="micromenus" 
+//             data-column="menu_status" data-id="' . $menu->id . '" ' . ($menu->menu_status ? 'checked' : '') . '>
+//           </div></td>';
+//         $output .= '</tr>';
+
+//         $counter++; // Increment the counter
+
+//         // Render child menus, passing the counter
+//         foreach ($menu->children as $child) {
+//             $output .= renderMicroMenu($child, $indent . '--- ', $counter);
+//         }
+
+//         return $output;
+//     }
+// }
+
 if (!function_exists('renderMicroMenu')) {
     function renderMicroMenu($menu, $indent = '', &$counter = 1)
     {
         $output = '<tr>';
         $output .= '<td>' . $counter . '</td>'; // Use the counter for numbering
-        $output .= '<td>' . $indent . htmlspecialchars($menu->menutitle) . '</td>';
+        $output .= '<td>' . $indent . htmlspecialchars($menu->menutitle) . '</td>';  // Object access
+        $output .= '<td>' . htmlspecialchars($menu->research_centre_name) . '</td>';  // Object access
         $output .= '<td>' . ($menu->parent_id ? htmlspecialchars(\App\Models\Admin\Micro\MicroMenu::find($menu->parent_id)->menutitle) : 'Root Category') . '</td>';
         $output .= '<td>' . getMenuType($menu->texttype) . '</td>';
         $output .= '<td>' . getMenuPosition($menu->txtpostion) . '</td>';
@@ -83,14 +129,18 @@ if (!function_exists('renderMicroMenu')) {
 
         $counter++; // Increment the counter
 
-        // Render child menus, passing the counter
-        foreach ($menu->children as $child) {
-            $output .= renderMicroMenu($child, $indent . '--- ', $counter);
+        // Render child menus, passing the counter, but first check if children exists
+        if (isset($menu->children) && is_array($menu->children)) {
+            foreach ($menu->children as $child) {
+                $output .= renderMicroMenu($child, $indent . '--- ', $counter);
+            }
         }
 
         return $output;
     }
 }
+
+
 
 if (!function_exists('getMenuType')) {
     function getMenuType($texttype)
@@ -209,6 +259,7 @@ if (!function_exists('renderMicroMenuItems')) {
             ->where('is_deleted', 0)
             ->where('parent_id', $parentId)
             ->get();
+        // dd($submenus);
         // Debugging output to check submenus
         if ($submenus->isEmpty()) {
             return ''; // No submenus found, return empty

@@ -85,8 +85,8 @@
                                         <!-- <option value="1" class="text-dark" {{ old('texttype') == '1' ? 'selected' : '' }}>Content</option> -->
 
 
-                                        <!-- <option value="2" class="text-dark">PDF file Upload</option>
-                                        <option value="3" class="text-dark">Web Site Url</option> -->
+                                        <option value="2" class="text-dark">PDF file Upload</option>
+                                        <option value="3" class="text-dark">Web Site Url</option>
                                     </select>
                                     @error('texttype')
                                     <div class="text-danger">{{ $message }}</div>

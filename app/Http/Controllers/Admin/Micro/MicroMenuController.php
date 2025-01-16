@@ -14,30 +14,129 @@ use Illuminate\Support\Str;
 
 class MicroMenuController extends Controller
 { 
-    public function index() 
-    {
-        $menus = micromenu::where('is_deleted', 0)->get();
-        $menuTree = $this->buildMenuTree($menus);
+    // public function index() 
+    // {
 
-        return view('admin.micro.manage_micromenus.index', compact('menuTree'));
-    }
+    //     $menus = DB::table('micromenus')
+    //     ->leftJoin('research_centres', 'micromenus.research_centreid', '=', 'research_centres.id')
+    //     ->select('micromenus.*', 'research_centres.research_centre_name as rec_name') 
+    //     ->where('micromenus.is_deleted', 0)
+    //     ->get()
+    //     ->toArray();
+    
+    //     echo '<pre>';
+    //     print_r($menus);
+    //     echo '</pre>';
+
+
+    //     $menus = micromenu::where('is_deleted', 0)->get();
+    //     echo '<pre>';
+    //     print_r($menus);die();
+    //     echo '</pre>';
+
+
+    //     $menuTree = $this->buildMenuTree($menus);
+    //     // dd($menuTree);
+    //     return view('admin.micro.manage_micromenus.index', compact('menuTree'));
+    // }
+
+    public function index() 
+{
+    // Fetch data with raw join, still working with objects
+    $menus = DB::table('micromenus')
+        ->leftJoin('research_centres', 'micromenus.research_centreid', '=', 'research_centres.id')
+        ->select(
+            'micromenus.id',
+            'micromenus.menutitle', 
+            'micromenus.research_centreid',
+            'research_centres.research_centre_name', 
+            'micromenus.texttype', 
+            'micromenus.txtpostion', 
+
+            'micromenus.menu_status', 
+            'micromenus.created_at', 
+            'micromenus.updated_at',
+            'micromenus.parent_id'
+        )
+        ->where('micromenus.is_deleted', 0)
+        ->get(); 
+
+    // Convert the result into an array (optional step)
+    $menus = $menus->toArray(); // If you need to convert to array
+
+    // Now, proceed with the rest of the processing as usual
+    $menuTree = $this->buildMenuTree($menus);
+
+    return view('admin.micro.manage_micromenus.index', compact('menuTree'));
+}
+
+
+
+
+
+//     public function index()
+// {
+//     $menus = DB::table('micromenus')
+//         ->leftJoin('research_centres', 'micromenus.research_centreid', '=', 'research_centres.id')
+//         ->select('micromenus.*', 'research_centres.research_centre_name as rec_name') // Select desired columns
+//         ->where('micromenus.is_deleted', 0)
+//         ->get();
+
+//     $menuTree = $this->buildMenuTree($menus);
+
+//     return view('admin.micro.manage_micromenus.index', compact('menuTree'));
+// }
+
+
+    // private function buildMenuTree($menus, $parentId = null)
+    // {
+    //     $branch = [];
+    //     // dd($menus);
+    //     foreach ($menus as $menu) {
+    //         // dd($parentId);
+    //     // dd($menu->parent_id);
+    //         if ($menu->parent_id == $parentId) {
+    //             $children = $this->buildMenuTree($menus, $menu->id);
+    //             // dd($children);
+    //             if ($children) {
+    //                 $menu->children = $children;
+    //             }
+    //             $branch[] = $menu;
+    //         }
+    //     }
+
+    //     return $branch;
+    // }
 
     private function buildMenuTree($menus, $parentId = null)
-    {
-        $branch = [];
+{
+    $branch = [];
 
-        foreach ($menus as $menu) {
-            if ($menu->parent_id == $parentId) {
-                $children = $this->buildMenuTree($menus, $menu->id);
-                if ($children) {
-                    $menu->children = $children;
-                }
-                $branch[] = $menu;
+    // Loop through each menu item
+    foreach ($menus as $menu) {
+        // Check if the current menu's parent_id matches the parentId passed to the function
+        if ($menu->parent_id == $parentId) {  // Use object access here
+            // Recursively build tree for children
+            $children = $this->buildMenuTree($menus, $menu->id);  // Access 'id' in object format
+
+            // If children exist, add them to the current menu item
+            if ($children) {
+                // Ensure the children property exists
+                $menu->children = $children;
             }
-        }
 
-        return $branch;
+            // Add the current menu item to the branch
+            $branch[] = $menu;
+        }
     }
+
+    return $branch;
+}
+
+
+
+    
+
 
     protected function getMenuType($type)
     {
@@ -190,7 +289,7 @@ class MicroMenuController extends Controller
         // Check if the combination of menutitle and research_centre already exists
         $existingMenu = micromenu::where('research_centreid', $request->research_centre)
             ->where('menutitle', $request->menutitle)
-            ->first();
+            ->first(); 
 
         if ($existingMenu) {
             return redirect()->back()->withErrors([
