@@ -111,7 +111,7 @@ class MenuController extends Controller
             'start_date' => 'nullable|date',
             'termination_date' => 'nullable|date|after_or_equal:start_date',
             'menu_status' => 'nullable|boolean',
-            'website_url' => 'nullable|url', // Only if texttype is 3
+            'website_url' => 'nullable', // Only if texttype is 3
         ],
         [
             'txtlanguage.required' => 'Please select a language.',
@@ -242,6 +242,7 @@ class MenuController extends Controller
         $menu->menu_status = $request->input('menu_status', 0);
         $menu->start_date = $request->input('start_date');
         $menu->termination_date = $request->input('termination_date');
+        $menu->web_site_target = $request->input('web_site_target');
 
         if ($request->hasFile('pdf_file')) {
             if (File::exists(public_path($menu->pdf_file))) {
