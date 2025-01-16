@@ -1,5 +1,5 @@
 @include('user.includes.header')
-<section class="py-4">
+<section class="py-2">
     <div class="container-fluid">
         <div class="row align-items-center pb-lg-2">
             <div class="mb-4 mb-lg-0 bg-gray-200 rounded-4 py-2">
@@ -16,12 +16,12 @@
         </div>
     </div>
 </section>
-<section class="py-5">
+<section class="py-2">
     <div class="container-fluid">
         <div class="org-chart">
             <!-- Render the top level (First Layer) -->
             @if (!empty($hierarchy))
-            <div class="level">
+            <div class="level" style="margin:0;">
                 @foreach ($hierarchy as $node)
                 @include('partials.organization-node', ['node' => $node])
                 @endforeach
@@ -33,7 +33,7 @@
             @foreach ($hierarchy as $node)
             @if (!empty($node->children))
             <div class="line"></div>
-            <div class="level">
+            <div class="level" style="margin:0;">
                 @foreach ($node->children as $child)
                 @include('partials.organization-node', ['node' => $child])
                 @endforeach
@@ -42,7 +42,7 @@
             <!-- Render the third layer (children of second-layer nodes) -->
             @if (!empty($child->children))
             <div class="line"></div>
-            <div class="level">
+            <div class="level" style="margin:0;">
                 @foreach ($child->children as $grandchild)
                 @include('partials.organization-node', ['node' => $grandchild])
                 @endforeach
