@@ -155,11 +155,11 @@
                     // If content exists, open the same page
                     $menuLink = route('user.navigationmenubyslug', $menu->menu_slug) . '?slug=' . urlencode($slug);
                 } elseif (!empty($menu->pdf_file)) {
-                    // If pdf_file exists, redirect to the file
+                    // If pdf_file exists, redirect to the file and open in a new tab
                     $menuLink = url($menu->pdf_file); // Generate the correct URL
                     $target = '_blank'; // Open in a new tab
                 } elseif (!empty($menu->website_url)) {
-                    // If website_url exists, redirect to the URL
+                    // If website_url exists, redirect to the URL and open in a new tab
                     $menuLink = $menu->website_url;
                     $target = '_blank'; // Open in a new tab
                 }

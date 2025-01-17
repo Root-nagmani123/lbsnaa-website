@@ -43,10 +43,10 @@
                                     <input type="password" name="password" class="form-control h-58 text-dark" required>
                                 </div>
                             </div>
-                            
+                             
                             <!-- reCAPTCHA v2 checkbox -->
                            <div class="form-group mb-4">
-                           <div class="g-recaptcha" data-sitekey="{{ env('RECAPTCHA_SITEKEY') }}"></div>
+                           <div class="g-recaptcha" data-sitekey="6LcnL6YqAAAAABoteAW53-6NYPZdJ1NGkrBJ7j-w"></div>
                            </div>
                             
                             <button type="submit" class="btn btn-primary fs-16 fw-semibold text-dark heading-fornt py-2 py-md-3 px-4 text-white w-100">

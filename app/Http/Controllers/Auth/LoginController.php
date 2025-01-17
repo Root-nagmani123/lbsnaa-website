@@ -22,7 +22,7 @@ class LoginController extends Controller
     }
     public function authenticate(Request $request)
 {
-    // print_r($_POST);die();
+    // print_r($_POST);die(); 
     $request->validate([
         'email' => 'required|email',
         'password' => 'required',
@@ -31,7 +31,7 @@ class LoginController extends Controller
     // dd($request->input('g-recaptcha-response')); 
     // print_r($request->input('g-recaptcha-response'));die;
     $response = $request->input('g-recaptcha-response');
-    $secret = env('RECAPTCHA_SECRET');
+    $secret = '6LcnL6YqAAAAAFq4QQ4XTwhoLQCOBcR2iU7gWhJm';
     $remoteip = $request->ip();
 
     $verify = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
