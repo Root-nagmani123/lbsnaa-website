@@ -351,7 +351,7 @@
     gap: 3px;
     flex-nowrap: nowrap;
     align-items: center;
-    animation: marquee 15s linear infinite;
+    animation: marquee 50s linear infinite;
     will-change: transform;
     /* Helps with smoother animations */
 }
