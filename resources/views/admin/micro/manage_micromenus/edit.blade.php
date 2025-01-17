@@ -176,24 +176,17 @@
                                 </div>
                             </div>
                             <div class="row" style="display: none;" id="pdf-upload-field">
-                                <div class="col-lg-12">
+                                <div class="col-lg-6">
                                     <div class="form-group mb-0">
                                         <label class="label" for="pdf_file">Upload PDF</label>
-                                        <div class="form-control h-100 text-center position-relative p-4 p-lg-5">
-                                            <div class="product-upload">
-                                                <label for="file-upload" class="file-upload mb-0">
-                                                    <i class="ri-upload-cloud-2-line fs-2 text-gray-light"></i>
-                                                    <span class="d-block fw-semibold text-body">Drop files here or
-                                                        click
-                                                        to upload.</span>
-                                                </label>
-                                                <input id="file-upload" type="file" name="pdf_file" id="pdf_file"
-                                                    accept=".pdf">
-                                                <p>Current File: <a href="{{ asset($menu->pdf_file) }}"
-                                                        target="_blank">{{ $menu->pdf_file }}</a></p>
-                                            </div>
+                                        <span class="star">*</span>
+                                        <div class="fomr-group position-relative">
+                                            <input id="pdf_file" type="file" name="pdf_file" accept=".pdf"
+                                                class="form-control text-dark h-58">
+                                                <small>Current File: <a href="{{ asset($menu->pdf_file) }}"
+                                                target="_blank">{{ $menu->pdf_file }}</a></small>
                                             @error('pdf_file')
-                                            <div class="text-danger">{{ $message }}</div>
+                                            <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
                                             @enderror
                                         </div>
                                     </div>
