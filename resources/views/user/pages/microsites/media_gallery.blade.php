@@ -1,7 +1,7 @@
 @include('user.pages.microsites.includes.header')
 
 @if(isset($photoGalleries))
-<section class="py-4">
+<section class="py-2">
     <div class="container-fluid">
         <div class="row align-items-center pb-lg-2">
             <!-- Breadcrumb -->
@@ -23,7 +23,7 @@
 </section>
 
 <section class="container-fluid">
-    <!-- <div style="margin: 20px 0;">
+    <div style="margin: 20px 0;">
         <form action="{{ route('photoGalleries.filterGallery') }}" method="GET" id="filterForm"
             style="display: flex; gap: 10px; align-items: center;">
             <label for="keyword" class="fw-semibold label">Search:</label>
@@ -50,7 +50,7 @@
 
             <button type="button" onclick="clearFilters()" class="fw-semibold btn btn-outline-secondary">Clear</button>
         </form>
-    </div> -->
+    </div>
 
     <!-- Gallery Display -->
     @if($photoGalleries->isNotEmpty())
@@ -65,7 +65,7 @@
                         alt="{{ $gallery->category_image }}" style="width: 100%; height: 250px; object-fit: cover;">
                     </a>
                 </div> 
-                <div class="card-footer" style="border:none;">
+                <div class="card-footer" style="border:none;height: 100px;overflow-y: scroll;">
                     <div class="form-field mt-2">
                         <p class="card-text">{{ $gallery->media_category_name }}</p>
                     </div>
