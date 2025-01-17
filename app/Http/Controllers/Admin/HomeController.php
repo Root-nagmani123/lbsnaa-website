@@ -457,6 +457,24 @@ public function footer_images_status_update(Request $request, $id)
     
         return redirect()->back()->with('success', 'Screen render updated successfully!');
     }
+    public function uploadPDF(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|max:2048' // Validate PDF files only
+        ]);
+
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $path = $file->storeAs('uploads/pdf_data', $filename, 'public'); // Store file in public/uploads/pdfs
+
+            return response()->json([
+                'url' => asset('storage/' . $path) // Return the file's URL
+            ]);
+        }
+
+        return response()->json(['message' => 'File upload failed'], 400);
+    }
 
     
 }

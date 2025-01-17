@@ -234,6 +234,7 @@ Route::post('/screenrender/update', [HomeController::class, 'screen_reader_updat
     Route::delete('/quick-links/{id}', [HomeController::class, 'quick_link_destroy'])->name('admin.quick_links.destroy');
     Route::put('footer-images/{id}/status', [HomeController::class, 'quick_link_status_update'])->name('admin.quick_links.status');
 
+    Route::post('upload-pdf', [HomeController::class, 'uploadPDF'])->name('admin.uploadPDF');
 
  
     // faculty routes
