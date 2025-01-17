@@ -68,8 +68,8 @@ class ManageResearchCentreController extends Controller
         $validatedData = $request->validate([
             'language' => 'required|in:1,2',
             'research_centre_name' => 'required|string|max:255',
-            'sub_heading' => 'required|string',
-            'home_title' => 'required|string',
+            'sub_heading' => 'nullable|string',
+            'home_title' => 'nullable|string',
             'description' => 'nullable|string',
             'status' => 'required|boolean',
         ]);
