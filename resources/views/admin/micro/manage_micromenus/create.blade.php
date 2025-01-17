@@ -16,7 +16,7 @@
             <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Add Menu</span>
         </li>
     </ul>
-</div> 
+</div>
 <div class="row justify-content-center">
     <div class="col-lg-12">
         <div class="card bg-white border-0 rounded-10 mb-4">
@@ -32,8 +32,10 @@
                                 <label class="label" for="menutitle">Page Language :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="radio" name="language" value="1" {{ old('language') == 1 ? 'checked' : '' }}> English
-                                    <input type="radio" name="language" value="2" {{ old('language') == 2 ? 'checked' : '' }}> Hindi
+                                    <input type="radio" name="language" value="1"
+                                        {{ old('language') == 1 ? 'checked' : '' }}> English
+                                    <input type="radio" name="language" value="2"
+                                        {{ old('language') == 2 ? 'checked' : '' }}> Hindi
                                 </div>
                                 @error('language')
                                 <div class="text-danger">{{ $message }}</div>
@@ -46,15 +48,17 @@
                             <div class="form-group mb-4">
                                 <label for="select_research_centre" class="label">Select Research Centre:</label>
                                 <span class="star">*</span>
-                                <select id="select_research_centre" name="research_centre" class="form-control h-58 text-dark">
+                                <select id="select_research_centre" name="research_centre"
+                                    class="form-control h-58 text-dark">
                                     <option value="" selected>Select Research Centre</option>
                                     @foreach ($researchCentres as $id => $name)
-                                        <!-- <option value="{{ $id }}">{{ $name }}</option> -->
-                                        <option value="{{ $id }}" {{ old('research_centre') == $id ? 'selected' : '' }}>{{ $name }}</option>
+                                    <!-- <option value="{{ $id }}">{{ $name }}</option> -->
+                                    <option value="{{ $id }}" {{ old('research_centre') == $id ? 'selected' : '' }}>
+                                        {{ $name }}</option>
                                     @endforeach
                                 </select>
                                 @error('research_centre')
-                                    <div class="text-danger">{{ $message }}</div>
+                                <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
@@ -65,7 +69,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark  h-58" name="menutitle"
-                                        id="menutitle"  value="{{ old('menutitle') }}">
+                                        id="menutitle" value="{{ old('menutitle') }}">
                                     @error('menutitle')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -77,9 +81,9 @@
                                 <label class="label" for="texttype">Menu Type :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control  h-58"
-                                        aria-label="Default select example" name="texttype" id="texttype"
-                                        autocomplete="off" onchange="addmenutype(this.value)">
+                                    <select class="form-select form-control  h-58" aria-label="Default select example"
+                                        name="texttype" id="texttype" autocomplete="off"
+                                        onchange="addmenutype(this.value)">
                                         <option selected value="" class="text-dark">Select</option>
                                         <option value="1" class="text-dark">Content</option>
                                         <!-- <option value="1" class="text-dark" {{ old('texttype') == '1' ? 'selected' : '' }}>Content</option> -->
@@ -102,7 +106,7 @@
                                         <span class="star">*</span>
                                         <div class="form-group position-relative">
                                             <textarea class="form-control  text-dark" rows="5" name="content"
-                                                id="content"  value="{{ old('content') }}"></textarea>
+                                                id="content" value="{{ old('content') }}"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -113,7 +117,7 @@
                                             <span class="star">*</span>
                                             <div class="form-group position-relative">
                                                 <input type="text" class="form-control text-dark  h-58"
-                                                    name="meta_title" id="meta_title"  value="{{ old('meta_title') }}">
+                                                    name="meta_title" id="meta_title" value="{{ old('meta_title') }}">
                                             </div>
                                         </div>
                                     </div>
@@ -123,7 +127,8 @@
                                             <span class="star">*</span>
                                             <div class="form-group position-relative">
                                                 <input type="text" class="form-control text-dark  h-58"
-                                                    name="meta_keyword" id="meta_keyword"  value="{{ old('meta_keyword') }}">
+                                                    name="meta_keyword" id="meta_keyword"
+                                                    value="{{ old('meta_keyword') }}">
                                             </div>
                                         </div>
                                     </div>
@@ -133,43 +138,37 @@
                                         <label class="label" for="meta_description">Meta Description :</label>
                                         <span class="star">*</span>
                                         <div class="form-group position-relative">
-                                            <textarea class="form-control  text-dark"
-                                                placeholder="Some demo text ... " cols="30" rows="5"
-                                                name="meta_description" id="meta_description"  value="{{ old('meta_description') }}"></textarea>
+                                            <textarea class="form-control  text-dark" placeholder="Some demo text ... "
+                                                cols="30" rows="5" name="meta_description" id="meta_description"
+                                                value="{{ old('meta_description') }}"></textarea>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-12" style="display: none;" id="pdf-upload-field">
-                            <div class="form-group mb-4">
-                                <label class="label" for="pdf_file">Upload PDF</label>
-                                <div class="form-control h-100 text-center position-relative p-4 p-lg-5">
-                                    <div class="product-upload">
-                                        <label for="file-upload" class="file-upload mb-0">
-                                            <i class="ri-upload-cloud-2-line fs-2 text-gray-light"></i>
-                                            <span class="d-block fw-semibold text-body">Drop files here or click to upload.</span>
-                                        </label>
-                                        <input id="file-upload" type="file" name="pdf_file" accept=".pdf" onchange="displayFileName()">
-                                        @error('pdf_file')
+                            <div class="col-lg-6" style="display: none;" id="pdf-upload-field">
+                                <div class="form-group mb-4">
+                                    <label class="label" for="pdf_file">Upload PDF :</label>
+                                    <span class="star">*</span>
+                                    <div class="form-group position-relative">
+                                        <input id="file-upload" type="file" name="pdf_file" accept=".pdf"
+                                            onchange="displayFileName()" class="form-control text-dark  h-58">
+                                    </div>
+                                    @error('pdf_file')
                                             <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
                                         @enderror
-                                    </div>
-                                    <!-- Display the selected file name -->
-                                    <div id="file-name" class="mt-2" style="color: #333; display: none;"></div>
                                 </div>
                             </div>
-                        </div>
                             <div class="row" id="website-url-field" style="display: none;">
                                 <div class="col-lg-6">
                                     <div class="form-group mb-4">
                                         <label class="label" for="website_url">Website URL:</label>
                                         <span class="star">*</span>
                                         <div class="form-group position-relative">
-                                            <input type="text" class="form-control text-dark  h-58"
-                                                name="website_url" id="website_url">
-                                                @error('website_url')
+                                            <input type="text" class="form-control text-dark  h-58" name="website_url"
+                                                id="website_url">
+                                            @error('website_url')
                                             <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                        @enderror
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -190,7 +189,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div> 
+                            </div>
                         </div>
 
                         <div class="col-lg-6">
@@ -201,7 +200,7 @@
                                     <option value="0" selected>It is Root Category</option>
                                 </select>
                                 @error('menucategory')
-                                    <div class="text-danger">{{ $message }}</div>
+                                <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
@@ -212,12 +211,12 @@
                                 <label class="label" for="txtpostion">Content Position :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control  h-58" id="txtpostion"
-                                        autocomplete="off" autocomplete="off" name="txtpostion"
-                                        onchange="showDateFields(this.value)">
+                                    <select class="form-select form-control  h-58" id="txtpostion" autocomplete="off"
+                                        autocomplete="off" name="txtpostion" onchange="showDateFields(this.value)">
                                         <option selected value="" class="text-dark">Select</option>
                                         <!-- <option value="1" class="text-dark">Header Menu</option> -->
-                                        <option value="1" class="text-dark" {{ old('txtpostion') == '1' ? 'selected' : '' }}>Header Menu</option>
+                                        <option value="1" class="text-dark"
+                                            {{ old('txtpostion') == '1' ? 'selected' : '' }}>Header Menu</option>
 
                                         <!-- <option value="2" class="text-dark">Bottom Menu</option>
                                         <option value="3" class="text-dark">Footer Menu</option>
@@ -237,11 +236,12 @@
                                 <label class="label" for="menu_status">Status :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control  h-58" id="menu_status"
-                                        name="menu_status">
+                                    <select class="form-select form-control  h-58" id="menu_status" name="menu_status">
                                         <option value="">Select</option>
-                                        <option value="1" class="text-dark" {{ old('menu_status') == '1' ? 'selected' : '' }}>Active</option>
-                                        <option value="0" class="text-dark" {{ old('menu_status') == '0' ? 'selected' : '' }}>Inactive</option>
+                                        <option value="1" class="text-dark"
+                                            {{ old('menu_status') == '1' ? 'selected' : '' }}>Active</option>
+                                        <option value="0" class="text-dark"
+                                            {{ old('menu_status') == '0' ? 'selected' : '' }}>Inactive</option>
 
                                     </select>
                                     @error('menu_status')
@@ -270,7 +270,7 @@ $('#content').summernote({
     tabsize: 2,
     height: 300
 });
-</script>  
+</script>
 <!-- here this code end of the editer js -->
 <script>
 function addmenutype(value) {
@@ -300,51 +300,53 @@ function showDateFields(value) {
 }
 </script>
 <script>
-    function displayFileName() {
-        const fileInput = document.getElementById('file-upload');
-        const fileNameDiv = document.getElementById('file-name');
+function displayFileName() {
+    const fileInput = document.getElementById('file-upload');
+    const fileNameDiv = document.getElementById('file-name');
 
-        if (fileInput.files && fileInput.files[0]) {
-            const fileName = fileInput.files[0].name;
-            fileNameDiv.textContent = 'Selected file: ' + fileName;
-            fileNameDiv.style.display = 'block'; // Show the file name
-        } else {
-            fileNameDiv.style.display = 'none'; // Hide if no file is selected
-        }
+    if (fileInput.files && fileInput.files[0]) {
+        const fileName = fileInput.files[0].name;
+        fileNameDiv.textContent = 'Selected file: ' + fileName;
+        fileNameDiv.style.display = 'block'; // Show the file name
+    } else {
+        fileNameDiv.style.display = 'none'; // Hide if no file is selected
     }
+}
 </script>
 
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    $(document).ready(function () {
-        $('#select_research_centre').on('change', function () {
-            let researchCentreId = $(this).val();
+$(document).ready(function() {
+    $('#select_research_centre').on('change', function() {
+        let researchCentreId = $(this).val();
 
-            // Clear previous menu options
-            $('#menucategory').html('<option value="0">It is Root Category</option>');
+        // Clear previous menu options
+        $('#menucategory').html('<option value="0">It is Root Category</option>');
 
-            if (researchCentreId) {
-                $.ajax({
-                    url: "{{ route('get.menus') }}",
-                    type: "GET",
-                    data: { research_centre_id: researchCentreId },
-                    success: function (response) {
-                        if (response.menuOptions) {
-                            $('#menucategory').append(response.menuOptions);
-                        } else if (response.error) {
-                            alert(response.error);
-                        }
-                    },
-                    // error: function (xhr) {
-                    //     console.error('Error fetching menus:', xhr.responseText);
-                    //     alert('An error occurred while fetching menu options.');
-                    // }
-                });
-            }
-        });
+        if (researchCentreId) {
+            $.ajax({
+                url: "{{ route('get.menus') }}",
+                type: "GET",
+                data: {
+                    research_centre_id: researchCentreId
+                },
+                success: function(response) {
+                    if (response.menuOptions) {
+                        $('#menucategory').append(response.menuOptions);
+                    } else if (response.error) {
+                        alert(response.error);
+                    }
+                },
+                // error: function (xhr) {
+                //     console.error('Error fetching menus:', xhr.responseText);
+                //     alert('An error occurred while fetching menu options.');
+                // }
+            });
+        }
     });
+});
 </script>
 
 
