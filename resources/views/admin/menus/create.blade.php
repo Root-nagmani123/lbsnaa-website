@@ -270,11 +270,14 @@
     </div>
 </div>
 <!-- here this code use for the editer js -->
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+
 <script>
-   
-   $('#content').summernote({
+  $.noConflict();
+jQuery(document).ready(function ($) {
+    $('#content').summernote({
         tabsize: 2,
         height: 300,
         toolbar: [
@@ -286,11 +289,64 @@
             ['para', ['ul', 'ol', 'paragraph', 'align']], // Lists and alignment
             ['height', ['height']], // Line height adjustment
             ['table', ['table']], // Table insertion
-            ['insert', ['link', 'picture', 'video', 'hr']], // Insert elements
+            ['insert', ['link', 'picture', 'video', 'pdf']], // Insert elements
             ['view', ['fullscreen', 'codeview', 'help']], // Fullscreen, code view, and help
             ['misc', ['undo', 'redo']] // Undo and redo actions
-        ]
+        ],
+        buttons: {
+            pdf: function () {
+                var ui = $.summernote.ui;
+
+                // Create a PDF upload button
+                return ui.button({
+                    contents: '<i class="note-icon-file"></i> PDF',
+                    tooltip: 'Upload PDF',
+                    click: function () {
+                        // Trigger file input dialog
+                        $('<input type="file" accept="application/pdf">')
+                            .on('change', function (event) {
+                                var file = event.target.files[0];
+                                if (file) {
+                                    uploadPDF(file);
+                                }
+                            })
+                            .click();
+                    }
+                }).render();
+            }
+        }
     });
+    
+
+    function uploadPDF(file) {
+        // Use AJAX to upload the file to your server
+        var formData = new FormData();
+        formData.append('file', file);
+
+        $.ajax({
+            url: '/admin/upload-pdf', // Your server endpoint
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Add CSRF token to headers
+        },
+            success: function (response) {
+                $('#content').summernote('insertText', response.url);
+                // Insert the PDF link into the editor
+            //     $('#content').summernote('insertNode', $('<a>', {
+            //     href: response.url, // URL of the uploaded file
+            //     text: file.name,
+            //     target: '_blank' // Open link in a new tab
+            // })[0]);
+            },
+            error: function (xhr) {
+                alert('Failed to upload PDF. Please try again.');
+            }
+        });
+    }
+});
 </script>
 <!-- here this code end of the editer js -->
 <script>
