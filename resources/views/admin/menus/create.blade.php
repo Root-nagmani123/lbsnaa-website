@@ -334,12 +334,7 @@ jQuery(document).ready(function ($) {
         },
             success: function (response) {
                 $('#content').summernote('insertText', response.url);
-                // Insert the PDF link into the editor
-            //     $('#content').summernote('insertNode', $('<a>', {
-            //     href: response.url, // URL of the uploaded file
-            //     text: file.name,
-            //     target: '_blank' // Open link in a new tab
-            // })[0]);
+      
             },
             error: function (xhr) {
                 alert('Failed to upload PDF. Please try again.');
