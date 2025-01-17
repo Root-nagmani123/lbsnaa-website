@@ -444,12 +444,12 @@ Route::post('/screenrender/update', [HomeController::class, 'screen_reader_updat
  
 
     Route::resource('micro-video-gallery', MicroVideoGalleryController::class);
-    Route::put('admin/micro-video-gallery/{id}', [MicroVideoGalleryController::class, 'update'])->name('micro-video-gallery.update');
-    Route::get('admin/micro-video-gallery/{id}', [MicroVideoGalleryController::class, 'show']);
+    Route::put('micro-video-gallery/{id}', [MicroVideoGalleryController::class, 'update'])->name('micro-video-gallery.update');
+    Route::get('micro-video-gallery/{id}', [MicroVideoGalleryController::class, 'show']);
 
-    Route::get('admin/micro-video-gallery/{id}', [MicroVideoGalleryController::class, 'show'])->name('micro-video-gallery.show');
-    Route::get('admin/micro-video-gallery/{id}/edit', [MicroVideoGalleryController::class, 'edit'])->name('micro-video-gallery.edit');
-    Route::put('admin/micro-video-gallery/{id}', [MicroVideoGalleryController::class, 'update'])->name('micro-video-gallery.update');
+    Route::get('micro-video-gallery/{id}', [MicroVideoGalleryController::class, 'show'])->name('micro-video-gallery.show');
+    Route::get('micro-video-gallery/{id}/edit', [MicroVideoGalleryController::class, 'edit'])->name('micro-video-gallery.edit');
+    Route::put('micro-video-gallery/{id}', [MicroVideoGalleryController::class, 'update'])->name('micro-video-gallery.update');
     Route::resource('micro-photo-gallery', MicroManagePhotoGalleryController::class);
 
     Route::resource('photovideogallery', MicroManageMediaCenterController::class);
@@ -466,12 +466,12 @@ Route::post('/screenrender/update', [HomeController::class, 'screen_reader_updat
     Route::resource('Managenews', ManageNewsController::class);
 
     //Manage micro Menu cms Page
-    Route::get('/admin/micromenu', [MicroMenuController::class, 'index'])->name('micromenus.index');
-    Route::get('/admin/micromenu/create', [MicroMenuController::class, 'create'])->name('micromenus.create');
-    Route::post('/admin/micromenu', [MicroMenuController::class, 'store'])->name('micromenus.store');
-    Route::get('/admin/micromenu/{id}/edit', [MicroMenuController::class, 'edit'])->name('micromenus.edit');
-    Route::put('/admin/micromenu/{id}', [MicroMenuController::class, 'update'])->name('micromenu.update');
-    Route::delete('/admin/micromenu/{id}/delete', [MicroMenuController::class, 'delete'])->name('micromenu.delete');
+    Route::get('micromenu', [MicroMenuController::class, 'index'])->name('micromenus.index');
+    Route::get('micromenu/create', [MicroMenuController::class, 'create'])->name('micromenus.create');
+    Route::post('micromenu', [MicroMenuController::class, 'store'])->name('micromenus.store');
+    Route::get('micromenu/{id}/edit', [MicroMenuController::class, 'edit'])->name('micromenus.edit');
+    Route::put('micromenu/{id}', [MicroMenuController::class, 'update'])->name('micromenu.update');
+    Route::delete('micromenu/{id}/delete', [MicroMenuController::class, 'delete'])->name('micromenu.delete');
 
     Route::post('/micromenu/{id}/toggle-status', [MicroMenuController::class, 'toggleStatus'])->name('micromenus.toggleStatus');
 
