@@ -32,7 +32,7 @@
                     <div class="row">
 
                     
-                        <div class="col-lg-5">
+                        <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label for="research_centre_id" class="label">Select Research Center</label>
                                 <span class="star">*</span>
@@ -101,10 +101,10 @@
 
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
-                                <label for="video_upload">YouTube Video Link :</label>
+                                <label for="video_upload" class="label">YouTube Video Link :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <input type="url" name="video_upload" id="video_upload" class="form-control"
+                                    <input type="url" name="video_upload" id="video_upload" class="form-control text-dark  h-58"
                                         value="{{ $video->video_upload }}" >
                                     @error('video_upload')
                                     <div class="text-danger">{{ $message }}</div>

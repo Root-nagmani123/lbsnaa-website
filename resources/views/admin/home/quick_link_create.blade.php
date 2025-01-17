@@ -30,14 +30,14 @@
                     <h4 class="fw-semibold fs-18 mb-0">Add Quick Links</h4>
                 </div>
                 @if($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
                 <form action="{{ route('admin.quick_links.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
@@ -60,80 +60,81 @@
                                 @enderror
                             </div>
                         </div>
-                    <!-- Main Grid -->
-                    <div class="row">
-                        <!-- Text Field -->
- 
-                        <div class="col-lg-6 mb-4">
-                            <label for="text" class="label">Text <span class="star">*</span></label>
-                            <input type="text" name="text" class="form-control text-dark  h-58" required>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="Text">Text:</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="text" name="text" class="form-control text-dark  h-58" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label class="label" for="link_type">Link Type:</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <select id="link_type" class="form-control h-58 text-dark " name="link_type"
+                                        onchange="toggleLinkInput()">
+                                        <option value="" selected>Select</option>
+                                        <option value="url">URL</option>
+                                        <option value="file">Document</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="url_input" style="display: none;">
+                            <div class="col-lg-6 mb-4">
+                                <label for="url" class="label">URL :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="text" name="url" class="form-control text-dark  h-58">
+                                    <small class="text-muted">Provide a URL if you're not uploading a document.</small>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 mb-4">
+                                <label for="url_type" class="label">URL Type</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <select name="url_type" id="url_type" class="form-control h-58 text-dark ">
+                                        <option value="" selected>Select</option>
+                                        <option value="internal">Internal Link</option>
+                                        <option value="external">External Link</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 mb-4" id="file_input" style="display: none;">
+                            <label for="file" class="label">Document (PDF) :</label>
+                            <span class="star">*</span>
+                            <div class="form-group position-relative">
+                                <input type="file" name="file" class="form-control text-dark  h-58">
+                                <small class="text-muted">Provide a file if you're not entering a URL.</small>
+                            </div>
+
                         </div>
 
-                        <!-- Hidden Input Field -->
-                        <!-- <input type="hidden" name="text" id="hiddenContent"> -->
-
-                        <!-- Link Type -->
+                        <!-- Status Field -->
                         <div class="col-lg-6 mb-4">
-                            <label for="link_type" class="label">Link Type <span class="star">*</span></label>
-                            <select id="link_type" class="form-control h-58 text-dark " name="link_type"
-                                onchange="toggleLinkInput()">
-                                <option value="" selected>Select</option>
-                                <option value="url">URL</option>
-                                <option value="file">Document</option>
-                            </select>
+                            <label for="status" class="label">Status : </label>
+                            <span class="star">*</span>
+                            <div class="form-group position-relative">
+                                <select name="status" id="status" class="form-control h-58 text-dark ">
+                                    <option value="" selected>Select</option>
+                                    <option value="1">Active</option>
+                                    <option value="0">Inactive</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-
-                    <!-- Conditional URL Input Row -->
-                    <div class="row" id="url_input" style="display: none;">
-                        <div class="col-lg-6 mb-4">
-                            <label for="url" class="label">URL <span class="star">*</span></label>
-                            <input type="text" name="url" class="form-control text-dark  h-58">
-                            <small class="text-muted">Provide a URL if you're not uploading a document.</small>
-                        </div>
-
-                        <div class="col-lg-6 mb-4">
-                            <label for="url_type" class="label">URL Type</label>
-                            <select name="url_type" id="url_type" class="form-control h-58 text-dark ">
-                                <option value="" selected>Select</option>
-                                <option value="internal">Internal Link</option>
-                                <option value="external">External Link</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Conditional File Input Row -->
-                    <div class="row" id="file_input" style="display: none;">
-                        <div class="col-lg-6 mb-4">
-                            <label for="file" class="label">Document (PDF) <span class="star">*</span></label>
-                            <input type="file" name="file" class="form-control text-dark  h-58">
-                            <small class="text-muted">Provide a file if you're not entering a URL.</small>
-                        </div>
-                    </div>
-
-                    <!-- Status Field -->
-                    <div class="row">
-                        <div class="col-lg-6 mb-4">
-                            <label for="status" class="label">Status <span class="star">*</span></label>
-                            <select name="status" id="status" class="form-control h-58 text-dark ">
-                                <option value="" selected>Select</option>
-                                <option value="1">Active</option>
-                                <option value="0">Inactive</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Buttons -->
-                    <div class="row mt-4">
-                        <div class="col-lg-6 d-flex gap-2">
+                        <div class="d-flex ms-sm-3 ms-md-0">
                             <button class="btn btn-success text-white fw-semibold" type="submit">Submit</button>
+                            &nbsp;
                             <a href="{{ route('admin.quick_links.index') }}"
                                 class="btn btn-secondary text-white">Back</a>
                         </div>
                     </div>
                 </form>
-
-
             </div>
         </div>
     </div>
@@ -158,7 +159,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Call the function on page load in case there's a default selection
     toggleLinkInput();
-    
+
     document.getElementById('link_type').addEventListener('change', toggleLinkInput);
 });
 </script>

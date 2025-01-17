@@ -28,7 +28,7 @@
                 <form action="{{ route('admin.menus.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-                        <div class="col-lg-2">
+                        <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="menutitle">Page Language :</label>
                                 <span class="star">*</span>
@@ -41,14 +41,14 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-lg-5">
+                        <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="menutitle">Menu Title :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark  h-58" name="menutitle"
                                         id="menutitle">
-                                        <small id="titleFeedback" class="text-danger"></small>
+                                    <small id="titleFeedback" class="text-danger"></small>
                                     @error('menutitle')
                                     <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
                                     @enderror
@@ -56,28 +56,25 @@
                             </div>
                         </div>
                         <div class="col-lg-6">
-                                        <div class="form-group mb-4">
-                                            <label class="label" for="meta_title">Meta Title:</label>
-                                            <div class="form-group position-relative">
-                                                <input type="text" class="form-control text-dark  h-58"
-                                                    name="meta_title" id="meta_title">
-                                            </div>
-                                        </div>
-                                    </div>
-                        <div class="col-lg-5">
+                            <div class="form-group mb-4">
+                                <label class="label" for="meta_title">Meta Title:</label>
+                                <div class="form-group position-relative">
+                                    <input type="text" class="form-control text-dark  h-58" name="meta_title"
+                                        id="meta_title">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="txtpostion">Content Position :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control  h-58" id="txtpostion"
-                                        autocomplete="off" autocomplete="off" name="txtpostion"
+                                    <select class="form-select form-control  h-58" id="txtpostion" autocomplete="off"
+                                        autocomplete="off" name="txtpostion"
                                         onchange="updateMenuTypeOptions(this.value)">
                                         <option selected class="text-dark">Select</option>
                                         <option value="1" class="text-dark">Header Menu</option>
-                                        <!-- <option value="2" class="text-dark">Bottom Menu</option> -->
                                         <option value="3" class="text-dark">Footer Menu</option>
-                                        <!-- <option value="4" class="text-dark">Director Message Menu</option> -->
-                                        <!-- <option value="5" class="text-dark">Life Academy Menu</option> -->
                                         <option value="6" class="text-dark">Other Pages</option>
                                         <option value="7" class="text-dark">Latest Updates</option>
                                     </select>
@@ -87,17 +84,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-12">
                             <div class="form-group mb-4">
                                 <label class="label" for="texttype">Menu Type :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <!-- <select name="texttype" id="texttype" class="form-control text-dark  h-58">
-                                        <option value="">Select</option>
-                                        <option value="1">Content</option>
-                                        <option value="2">PDF file Upload</option>
-                                        <option value="3">Website URL</option>
-                                    </select> -->
                                     <select name="texttype" id="texttype" class="form-control text-dark  h-58">
                                         <option value="" {{ old('texttype') == '' ? 'selected' : '' }}>Select</option>
                                         <option value="1" {{ old('texttype') == '1' ? 'selected' : '' }}>Content
@@ -117,8 +108,7 @@
                         <div id="content-field" style="display: none;">
                             <div class="row">
                                 <div class="row mt-4">
-                                
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-12">
                                         <div class="form-group mb-4">
                                             <label class="label" for="meta_keyword">Meta Keyword :</label>
                                             <div class="form-group position-relative">
@@ -141,9 +131,9 @@
                                     <div class="form-group mb-4">
                                         <label class="label" for="meta_description">Meta Description :</label>
                                         <div class="form-group position-relative">
-                                            <textarea class="form-control  text-dark"
-                                                placeholder="Some demo text ... " cols="30" rows="5"
-                                                name="meta_description" id="meta_description"></textarea>
+                                            <textarea class="form-control  text-dark" placeholder="Some demo text ... "
+                                                cols="30" rows="5" name="meta_description"
+                                                id="meta_description"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -167,8 +157,8 @@
                                     <div class="form-group mb-4">
                                         <label class="label" for="website_url">Website URL:</label>
                                         <div class="form-group position-relative">
-                                            <input type="text" class="form-control text-dark  h-58"
-                                                name="website_url" id="website_url">
+                                            <input type="text" class="form-control text-dark  h-58" name="website_url"
+                                                id="website_url">
                                         </div>
                                     </div>
                                 </div>
@@ -193,8 +183,8 @@
                                 <label class="label" for="menucategory">Primary Link :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control  h-58" name="menucategory"
-                                        id="menucategory" autocomplete="off">
+                                    <select class="form-select form-control  h-58" name="menucategory" id="menucategory"
+                                        autocomplete="off">
                                         <option value="0" class="text-dark"
                                             {{ old('menucategory', 0) == 0 ? 'selected' : '' }}>
                                             It is Root Category
@@ -207,9 +197,6 @@
                                 </div>
                             </div>
                         </div>
-
-
-
                         <div id="date-fields" style="display: none;">
                             <div class="row">
                                 <div class="col-lg-6">
@@ -217,8 +204,8 @@
                                         <label class="label" for="start_date">Start Date:</label>
                                         <span class="star">*</span>
                                         <div class="form-group position-relative">
-                                            <input type="date" class="form-control text-dark  h-58"
-                                                name="start_date" id="start_date" onfocus="(this.type='date')"
+                                            <input type="date" class="form-control text-dark  h-58" name="start_date"
+                                                id="start_date" onfocus="(this.type='date')"
                                                 onblur="(this.type='text')">
                                             @error('start_date')
                                             <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
@@ -247,8 +234,7 @@
                                 <label class="label" for="menu_status">Status :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control  h-58" id="menu_status"
-                                        name="menu_status">
+                                    <select class="form-select form-control  h-58" id="menu_status" name="menu_status">
                                         <option class="text-dark">Select</option>
                                         <option value="1" class="text-dark">Active</option>
                                         <option value="0" class="text-dark">Inactive</option>
@@ -273,24 +259,24 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <script>
-   
-   $('#content').summernote({
-        tabsize: 2,
-        height: 300,
-        toolbar: [
-            ['style', ['style']], // Heading styles (e.g., H1, H2)
-            ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']], // Font options
-            ['fontname', ['fontname']], // Font family selector
-            ['fontsize', ['fontsize']], // Font size selector
-            ['color', ['color']], // Font and background color
-            ['para', ['ul', 'ol', 'paragraph', 'align']], // Lists and alignment
-            ['height', ['height']], // Line height adjustment
-            ['table', ['table']], // Table insertion
-            ['insert', ['link', 'picture', 'video', 'hr']], // Insert elements
-            ['view', ['fullscreen', 'codeview', 'help']], // Fullscreen, code view, and help
-            ['misc', ['undo', 'redo']] // Undo and redo actions
-        ]
-    });
+$('#content').summernote({
+    tabsize: 2,
+    height: 300,
+    toolbar: [
+        ['style', ['style']], // Heading styles (e.g., H1, H2)
+        ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript',
+        'clear']], // Font options
+        ['fontname', ['fontname']], // Font family selector
+        ['fontsize', ['fontsize']], // Font size selector
+        ['color', ['color']], // Font and background color
+        ['para', ['ul', 'ol', 'paragraph', 'align']], // Lists and alignment
+        ['height', ['height']], // Line height adjustment
+        ['table', ['table']], // Table insertion
+        ['insert', ['link', 'picture', 'video', 'hr']], // Insert elements
+        ['view', ['fullscreen', 'codeview', 'help']], // Fullscreen, code view, and help
+        ['misc', ['undo', 'redo']] // Undo and redo actions
+    ]
+});
 </script>
 <!-- here this code end of the editer js -->
 <script>
@@ -299,7 +285,7 @@ document.getElementById('texttype').addEventListener('change', function() {
     document.getElementById('content-field').style.display = value === '1' ? 'block' : 'none';
     document.getElementById('pdf-upload-field').style.display = value === '2' ? 'block' : 'none';
     document.getElementById('website-url-field').style.display = value === '3' ? 'block' : 'none';
-  
+
 });
 document.getElementById('txtpostion').addEventListener('change', function() {
     const value = this.value;
@@ -317,31 +303,9 @@ document.getElementById('txtpostion').addEventListener('change', function() {
         }
     }
 });
-
 </script>
 
 <script>
-// function updateMenuTypeOptions(selectedValue) {
-//     // Get the second dropdown element
-//     const menuTypeDropdown = document.getElementById("texttype");
-
-//     // Enable all options by default
-//     for (let i = 0; i < menuTypeDropdown.options.length; i++) {
-//         menuTypeDropdown.options[i].disabled = false;
-//     }
-
-//     // If "Header Menu" or "Bottom Menu" is selected
-//     if (selectedValue === "1" || selectedValue === "2") {
-//         // Disable "PDF file Upload" and "Website URL"
-//         menuTypeDropdown.options[2].disabled = true; // PDF file Upload
-//         menuTypeDropdown.options[3].disabled = true; // Website URL
-
-//         // Reset the selection to "Select" if the currently selected option is disabled
-//         if (menuTypeDropdown.value === "2" || menuTypeDropdown.value === "3") {
-//             menuTypeDropdown.value = "";
-//         }
-//     }
-// }
 
 function displayFileName() {
     const fileInput = document.getElementById('file-upload');
@@ -356,7 +320,7 @@ function displayFileName() {
     }
 }
 
-document.getElementById('menutitle').addEventListener('blur', function () {
+document.getElementById('menutitle').addEventListener('blur', function() {
     const title = this.value.trim();
 
     if (title) {
@@ -365,13 +329,16 @@ document.getElementById('menutitle').addEventListener('blur', function () {
 
         // Send AJAX request to check the database
         fetch('/admin/check-menu-title', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-            },
-            body: JSON.stringify({ title: slug }),
-        })
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                        'content'),
+                },
+                body: JSON.stringify({
+                    title: slug
+                }),
+            })
             .then(response => response.json())
             .then(data => {
                 const feedback = document.getElementById('titleFeedback');
@@ -386,6 +353,5 @@ document.getElementById('menutitle').addEventListener('blur', function () {
             });
     }
 });
-
 </script>
 @endsection

@@ -65,8 +65,7 @@
                             </div>
                         </div>
                         <div class="d-flex ms-sm-3 ms-md-0">
-                            <button class="btn btn-success text-white fw-semibold" type="submit">Update
-                                Section</button>&nbsp;
+                            <button class="btn btn-success text-white fw-semibold" type="submit">Update</button>&nbsp;
                             <a href="{{ route('sections.index') }}"
                                 class="btn btn-secondary text-white fw-semibold">Back</a>
                         </div>

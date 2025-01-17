@@ -55,7 +55,7 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-6">
+                        <div class="col-lg-12">
                             <div class="form-group mb-4">
                                 <label for="short_description" class="label">Short Description</label>
                                 <span class="star">*</span>
@@ -94,7 +94,7 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-6">
+                        <div class="col-lg-12">
                             <div class="form-group mb-4">
                                 <label for="meta_description" class="label">Meta Description</label>
                                 <span class="star">*</span>

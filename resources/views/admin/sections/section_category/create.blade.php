@@ -251,4 +251,28 @@
         </div>
     </div>
 </div>
+<!-- here this code use for the editer js -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<script>
+$('#descripption').summernote({
+    tabsize: 2,
+    height: 300,
+    toolbar: [
+        ['style', ['style']], // Heading styles (e.g., H1, H2)
+        ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript',
+        'clear']], // Font options
+        ['fontname', ['fontname']], // Font family selector
+        ['fontsize', ['fontsize']], // Font size selector
+        ['color', ['color']], // Font and background color
+        ['para', ['ul', 'ol', 'paragraph', 'align']], // Lists and alignment
+        ['height', ['height']], // Line height adjustment
+        ['table', ['table']], // Table insertion
+        ['insert', ['link', 'picture', 'video', 'hr']], // Insert elements
+        ['view', ['fullscreen', 'codeview', 'help']], // Fullscreen, code view, and help
+        ['misc', ['undo', 'redo']] // Undo and redo actions
+    ]
+});
+</script>
+<!-- here this code end of the editer js -->
 @endsection

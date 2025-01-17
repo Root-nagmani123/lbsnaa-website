@@ -28,7 +28,7 @@
                 <form action="{{ route('sections.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-lg-2">
                             <div class="form-group mb-4">
                                 <label class="label" for="menutitle">Page Language :</label>
                                 <span class="star">*</span>
@@ -43,7 +43,7 @@
                         </div>
                         
 
-                        <div class="col-lg-6">
+                        <div class="col-lg-5">
                             <div class="form-group mb-4">
                                 <label class="label" for="title">Section Title :</label>
                                 <span class="star">*</span>
@@ -55,7 +55,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-5">
                             <div class="form-group mb-4">
                                 <label class="label" for="status">Status :</label>
                                 <span class="star">*</span>
@@ -72,7 +72,7 @@
                             </div>
                         </div>
                         <div class="d-flex ms-sm-3 ms-md-0">
-                            <button class="btn btn-success text-white fw-semibold" type="submit">Create Section</button>&nbsp;
+                            <button class="btn btn-success text-white fw-semibold" type="submit">Submit</button>&nbsp;
                             <a href="{{ route('sections.index') }}" class="btn btn-secondary text-white fw-semibold">Back</a>
                         </div>
                     </div>

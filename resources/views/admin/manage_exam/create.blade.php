@@ -79,19 +79,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="col-lg-6">
-                            <div class="form-group mb-4">
-                                <label class="label" for="exm_date">Transaction Date :</label>
-                                <span class="star">*</span>
-                                <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark  h-58" name="exm_date" id="exm_date"
-                                     placeholder="DD-MM-YYYY"  value="{{ old('exm_date') }}">
-                                    @error('exm_date')
-                                        <div style="color: red;">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div> -->
                         <!-- HTML Form -->
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
@@ -108,7 +95,7 @@
                         </div>
 
 
-                        <div class="col-lg-6">
+                        <div class="col-lg-4">
                             <div class="form-group mb-4">
                                 <label for="preliminary_flag" class="label">Preliminary Flag</label>
                                 <div class="form-group position-relative">
@@ -121,7 +108,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-4">
                             <div class="form-group mb-4">
                                 <label for="main_flag" class="label">Main Flag</label>
                                 <div class="form-group position-relative">
@@ -132,7 +119,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-4">
                             <div class="form-group mb-4">
                                 <label class="label" for="status">Status :</label>
                                 <span class="star">*</span>

@@ -28,10 +28,10 @@
                     @csrf
                     @method('PUT')
                     <div class="row">
-                        <div class="col-lg-4">
+                        <div class="col-lg-3">
                             <div class="col-lg-6">
                                 <div class="form-group mb-4">
-                                    <label class="label" for="menutitle">Page Language :</label>
+                                    <label class="label" for="menutitle">Language :</label>
                                     <span class="star">*</span>
                                     <div class="form-group position-relative">
                                         <input type="radio" name="language" value="1" {{ $founder->language == '1' ? 'checked' : '' }}> English
@@ -40,7 +40,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4">
+                        <div class="col-lg-5">
                             <div class="form-group mb-4">
                                 <label class="label" for="name">Founder Name :</label>
                                 <span class="star">*</span>

@@ -15,7 +15,7 @@
             <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Video Gallery</span>
         </li>
     </ul>
-</div> 
+</div>
 <div class="row justify-content-center">
     <div class="col-lg-12">
         <div class="card bg-white border-0 rounded-10 mb-4">
@@ -29,24 +29,11 @@
                     @csrf
                     <div class="row">
 
-                        
-
-                        <!-- <div class="col-lg-6">
-                            <label for="research_centre">Research Centre</label>
-                            <span class="star">*</span>
-                            <select name="research_centre" id="research_centre" class="form-control">
-                                <option value="">Select Research Centre</option>
-                            </select>
-                            @error('research_centre')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                        </div> -->
-
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
-                                <label for="select_research_centre">Select Research Centre:</label>
+                                <label for="select_research_centre" class="label">Select Research Centre:</label>
                                 <span class="star">*</span>
-                                <select id="select_research_centre" name="research_centre" class="form-control">
+                                <select id="select_research_centre" name="research_centre" class="form-control h-58 text-dark">
                                     <option value="" selected>Select Research Centre</option>
                                     @foreach ($researchCentres as $id => $name)
                                     <option value="{{ $id }}">{{ $name }}</option>
@@ -57,37 +44,15 @@
                                 @enderror
                             </div>
                         </div>
-
-
-                        <!-- <div class="col-lg-6">
-                            <div class="form-group mb-4"> 
-                                <label for="category_name" class="label">Media Category</label>
-                                <span class="star">*</span>
-                                <div class="form-group position-relative">
-                                    <select name="category_name" id="category_name" class="form-control text-dark  h-58">
-                                        <option value="">Select Category Name</option>
-                                        @foreach ($categories as $category)
-                                        <option value="{{ $category->id }}" {{ old('category_name') == $category->id ? 'selected' : '' }}>
-                                            {{ $category->name }}
-                                        </option>
-                                        @endforeach
-                                    </select>
-                                    @error('category_name')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div> -->
-
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label for="category_name" class="label">Media Category:</label>
                                 <span class="star">*</span>
-                                <select name="category_name" id="category_name" class="form-control">
+                                <select name="category_name" id="category_name" class="form-control h-58 text-dark">
                                     <option value="" selected>Select Media Category</option>
                                 </select>
                                 @error('category_name')
-                                    <div class="text-danger">{{ $message }}</div>
+                                <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
@@ -96,10 +61,10 @@
 
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
-                                <label for="video_title_en">Video Title (English) :</label>
+                                <label for="video_title_en" class="label">Video Title (English) :</label>
                                 <span class="star">*</span>
-                                <input type="text" name="video_title_en" id="video_title_en" class="form-control"
-                                value="{{ old('video_title_en') }}">
+                                <input type="text" name="video_title_en" id="video_title_en" class="form-control h-58 text-dark"
+                                    value="{{ old('video_title_en') }}">
                                 @error('video_title_en')
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror
@@ -107,16 +72,17 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
-                                <label for="video_title_hi">Video Title (Hindi) :</label>
-                                <input type="text" name="video_title_hi" id="video_title_hi" class="form-control" value="{{ old('video_title_hi') }}">
+                                <label for="video_title_hi" class="label">Video Title (Hindi) :</label>
+                                <input type="text" name="video_title_hi" id="video_title_hi" class="form-control h-58 text-dark"
+                                    value="{{ old('video_title_hi') }}">
                             </div>
                         </div>
 
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
-                                <label for="video_upload">YouTube Video Link :</label>
+                                <label for="video_upload" class="label">YouTube Video Link :</label>
                                 <span class="star">*</span>
-                                <input type="url" name="video_upload" id="video_upload" class="form-control"
+                                <input type="url" name="video_upload" id="video_upload" class="form-control h-58 text-dark"
                                     value="{{ old('video_upload') }}" placeholder="Enter YouTube video URL">
                                 @error('video_upload')
                                 <div class="text-danger">{{ $message }}</div>
@@ -126,9 +92,9 @@
 
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
-                                <label for="page_status">Page Status :</label>
+                                <label for="page_status" class="label">Page Status :</label>
                                 <span class="star">*</span>
-                                <select name="page_status" id="page_status" class="form-control">
+                                <select name="page_status" id="page_status" class="form-control h-58 text-dark">
                                     <option value="" class="text-dark" selected>Select</option>
                                     <option value="1" {{ old('page_status') == '1' ? 'selected' : '' }}>Active</option>
                                     <option value="0" {{ old('page_status') == '0' ? 'selected' : '' }}>Inactive
@@ -153,8 +119,8 @@
 @endsection
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    $(document).ready(function () {
-    $('#category_name').change(function () {
+$(document).ready(function() {
+    $('#category_name').change(function() {
         var categoryId = $(this).val();
 
         if (categoryId) {
@@ -164,18 +130,23 @@
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                data: { category_id: categoryId },
-                success: function (response) {
-                    $('#research_centre').empty().append('<option value="">Select Research Centre</option>');
-                    $.each(response.data, function (key, value) {
-                        $('#research_centre').append('<option value="' + key + '">' + value + '</option>');
+                data: {
+                    category_id: categoryId
+                },
+                success: function(response) {
+                    $('#research_centre').empty().append(
+                        '<option value="">Select Research Centre</option>');
+                    $.each(response.data, function(key, value) {
+                        $('#research_centre').append('<option value="' + key +
+                            '">' + value + '</option>');
                     });
 
                     @if(old('research_centre'))
-                        $('#research_centre').val('{{ old('research_centre') }}');
+                    $('#research_centre').val('{{ old('
+                        research_centre ') }}');
                     @endif
                 },
-                error: function (xhr) {
+                error: function(xhr) {
                     alert('Error loading data.');
                 }
             });
@@ -188,32 +159,34 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
-    $(document).ready(function () {
-        $('#select_research_centre').on('change', function () {
-            const researchCentreId = $(this).val();
-            // alert(researchCentreId);
+$(document).ready(function() {
+    $('#select_research_centre').on('change', function() {
+        const researchCentreId = $(this).val();
+        // alert(researchCentreId);
 
-            $('#category_name').html('<option value="" selected>Select Media Category</option>');
+        $('#category_name').html('<option value="" selected>Select Media Category</option>');
 
-            if (researchCentreId) {
-                $.ajax({
-                    url: "{{ route('fetchMediaCategoriesvideo') }}",
-                    type: "GET",
-                    data: { research_centre_id: researchCentreId },
-                    success: function (data) {
-                        if (data.length > 0) {
-                            data.forEach(function (category) {
-                                $('#category_name').append(
-                                    `<option value="${category.id}">${category.name}</option>`
-                                );
-                            });
-                        }
-                    },
-                    error: function () {
-                        alert('Failed to fetch media categories. Please try again.');
+        if (researchCentreId) {
+            $.ajax({
+                url: "{{ route('fetchMediaCategoriesvideo') }}",
+                type: "GET",
+                data: {
+                    research_centre_id: researchCentreId
+                },
+                success: function(data) {
+                    if (data.length > 0) {
+                        data.forEach(function(category) {
+                            $('#category_name').append(
+                                `<option value="${category.id}">${category.name}</option>`
+                            );
+                        });
                     }
-                });
-            }
-        });
+                },
+                error: function() {
+                    alert('Failed to fetch media categories. Please try again.');
+                }
+            });
+        }
     });
+});
 </script>

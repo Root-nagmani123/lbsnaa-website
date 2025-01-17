@@ -31,7 +31,7 @@
                         @csrf
                         @method('post')
                         <div class="row">
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <div class="form-group mb-4">
                                     <label class="label" for="menutitle">Country Name :</label>
                                     <span class="star">*</span>
@@ -45,7 +45,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <div class="form-group mb-4">
                                     <label class="label" for="country_name_hindi">Country Name in Hindi :</label>
                                     <span class="star">*</span>
@@ -59,7 +59,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-4">
                                 <div class="form-group mb-4">
                                     <label class="label" for="texttype">Status :</label>
                                     <span class="star">*</span>

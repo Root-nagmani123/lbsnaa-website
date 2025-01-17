@@ -58,7 +58,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-12">
                             <div class="form-group mb-4">
                                 <label for="short_description" class="label">Short Description</label>
                                 <span class="star">*</span>
@@ -97,7 +97,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-12">
                             <div class="form-group mb-4">
                                 <label for="meta_description" class="label">Meta Description</label>
                                 <span class="star">*</span>
@@ -131,7 +131,7 @@
                                     <input type="file" name="main_image" id="main_image"
                                         class="form-control text-dark  h-58">
                                     <small>Current: <img src="{{ asset( $news->main_image) }}" alt="Current Image"
-                                            style="max-width: 150px;"></small>
+                                            style="max-width: 150px;margin-top: 5px;" class="img-fluid rounded-4"></small>
                                     @error('main_image')
                                     <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
                                     @enderror
@@ -148,7 +148,7 @@
                                     <small>Current Images:
                                         @foreach (json_decode($news->multiple_images) as $image)
                                         <img src="{{ asset($image) }}" alt="Current Image"
-                                            style="max-width: 150px; margin: 5px;">
+                                            style="max-width: 150px; margin-top: 5px;" class="img-fluid rounded-4">
                                         @endforeach
                                     </small>
                                     @error('multiple_images')

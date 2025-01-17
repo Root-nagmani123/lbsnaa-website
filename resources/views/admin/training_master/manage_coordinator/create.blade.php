@@ -27,7 +27,7 @@
                 <form action="{{ route('coordinators.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-                        <div class="col-lg-4">
+                        <div class="col-lg-2">
                             <div class="form-group mb-4">
                                 <label class="label" for="menutitle">Page Language :</label>
                                 <span class="star">*</span>
@@ -40,7 +40,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-lg-4">
+                        <div class="col-lg-5">
                             <div class="form-group mb-4">
                                 <label class="label" for="coordinator_name">Co-ordinators Name :</label>
                                 <span class="star">*</span>
@@ -53,7 +53,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4">
+                        <div class="col-lg-5">
                             <div class="form-group mb-4">
                                 <label class="label" for="texttype">Status :</label>
                                 <span class="star">*</span>
