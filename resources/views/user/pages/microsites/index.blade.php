@@ -11,6 +11,12 @@
             <div class="col-12 col-lg-9 mb-4">
                 <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel"
                     data-bs-interval="3000">
+                    <div class="carousel-indicators">
+                        @foreach ($sliders as $i => $slider)
+                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ $i }}"
+                            class="{{ $i == 0 ? 'active' : '' }}" aria-label="{{ $slider->slider_text }}"></button>
+                        @endforeach
+                    </div>
                     <div class="carousel-inner">
                         @foreach ($sliders as $key => $slider)
                         <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
