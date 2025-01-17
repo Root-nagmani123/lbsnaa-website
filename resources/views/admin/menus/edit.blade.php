@@ -256,12 +256,12 @@
     </div>
 </div>
 <!-- here this code use for the editer js -->
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <script>
   $.noConflict();
 jQuery(document).ready(function ($) {
-    $('#description').summernote({
+    $('#content').summernote({
         tabsize: 2,
         height: 300,
         toolbar: [
@@ -318,7 +318,7 @@ jQuery(document).ready(function ($) {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Add CSRF token to headers
         },
             success: function (response) {
-                $('#description').summernote('insertText', response.url);
+                $('#content').summernote('insertText', response.url);
       
             },
             error: function (xhr) {
