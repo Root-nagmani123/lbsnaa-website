@@ -211,24 +211,50 @@ class NewsController extends Controller
         }
 
         // Handle the multiple images upload
-        if ($request->hasFile('multiple_images')) {
-            // Decode the existing images if any
-            $existingImages = json_decode($news->multiple_images, true) ?? [];
-
-            // Delete existing images
-            foreach ($existingImages as $existingImage) {
-                if (File::exists(public_path($existingImage))) {
-                    File::delete(public_path($existingImage));
+        $removedImages = [];
+        $multipleImages = [];
+        
+        // Handle removed images
+        if ($request->filled('removed_images')) {
+            $removedImages = json_decode($request->input('removed_images'), true); // Get images to be removed
+        
+            foreach ($removedImages as $imagePath) {
+                // Build the absolute path using public_path()
+                $absolutePath = public_path($imagePath);
+        
+                // Check if the file exists before attempting to delete
+                if (file_exists($absolutePath)) {
+                    unlink($absolutePath); // Delete the file
                 }
             }
-
-            $multipleImages = [];
+        }
+        
+        // Handle new image uploads
+        if ($request->hasFile('multiple_images')) {
             foreach ($request->file('multiple_images') as $image) {
                 $imagePath = $image->move(public_path('news_images'), time() . '_' . $image->getClientOriginalName());
                 $multipleImages[] = 'news_images/' . basename($imagePath); // Save relative path
             }
-            $news->multiple_images = json_encode($multipleImages); // Store as JSON string
         }
+        
+        // Get existing images from the database
+        $existingImages = json_decode($news->multiple_images, true) ?? [];
+        
+        // If no images are removed or uploaded, retain existing images
+        if (empty($removedImages) && empty($multipleImages)) {
+            $finalImages = $existingImages;
+        } else {
+            // Otherwise, merge existing images with new images, excluding removed ones
+            $remainingImages = array_diff($existingImages, $removedImages); // Exclude removed images
+            $finalImages = array_merge($remainingImages, $multipleImages); // Add new images
+        }
+        
+        // Update the database with the final list of images
+        $news->multiple_images = json_encode($finalImages);
+// Output the result (for testing purposes)
+// print_r(json_encode($finalImages));
+// die;
+
 
 
         $description = $request->description;

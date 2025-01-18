@@ -145,12 +145,18 @@
                                 <div class="form-group position-relative">
                                     <input type="file" name="multiple_images[]" id="multiple_images"
                                         class="form-control text-dark  h-58" multiple>
-                                    <small>Current Images:
-                                        @foreach (json_decode($news->multiple_images) as $image)
-                                        <img src="{{ asset($image) }}" alt="Current Image"
-                                            style="max-width: 150px; margin-top: 5px;" class="img-fluid rounded-4">
+                                        <small>Current Images:</small>
+                                    <div id="current-images">
+                                        @foreach (json_decode($news->multiple_images) as $key => $image)
+                                            <div class="current-image-item" style="margin-bottom: 10px;">
+                                                <img src="{{ asset($image) }}" alt="Current Image"
+                                                    style="max-width: 150px; margin-top: 5px;" class="img-fluid rounded-4">
+                                                <button type="button" class="btn btn-danger btn-sm remove-image" data-index="{{ $image }}"
+                                                    style="margin-left: 10px;">Remove</button>
+                                            </div>
                                         @endforeach
-                                    </small>
+                                        <input type="hidden" name="removed_images" id="removed_images" value="">
+                                    </div>
                                     @error('multiple_images')
                                     <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
                                     @enderror
@@ -289,7 +295,28 @@ jQuery(document).ready(function ($) {
         });
     }
 });
+
+
 </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let removedImages = [];
+
+        document.querySelectorAll('.remove-image').forEach(button => {
+            button.addEventListener('click', function () {
+                const imageIndex = this.dataset.index; // Get the index of the image
+                removedImages.push(imageIndex); // Add to removed images list
+                document.getElementById('removed_images').value = JSON.stringify(removedImages);
+
+                // Hide the image visually
+                this.parentElement.style.display = 'none';
+            });
+        });
+    });
+</script>
+
+</script>
+
 <!-- here this code end of the editer js -->
 
 @endsection
