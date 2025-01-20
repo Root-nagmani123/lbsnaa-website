@@ -44,7 +44,26 @@
                 <p class="text-muted"><?=$subcategory->description;?></p>
             </div>
         </div>
-
+        <section class="py-4">
+            <div class="container-fluid">
+                <h4 class="mb-3">Upcoming Courses:</h4>
+                @if(count($upcomingCourse) >0)
+                 @foreach($upcomingCourse as $upcomingCourses)
+                    <div class="current-course-box mb-3 p-3 border rounded bg-light">
+                        <h5 class="fw-bold">{{ $upcomingCourses->course_name }}</h5>
+                        <p>
+                            <strong>Course Date:</strong> 
+                            {{ \Carbon\Carbon::parse($upcomingCourses->course_start_date)->format('d F, Y') }} 
+                            to 
+                            {{ \Carbon\Carbon::parse($upcomingCourses->course_end_date)->format('d F, Y') }}
+                        </p>
+                    </div>
+                    @endforeach
+                @else
+                    <p class="text-muted">No Upcoming courses available for this category.</p>
+                @endif
+            </div> 
+        </section>
         <!-- Current Courses Section -->
         <section class="py-4">
             <div class="container-fluid">
