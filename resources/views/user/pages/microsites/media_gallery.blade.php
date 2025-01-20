@@ -9,7 +9,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb p-2">
                         <li class="breadcrumb-item">
-                            <a href="{{ route('user.micrositebyslug', ['slug' => $slug]) }}" style="color: #af2910;">Home</a>
+                           
                         </li>
                         <li class="breadcrumb-item">
                             <a href="/lbsnaa-sub_m/mediagallery?slug={{ $slug }}" style="color: #af2910;">Media Gallery</a>
@@ -24,13 +24,18 @@
 
 <section class="container-fluid">
     <div style="margin: 20px 0;">
-        <form action="{{ route('photoGalleries.filterGallery') }}" method="GET" id="filterForm"
-            style="display: flex; gap: 10px; align-items: center;">
-            <label for="keyword" class="fw-semibold label">Search:</label>
-            <input type="text" name="keyword" id="keyword" placeholder="Keyword Search" value="{{ request('keyword') }}"
-                class="form-control  h-58 w-25">
+        
+        <form action="{{ route('user.media_gallery') }}" method="GET" id="filterForm" style="display: flex; gap: 10px; align-items: center;">
 
-            <select name="category" class="form-control  h-58 w-25">
+            <!-- Pass slug explicitly -->
+            <input type="hidden" name="slug" value="{{ $slug }}">
+
+            <!-- Keyword filter -->
+            <label for="keyword" class="fw-semibold label">Search:</label>
+            <input type="text" name="keyword" id="keyword" placeholder="Keyword Search" value="{{ request('keyword') }}" class="form-control h-58 w-25">
+
+            <!-- Category filter -->
+            <select name="category" class="form-control h-58 w-25">
                 <option value="">All Categories</option>
                 @foreach ($photoGalleries as $gallery)
                 <option value="{{ $gallery->category_id }}" {{ request('category') == $gallery->category_id ? 'selected' : '' }}>
@@ -39,18 +44,25 @@
                 @endforeach
             </select>
 
-            <select name="year" class="form-control  h-58 w-25">
+            <!-- Year filter -->
+            <select name="year" class="form-control h-58 w-25">
                 <option value="">All Years</option>
-                @for($year = date('Y'); $year >= 2000; $year--)
-                <option value="{{ $year }}" {{ request('year') == $year ? 'selected' : '' }}>{{ $year }}</option>
+                @for ($year = date('Y'); $year >= 2000; $year--)
+                <option value="{{ $year }}" {{ request('year') == $year ? 'selected' : '' }}>
+                    {{ $year }}
+                </option>
                 @endfor
             </select>
 
+            <!-- Submit button -->
             <button type="submit" class="btn btn-outline-primary fw-semibold">Submit</button>
 
+            <!-- Clear filters -->
             <button type="button" onclick="clearFilters()" class="fw-semibold btn btn-outline-secondary">Clear</button>
         </form>
+
     </div>
+
 
     <!-- Gallery Display -->
     @if($photoGalleries->isNotEmpty())
@@ -82,13 +94,13 @@
 </section>
 @include('user.pages.microsites.includes.footer')
 
-<script> 
-function clearFilters() {
-    // Reset the form
-    document.getElementById('filterForm').reset();
-
-    // Optionally, clear the query parameters from the URL
-    window.location.href = "{{ route('photoGalleries.filterGallery') }}";
-}
+<script>
+    function clearFilters() {
+        // Redirect to the URL with only the slug parameter
+        const slug = new URLSearchParams(window.location.search).get('slug');
+        window.location.href = `{{ route('user.media_gallery') }}?slug=${slug}`;
+    }
 </script>
+
+
 

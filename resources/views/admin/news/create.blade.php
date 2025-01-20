@@ -231,7 +231,7 @@ jQuery(document).ready(function ($) {
         ],
         buttons: {
             pdf: function () {
-                var ui = $.summernote.ui;
+                var ui = $.summernote.ui; 
 
                 // Create a PDF upload button
                 return ui.button({

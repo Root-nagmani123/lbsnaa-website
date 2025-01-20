@@ -13,37 +13,45 @@ class HomePagesMicroController extends Controller
     {
         // Get the 'slug' from the request
         $slug = $request->query('slug');
+        $keyword = $request->query('keyword');
+        $category = $request->query('category');
+        $year = $request->query('year');
 
-        $photoGalleries = DB::table('research_centres as rc') // Alias `research_centres` as `rc`
+        // Build the query
+        $query = DB::table('research_centres as rc') // Alias `research_centres` as `rc`
             ->join('micro_media_categories as mmc', 'rc.id', '=', 'mmc.research_centre')
-            // ->join('micro_manage_photo_galleries as mmpg', 'mmpg.media_categories', '=', 'mmc.id') // Join `micro_media_categories` with `research_centres`
             ->where('rc.status', 1) // Ensure `research_centres` is active
             ->where('mmc.status', 1) // Ensure `micro_media_categories` is active
-            ->where('mmc.media_gallery', 1) // Ensure `micro_media_categories` is active
+            ->where('mmc.media_gallery', 1) // Ensure it's a media gallery category
             ->where('rc.research_centre_slug', $slug) // Filter by the provided slug
             ->select(
                 'rc.id as research_centre_id', // ID from `research_centres`
                 'mmc.name as media_category_name',
                 'mmc.category_image as category_image',
                 'mmc.id as category_id',
-            )
-            ->get();
+                'mmc.created_at'
+            );
 
-        $courses = DB::table('course')->select('id', 'course_name')->get();
+        // Apply filters if provided
+        if ($keyword) {
+            $query->where('mmc.name', 'LIKE', "%{$keyword}%");
+        }
 
-        $categorys = DB::table('micro_media_categories as mc')
-            ->join('research_centres as rc', 'mc.research_centre', '=', 'rc.id')
-            ->where('mc.status', 1) // Filter by status (active news)
-            ->where('rc.research_centre_slug', $slug) // Use the slug from the query string
-            ->select('mc.name','mc.id','category_image')
-            ->get();
-        
-        
-        // dd($photoGalleries);
-        
+        if ($category) {
+            $query->where('mmc.id', $category);
+        }
+
+        if ($year) {
+            $query->whereYear('mmc.created_at', $year);
+        }
+
+        // Execute the query and fetch results
+        $photoGalleries = $query->get();
+
         // Pass data to the view
-        return view('user.pages.microsites.media_gallery', compact('photoGalleries', 'courses', 'slug', 'categorys'));
+        return view('user.pages.microsites.media_gallery', compact('photoGalleries', 'slug'));
     }
+
 
     public function mediagallery(Request $request)
     {
@@ -69,49 +77,6 @@ class HomePagesMicroController extends Controller
 
         return view('user.pages.microsites.mediagallery', compact('quickLinks', 'research_centre', 'slug'));
     }
-
-    public function filterGallery(Request $request)
-    {
-        // dd($request);
-        // Get filter inputs
-        $keyword = $request->input('keyword');
-        $category = $request->input('category');
-        $year = $request->input('year');
-        $slug = $request->query('slug'); // Get the 'slug' from the query string
-
-        // Query for the gallery with filters and slug
-        $filterGallery = DB::table('micro_manage_photo_galleries')
-            ->join('course', 'course.id', '=', 'micro_manage_photo_galleries.course_id') // Join condition
-            ->join('research_centres', 'research_centres.id', '=', 'micro_manage_photo_galleries.research_centre') // Join with research_centres table
-            ->select(
-                'micro_manage_photo_galleries.*',
-                'course.course_name as course_name', // Ensure this matches the actual column name in your table
-                'course.description as course_description',
-                'research_centres.research_centre_slug' // Select slug for reference
-            )
-            ->when($keyword, function ($query, $keyword) {
-                return $query->where(function ($q) use ($keyword) {
-                    $q->where('micro_manage_photo_galleries.image_title_english', 'like', "%$keyword%")
-                    ->orWhere('micro_manage_photo_galleries.image_title_hindi', 'like', "%$keyword%");
-                });
-            })
-            ->when($category, function ($query, $category) {
-                return $query->where('micro_manage_photo_galleries.course_id', $category);
-            })
-            ->when($year, function ($query, $year) {
-                return $query->whereYear('micro_manage_photo_galleries.created_at', $year);
-            })
-            ->when($slug, function ($query, $slug) {
-                return $query->where('research_centres.research_centre_slug', $slug); // Filter by the slug
-            })
-            ->where('micro_manage_photo_galleries.status', 1)
-            ->get();
-
-        //    dd(filterGallery);
-        // Pass the data to the view
-        return view('user.pages.microsites.media_gallery', compact('filterGallery'));
-    }
-
 
     public function news(Request $request)
     {
@@ -275,7 +240,7 @@ class HomePagesMicroController extends Controller
 
         if (!$gallery_details) {
             abort(404, 'Gallery not found');
-        }
+        } 
 
         // Pass data to the view
         return view('user.pages.microsites.media_gallery_details', compact('gallery_details','slug'));
@@ -291,8 +256,20 @@ class HomePagesMicroController extends Controller
             ->select('org.designation', 'org.email', 'org.program_description','org.main_image','org.employee_name','org.id')
             ->get();
 
+        $quickLinks = DB::table('micro_quick_links')
+            ->join('research_centres', 'micro_quick_links.research_centre_id', '=', 'research_centres.id')  // Join with 'research_centres'
+            ->where('micro_quick_links.categorytype', 2)
+            ->where('micro_quick_links.status', 1)
+            ->when($slug, function ($query) use ($slug) {
+                return $query->where('research_centres.research_centre_slug', $slug);  // Filter by slug if provided
+            })
+            ->whereDate('micro_quick_links.start_date', '<=', now())  // Ensure start_date is before or equal to today
+            ->whereDate('micro_quick_links.termination_date', '>=', now())  // Ensure termination_date is after or equal to today
+            ->select('micro_quick_links.*', 'research_centres.research_centre_name as research_centre_name')
+            ->get();
+
         // If data is available, return the view with the data
-        return view('user.pages.microsites.organizations', compact('organizations','slug'));
+        return view('user.pages.microsites.organizations', compact('organizations','slug','quickLinks'));
     }
 
 
