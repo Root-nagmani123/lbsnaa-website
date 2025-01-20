@@ -50,6 +50,7 @@
                         <tr class="text-center">
                             <th class="col">#</th>
                             <th class="col">Name</th>
+                            <th class="col">Research Center</th>
                             <th class="col">Language</th>
                             <th class="col">Actions</th>
                             <th class="col">Status</th>
@@ -60,6 +61,7 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $links->txtename }}</td>
+                            <td>{{ $links->rese_name }}</td>
                             <td>{{ $links->language == 1 ? 'English' : 'Hindi' }}</td>
                             <td>
                                 <div class="d-flex justify-content-start align-items-start gap-2">

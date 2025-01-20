@@ -438,7 +438,8 @@ Route::post('/screenrender/update', [HomeController::class, 'screen_reader_updat
 
     // For Micro Website
     Route::resource('training-programs', TrainingProgramController::class);
-    Route::resource('organization_setups', OrganizationSetupController::class);
+    // Route::resource('organization_setups', OrganizationSetupController::class);
+    Route::resource('non_org', OrganizationSetupController::class);
 
     Route::resource('micro_manage_vacancy', MicroManageVacancyController::class);
     Route::put('/micro-manage-vacancy/{id}', [MicroManageVacancyController::class, 'update'])->name('micro_manage_vacancy.update');

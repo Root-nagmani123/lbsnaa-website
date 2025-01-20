@@ -24,7 +24,7 @@
                 <h4 class="fw-semibold fs-18 mb-sm-0">Edit Organization Setup</h4>
             </div>
 
-            <form action="{{ route('organization_setups.update', $organizationSetup->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('non_org.update', $organizationSetup->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="row">
@@ -130,7 +130,7 @@
                     <div class="d-flex ms-sm-3 ms-md-0">
                         <button class="btn btn-success text-white fw-semibold" type="submit">Update</button>
                         &nbsp;
-                        <a href="{{ route('organization_setups.index') }}"
+                        <a href="{{ route('non_org.index') }}"
                             class="btn btn-secondary text-white">Back</a>
                     </div>
                 </div>

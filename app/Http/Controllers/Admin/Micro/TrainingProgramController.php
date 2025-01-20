@@ -19,7 +19,7 @@ class TrainingProgramController extends Controller
             ->get();
         return view('admin.micro.training_program.index', compact('programs'));
     }
-
+ 
     public function create()
     {
         $researchCentres = DB::table('research_centres')

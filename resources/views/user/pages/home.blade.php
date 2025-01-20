@@ -252,7 +252,7 @@
                                         <div class="card-body" style="height: 200px; overflow-y: hidden;">
                                             <span class="fs-5 mb-2 fw-semibold d-block text-success">Posted On:
                                                 {{ \Carbon\Carbon::parse($slider->start_date)->format('d F, Y') }}</span>
-                                            <h3>{{ $slider->title }}</h3>
+                                            <h3><a href="{{ route('user.newsbyslug', $slider->title_slug) }}" class="icon-link icon-link-hover link-dark fw-semibold">{{ $slider->title }}</a></h3>
                                             <p>{{ $slider->short_description }}</p>
                                         </div>
                                         <div class="card-footer border-0" style="height:50px;">
