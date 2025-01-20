@@ -384,8 +384,13 @@ public function get_course_list_pages(Request $request, $slug){
         ->whereDate('course_start_date', '<=', $currentDate)
         ->whereDate('course_end_date', '>=', $currentDate)
         ->get();
+
+        $upcomingCourse = DB::table('course')
+        ->where('course_type', $subcategory->id)
+        ->whereDate('course_start_date', '>', $currentDate)
+        ->get();
 //  print_r($parent_category);die;
-    return view('user.pages.course_list', compact('parent_category','subcategory', 'currentCourse', 'courses'));
+    return view('user.pages.course_list', compact('parent_category','subcategory', 'currentCourse', 'courses','upcomingCourse'));
 }
 function get_course_subcourse_list_pages(Request $request, $slug){
     $category = DB::table('courses_sub_categories')
@@ -834,7 +839,9 @@ function screenReader(Request $request){
 
     return view('user.pages.screenRender', compact('screenRender'));
 }
-
+function archive(Request $request){
+    return view('user.pages.archive');
+}
 
 
 

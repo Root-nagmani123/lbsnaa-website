@@ -35,9 +35,11 @@
                 <div class="col-lg-4">
                     <label for="year" class="form-label">Years</label>
                     <select name="year" id="year" fdprocessedid="wgb9i" class="form-select ps-5 text-dark h-58">
-                        @foreach($years as $year)
-                        <option value="{{ $year }}">{{ $year }}</option>
-                        @endforeach
+                    @foreach($years as $year)
+                <option value="{{ $year }}" {{ request('year') == $year ? 'selected' : '' }}>
+                    {{ $year }}
+                </option>
+            @endforeach
                     </select>
                 </div>
                 <div class="col-lg-4 d-flex align-items-end gap-2">
