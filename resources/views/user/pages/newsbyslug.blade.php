@@ -41,8 +41,9 @@
 
             @foreach($news_images as $val)
             <div class="col-md-3 col-12 gap-3 mb-4">
-                <img src="{{ asset($val) }}" style="height: 200px; object-fit: cover; width: 100%;"
-                    class="img-fluid rounded-4" alt="Image">
+                <a href="{{ asset($val) }}" data-fancybox="gallery">
+                    <img src="{{ asset($val) }}" style="height: 200px; object-fit: cover; width: 100%;" class="img-fluid rounded-4" alt="Image">
+                </a>
             </div>
             @endforeach
 
