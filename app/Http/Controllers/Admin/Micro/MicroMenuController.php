@@ -451,11 +451,86 @@ class MicroMenuController extends Controller
     //     return redirect()->route('micromenus.index')->with('success', 'Menu updated successfully.');
     // }
 
+    // public function update(Request $request, $id)
+    // {
+    //     // Find the existing menu
+    //     $menu = micromenu::findOrFail($id);
+
+    //     // Validate the incoming request data
+    //     $validatedData = $request->validate([
+    //         'txtlanguage' => 'required',
+    //         'research_centre' => 'required',
+    //         'menutitle' => 'required|string|max:255',
+    //         'texttype' => 'required',
+    //         'menucategory' => 'required',
+    //         'txtpostion' => 'required',
+    //         'menu_status' => 'required|in:1,0',
+    //     ]);
+
+    //     // Check for duplicate combination of research_centre and menutitle, excluding the current menu
+    //     $existingMenu = micromenu::where('research_centreid', $request->research_centre)
+    //         ->where('menutitle', $request->menutitle)
+    //         ->where('id', '!=', $id)
+    //         ->first();
+
+    //     if ($existingMenu) {
+    //         return redirect()->back()->withErrors([
+    //             'menutitle' => 'The menu title for the selected research centre already exists.'
+    //         ])->withInput();
+    //     }
+
+    //     // Update the menu fields
+    //     $menu->language = $request->txtlanguage;
+    //     $menu->research_centreid = $request->research_centre;
+    //     $menu->menutitle = $request->menutitle;
+    //     $menu->menu_slug = Str::slug($request->menutitle, '-');
+    //     $menu->texttype = $request->texttype;
+    //     $menu->menucategory = $request->menucategory;
+    //     $menu->parent_id = $request->menucategory;
+    //     $menu->txtpostion = $request->txtpostion;
+    //     $menu->meta_title = $request->input('meta_title');
+    //     $menu->meta_keyword = $request->input('meta_keyword');
+    //     $menu->meta_description = $request->input('meta_description');
+    //     $menu->content = $request->input('content', null);
+    //     $menu->website_url = $request->input('website_url', null);
+    //     $menu->menu_status = $request->input('menu_status', 0);
+    //     $menu->start_date = $request->input('start_date');
+    //     $menu->termination_date = $request->input('termination_date');
+
+    //     // Handle file upload
+    //     if ($request->hasFile('pdf_file')) {
+    //         if (File::exists(public_path($menu->pdf_file))) {
+    //             File::delete(public_path($menu->pdf_file));
+    //         }
+
+    //         $file = $request->file('pdf_file');
+    //         $fileName = time() . '_' . $file->getClientOriginalName();
+    //         $file->move(public_path('uploads/menus/'), $fileName);
+    //         $menu->pdf_file = 'uploads/menus/' . $fileName;
+    //     } 
+
+    //     // Save the updated menu
+    //     $menu->save();
+
+    //     // Audit logging
+    //     MicroManageAudit::create([
+    //         'Module_Name' => 'Menu',
+    //         'Time_Stamp' => time(),
+    //         'Created_By' => null,
+    //         'Updated_By' => null,
+    //         'Action_Type' => 'Update',
+    //         'IP_Address' => $request->ip(),
+    //     ]);
+
+    //     // Redirect with success message
+    //     return redirect()->route('micromenus.index')->with('success', 'Menu updated successfully.');
+    // }
+
     public function update(Request $request, $id)
     {
         // Find the existing menu
         $menu = micromenu::findOrFail($id);
-
+    
         // Validate the incoming request data
         $validatedData = $request->validate([
             'txtlanguage' => 'required',
@@ -466,52 +541,63 @@ class MicroMenuController extends Controller
             'txtpostion' => 'required',
             'menu_status' => 'required|in:1,0',
         ]);
-
+    
         // Check for duplicate combination of research_centre and menutitle, excluding the current menu
         $existingMenu = micromenu::where('research_centreid', $request->research_centre)
             ->where('menutitle', $request->menutitle)
             ->where('id', '!=', $id)
             ->first();
-
+    
         if ($existingMenu) {
             return redirect()->back()->withErrors([
                 'menutitle' => 'The menu title for the selected research centre already exists.'
             ])->withInput();
         }
-
-        // Update the menu fields
+    
+        // Handle different texttype values
+        if ($request->texttype == 1) { // Content
+            $menu->content = $request->input('content', null);
+            $menu->website_url = null;
+            $menu->pdf_file = null;
+        } elseif ($request->texttype == 2) { // PDF file Upload
+            $menu->content = null;
+            $menu->website_url = null;
+            
+            // Handle file upload
+            if ($request->hasFile('pdf_file')) {
+                if (File::exists(public_path($menu->pdf_file))) {
+                    File::delete(public_path($menu->pdf_file));
+                }
+    
+                $file = $request->file('pdf_file');
+                $fileName = time() . '_' . $file->getClientOriginalName();
+                $file->move(public_path('uploads/menus/'), $fileName);
+                $menu->pdf_file = 'uploads/menus/' . $fileName;
+            }
+        } elseif ($request->texttype == 3) { // Website Url
+            $menu->content = null;
+            $menu->pdf_file = null;
+            $menu->website_url = $request->input('website_url', null);
+        }
+    
+        // Update other fields
         $menu->language = $request->txtlanguage;
         $menu->research_centreid = $request->research_centre;
         $menu->menutitle = $request->menutitle;
         $menu->menu_slug = Str::slug($request->menutitle, '-');
-        $menu->texttype = $request->texttype;
         $menu->menucategory = $request->menucategory;
         $menu->parent_id = $request->menucategory;
         $menu->txtpostion = $request->txtpostion;
         $menu->meta_title = $request->input('meta_title');
         $menu->meta_keyword = $request->input('meta_keyword');
         $menu->meta_description = $request->input('meta_description');
-        $menu->content = $request->input('content', null);
-        $menu->website_url = $request->input('website_url', null);
         $menu->menu_status = $request->input('menu_status', 0);
         $menu->start_date = $request->input('start_date');
         $menu->termination_date = $request->input('termination_date');
-
-        // Handle file upload
-        if ($request->hasFile('pdf_file')) {
-            if (File::exists(public_path($menu->pdf_file))) {
-                File::delete(public_path($menu->pdf_file));
-            }
-
-            $file = $request->file('pdf_file');
-            $fileName = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('uploads/menus/'), $fileName);
-            $menu->pdf_file = 'uploads/menus/' . $fileName;
-        }
-
+    
         // Save the updated menu
         $menu->save();
-
+    
         // Audit logging
         MicroManageAudit::create([
             'Module_Name' => 'Menu',
@@ -521,12 +607,11 @@ class MicroMenuController extends Controller
             'Action_Type' => 'Update',
             'IP_Address' => $request->ip(),
         ]);
-
+    
         // Redirect with success message
         return redirect()->route('micromenus.index')->with('success', 'Menu updated successfully.');
     }
-
-
+    
 
 
     public function delete($id)

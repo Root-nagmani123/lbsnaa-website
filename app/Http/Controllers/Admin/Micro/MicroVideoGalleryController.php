@@ -15,13 +15,20 @@ class MicroVideoGalleryController extends Controller
     // Display a listing of the videos
     public function index()
     {
-        $videos = MicroVideoGallery::all(); // Get all videos
+        // $videos = MicroVideoGallery::all(); // Get all videos
         // Fetching active research centres where status == 1
-        $researchCentres = DB::table('research_centres')
-        ->where('status', 1) // Filter only active records
-        ->pluck('research_centre_name', 'id'); 
+        // $researchCentres = DB::table('research_centres')
+        // ->where('status', 1) // Filter only active records
+        // ->pluck('research_centre_name', 'id');  
 
-        return view('admin.micro.manage_media_center.video_gallery.index', compact('videos','researchCentres'));
+        $videos = DB::table('micro_video_galleries')
+            ->join('research_centres', 'micro_video_galleries.research_centre', '=', 'research_centres.id') // Join on research_centre_id
+            ->select('micro_video_galleries.*', 'research_centres.research_centre_name as rese_name') // Select columns from both tables
+            ->get();
+
+
+        
+        return view('admin.micro.manage_media_center.video_gallery.index', compact('videos'));
     }
 
     // Show the form for creating a new video

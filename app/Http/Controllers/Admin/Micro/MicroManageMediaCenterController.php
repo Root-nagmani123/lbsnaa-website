@@ -26,7 +26,7 @@ class MicroManageMediaCenterController extends Controller
         // Fetching active research centres where status == 1
         $researchCentres = DB::table('research_centres')
         ->where('status', 1) // Filter only active records
-        ->pluck('research_centre_name', 'id'); 
+        ->pluck('research_centre_name', 'id');  
 
         // Passing both categories and researchCentres to the view
         return view('admin.micro.manage_media_center.manage_categories.index', compact('categories', 'researchCentres'));

@@ -50,6 +50,7 @@
                             <th class="col">#</th> <!-- Index Column -->
                             <th class="col">Video Title (English)</th>
                             <th class="col">Video Title (Hindi)</th>
+                            <th class="col">Research Center</th>
                             <th class="col">Youtube Link Video</th> <!-- Video Display Column -->
                             <th class="col">Option</th>
                             <th class="col">Page Status</th>
@@ -62,6 +63,7 @@
                             <td>{{ $loop->iteration }}</td> <!-- Display Index -->
                             <td>{{ $video->video_title_en }}</td>
                             <td>{{ $video->video_title_hi }}</td>
+                            <td>{{ $video->rese_name }}</td>
                             <!-- Display the uploaded video -->
                             
                             <td><a href="{{ $video->video_upload }}" target="_blank">Play Video</a></td>

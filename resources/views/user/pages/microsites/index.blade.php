@@ -53,38 +53,34 @@
                         </div>
                     </div>
                     <div class="card-body" style="height:340px;overflow-y: scroll;">
-                        <ul class="list-group list-group-flush">
-                            @foreach($whatsNew as $news)
+                    <ul class="list-group list-group-flush">
+                        @forelse($whatsNew as $news)
                             <li class="list-group-item">
                                 @if($news->website_url)
-                                <a href="{{ $news->website_url }}" class="text-primary" target="_blank">
-                                    <span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                            fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd"
-                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z">
-                                            </path>
-                                        </svg>
-                                    </span>
-                                    {{ $news->txtename }}
-                                </a>
+                                    <a href="{{ $news->website_url }}" class="text-primary" target="_blank">
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"></path>
+                                            </svg>
+                                        </span>
+                                        {{ $news->txtename }}
+                                    </a>
                                 @elseif($news->pdf_file)
-                                <a href="{{ asset('storage/' . $news->pdf_file) }}" class="text-primary"
-                                    target="_blank">
-                                    <span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                            fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd"
-                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z">
-                                            </path>
-                                        </svg>
-                                    </span>
-                                    {{ $news->txtename }}
-                                </a>
+                                    <a href="{{ asset('storage/' . $news->pdf_file) }}" class="text-primary" target="_blank">
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"></path>
+                                            </svg>
+                                        </span>
+                                        {{ $news->txtename }}
+                                    </a>
                                 @endif
                             </li>
-                            @endforeach
-                        </ul>
+                        @empty
+                            <li class="list-group-item text-danger">No data available</li>
+                        @endforelse
+                    </ul>
+
                     </div>
                 </div>
             </div>
@@ -130,38 +126,34 @@
                         <h5 class="text-white">Quick Links</h5>
                     </div>
                     <div class="card-body" style="max-height: 500px; overflow-y: scroll;">
-                        <ul class="list-group list-group-flush">
-                            @foreach($quickLinks as $link)
+                    <ul class="list-group list-group-flush">
+                        @forelse($quickLinks as $link)
                             <li class="list-group-item">
                                 @if($link->website_url)
-                                <a href="{{ $link->website_url }}" class="text-primary" target="_blank">
-                                    <span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                            fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd"
-                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z">
-                                            </path>
-                                        </svg>
-                                    </span>
-                                    {{ $link->txtename }}
-                                </a>
+                                    <a href="{{ $link->website_url }}" class="text-primary" target="_blank">
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"></path>
+                                            </svg>
+                                        </span>
+                                        {{ $link->txtename }}
+                                    </a>
                                 @elseif($link->pdf_file)
-                                <a href="{{ asset('storage/' . $link->pdf_file) }}" class="text-primary"
-                                    target="_blank">
-                                    <span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                            fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd"
-                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z">
-                                            </path>
-                                        </svg>
-                                    </span>
-                                    {{ $link->txtename }}
-                                </a>
+                                    <a href="{{ asset('storage/' . $link->pdf_file) }}" class="text-primary" target="_blank">
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"></path>
+                                            </svg>
+                                        </span>
+                                        {{ $link->txtename }}
+                                    </a>
                                 @endif
                             </li>
-                            @endforeach
-                        </ul>
+                        @empty
+                            <li class="list-group-item text-danger">No data available</li>
+                        @endforelse
+                    </ul>
+
                     </div>
                 </div>
             </div>

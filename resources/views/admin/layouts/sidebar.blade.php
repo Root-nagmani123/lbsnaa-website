@@ -721,7 +721,7 @@
 
             @if ($isManageUserAllowed)
             <li class="menu-item">
-                <a href="{{ route('organization_setups.index') }}" class="menu-link">
+                <a href="{{ route('non_org.index') }}" class="menu-link">
                     <i class="material-icons menu-icon">corporate_fare</i>
                     <span class="title">Manage Organization Setup</span>
                 </a>

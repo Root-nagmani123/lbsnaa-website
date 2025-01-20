@@ -18,7 +18,7 @@ class OrganizationSetupController extends Controller
         $organizations = DB::table('mirco_organization_setups as tp')
         ->leftJoin('research_centres as rc', 'tp.research_centre', '=', 'rc.id') // Adjust column names as needed
         ->select('tp.*', 'rc.research_centre_name as research_centre_name') // Include the name of the research centre
-        ->get();
+        ->get(); 
 
         return view('admin.micro.Organization_Setup.index', compact('organizations'));
     }
@@ -47,7 +47,7 @@ class OrganizationSetupController extends Controller
             'email' => [
                 'required',
                 'email',
-                'unique:mirco_organization_setups,email', // Check for duplicate email in the table
+                // 'unique:mirco_organization_setups,email', // Check for duplicate email in the table
                 'max:255',
             ],
             'program_description' => 'required',
@@ -104,7 +104,7 @@ class OrganizationSetupController extends Controller
         ]);
     
         // Redirect with success message
-        return redirect()->route('organization_setups.index')->with('success', 'Organization setup created successfully.');
+        return redirect()->route('non_org.index')->with('success', 'Organization setup created successfully.');
     }
     
     
@@ -135,7 +135,7 @@ class OrganizationSetupController extends Controller
             'email' => [
                 'required',
                 'email',
-                Rule::unique('mirco_organization_setups')->ignore($organizationSetup->id), // Ignore the current record
+                // Rule::unique('mirco_organization_setups')->ignore($organizationSetup->id), // Ignore the current record
                 'max:255',
             ],
             'program_description' => 'required|string|max:10000',
@@ -208,21 +208,54 @@ class OrganizationSetupController extends Controller
         ]);
 
         // Redirect with success message
-        return redirect()->route('organization_setups.index')->with('success', 'Organization setup updated successfully.');
+        return redirect()->route('non_org.index')->with('success', 'Organization setup updated successfully.');
     }
     
 
-    public function destroy(OrganizationSetup $organizationSetup)
-    {
-        // Check if the organization setup status is 1 (Active/Inactive based on your logic)
+    // public function destroy(OrganizationSetup $organizationSetup)
+    // {
+    //     // Check if the organization setup status is 1 (Active/Inactive based on your logic)
+    //     if ($organizationSetup->page_status == 1) {
+    //         return redirect()->route('non_org.index')->with('error', 'Active organization setups cannot be deleted.');
+    //     }
+
+    //     // Proceed with deletion if the condition is not met
+    //     $organizationSetup->delete();
+
+    //     return redirect()->route('non_org.index')->with('success', 'Organization setup deleted successfully.');
+    // }
+
+
+public function destroy($id)
+{
+    DB::beginTransaction();
+// dd($id);
+    try {
+        $organizationSetup = OrganizationSetup::findOrFail($id);
+
         if ($organizationSetup->page_status == 1) {
-            return redirect()->route('organization_setups.index')->with('error', 'Active organization setups cannot be deleted.');
+            return redirect()->route('non_org.index')->with('error', 'Active organization setups cannot be deleted.');
         }
 
-        // Proceed with deletion if the condition is not met
-        $organizationSetup->delete();
+        \Log::info('Attempting to delete organization setup:', ['id' => $organizationSetup->id]);
 
-        return redirect()->route('organization_setups.index')->with('success', 'Organization setup deleted successfully.');
+        // Delete the organization setup
+        if ($organizationSetup->delete()) {
+            DB::commit();
+            return redirect()->route('non_org.index')->with('success', 'Organization setup deleted successfully.');
+        }
+
+        DB::rollBack();
+        return redirect()->route('non_org.index')->with('error', 'Failed to delete organization setup.');
+    } catch (\Exception $e) {
+        DB::rollBack();
+        \Log::error('Error during deletion:', ['error' => $e->getMessage()]);
+        return redirect()->route('non_org.index')->with('error', 'An error occurred while trying to delete the organization setup.');
     }
+}
+
+    
+
+
 
 }

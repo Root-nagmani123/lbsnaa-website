@@ -171,6 +171,7 @@
                         <tr class="text-center">
                             <th class="col">#</th>
                             <th class="col">Media Gallery</th>
+                            <th class="col">Research Center</th>
                             <th class="col">Name</th>
                             <th class="col">Hindi Name</th>
                             <th class="col">Status</th>
@@ -188,6 +189,7 @@
                                 Video Gallery
                                 @endif
                             </td>
+                            <td>{{ $item->research_centre_name }}</td>
                             <td>{{ $item->name }}</td>
                             <td>{{ $item->hindi_name }}</td>
                             <td>

@@ -19,7 +19,13 @@ class ManageNewsController extends Controller
     // List all news
     public function index()
     {
-        $news = Managenews::all(); // You can filter for active news only
+        // $news = Managenews::all(); // You can filter for active news only
+
+        $news = DB::table('managenews')
+            ->join('research_centres', 'managenews.research_centreid', '=', 'research_centres.id') // Join on research_centre_id
+            ->select('managenews.*', 'research_centres.research_centre_name as rese_name') // Select columns from both tables
+            ->get();
+
         return view('admin.micro.managenews.index', compact('news'));
     }
 

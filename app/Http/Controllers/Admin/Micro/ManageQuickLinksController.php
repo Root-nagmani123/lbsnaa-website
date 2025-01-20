@@ -13,10 +13,14 @@ class ManageQuickLinksController extends Controller
 {
     public function quick_link_list()
     {
-        $quick_links = DB::table('micro_quick_links')->get();
-        return view('admin.micro.quick_links.index', compact('quick_links'));
-    }
+        // $quick_links = DB::table('micro_quick_links')->get();
+        $quick_links = DB::table('micro_quick_links')
+            ->join('research_centres', 'micro_quick_links.research_centre_id', '=', 'research_centres.id') // Join on research_centre_id
+            ->select('micro_quick_links.*', 'research_centres.research_centre_name as rese_name') // Select columns from both tables
+            ->get();
 
+        return view('admin.micro.quick_links.index', compact('quick_links')); 
+    }
     // Category create method to show the create form
 
     public function quick_link_create()

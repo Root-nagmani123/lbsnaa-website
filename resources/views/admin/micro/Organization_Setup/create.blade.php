@@ -23,7 +23,7 @@
                 <h4 class="fw-semibold fs-18 mb-sm-0">Add Organization Setup</h4>
             </div>
 
-            <form action="{{ route('organization_setups.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('non_org.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <div class="col-lg-6">
@@ -187,7 +187,7 @@
                     <div class="d-flex ms-sm-3 ms-md-0">
                         <button class="btn btn-success text-white fw-semibold" type="submit">Submit</button>
                         &nbsp;
-                        <a href="{{ route('organization_setups.index') }}"
+                        <a href="{{ route('non_org.index') }}"
                             class="btn btn-secondary text-white">Back</a>
                     </div>
                 </div>

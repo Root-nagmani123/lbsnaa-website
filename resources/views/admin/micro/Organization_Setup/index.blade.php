@@ -20,7 +20,7 @@
     <div class="card-body p-4">
         <div class="d-sm-flex text-center justify-content-between align-items-center border-bottom pb-20 mb-20">
             <h4 class="fw-semibold fs-18 mb-sm-0">Organization Structure</h4>
-            <a href="{{ route('organization_setups.create') }}">
+            <a href="{{ route('non_org.create') }}">
                 <button class="border-0 btn btn-success py-2 px-3 px-sm-4 text-white fs-14 fw-semibold rounded-3">
                     <span class="py-sm-1 d-block">
                         <i class="ri-add-line text-white"></i>
@@ -48,6 +48,7 @@
                         <tr class="text-center">
                             <th class="col">ID</th> <!-- Index Column -->
                             <th class="col">Employee Name</th>
+                            <th class="col">Research Center</th>
                             <th class="col">Designation</th>
                             <th class="col">Email</th>
                             <th class="col">Picture</th>
@@ -61,6 +62,7 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $org->employee_name }}</td>
+                            <td>{{ $org->research_centre_name }}</td>
                             <td>{{ $org->designation }}</td>
                             <td>{{ $org->email }}</td>
                             <td>
@@ -77,11 +79,11 @@
                             </td>
                             <td>
                                 <div class="d-flex justify-content-start align-items-start gap-2">
-                                    <a href="{{ route('organization_setups.edit', $org->id) }}"
+                                    <a href="{{ route('non_org.edit', $org->id) }}"
                                         class="btn btn-success text-white btn-sm">
                                         Edit
                                     </a>
-                                    <form action="{{ route('organization_setups.destroy', $org->id) }}" method="POST"
+                                    <form action="{{ route('non_org.destroy', $org->id) }}" method="POST"
                                         class="m-0">
                                         @csrf
                                         @method('DELETE')
