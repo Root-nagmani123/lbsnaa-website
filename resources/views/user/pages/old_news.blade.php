@@ -73,6 +73,7 @@
                     <div class="card-body d-flex flex-column">
                         <a href="#" class="fs-6 mb-2 fw-semibold d-block text-success">Posted On:
                             {{ \Carbon\Carbon::parse($slider->start_date)->format('d F, Y') }}</a>
+                        
                         <h3 class="fs-5">
                             <a href="{{ route('user.newsbyslug', $slider->title_slug) }}"
                                 class="text-dark text-decoration-none">
