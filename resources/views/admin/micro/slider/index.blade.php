@@ -15,7 +15,7 @@
             <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Home Banner - Micro</span>
         </li>
     </ul>
-</div>
+</div> 
 <div class="card bg-white border-0 rounded-10 mb-4">
     <div class="card-body p-4">
         <div class="d-sm-flex text-center justify-content-between align-items-center border-bottom pb-20 mb-20">
@@ -58,6 +58,7 @@
                         <tr class="text-center">
                             <th class="col">#</th>
                             <th class="col">Image</th>
+                            <th class="col">Research Center</th>
                             <th class="col">Text</th>
                             <th class="col">Language</th>
                             <th class="col">Option</th>
@@ -70,6 +71,7 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td> <!-- Auto-incrementing index -->
                             <td><img src="{{ asset('storage/' . $slider->slider_image) }}" width="100"></td>
+                            <td>{{ $slider->research_centre_name }}</td>
                             <td>{{ $slider->slider_text }}</td>
                             <!-- <td>{{ html_entity_decode(strip_tags($slider->slider_description)) }}</td> -->
                             <td>

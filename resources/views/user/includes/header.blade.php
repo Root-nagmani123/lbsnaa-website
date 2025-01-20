@@ -365,7 +365,7 @@
                             data-bs-toggle="dropdown">
                             {{ $menu->menutitle }}
                         </a>
-                        <ul class="dropdown-menu">
+                        <!-- <ul class="dropdown-menu">
                             @foreach($Research_Center_list as $reserch_c)
                             <li class="border-bottom">
                                 <a class="dropdown-item"
@@ -374,7 +374,30 @@
                                 </a>
                             </li>
                             @endforeach
+                        </ul> -->
+                        <ul class="dropdown-menu">
+                            @foreach($Research_Center_list as $reserch_c)
+                                <li class="border-bottom">
+                                    @if($reserch_c->pdf)
+                                        <!-- Redirect to PDF -->
+                                        <a class="dropdown-item" href="{{ asset('storage/' . $reserch_c->pdf) }}" target="_blank">
+                                            {{ $reserch_c->research_centre_name }}
+                                        </a>
+                                    @elseif($reserch_c->url)
+                                        <!-- Redirect to URL -->
+                                        <a class="dropdown-item" href="{{ $reserch_c->url }}" target="_blank">
+                                            {{ $reserch_c->research_centre_name }}
+                                        </a>
+                                    @else
+                                        <!-- Redirect to another page -->
+                                        <a class="dropdown-item" href="{{ url('lbsnaa-sub/' . $reserch_c->research_centre_slug) }}">
+                                            {{ $reserch_c->research_centre_name }}
+                                        </a>
+                                    @endif
+                                </li>
+                            @endforeach
                         </ul>
+
                     </li>
                     @else
                         

@@ -50,6 +50,7 @@
                         <tr class="text-center">
                             <th class="col">#</th>
                             <th class="col">Title</th>
+                            <th class="col">Research Center</th>
                             <th class="col">Start Date</th>
                             <th class="col">Language</th>
                             <th class="col">Option</th>
@@ -62,6 +63,7 @@
                         <tr>
                             <td>{{ $loop->iteration}}</td>
                             <td>{{ $item->title }}</td>
+                            <td>{{ $item->rese_name }}</td>
                             <td>{{ \Carbon\Carbon::parse($item->start_date)->format('d-m-Y') }}</td>
 
                             <td>{{ $item->language == 1 ? 'English' : 'Hindi' }}</td>

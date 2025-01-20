@@ -57,7 +57,7 @@
                     </div>
                     <div class="card-body" style="padding: 0;">
                         <ul class="mt-2 mb-2 list-group list-group-flush">
-                            @foreach($quickLinks as $link)
+                            @forelse($quickLinks as $link)
                                 <li class="text-start list-group-item">
                                     @if($link->website_url)
                                         <!-- For website URL -->
@@ -80,8 +80,11 @@
                                         </a>
                                     @endif
                                 </li>
-                            @endforeach
+                            @empty
+                                <li class="text-start list-group-item text-danger">No data available</li>
+                            @endforelse
                         </ul>
+
                     </div>
                 </div>
 

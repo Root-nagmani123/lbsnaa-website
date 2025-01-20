@@ -51,6 +51,7 @@
                         <tr class="text-center">
                             <th class="col">ID</th>
                             <th class="col">Program Title</th>
+                            <th class="col">Research Center</th>
                             <th class="col">Venue</th>
                             <th class="col">Co-ordinator</th>
                             <th class="col">Language</th>
@@ -63,6 +64,7 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td> <!-- Auto-incrementing index -->
                             <td>{{ $program->program_name }}</td>
+                            <td>{{ $program->research_centre_name }}</td>
                             <td>{{ $program->venue }}</td>
                             <td>{{ $program->program_coordinator }}</td>
                             <td>

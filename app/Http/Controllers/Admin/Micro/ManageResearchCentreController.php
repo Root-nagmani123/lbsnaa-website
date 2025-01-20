@@ -24,20 +24,76 @@ class ManageResearchCentreController extends Controller
         return view('admin.micro.manage_researchcentre.create');
     }
 
+    // public function researchcentresStore(Request $request)
+    // {
+    //     $validatedData = $request->validate([
+    //         'language' => 'required|in:1,2',
+    //         'research_centre_name' => 'required|string|max:255',
+    //         'description' => 'required|string',
+    //         'status' => 'required|boolean',
+    //     ]);
+    //     // dd($validatedData);
+    //     DB::table('research_centres')->insert([
+    //         'language' => $validatedData['language'],
+    //         'research_centre_name' => $validatedData['research_centre_name'],
+    //         'sub_heading' => 'sub_heading',
+    //         'home_title' => 'home_title',
+    //         'pdf' => 'pdfUpload',
+    //         'url' => 'websiteUrl',
+    //         'research_centre_slug' => Str::slug($validatedData['research_centre_name'], '-'),
+    //         'description' => $validatedData['description'],
+    //         'status' => $validatedData['status'],
+    //         'created_at' => now(),
+    //         'updated_at' => now(),
+    //     ]);
+
+    //     MicroManageAudit::create([
+    //         'Module_Name' => 'Research Center', // Static value
+    //         'Time_Stamp' => time(), // Current timestamp
+    //         'Created_By' => null, // ID of the authenticated user
+    //         'Updated_By' => null, // No update on creation, so leave null
+    //         'Action_Type' => 'Insert', // Static value
+    //         'IP_Address' => $request->ip(), // Get IP address from request
+    //     ]);
+
+    //     return redirect()->route('researchcentres.index')->with('success', 'Research Centre added successfully!');
+    // }
+
     public function researchcentresStore(Request $request)
     {
+        // Validate input fields
         $validatedData = $request->validate([
             'language' => 'required|in:1,2',
             'research_centre_name' => 'required|string|max:255',
             'description' => 'required|string',
             'status' => 'required|boolean',
+            'texttype' => 'nullable|in:1,2', // Ensure texttype is present and valid
+            'pdfUpload' => 'nullable|file|mimes:pdf|max:2048', // Validate PDF file
+            'websiteUrl' => 'nullable|url|max:255', // Validate URL
         ]);
 
+        // Initialize PDF and URL variables
+        $pdf = null;
+        $url = null;
+
+        // Handle file upload if texttype is 1 (PDF)
+        if ($validatedData['texttype'] == 1) {
+            if ($request->hasFile('pdfUpload')) {
+                $pdf = $request->file('pdfUpload')->store('uploads/research_pdfs', 'public'); // Store in public/uploads/research_pdfs
+            }
+        } elseif ($validatedData['texttype'] == 2) {
+            $url = $validatedData['websiteUrl']; // Assign URL directly
+        }
+
+        // Insert into the database
         DB::table('research_centres')->insert([
             'language' => $validatedData['language'],
             'research_centre_name' => $validatedData['research_centre_name'],
             'sub_heading' => 'sub_heading',
             'home_title' => 'home_title',
+            'texttype' => $validatedData['texttype'],
+            'pdf' => $pdf,
+            'url' => $url,
             'research_centre_slug' => Str::slug($validatedData['research_centre_name'], '-'),
             'description' => $validatedData['description'],
             'status' => $validatedData['status'],
@@ -45,23 +101,83 @@ class ManageResearchCentreController extends Controller
             'updated_at' => now(),
         ]);
 
+        // Audit log
         MicroManageAudit::create([
-            'Module_Name' => 'Research Center', // Static value
-            'Time_Stamp' => time(), // Current timestamp
-            'Created_By' => null, // ID of the authenticated user
-            'Updated_By' => null, // No update on creation, so leave null
-            'Action_Type' => 'Insert', // Static value
-            'IP_Address' => $request->ip(), // Get IP address from request
+            'Module_Name' => 'Research Center',
+            'Time_Stamp' => time(),
+            'Created_By' => null, // Use the authenticated user ID
+            'Updated_By' => null,
+            'Action_Type' => 'Insert',
+            'IP_Address' => $request->ip(),
         ]);
 
+        // Redirect with success message
         return redirect()->route('researchcentres.index')->with('success', 'Research Centre added successfully!');
     }
+
 
     public function researchcentresEdit($id)
     {
         $researchCentre = DB::table('research_centres')->where('id', $id)->first();
         return view('admin.micro.manage_researchcentre.edit', compact('researchCentre'));
     }
+
+    // public function researchcentresUpdate(Request $request, $id)
+    // {
+    //     $validatedData = $request->validate([
+    //         'language' => 'required|in:1,2',
+    //         'research_centre_name' => 'required|string|max:255',
+    //         'sub_heading' => 'nullable|string',
+    //         'home_title' => 'required|string',
+    //         'description' => 'nullable|string',
+    //         'status' => 'required|boolean',
+
+    //         'texttype' => 'nullable|in:1,2', // Ensure texttype is present and valid
+    //         'pdfUpload' => 'nullable|file|mimes:pdf|max:2048', // Validate PDF file
+    //         'websiteUrl' => 'nullable|url|max:255', // Validate URL
+    //     ]); 
+        
+        
+    //     // Initialize PDF and URL variables
+    //     $pdf = null;
+    //     $url = null;
+
+    //     // Handle file upload if texttype is 1 (PDF)
+    //     if ($validatedData['texttype'] == 1) {
+    //         if ($request->hasFile('pdfUpload')) {
+    //             $pdf = $request->file('pdfUpload')->store('uploads/research_pdfs', 'public'); // Store in public/uploads/research_pdfs
+    //         }
+    //     } elseif ($validatedData['texttype'] == 2) {
+    //         $url = $validatedData['websiteUrl']; // Assign URL directly
+    //     }
+
+
+    //     DB::table('research_centres')->where('id', $id)->update([
+    //         'language' => $validatedData['language'],
+    //         'research_centre_name' => $validatedData['research_centre_name'],
+    //         'sub_heading' => $validatedData['sub_heading'],
+    //         'home_title' => $validatedData['home_title'],
+    //         'texttype' => $validatedData['texttype'],
+    //         'pdf' => $pdf,
+    //         'url' => $url,
+
+    //         'research_centre_slug' => Str::slug($validatedData['research_centre_name'], '-'),
+    //         'description' => $validatedData['description'],
+    //         'status' => $validatedData['status'],
+    //         'updated_at' => now(),
+    //     ]);
+
+    //     MicroManageAudit::create([
+    //         'Module_Name' => 'Research Center', // Static value
+    //         'Time_Stamp' => time(), // Current timestamp
+    //         'Created_By' => null, // ID of the authenticated user
+    //         'Updated_By' => null, // No update on creation, so leave null
+    //         'Action_Type' => 'Update', // Static value
+    //         'IP_Address' => $request->ip(), // Get IP address from request
+    //     ]);
+
+    //     return redirect()->route('researchcentres.index')->with('success', 'Research Centre updated successfully!');
+    // }
 
     public function researchcentresUpdate(Request $request, $id)
     {
@@ -72,30 +188,59 @@ class ManageResearchCentreController extends Controller
             'home_title' => 'nullable|string',
             'description' => 'nullable|string',
             'status' => 'required|boolean',
+
+            'texttype' => 'nullable|in:1,2', // Ensure texttype is present and valid
+            'pdfUpload' => 'nullable|file|mimes:pdf|max:2048', // Validate PDF file
+            'websiteUrl' => 'nullable|url|max:255', // Validate URL
         ]);
 
+        // Retrieve existing record
+        $existingData = DB::table('research_centres')->where('id', $id)->first();
+
+        // Retain existing values if no new input is provided
+        $pdf = $existingData->pdf; // Default to existing PDF
+        $url = $existingData->url; // Default to existing URL
+
+        // Update PDF if a new file is uploaded
+        if ($validatedData['texttype'] == 1 && $request->hasFile('pdfUpload')) {
+            $pdf = $request->file('pdfUpload')->store('uploads/research_pdfs', 'public');
+            $url = null; // Clear URL if a PDF is uploaded
+        }
+
+        // Update URL if a new URL is provided
+        if ($validatedData['texttype'] == 2 && $validatedData['websiteUrl']) {
+            $url = $validatedData['websiteUrl'];
+            $pdf = null; // Clear PDF if a URL is provided
+        }
+
+        // Update the database
         DB::table('research_centres')->where('id', $id)->update([
             'language' => $validatedData['language'],
             'research_centre_name' => $validatedData['research_centre_name'],
             'sub_heading' => $validatedData['sub_heading'],
             'home_title' => $validatedData['home_title'],
+            'texttype' => $validatedData['texttype'],
+            'pdf' => $pdf,
+            'url' => $url,
             'research_centre_slug' => Str::slug($validatedData['research_centre_name'], '-'),
             'description' => $validatedData['description'],
             'status' => $validatedData['status'],
             'updated_at' => now(),
         ]);
 
+        // Log the update action
         MicroManageAudit::create([
-            'Module_Name' => 'Research Center', // Static value
-            'Time_Stamp' => time(), // Current timestamp
+            'Module_Name' => 'Research Center',
+            'Time_Stamp' => time(),
             'Created_By' => null, // ID of the authenticated user
-            'Updated_By' => null, // No update on creation, so leave null
-            'Action_Type' => 'Update', // Static value
-            'IP_Address' => $request->ip(), // Get IP address from request
+            'Updated_By' => null, // Use authenticated user ID for updates
+            'Action_Type' => 'Update',
+            'IP_Address' => $request->ip(),
         ]);
 
         return redirect()->route('researchcentres.index')->with('success', 'Research Centre updated successfully!');
     }
+
  
     
     public function researchcentresDestroy($id)

@@ -78,6 +78,40 @@
                             @enderror
                         </div>
                     </div>
+
+
+
+                    <div class="col-lg-6">
+                        <div class="form-group mb-4">
+                            <label class="label" for="texttype">Menu Type :</label>
+                            <div class="form-group position-relative">
+                                <select class="form-select form-control h-58" 
+                                        aria-label="Default select example" 
+                                        name="texttype" 
+                                        id="texttype" 
+                                        autocomplete="off" 
+                                        onchange="addMenuType(this.value)">
+                                    <option selected value="" class="text-dark">Select</option>
+                                    <option value="1" class="text-dark">PDF file Upload</option>
+                                    <option value="2" class="text-dark">Web Site Url</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hidden Fields -->
+                    <div id="pdfField" class="form-group mb-4" style="display: none;">
+                        <label class="label" for="pdfUpload">Upload PDF:</label>
+                        <input type="file" class="form-control h-58" id="pdfUpload" name="pdfUpload" accept="application/pdf">
+                    </div>
+
+                    <div id="urlField" class="form-group mb-4" style="display: none;">
+                        <label class="label" for="websiteUrl">Website URL:</label>
+                        <input type="url" class="form-control h-58" id="websiteUrl" name="websiteUrl" placeholder="Enter website URL">
+                    </div>
+
+
+
                     <div class="col-lg-12">
                         <div class="form-group mb-4">
                             <label class="label" for="description">Description :</label>
@@ -127,6 +161,20 @@ $('#description').summernote({
     height: 300
 });
 </script>  
+<script>
+    function addMenuType(value) {
+        // Hide both fields initially
+        document.getElementById('pdfField').style.display = 'none';
+        document.getElementById('urlField').style.display = 'none';
+
+        // Show the appropriate field based on the selected value
+        if (value === "1") {
+            document.getElementById('pdfField').style.display = 'block';
+        } else if (value === "2") {
+            document.getElementById('urlField').style.display = 'block';
+        }
+    }
+</script>
 <!-- here this code end of the editer js -->
 
 @endsection
