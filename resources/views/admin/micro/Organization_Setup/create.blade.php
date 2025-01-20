@@ -89,20 +89,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="col-lg-6">
-                        <div class="form-group mb-4">
-                            <label for="email" class="label">Email</label>
-                            <span class="star">*</span>
-                            <div class="form-group position-relative">
-                                <input type="email" name="email" class="form-control text-dark  h-58" id="email"
-                                    value="{{ old('email') }}">
-                                @error('email')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div> -->
-
+                    
                     <div class="col-lg-6">
                         <div class="form-group mb-4">
                             <label for="email" class="label">Email</label>
@@ -129,26 +116,13 @@
                             <span class="star">*</span>
                             <div class="form-group position-relative">
                                 <textarea name="program_description" class="form-control text-dark  h-58"
-                                    value="{{ old('program_description') }}" id="program_description"></textarea>
+                                    value="{{ old('program_description') }}" id="description"></textarea>
                                 @error('program_description')
                                 <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="col-lg-6">
-                        <div class="form-group mb-4">
-                            <label for="main_image" class="label">Main Image</label>
-                            <span class="star">*</span>
-                            <div class="form-group position-relative">
-                                <input type="file" name="main_image" class="form-control text-dark  h-58"
-                                    id="main_image" value="{{ old('main_image') }}">
-                                @error('main_image')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div> -->
 
                     <div class="col-lg-6">
                         <div class="form-group mb-4">
@@ -255,4 +229,81 @@ $('#program_description').summernote({
         }
     });
 </script>
+
+<!-- here this code use for the editer js -->
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+
+<script>
+  $.noConflict();
+jQuery(document).ready(function ($) {
+    $('#description').summernote({
+        tabsize: 2,
+        height: 300,
+        toolbar: [
+            ['style', ['style']], // Heading styles (e.g., H1, H2)
+            ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']], // Font options
+            ['fontname', ['fontname']], // Font family selector
+            ['fontsize', ['fontsize']], // Font size selector
+            ['color', ['color']], // Font and background color
+            ['para', ['ul', 'ol', 'paragraph', 'align']], // Lists and alignment
+            ['height', ['height']], // Line height adjustment
+            ['table', ['table']], // Table insertion
+            ['insert', ['link', 'picture', 'video', 'pdf']], // Insert elements
+            ['view', ['fullscreen', 'codeview', 'help']], // Fullscreen, code view, and help
+            ['misc', ['undo', 'redo']] // Undo and redo actions
+        ],
+        buttons: {
+            pdf: function () {
+                var ui = $.summernote.ui; 
+
+                // Create a PDF upload button
+                return ui.button({
+                    contents: '<i class="note-icon-file"></i> PDF',
+                    tooltip: 'Upload PDF',
+                    click: function () {
+                        // Trigger file input dialog
+                        $('<input type="file" accept="application/pdf">')
+                            .on('change', function (event) {
+                                var file = event.target.files[0];
+                                if (file) {
+                                    uploadPDF(file);
+                                }
+                            })
+                            .click();
+                    }
+                }).render();
+            }
+        }
+    });
+    
+
+    function uploadPDF(file) {
+        // Use AJAX to upload the file to your server
+        var formData = new FormData();
+        formData.append('file', file);
+
+        $.ajax({
+            url: '/admin/upload-pdf', // Your server endpoint
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Add CSRF token to headers
+        },
+            success: function (response) {
+                $('#description').summernote('insertText', response.url);
+      
+            },
+            error: function (xhr) {
+                alert('Failed to upload PDF. Please try again.');
+            }
+        });
+    }
+});
+</script>
+<!-- here this code end of the editer js -->
 @endsection
