@@ -30,7 +30,6 @@
                                 <option value="">Select Category</option>
                                 <option value="1">News</option>
                                 <option value="2">Tenders</option>
-                                <option value="3">Vacancy</option>
                                 <option value="4">Latest Updates</option>
                                 <option value="5">Orders and circulars</option>
                             </select>
@@ -59,9 +58,7 @@
             case '2': // Tenders
                 url = '{{ route("user.tenders_archive") }}';
                 break;
-            case '3': // Vacancy
-                url = '{{ route("user.vacancy") }}';
-                break;
+          
             default:
                 // alert('Please select a valid category.');
                 return false;
