@@ -26,83 +26,81 @@
     <!-- container -->
     <div class="container-fluid">
         <div class="row">
-            <!-- cols -->
-            <div class="col-md-12 col-lg-5">
-                <div class="mb-2">
-                    <!-- title -->
-                       </div>
-            </div>
-        </div>
-        <!-- form -->
-        @if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        @endif
-
-
-        <div class="container-fluid">
-    <div class="row">
-        @if(count($media_d) > 0)
+            @if(count($media_d) > 0)
             @if($type == 'gallery')
-                @foreach($media_d as $media)
-               
-                    @php
-                        // Decoding the JSON data to get the images
-                        $multiple_img = json_decode($media->image_files, true);
-                    @endphp
-                    @if(is_array($multiple_img))
-                        @foreach($multiple_img as $img)
-                            <div class="col-md-3 mb-4">
-                                <div class="card">
-                                    <div class="card-body" style="padding:0;">
-                                        <img src="{{ asset('storage/' . $img) }}" class="img-fluid rounded" alt="{{ $media->name }}"
-                                            style="width: 100%; height: 250px; object-fit: cover;">
-                                    </div>
-                                    <div class="card-footer" style="border:none;">
-                                        <div class="form-field mt-2">
-                                            <p>{{ $media->image_title_english }}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-                    @endif
-                @endforeach
-            @elseif($type == 'news')
-                @foreach($media_d as $media)
-                    @php
-                        // Decoding the JSON data to get the images
-                        $multiple_img = json_decode($media->multiple_images, true);
-                    @endphp
-                    @if(is_array($multiple_img))
-                        @foreach($multiple_img as $img)
-                            <div class="col-md-3 mb-4">
-                                <div class="card">
-                                    <div class="card-body" style="padding:0;">
-                                        <img src="{{ asset($img) }}" class="img-fluid rounded" alt="{{ $media->title }}"
-                                            style="width: 100%; height: 250px; object-fit: cover;">
-                                    </div>
-                                    <div class="card-footer" style="border:none;">
-                                        <div class="form-field mt-2">
-                                            <p>{{ $media->title }}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-                    @endif
-                @endforeach
+            @foreach($media_d as $media)
+            @php
+            // Decoding the JSON data to get the images
+            $multiple_img = json_decode($media->image_files, true);
+            @endphp
+            @if(is_array($multiple_img))
+            @foreach($multiple_img as $img)
+            <div class="col-md-3 mb-4">
+                <div class="card">
+                    <div class="card-body" style="padding:0;">
+                        <a href="{{ asset('storage/' . $img) }}" data-fancybox="gallery"
+                            data-caption="{{ $media->image_title_english }}">
+                            <img src="{{ asset('storage/' . $img) }}" class="img-fluid rounded" alt="{{ $media->name }}"
+                                style="width: 100%; height: 250px; object-fit: cover;">
+                        </a>
+                    </div>
+                    <div class="card-footer" style="border:none;">
+                        <div class="form-field mt-2">
+                            <p>{{ $media->image_title_english }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endforeach
             @endif
-        @else
+            @endforeach
+            @elseif($type == 'news')
+            @foreach($media_d as $media)
+            @php
+            // Decoding the JSON data to get the images
+            $multiple_img = json_decode($media->multiple_images, true);
+            @endphp
+            @if(is_array($multiple_img))
+            @foreach($multiple_img as $img)
+            <div class="col-md-3 mb-4">
+                <div class="card">
+                    <div class="card-body" style="padding:0;">
+                        <a href="{{ asset($img) }}" data-fancybox="news" data-caption="{{ $media->title }}">
+                            <img src="{{ asset($img) }}" class="img-fluid rounded" alt="{{ $media->title }}"
+                                style="width: 100%; height: 250px; object-fit: cover;">
+                        </a>
+                    </div>
+                    <div class="card-footer" style="border:none;">
+                        <div class="form-field mt-2">
+                            <p>{{ $media->title }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+            @endif
+            @endforeach
+            @endif
+            @else
             <p>No images available</p>
-        @endif
+            @endif
+        </div>
     </div>
-</div>
 
-
-
-    </div>
 </section>
+<!-- Include Fancybox CSS and JS -->
+<link href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        Fancybox.bind("[data-fancybox]", {
+            Toolbar: {
+                display: ["zoom", "close"], // Display zoom and close buttons
+            },
+            closeButton: "inside", // Close button inside the lightbox
+        });
+    });
+</script>
+
 @include('user.includes.footer')
