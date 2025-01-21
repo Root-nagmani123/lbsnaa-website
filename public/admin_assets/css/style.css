@@ -14653,13 +14653,13 @@ a#x__NEXT__X {
   color: #af2910;
 }
 .menu-vertical .menu-item.open .menu-link.active {
-  background-color: #f5f5f9;
+  background-color: #af2910
 }
 .menu-vertical .menu-item.open .menu-link.active svg {
   stroke: #af2910;
 }
 .menu-vertical .menu-item.open .menu-link.active .title {
-  color: #af2910;
+  color: #fff;
 }
 .menu-vertical .menu-item.open .menu-link.menu-toggle::after {
   top: 22px;
@@ -14691,26 +14691,26 @@ a#x__NEXT__X {
   transition: all ease 0.5s;
 }
 .menu-vertical .menu-sub .menu-item .menu-link.active {
-  background-color: #af2910;
-  color: #fff;
+  background-color: #f5f5f9;
+  color: #af2910;
 }
 .menu-vertical .menu-sub .menu-item .menu-link.active .title {
-  color: #fff;
+  color: #af2910;
 }
 .menu-vertical .menu-sub .menu-item .menu-link.active::before {
   opacity: 1;
-  background-color: #fff;
+  background-color: #af2910;
 }
 .menu-vertical .menu-sub .menu-item .menu-link.active::after {
-  border-color: #fff;
+  border-color: #af2910;
 }
 .menu-vertical .menu-sub .menu-item .menu-link:hover {
-  background-color: #af2910;
-  color: #fff;
+  background-color: #f5f5f9;
+  color: #af2910;
 }
 .menu-vertical .menu-sub .menu-item .menu-link:hover::before {
   opacity: 1;
-  background-color: #fff;
+  background-color: #af2910;
 }
 .menu-vertical .menu-sub .menu-item.after-sub-menu .menu-sub .menu-item {
   margin-left: 30px;

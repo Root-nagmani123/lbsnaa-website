@@ -74,7 +74,7 @@
         <div class="row g-4">
             @if(count($souvenir) > 0)
             @foreach ($souvenir as $product)
-            <div class="col-sm-6 col-lg-4 d-flex">
+            <div class="col-sm-6 col-lg-3 d-flex">
                 <div class="card w-100 shadow-sm">
                     <div class="card-header text-truncate" style="border-bottom: 0;">
                         <h5 title="{{ $product->product_title }}">{{ Str::limit($product->product_title, 50, '...') }}

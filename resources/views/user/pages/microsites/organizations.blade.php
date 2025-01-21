@@ -25,63 +25,74 @@
     <div class="row">
         <div class="col-lg-9">
             <div class="row">
-            @foreach ($organizations as $organization)
-            <div class="col-lg-2 mb-4">
-                <div class="card card-lift h-100">
-                    <div class="card-header text-center" style="border:0;">
-                        <img src="{{ $organization->main_image ? url($organization->main_image) : '' }}"
-                            class="avatar avatar-xxl rounded-circle" alt="organization Image"
-                            style="object-fit: cover;height:100px;">
-                    </div>
-                    <div class="card-body d-flex flex-column justify-content-between">
-                        <div class="form-field mt-2">
-                            <h3 class="h3">{{ $organization->employee_name ?? '' }}</h3>
-                            <p class="text-secondary">{{ $organization->designation ?? '' }}</p>
+                @foreach ($organizations as $organization)
+                <div class="col-lg-2 mb-4">
+                    <div class="card card-lift h-100">
+                        <div class="card-header text-center" style="border:0;">
+                            <img src="{{ $organization->main_image ? url($organization->main_image) : '' }}"
+                                class="avatar avatar-xxl rounded-circle" alt="organization Image"
+                                style="object-fit: cover;height:100px;">
                         </div>
-                        <div class="text-start">
-                            <a href="#" data-bs-toggle="modal"
-                                data-bs-target="#organizationModal{{ $organization->id }}" style="color: #af2910;">View
-                                Profile
-                                <i class="bi bi-arrow-right"></i>
-                            </a>
+                        <div class="card-body d-flex flex-column justify-content-between">
+                            <div class="form-field mt-2">
+                                <h3 class="h3">{{ $organization->employee_name ?? '' }}</h3>
+                                <p class="text-secondary">{{ $organization->designation ?? '' }}</p>
+                            </div>
+                            <div class="text-start">
+                                <a href="#" data-bs-toggle="modal"
+                                    data-bs-target="#organizationModal{{ $organization->id }}"
+                                    style="color: #af2910;">View
+                                    Profile
+                                    <i class="bi bi-arrow-right"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- Modal -->
-            <div class="modal fade" id="organizationModal{{ $organization->id }}" tabindex="-1"
-                aria-labelledby="organizationModalLabel{{ $organization->id }}" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-lg-3">
-                                    <img src="{{ $organization->main_image ? url($organization->main_image) : '' }}"
-                                        class="img-fluid rounded-4 mb-4" alt="organization Image"
-                                        style="object-fit: cover;height:100px;">
-                                </div>
-                                <div class="col-lg-3">
-                                    <p>Name:-</p>
-                                    <p>Designation:-</p>
-                                    <p>Email:-</p>
-                                </div>
-                                <div class="col-lg-6">
-                                    <h4 class="fw-semibold h4">{{ $organization->employee_name ?? '' }}</h4>
-                                    <p>{{ $organization->designation ?? '' }}</p>
-                                    <p>{{ $organization->email ?? '' }}</p>
-                                </div>
-                                <div class="col-lg-12">
-                                    <p>{!! html_entity_decode($organization->program_description ?? '') !!}</p>
+                <!-- Modal -->
+                <div class="modal fade" id="organizationModal{{ $organization->id }}" tabindex="-1"
+                    aria-labelledby="organizationModalLabel{{ $organization->id }}" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <img src="{{ $organization->main_image ? url($organization->main_image) : '' }}"
+                                            class="img-fluid rounded-4 mb-4" alt="organization Image"
+                                            style="object-fit: cover;height:150px;width:200px;">
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <table class="table table-borderless">
+                                            <tbody>
+                                                <tr>
+                                                    <th class="col">Name :-</th>
+                                                    <td>{{ $organization->employee_name ?? '' }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="col">Designation :-</th>
+                                                    <td>{{ $organization->designation ?? '' }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="col">Email :-</th>
+                                                    <td>{{ $organization->email ?? '' }}</td>
+                                                </tr>
+                                            </tbody>
+
+                                        </table>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <p>{!! html_entity_decode($organization->program_description ?? '') !!}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            @endforeach
+                @endforeach
             </div>
             @else
             <p style="text-align: center; color: #999; font-size: 18px;">No organization available.</p>

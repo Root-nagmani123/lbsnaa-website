@@ -22,12 +22,13 @@
         </div>
     </div>
 </section>
-<section class="py-5">
+<section class="py-2">
     <div class="container-fluid">
+    <h2 class="text-primary mb-2">Audio Gallery</h2>
         <div class="row">
             @if(count($media_data) > 0)
                 @foreach($media_data as $media)
-                    <div class="col-md-3 mb-4">
+                    <div class="col-md-2 mb-4">
                         <div class="card">
                             <div class="card-body">
                                 <audio controls class="w-100">
