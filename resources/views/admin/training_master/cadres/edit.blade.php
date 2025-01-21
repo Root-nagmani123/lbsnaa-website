@@ -11,6 +11,11 @@
                 <span>Dashboard</span>
             </a>
         </li>
+        
+        <li>
+                <i class="ri-arrow-right-double-line"></i>
+                <span>Training Master Managament</span>
+        </li>
         <li>
             <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Cadre</span>
         </li>

@@ -12,6 +12,10 @@
             </a>
         </li>
         <li>
+                <i class="ri-arrow-right-double-line"></i>
+                <span>Manage Organization Module</span>
+        </li>
+        <li>
             <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Faculty Member</span>
         </li>
     </ul>
