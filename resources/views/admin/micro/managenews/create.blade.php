@@ -297,10 +297,10 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <script>
-$('#description').summernote({
-    tabsize: 2,
-    height: 300
-});
+// $('#description').summernote({
+//     tabsize: 2,
+//     height: 300
+// });
 $('#meta_description').summernote({
     tabsize: 2,
     height: 300
