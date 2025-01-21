@@ -39,10 +39,12 @@
         <div class="col-md-3 col-sm-6 col-12 mb-4">
             <div class="card">
                 <div class="card-body p-0">
-                    <img src="{{ asset('storage/' . $imageFile) }}"
-                         class="img-fluid rounded-top mb-2"
-                         alt="Gallery Image"
-                         style="width: 100%; height: 250px; object-fit: cover;">
+                    <a href="{{ asset('storage/' . $imageFile) }}" data-fancybox="gallery" data-caption="{{ $gallery->image_title_english }}">
+                        <img src="{{ asset('storage/' . $imageFile) }}"
+                             class="img-fluid rounded-top mb-2"
+                             alt="Gallery Image"
+                             style="width: 100%; height: 250px; object-fit: cover;">
+                    </a>
                     <div class="card-footer text-center">
                         <p class="card-text mb-0">{{ $gallery->image_title_english }}</p>
                     </div>
@@ -69,6 +71,23 @@
         <p style="text-align: center; color: #999; font-size: 18px;">No photos available.</p>
     @endif
 </section>
+
 @endif
+<!-- Include Fancybox CSS -->
+<link href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" rel="stylesheet">
+
+<!-- Include Fancybox JS -->
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        Fancybox.bind("[data-fancybox='gallery']", {
+            Toolbar: {
+                display: ["zoom", "close"], // Display zoom and close buttons
+            },
+            closeButton: "inside", // Optional: Inside the lightbox
+        });
+    });
+</script>
 
 @include('user.pages.microsites.includes.footer')
