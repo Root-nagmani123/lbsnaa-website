@@ -207,8 +207,6 @@ class HomePagesMicroController extends Controller
     public function show($id, Request $request)
     {
         $slug = $request->query('slug');
-        // $category = DB::table('micro_media_categories')->where('slug', $slug)->first();
-
         $category = DB::table('micro_manage_photo_galleries as mmpg')
         ->join('micro_media_categories as mmc', 'mmpg.media_categories', '=', 'mmc.id') // Adjust column names
         ->where('mmpg.media_categories', $id) // Filter by ID
