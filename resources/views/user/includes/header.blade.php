@@ -19,7 +19,14 @@
     <link rel="icon" type="image/png" href="{{ asset('admin_assets/images/favicon.ico') }}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="{{ asset('assets/js/orgchart.js') }}"></script>
-    <title>Home | Lal Bahadur Shastri National Academy of Administration</title>
+    <title>
+       
+        @if(Cookie::get('language') == '2')
+            लाल बहादुर शास्त्री राष्ट्रीय प्रशासन अकादमी
+        @else
+            Home | Lal Bahadur Shastri National Academy of Administration
+        @endif
+    </title>
     <style>
     .slider-caption {
         position: absolute;
@@ -162,11 +169,18 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" aria-disabled="true" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                            title="Language Options">
-                            <i class="material-icons menu-icon">language</i>
-                        </a>
-                    </li>
+    <a class="nav-link" href="{{ route('set.language', (Cookie::get('language') == '1' ? 2 : 1)) }}" 
+       data-bs-toggle="tooltip" data-bs-placement="bottom" title="Language Options">
+        <i class="material-icons menu-icon">language</i>
+        
+        @if(Cookie::get('language') == '2')
+            हिंदी
+        @else
+            English
+        @endif
+    </a>
+</li>
+
                 </ul>
             </div>
         </div>
@@ -194,11 +208,19 @@
             <div class="collapse navbar-collapse" id="navbar-default">
                 <ul class="navbar-nav ms-auto navmenu">
                     @php
+                    $language = Cookie::get('language');
                     $menus = DB::table('menus')
                     ->where('menu_status', 1)
                     ->where('is_deleted', 0)
                     ->where('txtpostion', 1)
                     ->where('parent_id', 0)
+                    ->when($language == 2, function ($query) use ($language) {
+                                return $query->where('language', '2');
+                            })
+                            ->when($language == 1, function ($query) use ($language) {
+                                return $query->where('language', '1');
+                            })
+                    
                     ->get();
 
                     $Research_Center_list = DB::table('research_centres')
@@ -206,10 +228,17 @@
                     ->get();
 
                     function renderMenuItems($parentId, $isCourseOrTraining = false) {
+                        $language = Cookie::get('language');
                     $submenus = DB::table('menus')
                     ->where('menu_status', 1)
                     ->where('is_deleted', 0)
                     ->where('parent_id', $parentId)
+                    ->when($language == 2, function ($query) use ($language) {
+                            return $query->where('language', '2');
+                        })
+                        ->when($language == 1, function ($query) use ($language) {
+                            return $query->where('language', '1');
+                        })
                     ->get();
 
                     if ($submenus->isEmpty() && !$isCourseOrTraining) {
@@ -227,21 +256,29 @@
                         ->where('menu_status', 1)
                         ->where('is_deleted', 0)
                         ->where('parent_id', $submenu->id)
+                        ->when($language == 2, function ($query) use ($language) {
+            return $query->where('language', '2');
+        })
+        ->when($language == 1, function ($query) use ($language) {
+            return $query->where('language', '1');
+        })
                         ->exists();
 
                         // Add 'w-100' class to ensure full width for the list item
                         if($submenu->texttype == 3){
                         $output .= '<li class="check dropdown-submenu dynamic-direction w-100 border-bottom">';
-                        $url = '';
+                            $url = '';
                             if ($submenu->web_site_target == 1) {
-                                // Internal link
-                                $url = url($submenu->website_url);
+                            // Internal link
+                            $url = url($submenu->website_url);
                             } elseif ($submenu->web_site_target == 2) {
-                                  $url = str_starts_with($submenu->website_url, 'http') ? $submenu->website_url : 'http://' . $submenu->website_url;
+                            $url = str_starts_with($submenu->website_url, 'http') ? $submenu->website_url : 'http://' .
+                            $submenu->website_url;
                             }
                             $output .= '<a
                                 class="dropdown-item ' . ($hasChildren ? 'dropdown-toggle d-flex align-items-center' : '') . '"
-                                href="' . $url . '" target="' . ($submenu->web_site_target == 2 ? '_blank' : '_self') . '">' .
+                                href="' . $url . '"
+                                target="' . ($submenu->web_site_target == 2 ? '_blank' : '_self') . '">' .
                                 $submenu->menutitle . '</a>';
 
                             if ($hasChildren) {
@@ -249,14 +286,12 @@
                             }
 
                             $output .= '</li>';
-                         
-                            
+
+
                         }else if($submenu->texttype == 2){
-                            $output .= '<li class="dropdown-submenu dynamic-direction w-100 border-bottom">';
-                            $output .= '<a 
-                                    class="dropdown-item" 
-                                    href="' . asset($submenu->pdf_file) . '" 
-                                    target="_blank">' . $submenu->menutitle . '</a>';
+                        $output .= '<li class="dropdown-submenu dynamic-direction w-100 border-bottom">';
+                            $output .= '<a class="dropdown-item" href="' . asset($submenu->pdf_file) . '"
+                                target="_blank">' . $submenu->menutitle . '</a>';
 
                             if ($hasChildren) {
                             $output .= renderMenuItems($submenu->id);
@@ -264,7 +299,7 @@
 
                             $output .= '</li>';
                         }else{
-                         $output .= '<li class="dropdown-submenu dynamic-direction w-100 border-bottom">';
+                        $output .= '<li class="dropdown-submenu dynamic-direction w-100 border-bottom">';
                             $output .= '<a
                                 class="dropdown-item ' . ($hasChildren ? 'dropdown-toggle d-flex align-items-center' : '') . '"
                                 href="' . route('user.navigationpagesbyslug', $submenu->menu_slug) . '">' .
@@ -282,7 +317,7 @@
                         ->leftJoin('courses_sub_categories as parent', 'sub.parent_id', '=', 'parent.id')
                         ->select('sub.*', 'parent.category_name as parent_category_name')
                         ->where('sub.status', 1)
-                     
+
                         ->get();
 
                         $categoryTree = buildCategoryTree($subcategories);
@@ -377,30 +412,32 @@
                         </ul> -->
                         <ul class="dropdown-menu">
                             @foreach($Research_Center_list as $reserch_c)
-                                <li class="border-bottom">
-                                    @if($reserch_c->pdf)
-                                        <!-- Redirect to PDF -->
-                                        <a class="dropdown-item" href="{{ asset('storage/' . $reserch_c->pdf) }}" target="_blank">
-                                            {{ $reserch_c->research_centre_name }}
-                                        </a>
-                                    @elseif($reserch_c->url)
-                                        <!-- Redirect to URL -->
-                                        <a class="dropdown-item" href="{{ $reserch_c->url }}" target="_blank">
-                                            {{ $reserch_c->research_centre_name }}
-                                        </a>
-                                    @else
-                                        <!-- Redirect to another page -->
-                                        <a class="dropdown-item" href="{{ url('lbsnaa-sub/' . $reserch_c->research_centre_slug) }}">
-                                            {{ $reserch_c->research_centre_name }}
-                                        </a>
-                                    @endif
-                                </li>
+                            <li class="border-bottom">
+                                @if($reserch_c->pdf)
+                                <!-- Redirect to PDF -->
+                                <a class="dropdown-item" href="{{ asset('storage/' . $reserch_c->pdf) }}"
+                                    target="_blank">
+                                    {{ $reserch_c->research_centre_name }}
+                                </a>
+                                @elseif($reserch_c->url)
+                                <!-- Redirect to URL -->
+                                <a class="dropdown-item" href="{{ $reserch_c->url }}" target="_blank">
+                                    {{ $reserch_c->research_centre_name }}
+                                </a>
+                                @else
+                                <!-- Redirect to another page -->
+                                <a class="dropdown-item"
+                                    href="{{ url('lbsnaa-sub/' . $reserch_c->research_centre_slug) }}">
+                                    {{ $reserch_c->research_centre_name }}
+                                </a>
+                                @endif
+                            </li>
                             @endforeach
                         </ul>
 
                     </li>
                     @else
-                        
+
                     <li
                         class="nav-item {{ renderMenuItems($menu->id, $menu->menutitle === 'Training') ? 'dropdown' : '' }}">
                         @php
@@ -410,35 +447,34 @@
 
                         // Determine the link URL and target based on conditions
                         if ($menu->texttype == 3) {
-                            // Case: texttype == 3 (External/Internal Links)
-                            if ($menu->web_site_target == 1) {
-                                // Internal link
-                                $url = url($menu->website_url);
-                            } elseif ($menu->web_site_target == 2) {
-                                // External link
-                                $url = str_starts_with($menu->website_url, 'http') 
-                                    ? $menu->website_url 
-                                    : 'http://' . $menu->website_url;
-                                $target = '_blank'; // Open external links in a new tab
-                            }
+                        // Case: texttype == 3 (External/Internal Links)
+                        if ($menu->web_site_target == 1) {
+                        // Internal link
+                        $url = url($menu->website_url);
+                        } elseif ($menu->web_site_target == 2) {
+                        // External link
+                        $url = str_starts_with($menu->website_url, 'http')
+                        ? $menu->website_url
+                        : 'http://' . $menu->website_url;
+                        $target = '_blank'; // Open external links in a new tab
+                        }
                         } elseif ($menu->texttype == 2) {
-                            // Case: texttype == 2 (PDF Link)
-                            $url = asset($menu->pdf_file);
-                            $target = '_blank'; // PDF files open in a new tab
+                        // Case: texttype == 2 (PDF Link)
+                        $url = asset($menu->pdf_file);
+                        $target = '_blank'; // PDF files open in a new tab
                         } else {
-                            // Default Case: Internal Navigation
-                            $url = route('user.navigationpagesbyslug', $menu->menu_slug);
+                        // Default Case: Internal Navigation
+                        $url = route('user.navigationpagesbyslug', $menu->menu_slug);
                         }
                         @endphp
 
                         <!-- Render the menu link -->
                         <a class="nav-link {{ renderMenuItems($menu->id, $menu->menutitle === 'Training') ? 'dropdown-toggle' : '' }}"
-                        href="{{ $url }}"
-                        target="{{ $target }}">
-                        {{ $menu->menutitle }}
+                            href="{{ $url }}" target="{{ $target }}">
+                            {{ $menu->menutitle }}
                         </a>
 
-                      
+
                         {!! renderMenuItems($menu->id, $menu->menutitle === 'Training') !!}
                     </li>
                     @endif

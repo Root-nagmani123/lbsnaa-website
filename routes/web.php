@@ -121,6 +121,8 @@ Route::get('/sitemap', [HomeFrontController::class, 'sitemap'])->name('user.site
 Route::get('/search', [HomeFrontController::class, 'search'])->name('user.search');
 Route::get('/screen-reader', [HomeFrontController::class, 'screenReader'])->name('user.screen-reader');
 Route::get('/archive', [HomeFrontController::class, 'archive'])->name('user.archive');
+Route::get('/archive', [HomeFrontController::class, 'archive'])->name('user.archive');
+Route::get('/set_language/{numb}', [HomeFrontController::class, 'set_language'])->name('set.language');
 
 
 //micro 

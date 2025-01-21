@@ -5,19 +5,41 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB; 
 use DOMDocument;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Cookie;
 use App\Models\Admin\Menu;
 class HomeFrontController extends Controller
 {
+
     public function index()
     {
+        $language = Cookie::get('language');
         date_default_timezone_set('Asia/Kolkata');
         $today = date('Y-m-d'); 
         $sliders =  DB::table('sliders')->where('status',1)->where('is_deleted',0)->orderBy('id', 'desc')->get();
-        $news =  DB::table('news')->where('status',1)->where('start_date', '<=', $today)
-        ->where('end_date', '>=', $today)->get();
-        $quick_links = DB::table('quick_links')->where('is_deleted',0)->where('status',1)->get();
+        $news = DB::table('news')
+        ->where('status', 1)
+        ->where('start_date', '<=', $today)
+        ->where('end_date', '>=', $today)
+        ->when($language == 2, function ($query) use ($language) {
+            return $query->where('language', '2');
+        })
+        ->when($language == 1, function ($query) use ($language) {
+            return $query->where('language', '1');
+        })
+        ->get();
+        $quick_links = DB::table('quick_links')->where('is_deleted',0)->where('status',1)->when($language == 2, function ($query) use ($language) {
+            return $query->where('language', '2');
+        })
+        ->when($language == 1, function ($query) use ($language) {
+            return $query->where('language', '1');
+        })->get();
         $faculty_members = DB::table('faculty_members')->select('image')->where('designation','Director')->where('page_status',1)->first();
-        $news_scrollers=  DB::table('menus')->where('txtpostion',7)->where('is_deleted',0)->where('menu_status',1)->get();
+        $news_scrollers=  DB::table('menus')->where('txtpostion',7)->where('is_deleted',0)->where('menu_status',1)->when($language == 2, function ($query) use ($language) {
+            return $query->where('language', '2');
+        })
+        ->when($language == 1, function ($query) use ($language) {
+            return $query->where('language', '1');
+        })->get();
         // print_r($faculty_members);die;
         
         $current_course = DB::table('course')
@@ -841,6 +863,19 @@ function screenReader(Request $request){
 }
 function archive(Request $request){
     return view('user.pages.archive');
+}
+function set_language(Request $request,$lang) {
+    $languages = ['1', '2']; // Supported languages
+    if (in_array($lang, $languages)) {
+        // Set the language cookie
+        Cookie::queue('language', $lang, 60 * 24 * 30); // Set for 30 days
+        
+        // Set the application's locale based on the selected language
+      
+    }
+
+    // Redirect back to the previous page or to the home page
+    return redirect()->back();
 }
 
 

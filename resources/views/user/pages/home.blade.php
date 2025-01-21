@@ -42,8 +42,14 @@
         <div>
             <div class="position-relative d-flex overflow-x-hidden align-items-center">
                 <!-- Latest Updates Button -->
+               
                 <button class="btn btn-primary btn-sm me-2 rounded py-2" id="basic-addon2"
-                    style="z-index: 999;width: 200px;">Latest Updates</button>
+                    style="z-index: 999;width: 200px;"> @if(Cookie::get('language') == '2')
+                नवीनतम अपडेट
+                @else
+                Latest Updates
+                @endif</button>
+                
                 <!-- Marquee Section -->
                 <div id="marqueeWrapper" class="w-100 overflow-hidden">
                     <div id="marqueeContainer" class="d-flex gap-3 flex-nowrap align-items-center">
@@ -227,9 +233,17 @@
                 <div class="mb-3">
                     <div class="card card-hover border">
                         <div class="card-header" style="background-color:#af2910">
-                            <h3 class="text-white">LBSNAA Academy News <span class="float-end"><a
+                            <h3 class="text-white">@if(Cookie::get('language') == '2')
+                अकादमी समाचार
+                @else
+                LBSNAA Academy News
+                @endif <span class="float-end"><a
                                         href="{{ route('user.news_listing') }}" class="text-white"
-                                        style="text-decoration: none;font-size:14px">View All</a></span></h3>
+                                        style="text-decoration: none;font-size:14px">@if(Cookie::get('language') == '2')
+                सभी को देखें
+                @else
+                View All
+                @endif</a></span></h3>
                         </div>
                     </div>
                 </div>
@@ -283,7 +297,7 @@
                 <!-- Quick Links Section -->
                 <div class="card card-hover border">
                     <div class="card-header" style="background-color:#af2910">
-                        <h3 class="text-white">Quick Links</h3>
+                        <h3 class="text-white">@if(Cookie::get('language') == '2') त्वरित लिंक्स @else Quick Links @endif</h3>
                     </div>
                     <div class="card-body p-0" style="height: 520px; overflow-y: scroll;">
                         <ul class="mt-2 mb-2 list-group list-group-flush">
