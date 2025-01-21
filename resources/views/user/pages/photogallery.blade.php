@@ -35,7 +35,7 @@
             </div>
         </div>
         @endif
-
+        <h2 class="text-primary mb-2">Photo Gallery</h2>
         <!-- Search Form -->
         <div class="row mb-4">
             <div class="col-12">

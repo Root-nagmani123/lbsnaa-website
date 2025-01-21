@@ -108,8 +108,8 @@
             <div class="col-md-2 col-12 mb-4">
                 <div class="card card-lift text-center text-lg-start h-100">
                     <div class="p-3 p-lg-4 text-center">
-                        <a href="#"><img src="{{ asset('assets/images/icons/3.jpg') }}" alt=""
-                                class="avatar avatar-xl rounded-circle" style="object-fit: cover;"></a>
+                        <img src="{{ asset('assets/images/icons/3.jpg') }}" alt=""
+                                class="avatar avatar-xl rounded-circle" style="object-fit: cover;">
                     </div>
                     <div class="card-body pt-2" style="overflow-y:scroll; height: 100px;">
                         <h4 class="mb-3">Runing Courses</h4>
@@ -146,8 +146,8 @@
             <div class="col-md-2 col-12 mb-4">
                 <div class="card card-lift text-center text-lg-start h-100">
                     <div class="p-3 p-lg-4 text-center">
-                        <a href="#"><img src="{{ asset('assets/images/icons/4.jpg') }}" alt=""
-                                class="avatar avatar-xl rounded-circle text-center" style="object-fit: cover;"></a>
+                        <img src="{{ asset('assets/images/icons/4.jpg') }}" alt=""
+                                class="avatar avatar-xl rounded-circle text-center" style="object-fit: cover;">
                     </div>
                     <div class="card-body pt-2 pb-2" style="overflow-y:scroll;height: 100px;">
                         <h4 class="mb-3">Upcoming Courses</h4>
@@ -182,8 +182,8 @@
             <div class="col-md-2 col-12 mb-4">
                 <div class="card card-lift text-center text-lg-start h-100">
                     <div class="p-3 p-lg-4 text-center">
-                        <a href="#"><img src="{{ asset('assets/images/icons/2.jpg') }}" alt=""
-                                class="avatar avatar-xl rounded-circle text-center" style="object-fit: cover;"></a>
+                        <img src="{{ asset('assets/images/icons/2.jpg') }}" alt=""
+                                class="avatar avatar-xl rounded-circle text-center" style="object-fit: cover;">
                     </div>
                     <div class="card-body pt-2" style="height: 100px;">
                         <h4 class="mb-3">Training Calendar</h4>
@@ -195,8 +195,8 @@
             <div class="col-md-2 col-12 mb-4">
                 <div class="card card-lift text-center text-lg-start h-100">
                     <div class="p-3 p-lg-4 text-center">
-                        <a href="#"><img src="{{ asset('assets/images/icons/5.jpg') }}" alt=""
-                                class="avatar avatar-xl rounded-circle text-center" style="object-fit: cover;"></a>
+                        <img src="{{ asset('assets/images/icons/5.jpg') }}" alt=""
+                                class="avatar avatar-xl rounded-circle text-center" style="object-fit: cover;">
                     </div>
                     <div class="card-body pt-2" style="height: 100px;">
                         <h4 class="mb-3">Life at Academy</h4>
@@ -211,8 +211,8 @@
             <div class="col-md-2 col-12 mb-4">
                 <div class="card card-lift text-center text-lg-start h-100">
                     <div class="p-3 p-lg-4 text-center">
-                        <a href="#"><img src="{{ asset('assets/images/icons/6.jpg') }}" alt=""
-                                class="avatar avatar-xl rounded-circle text-center" style="object-fit: cover;"></a>
+                        <img src="{{ asset('assets/images/icons/6.jpg') }}" alt=""
+                                class="avatar avatar-xl rounded-circle text-center" style="object-fit: cover;">
                     </div>
                     <div class="card-body pt-2" style="height: 100px;">
                         <h4 class="mb-3">Academy Souvenir</h4>

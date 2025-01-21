@@ -45,9 +45,9 @@
                     <div class="card-body d-flex flex-column">
                         <p class="fs-6 mb-2 fw-semibold d-block text-success">Posted On:
                             {{ \Carbon\Carbon::parse($slider->start_date)->format('d F, Y') }}</p>
-                        <h3 class="fs-5">
+                        <a href="{{ route('user.newsbyslug', $slider->title_slug) }}" class="fs-5"><h3 class="fs-5">
                         {{ $slider->title }}
-                        </h3>
+                        </h3></a>
                         <p class="text-truncate" style="max-height: 3rem;">{{ $slider->short_description }}</p>
                     </div>
                     <!-- Card footer -->

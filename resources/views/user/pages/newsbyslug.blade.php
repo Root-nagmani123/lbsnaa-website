@@ -32,7 +32,7 @@
                     <h4 class="fw-bold text-primary">
                         {{$news->title}}
                     </h4>
-                    <small class="mb-0">Posted On: {{date('d M, Y',strtotime($news->start_date))}}</small>
+                    <small class="mb-0 text-success">Posted On: {{date('d M, Y',strtotime($news->start_date))}}</small>
                 </div>
             </div>
         </div>
@@ -41,11 +41,14 @@
 
             @foreach($news_images as $val)
             <div class="col-md-3 col-12 gap-3 mb-4">
-                <a href="{{ asset($val) }}" data-fancybox="gallery">
-                    <img src="{{ asset($val) }}" style="height: 200px; object-fit: cover; width: 100%;" class="img-fluid rounded-4" alt="Image">
+                <a href="{{ asset($val) }}" data-fancybox="gallery" data-caption="&times;"
+                    data-caption-position="top-right" data-caption-class="fancybox-caption-close">
+                    <img src="{{ asset($val) }}" style="height: 200px; object-fit: cover; width: 100%;"
+                        class="img-fluid rounded-4" alt="Image">
                 </a>
             </div>
             @endforeach
+
 
         </div>
         @endif
@@ -57,6 +60,17 @@
 @else
 <h4>News does not exist</h4>
 @endif
+<link href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
 
-
+<script>
+$(document).ready(function() {
+    Fancybox.bind('[data-fancybox="gallery"]', {
+        Toolbar: {
+            display: ["close"], // Add close button in the toolbar
+        },
+        closeButton: "outside", // Optional: Position the close button outside the image
+    });
+});
+</script>
 @include('user.includes.footer')
