@@ -13,6 +13,12 @@
             </a>
         </li>
         <li>
+            <a href="{{ route('admin.menus.index') }}" class="text-decoration-none">
+                <i class="ri-arrow-right-double-line"></i>
+                <span>CMS Page</span>
+            </a>
+        </li>
+        <li>
             <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Add Menu</span>
         </li>
     </ul>

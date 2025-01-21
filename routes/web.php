@@ -157,10 +157,6 @@ Route::get('/get-menus', [MicroMenuController::class, 'getDropdownMenu'])->name(
 // Indrajeet Home page dynamic
 Route::get('/lbsnaa-sub_n/media_gallery', [HomePagesMicroController::class,'media_gallery'])->name('user.media_gallery');
 
-
-// Route::get('/lbsnaa-sub_n/photo-galleries/filterGallery/{category?}/{year?}', [HomePagesMicroController::class, 'filterGallery'])->name('photoGalleries.filterGallery');
-// Route::get('/lbsnaa-sub_n/photo-galleries/filterGallery', [HomePagesMicroController::class, 'filterGallery'])->name('photoGalleries.filterGallery');
-// Route stays the same as it can handle optional parameters in the URL path
 Route::get('/lbsnaa-sub_n/photo-galleries/filterGallery', [HomePagesMicroController::class, 'filterGallery'])->name('photoGalleries.filterGallery');
 
 

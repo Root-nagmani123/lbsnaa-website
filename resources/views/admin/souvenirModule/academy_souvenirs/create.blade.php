@@ -13,6 +13,10 @@
             </a>
         </li>
         <li>
+                <i class="ri-arrow-right-double-line"></i>
+                <span>Manage Souvenir Module</span>
+        </li>
+        <li>
             <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Souvenir</span>
         </li>
     </ul>

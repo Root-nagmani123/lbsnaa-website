@@ -13,7 +13,11 @@
             </a>
         </li>
         <li>
-            <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Manage Menu</span>
+                <i class="ri-arrow-right-double-line"></i>
+                <span>CMS Page</span>
+        </li>
+        <li>
+            <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Micro Manage Menu</span>
         </li>
     </ul>
 </div>
