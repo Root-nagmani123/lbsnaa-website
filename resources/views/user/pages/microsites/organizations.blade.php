@@ -26,17 +26,19 @@
         <div class="col-lg-9">
             <div class="row">
             @foreach ($organizations as $organization)
-            <div class="col-md-2 mb-4">
-                <div class="card card-lift" style="height: 300px;">
+            <div class="col-lg-2 mb-4">
+                <div class="card card-lift h-100">
                     <div class="card-header text-center" style="border:0;">
                         <img src="{{ $organization->main_image ? url($organization->main_image) : '' }}"
                             class="avatar avatar-xxl rounded-circle" alt="organization Image"
-                            style="object-fit: cover;">
+                            style="object-fit: cover;height:100px;">
                     </div>
-                    <div class="card-body">
+                    <div class="card-body d-flex flex-column justify-content-between">
                         <div class="form-field mt-2">
                             <h3 class="h3">{{ $organization->employee_name ?? '' }}</h3>
                             <p class="text-secondary">{{ $organization->designation ?? '' }}</p>
+                        </div>
+                        <div class="text-start">
                             <a href="#" data-bs-toggle="modal"
                                 data-bs-target="#organizationModal{{ $organization->id }}" style="color: #af2910;">View
                                 Profile

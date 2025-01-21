@@ -13,6 +13,12 @@
             </a>
         </li>
         <li>
+            <a href="{{ route('users.index') }}" class="text-decoration-none">
+                <i class="ri-arrow-right-double-line"></i>
+                <span>User Management</span>
+            </a>
+        </li>
+        <li>
             <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Manage Permissions</span>
         </li>
     </ul>
