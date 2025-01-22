@@ -98,8 +98,8 @@ class TrainingProgramController extends Controller
             'program_name' => 'required|string|max:255',
             'venue' => 'required|string|max:255',
             'program_description' => 'required|string',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date|after_or_equal:start_date',
+            // 'start_date' => 'required|date',
+            // 'end_date' => 'required|date|after_or_equal:start_date',
             'registration_status' => 'required|integer|in:1,2',
             'page_status' => 'required|integer|in:1,0',
         ]); 

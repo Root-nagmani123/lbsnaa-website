@@ -114,7 +114,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6">
+                    <!-- <div class="col-lg-6">
                         <div class="form-group mb-4">
                             <label class="label">Start Date</label>
                             <span class="star">*</span>
@@ -139,7 +139,37 @@
                                 @enderror
                             </div>
                         </div>
-                    </div>
+                    </div> -->
+                    <div class="col-lg-6">
+    <div class="form-group mb-4">
+        <label class="label">Start Date</label>
+        <span class="star">*</span>
+        <div class="form-group position-relative">
+            <!-- Text input for start date -->
+            <input type="text" id="start_date" name="start_date" class="form-control text-dark h-58"
+                value="{{ $trainingProgram->start_date }}">
+            @error('start_date')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+    </div>
+</div>
+
+<div class="col-lg-6">
+    <div class="form-group mb-4">
+        <label class="label">End Date</label>
+        <span class="star">*</span>
+        <div class="form-group position-relative">
+            <!-- Text input for end date -->
+            <input type="text" id="end_date" name="end_date" class="form-control text-dark h-58"
+                value="{{ $trainingProgram->end_date }}">
+            @error('end_date')
+                <div class="text-danger">{{ $message }}</div>
+            @enderror
+        </div>
+    </div>
+</div>
+
                     <div class="col-lg-12">
                         <div class="form-group mb-4">
                             <label class="label">Important Links</label>
@@ -188,8 +218,9 @@
         </div>
     </div>
 </div>
+
 <!-- here this code use for the editer js -->
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <script>
 $('#important_links').summernote({
@@ -197,6 +228,30 @@ $('#important_links').summernote({
     height: 300
 });
 </script>  
+<!-- jQuery UI Datepicker script -->
+<!-- Ensure jQuery is loaded before Bootstrap Datepicker -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Bootstrap Datepicker -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
+
+<!-- Bootstrap Datepicker CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker.min.css" rel="stylesheet">
+
+<script>
+    $(document).ready(function(){
+        // Initialize the datepicker for start and end date fields
+        $('#start_date').datepicker({
+            format: 'yyyy-mm-dd', // Date format that matches your value format
+            autoclose: true // Close datepicker after selecting a date
+        });
+
+        $('#end_date').datepicker({
+            format: 'yyyy-mm-dd',
+            autoclose: true
+        });
+    });
+</script>
 <!-- here this code end of the editer js -->
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
