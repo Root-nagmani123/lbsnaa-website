@@ -460,7 +460,7 @@ public function footer_images_status_update(Request $request, $id)
     public function uploadPDF(Request $request)
     {
         $request->validate([
-            'file' => 'required|max:2048' // Validate PDF files only
+            'file' => 'required|max:15360' // Validate PDF files only
         ]);
 
         if ($request->hasFile('file')) {
@@ -473,7 +473,7 @@ public function footer_images_status_update(Request $request, $id)
             ]);
         }
 
-        return response()->json(['message' => 'File upload failed'], 400);
+        return response()->json(['message' => 'File upload failed size upto 15mb'], 400);
     }
 
     
