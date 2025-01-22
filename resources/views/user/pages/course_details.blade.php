@@ -10,11 +10,23 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb p-2">
                         <li class="breadcrumb-item">
-                            <a href="{{ route('home') }}" class="text-danger">Home</a>
+                            <a href="{{ route('home') }}" class="text-danger">
+                                @if(Cookie::get('language') == '2')
+                                घर
+                                @else
+                                Home
+                                @endif
+                            </a>
                         </li>
                         <li class="breadcrumb-item">
                             <a href="{{ route('user.navigationpagesbyslug', ['slug' => 'training']) }}"
-                                class="text-danger">Training Courses</a>
+                                class="text-danger">
+                                @if(Cookie::get('language') == '2')
+                                प्रशिक्षण पाठ्यक्रम
+                                @else
+                                Training Courses
+                                @endif
+                            </a>
                         </li>
                         <li class="breadcrumb-item">
                             <a href="{{ route('user.course_subcourse_slug', ['slug' => $parentcategory->slug]) }}"
@@ -48,36 +60,72 @@
                     <div class="card-body">
                         <table class="table table-striped table-bordered">
                             <tr>
-                               <th colspan="2" class="text-primary"><b>Course Information</b></th> 
+                                <th colspan="2" class="text-primary"><b>
+                                        @if(Cookie::get('language') == '2')
+                                        पाठ्यक्रम संबंधी जानकारी
+                                        @else
+                                        Course Information
+                                        @endif
+                                    </b></th>
                             </tr>
                             <tr>
-                                <td style="width:50%;"><b>Section:</b></td>
+                                <td style="width:50%;"><b>
+                                        @if(Cookie::get('language') == '2')
+                                        अनुभाग:
+                                        @else
+                                        Section:
+                                        @endif
+                                    </b></td>
                                 <td>{{ $course->section_name }}</td>
                             </tr>
                             <tr>
-                                <td><b>Venue:</b></td>
+                                <td><b>
+                                        @if(Cookie::get('language') == '2')
+                                        कार्यक्रम का स्थान:
+                                        @else
+                                        Venue:
+                                        @endif
+                                    </b></td>
                                 <td>{{ $course->venue_title }}</td>
                             </tr>
                             <tr>
-                                <td><b>Course Coordinator:</b></td>
+                                <td><b>
+                                        @if(Cookie::get('language') == '2')
+                                        पाठ्यक्रम समन्वयक:
+                                        @else
+                                        Course Coordinator:
+                                        @endif
+                                    </b></td>
                                 <td>{{ $course->coordinator_id ?? 'N/A' }}</td>
                             </tr>
                             <tr>
-                                <td><b>Associate Course Coordinators:</b></td>
+                                <td><b>
+                                        @if(Cookie::get('language') == '2')
+                                        एसोसिएट कोर्स समन्वयक:
+                                        @else
+                                        Associate Course Coordinators:
+                                        @endif
+                                    </b></td>
                                 <td>
-                                <ul>
-                                    <li>{{ $course->asst_coordinator_1_id ?? 'N/A' }}</li>
-                                    <li>{{ $course->asst_coordinator_2_id ?? 'N/A' }}</li>
-                                    <li>{{ $course->asst_coordinator_3_id ?? 'N/A' }}</li>
-                                    <li>{{ $course->asst_coordinator_4_id ?? 'N/A' }}</li>
-                                    <li>{{ $course->asst_coordinator_5_id ?? 'N/A' }}</li>
-                                </ul>
+                                    <ul>
+                                        <li>{{ $course->asst_coordinator_1_id ?? 'N/A' }}</li>
+                                        <li>{{ $course->asst_coordinator_2_id ?? 'N/A' }}</li>
+                                        <li>{{ $course->asst_coordinator_3_id ?? 'N/A' }}</li>
+                                        <li>{{ $course->asst_coordinator_4_id ?? 'N/A' }}</li>
+                                        <li>{{ $course->asst_coordinator_5_id ?? 'N/A' }}</li>
+                                    </ul>
                                 </td>
                             </tr>
                             <tr>
-                                <td><b>Duration:</b></td>
+                                <td><b>
+                                        @if(Cookie::get('language') == '2')
+                                        अवधि:
+                                        @else
+                                        Duration:
+                                        @endif
+                                    </b></td>
                                 <td>{{ \Carbon\Carbon::parse($course->course_start_date)->format('d M, Y') }} to
-                                {{ \Carbon\Carbon::parse($course->course_end_date)->format('d M, Y') }}</td>
+                                    {{ \Carbon\Carbon::parse($course->course_end_date)->format('d M, Y') }}</td>
                             </tr>
                         </table>
                     </div>
@@ -90,12 +138,24 @@
     <div class="container-fluid mt-4">
         <div class="row">
             <div class="col-12">
-                <h4>Archived Courses:</h4>
+                <h4>
+                    @if(Cookie::get('language') == '2')
+                    संग्रहीत पाठ्यक्रम:
+                    @else
+                    Archived Courses:
+                    @endif
+                </h4>
                 @if($courses_list->isNotEmpty())
                 <div class="form-group">
                     <select class="form-control ps-5 text-dark h-58" name="archive" id="archive_course"
                         onchange="navigateToArchivedCourse(this.value)">
-                        <option value="">Select Archived Course</option>
+                        <option value="">
+                            @if(Cookie::get('language') == '2')
+                            संग्रहीत पाठ्यक्रम चुनें
+                            @else
+                            Select Archived Course
+                            @endif
+                        </option>
                         @foreach ($courses_list as $archived)
                         <option value="{{ route('user.courseDetailslug', $archived->id) }}">
                             {{ $archived->course_name }}
@@ -104,7 +164,12 @@
                     </select>
                 </div>
                 @else
-                <p>No archived courses available.</p>
+                <p>@if(Cookie::get('language') == '2')
+                    कोई संग्रहित पाठ्यक्रम उपलब्ध नहीं है.
+                    @else
+                    No archived courses available.
+                    @endif
+                </p>
                 @endif
             </div>
         </div>
@@ -116,7 +181,13 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
-                <h4 class="text-center">Course not found!</h4>
+                <h4 class="text-center">
+                    @if(Cookie::get('language') == '2')
+                    पाठ्यक्रम नहीं मिला!
+                    @else
+                    Course not found!
+                    @endif
+                </h4>
             </div>
         </div>
     </div>

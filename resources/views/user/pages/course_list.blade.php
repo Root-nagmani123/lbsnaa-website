@@ -10,11 +10,23 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb p-2 mb-0">
                         <li class="breadcrumb-item">
-                            <a href="{{ route('home') }}" style="color: #af2910;">Home</a>
+                            <a href="{{ route('home') }}" style="color: #af2910;">
+                                @if(Cookie::get('language') == '2')
+                                घर
+                                @else
+                                Home
+                                @endif
+                            </a>
                         </li>
                         <li class="breadcrumb-item">
                             <a href="{{ route('user.navigationpagesbyslug', ['slug' => 'training']) }}"
-                                class="text-danger">Training Courses</a>
+                                class="text-danger">
+                                @if(Cookie::get('language') == '2')
+                                प्रशिक्षण पाठ्यक्रम
+                                @else
+                                Training Courses
+                                @endif
+                            </a>
                         </li>
                         <li class="breadcrumb-item">
                             <a href="{{ route('user.course_subcourse_slug', ['slug' => $parent_category->slug]) }}"
@@ -46,66 +58,113 @@
         </div>
         <section class="py-4">
             <div class="container-fluid">
-                <h4 class="mb-3">Upcoming Courses:</h4>
+                <h4 class="mb-3">
+                    @if(Cookie::get('language') == '2')
+                    आगामी पाठ्यक्रम:
+                    @else
+                    Upcoming Courses:
+                    @endif
+                </h4>
                 @if(count($upcomingCourse) >0)
-                 @foreach($upcomingCourse as $upcomingCourses)
-                    <div class="current-course-box mb-3 p-3 border rounded bg-light">
-                        <h5 class="fw-bold">{{ $upcomingCourses->course_name }}</h5>
-                        <p>
-                            <strong>Course Date:</strong> 
-                            {{ \Carbon\Carbon::parse($upcomingCourses->course_start_date)->format('d F, Y') }} 
-                            to 
-                            {{ \Carbon\Carbon::parse($upcomingCourses->course_end_date)->format('d F, Y') }}
-                        </p>
-                    </div>
-                    @endforeach
+                @foreach($upcomingCourse as $upcomingCourses)
+                <div class="current-course-box mb-3 p-3 border rounded bg-light">
+                    <h5 class="fw-bold">{{ $upcomingCourses->course_name }}</h5>
+                    <p>
+                        <strong>
+                            @if(Cookie::get('language') == '2')
+                            पाठ्यक्रम तिथि:
+                            @else
+                            Course Date:
+                            @endif
+                        </strong>
+                        {{ \Carbon\Carbon::parse($upcomingCourses->course_start_date)->format('d F, Y') }}
+                        to
+                        {{ \Carbon\Carbon::parse($upcomingCourses->course_end_date)->format('d F, Y') }}
+                    </p>
+                </div>
+                @endforeach
                 @else
-                    <p class="text-muted">No Upcoming courses available for this category.</p>
+                <p class="text-muted">
+                    @if(Cookie::get('language') == '2')
+                    इस श्रेणी के लिए कोई आगामी पाठ्यक्रम उपलब्ध नहीं है।
+                    @else
+                    No Upcoming courses available for this category.
+                    @endif
+                </p>
                 @endif
-            </div> 
+            </div>
         </section>
         <!-- Current Courses Section -->
         <section class="py-4">
             <div class="container-fluid">
-                <h4 class="mb-3">Current Courses:</h4>
+                <h4 class="mb-3">
+                    @if(Cookie::get('language') == '2')
+                    वर्तमान पाठ्यक्रम:
+                    @else
+                    Current Courses:
+                    @endif
+                </h4>
                 @if(count($currentCourse) >0)
-                 @foreach($currentCourse as $currentCourse)
-                    <div class="current-course-box mb-3 p-3 border rounded bg-light">
-                        <h5 class="fw-bold">{{ $currentCourse->course_name }}</h5>
-                        <p>
-                            <strong>Course Date:</strong> 
-                            {{ \Carbon\Carbon::parse($currentCourse->course_start_date)->format('d F, Y') }} 
-                            to 
-                            {{ \Carbon\Carbon::parse($currentCourse->course_end_date)->format('d F, Y') }}
-                        </p>
-                    </div>
-                    @endforeach
+                @foreach($currentCourse as $currentCourse)
+                <div class="current-course-box mb-3 p-3 border rounded bg-light">
+                    <h5 class="fw-bold">{{ $currentCourse->course_name }}</h5>
+                    <p>
+                        <strong>
+                            @if(Cookie::get('language') == '2')
+                            पाठ्यक्रम तिथि:
+                            @else
+                            Course Date:
+                            @endif
+                        </strong>
+                        {{ \Carbon\Carbon::parse($currentCourse->course_start_date)->format('d F, Y') }}
+                        to
+                        {{ \Carbon\Carbon::parse($currentCourse->course_end_date)->format('d F, Y') }}
+                    </p>
+                </div>
+                @endforeach
                 @else
-                    <p class="text-muted">No current courses available for this category.</p>
+                <p class="text-muted">
+                    @if(Cookie::get('language') == '2')
+                    इस श्रेणी के लिए कोई वर्तमान पाठ्यक्रम उपलब्ध नहीं है।
+                    @else
+                    No current courses available for this category.
+                    @endif
+                </p>
                 @endif
-            </div> 
+            </div>
         </section>
 
         <!-- Archived Courses Section -->
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12 mt-4">
-                    <h4 class="mb-3">Archived Courses:</h4>
+                    <h4 class="mb-3">@if(Cookie::get('language') == '2')
+                        संग्रहीत पाठ्यक्रम:
+                        @else
+                        Archived Courses:
+                        @endif
+                        Archived Courses:</h4>
                     @if($courses->isNotEmpty())
-                        <div class="form-group">
-                            <label for="archive_course" class="form-label">Select Archived Course:</label>
-                            <select name="archive" id="archive_course" class="form-select"
-                                onchange="navigateToArchivedCourse(this.value)">
-                                <option value="">Select Archived Course</option>
-                                @foreach ($courses as $archived)
-                                    <option value="{{ route('user.courseDetailslug', $archived->id) }}">
-                                        {{ $archived->course_name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
+                    <div class="form-group">
+                        <label for="archive_course" class="form-label">Select Archived Course:</label>
+                        <select name="archive" id="archive_course" class="form-select"
+                            onchange="navigateToArchivedCourse(this.value)">
+                            <option value="">Select Archived Course</option>
+                            @foreach ($courses as $archived)
+                            <option value="{{ route('user.courseDetailslug', $archived->id) }}">
+                                {{ $archived->course_name }}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
                     @else
-                        <p class="text-muted">No archived courses available.</p>
+                    <p class="text-muted">
+                        @if(Cookie::get('language') == '2')
+                        कोई संग्रहित पाठ्यक्रम उपलब्ध नहीं है.
+                        @else
+                        No archived courses available.
+                        @endif
+                    </p>
                     @endif
                 </div>
             </div>
@@ -116,15 +175,21 @@
 
 
 @else
-    <h4>Does not exist</h4>
+<h4>
+    @if(Cookie::get('language') == '2')
+    मौजूद नहीं
+    @else
+    Does not exist
+    @endif
+</h4>
 @endif
 
 @include('user.includes.footer')
 
 <script>
-    function navigateToArchivedCourse(url) {
-        if (url) {
-            window.location.href = url; // Redirects to the selected URL
-        }
+function navigateToArchivedCourse(url) {
+    if (url) {
+        window.location.href = url; // Redirects to the selected URL
     }
+}
 </script>

@@ -1,7 +1,4 @@
 @include('user.includes.header')
-
-
-
 <!-- Page Content -->
 <section class="py-2">
     <div class="container-fluid">
@@ -12,9 +9,19 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb p-2 mb-0">
                             <li class="breadcrumb-item">
-                                <a href="{{ route('home') }}" style="color: #af2910;">Home</a>
+                                <a href="{{ route('home') }}" style="color: #af2910;">@if(Cookie::get('language') ==
+                                    '2')घर
+                                    @else
+                                    Home
+                                    @endif</a>
                             </li>
-                            <li class="breadcrumb-item active" aria-current="page">Tenders</li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                @if(Cookie::get('language') ==
+                                '2')निविदाओं
+                                @else
+                                Tenders
+                                @endif
+                            </li>
                         </ol>
                     </nav>
                 </div>
@@ -24,8 +31,13 @@
             <div class="row mb-3">
                 <div class="col-md-9"></div>
                 <div class="col-md-3 text-end">
-                    <a href="{{ route('user.tenders_archive') }}"
-                        class="btn btn-outline-primary fw-semibold btn-sm">Archive</a>
+                    <a href="{{ route('user.tenders_archive') }}" class="btn btn-outline-primary fw-semibold btn-sm">
+                        @if(Cookie::get('language') ==
+                        '2')पुरालेख
+                        @else
+                        Archive
+                        @endif
+                    </a>
                 </div>
             </div>
         </section>
@@ -33,7 +45,11 @@
         <div class="card bg-white border-0 rounded-4 shadow-sm mb-4">
             <div class="card-body p-4">
                 <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-3">
-                    <h4 class="fw-semibold fs-18 mb-0">Tenders</h4>
+                    <h4 class="fw-semibold fs-18 mb-0">@if(Cookie::get('language') ==
+                        '2')निविदाओं
+                        @else
+                        Tenders
+                        @endif</h4>
                 </div>
 
                 <!-- Table Section -->
@@ -42,11 +58,40 @@
                         <thead class="table-light">
                             <tr class="text-center">
                                 <th>#</th>
-                                <th>Tender Title</th>
-                                <th>Publish Date</th>
-                                <th>Last Date</th>
-                                <th>Document</th>
-                                <th>Corrigendum</th>
+                                <th>
+                                    @if(Cookie::get('language') ==
+                                    '2')निविदा शीर्षक
+                                    @else
+                                    Tender Title
+                                    @endif</th>
+                                <th>
+                                    @if(Cookie::get('language') ==
+                                    '2')प्रकाशित तिथि
+                                    @else
+                                    Publish Date
+                                    @endif
+                                </th>
+                                <th>
+                                    @if(Cookie::get('language') ==
+                                    '2')अंतिम तिथि
+                                    @else
+                                    Last Date
+                                    @endif
+                                </th>
+                                <th>
+                                    @if(Cookie::get('language') ==
+                                    '2')दस्तावेज़
+                                    @else
+                                    Document
+                                    @endif
+                                </th>
+                                <th>
+                                    @if(Cookie::get('language') ==
+                                    '2')शुद्धिपत्र
+                                    @else
+                                    Corrigendum
+                                    @endif
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -77,7 +122,13 @@
                             @endforeach
                             @else
                             <tr>
-                                <td colspan="6" class="text-center text-muted">No records found</td>
+                                <td colspan="6" class="text-center text-muted">
+                                    @if(Cookie::get('language') ==
+                                    '2')कोई रिकॉर्ड नहीं मिला
+                                    @else
+                                    No records found
+                                    @endif
+                                </td>
                             </tr>
                             @endif
                         </tbody>
@@ -87,10 +138,4 @@
         </div>
     </div>
 </section>
-
-
-
-
-
-
 @include('user.includes.footer')

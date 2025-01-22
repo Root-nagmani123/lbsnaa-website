@@ -9,10 +9,18 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb p-2">
                         <li class="breadcrumb-item">
-                            <a href="{{ route('home')}}" style="color: #af2910;">Home</a>
+                            <a href="{{ route('home')}}" style="color: #af2910;"> @if(Cookie::get('language') ==
+                                '2')घर
+                                @else
+                                Home
+                                @endif</a>
                         </li>
-                        <li class="breadcrumb-item">
-                            <a href="#" style="color: #af2910;">Search</a>
+                        <li class="breadcrumb-item active">
+                                @if(Cookie::get('language') ==
+                                '2')खोज
+                                @else
+                                Search
+                                @endif
                         </li>
                     </ol>
                 </nav>
@@ -27,30 +35,30 @@
                 <h2 class="fw-semibold fs-18 mb-0">Search</h2>
             </div>
             <script async src="https://cse.google.com/cse.js?cx=92ab3f09e86df4584"></script>
-    <style>
-        .gcse-search {
-            max-width: 600px;
-            margin: 0 auto;
-        }
+            <style>
+            .gcse-search {
+                max-width: 600px;
+                margin: 0 auto;
+            }
 
-        /* Customize the appearance of the search results */
-        .gsc-results .gsc-webResult {
-            border-bottom: 1px solid #ddd;
-            margin-bottom: 15px;
-        }
-    </style>
-</head>
-<body>
-    <!-- Google Custom Search Box -->
-    <div class="gcse-search"></div>
+            /* Customize the appearance of the search results */
+            .gsc-results .gsc-webResult {
+                border-bottom: 1px solid #ddd;
+                margin-bottom: 15px;
+            }
+            </style>
+            </head>
 
-    <!-- Results Container (will be populated with search results) -->
-    <div id="search-results"></div>
+            <body>
+                <!-- Google Custom Search Box -->
+                <div class="gcse-search"></div>
 
-   
+                <!-- Results Container (will be populated with search results) -->
+                <div id="search-results"></div>
+
+
         </div>
     </div>
 </section>
 
 @include('user.includes.footer')
-

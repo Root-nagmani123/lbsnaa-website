@@ -42,14 +42,14 @@
         <div>
             <div class="position-relative d-flex overflow-x-hidden align-items-center">
                 <!-- Latest Updates Button -->
-               
+
                 <button class="btn btn-primary btn-sm me-2 rounded py-2" id="basic-addon2"
                     style="z-index: 999;width: 200px;"> @if(Cookie::get('language') == '2')
-                नवीनतम अपडेट
-                @else
-                Latest Updates
-                @endif</button>
-                
+                    नवीनतम अपडेट
+                    @else
+                    Latest Updates
+                    @endif</button>
+
                 <!-- Marquee Section -->
                 <div id="marqueeWrapper" class="w-100 overflow-hidden">
                     <div id="marqueeContainer" class="d-flex gap-3 flex-nowrap align-items-center">
@@ -97,11 +97,27 @@
                             class="avatar avatar-xl rounded-circle" style="object-fit: cover;">
                     </div>
                     <div class="card-body pt-2" style=" height: 100px;">
-                        <h4 class="mb-3">Director Message</h4>
-                        <a href="{{ url('menu/director-message') }}"
-                            class="icon-link icon-link-hover link-primary">Message</a> <br>
-                        <a href="{{ url('menu/previous-directors') }}"
-                            class="icon-link icon-link-hover link-primary">Previous Director</a>
+                        <h4 class="mb-3">
+                            @if(Cookie::get('language') == '2')
+                            निदेशक संदेश
+                            @else
+                            Director Message
+                            @endif
+                        </h4>
+                        <a href="{{ url('menu/director-message') }}" class="icon-link icon-link-hover link-primary">
+                            @if(Cookie::get('language') == '2')
+                            संदेश
+                            @else
+                            Message
+                            @endif
+                        </a> <br>
+                        <a href="{{ url('menu/previous-directors') }}" class="icon-link icon-link-hover link-primary">
+                            @if(Cookie::get('language') == '2')
+                            पूर्व निदेशक
+                            @else
+                            Previous Director
+                            @endif
+                        </a>
                     </div>
                 </div>
             </div>
@@ -109,10 +125,16 @@
                 <div class="card card-lift text-center text-lg-start h-100">
                     <div class="p-3 p-lg-4 text-center">
                         <img src="{{ asset('assets/images/icons/3.jpg') }}" alt=""
-                                class="avatar avatar-xl rounded-circle" style="object-fit: cover;">
+                            class="avatar avatar-xl rounded-circle" style="object-fit: cover;">
                     </div>
                     <div class="card-body pt-2" style="overflow-y:scroll; height: 100px;">
-                        <h4 class="mb-3">Runing Courses</h4>
+                        <h4 class="mb-3">
+                            @if(Cookie::get('language') == '2')
+                            दौड़ पाठ्यक्रम
+                            @else
+                            Runing Courses
+                            @endif
+                        </h4>
                         @if(count($current_course) > 0)
                         <ul>
                             @php $i = 0; @endphp
@@ -134,12 +156,24 @@
 
 
                         @else
-                        <span>No Course Available</span>
+                        <span>
+                            @if(Cookie::get('language') == '2')
+                            कोई पाठ्यक्रम उपलब्ध नहीं है
+                            @else
+                            No Course Available
+                            @endif
+                        </span>
                         @endif
                     </div>
                     <div class="card-footer" style="border:none;float: right;text-align: right;">
                         <button class="btn btn-primary btn-sm"> <a href="{{ route('user.runningCourses') }}"
-                                style="color: white;">View All</a></button>
+                                style="color: white;">
+                                @if(Cookie::get('language') == '2')
+                                सभी को देखें
+                                @else
+                                View All
+                                @endif
+                            </a></button>
                     </div>
                 </div>
             </div>
@@ -147,10 +181,16 @@
                 <div class="card card-lift text-center text-lg-start h-100">
                     <div class="p-3 p-lg-4 text-center">
                         <img src="{{ asset('assets/images/icons/4.jpg') }}" alt=""
-                                class="avatar avatar-xl rounded-circle text-center" style="object-fit: cover;">
+                            class="avatar avatar-xl rounded-circle text-center" style="object-fit: cover;">
                     </div>
                     <div class="card-body pt-2 pb-2" style="overflow-y:scroll;height: 100px;">
-                        <h4 class="mb-3">Upcoming Courses</h4>
+                        <h4 class="mb-3">
+                            @if(Cookie::get('language') == '2')
+                            आगामी पाठ्यक्रम
+                            @else
+                            Upcoming Courses
+                            @endif
+                        </h4>
                         @if(count($upcoming_course) > 0)
                         <ul>
 
@@ -169,12 +209,20 @@
                         </ul>
 
                         @else
-                        <span>No Course Available</span>
+                        <span> @if(Cookie::get('language') == '2')
+                            कोई पाठ्यक्रम उपलब्ध नहीं है
+                            @else
+                            No Course Available
+                            @endif</span>
                         @endif
                     </div>
                     <div class="card-footer" style="border:none;float: right;text-align: right;">
                         <button class="btn btn-primary btn-sm"><a href="{{ route('user.upcomingCourses') }}"
-                                style="color: white;">View All</a></button>
+                                style="color: white;">@if(Cookie::get('language') == '2')
+                                सभी को देखें
+                                @else
+                                View All
+                                @endif</a></button>
 
                     </div>
                 </div>
@@ -183,12 +231,23 @@
                 <div class="card card-lift text-center text-lg-start h-100">
                     <div class="p-3 p-lg-4 text-center">
                         <img src="{{ asset('assets/images/icons/2.jpg') }}" alt=""
-                                class="avatar avatar-xl rounded-circle text-center" style="object-fit: cover;">
+                            class="avatar avatar-xl rounded-circle text-center" style="object-fit: cover;">
                     </div>
                     <div class="card-body pt-2" style="height: 100px;">
-                        <h4 class="mb-3">Training Calendar</h4>
-                        <a href="{{ url('cms/training_cal') }}" class="icon-link icon-link-hover link-primary">Training
-                            Calendar of LBSNAA</a>
+                        <h4 class="mb-3">
+                            @if(Cookie::get('language') == '2')
+                            प्रशिक्षण कैलेंडर
+                            @else
+                            Training Calendar
+                            @endif
+                        </h4>
+                        <a href="{{ url('cms/training_cal') }}" class="icon-link icon-link-hover link-primary">
+                            @if(Cookie::get('language') == '2')
+                            एलबीएसएनएए का प्रशिक्षण कैलेंडर
+                            @else
+                            Training Calendar of LBSNAA
+                            @endif
+                        </a>
                     </div>
                 </div>
             </div>
@@ -196,15 +255,32 @@
                 <div class="card card-lift text-center text-lg-start h-100">
                     <div class="p-3 p-lg-4 text-center">
                         <img src="{{ asset('assets/images/icons/5.jpg') }}" alt=""
-                                class="avatar avatar-xl rounded-circle text-center" style="object-fit: cover;">
+                            class="avatar avatar-xl rounded-circle text-center" style="object-fit: cover;">
                     </div>
                     <div class="card-body pt-2" style="height: 100px;">
-                        <h4 class="mb-3">Life at Academy</h4>
+                        <h4 class="mb-3">
+                            @if(Cookie::get('language') == '2')
+                            अकादमी में जीवन
+                            @else
+                            Life at Academy
+                            @endif
+                        </h4>
                         <a href="{{ url('menu/the-academy-experience') }}"
-                            class="icon-link icon-link-hover link-primary">The Academy Experience
+                            class="icon-link icon-link-hover link-primary">
+                            @if(Cookie::get('language') == '2')
+                            अकादमी का अनुभव
+                            @else
+                            The Academy Experience
+                            @endif
+                            
                         </a><br>
                         <a href="{{ url('menu/a-day-in-the-life-of-a-trainee') }}"
-                            class="icon-link icon-link-hover link-primary">A day in the life of a Trainee</a>
+                            class="icon-link icon-link-hover link-primary">
+                            @if(Cookie::get('language') == '2')
+                            एक प्रशिक्षु के जीवन का एक दिन
+                            @else
+                            A day in the life of a Trainee
+                            @endif</a>
                     </div>
                 </div>
             </div>
@@ -212,14 +288,32 @@
                 <div class="card card-lift text-center text-lg-start h-100">
                     <div class="p-3 p-lg-4 text-center">
                         <img src="{{ asset('assets/images/icons/6.jpg') }}" alt=""
-                                class="avatar avatar-xl rounded-circle text-center" style="object-fit: cover;">
+                            class="avatar avatar-xl rounded-circle text-center" style="object-fit: cover;">
                     </div>
                     <div class="card-body pt-2" style="height: 100px;">
-                        <h4 class="mb-3">Academy Souvenir</h4>
+                        <h4 class="mb-3">
+                        @if(Cookie::get('language') == '2')
+                        अकादमी स्मारिका
+                            @else
+                            Academy Souvenir
+                            @endif
+                            </h4>
                         <a href="{{ url('souvenir?pro_category=7')}}"
-                            class="icon-link icon-link-hover link-primary">Memorabilia</a><br>
+                            class="icon-link icon-link-hover link-primary">
+                            @if(Cookie::get('language') == '2')
+                            यादगार लम्हे
+                            @else
+                            Memorabilia
+                            @endif
+                            </a><br>
                         <a href="{{ url('souvenir?pro_category=6')}}"
-                            class="icon-link icon-link-hover link-primary">Apparel</a>
+                            class="icon-link icon-link-hover link-primary">
+                            @if(Cookie::get('language') == '2')
+                            परिधान
+                            @else
+                            Apparel
+                            @endif
+                            </a>
                     </div>
                 </div>
             </div>
@@ -234,16 +328,16 @@
                     <div class="card card-hover border">
                         <div class="card-header" style="background-color:#af2910">
                             <h3 class="text-white">@if(Cookie::get('language') == '2')
-                अकादमी समाचार
-                @else
-                LBSNAA Academy News
-                @endif <span class="float-end"><a
-                                        href="{{ route('user.news_listing') }}" class="text-white"
+                                अकादमी समाचार
+                                @else
+                                LBSNAA Academy News
+                                @endif <span class="float-end"><a href="{{ route('user.news_listing') }}"
+                                        class="text-white"
                                         style="text-decoration: none;font-size:14px">@if(Cookie::get('language') == '2')
-                सभी को देखें
-                @else
-                View All
-                @endif</a></span></h3>
+                                        सभी को देखें
+                                        @else
+                                        View All
+                                        @endif</a></span></h3>
                         </div>
                     </div>
                 </div>
@@ -266,7 +360,9 @@
                                         <div class="card-body" style="height: 200px; overflow-y: hidden;">
                                             <span class="fs-5 mb-2 fw-semibold d-block text-success">Posted On:
                                                 {{ \Carbon\Carbon::parse($slider->start_date)->format('d F, Y') }}</span>
-                                            <h3><a href="{{ route('user.newsbyslug', $slider->title_slug) }}" class="icon-link icon-link-hover link-dark fw-semibold">{{ $slider->title }}</a></h3>
+                                            <h3><a href="{{ route('user.newsbyslug', $slider->title_slug) }}"
+                                                    class="icon-link icon-link-hover link-dark fw-semibold">{{ $slider->title }}</a>
+                                            </h3>
                                             <p>{{ $slider->short_description }}</p>
                                         </div>
                                         <div class="card-footer border-0" style="height:50px;">
@@ -297,7 +393,8 @@
                 <!-- Quick Links Section -->
                 <div class="card card-hover border">
                     <div class="card-header" style="background-color:#af2910">
-                        <h3 class="text-white">@if(Cookie::get('language') == '2') त्वरित लिंक्स @else Quick Links @endif</h3>
+                        <h3 class="text-white">@if(Cookie::get('language') == '2') त्वरित लिंक्स @else Quick Links
+                            @endif</h3>
                     </div>
                     <div class="card-body p-0" style="height: 520px; overflow-y: scroll;">
                         <ul class="mt-2 mb-2 list-group list-group-flush">

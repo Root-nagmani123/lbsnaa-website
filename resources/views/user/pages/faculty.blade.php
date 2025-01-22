@@ -10,12 +10,23 @@
             <div class="mb-4 mb-lg-0 bg-light rounded-4 py-2">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb p-2 mb-0">
-                        <li class="breadcrumb-item">
-                            <a href="{{ route('home') }}" style="color: #af2910;">Home</a>
-                        </li>
-                        <li class="breadcrumb-item active" aria-current="page" style="color: #af2910;">
-                            Faculty
-                        </li>
+                    <li class="breadcrumb-item">
+                                <a href="{{ route('home') }}" style="color: #af2910;">@if(Cookie::get('language') ==
+                                    '2')
+                                    घर
+                                    @else
+                                    Home
+                                    @endif
+                                </a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                @if(Cookie::get('language') ==
+                                '2')
+                                संकाय
+                                @else
+                                Faculty
+                                @endif
+                            </li>
                     </ol>
                 </nav>
             </div>
@@ -23,7 +34,13 @@
         <div class="card bg-white border-0 rounded-10 mb-4">
             <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center pb-20 mb-20 mb-2">
-                    <h3 class="fw-semibold fs-18 mb-0">Inhouse Faculty</h3>
+                    <h3 class="fw-semibold fs-18 mb-0">@if(Cookie::get('language') ==
+                                '2')
+                                इनहाउस फैकल्टी
+                                @else
+                                Inhouse Faculty
+                                @endif
+                                </h3>
                     <div class="contsearch">
                         <form id="form2" action="{{ url()->current() }}" method="GET">
                             <fieldset class="d-flex align-items-center">
@@ -43,10 +60,37 @@
                             <thead>
                                 <tr class="text-center">
                                     <th class="col">#</th>
-                                    <th class="col">Name</th>
-                                    <th class="col">Designation</th>
-                                    <th class="col">Email</th>
-                                    <th class="col">Office</th>
+                                    <th class="col">
+                                    @if(Cookie::get('language') ==
+                                '2')
+                                नाम
+                                @else
+                                Name
+                                @endif
+                                </th>
+                                    <th class="col">
+                                    @if(Cookie::get('language') ==
+                                '2')
+                                पद का नाम
+                                @else
+                                Designation
+                                @endif
+                                </th>
+                                    <th class="col">
+                                    @if(Cookie::get('language') ==
+                                '2')
+                                ईमेल
+                                @else
+                                Email
+                                @endif
+                                </th>
+                                    <th class="col">
+                                    @if(Cookie::get('language') ==
+                                '2')कार्यालय
+                                @else
+                                Office
+                                @endif
+                                </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -62,7 +106,13 @@
                                 @endforeach
                                 @else
                                 <tr>
-                                    <td colspan="5" class="text-center">No records found</td>
+                                    <td colspan="5" class="text-center">
+                                    @if(Cookie::get('language') ==
+                                '2')कोई रिकॉर्ड नहीं मिला
+                                @else
+                                No records found
+                                @endif
+                                </td>
                                 </tr>
                                 @endif
                             </tbody>

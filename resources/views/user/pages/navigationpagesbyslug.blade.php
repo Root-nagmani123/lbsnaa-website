@@ -12,7 +12,13 @@
                     <ol class="breadcrumb">
                         <!-- Home link -->
                         <li class="breadcrumb-item">
-                            <a href="{{ route('home') }}">Home</a>
+                            <a href="{{ route('home') }}">
+                                @if(Cookie::get('language') ==
+                                '2')घर
+                                @else
+                                Home
+                                @endif
+                            </a>
                         </li>
 
                         <!-- Dynamic breadcrumbs -->
@@ -38,7 +44,7 @@
 <section class="py-8 bg-light">
     <div class="container-fluid">
         <div class="row gy-4 gy-xl-0">
-          
+
             <div class="col-12">
                 <!-- Additional content for the second column -->
                 <div class="mb-6 mb-lg-8">
@@ -61,7 +67,13 @@
 
 
 @else
-<h4>News does not exist</h4>
+<h4>
+    @if(Cookie::get('language') ==
+    '2')समाचार मौजूद नहीं है
+    @else
+    News does not exist
+    @endif
+</h4>
 @endif
 
 

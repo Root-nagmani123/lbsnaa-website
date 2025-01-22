@@ -11,10 +11,22 @@
                 <nav aria-label="breadcrumb ">
                     <ol class="breadcrumb p-2">
                         <li class="breadcrumb-item">
-                            <a href="{{ route('home')}}" style="color: #af2910;">Home</a>
+                            <a href="{{ route('home')}}" style="color: #af2910;">
+                                @if(Cookie::get('language') ==
+                                '2')घर
+                                @else
+                                Home
+                                @endif
+                            </a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="#" style="color: #af2910;">Academy News</a>
+                            <a href="#" style="color: #af2910;">
+                                @if(Cookie::get('language') ==
+                                '2')अकादमी समाचार
+                                @else
+                                Academy News
+                                @endif
+                            </a>
                         </li>
                         <li class="breadcrumb-item active" aria-current="page">{{$news->title}}</li>
                     </ol>
@@ -58,7 +70,13 @@
 
 
 @else
-<h4>News does not exist</h4>
+<h4>
+    @if(Cookie::get('language') ==
+    '2')समाचार मौजूद नहीं है
+    @else
+    News does not exist
+    @endif
+</h4>
 @endif
 <link href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>

@@ -9,12 +9,30 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb p-2">
                         <li class="breadcrumb-item">
-                            <a href="{{ route('home') }}" class="text-danger">Home</a>
+                            <a href="{{ route('home') }}" class="text-danger">
+                                @if(Cookie::get('language') == '2')
+                                घर
+                                @else
+                                Home
+                                @endif
+                            </a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="#" class="text-danger">Academy News</a>
+                            <a href="#" class="text-danger">
+                                @if(Cookie::get('language') == '2')
+                                अकादमी समाचार
+                                @else
+                                Academy News
+                                @endif
+                            </a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">Archive Academy News</li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            @if(Cookie::get('language') == '2')
+                            पुरालेख अकादमी समाचार
+                            @else
+                            Archive Academy News
+                            @endif
+                        </li>
                     </ol>
                 </nav>
             </div>
@@ -28,24 +46,47 @@
         <div class="contsearch">
             <form id="form2" method="GET" action="{{ route('user.news_old_listing') }}" class="row">
                 <div class="col-lg-4">
-                    <label for="Keywords" class="form-label">Search by Day/Month/Year:</label>
+                    <label for="Keywords" class="form-label">
+                        @if(Cookie::get('language') == '2')
+                        दिन/माह/वर्ष के अनुसार खोजें:
+                        @else
+                        Search by Day/Month/Year:
+                        @endif
+                    </label>
                     <input type="text" id="Keywords" name="keywords" value="{{ request('keywords') }}"
                         placeholder="Search News" class="form-control ps-5 text-dark h-58">
                 </div>
                 <div class="col-lg-4">
-                    <label for="year" class="form-label">Years</label>
+                    <label for="year" class="form-label">
+                        @if(Cookie::get('language') == '2')
+                        साल
+                        @else
+                        Years
+                        @endif
+                    </label>
                     <select name="year" id="year" fdprocessedid="wgb9i" class="form-select ps-5 text-dark h-58">
-                    @foreach($years as $year)
-                <option value="{{ $year }}" {{ request('year') == $year ? 'selected' : '' }}>
-                    {{ $year }}
-                </option>
-            @endforeach
+                        @foreach($years as $year)
+                        <option value="{{ $year }}" {{ request('year') == $year ? 'selected' : '' }}>
+                            {{ $year }}
+                        </option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="col-lg-4 d-flex align-items-end gap-2">
-                    <button type="submit" class="btn btn-outline-primary fw-bold w-100">Submit</button>
-                    <a href="{{ route('user.news_old_listing') }}"
-                        class="btn btn-outline-warning fw-bold w-100">Reset</a>
+                    <button type="submit" class="btn btn-outline-primary fw-bold w-100">
+                        @if(Cookie::get('language') == '2')
+                        जमा करना
+                        @else
+                        Submit
+                        @endif
+                    </button>
+                    <a href="{{ route('user.news_old_listing') }}" class="btn btn-outline-warning fw-bold w-100">
+                        @if(Cookie::get('language') == '2')
+                        रीसेट करें
+                        @else
+                        Reset
+                        @endif
+                    </a>
 
                 </div>
             </form>
@@ -71,9 +112,14 @@
                     </div>
                     <!-- Card body -->
                     <div class="card-body d-flex flex-column">
-                        <a href="#" class="fs-6 mb-2 fw-semibold d-block text-success">Posted On:
+                        <a href="#" class="fs-6 mb-2 fw-semibold d-block text-success">
+                            @if(Cookie::get('language') == '2')
+                            प्रकाशित किया गया:
+                            @else
+                            Posted On:
+                            @endif
                             {{ \Carbon\Carbon::parse($slider->start_date)->format('d F, Y') }}</a>
-                        
+
                         <h3 class="fs-5">
                             <a href="{{ route('user.newsbyslug', $slider->title_slug) }}"
                                 class="text-dark text-decoration-none">
@@ -84,14 +130,26 @@
                     </div>
                     <!-- Card footer -->
                     <div class="card-footer bg-white border-0 text-end">
-                        <a href="{{ route('user.newsbyslug', $slider->title_slug) }}" class="text-primary">Read More</a>
+                        <a href="{{ route('user.newsbyslug', $slider->title_slug) }}" class="text-primary">
+                            @if(Cookie::get('language') == '2')
+                            और पढ़ें
+                            @else
+                            Read More
+                            @endif
+                        </a>
                     </div>
                 </div>
             </div>
             @endforeach
         </div>
         @else
-        <h4>No News Found</h4>
+        <h4>
+            @if(Cookie::get('language') == '2')
+            कोई समाचार नहीं मिला
+            @else
+            No News Found
+            @endif
+            </h4>
         @endif
     </div>
 </section>

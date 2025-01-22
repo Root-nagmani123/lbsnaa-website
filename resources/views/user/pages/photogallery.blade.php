@@ -8,12 +8,30 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb p-2">
                             <li class="breadcrumb-item">
-                                <a href="{{ route('home') }}" style="color: #af2910;">Home</a>
+                                <a href="{{ route('home') }}" style="color: #af2910;">
+                                    @if(Cookie::get('language') ==
+                                    '2')घर
+                                    @else
+                                    Home
+                                    @endif
+                                </a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="{{ route('user.mediagallery') }}" style="color: #af2910;">Media Gallery</a>
+                                <a href="{{ route('user.mediagallery') }}" style="color: #af2910;">
+                                    @if(Cookie::get('language') ==
+                                    '2')मीडिया गैलरी
+                                    @else
+                                    Media Gallery
+                                    @endif
+                                </a>
                             </li>
-                            <li class="breadcrumb-item active" aria-current="page">Photo Gallery</li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                @if(Cookie::get('language') ==
+                                '2')फोटो गैलरी
+                                @else
+                                Photo Gallery
+                                @endif
+                            </li>
                         </ol>
                     </nav>
                 </div>
@@ -35,18 +53,33 @@
             </div>
         </div>
         @endif
-        <h2 class="text-primary mb-2">Photo Gallery</h2>
+        <h2 class="text-primary mb-2">@if(Cookie::get('language') ==
+            '2')फोटो गैलरी
+            @else
+            Photo Gallery
+            @endif</h2>
         <!-- Search Form -->
         <div class="row mb-4">
             <div class="col-12">
                 <form id="form2" action="{{ route('user.photogallery') }}" method="GET" class="row g-2">
                     <div class="col-md-3">
-                        <label for="Keywords" class="form-label">Search:</label>
+                        <label for="Keywords" class="form-label">
+                            @if(Cookie::get('language') ==
+                            '2')खोज:
+                            @else
+                            Search:
+                            @endif</label>
                         <input type="text" id="Keywords" name="keywords" value="{{ request('keywords') }}"
                             placeholder="Keyword Search" class="form-control">
                     </div>
                     <div class="col-md-3">
-                        <label for="txtcategory" class="form-label">Category:</label>
+                        <label for="txtcategory" class="form-label">
+                            @if(Cookie::get('language') ==
+                            '2')वर्ग:
+                            @else
+                            Category:
+                            @endif
+                        </label>
                         <select name="txtcategory" id="txtcategory" class="form-select">
                             <option value="">Select</option>
                             @foreach($media_cat as $media)
@@ -64,7 +97,13 @@
                         </select>
                     </div>
                     <div class="col-md-3">
-                        <label for="year" class="form-label">Year:</label>
+                        <label for="year" class="form-label">
+                            @if(Cookie::get('language') ==
+                            '2')वर्ष:
+                            @else
+                            Year:
+                            @endif
+                        </label>
                         <select name="year" id="year" class="form-select">
                             <option value="">Select</option>
                             @for($i = date('Y'); $i >= 2011; $i--)
@@ -75,15 +114,26 @@
                         </select>
                     </div>
                     <div class="col-md-3 d-flex align-items-end gap-2">
-                        <a href="{{ route('user.photogallery') }}"
-                            class="btn btn-outline-warning fw-bold w-100">Reset</a>
-                        <button type="submit" class="btn btn-outline-primary fw-bold w-100">Submit</button>
+                        <button type="submit" class="btn btn-outline-primary fw-bold w-100">
+                            @if(Cookie::get('language') ==
+                            '2')जमा करना
+                            @else
+                            Submit
+                            @endif
+                        </button>
+                        <a href="{{ route('user.photogallery') }}" class="btn btn-outline-warning fw-bold w-100">
+                            @if(Cookie::get('language') ==
+                            '2')रीसेट करें
+                            @else
+                            Reset
+                            @endif
+                        </a>
                     </div>
                 </form>
             </div>
         </div>
 
-<?php //print_r($news);die; ?>
+        <?php //print_r($news);die; ?>
         <!-- Gallery Images -->
         <div class="row g-3">
             @if((count($media_cat) > 0) || (count($news) > 0))
@@ -106,9 +156,8 @@
             <div class="col-sm-6 col-md-4 col-lg-3">
                 <div class="card h-100 shadow-sm">
                     <a href="{{ route('user.view_all_photogallery') }}?type=news&glrid={{ $media->id }}">
-                        <img src="{{asset( $media->main_image)}}"
-                            alt="{{ $media->title }}" class="card-img-top img-fluid rounded-top"
-                            style="height:300px; object-fit: cover;">
+                        <img src="{{asset( $media->main_image)}}" alt="{{ $media->title }}"
+                            class="card-img-top img-fluid rounded-top" style="height:300px; object-fit: cover;">
                     </a>
 
                     <div class="card-body text-center">
@@ -118,7 +167,7 @@
             </div>
             @endforeach
             @else
-            
+
             <div class="col-12">
                 <h5 class="text-center">No media categories available.</h5>
             </div>
