@@ -168,17 +168,16 @@
                             <i class="material-icons menu-icon">search</i>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('set.language', (Cookie::get('language') == '1' ? 2 : 1)) }}"
-                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Language Options">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside"
+                            data-bs-offset="10,20">
                             <i class="material-icons menu-icon">language</i>
-
-                            @if(Cookie::get('language') == '2')
-                            हिंदी
-                            @else
-                            English
-                            @endif
                         </a>
+                        <ul class="dropdown-menu" aria-labelledby="languageDropdown">
+                            <li><a class="dropdown-item" href="{{ route('set.language', 1) }}">English</a></li>
+                            <li><a class="dropdown-item" href="{{ route('set.language', 2) }}">Hindi</a></li>
+                        </ul>
                     </li>
 
                 </ul>

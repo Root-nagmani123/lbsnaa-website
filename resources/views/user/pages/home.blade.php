@@ -272,7 +272,7 @@
                             @else
                             The Academy Experience
                             @endif
-                            
+
                         </a><br>
                         <a href="{{ url('menu/a-day-in-the-life-of-a-trainee') }}"
                             class="icon-link icon-link-hover link-primary">
@@ -292,28 +292,26 @@
                     </div>
                     <div class="card-body pt-2" style="height: 100px;">
                         <h4 class="mb-3">
-                        @if(Cookie::get('language') == '2')
-                        अकादमी स्मारिका
+                            @if(Cookie::get('language') == '2')
+                            अकादमी स्मारिका
                             @else
                             Academy Souvenir
                             @endif
-                            </h4>
-                        <a href="{{ url('souvenir?pro_category=7')}}"
-                            class="icon-link icon-link-hover link-primary">
+                        </h4>
+                        <a href="{{ url('souvenir?pro_category=7')}}" class="icon-link icon-link-hover link-primary">
                             @if(Cookie::get('language') == '2')
                             यादगार लम्हे
                             @else
                             Memorabilia
                             @endif
-                            </a><br>
-                        <a href="{{ url('souvenir?pro_category=6')}}"
-                            class="icon-link icon-link-hover link-primary">
+                        </a><br>
+                        <a href="{{ url('souvenir?pro_category=6')}}" class="icon-link icon-link-hover link-primary">
                             @if(Cookie::get('language') == '2')
                             परिधान
                             @else
                             Apparel
                             @endif
-                            </a>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -358,7 +356,13 @@
                                                 style="object-fit: cover; height: 250px; width: 100%;">
                                         </div>
                                         <div class="card-body" style="height: 200px; overflow-y: hidden;">
-                                            <span class="fs-5 mb-2 fw-semibold d-block text-success">Posted On:
+                                            <span class="fs-5 mb-2 fw-semibold d-block text-success">
+                                                @if(Cookie::get('language') == '2')
+                                                प्रकाशित किया गया:
+                                                @else
+                                                Posted On:
+                                                @endif
+
                                                 {{ \Carbon\Carbon::parse($slider->start_date)->format('d F, Y') }}</span>
                                             <h3><a href="{{ route('user.newsbyslug', $slider->title_slug) }}"
                                                     class="icon-link icon-link-hover link-dark fw-semibold">{{ $slider->title }}</a>
@@ -368,7 +372,13 @@
                                         <div class="card-footer border-0" style="height:50px;">
                                             <a href="{{ route('user.newsbyslug', $slider->title_slug) }}"
                                                 class="icon-link icon-link-hover link-primary fw-semibold">
-                                                <span>Read More</span>
+                                                <span>
+                                                    @if(Cookie::get('language') == '2')
+                                                    और पढ़ें
+                                                    @else
+                                                    Read More
+                                                    @endif
+                                                </span>
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
                                                     fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
                                                     <path fill-rule="evenodd"
