@@ -316,8 +316,8 @@ class HomePagesMicroController extends Controller
             ->join('research_centres as rc', 'mmtp.research_centre', '=', 'rc.id')
             ->where('mmtp.page_status', 1)
             ->where('mmtp.id', $id) // Use ID directly passed from the route
-            ->whereDate('mmtp.start_date', '<=', $today) // Start date <= today
-            ->whereDate('mmtp.end_date', '>=', $today) // End date >= today
+            // ->whereDate('mmtp.start_date', '<=', $today) // Start date <= today
+            // ->whereDate('mmtp.end_date', '>=', $today) // End date >= today
             ->select('rc.research_centre_slug','mmtp.program_name', 'mmtp.venue', 'mmtp.start_date', 'mmtp.end_date', 'mmtp.registration_status', 'mmtp.id', 'mmtp.program_coordinator','mmtp.program_description')
             ->first(); // Use first() instead of get() for a single record
     
