@@ -15,7 +15,12 @@ class HomeFrontController extends Controller
         $language = Cookie::get('language');
         date_default_timezone_set('Asia/Kolkata');
         $today = date('Y-m-d'); 
-        $sliders =  DB::table('sliders')->where('status',1)->where('is_deleted',0)->orderBy('id', 'desc')->get();
+        $sliders =  DB::table('sliders')->where('status',1)->where('is_deleted',0) ->when($language == 2, function ($query) use ($language) {
+            return $query->where('language', '2');
+        })
+        ->when($language == 1, function ($query) use ($language) {
+            return $query->where('language', '1');
+        })->orderBy('id', 'desc')->get();
         $news = DB::table('news')
         ->where('status', 1)
         ->where('start_date', '<=', $today)
@@ -779,22 +784,6 @@ function upcoming_events(){
 function running_events(){
     date_default_timezone_set('Asia/Kolkata'); // Set timezone to Asia/Kolkata
     $today = date('Y-m-d H:i:s'); 
-    // $current_course = DB::table('course')
-    // ->select('id','course_name', 'coordinator_id', 'course_start_date', 'course_end_date')
-    //     ->where('course_start_date', '<=', $today)
-    //     ->where('course_end_date', '>=', $today)
-    //     ->where('page_status', 1)
-    //     ->get();
-
-        // $current_course = DB::table('course')
-        // ->Join('courses_sub_categories', 'course.course_type', '=', 'courses_sub_categories.id')
-     
-        // ->select('course.id','course.course_name', 'course.coordinator_id', 'course.course_start_date', 'course.course_end_date')
-        //     ->where('course.course_start_date', '<=', $today)
-        //     ->where('course.course_end_date', '>=', $today)
-        //     ->where('course.page_status', 1)
-        //     ->where('courses_sub_categories.status', 1)
-        //     ->get();
 
             $current_course = DB::table('course')
         ->join('courses_sub_categories', 'course.course_type', '=', 'courses_sub_categories.id')
