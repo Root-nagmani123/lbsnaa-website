@@ -26,7 +26,7 @@
         <div class="col-lg-9">
             <div class="row">
                 @foreach ($organizations as $organization)
-                <div class="col-lg-2 mb-4">
+                <div class="col-lg-3 mb-4">
                     <div class="card card-lift h-100">
                         <div class="card-header text-center" style="border:0;">
                             <img src="{{ $organization->main_image ? url($organization->main_image) : '' }}"
