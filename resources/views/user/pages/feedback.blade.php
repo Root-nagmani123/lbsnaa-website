@@ -7,9 +7,20 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb p-2">
                         <li class="breadcrumb-item">
-                            <a href="{{ route('home') }}" class="text-danger">Home</a>
+                            <a href="{{ route('home') }}" class="text-danger">
+                                @if(Cookie::get('language') ==
+                                '2')घर
+                                @else
+                                Home
+                                @endif
+                            </a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">Feedback</li>
+                        <li class="breadcrumb-item active" aria-current="page">@if(Cookie::get('language') ==
+                            '2')प्रतिक्रिया
+                            @else
+                            Feedback
+                            @endif
+                        </li>
                     </ol>
                 </nav>
             </div>
@@ -34,24 +45,46 @@
                     <form method="POST" action="{{ route('feedback.store') }}">
                         @csrf
                         <div class="mb-3 ">
-                            <label class="form-label" for="name">Name <span class="text-danger">*</span></label>
+                            <label class="form-label" for="name">@if(Cookie::get('language') ==
+                                '2')नाम
+                                @else
+                                Name
+                                @endif
+                                <span class="text-danger">*</span></label>
                             <input type="text" id="name" name="name" class="form-control" placeholder="Enter your Name"
                                 required />
                         </div>
                         <div class="mb-3 ">
-                            <label class="form-label" for="mobile">Mobile No. <span class="text-danger">*</span></label>
+                            <label class="form-label" for="mobile">
+                                @if(Cookie::get('language') ==
+                                '2')मोबाइल नंबर
+                                @else
+                                Mobile No.
+                                @endif
+                                <span class="text-danger">*</span></label>
                             <input type="tel" id="mobile" name="mobile" class="form-control"
                                 placeholder="Enter your Mobile No." required pattern="[6-9][0-9]{9}"
                                 title="Enter a valid 10-digit mobile number starting with 6-9" />
                         </div>
 
                         <div class="mb-3 ">
-                            <label class="form-label" for="email">Email <span class="text-danger">*</span></label>
+                            <label class="form-label" for="email"> @if(Cookie::get('language') ==
+                                '2')ईमेल
+                                @else
+                                Email
+                                @endif
+                                <span class="text-danger">*</span></label>
                             <input type="email" id="email" name="email" class="form-control"
                                 placeholder="Enter your Email" required />
                         </div>
                         <div class="mb-3 ">
-                            <label class="form-label" for="category">Category <span class="text-danger">*</span></label>
+                            <label class="form-label" for="category">
+                                @if(Cookie::get('language') ==
+                                '2')वर्ग
+                                @else
+                                Category
+                                @endif
+                                <span class="text-danger">*</span></label>
                             <select class="form-select" id="category" name="category" required>
                                 <option value="" disabled selected>--Select--</option>
                                 <option value="1">Signup/Login</option>
@@ -62,12 +95,24 @@
                             </select>
                         </div>
                         <div class="mb-3 ">
-                            <label class="form-label" for="comments">Comments <span class="text-danger">*</span></label>
+                            <label class="form-label" for="comments">
+                                @if(Cookie::get('language') ==
+                                '2')टिप्पणियाँ
+                                @else
+                                Comments
+                                @endif
+                                <span class="text-danger">*</span></label>
                             <textarea name="comments" id="comments" class="form-control"
                                 placeholder="Maximum 500 characters" rows="5" required></textarea>
                         </div>
                         <div class="mb-3">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary">
+                            @if(Cookie::get('language') ==
+                                '2')जमा करना
+                                @else
+                                Submit
+                                @endif
+                                </button>
                         </div>
                     </form>
                 </div>

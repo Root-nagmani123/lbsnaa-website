@@ -1,12 +1,13 @@
 @php
 $language = Cookie::get('language');
 $footer_icons = DB::table('home_footer_images')->where('status',1)->get();
-$footer_links = DB::table('menus')->where('txtpostion',3)->where('menu_status',1)->when($language == 2, function ($query) use ($language) {
-            return $query->where('language', '2');
-        })
-        ->when($language == 1, function ($query) use ($language) {
-            return $query->where('language', '1');
-        })->get();
+$footer_links = DB::table('menus')->where('txtpostion',3)->where('menu_status',1)->when($language == 2, function
+($query) use ($language) {
+return $query->where('language', '2');
+})
+->when($language == 1, function ($query) use ($language) {
+return $query->where('language', '1');
+})->get();
 @endphp
 <!-- quick link section -->
 <!-- card section end -->
@@ -81,16 +82,15 @@ $footer_links = DB::table('menus')->where('txtpostion',3)->where('menu_status',1
                         <a class="nav-link" href="{{ asset($footer_link->pdf_file) }}"
                             target="_blank">{{ $footer_link->menutitle }}</a>
                         @elseif($footer_link->texttype == 3)
-                        {{-- Website URL --}} 
-                        <a class="nav-link"
-   href="{{ $footer_link->web_site_target == 1 
+                        {{-- Website URL --}}
+                        <a class="nav-link" href="{{ $footer_link->web_site_target == 1 
             ? url($footer_link->website_url) 
             : (str_starts_with($footer_link->website_url, 'http') 
                 ? $footer_link->website_url 
                 : 'http://' . $footer_link->website_url) }}"
-   target="{{ $footer_link->web_site_target == 2 ? '_blank' : '_self' }}">
-   {{ $footer_link->menutitle }}
-</a>
+                            target="{{ $footer_link->web_site_target == 2 ? '_blank' : '_self' }}">
+                            {{ $footer_link->menutitle }}
+                        </a>
 
 
 
@@ -116,8 +116,14 @@ $footer_links = DB::table('menus')->where('txtpostion',3)->where('menu_status',1
                                 .getFullYear()));
                             </script>
                         </span>
-                        <span>Lal Bahadur Shastri National Academy of Administration Mussoorie,Govt of India. All Right
+                        <span>
+                            @if(Cookie::get('language') == '2')
+                            लाल बहादुर शास्त्री राष्ट्रीय प्रशासन अकादमी मसूरी, भारत सरकार। सर्वाधिकार सुरक्षित
+                            @else
+                            Lal Bahadur Shastri National Academy of Administration Mussoorie,Govt of India. All Right
                             Reserved
+                            @endif
+
                         </span>
                 </div>
 
@@ -354,47 +360,48 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 <script>
-    // Function to get the current language cookie value
-    function getLanguageCookie() {
-        const name = 'language=';
-        const decodedCookies = decodeURIComponent(document.cookie).split(';');
-        for (let i = 0; i < decodedCookies.length; i++) {
-            let cookie = decodedCookies[i].trim();
-            if (cookie.indexOf(name) === 0) {
-                return cookie.substring(name.length, cookie.length);
-            }
-        }
-        return '1'; // Default to English (1) if no cookie exists
-    }
-
-    // Function to toggle the language cookie and update the text
-    function toggleLanguageCookie() {
-        let currentLanguage = getLanguageCookie();
-        let newLanguage = currentLanguage === '1' ? '2' : '1'; // Toggle between 1 (English) and 2 (Hindi)
-        document.cookie = `language=${newLanguage}; path=/; expires=${new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toUTCString()}`;
-        
-        // Update the displayed language text
-        updateLanguageText(newLanguage);
-        
-        // Optionally reload the page to apply changes
-        location.reload();
-    }
-
-    // Function to update the displayed language text
-    function updateLanguageText(language) {
-        const languageText = document.getElementById('language-text');
-        if (language === '1') {
-            languageText.textContent = 'English';
-        } else {
-            languageText.textContent = 'Hindi';
+// Function to get the current language cookie value
+function getLanguageCookie() {
+    const name = 'language=';
+    const decodedCookies = decodeURIComponent(document.cookie).split(';');
+    for (let i = 0; i < decodedCookies.length; i++) {
+        let cookie = decodedCookies[i].trim();
+        if (cookie.indexOf(name) === 0) {
+            return cookie.substring(name.length, cookie.length);
         }
     }
+    return '1'; // Default to English (1) if no cookie exists
+}
 
-    // Initialize the displayed language text on page load
-    document.addEventListener('DOMContentLoaded', () => {
-        const currentLanguage = getLanguageCookie();
-        updateLanguageText(currentLanguage);
-    });
+// Function to toggle the language cookie and update the text
+function toggleLanguageCookie() {
+    let currentLanguage = getLanguageCookie();
+    let newLanguage = currentLanguage === '1' ? '2' : '1'; // Toggle between 1 (English) and 2 (Hindi)
+    document.cookie =
+        `language=${newLanguage}; path=/; expires=${new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toUTCString()}`;
+
+    // Update the displayed language text
+    updateLanguageText(newLanguage);
+
+    // Optionally reload the page to apply changes
+    location.reload();
+}
+
+// Function to update the displayed language text
+function updateLanguageText(language) {
+    const languageText = document.getElementById('language-text');
+    if (language === '1') {
+        languageText.textContent = 'English';
+    } else {
+        languageText.textContent = 'Hindi';
+    }
+}
+
+// Initialize the displayed language text on page load
+document.addEventListener('DOMContentLoaded', () => {
+    const currentLanguage = getLanguageCookie();
+    updateLanguageText(currentLanguage);
+});
 </script>
 </body>
 

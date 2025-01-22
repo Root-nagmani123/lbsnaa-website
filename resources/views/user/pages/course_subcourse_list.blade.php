@@ -10,11 +10,23 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb p-2 mb-0">
                         <li class="breadcrumb-item">
-                            <a href="{{ route('home') }}" style="color: #af2910;">Home</a>
+                            <a href="{{ route('home') }}" style="color: #af2910;">
+                                @if(Cookie::get('language') == '2')
+                                घर
+                                @else
+                                Home
+                                @endif
+                            </a>
                         </li>
                         <li class="breadcrumb-item">
                             <a href="{{ route('user.navigationpagesbyslug', ['slug' => 'training']) }}"
-                                class="text-danger">Training Courses</a>
+                                class="text-danger">
+                                @if(Cookie::get('language') == '2')
+                                प्रशिक्षण पाठ्यक्रम
+                                @else
+                                Training Courses
+                                @endif
+                            </a>
                         </li>
                         <li class="breadcrumb-item active" aria-current="page" style="color: #af2910;">
                             {{ $category->category_name }}
@@ -44,18 +56,32 @@
         <!-- Current Courses Section -->
         <section class="py-4">
             <div class="container-fluid">
-                <h4 class="mb-3">List Courses:</h4>
+                <h4 class="mb-3">
+                    @if(Cookie::get('language') == '2')
+                    पाठ्यक्रमों की सूची:
+                    @else
+                    List Courses:
+                    @endif
+                </h4>
                 @if(count($sub_category) >0)
-                 @foreach($sub_category as $currentCourse)
-                    <div class="current-course-box mb-3 p-3 border rounded bg-light">
-                    <a href="{{ route('user.courseslug', ['slug' => $currentCourse->slug]) }}"><h5 class="fw-bold">{{ $currentCourse->category_name }}</h5></a>
-                     
-                    </div>
-                    @endforeach
+                @foreach($sub_category as $currentCourse)
+                <div class="current-course-box mb-3 p-3 border rounded bg-light">
+                    <a href="{{ route('user.courseslug', ['slug' => $currentCourse->slug]) }}">
+                        <h5 class="fw-bold">{{ $currentCourse->category_name }}</h5>
+                    </a>
+
+                </div>
+                @endforeach
                 @else
-                    <p class="text-muted">No current courses available for this category.</p>
+                <p class="text-muted">
+                    @if(Cookie::get('language') == '2')
+                    इस श्रेणी के लिए कोई वर्तमान पाठ्यक्रम उपलब्ध नहीं है।
+                    @else
+                    No current courses available for this category.
+                    @endif
+                </p>
                 @endif
-            </div> 
+            </div>
         </section>
 
     </div>
@@ -64,8 +90,13 @@
 
 
 @else
-    <h4>Does not exist</h4>
+<h4>
+    @if(Cookie::get('language') == '2')
+    मौजूद नहीं
+    @else
+    Does not exist
+    @endif
+</h4>
 @endif
 
 @include('user.includes.footer')
-

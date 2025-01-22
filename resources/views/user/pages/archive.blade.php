@@ -7,10 +7,18 @@
                 <nav aria-label="breadcrumb ">
                     <ol class="breadcrumb p-2">
                         <li class="breadcrumb-item">
-                            <a href="{{ route('home') }}" style="color: #af2910;">Home</a>
+                            <a href="{{ route('home') }}" style="color: #af2910;">@if(Cookie::get('language') == '2')
+                                घर
+                                @else
+                                Home
+                                @endif</a>
                         </li>
-                        <li class="breadcrumb-item">
-                            <a href="#" style="color: #af2910;">Archives</a>
+                        <li class="breadcrumb-item active">
+                                @if(Cookie::get('language') == '2')
+                                अभिलेखागार
+                                @else
+                                Archives
+                                @endif
                         </li>
                     </ol>
                 </nav>
@@ -18,25 +26,61 @@
         </div>
     </div>
 </section>
-<section class="py-5">
+<section class="py-2">
     <div class="container-fluid">
         <div class="row">
             <div class="contsearch" style="min-height:320px;">
                 <form id="form2" name="form2" action="javascript:void(0);" onsubmit="return redirectToCategory();">
                     <fieldset>
-                        <label class="txt">Search :</label>
+                        <label class="txt">
+                            @if(Cookie::get('language') == '2')
+                            खोज :
+                            @else
+                            Search :
+                            @endif
+                        </label>
                         <label for="category">
-                            <select name="cattype" id="cattype" fdprocessedid="247li8">
-                                <option value="">Select Category</option>
-                                <option value="1">News</option>
-                                <option value="2">Tenders</option>
-                                <option value="4">Latest Updates</option>
-                                <option value="5">Orders and circulars</option>
+                            <select name="cattype" id="cattype" fdprocessedid="247li8" class="form-control">
+                                <option value="">
+                                    @if(Cookie::get('language') == '2')
+                                    श्रेणी चुनना
+                                    @else
+                                    Select Category
+                                    @endif
+                                </option>
+                                <option value="1">
+                                    @if(Cookie::get('language') == '2')
+                                    समाचार
+                                    @else
+                                    News
+                                    @endif
+                                </option>
+                                <option value="2">
+                                    @if(Cookie::get('language') == '2')
+                                    निविदाओं
+                                    @else
+                                    Tenders
+                                    @endif
+                                </option>
+                                <option value="4">
+                                    @if(Cookie::get('language') == '2')
+                                    नवीनतम अपडेट
+                                    @else
+                                    Latest Updates
+                                    @endif
+                                </option>
+                                <option value="5">
+                                    @if(Cookie::get('language') == '2')
+                                    आदेश और परिपत्र
+                                    @else
+                                    Orders and circulars
+                                    @endif
+                                </option>
                             </select>
                         </label>
 
                         <label for="btn2">
-                            <input id="btn2" type="submit" value="Submit" class="btn" fdprocessedid="a5chyc">
+                            <input id="btn2" type="submit" class="btn btn-primary" fdprocessedid="a5chyc" >
                             <input type="hidden" name="action" value="submit">
                         </label>
                     </fieldset>
@@ -48,25 +92,24 @@
 @include('user.includes.footer')
 
 <script>
-    function redirectToCategory() {
-        const category = document.getElementById('cattype').value;
-        let url = '';
-        switch (category) {
-            case '1': // News
-                url = '{{ route("user.news_old_listing") }}';
-                break;
-            case '2': // Tenders
-                url = '{{ route("user.tenders_archive") }}';
-                break;
-          
-            default:
-                // alert('Please select a valid category.');
-                return false;
-        }
-        if (url) {
-            window.location.href = url;
-        }
-        return false;
+function redirectToCategory() {
+    const category = document.getElementById('cattype').value;
+    let url = '';
+    switch (category) {
+        case '1': // News
+            url = '{{ route("user.news_old_listing") }}';
+            break;
+        case '2': // Tenders
+            url = '{{ route("user.tenders_archive") }}';
+            break;
+
+        default:
+            // alert('Please select a valid category.');
+            return false;
     }
+    if (url) {
+        window.location.href = url;
+    }
+    return false;
+}
 </script>
-    

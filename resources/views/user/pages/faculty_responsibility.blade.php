@@ -12,9 +12,22 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb p-2 mb-0">
                             <li class="breadcrumb-item">
-                                <a href="{{ route('home') }}" style="color: #af2910;">Home</a>
+                                <a href="{{ route('home') }}" style="color: #af2910;">@if(Cookie::get('language') ==
+                                    '2')
+                                    घर
+                                    @else
+                                    Home
+                                    @endif
+                                </a>
                             </li>
-                            <li class="breadcrumb-item active" aria-current="page">Faculty Responsibility</li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                @if(Cookie::get('language') ==
+                                '2')
+                                संकाय जिम्मेदारी
+                                @else
+                                Faculty Responsibility
+                                @endif
+                            </li>
                         </ol>
                     </nav>
                 </div>
@@ -27,7 +40,13 @@
                 <div class="row border-bottom   pb-3 mb-3">
                     <div class="col-lg-6">
                         <div class="d-flex justify-content-between align-items-center">
-                            <h4 class="fw-semibold fs-18 mb-0">Faculty Responsibility</h4>
+                            <h4 class="fw-semibold fs-18 mb-0">
+                                @if(Cookie::get('language') ==
+                                '2')
+                                संकाय जिम्मेदारी
+                                @else
+                                Faculty Responsibility
+                                @endif</h4>
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -37,7 +56,8 @@
                                     <label class="form-label">Search by Keywords:</label>
                                     <label for="keywords">
                                         <input type="text" id="Keywords" name="keywords"
-                                            value="{{ urlencode(request('keywords')) }}" placeholder="Search Faculty" class="form-control text-dark ps-5 h-58">
+                                            value="{{ urlencode(request('keywords')) }}" placeholder="Search Faculty"
+                                            class="form-control text-dark ps-5 h-58">
                                     </label>
                                     <label for="btn2">
                                         <input id="btn2" type="submit" value="Submit" class="btn btn-success">
@@ -57,10 +77,36 @@
                     <table class="table table-striped align-middle">
                         <thead class="table-light">
                             <tr class="text-center">
-                                <th>Serial</th>
-                                <th>Title</th>
-                                <th>Officer Incharge</th>
-                                <th>Deputy Incharge</th>
+                                <th>@if(Cookie::get('language') ==
+                                    '2')
+                                    आनुक्रमिक
+                                    @else
+                                    Serial
+                                    @endif
+                                </th>
+                                <th>@if(Cookie::get('language') ==
+                                    '2')
+                                    शीर्षक
+                                    @else
+                                    Title
+                                    @endif
+                                </th>
+                                <th>
+                                    @if(Cookie::get('language') ==
+                                    '2')
+                                    प्रभारी अधिकारी
+                                    @else
+                                    Officer Incharge
+                                    @endif
+                                </th>
+                                <th>
+                                    @if(Cookie::get('language') ==
+                                    '2')
+                                    उप प्रभारी
+                                    @else
+                                    Deputy Incharge
+                                    @endif
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -83,7 +129,13 @@
                                         @endforeach
                                     </ul>
                                     @else
-                                    <span class="text-muted">No Responsibilities</span>
+                                    <span class="text-muted">@if(Cookie::get('language') ==
+                                        '2')
+                                        कोई जिम्मेदारी नहीं
+                                        @else
+                                        No Responsibilities
+                                        @endif
+                                    </span>
                                     @endif
                                 </td>
                                 <td>
@@ -100,14 +152,26 @@
                                         @endforeach
                                     </ul>
                                     @else
-                                    <span class="text-muted">No Responsibilities</span>
+                                    <span class="text-muted">@if(Cookie::get('language') ==
+                                        '2')
+                                        कोई जिम्मेदारी नहीं
+                                        @else
+                                        No Responsibilities
+                                        @endif</span>
                                     @endif
                                 </td>
                             </tr>
                             @endforeach
                             @else
                             <tr>
-                                <td colspan="5" class="text-center text-muted">No records found</td>
+                                <td colspan="5" class="text-center text-muted">
+                                @if(Cookie::get('language') ==
+                                        '2')
+                                        कोई रिकॉर्ड नहीं मिला
+                                        @else
+                                        No records found
+                                        @endif
+                                        </td>
                             </tr>
                             @endif
                         </tbody>

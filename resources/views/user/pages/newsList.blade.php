@@ -11,9 +11,21 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb p-2">
                         <li class="breadcrumb-item">
-                            <a href="{{ route('home') }}" class="text-danger">Home</a>
+                            <a href="{{ route('home') }}" class="text-danger">
+                                @if(Cookie::get('language') == '2')
+                                घर
+                                @else
+                                Home
+                                @endif
+                            </a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">Academy News</li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            @if(Cookie::get('language') == '2')
+                            अकादमी समाचार
+                            @else
+                            Academy News
+                            @endif
+                        </li>
                     </ol>
                 </nav>
             </div>
@@ -25,10 +37,23 @@
     <div class="container-fluid">
         <div class="row g-4">
             <div class="row mb-3">
-                <div class="col-md-9"></div>
+                <div class="col-md-9">
+                    <h3 class="fw-semibold fs-18 mb-0 text-primary">
+                        @if(Cookie::get('language') == '2')
+                        अकादमी समाचार
+                        @else
+                        Academy News
+                        @endif
+                    </h3>
+                </div>
                 <div class="col-md-3 text-end">
-                    <a href="{{ route('user.news_old_listing') }}"
-                        class="btn btn-outline-primary fw-semibold btn-sm">Archive</a>
+                    <a href="{{ route('user.news_old_listing') }}" class="btn btn-outline-primary fw-semibold btn-sm">
+                        @if(Cookie::get('language') == '2')
+                        पुरालेख
+                        @else
+                        Archive
+                        @endif
+                    </a>
                 </div>
             </div>
             @foreach($news as $slider)
@@ -36,23 +61,40 @@
                 <!-- Card -->
                 <div class="card shadow-lg card-lift h-100">
                     <div class="card-header p-0">
-                    <a href="{{ isset($slider->main_image) && !empty($slider->main_image) ? asset($slider->main_image) : asset('assets/images/4.jpg') }}" data-fancybox="gallery">
-                    <img src="{{ isset($slider->main_image) && !empty($slider->main_image) ? asset($slider->main_image) : asset('assets/images/4.jpg') }}"
-                    class="card-img-top" alt="blogpost" style="height: 200px; object-fit: cover; cursor: zoom-in;">
-                    </a>
+                        <a href="{{ isset($slider->main_image) && !empty($slider->main_image) ? asset($slider->main_image) : asset('assets/images/4.jpg') }}"
+                            data-fancybox="gallery">
+                            <img src="{{ isset($slider->main_image) && !empty($slider->main_image) ? asset($slider->main_image) : asset('assets/images/4.jpg') }}"
+                                class="card-img-top" alt="blogpost"
+                                style="height: 200px; object-fit: cover; cursor: zoom-in;">
+                        </a>
                     </div>
                     <!-- Card body -->
                     <div class="card-body d-flex flex-column">
-                        <p class="fs-6 mb-2 fw-semibold d-block text-success">Posted On:
+                        <p class="fs-6 mb-2 fw-semibold d-block text-success">
+                            @if(Cookie::get('language') == '2')
+                            प्रकाशित किया गया:
+                            @else
+                            Posted On:
+                            @endif
+                            </a>
+
                             {{ \Carbon\Carbon::parse($slider->start_date)->format('d F, Y') }}</p>
-                        <a href="{{ route('user.newsbyslug', $slider->title_slug) }}" class="fs-5"><h3 class="fs-5">
-                        {{ $slider->title }}
-                        </h3></a>
+                        <a href="{{ route('user.newsbyslug', $slider->title_slug) }}" class="fs-5">
+                            <h3 class="fs-5">
+                                {{ $slider->title }}
+                            </h3>
+                        </a>
                         <p class="text-truncate" style="max-height: 3rem;">{{ $slider->short_description }}</p>
                     </div>
                     <!-- Card footer -->
                     <div class="card-footer bg-white border-0 text-start">
-                        <a href="{{ route('user.newsbyslug', $slider->title_slug) }}" class="text-primary">Read More
+                        <a href="{{ route('user.newsbyslug', $slider->title_slug) }}" class="text-primary">
+                            @if(Cookie::get('language') == '2')
+                            और पढ़ें
+                            @else
+                            Read More
+                            @endif
+
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor"
                                 class="bi bi-arrow-right" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd"

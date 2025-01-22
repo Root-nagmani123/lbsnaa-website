@@ -12,7 +12,12 @@
                     <ol class="breadcrumb">
                         <!-- Home link -->
                         <li class="breadcrumb-item">
-                            <a href="{{ route('home') }}">Home</a>
+                            <a href="{{ route('home') }}">@if(Cookie::get('language') ==
+                                '2')घर
+                                @else
+                                Home
+                                @endif
+                            </a>
                         </li>
 
                         <!-- Dynamic breadcrumbs -->
@@ -45,55 +50,53 @@
                         <div class="accordion" id="accordionExample">
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="heading-{{$menu->id}}">
-                                @if($menu->texttype == 3)
-                                                    @php  $url = '';
-                                                        if ($menu->web_site_target == 1) {
-                                                            // Internal link
-                                                            $url = url($menu->website_url);
-                                                        } elseif ($menu->web_site_target == 2) {
-                                                            $url = str_starts_with($menu->website_url, 'http') ? $menu->website_url : 'http://' . $menu->website_url;
-                                                        }
-                                                        @endphp
-                                                    
-                                                    <a href="'{{ $url }}'" target="_blank"
-                                                        class="text-decoration-none">
-                                                        <button
-                                                            class="accordion-button collapsed {{ $menu->children->isNotEmpty() ? '' : 'no-arrow' }}"
-                                                            type="button"
-                                                            data-bs-toggle="{{ $menu->children->isNotEmpty() ? 'collapse' : '' }}"
-                                                            data-bs-target="{{ $menu->children->isNotEmpty() ? '#collapse-' . $menu->id : '' }}"
-                                                            aria-expanded="false"
-                                                            aria-controls="{{ $menu->children->isNotEmpty() ? 'collapse-' . $menu->id : '' }}">
-                                                            {{ $menu->menutitle }}
-                                                        </button>
-                                                    </a>
-                                                    @elseif ($menu->texttype == 2)
-                                                    <a href="{{ asset($menu->pdf_file) }}" target="_blank"
-                                                        class="text-decoration-none">
-                                                        <button
-                                                            class="accordion-button collapsed {{ $menu->children->isNotEmpty() ? '' : 'no-arrow' }}"
-                                                            type="button"
-                                                            data-bs-toggle="{{ $menu->children->isNotEmpty() ? 'collapse' : '' }}"
-                                                            data-bs-target="{{ $menu->children->isNotEmpty() ? '#collapse-' . $menu->id : '' }}"
-                                                            aria-expanded="false"
-                                                            aria-controls="{{ $menu->children->isNotEmpty() ? 'collapse-' . $menu->id : '' }}">
-                                                            {{ $menu->menutitle }}
-                                                        </button>
-                                                    </a>
-                                                    @else
-                                                    <a href="{{ url('rti/' . $menu->menu_slug ?? '#') }}"
-                                                        class="text-decoration-none">
-                                                        <button
-                                                            class="accordion-button collapsed {{ $menu->children->isNotEmpty() ? '' : 'no-arrow' }}"
-                                                            type="button"
-                                                            data-bs-toggle="{{ $menu->children->isNotEmpty() ? 'collapse' : '' }}"
-                                                            data-bs-target="{{ $menu->children->isNotEmpty() ? '#collapse-' . $menu->id : '' }}"
-                                                            aria-expanded="false"
-                                                            aria-controls="{{ $menu->children->isNotEmpty() ? 'collapse-' . $menu->id : '' }}">
-                                                            {{ $menu->menutitle }}
-                                                        </button>
-                                                    </a>
-                                                    @endif
+                                    @if($menu->texttype == 3)
+                                    @php $url = '';
+                                    if ($menu->web_site_target == 1) {
+                                    // Internal link
+                                    $url = url($menu->website_url);
+                                    } elseif ($menu->web_site_target == 2) {
+                                    $url = str_starts_with($menu->website_url, 'http') ? $menu->website_url : 'http://'
+                                    . $menu->website_url;
+                                    }
+                                    @endphp
+
+                                    <a href="'{{ $url }}'" target="_blank" class="text-decoration-none">
+                                        <button
+                                            class="accordion-button collapsed {{ $menu->children->isNotEmpty() ? '' : 'no-arrow' }}"
+                                            type="button"
+                                            data-bs-toggle="{{ $menu->children->isNotEmpty() ? 'collapse' : '' }}"
+                                            data-bs-target="{{ $menu->children->isNotEmpty() ? '#collapse-' . $menu->id : '' }}"
+                                            aria-expanded="false"
+                                            aria-controls="{{ $menu->children->isNotEmpty() ? 'collapse-' . $menu->id : '' }}">
+                                            {{ $menu->menutitle }}
+                                        </button>
+                                    </a>
+                                    @elseif ($menu->texttype == 2)
+                                    <a href="{{ asset($menu->pdf_file) }}" target="_blank" class="text-decoration-none">
+                                        <button
+                                            class="accordion-button collapsed {{ $menu->children->isNotEmpty() ? '' : 'no-arrow' }}"
+                                            type="button"
+                                            data-bs-toggle="{{ $menu->children->isNotEmpty() ? 'collapse' : '' }}"
+                                            data-bs-target="{{ $menu->children->isNotEmpty() ? '#collapse-' . $menu->id : '' }}"
+                                            aria-expanded="false"
+                                            aria-controls="{{ $menu->children->isNotEmpty() ? 'collapse-' . $menu->id : '' }}">
+                                            {{ $menu->menutitle }}
+                                        </button>
+                                    </a>
+                                    @else
+                                    <a href="{{ url('rti/' . $menu->menu_slug ?? '#') }}" class="text-decoration-none">
+                                        <button
+                                            class="accordion-button collapsed {{ $menu->children->isNotEmpty() ? '' : 'no-arrow' }}"
+                                            type="button"
+                                            data-bs-toggle="{{ $menu->children->isNotEmpty() ? 'collapse' : '' }}"
+                                            data-bs-target="{{ $menu->children->isNotEmpty() ? '#collapse-' . $menu->id : '' }}"
+                                            aria-expanded="false"
+                                            aria-controls="{{ $menu->children->isNotEmpty() ? 'collapse-' . $menu->id : '' }}">
+                                            {{ $menu->menutitle }}
+                                        </button>
+                                    </a>
+                                    @endif
                                 </h2>
                                 @if($menu->children->isNotEmpty())
                                 <div id="collapse-{{$menu->id}}"
@@ -105,17 +108,17 @@
                                             <div class="accordion-item">
                                                 <h2 class="accordion-header" id="heading-{{$child->id}}">
                                                     @if($child->texttype == 3)
-                                                    @php  $url = '';
-                                                        if ($child->web_site_target == 1) {
-                                                            // Internal link
-                                                            $url = url($child->website_url);
-                                                        } elseif ($child->web_site_target == 2) {
-                                                            $url = str_starts_with($child->website_url, 'http') ? $child->website_url : 'http://' . $child->website_url;
-                                                        }
-                                                        @endphp
-                                                    
-                                                    <a href="'{{ $url }}'" target="_blank"
-                                                        class="text-decoration-none">
+                                                    @php $url = '';
+                                                    if ($child->web_site_target == 1) {
+                                                    // Internal link
+                                                    $url = url($child->website_url);
+                                                    } elseif ($child->web_site_target == 2) {
+                                                    $url = str_starts_with($child->website_url, 'http') ?
+                                                    $child->website_url : 'http://' . $child->website_url;
+                                                    }
+                                                    @endphp
+
+                                                    <a href="'{{ $url }}'" target="_blank" class="text-decoration-none">
                                                         <button
                                                             class="accordion-button collapsed {{ $child->children->isNotEmpty() ? '' : 'no-arrow' }}"
                                                             type="button"
@@ -127,7 +130,7 @@
                                                         </button>
                                                     </a>
                                                     @elseif ($child->texttype == 2)
-                                                    <a href="{{ asset($child->pdf_file) }}"  target="_blank"
+                                                    <a href="{{ asset($child->pdf_file) }}" target="_blank"
                                                         class="text-decoration-none">
                                                         <button
                                                             class="accordion-button collapsed {{ $child->children->isNotEmpty() ? '' : 'no-arrow' }}"
@@ -230,14 +233,13 @@
 }
 </style>
 <script>
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
         e.preventDefault();
         document.querySelector(this.getAttribute('href')).scrollIntoView({
             behavior: 'smooth'
         });
     });
 });
-
 </script>
 @include('user.includes.footer')

@@ -6,9 +6,21 @@
                 <nav aria-label="breadcrumb ">
                     <ol class="breadcrumb p-2">
                         <li class="breadcrumb-item">
-                            <a href="{{ route('home')}}" style="color: #af2910;">Home</a>
+                            <a href="{{ route('home')}}" style="color: #af2910;">
+                                @if(Cookie::get('language') ==
+                                '2')घर
+                                @else
+                                Home
+                                @endif
+                            </a>
                         </li>
-                        <li class="breadcrumb-item active">Organizational Structure
+                        <li class="breadcrumb-item active">
+                            @if(Cookie::get('language') ==
+                            '2')संगठनात्मक संरचना
+                            @else
+                            Organizational Structure
+                            @endif
+
                         </li>
                     </ol>
                 </nav>
@@ -61,7 +73,7 @@
 
 
 <style>
-    .org-chart {
+.org-chart {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -142,7 +154,7 @@
 
 .card a:hover {
     background-color: #fff;
-    color:#af2910;
+    color: #af2910;
     border: 1px solid #af2910;
 }
 

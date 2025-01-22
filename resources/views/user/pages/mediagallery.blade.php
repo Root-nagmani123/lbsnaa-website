@@ -9,9 +9,21 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb p-2 mb-0">
                             <li class="breadcrumb-item">
-                                <a href="{{ route('home') }}" style="color: #af2910;">Home</a>
+                                <a href="{{ route('home') }}" style="color: #af2910;">
+                                    @if(Cookie::get('language') ==
+                                    '2')घर
+                                    @else
+                                    Home
+                                    @endif
+                                </a>
                             </li>
-                            <li class="breadcrumb-item active" aria-current="page">Media Gallery</li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                @if(Cookie::get('language') ==
+                                '2')मीडिया गैलरी
+                                @else
+                                Media Gallery
+                                @endif
+                            </li>
                         </ol>
                     </nav>
                 </div>
@@ -32,7 +44,13 @@
                                     class="img-fluid" style="max-width: 100px;">
                             </div>
                             <div class="mt-3">
-                                <h4 class="text-center">Academy Song</h4>
+                                <h4 class="text-center">
+                                    @if(Cookie::get('language') ==
+                                    '2')अकादमी गीत
+                                    @else
+                                    Academy Song
+                                    @endif
+                                </h4>
                             </div>
                         </a>
                     </div>
@@ -46,7 +64,13 @@
                                     style="max-width: 100px;">
                             </div>
                             <div class="mt-3">
-                                <h4 class="text-center">Video Gallery</h4>
+                                <h4 class="text-center">
+                                    @if(Cookie::get('language') ==
+                                    '2')वीडियो गैलरी
+                                    @else
+                                    Video Gallery
+                                    @endif
+                                </h4>
                             </div>
                         </a>
                     </div>
@@ -60,7 +84,13 @@
                                     class="img-fluid" style="max-width: 100px;">
                             </div>
                             <div class="mt-3">
-                                <h4 class="text-center">Photos Gallery</h4>
+                                <h4 class="text-center">
+                                    @if(Cookie::get('language') ==
+                                    '2')फोटो गैलरी
+                                    @else
+                                    Photos Gallery
+                                    @endif
+                                </h4>
                             </div>
                         </a>
                     </div>

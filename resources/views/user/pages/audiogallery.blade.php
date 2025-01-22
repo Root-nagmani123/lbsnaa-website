@@ -7,14 +7,32 @@
                 <nav aria-label="breadcrumb ">
                     <ol class="breadcrumb p-2">
                         <li class="breadcrumb-item">
-                            <a href="{{ route('home') }}" style="color: #af2910;">Home</a>
+                            <a href="{{ route('home') }}" style="color: #af2910;">
+                                @if(Cookie::get('language') == '2')
+                                घर
+                                @else
+                                Home
+                                @endif
+                            </a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="{{ route('user.mediagallery')}}" style="color: #af2910;">Media Gallery</a>
+                            <a href="{{ route('user.mediagallery')}}" style="color: #af2910;">
+                                @if(Cookie::get('language') == '2')
+                                मीडिया गैलरी
+                                @else
+                                Media Gallery
+                                @endif
+                            </a>
                         </li>
 
                         <li class="breadcrumb-item">
-                            <a href="#" style="color: #af2910;">Audio Gallery Details</a>
+                            <a href="#" style="color: #af2910;">
+                                @if(Cookie::get('language') == '2')
+                                ऑडियो गैलरी विवरण
+                                @else
+                                Audio Gallery Details
+                                @endif
+                            </a>
                         </li>
                     </ol>
                 </nav>
@@ -24,28 +42,39 @@
 </section>
 <section class="py-2">
     <div class="container-fluid">
-    <h2 class="text-primary mb-2">Audio Gallery</h2>
+        <h2 class="text-primary mb-2">
+            @if(Cookie::get('language') == '2')
+            ऑडियो गैलरी
+            @else
+            Audio Gallery
+            @endif</h2>
         <div class="row">
             @if(count($media_data) > 0)
-                @foreach($media_data as $media)
-                    <div class="col-md-2 mb-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <audio controls class="w-100">
-                                    <source src="{{ asset('uploads/audios/' . $media->audio_upload) }}" type="audio/mpeg">
-                                    Your browser does not support the audio element.
-                                </audio>
-                            </div>
-                            <div class="card-footer" style="border:none;">
-                                <div class="form-field mt-2">
-                                    <p>{{ $media->audio_title_en }}</p>
-                                </div>
-                            </div>
+            @foreach($media_data as $media)
+            <div class="col-md-2 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <audio controls class="w-100">
+                            <source src="{{ asset('uploads/audios/' . $media->audio_upload) }}" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                    <div class="card-footer" style="border:none;">
+                        <div class="form-field mt-2">
+                            <p>{{ $media->audio_title_en }}</p>
                         </div>
                     </div>
-                @endforeach
+                </div>
+            </div>
+            @endforeach
             @else
-                <p>No Audio Found</p>
+            <p>
+                @if(Cookie::get('language') == '2')
+                कोई ऑडियो नहीं मिला
+                @else
+                No Audio Found
+                @endif
+            </p>
             @endif
         </div>
     </div>

@@ -20,11 +20,11 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="{{ asset('assets/js/orgchart.js') }}"></script>
     <title>
-       
+
         @if(Cookie::get('language') == '2')
-            लाल बहादुर शास्त्री राष्ट्रीय प्रशासन अकादमी
+        होम | लाल बहादुर शास्त्री राष्ट्रीय प्रशासन अकादमी
         @else
-            Home | Lal Bahadur Shastri National Academy of Administration
+        Home | Lal Bahadur Shastri National Academy of Administration
         @endif
     </title>
     <style>
@@ -169,17 +169,17 @@
                         </a>
                     </li>
                     <li class="nav-item">
-    <a class="nav-link" href="{{ route('set.language', (Cookie::get('language') == '1' ? 2 : 1)) }}" 
-       data-bs-toggle="tooltip" data-bs-placement="bottom" title="Language Options">
-        <i class="material-icons menu-icon">language</i>
-        
-        @if(Cookie::get('language') == '2')
-            हिंदी
-        @else
-            English
-        @endif
-    </a>
-</li>
+                        <a class="nav-link" href="{{ route('set.language', (Cookie::get('language') == '1' ? 2 : 1)) }}"
+                            data-bs-toggle="tooltip" data-bs-placement="bottom" title="Language Options">
+                            <i class="material-icons menu-icon">language</i>
+
+                            @if(Cookie::get('language') == '2')
+                            हिंदी
+                            @else
+                            English
+                            @endif
+                        </a>
+                    </li>
 
                 </ul>
             </div>
@@ -215,12 +215,12 @@
                     ->where('txtpostion', 1)
                     ->where('parent_id', 0)
                     ->when($language == 2, function ($query) use ($language) {
-                                return $query->where('language', '2');
-                            })
-                            ->when($language == 1, function ($query) use ($language) {
-                                return $query->where('language', '1');
-                            })
-                    
+                    return $query->where('language', '2');
+                    })
+                    ->when($language == 1, function ($query) use ($language) {
+                    return $query->where('language', '1');
+                    })
+
                     ->get();
 
                     $Research_Center_list = DB::table('research_centres')
@@ -228,17 +228,17 @@
                     ->get();
 
                     function renderMenuItems($parentId, $isCourseOrTraining = false) {
-                        $language = Cookie::get('language');
+                    $language = Cookie::get('language');
                     $submenus = DB::table('menus')
                     ->where('menu_status', 1)
                     ->where('is_deleted', 0)
                     ->where('parent_id', $parentId)
                     ->when($language == 2, function ($query) use ($language) {
-                            return $query->where('language', '2');
-                        })
-                        ->when($language == 1, function ($query) use ($language) {
-                            return $query->where('language', '1');
-                        })
+                    return $query->where('language', '2');
+                    })
+                    ->when($language == 1, function ($query) use ($language) {
+                    return $query->where('language', '1');
+                    })
                     ->get();
 
                     if ($submenus->isEmpty() && !$isCourseOrTraining) {
@@ -257,11 +257,11 @@
                         ->where('is_deleted', 0)
                         ->where('parent_id', $submenu->id)
                         ->when($language == 2, function ($query) use ($language) {
-            return $query->where('language', '2');
-        })
-        ->when($language == 1, function ($query) use ($language) {
-            return $query->where('language', '1');
-        })
+                        return $query->where('language', '2');
+                        })
+                        ->when($language == 1, function ($query) use ($language) {
+                        return $query->where('language', '1');
+                        })
                         ->exists();
 
                         // Add 'w-100' class to ensure full width for the list item

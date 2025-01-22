@@ -12,12 +12,30 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb p-2 mb-0">
                             <li class="breadcrumb-item">
-                                <a href="{{ route('home') }}" style="color: #af2910;">Home</a>
+                                <a href="{{ route('home') }}" style="color: #af2910;">
+                                    @if(Cookie::get('language') ==
+                                    '2')घर
+                                    @else
+                                    Home
+                                    @endif
+                                </a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="{{ route('user.tenders') }}">Tender</a>
+                                <a href="{{ route('user.tenders') }}">
+                                    @if(Cookie::get('language') ==
+                                    '2')नाज़ुक
+                                    @else
+                                    Tender
+                                    @endif
+                                </a>
                             </li>
-                            <li class="breadcrumb-item active" aria-current="page">Archive Tenders</li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                @if(Cookie::get('language') ==
+                                '2')पुरालेख निविदाएं
+                                @else
+                                Archive Tenders
+                                @endif
+                            </li>
                         </ol>
                     </nav>
                 </div>
@@ -27,12 +45,24 @@
             <form id="form2" method="GET" action="{{ route('user.tenders_archive') }}">
                 <div class="row mb-4">
                     <div class="col-lg-4">
-                        <label class="form-label" for="Keywords">Search :</label>
+                        <label class="form-label" for="Keywords">
+                            @if(Cookie::get('language') ==
+                            '2')खोज :
+                            @else
+                            Search :
+                            @endif
+                        </label>
                         <input type="text" id="Keywords" name="keywords" value="{{ request('keywords') }}"
                             placeholder="Keywords Search" class="form-control text-dark ps-5 h-58">
                     </div>
                     <div class="col-lg-4">
-                        <label for="year" class="form-label">Year</label>
+                        <label for="year" class="form-label">
+                            @if(Cookie::get('language') ==
+                            '2')वर्ष
+                            @else
+                            Year
+                            @endif
+                        </label>
                         <select name="year" id="year" class="form-select ps-5 text-dark h-58">
                             @foreach($years as $year)
                             <option value="{{ $year }}" @if($year==request('year')) selected @endif>{{ $year }}
@@ -42,9 +72,20 @@
 
                     </div>
                     <div class="col-lg-4 d-flex align-items-end gap-2">
-                        <button type="submit" class="btn btn-outline-primary fw-bold w-100">Submit</button>
-                        <a href="{{ route('user.tenders_archive') }}"
-                            class="btn btn-outline-warning fw-bold w-100">Reset</a>
+                        <button type="submit" class="btn btn-outline-primary fw-bold w-100">@if(Cookie::get('language')
+                            ==
+                            '2')जमा करना
+                            @else
+                            Submit
+                            @endif
+                        </button>
+                        <a href="{{ route('user.tenders_archive') }}" class="btn btn-outline-warning fw-bold w-100">
+                            @if(Cookie::get('language') ==
+                            '2')रीसेट करें
+                            @else
+                            Reset
+                            @endif
+                        </a>
 
                     </div>
                 </div>
@@ -54,7 +95,13 @@
         <div class="card bg-white border-0 rounded-4 shadow-sm mb-4">
             <div class="card-body p-4">
                 <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-3">
-                    <h4 class="fw-semibold fs-18 mb-0">Tenders</h4>
+                    <h4 class="fw-semibold fs-18 mb-0">
+                        @if(Cookie::get('language') ==
+                        '2')निविदाओं
+                        @else
+                        Tenders
+                        @endif
+                    </h4>
                 </div>
 
                 <!-- Table Section -->
@@ -63,11 +110,41 @@
                         <thead class="table-light">
                             <tr class="text-center">
                                 <th>#</th>
-                                <th>Tender Title</th>
-                                <th>Publish Date</th>
-                                <th>Last Date</th>
-                                <th>Document</th>
-                                <th>Corrigendum</th>
+                                <th>
+                                    @if(Cookie::get('language') ==
+                                    '2')निविदा शीर्षक
+                                    @else
+                                    Tender Title
+                                    @endif
+                                </th>
+                                <th>
+                                    @if(Cookie::get('language') ==
+                                    '2')प्रकाशित तिथि
+                                    @else
+                                    Publish Date
+                                    @endif
+                                </th>
+                                <th>
+                                    @if(Cookie::get('language') ==
+                                    '2')अंतिम तिथि
+                                    @else
+                                    Last Date
+                                    @endif
+                                </th>
+                                <th>
+                                    @if(Cookie::get('language') ==
+                                    '2')दस्तावेज़
+                                    @else
+                                    Document
+                                    @endif
+                                </th>
+                                <th>
+                                    @if(Cookie::get('language') ==
+                                    '2')शुद्धिपत्र
+                                    @else
+                                    Corrigendum
+                                    @endif
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -81,7 +158,13 @@
                                 <td>
                                     @if(!empty($value->file))
                                     <a href="{{ asset('storage/tender/'.$value->file) }}"
-                                        class="btn btn-sm btn-outline-primary" target="_blank">Download</a>
+                                        class="btn btn-sm btn-outline-primary" target="_blank">
+                                        @if(Cookie::get('language') ==
+                                        '2')डाउनलोड करना
+                                        @else
+                                        Download
+                                        @endif
+                                    </a>
                                     @else
                                     <span class="text-muted">N/A</span>
                                     @endif
@@ -89,7 +172,12 @@
                                 <td>
                                     @if(!empty($value->corrigendum))
                                     <a href="{{ asset('storage/tender/'.$value->corrigendum) }}"
-                                        class="btn btn-sm btn-outline-primary" target="_blank">Download</a>
+                                        class="btn btn-sm btn-outline-primary"
+                                        target="_blank">@if(Cookie::get('language') ==
+                                        '2')डाउनलोड करना
+                                        @else
+                                        Download
+                                        @endif</a>
                                     @else
                                     <span class="text-muted">N/A</span>
                                     @endif
@@ -98,7 +186,13 @@
                             @endforeach
                             @else
                             <tr>
-                                <td colspan="5" class="text-center text-muted">No records found</td>
+                                <td colspan="5" class="text-center text-muted">
+                                    @if(Cookie::get('language') ==
+                                    '2')कोई रिकॉर्ड नहीं मिला
+                                    @else
+                                    No records found
+                                    @endif
+                                </td>
                             </tr>
                             @endif
                         </tbody>

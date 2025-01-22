@@ -9,10 +9,18 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb p-2">
                         <li class="breadcrumb-item">
-                            <a href="{{ route('home')}}" style="color: #af2910;">Home</a>
+                            <a href="{{ route('home')}}" style="color: #af2910;">@if(Cookie::get('language') ==
+                                '2')घर
+                                @else
+                                Home
+                                @endif</a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="#" style="color: #af2910;">Sitemap</a>
+                            @if(Cookie::get('language') ==
+                            '2')साइट मैप
+                            @else
+                            Sitemap
+                            @endif
                         </li>
                     </ol>
                 </nav>
@@ -24,7 +32,11 @@
     <div class="container-fluid">
         <div class="card p-3">
             <div class="d-flex justify-content-between align-items-center pb-20 mb-20 mb-2">
-                <h2 class="fw-semibold fs-18 mb-0">Sitemap</h2>
+                <h2 class="fw-semibold fs-18 mb-0">@if(Cookie::get('language') ==
+                    '2')साइट मैप
+                    @else
+                    Sitemap
+                    @endif</h2>
             </div>
             <div class="row">
                 @foreach($menuTree as $menu)
@@ -50,7 +62,12 @@
                     </li>
                     @endforeach
                 </ul>
-                <h3 class="mb-3 mt-3">Footer Links</h3>
+                <h3 class="mb-3 mt-3">@if(Cookie::get('language') ==
+                    '2')पाद लिंक
+                    @else
+                    Footer Links
+                    @endif
+                </h3>
                 <ul class="list-group" style="margin-left:30px;">
                     @foreach($footerLinks as $i => $footer_link)
                     <li>

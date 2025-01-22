@@ -7,15 +7,38 @@
                 <nav aria-label="breadcrumb ">
                     <ol class="breadcrumb p-2">
                         <li class="breadcrumb-item">
-                            <a href="{{ route('home')}}" style="color: #af2910;">Home</a>
+                            <a href="{{ route('home')}}" style="color: #af2910;">
+                                @if(Cookie::get('language') == '2')
+                                घर
+                                @else
+                                Home
+                                @endif
+                            </a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="{{ route('user.mediagallery')}}" style="color: #af2910;">Media Gallery</a>
+                            <a href="{{ route('user.mediagallery')}}" style="color: #af2910;">
+                                @if(Cookie::get('language') == '2')
+                                मीडिया गैलरी
+                                @else
+                                Home
+                                @endif
+                            </a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="{{ route('user.photogallery')}}" style="color: #af2910;">Photo Gallery</a>
+                            <a href="{{ route('user.photogallery')}}" style="color: #af2910;">
+                                @if(Cookie::get('language') == '2')
+                                फोटो गैलरी
+                                @else
+                                Photo Gallery
+                                @endif
+                            </a>
                         </li>
-                        <li class="breadcrumb-item active">Photo Gallery Details</li>
+                        <li class="breadcrumb-item active">
+                            @if(Cookie::get('language') == '2')
+                            फोटो गैलरी विवरण
+                            @else
+                            Photo Gallery Details
+                            @endif </li>
                     </ol>
                 </nav>
             </div>
@@ -82,7 +105,14 @@
             @endforeach
             @endif
             @else
-            <p>No images available</p>
+            <p>
+
+                @if(Cookie::get('language') == '2')
+                कोई छवि उपलब्ध नहीं है
+                @else
+                No images available
+                @endif
+            </p>
             @endif
         </div>
     </div>
@@ -93,14 +123,14 @@
 <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        Fancybox.bind("[data-fancybox]", {
-            Toolbar: {
-                display: ["zoom", "close"], // Display zoom and close buttons
-            },
-            closeButton: "inside", // Close button inside the lightbox
-        });
+document.addEventListener("DOMContentLoaded", function() {
+    Fancybox.bind("[data-fancybox]", {
+        Toolbar: {
+            display: ["zoom", "close"], // Display zoom and close buttons
+        },
+        closeButton: "inside", // Close button inside the lightbox
     });
+});
 </script>
 
 @include('user.includes.footer')

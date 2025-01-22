@@ -11,17 +11,33 @@
                 <nav aria-label="breadcrumb ">
                     <ol class="breadcrumb p-2">
                         <li class="breadcrumb-item">
-                            <a href="{{ route('home')}}" style="color: #af2910;">Home</a>
+                            <a href="{{ route('home')}}" style="color: #af2910;">
+                                @if(Cookie::get('language') ==
+                                '2')घर
+                                @else
+                                Home
+                                @endif
+                            </a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="#" style="color: #af2910;">Vacancy</a>
+                            <a href="#" style="color: #af2910;">
+                                @if(Cookie::get('language') ==
+                                '2')रिक्ति
+                                @else
+                                Vacancy
+                                @endif
+                            </a>
                         </li>
                     </ol>
                 </nav>
             </div>
         </div>
         <div class="col-md-12 content-area">
-            <h2 class="heading">Vacancy</h2>
+            <h2 class="heading">@if(Cookie::get('language') ==
+                '2')रिक्ति
+                @else
+                Vacancy
+                @endif</h2>
             <p></p>
 
 
@@ -29,11 +45,35 @@
             <table width="100%" border="0" cellspacing="0" align="center" cellpadding="4" class="dataTable">
                 <thead>
                     <tr class="even">
-                        <th width="5%">S. No.</th>
-                        <th width="20%">Job Title</th>
-                        <th width="20%">Publish Date</th>
-                        <th width="20%">Last Date</th>
-                        <th width="15%">Document</th>
+                        <th width="5%">#</th>
+                        <th width="20%">
+                        @if(Cookie::get('language') ==
+                            '2')पद का नाम
+                            @else
+                            Job Title
+                            @endif
+                            </th>
+                        <th width="20%">
+                        @if(Cookie::get('language') ==
+                            '2')प्रकाशित तिथि
+                            @else
+                            Publish Date
+                            @endif
+                            </th>
+                        <th width="20%">
+                        @if(Cookie::get('language') ==
+                            '2')अंतिम तिथि
+                            @else
+                            Last Date
+                            @endif
+                            </th>
+                        <th width="15%">
+                        @if(Cookie::get('language') ==
+                            '2')दस्तावेज़
+                            @else
+                            Document
+                            @endif
+                            </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -47,8 +87,6 @@
                         <td>
                             @if(!empty($value->document_upload))
                             <a href="{{ asset('uploads/' . $value->document_upload) }}" target="_blank">Download</a>
-
-
                             @else
                             N/A
                             @endif
@@ -57,7 +95,13 @@
                     @endforeach
                     @else
                     <tr>
-                        <td colspan="5" class="text-center">No records found</td>
+                        <td colspan="5" class="text-center">
+                            @if(Cookie::get('language') ==
+                            '2')कोई रिकॉर्ड नहीं मिला
+                            @else
+                            No records found
+                            @endif
+                        </td>
                     </tr>
                     @endif
                 </tbody>
