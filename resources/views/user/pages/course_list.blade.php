@@ -142,11 +142,16 @@
                         संग्रहीत पाठ्यक्रम:
                         @else
                         Archived Courses:
-                        @endif
-                        Archived Courses:</h4>
+                        @endif</h4>
                     @if($courses->isNotEmpty())
                     <div class="form-group">
-                        <label for="archive_course" class="form-label">Select Archived Course:</label>
+                        <label for="archive_course" class="form-label">
+                        @if(Cookie::get('language') == '2')
+                        संग्रहीत पाठ्यक्रम का चयन करें:
+                        @else
+                        Select Archived Course:
+                        @endif
+                        </label>
                         <select name="archive" id="archive_course" class="form-select"
                             onchange="navigateToArchivedCourse(this.value)">
                             <option value="">Select Archived Course</option>
