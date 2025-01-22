@@ -285,8 +285,8 @@ class HomePagesMicroController extends Controller
             ->join('research_centres as rc', 'mmtp.research_centre', '=', 'rc.id')
             ->where('mmtp.page_status', 1)
             ->where('rc.research_centre_slug', $slug)
-            ->whereDate('mmtp.start_date', '<=', $today)  // Start date must be less than or equal to today
-            ->whereDate('mmtp.end_date', '>=', $today)    // End date must be greater than or equal to today
+            // ->whereDate('mmtp.start_date', '<=', $today)  // Start date must be less than or equal to today
+            // ->whereDate('mmtp.end_date', '>=', $today)    // End date must be greater than or equal to today
             ->select('mmtp.program_name', 'mmtp.venue', 'mmtp.start_date', 'mmtp.end_date', 'mmtp.registration_status', 'mmtp.id', 'rc.research_centre_slug')
             ->get(); 
         
