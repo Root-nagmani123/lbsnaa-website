@@ -51,7 +51,16 @@
                         </td>
                         <td>{{ $training->venue }}</td>
                         <td>{{ $training->start_date }} To {{ $training->end_date }}</td>
-                        <td>{{ $training->registration_status == 1 ? 'On' : 'Off' }}</td>
+                        <!-- <td>{{ $training->registration_status == 1 ? 'On' : 'Off' }}</td> -->
+                        <td>
+                            @if($training->registration_status == 1)
+                                On
+                            @elseif($training->registration_status == 2)
+                                Off
+                            @else
+                                
+                            @endif
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>
