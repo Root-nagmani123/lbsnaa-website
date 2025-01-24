@@ -47,7 +47,7 @@
 
             <div class="col-12">
                 <!-- Additional content for the second column -->
-                <div class="mb-6 mb-lg-8">
+                <div class="mb-3">
                     <h2 class="h1 fw-bold text-primary">
                         {{$nav_page->menutitle}}
                     </h2>
