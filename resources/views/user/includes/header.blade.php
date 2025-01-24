@@ -85,8 +85,8 @@
         <div class="row py-1 align-items-center">
             <div class="col-md-4 d-flex align-items-center" style="font-size: 13px;">
                 <img class="img-fluid"
-                    src="https://cdn.digitalindiacorporation.in/wp-content/themes/di-child/assets/images/ind-flag.svg.gzip"
-                    alt="indian_flag" style="font-size: 13px;"> &nbsp;&nbsp;
+                    src="{{ asset('admin_assets/images/ashok_logo.png') }}"
+                    alt="indian_flag" style="font-size: 510px;height: 50px;"> &nbsp;&nbsp;
                 <a href="https://www.india.gov.in/" target="_blank" style="font-size: 16px; color: #af2910;">भारत सरकार
                     | Government of India</a>
             </div>
@@ -174,10 +174,10 @@
                             data-bs-offset="10,20">
                             <i class="material-icons menu-icon">language</i>
                         </a>
-                        <ul class="dropdown-menu" aria-labelledby="languageDropdown">
+                        <!-- <ul class="dropdown-menu" aria-labelledby="languageDropdown">
                             <li><a class="dropdown-item" href="{{ route('set.language', 1) }}">English</a></li>
                             <li><a class="dropdown-item" href="{{ route('set.language', 2) }}">Hindi</a></li>
-                        </ul>
+                        </ul> -->
                     </li>
 
                 </ul>
