@@ -29,7 +29,9 @@
         </div>
         <section class="container-fluid">
             <div class="row mb-3">
-                <div class="col-md-9"></div>
+                <div class="col-md-9">
+                    <h2 class="fw-semibold fs-18 mb-0 text-primary">Tenders</h2>
+                </div>
                 <div class="col-md-3 text-end">
                     <a href="{{ route('user.tenders_archive') }}" class="btn btn-outline-primary fw-semibold btn-sm">
                         @if(Cookie::get('language') ==

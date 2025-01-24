@@ -37,7 +37,7 @@
 
 
 <!-- floating notification start -->
-<section class="py-3">
+<section class="py-3 bg-light">
     <div class="container-fluid">
         <div>
             <div class="position-relative d-flex overflow-x-hidden align-items-center">
