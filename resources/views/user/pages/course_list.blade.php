@@ -53,7 +53,8 @@
                         {{ $subcategory->category_name }}
                     </h2>
                 </div>
-                <p class="text-muted"><?=$subcategory->description;?></p>
+                <p class="text-muted"><?= htmlspecialchars_decode($subcategory->description); ?>
+                </p>
             </div>
         </div>
         <section class="py-4">

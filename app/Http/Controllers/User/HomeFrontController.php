@@ -168,8 +168,103 @@ class HomeFrontController extends Controller
             // echo 'joining';die;
            return redirect('faculty_responsibility');
         
+        }elseif ($slug == 'books-of-sale') {
+           
+            return redirect()->route('user.souvenir', [
+                'keywords' => '',
+                'pro_category' => 3,
+                'producttype' => 'Sale',
+                'action' => 'submit',
+                'action' => 'reset',
+            ]);
+        }elseif ($slug == 'journal-for-sale') {
+           
+            return redirect()->route('user.souvenir', [
+                'keywords' => '',
+                'pro_category' => 4,
+                'producttype' => 'Sale',
+                'action' => 'submit',
+                'action' => 'reset',
+            ]);
+        }elseif ($slug == 'administrator-for-sale') {
+           
+            return redirect()->route('user.souvenir', [
+                'keywords' => '',
+                'pro_category' => 5,
+                'producttype' => 'Sale',
+                'action' => 'submit',
+                'action' => 'reset',
+            ]);
         }
+         elseif ($slug == 'newsletter-for-sale') {
+           
+            return redirect()->route('user.souvenir', [
+                'keywords' => '',
+                'pro_category' => 6,
+                'producttype' => 'Sale',
+                'action' => 'submit',
+                'action' => 'reset',
+            ]);
+        } elseif ($slug == 'report-for-sale') {
+           
+            return redirect()->route('user.souvenir', [
+                'keywords' => '',
+                'pro_category' => 7,
+                'producttype' => 'Sale',
+                'action' => 'submit',
+                'action' => 'reset',
+            ]);
+        } elseif ($slug == 'books') {
+           
+            return redirect()->route('user.souvenir', [
+                'keywords' => '',
+                'pro_category' => 3,
+                'producttype' => 'Download',
+                'action' => 'submit',
+                'action' => 'reset',
+            ]);
+        } elseif ($slug == 'journal') {
+           
+            return redirect()->route('user.souvenir', [
+                'keywords' => '',
+                'pro_category' => 4,
+                'producttype' => 'Download',
+                'action' => 'submit',
+                'action' => 'reset',
+            ]);
+        } elseif ($slug == 'administrator') {
+           
+            return redirect()->route('user.souvenir', [
+                'keywords' => '',
+                'pro_category' => 5,
+                'producttype' => 'Download',
+                'action' => 'submit',
+                'action' => 'reset',
+            ]);
+        } elseif ($slug == 'newsletter') {
+           
+            return redirect()->route('user.souvenir', [
+                'keywords' => '',
+                'pro_category' => 6,
+                'producttype' => 'Download',
+                'action' => 'submit',
+                'action' => 'reset',
+            ]);
+        } elseif ($slug == 'report') {
+           
+            return redirect()->route('user.souvenir', [
+                'keywords' => '',
+                'pro_category' => 7,
+                'producttype' => 'Download',
+                'action' => 'submit',
+                'action' => 'reset',
+            ]);
+        } elseif ($slug == 'training-calendar') {
+           
+            return redirect()->route('user.training_cal');
+        } 
 
+        
         $breadcrumb = $this->generateBreadcrumb($slug);
        
         $nav_page =  DB::table('menus')->where('menu_status',1)->where('is_deleted',0)->where('menu_slug',$slug)->first();
@@ -177,7 +272,7 @@ class HomeFrontController extends Controller
         if($slug == 'director-message' ){
         $director_img = DB::table('faculty_members')->select('image')->where('designation','Director')->where('page_status',1)->first();
 
-        }
+        } 
         return view('user.pages.navigationpagesbyslug', compact('nav_page','breadcrumb','director_img'));
     }
     function footer_menu($slug){
@@ -319,7 +414,7 @@ public function training_cal()
     // Step 3: Fetch all courses in one query
     $courses = DB::table('course')
         ->leftJoin('section_category', 'course.support_section', '=', 'section_category.id')
-        ->where('section_category.status', 1)
+        // ->where('section_category.status', 1)
         ->where('course.page_status', 1)
         ->select(
             'course.id',
@@ -331,7 +426,7 @@ public function training_cal()
             'section_category.name as support_section'
         )
         ->get();
-
+// print_r($courses);die;
     // Step 4: Prepare organized data structure
     $organizedCategories = [];
 
@@ -369,8 +464,8 @@ public function training_cal()
                 ];
             }
         }
-    }
-
+    } 
+// print_r($organizedCategories);die;
     return view('user.pages.training_cal', compact('organizedCategories'));
 }
 public function get_course_list_pages(Request $request, $slug){
@@ -382,7 +477,7 @@ public function get_course_list_pages(Request $request, $slug){
         ->where('status', 1)
         ->select('id', 'parent_id','slug','category_name', 'color_theme','description')
         ->first();
-        // print_r($subcategory);die;
+        // print_r($subcategory);
         if($subcategory->parent_id  == 0){
             $parent_category = $subcategory;
         }else{
