@@ -3,7 +3,7 @@
                       $keyword = str_replace(' ', '+', $node->name);
                       @endphp
                       <div class="card-body" style="padding:0;">
-                          <img src="{{ asset($node->image) }}" alt="mentor 5" class="avatar avatar-xl rounded-circle">
+                          <img src="{{ asset($node->image) }}" alt="{{ $node->name ) }}" class="avatar avatar-xl rounded-circle">
                           <!--content-->
                           <div class="m-2">
                               <h3 class="mb-0 h4">{{ $node->name }}</h3>
@@ -11,12 +11,12 @@
                           </div>
                       </div>
                       <div class="card-footer" style="border:0;background-color:transparent;padding:0;">
-                      <a href="{{ route('user.faculty_responsibility') }}?keywords={{ $keyword }}">Responsibility</a>
+                      <a href="{{ route('user.faculty_responsibility') }}?keywords={{ $keyword }}">{{ $node->name }} Responsibility</a>
                       <a href="#" data-bs-toggle="modal" data-bs-target="#bioDataModal" data-name="{{ $node->name }}"
                           data-image="{{ asset($node->image) }}" data-designation="{{ $node->designation }}"
                           data-email="{{ $node->email }}" data-phone="{{ $node->phone_pt_office }}"
                           data-description-id="description-{{ $node->id }}">
-                          Bio Data
+                          {{ $node->name }} Bio Data
                       </a>
                       <input type="hidden" id="description-{{ $node->id }}" name="description"
                           value="{{ htmlspecialchars($node->description, ENT_QUOTES, 'UTF-8') }}" />

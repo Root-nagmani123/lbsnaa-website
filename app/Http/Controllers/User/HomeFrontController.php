@@ -12,6 +12,7 @@ class HomeFrontController extends Controller
 
     public function index()
     {
+        $title  = 'Home | Lal Bahadur Shastri National Academy of Administration';
         Cookie::queue('language', 1, 60 * 24 * 30);
         $language = Cookie::get('language');
         date_default_timezone_set('Asia/Kolkata');
@@ -94,17 +95,17 @@ class HomeFrontController extends Controller
     
             
         // print_r($upcoming_course);die;
-        return view('user.pages.home', compact('sliders','news','quick_links','news_scrollers','faculty_members','current_course','upcoming_course'));
+        return view('user.pages.home', compact('sliders','news','quick_links','news_scrollers','faculty_members','current_course','upcoming_course','title'));
     } 
     public function get_news($slug)
     {
-
+        $title = 'Academy News';
         $news =  DB::table('news')->where('status',1)->where('title_slug',$slug)->first();
-
+        
         $news_images = json_decode($news->multiple_images);
 
         
-        return view('user.pages.newsbyslug', compact('news','news_images'));
+        return view('user.pages.newsbyslug', compact('news','news_images','title'));
     }
     public function generateBreadcrumb($currentMenuSlug)
     {
@@ -136,6 +137,7 @@ class HomeFrontController extends Controller
     }
     public function get_navigation_pages(Request $request, $slug)
     {
+        $title = ucwords(str_replace('-', ' ', $slug)) ;
         // echo $slug;die;
         if($slug == 'faculty'){
             $query = DB::table('faculty_members')->where('page_status', 1)->where('category', 1);
@@ -274,24 +276,27 @@ class HomeFrontController extends Controller
         $director_img = DB::table('faculty_members')->select('image')->where('designation','Director')->where('page_status',1)->first();
 
         } 
-        return view('user.pages.navigationpagesbyslug', compact('nav_page','breadcrumb','director_img'));
+        return view('user.pages.navigationpagesbyslug', compact('nav_page','breadcrumb','director_img','title'));
     }
     function footer_menu($slug){
+        $title = ucwords(str_replace('-', ' ', $slug));
         if($slug == 'feedback'){
             return view('user.pages.feedback');
         }
         $nav_page =  DB::table('menus')->where('menu_status',1)->where('is_deleted',0)->where('menu_slug',$slug)->first();
-        return view('user.pages.footer_details_page', compact('nav_page'));
+        return view('user.pages.footer_details_page', compact('nav_page','title'));
     }
     function news_listing(){
+        $title = 'Academy News';
         $today = date('Y-m-d');
         $news =  DB::table('news')->where('status',1)->where('start_date', '<=', $today)
         ->where('end_date', '>=', $today)->get();
     
-        return view('user.pages.newsList', compact('news'));
+        return view('user.pages.newsList', compact('news','title'));
         
     }
     public function news_old_listing(Request $request) {
+        $title = 'Archive Academy News';
         $today = date('Y-m-d');
     
         // Fetch the distinct years of news
@@ -315,17 +320,18 @@ class HomeFrontController extends Controller
         $news = $query->get();
     
         // Return view with news and years
-        return view('user.pages.old_news', compact('news', 'years'));
+        return view('user.pages.old_news', compact('news', 'years','title'));
     }
     
     function letest_updates($slug){
+        $title = 'Latest Updates';
         $nav_page=  DB::table('menus')->where('txtpostion',7)->where('is_deleted',0)->where('menu_status',1)->where('menu_slug',$slug)->first();
     
-        return view('user.pages.letest_updates', compact('nav_page'));
+        return view('user.pages.letest_updates', compact('nav_page','title'));
         
     }
     function tenders() {
-        
+        $title = 'Tenders';
         date_default_timezone_set('Asia/Kolkata'); // Set timezone to Asia/Kolkata
         $today = date('Y-m-d H:i:s'); // Include time for more precise filtering
         // dd($today);
@@ -335,10 +341,11 @@ class HomeFrontController extends Controller
             ->where('expiry_date', '>=', $today)
             ->get();
     
-        return view('user.pages.tenders', compact('query'));
+        return view('user.pages.tenders', compact('query','title'));
     }
     
     function tenders_archive(Request $request){
+        $title = 'Archive Tenders';
         date_default_timezone_set('Asia/Kolkata'); // Set timezone to Asia/Kolkata
         $today = date('Y-m-d H:i:s');
     
@@ -361,10 +368,11 @@ class HomeFrontController extends Controller
         }
     
        $query = $query->get();
-          return view('user.pages.old_tenders',compact('query','years'));
+          return view('user.pages.old_tenders',compact('query','years','title'));
     }
     function faculty(Request $request)
 {
+    $title = 'Faculty';
     $query = DB::table('faculty_members')->where('page_status', 1);
 
     // Check if a search keyword is provided
@@ -374,10 +382,11 @@ class HomeFrontController extends Controller
 
     $faculty = $query->get();
 
-    return view('user.pages.faculty', compact('faculty'));
+    return view('user.pages.faculty', compact('faculty','title'));
 }
 function staff(Request $request)
 {
+    $title = 'Staff';
     $query = DB::table('staff_members')->where('page_status', 1);
 
     // Check if a search keyword is provided
@@ -387,17 +396,18 @@ function staff(Request $request)
 
     $staff = $query->get();
 
-    return view('user.pages.staff', compact('staff'));
+    return view('user.pages.staff', compact('staff','title'));
 }
 
 function vacancy(){
-        
+        $title = 'Vacancy';
     $query = DB::table('manage_vacancies')->get();
-    return view('user.pages.vacancy',compact('query'));
+    return view('user.pages.vacancy',compact('query','title'));
     
 }
 public function training_cal()
 {
+    $title = 'Training Calendar';
     // Step 1: Fetch all parent categories
     $parentCategories = DB::table('courses_sub_categories')
         ->where('parent_id', 0)  // Get only the parent categories
@@ -467,9 +477,10 @@ public function training_cal()
         }
     } 
 // print_r($organizedCategories);die;
-    return view('user.pages.training_cal', compact('organizedCategories'));
+    return view('user.pages.training_cal', compact('organizedCategories','title'));
 }
 public function get_course_list_pages(Request $request, $slug){
+    $title =  ucwords(str_replace('-', ' ', $slug));
     $currentDate = Carbon::now();
 
     // Step 1: Fetch the subcategory
@@ -513,9 +524,10 @@ public function get_course_list_pages(Request $request, $slug){
         ->whereDate('course_start_date', '>', $currentDate)
         ->get();
 //  print_r($parent_category);die;
-    return view('user.pages.course_list', compact('parent_category','subcategory', 'currentCourse', 'courses','upcomingCourse'));
+    return view('user.pages.course_list', compact('parent_category','subcategory', 'currentCourse', 'courses','upcomingCourse','title'));
 }
 function get_course_subcourse_list_pages(Request $request, $slug){
+    $title =  ucwords(str_replace('-','', $slug));
     $category = DB::table('courses_sub_categories')
     ->where('slug', $slug)
     ->where('status', 1)
@@ -529,11 +541,12 @@ function get_course_subcourse_list_pages(Request $request, $slug){
     ->select('id', 'category_name', 'slug','color_theme','description')
     ->get();
 
-return view('user.pages.course_subcourse_list', compact('category', 'sub_category'));
+return view('user.pages.course_subcourse_list', compact('category', 'sub_category','title'));
 }
 
 public function get_course_details_pages(Request $request, $slug)
 {
+    $title =  ucwords(str_replace('-','', $slug));
     $currentDate = Carbon::now();
     // Fetch the course based on the slug
     $course = DB::table('course')
@@ -546,7 +559,7 @@ public function get_course_details_pages(Request $request, $slug)
                     'manage_venues.venue_title'
                 )
                 ->first();
-                print_r($course);
+                // print_r($course);
     // Check if course exists, if not return a 404 error or a suitable response
     if (!$course) {
         return abort(404, 'Course not found');
@@ -567,10 +580,11 @@ public function get_course_details_pages(Request $request, $slug)
                     print_r($subcategory);
 
     // Pass the course and subcategory to the view
-    return view('user.pages.course_details', compact('parentcategory','course', 'subcategory','courses_list'));
+    return view('user.pages.course_details', compact('parentcategory','course', 'subcategory','courses_list','title'));
 }
 public function souvenir(Request $request)
 {
+    $title = 'Souvenirs';
     // Fetch categories for the filter
     $categories = DB::table('souvenircategory')->select('id', 'category_name')->where('status', '1')->get();
 
@@ -591,11 +605,11 @@ public function souvenir(Request $request)
     $souvenir = $query->select('id', 'product_title', 'product_discounted_price','product_price','product_type','document_upload', 'contact_email_id', 'upload_image', 'product_description')->where('product_status', '1')->get();
 
     // Return to view
-    return view('user.pages.souvenir_list', compact('categories', 'souvenir','keywords'));
+    return view('user.pages.souvenir_list', compact('categories', 'souvenir','keywords','title'));
 }
 function rti_main_page(Request $request) {
     $slug = 'rti';
-
+$title = ucwords(str_replace('-', ' ', $slug));
     // Generate breadcrumb
     $breadcrumb = $this->generateBreadcrumb($slug);
        
@@ -612,7 +626,7 @@ function rti_main_page(Request $request) {
     // print_r($menuItems);  // Shows the structure of $menuItems collection
     // die();  // Stop the script for debugging
 
-    return view('user.pages.rti_page', compact('menuItems', 'nav_page', 'breadcrumb'));
+    return view('user.pages.rti_page', compact('menuItems', 'nav_page', 'breadcrumb','title'));
 }
 
 
@@ -638,6 +652,7 @@ private function getMenuHierarchy($parentId = 0, $slug = null) {
 }
 
 function get_rti_page_details(Request $request,$slug){
+    $title = ucwords(str_replace('-', ' ', $slug));
     $breadcrumb = $this->generateBreadcrumb($slug);
        
     // Fetch navigation page
@@ -653,7 +668,7 @@ function get_rti_page_details(Request $request,$slug){
     // print_r($menuItems);  // Shows the structure of $menuItems collection
     // die();  // Stop the script for debugging
 
-    return view('user.pages.rti_page', compact('menuItems', 'nav_page', 'breadcrumb'));
+    return view('user.pages.rti_page', compact('menuItems', 'nav_page', 'breadcrumb','title'));
 }
 function feedback(Request $request){
     return view('user.pages.feedback');
@@ -684,26 +699,30 @@ function feedback(Request $request){
         return redirect()->back()->with('success', 'Feedback submitted successfully!');
     }
 function mediagallery(){
-    return view('user.pages.mediagallery');
+    $title = 'Media Gallery';
+    return view('user.pages.mediagallery',compact('title'));
 }
 function audiogallery(){
+    $title = 'Audio Gallery';
     $media_data = DB::table('manage_media_centers')
     ->where('page_status',1)
     ->get(); 
 
-    return view('user.pages.audiogallery',compact('media_data'));
+    return view('user.pages.audiogallery',compact('media_data','title'));
     
 }
 function videogallery(){
+    $title = 'Video Gallery';
     $media_data = DB::table('manage_video_centers')
     ->leftjoin('manage_media_categories', 'manage_video_centers.category_name', '=', 'manage_media_categories.id')
     ->where('page_status',1)
     ->select('manage_video_centers.*','manage_media_categories.name')
     ->get();
 
-    return view('user.pages.videogallery',compact('media_data'));
+    return view('user.pages.videogallery',compact('media_data','title'));
 }
 function photogallery(Request $request){
+    $title = 'Photo Gallery';
     $keywords = $request->input('keywords');
     $category = $request->input('txtcategory');
     $year = $request->input('year');
@@ -736,10 +755,10 @@ function photogallery(Request $request){
         ->get();
         // print_r($news);die;
 
-    return view('user.pages.photogallery', compact('media_cat','news'));
+    return view('user.pages.photogallery', compact('media_cat','news','title'));
 }
 function view_all_photogallery(Request $request){
-    
+    $title = 'All Photo Gallery';
     $catid = $request->input('glrid');
     $type = $request->input('type');
 
@@ -756,10 +775,11 @@ if($type == 'gallery'){
 
 }
   
-    return view('user.pages.all_photogallery', compact('media_d','type'));
+    return view('user.pages.all_photogallery', compact('media_d','type','title'));
 }
 public function organization(Request $request)
 {
+    $title  = 'Organizational Structure';
     $orgChart = DB::table('organisation_chart')
         ->leftJoin('faculty_members as faculty', 'organisation_chart.employee_name', '=', 'faculty.id')
         ->select(
@@ -779,7 +799,7 @@ public function organization(Request $request)
     $orgChart = $orgChart->toArray();
     $hierarchy = $this->buildHierarchy($orgChart);
     // print_r($hierarchy);die;
-    return view('user.pages.organization', compact('hierarchy'));
+    return view('user.pages.organization', compact('hierarchy','title'));
 }
 
 // Recursive function to build the hierarchy
@@ -799,6 +819,7 @@ private function buildHierarchy($elements, $parentId = null)
     return $branch;
 }
 public function faculty_responsibility(Request $request) {
+    $title = 'Faculty Responsibility';
     $query = DB::table('faculty_members')
         ->where('page_status', 1)
         ->select('name', 'email');
@@ -841,9 +862,10 @@ public function faculty_responsibility(Request $request) {
         $value->Deputy_Incharge = $Deputy;
     }
 
-    return view('user.pages.faculty_responsibility', compact('data'));
+    return view('user.pages.faculty_responsibility', compact('data','title'));
 }
 function upcoming_events(){
+    $title = 'Upcoming Courses';
     date_default_timezone_set('Asia/Kolkata'); // Set timezone to Asia/Kolkata
     $today = date('Y-m-d H:i:s'); 
     // $upcoming_course = DB::table('course')
@@ -877,9 +899,10 @@ function upcoming_events(){
         ->get();
 
         
-        return view('user.pages.upcoming_events', compact('upcoming_course'));
+        return view('user.pages.upcoming_events', compact('upcoming_course','title'));
 }
 function running_events(){
+    $title = 'Running Courses';  // Change title as per your requirement
     date_default_timezone_set('Asia/Kolkata'); // Set timezone to Asia/Kolkata
     $today = date('Y-m-d H:i:s'); 
 
@@ -904,13 +927,14 @@ function running_events(){
                   ->orWhere('parent_categories.status', 1); // Or active parent categories
         })
         ->get();
-        return view('user.pages.running_events', compact('current_course'));
+        return view('user.pages.running_events', compact('current_course','title'));
 }
 function sitemap(){
+    $title = 'Sitemap';
     $quickLinks = DB::table('quick_links')->where('is_deleted',0)->where('status',1)->get();
     $footerLinks = DB::table('menus')->where('txtpostion',3)->where('menu_status',1)->get();
     $menuTree = $this->buildMenuTree();
-    return view('user.pages.sitemap', compact('menuTree', 'quickLinks', 'footerLinks'));
+    return view('user.pages.sitemap', compact('menuTree', 'quickLinks', 'footerLinks','title'));
     
 }
 private function buildMenuTree($parentId = null)
@@ -936,20 +960,23 @@ private function buildMenuTree($parentId = null)
     return $tree;
 }
 function search(Request $request){
+    $title = 'Search Results';
     // Logic to handle search query
     $query = $request->input('query');
 
     // Perform a search and return results (you can integrate with an API or search engine here)
     
-    return view('user.pages.search',compact('query'));
+    return view('user.pages.search',compact('query', 'title'));
 }
 function screenReader(Request $request){
+    $title = 'Screen Reader Content';
     $screenRender = DB::table('screenrender')->first();
 
-    return view('user.pages.screenRender', compact('screenRender'));
+    return view('user.pages.screenRender', compact('screenRender','title'));
 }
 function archive(Request $request){
-    return view('user.pages.archive');
+    $title = 'Archive';
+    return view('user.pages.archive', compact('title'));
 }
 function set_language(Request $request,$lang) {
     $languages = ['1', '2']; // Supported languages

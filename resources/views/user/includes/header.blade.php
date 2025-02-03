@@ -24,7 +24,12 @@
         @if(Cookie::get('language') == '2')
         होम | लाल बहादुर शास्त्री राष्ट्रीय प्रशासन अकादमी
         @else
+        @if(isset($title))
+        {{ $title }} | Lal Bahadur Shastri National Academy of Administration
+        @else
         Home | Lal Bahadur Shastri National Academy of Administration
+        @endif
+       
         @endif
     </title>
     <style>
@@ -118,7 +123,7 @@
                 <ul class="nav justify-content-end align-items-center">
                     <!-- Tooltip Items -->
                     <li class="nav-item">
-                        <a class="nav-link" href="#news" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                        <a class="nav-link" href="#skip_to_main_content" data-bs-toggle="tooltip" data-bs-placement="bottom"
                             title="Skip to main content">
                             <i class="material-icons menu-icon">restart_alt</i>
                         </a>

@@ -43,7 +43,7 @@
             <!-- Render the second layer -->
             @if (!empty($hierarchy))
             @foreach ($hierarchy as $node)
-            @if (!empty($node->children))
+            @if (!empty($node->children)) 
             <div class="line"></div>
             <div class="level" style="margin:0;">
                 @foreach ($node->children as $child)
