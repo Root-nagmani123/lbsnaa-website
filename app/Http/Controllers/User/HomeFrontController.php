@@ -12,6 +12,7 @@ class HomeFrontController extends Controller
 
     public function index()
     {
+        Cookie::queue('language', 1, 60 * 24 * 30);
         $language = Cookie::get('language');
         date_default_timezone_set('Asia/Kolkata');
         $today = date('Y-m-d'); 
@@ -545,6 +546,7 @@ public function get_course_details_pages(Request $request, $slug)
                     'manage_venues.venue_title'
                 )
                 ->first();
+                print_r($course);
     // Check if course exists, if not return a 404 error or a suitable response
     if (!$course) {
         return abort(404, 'Course not found');
@@ -562,6 +564,7 @@ public function get_course_details_pages(Request $request, $slug)
                     ->whereDate('course_end_date', '<', $currentDate)
                     ->select('id', 'course_name', 'course_start_date', 'course_end_date', 'course_type')
                     ->get();
+                    print_r($subcategory);
 
     // Pass the course and subcategory to the view
     return view('user.pages.course_details', compact('parentcategory','course', 'subcategory','courses_list'));
