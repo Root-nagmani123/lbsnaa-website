@@ -50,10 +50,17 @@ class HomeFrontmicroController extends Controller
         if ($slug) {
             // Filter by research_centre_slug if provided
             $query->where('research_centres.research_centre_slug', $slug);
+            
+            // Fetch the research centre name dynamically
+            $researchCentre = $query->first();
+            
+            if ($researchCentre) {
+                $pageTitle = $researchCentre->research_centre_name;
+            }
         }
         $research_centres = $query->get();
         // Return the view with the necessary data
-        return view('user.pages.microsites.index', compact('sliders', 'quickLinks', 'whatsNew', 'research_centres', 'slug'));
+        return view('user.pages.microsites.index', compact('sliders', 'quickLinks', 'whatsNew', 'research_centres', 'slug','pageTitle'));
     }
 
 
