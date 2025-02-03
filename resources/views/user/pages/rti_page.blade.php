@@ -43,7 +43,7 @@
     <div class="container-fluid">
         <div class="row gy-4 gy-xl-0">
             <div class="col-xl-3 col-lg-6 col-12">
-                <div class="card">
+                <div class="card bg-primary">
                     <div class="accordion" id="accordionExample">
                         <!-- Loop through parent menus -->
                         @foreach($menuItems as $menu)
@@ -209,10 +209,10 @@
                 </div>
             </div>
             <div class="col-xl-9 col-lg-6 col-12">
-                <div class="mb-6 mb-lg-8">
-                    <h2 class="h1 fw-bold text-primary">
+                <div class="mb-4">
+                    <h1 class="h1 fw-bold text-primary">
                         {{$nav_page->menutitle}}
-                    </h2>
+                    </h1>
                 </div>
                 <p>{!! $nav_page->content !!}</p>
             </div>

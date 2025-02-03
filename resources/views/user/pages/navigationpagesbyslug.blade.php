@@ -48,9 +48,9 @@
             <div class="col-12">
                 <!-- Additional content for the second column -->
                 <div class="mb-3">
-                    <h2 class="h1 fw-bold text-primary">
+                    <h1 class="h1 fw-bold text-primary">
                         {{$nav_page->menutitle}}
-                    </h2>
+                    </h1>
                 </div>
                 @if ($director_img != '')
                 <div class="row">

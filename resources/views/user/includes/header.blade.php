@@ -28,6 +28,12 @@
         @endif
     </title>
     <style>
+    *:focus {
+        outline: 2px solid #af2910;
+        /* High-contrast green */
+        outline-offset: 2px;
+    }
+
     .slider-caption {
         position: absolute;
         top: 0;
@@ -77,18 +83,36 @@
         word-wrap: break-word;
         /* Ensure long words wrap properly */
     }
+
+    .navbar-nav .nav-link:focus,
+    .navbar-nav .dropdown-item:focus {
+        outline: 2px solid #af2910 !important;
+        /* High-contrast green */
+        outline-offset: 2px;
+        box-shadow: 0 0 5px rgba(211, 4, 49, 0.75);
+        /* Optional for extra visibility */
+    }
+    .dropdown-toggle:focus, 
+.dropdown-item:focus {
+    outline: 2px solid #af2910 !important;
+    outline-offset: 2px;
+}
+.navbar {
+    overflow: visible !important;
+}
+
+
     </style>
 </head>
 
 <body class="d-flex flex-column min-vh-100 bg-white" style="overflow-x: hidden">
     <div class="container-fluid bg-light bar">
         <div class="row py-1 align-items-center">
-            <div class="col-md-4 d-flex align-items-center" style="font-size: 13px;">
-                <img class="img-fluid"
-                    src="{{ asset('admin_assets/images/ashok_logo.png') }}"
-                    alt="indian_flag" style="font-size: 510px;height: 50px;"> &nbsp;&nbsp;
-                <a href="https://www.india.gov.in/" target="_blank" style="font-size: 16px; color: #af2910;">भारत सरकार
-                    | Government of India</a>
+            <div class="col-md-4 d-flex align-items-center" style="font-size: 13px;font-weight:400;">
+                <a href="https://www.india.gov.in/" target="_blank" style="font-size: 16px; color: #af2910;"><img
+                        class="img-fluid" src="{{ asset('assets/images/icons/ashok.jpg') }}" alt="indian_flag"
+                        style="font-size: 510px;height: 50px;">
+                    भारत सरकार | Government of India</a>
             </div>
             <div class="col-md-8">
                 <ul class="nav justify-content-end align-items-center">
@@ -168,17 +192,17 @@
                             <i class="material-icons menu-icon">search</i>
                         </a>
                     </li>
-                    <li class="nav-item dropdown">
+                    <!-- <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside"
                             data-bs-offset="10,20">
                             <i class="material-icons menu-icon">language</i>
                         </a>
-                        <!-- <ul class="dropdown-menu" aria-labelledby="languageDropdown">
+                        <ul class="dropdown-menu" aria-labelledby="languageDropdown">
                             <li><a class="dropdown-item" href="{{ route('set.language', 1) }}">English</a></li>
                             <li><a class="dropdown-item" href="{{ route('set.language', 2) }}">Hindi</a></li>
-                        </ul> -->
-                    </li>
+                        </ul>
+                    </li> -->
 
                 </ul>
             </div>
@@ -509,6 +533,32 @@
             });
         });
     });
+    </script>
+    <script>
+        document.querySelectorAll('.dropdown-toggle').forEach(item => {
+    item.addEventListener('keydown', function(event) {
+        if (event.key === 'Tab') {
+            let dropdown = this.nextElementSibling;
+            if (dropdown && dropdown.classList.contains('dropdown-menu')) {
+                dropdown.querySelector('.dropdown-item').focus();
+            }
+        }
+    });
+});
+
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.dropdown-toggle').forEach((dropdown) => {
+        dropdown.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                this.click();
+            }
+        });
+    });
+});
+
     </script>
 </body>
 

@@ -59,7 +59,7 @@
 </head>
 
 <body class="d-flex flex-column min-vh-100 bg-white">
-    <header class="d-none d-lg-block sticky-top">
+    <header class="d-lg-block sticky-top">
         <nav class="navbar">
             <div class="container-fluid px-0">
                 <a class="navbar-brand" href="{{ route('home') }}"><img
@@ -94,7 +94,7 @@
                 <!-- Navbar Toggle Button (For mobile view) -->
             </div>
         </nav>
-        <nav class="navbar navbar-expand-lg bg-light">
+        <nav class="navbar navbar-expand-lg">
             <div>
                 <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbar-default" aria-controls="navbar-default" aria-expanded="false"
@@ -112,80 +112,84 @@
                 $slug = request()->query('slug') ?: request()->route('slug');
                 @endphp
                 <ul class="navbar-nav me-auto">
-    <li class="nav-item">
-        <a href="{{ url('/lbsnaa-sub/' . $slug) }}" class="nav-link">Home</a>
-    </li>
-    @php
-    // Get the slug from the request to identify the current research center
-    $slug = request()->query('slug') ?: request()->route('slug');
+                    <li class="nav-item">
+                        <a href="{{ url('/lbsnaa-sub/' . $slug) }}" class="nav-link">Home</a>
+                    </li>
+                    @php
+                    // Get the slug from the request to identify the current research center
+                    $slug = request()->query('slug') ?: request()->route('slug');
 
-    // Fetch the current research center's ID based on the slug
-    $currentResearchCenter = DB::table('research_centres')
-        ->where('research_centre_slug', $slug)
-        ->first();
+                    // Fetch the current research center's ID based on the slug
+                    $currentResearchCenter = DB::table('research_centres')
+                    ->where('research_centre_slug', $slug)
+                    ->first();
 
-    if ($currentResearchCenter) {
-        $researchCenterId = $currentResearchCenter->id;
+                    if ($currentResearchCenter) {
+                    $researchCenterId = $currentResearchCenter->id;
 
-        // Fetch menus specific to the current research center
-        $allMenus = DB::table('micromenus')
-            ->join('research_centres', 'micromenus.research_centreid', '=', 'research_centres.id')
-            ->where('micromenus.menu_status', 1)
-            ->where('micromenus.is_deleted', 0)
-            ->where('micromenus.research_centreid', $researchCenterId)
-            ->select('micromenus.*', 'research_centres.research_centre_slug')
-            ->get();
+                    // Fetch menus specific to the current research center
+                    $allMenus = DB::table('micromenus')
+                    ->join('research_centres', 'micromenus.research_centreid', '=', 'research_centres.id')
+                    ->where('micromenus.menu_status', 1)
+                    ->where('micromenus.is_deleted', 0)
+                    ->where('micromenus.research_centreid', $researchCenterId)
+                    ->select('micromenus.*', 'research_centres.research_centre_slug')
+                    ->get();
 
-        // Organize menus by parent_id
-        $menusByParent = $allMenus->groupBy('parent_id');
+                    // Organize menus by parent_id
+                    $menusByParent = $allMenus->groupBy('parent_id');
 
-        // Recursive function to display the menu
-        function displayMenu($parentId, $menusByParent, $slug, $isRoot = false) {
-            if (!isset($menusByParent[$parentId])) {
-                return;
-            }
+                    // Recursive function to display the menu
+                    function displayMenu($parentId, $menusByParent, $slug, $isRoot = false) {
+                    if (!isset($menusByParent[$parentId])) {
+                    return;
+                    }
 
-            foreach ($menusByParent[$parentId] as $menu) {
-                $hasChildren = isset($menusByParent[$menu->id]);
-                $menuLink = '#'; // Default link
-                $target = '_self'; // Default target
+                    foreach ($menusByParent[$parentId] as $menu) {
+                    $hasChildren = isset($menusByParent[$menu->id]);
+                    $menuLink = '#'; // Default link
+                    $target = '_self'; // Default target
 
-                // Determine the redirect link or behavior based on content, pdf_file, and website_url
-                if (!empty($menu->content)) {
+                    // Determine the redirect link or behavior based on content, pdf_file, and website_url
+                    if (!empty($menu->content)) {
                     // If content exists, open the same page
                     $menuLink = route('user.navigationmenubyslug', $menu->menu_slug) . '?slug=' . urlencode($slug);
-                } elseif (!empty($menu->pdf_file)) {
+                    } elseif (!empty($menu->pdf_file)) {
                     // If pdf_file exists, redirect to the file and open in a new tab
                     $menuLink = url($menu->pdf_file); // Generate the correct URL
                     $target = '_blank'; // Open in a new tab
-                } elseif (!empty($menu->website_url)) {
+                    } elseif (!empty($menu->website_url)) {
                     // If website_url exists, redirect to the URL and open in a new tab
                     $menuLink = $menu->website_url;
                     $target = '_blank'; // Open in a new tab
-                }
+                    }
 
-                echo "<li class='nav-item " . ($hasChildren ? "dropdown-submenu dropend" : "") . ($isRoot ? "" : " border-bottom") . " dropdown'>
-                    <a href='{$menuLink}' class='" . ($hasChildren ? "dropdown-item dropdown-toggle" : "dropdown-item") . "' target='{$target}'>";
-                echo $menu->menutitle;
-                echo "</a>";
+                    echo "<li
+                        class='nav-item " . ($hasChildren ? "dropdown-submenu dropend" : "") . ($isRoot ? "" : " border-bottom") . " dropdown'>
+                        <a href='{$menuLink}'
+                            class='" . ($hasChildren ? "dropdown-item dropdown-toggle" : "dropdown-item") . "'
+                            target='{$target}'>";
+                            echo $menu->menutitle;
+                            echo "</a>";
 
-                if ($hasChildren) {
-                    echo "<ul class='dropdown-menu'>";
-                    displayMenu($menu->id, $menusByParent, $slug, false);
-                    echo "</ul>";
-                }
+                        if ($hasChildren) {
+                        echo "<ul class='dropdown-menu'>";
+                            displayMenu($menu->id, $menusByParent, $slug, false);
+                            echo "</ul>";
+                        }
 
-                echo "</li>";
-            }
-        }
+                        echo "
+                    </li>";
+                    }
+                    }
 
-        // Call the function to display the menu
-        displayMenu(0, $menusByParent, $slug, true);
-    } else {
-        echo "<li class='nav-item'><span>No menu available for this.</span></li>";
-    }
-    @endphp
-</ul>
+                    // Call the function to display the menu
+                    displayMenu(0, $menusByParent, $slug, true);
+                    } else {
+                    echo "<li class='nav-item'><span>No menu available for this.</span></li>";
+                    }
+                    @endphp
+                </ul>
 
 
 

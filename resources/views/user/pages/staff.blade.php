@@ -65,13 +65,13 @@
                     <div class="table-responsive">
                         <table class="table align-middle table-striped" id="myTable">
                             <thead>
-                                <tr class="even">
-                                    <th class="col">#</th>
-                                    <th class="col">Name</th>
-                                    <th class="col">Designation</th>
-                                    <th class="col">Email</th>
-                                    <th class="col">Office</th>
-                                    <th class="col">Residence</th>
+                                <tr class="even bg-primary">
+                                    <th class="col text-white">#</th>
+                                    <th class="col text-white">Name</th>
+                                    <th class="col text-white">Designation</th>
+                                    <th class="col text-white">Email</th>
+                                    <th class="col text-white">Office</th>
+                                    <th class="col text-white">Residence</th>
                                 </tr>
                             </thead>
                             <tbody>

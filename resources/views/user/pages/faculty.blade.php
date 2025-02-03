@@ -58,9 +58,9 @@
                     <div class="table-responsive">
                         <table class="table align-middle table-striped" id="myTable">
                             <thead>
-                                <tr class="text-center">
-                                    <th class="col">#</th>
-                                    <th class="col">
+                                <tr class="text-center bg-primary">
+                                    <th class="col text-white">#</th>
+                                    <th class="col text-white">
                                     @if(Cookie::get('language') ==
                                 '2')
                                 नाम
@@ -68,7 +68,7 @@
                                 Name
                                 @endif
                                 </th>
-                                    <th class="col">
+                                    <th class="col text-white">
                                     @if(Cookie::get('language') ==
                                 '2')
                                 पद का नाम
@@ -76,7 +76,7 @@
                                 Designation
                                 @endif
                                 </th>
-                                    <th class="col">
+                                    <th class="col text-white">
                                     @if(Cookie::get('language') ==
                                 '2')
                                 ईमेल
@@ -84,7 +84,7 @@
                                 Email
                                 @endif
                                 </th>
-                                    <th class="col">
+                                    <th class="col text-white">
                                     @if(Cookie::get('language') ==
                                 '2')कार्यालय
                                 @else

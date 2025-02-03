@@ -2,7 +2,9 @@
 
 <!-- Page Content -->
 <!-- slider start -->
-<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000"
+    onMouseOver="$(this).carousel('pause');"
+    onMouseOut="$(this).carousel('cycle');">
     <div class="carousel-indicators">
         @foreach($sliders as $i => $slider)
         <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ $i }}"
@@ -325,17 +327,17 @@
                 <div class="mb-3">
                     <div class="card card-hover border">
                         <div class="card-header" style="background-color:#af2910">
-                            <h3 class="text-white">@if(Cookie::get('language') == '2')
+                            <h1 class="text-white h4">@if(Cookie::get('language') == '2')
                                 अकादमी समाचार
                                 @else
                                 LBSNAA Academy News
                                 @endif <span class="float-end"><a href="{{ route('user.news_listing') }}"
                                         class="text-white"
-                                        style="text-decoration: none;font-size:14px">@if(Cookie::get('language') == '2')
+                                        style="text-decoration: none;font-size:14px" aria-label="View All Academy News">@if(Cookie::get('language') == '2')
                                         सभी को देखें
                                         @else
                                         View All
-                                        @endif</a></span></h3>
+                                        @endif</a></span></h1>
                         </div>
                     </div>
                 </div>
@@ -352,11 +354,11 @@
                                     <div class="card">
                                         <div class="card-header p-0 border-0">
                                             <img src="{{ isset($slider->main_image) && !empty($slider->main_image) ? asset($slider->main_image) : asset('assets/images/4.jpg') }}"
-                                                class="card-img-top img-fluid" alt="blogpost"
+                                                class="card-img-top img-fluid" alt="{{ $slider->title }}"
                                                 style="object-fit: cover; height: 250px; width: 100%;">
                                         </div>
                                         <div class="card-body" style="height: 200px; overflow-y: hidden;">
-                                            <span class="fs-5 mb-2 fw-semibold d-block text-success">
+                                            <span class="fs-5 mb-2 fw-semibold d-block" style="color:#007A33;">
                                                 @if(Cookie::get('language') == '2')
                                                 प्रकाशित किया गया:
                                                 @else
@@ -371,7 +373,7 @@
                                         </div>
                                         <div class="card-footer border-0" style="height:50px;">
                                             <a href="{{ route('user.newsbyslug', $slider->title_slug) }}"
-                                                class="icon-link icon-link-hover link-primary fw-semibold">
+                                                class="icon-link icon-link-hover link-primary fw-semibold" aria-label="Read More {{ $slider->title }}">
                                                 <span>
                                                     @if(Cookie::get('language') == '2')
                                                     और पढ़ें
@@ -403,8 +405,8 @@
                 <!-- Quick Links Section -->
                 <div class="card card-hover border">
                     <div class="card-header" style="background-color:#af2910">
-                        <h3 class="text-white">@if(Cookie::get('language') == '2') त्वरित लिंक्स @else Quick Links
-                            @endif</h3>
+                        <h4 class="text-white">@if(Cookie::get('language') == '2') त्वरित लिंक्स @else Quick Links
+                            @endif</h4>
                     </div>
                     <div class="card-body p-0" style="height: 520px; overflow-y: scroll;">
                         <ul class="mt-2 mb-2 list-group list-group-flush">

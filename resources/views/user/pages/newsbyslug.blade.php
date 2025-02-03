@@ -44,7 +44,7 @@
                     <h4 class="fw-bold text-primary">
                         {{$news->title}}
                     </h4>
-                    <small class="mb-0 text-success">Posted On: {{date('d M, Y',strtotime($news->start_date))}}</small>
+                    <small class="fs-5 mb-2 fw-semibold d-block" style="color:#007A33;">Posted On: {{date('d M, Y',strtotime($news->start_date))}}</small>
                 </div>
             </div>
         </div>
@@ -56,7 +56,7 @@
                 <a href="{{ asset($val) }}" data-fancybox="gallery" data-caption="&times;"
                     data-caption-position="top-right" data-caption-class="fancybox-caption-close">
                     <img src="{{ asset($val) }}" style="height: 200px; object-fit: cover; width: 100%;"
-                        class="img-fluid rounded-4" alt="Image">
+                        class="img-fluid rounded-4" alt="{{$news->title}}">
                 </a>
             </div>
             @endforeach

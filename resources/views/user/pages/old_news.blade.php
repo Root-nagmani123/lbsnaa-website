@@ -107,12 +107,12 @@
                     <div class="card-header p-0">
                         <a href="#">
                             <img src="{{ $slider->main_image ? asset($slider->main_image) : asset('assets/images/4.jpg') }}"
-                                class="card-img-top" alt="blogpost" style="height: 200px; object-fit: cover;">
+                                class="card-img-top" alt=" {{ $slider->title }}" style="height: 200px; object-fit: cover;">
                         </a>
                     </div>
                     <!-- Card body -->
                     <div class="card-body d-flex flex-column">
-                        <a href="#" class="fs-6 mb-2 fw-semibold d-block text-success">
+                        <a href="#" class="fs-6 mb-2 fw-semibold d-block" style="color:#007A33;">
                             @if(Cookie::get('language') == '2')
                             प्रकाशित किया गया:
                             @else
