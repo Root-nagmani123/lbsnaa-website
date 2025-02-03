@@ -1,25 +1,25 @@
                   <div class="card" style="width: 18rem;">
-                      @php
+                      <?php
                       $keyword = str_replace(' ', '+', $node->name);
-                      @endphp
+                      ?>
                       <div class="card-body" style="padding:0;">
-                          <img src="{{ asset($node->image) }}" alt="{{ $node->name }}" class="avatar avatar-xl rounded-circle">
+                          <img src="<?php echo e(asset($node->image)); ?>" alt="<?php echo e($node->name); ?>" class="avatar avatar-xl rounded-circle">
                           <!--content-->
                           <div class="m-2">
-                              <h3 class="mb-0 h4">{{ $node->name }}</h3>
-                              <span class="text-gray-800">{{ $node->designation }}</span>
+                              <h3 class="mb-0 h4"><?php echo e($node->name); ?></h3>
+                              <span class="text-gray-800"><?php echo e($node->designation); ?></span>
                           </div>
                       </div>
                       <div class="card-footer" style="border:0;background-color:transparent;padding:0;">
-                      <a href="{{ route('user.faculty_responsibility') }}?keywords={{ $keyword }}">{{ $node->name }} Responsibility</a>
-                      <a href="#" data-bs-toggle="modal" data-bs-target="#bioDataModal" data-name="{{ $node->name }}"
-                          data-image="{{ asset($node->image) }}" data-designation="{{ $node->designation }}"
-                          data-email="{{ $node->email }}" data-phone="{{ $node->phone_pt_office }}"
-                          data-description-id="description-{{ $node->id }}">
-                          {{ $node->name }} Bio Data
+                      <a href="<?php echo e(route('user.faculty_responsibility')); ?>?keywords=<?php echo e($keyword); ?>"><?php echo e($node->name); ?> Responsibility</a>
+                      <a href="#" data-bs-toggle="modal" data-bs-target="#bioDataModal" data-name="<?php echo e($node->name); ?>"
+                          data-image="<?php echo e(asset($node->image)); ?>" data-designation="<?php echo e($node->designation); ?>"
+                          data-email="<?php echo e($node->email); ?>" data-phone="<?php echo e($node->phone_pt_office); ?>"
+                          data-description-id="description-<?php echo e($node->id); ?>">
+                          <?php echo e($node->name); ?> Bio Data
                       </a>
-                      <input type="hidden" id="description-{{ $node->id }}" name="description"
-                          value="{{ htmlspecialchars($node->description, ENT_QUOTES, 'UTF-8') }}" />
+                      <input type="hidden" id="description-<?php echo e($node->id); ?>" name="description"
+                          value="<?php echo e(htmlspecialchars($node->description, ENT_QUOTES, 'UTF-8')); ?>" />
                       </div>
                   </div>
 
@@ -93,4 +93,4 @@ document.addEventListener('DOMContentLoaded', () => {
         bioDataModal.querySelector('#modalDescription').innerHTML = decodedDescription;
     });
 });
-                  </script>
+                  </script><?php /**PATH /var/www/hardeep/public_html/lbsnaa-website/resources/views/partials/organization-node.blade.php ENDPATH**/ ?>

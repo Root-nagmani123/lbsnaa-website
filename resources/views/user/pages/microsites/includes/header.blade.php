@@ -30,7 +30,9 @@
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
 
-    <title>Research Center | Lal Bahadur Shastri National Academy of Administration</title>
+    {{-- <title>Research Center | Lal Bahadur Shastri National Academy of Administration</title> --}}
+    <title>{{$Title}}</title>
+
     <style>
     .slider-caption {
         position: absolute;

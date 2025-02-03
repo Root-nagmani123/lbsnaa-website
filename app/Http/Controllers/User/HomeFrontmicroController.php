@@ -53,14 +53,15 @@ class HomeFrontmicroController extends Controller
             
             // Fetch the research centre name dynamically
             $researchCentre = $query->first();
-            
+            $Title = ucwords(str_replace('-', ' ', $researchCentre->research_centre_slug)). ' | Lal Bahadur Shastri National Academy of Administration';
+
             if ($researchCentre) {
                 $pageTitle = $researchCentre->research_centre_name;
             }
         }
         $research_centres = $query->get();
         // Return the view with the necessary data
-        return view('user.pages.microsites.index', compact('sliders', 'quickLinks', 'whatsNew', 'research_centres', 'slug','pageTitle'));
+        return view('user.pages.microsites.index', compact('sliders', 'quickLinks', 'whatsNew', 'research_centres', 'slug','pageTitle','Title'));
     }
 
 
@@ -115,6 +116,20 @@ class HomeFrontmicroController extends Controller
             ->where('menu_slug', $slug)
             ->where('rc.research_centre_slug', $main_slug)
             ->first();
+
+            // if ($nav_page) {
+            //     $menu_slug = $nav_page->menu_slug;  // Get the 'menu_slug' from the query result
+            //     $Title = ucfirst(str_replace('-', ' ', $menu_slug));  // Format the title
+            //     // dd($dynamicTitle);
+            // }
+
+            if ($nav_page) {
+                $menu_slug = $nav_page->menu_slug;  // Get the 'menu_slug' from the query result
+                $research_centre_slug = $nav_page->research_centre_slug;  // Get the 'research_centre_slug' from the query result
+            
+                // Concatenate 'menu_slug' and 'research_centre_slug' with a pipe separator
+                $Title = ucfirst(str_replace('-', ' ', $menu_slug)) . ' | ' . ucfirst(str_replace('-', ' ', $research_centre_slug));  // Format the title
+            }
         // Change for menu same name 14/01
 
 
@@ -131,8 +146,11 @@ class HomeFrontmicroController extends Controller
             ->whereDate('micro_quick_links.termination_date', '>=', now())  // Ensure termination_date is after or equal to today
             ->select('micro_quick_links.*', 'research_centres.research_centre_name as research_centre_name')
             ->get();
+            // Dynamic title using the slug, you can customize the format as needed
+    // $Title = ucfirst(str_replace('-', ' ', $slug)) . ' - Research Center Navigation';  // Example format
+    // dd($Title);
         // Return view with variables
-        return view('user.pages.microsites.navigationmenubyslug', compact('nav_page', 'breadcrumb','quickLinks','slug'));
+        return view('user.pages.microsites.navigationmenubyslug', compact('nav_page', 'breadcrumb','quickLinks','slug','Title'));
     }
 
 }
