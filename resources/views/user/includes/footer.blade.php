@@ -135,19 +135,19 @@ return $query->where('language', '1');
                         $social_media_links = DB::table('social_media_links')->get();
                         @endphp
                         <!--Facebook-->
-                        <a href="{{ $social_media_links[0]->facebook_url; }}" class="me-2" target="_blank">
+                        <a href="{{ $social_media_links[0]->facebook_url; }}" class="me-2" target="_blank" aria-label="Facebook">
                             <i class="bi bi-facebook fa-2x" style="color: #af2910;"></i>
                         </a>
                         <!--Twitter-->
-                        <a href="{{ $social_media_links[0]->twitter_url; }}" class="me-2" target="_blank">
+                        <a href="{{ $social_media_links[0]->twitter_url; }}" class="me-2" target="_blank" aria-label="Twitter">
                             <i class="bi bi-twitter-x" style="color: #af2910;"></i>
                         </a>
 
                         <!--GitHub-->
-                        <a href="{{ $social_media_links[0]->youtube_url; }}" class="me-2" target="_blank">
+                        <a href="{{ $social_media_links[0]->youtube_url; }}" class="me-2" target="_blank" aria-label="Youtube">
                             <i class="bi bi-youtube" style="color:#af2910;"></i>
                         </a>
-                        <a href="{{ $social_media_links[0]->linkedin_url; }}" class="me-2" target="_blank">
+                        <a href="{{ $social_media_links[0]->linkedin_url; }}" class="me-2" target="_blank" aria-label="Linkedin">
                             <i class="bi bi-linkedin" style="color:#af2910;"></i>
                         </a>
                     </div>

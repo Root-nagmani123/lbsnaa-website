@@ -129,20 +129,20 @@
                     <!-- Tooltip Items -->
                     <li class="nav-item">
                         <a class="nav-link" href="#skip_to_main_content" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                            title="Skip to main content">
+                            title="Skip to main content" aria-label="Skip to main content">
                             <i class="material-icons menu-icon">restart_alt</i>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('user.screen-reader') }}" data-bs-toggle="tooltip"
-                            data-bs-placement="bottom" title="Screen Reader">
+                            data-bs-placement="bottom" title="Screen Reader" aria-label="Screen Reader">
                             <i class="material-icons menu-icon">volume_up</i>
                         </a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                            title="Accessibility">
+                            title="Accessibility" aria-label="Accessibilty">
                             <i class="material-icons menu-icon">accessible</i>
                         </a>
                         <ul class="dropdown-menu">
@@ -157,7 +157,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                            title="Social Media Links">
+                            title="Social Media Links" aria-label="Social Media Links">
                             <i class="material-icons menu-icon">group</i>
                         </a>
                         @php
@@ -166,25 +166,25 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="{{ $social_media_links[0]->facebook_url }}" class="dropdown-item"
-                                    target="_blank" data-bs-toggle="tooltip" title="Facebook">
+                                    target="_blank" data-bs-toggle="tooltip" title="Facebook" aria-label="Facebook">
                                     <i class="bi bi-facebook fa-2x" style="color: #af2910;"></i>
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ $social_media_links[0]->twitter_url }}" class="dropdown-item"
-                                    target="_blank" data-bs-toggle="tooltip" title="Twitter">
+                                    target="_blank" data-bs-toggle="tooltip" title="Twitter" aria-label="Twitter">
                                     <i class="bi bi-twitter-x" style="color: #af2910;"></i>
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ $social_media_links[0]->youtube_url }}" class="dropdown-item"
-                                    target="_blank" data-bs-toggle="tooltip" title="YouTube">
+                                    target="_blank" data-bs-toggle="tooltip" title="YouTube" aria-label="Youtube">
                                     <i class="bi bi-youtube" style="color:#af2910;"></i>
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ $social_media_links[0]->linkedin_url }}" class="dropdown-item"
-                                    target="_blank" data-bs-toggle="tooltip" title="LinkedIn">
+                                    target="_blank" data-bs-toggle="tooltip" title="LinkedIn" aria-label="Linkedin">
                                     <i class="bi bi-linkedin" style="color:#af2910;"></i>
                                 </a>
                             </li>
@@ -192,25 +192,25 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('user.sitemap') }}" data-bs-toggle="tooltip"
-                            data-bs-placement="bottom" title="Sitemap">
+                            data-bs-placement="bottom" title="Sitemap" aria-label="Sitemap">
                             <i class="material-icons menu-icon">account_tree</i>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('user.search') }}" data-bs-toggle="tooltip"
-                            data-bs-placement="bottom" title="Search">
+                            data-bs-placement="bottom" title="Search" aria-label="Search">
                             <i class="material-icons menu-icon">search</i>
                         </a>
                     </li>
                     <!-- <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside"
-                            data-bs-offset="10,20">
+                            data-bs-offset="10,20" aria-label="Language">
                             <i class="material-icons menu-icon">language</i>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="languageDropdown">
-                            <li><a class="dropdown-item" href="{{ route('set.language', 1) }}">English</a></li>
-                            <li><a class="dropdown-item" href="{{ route('set.language', 2) }}">Hindi</a></li>
+                            <li><a class="dropdown-item" href="{{ route('set.language', 1) }}" aria-label="English">English</a></li>
+                            <li><a class="dropdown-item" href="{{ route('set.language', 2) }}" aria-label="Hindi">Hindi</a></li>
                         </ul>
                     </li> -->
 
@@ -223,7 +223,7 @@
         <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
             <!-- Logo -->
             <a href="{{ route('home') }}" class="navbar-brand me-auto logo d-flex align-items-center">
-                <img src="{{ asset('admin_assets/images/logo.png') }}" alt="logo-icon" class="img-fluid logo">
+                <img src="{{ asset('admin_assets/images/logo.png') }}" alt="logo-icon" class="img-fluid logo" aria-label="Logo of Lal Bahadur Shastri National Academy of Administration">
             </a>
 
             <!-- Navbar Toggle Button (For mobile view) -->
@@ -299,7 +299,7 @@
 
                         // Add 'w-100' class to ensure full width for the list item
                         if($submenu->texttype == 3){
-                        $output .= '<li class="check dropdown-submenu dynamic-direction w-100 border-bottom">';
+                        $output .= '<li class="check dropdown-submenu dynamic-direction w-100 border-bottom" aria-label="$submenu->menutitle">';
                             $url = '';
                             if ($submenu->web_site_target == 1) {
                             // Internal link
@@ -311,7 +311,7 @@
                             $output .= '<a
                                 class="dropdown-item ' . ($hasChildren ? 'dropdown-toggle d-flex align-items-center' : '') . '"
                                 href="' . $url . '"
-                                target="' . ($submenu->web_site_target == 2 ? '_blank' : '_self') . '">' .
+                                target="' . ($submenu->web_site_target == 2 ? '_blank' : '_self') . '" aria-label="$submenu->menutitle">' .
                                 $submenu->menutitle . '</a>';
 
                             if ($hasChildren) {
@@ -422,7 +422,7 @@
                     @foreach($menus as $menu)
                     @if($menu->menutitle === 'RTI')
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('user.get_rti_page', $menu->menu_slug) }}">
+                        <a class="nav-link" href="{{ route('user.get_rti_page', $menu->menu_slug) }}" aria-label>
                             {{ $menu->menutitle }}
                         </a>
                     </li>
@@ -571,3 +571,4 @@
 
     </script>
  <div  id="skip_to_main_content">
+
