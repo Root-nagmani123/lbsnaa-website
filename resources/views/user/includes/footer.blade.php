@@ -36,6 +36,7 @@ return $query->where('language', '1');
     /* Ensure the logo is centered */
 }
 </style>
+</div>
 <section class="py-4 bg-white mt-auto mb-4">
     <!-- container -->
     <div class="container-fluid">
@@ -402,6 +403,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentLanguage = getLanguageCookie();
     updateLanguageText(currentLanguage);
 });
+
+setTimeout(function() {
+        var searchResults = $(".gsc-results-wrapper-visible");
+        var resultsContainer = $("#search-results-container");
+
+        if (searchResults.length && resultsContainer.length) {
+            // Move the results outside the modal
+            resultsContainer.append(searchResults);
+        }
+    }, 3000); // Adjust the timing if necessary
 </script>
 </body>
 
