@@ -106,7 +106,12 @@
     overflow: visible !important;
 }
 
-
+.btn-scroll-top:focus {
+    outline: 2px solid #af2910 !important;
+    outline-offset: 2px;
+    box-shadow: 0 0 5px rgba(211, 4, 49, 0.75);
+    /* Optional for extra visibility */
+}
     </style>
 </head>
 
