@@ -32,7 +32,7 @@
     <div class="container-fluid">
         <div class="card p-3">
             <div class="d-flex justify-content-between align-items-center pb-20 mb-20 mb-2">
-                <h2 class="fw-semibold fs-18 mb-0">Search</h2>
+                <h1 class="fw-semibold fs-18 mb-0 text-primary">Search</h1>
             </div>
             <script async src="https://cse.google.com/cse.js?cx=92ab3f09e86df4584"></script>
             <style>

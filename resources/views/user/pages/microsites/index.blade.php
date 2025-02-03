@@ -40,6 +40,15 @@
                         <span class="visually-hidden">Next</span>
                     </button>
                 </div>
+                <script>
+                    var carousel = document.getElementById('carouselExampleCaptions');
+                    carousel.addEventListener('mouseenter', function () {
+                        carousel.carousel('pause');
+                    });
+                    carousel.addEventListener('mouseleave', function () {
+                        carousel.carousel('cycle');
+                    });
+                </script>
             </div>
 
 

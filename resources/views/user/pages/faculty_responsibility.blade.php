@@ -75,23 +75,23 @@
                 <!-- Table Section -->
                 <div class="table-responsive">
                     <table class="table table-striped align-middle">
-                        <thead class="table-light">
-                            <tr class="text-center">
-                                <th>@if(Cookie::get('language') ==
+                        <thead class="table">
+                            <tr class="bg-primary">
+                                <th class="col text-white">@if(Cookie::get('language') ==
                                     '2')
                                     आनुक्रमिक
                                     @else
-                                    Serial
+                                    #
                                     @endif
                                 </th>
-                                <th>@if(Cookie::get('language') ==
+                                <th class="col text-white">@if(Cookie::get('language') ==
                                     '2')
                                     शीर्षक
                                     @else
                                     Title
                                     @endif
                                 </th>
-                                <th>
+                                <th class="col text-white">
                                     @if(Cookie::get('language') ==
                                     '2')
                                     प्रभारी अधिकारी
@@ -99,7 +99,7 @@
                                     Officer Incharge
                                     @endif
                                 </th>
-                                <th>
+                                <th class="col text-white">
                                     @if(Cookie::get('language') ==
                                     '2')
                                     उप प्रभारी
@@ -112,7 +112,7 @@
                         <tbody>
                             @if(count($data) > 0)
                             @foreach($data as $key => $value)
-                            <tr class="text-center">
+                            <tr>
                                 <td>{{ $key + 1 }}</td> <!-- Serial Number -->
                                 <td>{{ $value->name }}</td> <!-- Faculty Name -->
                                 <td>
@@ -121,10 +121,9 @@
                                         @foreach($value->Officer_Incharge as $officer)
                                         <li>
                                             <strong>{{ $officer['section_title'] }}</strong>
-                                            <br>
-                                            <span class="text-muted">
-                                                {{ implode(', ', $officer['categories']) }}
-                                            </span>
+                                        </li>
+                                        <li class="text-muted">
+                                        {{ implode(', ', $officer['categories']) }}
                                         </li>
                                         @endforeach
                                     </ul>
@@ -144,10 +143,9 @@
                                         @foreach($value->Deputy_Incharge as $deputy)
                                         <li>
                                             <strong>{{ $deputy['section_title'] }}</strong>
-                                            <br>
-                                            <span class="text-muted">
-                                                {{ implode(', ', $deputy['categories']) }}
-                                            </span>
+                                        </li>
+                                        <li class="text-muted">
+                                        {{ implode(', ', $deputy['categories']) }}
                                         </li>
                                         @endforeach
                                     </ul>
@@ -165,13 +163,13 @@
                             @else
                             <tr>
                                 <td colspan="5" class="text-center text-muted">
-                                @if(Cookie::get('language') ==
-                                        '2')
-                                        कोई रिकॉर्ड नहीं मिला
-                                        @else
-                                        No records found
-                                        @endif
-                                        </td>
+                                    @if(Cookie::get('language') ==
+                                    '2')
+                                    कोई रिकॉर्ड नहीं मिला
+                                    @else
+                                    No records found
+                                    @endif
+                                </td>
                             </tr>
                             @endif
                         </tbody>

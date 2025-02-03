@@ -70,7 +70,7 @@
                     </div>
                     <!-- Card body -->
                     <div class="card-body d-flex flex-column">
-                        <p class="fs-6 mb-2 fw-semibold d-block text-success">
+                        <p class="fs-5 mb-2 fw-semibold d-block" style="color:#007A33;">
                             @if(Cookie::get('language') == '2')
                             प्रकाशित किया गया:
                             @else
