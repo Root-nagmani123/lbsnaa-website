@@ -219,7 +219,7 @@
         </div>
 
     </div>
-    <nav class="navbar navbar-expand-lg shadow-none sticky-top">
+    <nav class="navbar navbar-expand-lg shadow-none sticky-xl-top sticky-lg-top">
         <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
             <!-- Logo -->
             <a href="{{ route('home') }}" class="navbar-brand me-auto logo d-flex align-items-center">
