@@ -71,7 +71,25 @@
 </section>
 
 <script>
-   
+   document.addEventListener("DOMContentLoaded", function() {
+    // Wait for Google Custom Search to load the close button
+    const observer = new MutationObserver(function(mutationsList) {
+        mutationsList.forEach(function(mutation) {
+            // Check if the close button is added to the DOM
+            const closeButton = document.querySelector(".gsc-results-close-btn");
+            if (closeButton) {
+                // Add the aria-label attribute to the close button
+                closeButton.setAttribute("aria-label", "Close search results");
+                // Optionally, you can stop observing after the button is found and modified
+                observer.disconnect();
+            }
+        });
+    });
+
+    // Observe the DOM for changes to catch when the close button is added
+    observer.observe(document.body, { childList: true, subtree: true });
+});
+
    document.addEventListener("DOMContentLoaded", function() {
     const resultsContainer = document.getElementById("search-results-container");
 
