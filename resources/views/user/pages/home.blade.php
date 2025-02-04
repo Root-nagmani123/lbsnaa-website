@@ -35,7 +35,38 @@
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
     </button>
+    <!-- Play/Pause Button -->
+    <div class="text-center mt-3 mb-3">
+        <button id="playPauseBtn" class="btn btn-danger">
+            <i class="bi bi-pause-fill"></i> Pause
+        </button>
+    </div>
 </div>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    var carousel = new bootstrap.Carousel(document.getElementById('carouselExampleCaptions'), {
+        interval: 3000, // Default interval
+        ride: 'carousel'
+    });
+
+    var playPauseBtn = document.getElementById("playPauseBtn");
+    var isPlaying = true; // Track the state of the slider
+
+    playPauseBtn.addEventListener("click", function() {
+        if (isPlaying) {
+            carousel.pause();
+            playPauseBtn.innerHTML = '<i class="bi bi-play-fill"></i> Play';
+            playPauseBtn.classList.replace("btn-danger", "btn-success");
+        } else {
+            carousel.cycle();
+            playPauseBtn.innerHTML = '<i class="bi bi-pause-fill"></i> Pause';
+            playPauseBtn.classList.replace("btn-success", "btn-danger");
+        }
+        isPlaying = !isPlaying; // Toggle state
+    });
+});
+</script>
+
 
 <!-- Play/Pause Script -->
 
@@ -45,50 +76,73 @@
 <!-- floating notification start -->
 <section class="py-3 bg-light">
     <div class="container-fluid">
-            <div class="position-relative d-flex overflow-x-hidden align-items-center">
-                <!-- Latest Updates Button -->
-                <button class="btn btn-primary btn-sm me-2 rounded py-2" id="basic-addon2"
-                    style="z-index: 999;width: 200px;"> @if(Cookie::get('language') == '2')
-                    नवीनतम अपडेट
-                    @else
-                    Latest Updates
-                    @endif</button>
+        <div class="position-relative d-flex overflow-x-hidden align-items-center">
+            <!-- Latest Updates Button -->
+            <button class="btn btn-primary btn-sm me-2 rounded py-2" id="basic-addon2"
+                style="z-index: 999;width: 200px;">
+                @if(Cookie::get('language') == '2')
+                नवीनतम अपडेट
+                @else
+                Latest Updates
+                @endif
+            </button>
 
-                <!-- Marquee Section -->
-                <div id="marqueeWrapper" class="w-100 overflow-hidden">
-                    <div id="marqueeContainer" class="d-flex gap-3 flex-nowrap align-items-center">
-                        @foreach($news_scrollers as $scroller)
-                        @if(!empty($scroller->website_url))
-                        <a href="{{ $scroller->website_url != '' ? (str_starts_with($scroller->website_url, 'http') ? $scroller->website_url : 'http://' . $scroller->website_url) : url($scroller->website_url) }}"
-                            target="_blank"
-                            class="d-inline-flex align-items-center justify-content-center text-center card-lift px-3 rounded border shadow-sm"
-                            style="height: 30px; white-space: nowrap; background-color: #f8f9fa;">
-                            <span class="text-gray-800">{{ $scroller->menutitle }}</span>
-                        </a>
-                        @elseif(!empty($scroller->pdf_file))
-                        <a href="{{ asset($scroller->pdf_file) }}" target="_blank"
-                            class="d-inline-flex align-items-center justify-content-center text-center card-lift px-3 rounded border shadow-sm"
-                            style="height: 30px; white-space: nowrap; background-color: #f8f9fa;">
-                            <span class="text-gray-800">{{ $scroller->menutitle }}</span>
-                        </a>
-                        @else
-                        <a href="{{ route('user.letest_updates', $scroller->menu_slug) }}"
-                            class="d-inline-flex align-items-center justify-content-center text-center card-lift px-3 rounded border shadow-sm"
-                            style="height: 30px; white-space: nowrap; background-color: #f8f9fa;">
-                            <span class="text-gray-800">{{ $scroller->menutitle }}</span>
-                        </a>
-                        @endif
-                        @endforeach
-                    </div>
+            <!-- Marquee Section -->
+            <div id="marqueeWrapper" class="w-100 overflow-hidden position-relative">
+                <div id="marqueeContainer" class="d-flex gap-3 flex-nowrap align-items-center">
+                    @foreach($news_scrollers as $scroller)
+                    @if(!empty($scroller->website_url))
+                    <a href="{{ str_starts_with($scroller->website_url, 'http') ? $scroller->website_url : 'http://' . $scroller->website_url }}"
+                        target="_blank"
+                        class="d-inline-flex align-items-center justify-content-center text-center card-lift px-3 rounded border shadow-sm marquee-item">
+                        <span class="text-gray-800">{{ $scroller->menutitle }}</span>
+                    </a>
+                    @elseif(!empty($scroller->pdf_file))
+                    <a href="{{ asset($scroller->pdf_file) }}" target="_blank"
+                        class="d-inline-flex align-items-center justify-content-center text-center card-lift px-3 rounded border shadow-sm marquee-item">
+                        <span class="text-gray-800">{{ $scroller->menutitle }}</span>
+                    </a>
+                    @else
+                    <a href="{{ route('user.letest_updates', $scroller->menu_slug) }}"
+                        class="d-inline-flex align-items-center justify-content-center text-center card-lift px-3 rounded border shadow-sm marquee-item">
+                        <span class="text-gray-800">{{ $scroller->menutitle }}</span>
+                    </a>
+                    @endif
+                    @endforeach
                 </div>
-                <!-- Play/Pause Button -->
-                <button class="btn btn-secondary btn-sm me-2 rounded" id="playPauseBtn" style="z-index: 999;">
-                    <i class="material-icons menu-icon play" style="display: none;">play_arrow</i>
-                    <i class="material-icons menu-icon pause" style="display: block;">pause</i>
-                </button>
             </div>
+
+            <!-- Play/Pause Button -->
+            <button id="playPauseBtn1" class="btn btn-danger ms-2">
+                <i class="bi bi-pause-fill"></i>
+            </button>
+        </div>
     </div>
 </section>
+
+<!-- ✅ JavaScript for Play/Pause Marquee -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var marquee = document.getElementById("marqueeContainer");
+        var playPauseBtn = document.getElementById("playPauseBtn1");
+        var isPlaying = true; // Initially, marquee is running
+
+        playPauseBtn.addEventListener("click", function () {
+            if (isPlaying) {
+                marquee.style.animationPlayState = "paused";
+                playPauseBtn.innerHTML = '<i class="bi bi-play-fill"></i>';
+                playPauseBtn.classList.replace("btn-danger", "btn-success");
+            } else {
+                marquee.style.animationPlayState = "running";
+                playPauseBtn.innerHTML = '<i class="bi bi-pause-fill"></i>';
+                playPauseBtn.classList.replace("btn-success", "btn-danger");
+            }
+            isPlaying = !isPlaying; // Toggle state
+        });
+    });
+</script>
+
+
 <section class="py-3">
     <div class="container-fluid">
         <div class="row gy-4 gy-xl-0">
@@ -332,8 +386,8 @@
                                 @else
                                 LBSNAA Academy News
                                 @endif <span class="float-end"><a href="{{ route('user.news_listing') }}"
-                                        class="text-white"
-                                        style="text-decoration: none;font-size:14px" aria-label="View All Academy News">@if(Cookie::get('language') == '2')
+                                        class="text-white" style="text-decoration: none;font-size:14px"
+                                        aria-label="View All Academy News">@if(Cookie::get('language') == '2')
                                         सभी को देखें
                                         @else
                                         View All
@@ -354,7 +408,8 @@
                                     <div class="card">
                                         <div class="card-header p-0 border-0">
                                             <img src="{{ isset($slider->main_image) && !empty($slider->main_image) ? asset($slider->main_image) : asset('assets/images/4.jpg') }}"
-                                                class="card-img-top img-fluid" alt="{{ $slider->short_description }}" aria-label="{{ $slider->short_description }}"
+                                                class="card-img-top img-fluid" alt="{{ $slider->short_description }}"
+                                                aria-label="{{ $slider->short_description }}"
                                                 style="object-fit: cover; height: 250px; width: 100%;">
                                         </div>
                                         <div class="card-body" style="height: 200px; overflow-y: hidden;">
@@ -373,7 +428,8 @@
                                         </div>
                                         <div class="card-footer border-0" style="height:50px;">
                                             <a href="{{ route('user.newsbyslug', $slider->title_slug) }}"
-                                                class="icon-link icon-link-hover link-primary fw-semibold" aria-label="Read More {{ $slider->short_description }}">
+                                                class="icon-link icon-link-hover link-primary fw-semibold"
+                                                aria-label="Read More {{ $slider->short_description }}">
                                                 <span>
                                                     @if(Cookie::get('language') == '2')
                                                     और पढ़ें
@@ -493,36 +549,4 @@
     animation-play-state: paused;
 }
 </style>
-<script>
-document.getElementById('marqueeWrapper').addEventListener('mouseenter', function() {
-    document.getElementById('marqueeContainer').style.animationPlayState = 'paused';
-});
-
-document.getElementById('marqueeWrapper').addEventListener('mouseleave', function() {
-    document.getElementById('marqueeContainer').style.animationPlayState = 'running';
-});
-</script>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        let carousel = document.querySelector("#carouselExampleCaptions");
-        let playPauseButton = document.querySelector("#playPauseButton");
-        let playPauseIcon = document.querySelector("#playPauseIcon");
-        let bsCarousel = new bootstrap.Carousel(carousel, { interval: 3000, ride: "carousel" });
-        let isPaused = false;
-
-        playPauseButton.addEventListener("click", function () {
-            if (isPaused) {
-                bsCarousel.cycle(); // Resume carousel
-                playPauseIcon.classList.remove("fa-play");
-                playPauseIcon.classList.add("fa-pause");
-                isPaused = false;
-            } else {
-                bsCarousel.pause(); // Pause carousel
-                playPauseIcon.classList.remove("fa-pause");
-                playPauseIcon.classList.add("fa-play");
-                isPaused = true;
-            }
-        });
-    });
-</script>
 @include('user.includes.footer')

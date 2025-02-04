@@ -26,6 +26,8 @@
                         </div>
                         @endforeach
                     </div>
+
+                    <!-- Prev & Next Buttons -->
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
                         data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -36,17 +38,42 @@
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Next</span>
                     </button>
+
+                    <!-- Play/Pause Button -->
+                    <div class="text-center mt-3">
+                        <button id="playPauseBtn" class="btn btn-danger">
+                            <i class="bi bi-pause-fill"></i> Pause
+                        </button>
+                    </div>
                 </div>
-                <script>
-                var carousel = document.getElementById('carouselExampleCaptions');
-                carousel.addEventListener('mouseenter', function() {
-                    carousel.carousel('pause');
-                });
-                carousel.addEventListener('mouseleave', function() {
-                    carousel.carousel('cycle');
-                });
-                </script>
             </div>
+
+            <!-- JavaScript for Play/Pause Functionality -->
+            <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var carousel = new bootstrap.Carousel(document.getElementById('carouselExampleCaptions'), {
+                    interval: 3000, // Default interval
+                    ride: 'carousel'
+                });
+
+                var playPauseBtn = document.getElementById("playPauseBtn");
+                var isPlaying = true; // Track the state of the slider
+
+                playPauseBtn.addEventListener("click", function() {
+                    if (isPlaying) {
+                        carousel.pause();
+                        playPauseBtn.innerHTML = '<i class="bi bi-play-fill"></i> Play';
+                        playPauseBtn.classList.replace("btn-danger", "btn-success");
+                    } else {
+                        carousel.cycle();
+                        playPauseBtn.innerHTML = '<i class="bi bi-pause-fill"></i> Pause';
+                        playPauseBtn.classList.replace("btn-success", "btn-danger");
+                    }
+                    isPlaying = !isPlaying; // Toggle state
+                });
+            });
+            </script>
+
 
 
             <!-- What's New Section -->
@@ -109,7 +136,8 @@
                 @foreach($research_centres as $research_centre)
                 <h3 class="text-center uppercase" style="color:#af2910">{{($research_centre->home_title) }}
                     <br><span><img src="{{ asset('assets/images/devider.png') }}"
-                            alt="{{ $research_centre->home_title }}"></span></h3>
+                            alt="{{ $research_centre->home_title }}"></span>
+                </h3>
                 <p style="text-align: justify;" class="mb-4">{!! $research_centre->description !!}</p>
 
                 @endforeach
