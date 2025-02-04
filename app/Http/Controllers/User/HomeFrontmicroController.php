@@ -53,7 +53,7 @@ class HomeFrontmicroController extends Controller
             
             // Fetch the research centre name dynamically
             $researchCentre = $query->first();
-            $Title = ucwords(str_replace('-', ' ', $researchCentre->research_centre_slug)). ' | Lal Bahadur Shastri National Academy of Administration';
+            $Title = ucwords(str_replace('-', ' ', $researchCentre->research_centre_name)). ' | Lal Bahadur Shastri National Academy of Administration';
 
             if ($researchCentre) {
                 $pageTitle = $researchCentre->research_centre_name;
