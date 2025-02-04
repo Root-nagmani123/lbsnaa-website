@@ -97,12 +97,12 @@ a:focus-visible {
     </div>
     </div>
    </div>
-    <header class="d-lg-block sticky-top">
+    <header class="d-lg-block sticky-xl-top sticky-lg-top">
         <nav class="navbar">
             <div class="container-fluid px-0">
                 <a class="navbar-brand" href="{{ route('home') }}"
                     aria-label="Logo of Lal Bahadur Shastri National Academy of Administration" ><img
-                        src="{{ asset('assets/images/microsites/logo.png') }}" alt="logo" width="350"></a>
+                        src="{{ asset('assets/images/microsites/logo.png') }}" alt="Logo of Lal Bahadur Shastri National Academy of Administration" width="350"></a>
                 <!-- Button -->
                 @php
                 // Get the slug from the query parameter or the last segment of the URL
@@ -203,7 +203,7 @@ a:focus-visible {
                     }
 
                     echo "<li
-                        class='nav-item " . ($hasChildren ? "dropdown dropdown-submenu" : "") . ($isRoot ? "" : " border-bottom") . " '>
+                        class='nav-item " . ($hasChildren ? "dropdown dropdown-submenu dropend" : "") . ($isRoot ? "" : " border-bottom") . " '>
                         <a href='{$menuLink}'
                             class='" . ($hasChildren ? "dropdown-item dropdown-toggle" : "nav-link") . "'
                             target='{$target}'>";

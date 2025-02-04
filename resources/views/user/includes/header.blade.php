@@ -125,7 +125,7 @@
                     भारत सरकार | Government of India</a>
             </div>
             <div class="col-md-4">
-                <h1 class="h4 text-center text-primary d-none" ><a href="#" aria-label="Lal Bahadur Shastri National Academy of Administration">Lal Bahadur Shastri National Academy of Administration</a></h1>
+                <h1 class="h4 text-center text-primary d-none" ><a href="#" aria-label="{{ $title }} | Lal Bahadur Shastri National Academy of Administration">{{ $title }} | Lal Bahadur Shastri National Academy of Administration</a></h1>
             </div>
             <div class="col-md-4">
                 <ul class="nav justify-content-end align-items-center">
