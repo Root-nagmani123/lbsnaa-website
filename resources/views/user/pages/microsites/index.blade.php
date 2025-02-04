@@ -18,7 +18,7 @@
                         @foreach ($sliders as $key => $slider)
                         <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
                             <img src="{{ asset('storage/' . $slider->slider_image) }}" class="d-block img-fluid"
-                                alt="{{ $slider->slider_description }}"
+                                alt="{{ $slider->slider_text }}"
                                 style="width: 100%; height: 400px; object-fit: cover; border-radius: 10px;">
                             <div class="carousel-caption d-none d-md-block" style="bottom: 0 !important;">
                                 <h3 class="text-white slider-caption">{{ $slider->slider_text }}</h3>
