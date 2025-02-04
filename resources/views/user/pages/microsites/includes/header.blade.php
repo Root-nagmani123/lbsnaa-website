@@ -192,14 +192,6 @@
                     }
                     @endphp
                 </ul>
-
-
-
-
-
-
-
-
             </div>
         </nav>
     </header>
