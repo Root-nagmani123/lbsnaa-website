@@ -29,6 +29,7 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     {{-- <title>Research Center | Lal Bahadur Shastri National Academy of Administration</title> --}}
     <title>{{$Title}}</title>
@@ -56,42 +57,51 @@
         align-items: center;
         text-align: center;
     }
-    .navbar-nav .nav-link:focus,
-    .navbar-nav .dropdown-item:focus {
-        outline: 2px solid #af2910 !important;
-        /* High-contrast green */
-        outline-offset: 2px;
-        box-shadow: 0 0 5px rgba(211, 4, 49, 0.75);
-        /* Optional for extra visibility */
-    }
-    .dropdown-toggle:focus, 
-.dropdown-item:focus {
-    outline: 2px solid #af2910 !important;
-    outline-offset: 2px;
+
+    .navmenu .nav-link:focus,
+.navmenu .dropdown-item:focus {
+    outline: 2px solid #af2910; /* Highlight focus */
+    background-color: rgba(255, 0, 0, 0.1); /* Light red background */
 }
-.navbar {
-    overflow: visible !important;
+a:focus, 
+a:focus-visible {
+    outline: 2px solid #af2910 !important; /* Red outline to indicate focus */
+    background-color: rgba(255, 0, 0, 0.1); /* Light red background */
+    border-radius: 5px;
 }
+
+
     </style>
 
 </head>
 
 <body class="d-flex flex-column min-vh-100 bg-white">
-<div class="col-md-8">
-                <ul class="nav justify-content-end align-items-center">
-                    <!-- Tooltip Items -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="#skip_to_main_content" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                            title="Skip to main content" aria-label="Skip to main content">
-                            <i class="material-icons menu-icon">restart_alt</i>
-                        </a>
-                    </li>
-</ul>
-</div>
+   <div class="container-fluid">
+    <div class="row">
+    <div class="col-md-4">
+        <a href="https://www.india.gov.in/" target="_blank" style="font-size: 16px; color: #af2910;"><img
+                class="img-fluid" src="{{ asset('assets/images/icons/ashok.jpg') }}" alt="Logo of Ashok Stambh"
+                aria-label="Logo of Ashoka Stambh" style="font-size: 510px;height: 50px;">
+            भारत सरकार | Government of India</a>
+    </div>
+    <div class="col-md-8">
+        <ul class="nav justify-content-end align-items-right">
+            <!-- Tooltip Items -->
+            <li class="nav-item">
+                <a class="nav-link" href="#skip_to_main_content" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                    title="Skip to main content" aria-label="Skip to main content" >
+                    <i class="material-icons menu-icon">restart_alt</i>
+                </a>
+            </li>
+        </ul>
+    </div>
+    </div>
+   </div>
     <header class="d-lg-block sticky-top">
         <nav class="navbar">
             <div class="container-fluid px-0">
-                <a class="navbar-brand" href="{{ route('home') }}" aria-label="Logo of Lal Bahadur Shastri National Academy of Administration"><img
+                <a class="navbar-brand" href="{{ route('home') }}"
+                    aria-label="Logo of Lal Bahadur Shastri National Academy of Administration" ><img
                         src="{{ asset('assets/images/microsites/logo.png') }}" alt="logo" width="350"></a>
                 <!-- Button -->
                 @php
@@ -134,7 +144,6 @@
                 </button>
             </div>
             <!-- Collapse -->
-
             <div class="collapse navbar-collapse" id="navbar-default">
                 @php
                 // Check if 'slug' is in the query string, otherwise get it from the route
@@ -142,7 +151,7 @@
                 @endphp
                 <ul class="navbar-nav me-auto navmenu">
                     <li class="nav-item">
-                        <a href="{{ url('/lbsnaa-sub/' . $slug) }}" class="nav-link">Home</a>
+                        <a href="{{ url('/lbsnaa-sub/' . $slug) }}" class="nav-link" >Home</a>
                     </li>
                     @php
                     // Get the slug from the request to identify the current research center
@@ -154,66 +163,68 @@
                     ->first();
 
                     if ($currentResearchCenter) {
-                        $researchCenterId = $currentResearchCenter->id;
+                    $researchCenterId = $currentResearchCenter->id;
 
-                        // Fetch menus specific to the current research center
-                        $allMenus = DB::table('micromenus')
-                        ->join('research_centres', 'micromenus.research_centreid', '=', 'research_centres.id')
-                        ->where('micromenus.menu_status', 1)
-                        ->where('micromenus.is_deleted', 0)
-                        ->where('micromenus.research_centreid', $researchCenterId)
-                        ->select('micromenus.*', 'research_centres.research_centre_slug')
-                        ->get();
+                    // Fetch menus specific to the current research center
+                    $allMenus = DB::table('micromenus')
+                    ->join('research_centres', 'micromenus.research_centreid', '=', 'research_centres.id')
+                    ->where('micromenus.menu_status', 1)
+                    ->where('micromenus.is_deleted', 0)
+                    ->where('micromenus.research_centreid', $researchCenterId)
+                    ->select('micromenus.*', 'research_centres.research_centre_slug')
+                    ->get();
 
-                        // Organize menus by parent_id
-                        $menusByParent = $allMenus->groupBy('parent_id');
+                    // Organize menus by parent_id
+                    $menusByParent = $allMenus->groupBy('parent_id');
 
-                        // Recursive function to display the menu
-                        function displayMenu($parentId, $menusByParent, $slug, $isRoot = false) {
-                            if (!isset($menusByParent[$parentId])) {
-                                return;
-                            }
+                    // Recursive function to display the menu
+                    function displayMenu($parentId, $menusByParent, $slug, $isRoot = false) {
+                    if (!isset($menusByParent[$parentId])) {
+                    return;
+                    }
 
-                            foreach ($menusByParent[$parentId] as $menu) {
-                                $hasChildren = isset($menusByParent[$menu->id]);
-                                $menuLink = '#'; // Default link
-                                $target = '_self'; // Default target
+                    foreach ($menusByParent[$parentId] as $menu) {
+                    $hasChildren = isset($menusByParent[$menu->id]);
+                    $menuLink = '#'; // Default link
+                    $target = '_self'; // Default target
 
-                                // Determine the redirect link or behavior based on content, pdf_file, and website_url
-                                if (!empty($menu->content)) {
-                                    // If content exists, open the same page
-                                    $menuLink = route('user.navigationmenubyslug', $menu->menu_slug) . '?slug=' . urlencode($slug);
-                                } elseif (!empty($menu->pdf_file)) {
-                                    // If pdf_file exists, redirect to the file and open in a new tab
-                                    $menuLink = asset($menu->pdf_file);
-                                    $target = '_blank'; // Open in a new tab
-                                } elseif (!empty($menu->website_url)) {
-                                    // If website_url exists, redirect to the URL and open in a new tab
-                                    $menuLink = $menu->website_url;
-                                    $target = '_blank'; // Open in a new tab
-                                }
+                    // Determine the redirect link or behavior based on content, pdf_file, and website_url
+                    if (!empty($menu->content)) {
+                    // If content exists, open the same page
+                    $menuLink = route('user.navigationmenubyslug', $menu->menu_slug) . '?slug=' . urlencode($slug);
+                    } elseif (!empty($menu->pdf_file)) {
+                    // If pdf_file exists, redirect to the file and open in a new tab
+                    $menuLink = asset($menu->pdf_file);
+                    $target = '_blank'; // Open in a new tab
+                    } elseif (!empty($menu->website_url)) {
+                    // If website_url exists, redirect to the URL and open in a new tab
+                    $menuLink = $menu->website_url;
+                    $target = '_blank'; // Open in a new tab
+                    }
 
-                                echo "<li class='nav-item " . ($hasChildren ? "dropdown dropdown-submenu" : "") . ($isRoot ? "" : " border-bottom") . " '>
-                                    <a href='{$menuLink}'
-                                        class='" . ($hasChildren ? "dropdown-item dropdown-toggle" : "nav-link") . "'
-                                        target='{$target}'>";
-                                        echo $menu->menutitle;
-                                        echo "</a>";
+                    echo "<li
+                        class='nav-item " . ($hasChildren ? "dropdown dropdown-submenu" : "") . ($isRoot ? "" : " border-bottom") . " '>
+                        <a href='{$menuLink}'
+                            class='" . ($hasChildren ? "dropdown-item dropdown-toggle" : "nav-link") . "'
+                            target='{$target}'>";
+                            echo $menu->menutitle;
+                            echo "</a>";
 
-                                    if ($hasChildren) {
-                                        echo "<ul class='dropdown-menu'>";
-                                        displayMenu($menu->id, $menusByParent, $slug, false);
-                                        echo "</ul>";
-                                    }
-
-                                    echo "</li>";
-                            }
+                        if ($hasChildren) {
+                        echo "<ul class='dropdown-menu'>";
+                            displayMenu($menu->id, $menusByParent, $slug, false);
+                            echo "</ul>";
                         }
 
-                        // Call the function to display the menu
-                        displayMenu(0, $menusByParent, $slug, true);
+                        echo "
+                    </li>";
+                    }
+                    }
+
+                    // Call the function to display the menu
+                    displayMenu(0, $menusByParent, $slug, true);
                     } else {
-                        echo "<li class='nav-item'><span>No menu available for this.</span></li>";
+                    echo "<li class='nav-item'><span>No menu available for this.</span></li>";
                     }
                     @endphp
                 </ul>
@@ -239,4 +250,4 @@
         });
     });
     </script>
-     <div  id="skip_to_main_content">
+    <div id="skip_to_main_content">
