@@ -6,8 +6,8 @@
                           <img src="{{ asset($node->image) }}" alt="{{ $node->name }}" class="avatar avatar-xl rounded-circle">
                           <!--content-->
                           <div class="m-2">
-                              <h3 class="mb-0 h4">{{ $node->name }}</h3>
-                              <span class="text-gray-800">{{ $node->designation }}</span>
+                              <h2 class="mb-0 h4">{{ $node->name }}</h3>
+                              <h3 class="text-gray-800 h5">{{ $node->designation }}</span>
                           </div>
                       </div>
                       <div class="card-footer" style="border:0;background-color:transparent;padding:0;">
