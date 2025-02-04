@@ -197,11 +197,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('user.search') }}" data-bs-toggle="tooltip"
+                        <a class="nav-link" href="https://www.google.com" target="_blank" data-bs-toggle="tooltip"
                             data-bs-placement="bottom" title="Search" aria-label="Search">
                             <i class="material-icons menu-icon">search</i>
                         </a>
                     </li>
+
                     <!-- <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside"

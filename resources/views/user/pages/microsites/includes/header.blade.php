@@ -61,6 +61,17 @@
 </head>
 
 <body class="d-flex flex-column min-vh-100 bg-white">
+<div class="col-md-8">
+                <ul class="nav justify-content-end align-items-center">
+                    <!-- Tooltip Items -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="#skip_to_main_content" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                            title="Skip to main content" aria-label="Skip to main content">
+                            <i class="material-icons menu-icon">restart_alt</i>
+                        </a>
+                    </li>
+</ul>
+</div>
     <header class="d-lg-block sticky-top">
         <nav class="navbar">
             <div class="container-fluid px-0">
@@ -222,3 +233,4 @@
         });
     });
     </script>
+     <div  id="skip_to_main_content">
