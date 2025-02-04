@@ -8,30 +8,30 @@
     <meta name="author" content="Codescandy">
 
     <!-- Favicon icon-->
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/favicon.ico') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="<?php echo e(asset('assets/favicon.ico')); ?>">
 
     <!-- darkmode js -->
-    <script src="{{ asset('assets/js/vendors/darkMode.js') }}"></script>
+    <script src="<?php echo e(asset('assets/js/vendors/darkMode.js')); ?>"></script>
 
     <!-- Libs CSS -->
-    <link href="{{ asset('assets/fonts/feather/feather.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/libs/bootstrap-icons/font/bootstrap-icons.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/libs/simplebar/dist/simplebar.min.css') }}" rel="stylesheet">
+    <link href="<?php echo e(asset('assets/fonts/feather/feather.css')); ?>" rel="stylesheet">
+    <link href="<?php echo e(asset('assets/libs/bootstrap-icons/font/bootstrap-icons.min.css')); ?>" rel="stylesheet">
+    <link href="<?php echo e(asset('assets/libs/simplebar/dist/simplebar.min.css')); ?>" rel="stylesheet">
 
     <!-- Theme CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/css/theme.min.css') }}">
+    <link rel="stylesheet" href="<?php echo e(asset('assets/css/theme.min.css')); ?>">
 
     <link rel="canonical" href="LBSNAA">
-    <link href="{{ asset('assets/libs/tiny-slider/dist/tiny-slider.css') }}" rel="stylesheet">
+    <link href="<?php echo e(asset('assets/libs/tiny-slider/dist/tiny-slider.css')); ?>" rel="stylesheet">
     <link rel="stylesheet" href="assets/libs/glightbox/dist/css/glightbox.min.css') }}">
-    <link rel="icon" type="image/png" href="{{ asset('admin_assets/images/favicon.ico') }}">
+    <link rel="icon" type="image/png" href="<?php echo e(asset('admin_assets/images/favicon.ico')); ?>">
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
 
-    {{-- <title>Research Center | Lal Bahadur Shastri National Academy of Administration</title> --}}
-    <title>{{$Title}}</title>
+    
+    <title><?php echo e($Title); ?></title>
 
     <style>
     .slider-caption {
@@ -64,10 +64,10 @@
     <header class="d-lg-block sticky-top">
         <nav class="navbar">
             <div class="container-fluid px-0">
-                <a class="navbar-brand" href="{{ route('home') }}"><img
-                        src="{{ asset('assets/images/microsites/logo.png') }}" alt="Logo of Lal Bahadur Shastri National Academy of Administration" width="350"></a>
+                <a class="navbar-brand" href="<?php echo e(route('home')); ?>"><img
+                        src="<?php echo e(asset('assets/images/microsites/logo.png')); ?>" alt="Logo of Lal Bahadur Shastri National Academy of Administration" width="350"></a>
                 <!-- Button -->
-                @php
+                <?php
                 // Get the slug from the query parameter or the last segment of the URL
                 $slug = request()->query('slug') ?: request()->segment(count(request()->segments()));
 
@@ -79,19 +79,19 @@
                 ->where('research_centre_slug', $slug) // Match the slug
                 ->first(); // Get the first matching result
                 }
-                @endphp
+                ?>
 
-                @if ($centre_name)
-                <h1 class="text-dark">{{ $centre_name->research_centre_name }}<br><span class="text-center"
+                <?php if($centre_name): ?>
+                <h1 class="text-dark"><?php echo e($centre_name->research_centre_name); ?><br><span class="text-center"
                         style="font-size:14px;">
-                        @if (!empty($centre_name->sub_heading))
-                        ( {{ $centre_name->sub_heading }} )
-                        @endif
+                        <?php if(!empty($centre_name->sub_heading)): ?>
+                        ( <?php echo e($centre_name->sub_heading); ?> )
+                        <?php endif; ?>
                     </span></h1>
 
-                @else
+                <?php else: ?>
 
-                @endif
+                <?php endif; ?>
 
                 <!-- Navbar Toggle Button (For mobile view) -->
             </div>
@@ -109,15 +109,15 @@
             <!-- Collapse -->
 
             <div class="collapse navbar-collapse" id="navbar-default">
-                @php
+                <?php
                 // Check if 'slug' is in the query string, otherwise get it from the route
                 $slug = request()->query('slug') ?: request()->route('slug');
-                @endphp
+                ?>
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a href="{{ url('/lbsnaa-sub/' . $slug) }}" class="nav-link">Home</a>
+                        <a href="<?php echo e(url('/lbsnaa-sub/' . $slug)); ?>" class="nav-link">Home</a>
                     </li>
-                    @php
+                    <?php
                     // Get the slug from the request to identify the current research center
                     $slug = request()->query('slug') ?: request()->route('slug');
 
@@ -190,7 +190,7 @@
                     } else {
                     echo "<li class='nav-item'><span>No menu available for this.</span></li>";
                     }
-                    @endphp
+                    ?>
                 </ul>
             </div>
         </nav>
@@ -213,4 +213,4 @@
             });
         });
     });
-    </script>
+    </script><?php /**PATH /var/www/hardeep/public_html/lbsnaa-website/resources/views/user/pages/microsites/includes/header.blade.php ENDPATH**/ ?>
