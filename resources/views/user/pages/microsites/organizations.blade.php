@@ -20,10 +20,12 @@
     </div>
 </section>
 <section class="container-fluid">
+<h2 class="text-primary mb-4">Organization Details</h2>
     <!-- Gallery Display -->
     @if($organizations->isNotEmpty())
     <div class="row">
         <div class="col-lg-9">
+            
             <div class="row">
                 @foreach ($organizations as $organization)
                 <div class="col-lg-3 mb-4">

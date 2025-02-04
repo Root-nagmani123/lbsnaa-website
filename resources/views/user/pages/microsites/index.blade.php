@@ -55,7 +55,7 @@
                     <div class="card-header" style="background-color:#af2910">
                         <div class="row">
                             <div class="col-lg-6">
-                                <h5 class="text-white">What's New</h5>
+                                <h2 class="text-white h4">What's New</h2>
 
                             </div>
                             <div class="col-lg-6 text-end">
@@ -107,9 +107,9 @@
             <!-- Research Centres -->
             <div class="col-12 col-lg-9 mb-4">
                 @foreach($research_centres as $research_centre)
-                <h1 class="text-center uppercase" style="color:#af2910">{{($research_centre->home_title) }}
+                <h3 class="text-center uppercase" style="color:#af2910">{{($research_centre->home_title) }}
                     <br><span><img src="{{ asset('assets/images/devider.png') }}"
-                            alt="{{ $research_centre->home_title }}"></span></h1>
+                            alt="{{ $research_centre->home_title }}"></span></h3>
                 <p style="text-align: justify;" class="mb-4">{!! $research_centre->description !!}</p>
 
                 @endforeach
@@ -121,7 +121,7 @@
                         <div class="card-body">
                             <img src="{{ asset('assets/images/image (2).png') }}"
                                 alt="{{ $research_centre->home_title }}" class="img-fluid">
-                            <h6 class="mt-3">Gallery</h6>
+                            <p class="mt-3">Gallery</p>
                         </div>
                     </a>
                     @endforeach
@@ -132,7 +132,7 @@
                         <div class="card-body">
                             <img src="{{ asset('assets/images/newspaper (1).png') }}"
                                 alt="{{ $research_centre->home_title }}" class="img-fluid">
-                            <h6 class="mt-3">Latest News</h6>
+                            <p class="mt-3">Latest News</p>
                         </div>
                     </a>
                     @endforeach
@@ -143,7 +143,7 @@
             <div class="col-12 col-lg-3 mb-4">
                 <div class="card card-hover border">
                     <div class="card-header" style="background-color:#af2910">
-                        <h5 class="text-white">Quick Links</h5>
+                        <h4 class="text-white h4">Quick Links</h4>
                     </div>
                     <div class="card-body" style="max-height: 500px; overflow-y: scroll;">
                         <ul class="list-group list-group-flush">

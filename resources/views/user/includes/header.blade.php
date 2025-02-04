@@ -120,11 +120,14 @@
         <div class="row py-1 align-items-center">
             <div class="col-md-4 d-flex align-items-center" style="font-size: 13px;font-weight:400;">
                 <a href="https://www.india.gov.in/" target="_blank" style="font-size: 16px; color: #af2910;"><img
-                        class="img-fluid" src="{{ asset('assets/images/icons/ashok.jpg') }}" alt="indian_flag"
+                        class="img-fluid" src="{{ asset('assets/images/icons/ashok.jpg') }}" alt="Logo of Ashok Stambh" aria-label="Logo of Ashoka Stambh"
                         style="font-size: 510px;height: 50px;">
                     भारत सरकार | Government of India</a>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-4">
+                <h1 class="h4 text-center text-primary d-none" ><a href="#" aria-label="Lal Bahadur Shastri National Academy of Administration">Lal Bahadur Shastri National Academy of Administration</a></h1>
+            </div>
+            <div class="col-md-4">
                 <ul class="nav justify-content-end align-items-center">
                     <!-- Tooltip Items -->
                     <li class="nav-item">
@@ -570,5 +573,6 @@
 });
 
     </script>
+    
  <div  id="skip_to_main_content">
 

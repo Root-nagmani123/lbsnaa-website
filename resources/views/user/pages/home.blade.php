@@ -2,9 +2,9 @@
 
 <!-- Page Content -->
 <!-- slider start -->
-<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000"
-    onMouseOver="$(this).carousel('pause');"
-    onMouseOut="$(this).carousel('cycle');">
+
+<!-- Carousel Container -->
+<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
     <div class="carousel-indicators">
         @foreach($sliders as $i => $slider)
         <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ $i }}"
@@ -17,16 +17,16 @@
     <div class="carousel-inner">
         @foreach($sliders as $key => $slider)
         <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
-            <img src="{{ asset('slider-images/' . $slider->image) }}" class="d-block img-fluid"
-                alt="{{ $slider->text }}">
-            <div class="carousel-caption" style="bottom: 0 !important;">
-                <h3 class="text-center slider-caption">{{ $slider->text }}</h3>
+            <img src="{{ asset('slider-images/' . $slider->image) }}" class="d-block w-100"
+                alt="{{ $slider->description }}">
+            <div class="carousel-caption">
+                <p class="text-center slider-caption">{{ $slider->text }}</p>
             </div>
         </div>
         @endforeach
     </div>
 
-    <!-- Carousel Controls -->
+    <!-- Carousel Navigation Controls -->
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Previous</span>
@@ -37,14 +37,16 @@
     </button>
 </div>
 
+<!-- Play/Pause Script -->
+
+
+
 
 <!-- floating notification start -->
 <section class="py-3 bg-light">
     <div class="container-fluid">
-        <div>
             <div class="position-relative d-flex overflow-x-hidden align-items-center">
                 <!-- Latest Updates Button -->
-
                 <button class="btn btn-primary btn-sm me-2 rounded py-2" id="basic-addon2"
                     style="z-index: 999;width: 200px;"> @if(Cookie::get('language') == '2')
                     नवीनतम अपडेट
@@ -81,12 +83,10 @@
                 </div>
                 <!-- Play/Pause Button -->
                 <button class="btn btn-secondary btn-sm me-2 rounded" id="playPauseBtn" style="z-index: 999;">
-                    <i class="material-icons menu-icon">pause</i>
+                    <i class="material-icons menu-icon play" style="display: none;">play_arrow</i>
+                    <i class="material-icons menu-icon pause" style="display: block;">pause</i>
                 </button>
             </div>
-
-        </div>
-    </div>
     </div>
 </section>
 <section class="py-3">
@@ -99,13 +99,13 @@
                             class="avatar avatar-xl rounded-circle" style="object-fit: cover;">
                     </div>
                     <div class="card-body pt-2" style=" height: 100px;">
-                        <h4 class="mb-3">
+                        <p class="mb-3 fw-bold">
                             @if(Cookie::get('language') == '2')
                             निदेशक संदेश
                             @else
                             Director Message
                             @endif
-                        </h4>
+                        </p>
                         <a href="{{ url('menu/director-message') }}" class="icon-link icon-link-hover link-primary">
                             @if(Cookie::get('language') == '2')
                             संदेश
@@ -130,13 +130,13 @@
                             class="avatar avatar-xl rounded-circle" style="object-fit: cover;">
                     </div>
                     <div class="card-body pt-2" style="overflow-y:scroll; height: 100px;">
-                        <h4 class="mb-3">
+                        <p class="mb-3 fw-bold">
                             @if(Cookie::get('language') == '2')
                             दौड़ पाठ्यक्रम
                             @else
                             Runing Courses
                             @endif
-                        </h4>
+                        </p>
                         @if(count($current_course) > 0)
                         <ul>
                             @php $i = 0; @endphp
@@ -186,13 +186,13 @@
                             class="avatar avatar-xl rounded-circle text-center" style="object-fit: cover;">
                     </div>
                     <div class="card-body pt-2 pb-2" style="overflow-y:scroll;height: 100px;">
-                        <h4 class="mb-3">
+                        <p class="mb-3 fw-bold">
                             @if(Cookie::get('language') == '2')
                             आगामी पाठ्यक्रम
                             @else
                             Upcoming Courses
                             @endif
-                        </h4>
+                        </p>
                         @if(count($upcoming_course) > 0)
                         <ul>
 
@@ -236,13 +236,13 @@
                             class="avatar avatar-xl rounded-circle text-center" style="object-fit: cover;">
                     </div>
                     <div class="card-body pt-2" style="height: 100px;">
-                        <h4 class="mb-3">
+                        <p class="mb-3 fw-bold">
                             @if(Cookie::get('language') == '2')
                             प्रशिक्षण कैलेंडर
                             @else
                             Training Calendar
                             @endif
-                        </h4>
+                        </p>
                         <a href="{{ url('cms/training_cal') }}" class="icon-link icon-link-hover link-primary">
                             @if(Cookie::get('language') == '2')
                             एलबीएसएनएए का प्रशिक्षण कैलेंडर
@@ -260,13 +260,13 @@
                             class="avatar avatar-xl rounded-circle text-center" style="object-fit: cover;">
                     </div>
                     <div class="card-body pt-2" style="height: 100px;">
-                        <h4 class="mb-3">
+                        <p class="mb-3 fw-bold">
                             @if(Cookie::get('language') == '2')
                             अकादमी में जीवन
                             @else
                             Life at Academy
                             @endif
-                        </h4>
+                        </p>
                         <a href="{{ url('menu/the-academy-experience') }}"
                             class="icon-link icon-link-hover link-primary">
                             @if(Cookie::get('language') == '2')
@@ -293,13 +293,13 @@
                             class="avatar avatar-xl rounded-circle text-center" style="object-fit: cover;">
                     </div>
                     <div class="card-body pt-2" style="height: 100px;">
-                        <h4 class="mb-3">
+                        <p class="mb-3 fw-bold">
                             @if(Cookie::get('language') == '2')
                             अकादमी स्मारिका
                             @else
                             Academy Souvenir
                             @endif
-                        </h4>
+                        </p>
                         <a href="{{ url('souvenir?pro_category=7')}}" class="icon-link icon-link-hover link-primary">
                             @if(Cookie::get('language') == '2')
                             यादगार लम्हे
@@ -327,7 +327,7 @@
                 <div class="mb-3">
                     <div class="card card-hover border">
                         <div class="card-header" style="background-color:#af2910">
-                            <h1 class="text-white h4">@if(Cookie::get('language') == '2')
+                            <h4 class="text-white h4">@if(Cookie::get('language') == '2')
                                 अकादमी समाचार
                                 @else
                                 LBSNAA Academy News
@@ -337,7 +337,7 @@
                                         सभी को देखें
                                         @else
                                         View All
-                                        @endif</a></span></h1>
+                                        @endif</a></span></h4>
                         </div>
                     </div>
                 </div>
@@ -354,7 +354,7 @@
                                     <div class="card">
                                         <div class="card-header p-0 border-0">
                                             <img src="{{ isset($slider->main_image) && !empty($slider->main_image) ? asset($slider->main_image) : asset('assets/images/4.jpg') }}"
-                                                class="card-img-top img-fluid" alt="{{ $slider->title }}"
+                                                class="card-img-top img-fluid" alt="{{ $slider->short_description }}" aria-label="{{ $slider->short_description }}"
                                                 style="object-fit: cover; height: 250px; width: 100%;">
                                         </div>
                                         <div class="card-body" style="height: 200px; overflow-y: hidden;">
@@ -373,7 +373,7 @@
                                         </div>
                                         <div class="card-footer border-0" style="height:50px;">
                                             <a href="{{ route('user.newsbyslug', $slider->title_slug) }}"
-                                                class="icon-link icon-link-hover link-primary fw-semibold" aria-label="Read More {{ $slider->title }}">
+                                                class="icon-link icon-link-hover link-primary fw-semibold" aria-label="Read More {{ $slider->short_description }}">
                                                 <span>
                                                     @if(Cookie::get('language') == '2')
                                                     और पढ़ें
@@ -501,5 +501,28 @@ document.getElementById('marqueeWrapper').addEventListener('mouseenter', functio
 document.getElementById('marqueeWrapper').addEventListener('mouseleave', function() {
     document.getElementById('marqueeContainer').style.animationPlayState = 'running';
 });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let carousel = document.querySelector("#carouselExampleCaptions");
+        let playPauseButton = document.querySelector("#playPauseButton");
+        let playPauseIcon = document.querySelector("#playPauseIcon");
+        let bsCarousel = new bootstrap.Carousel(carousel, { interval: 3000, ride: "carousel" });
+        let isPaused = false;
+
+        playPauseButton.addEventListener("click", function () {
+            if (isPaused) {
+                bsCarousel.cycle(); // Resume carousel
+                playPauseIcon.classList.remove("fa-play");
+                playPauseIcon.classList.add("fa-pause");
+                isPaused = false;
+            } else {
+                bsCarousel.pause(); // Pause carousel
+                playPauseIcon.classList.remove("fa-pause");
+                playPauseIcon.classList.add("fa-play");
+                isPaused = true;
+            }
+        });
+    });
 </script>
 @include('user.includes.footer')
