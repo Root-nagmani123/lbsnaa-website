@@ -30,8 +30,7 @@
                     <div class="card card-lift h-100">
                         <div class="card-header text-center" style="border:0;">
                             <img src="{{ $organization->main_image ? url($organization->main_image) : '' }}"
-                                class="avatar avatar-xxl rounded-circle" alt="organization Image"
-                                style="object-fit: cover;height:100px;">
+                                class="avatar avatar-xxl rounded-circle" alt="organization Image">
                         </div>
                         <div class="card-body d-flex flex-column justify-content-between">
                             <div class="form-field mt-2">

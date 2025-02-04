@@ -1,9 +1,6 @@
 @include('user.pages.microsites.includes.header')
 
 <!-- Page Content -->
-
-
-<h1>{{ $pageTitle }}</h1>
 <section class="py-4">
     <div class="container-fluid">
         <div class="row">
@@ -41,13 +38,13 @@
                     </button>
                 </div>
                 <script>
-                    var carousel = document.getElementById('carouselExampleCaptions');
-                    carousel.addEventListener('mouseenter', function () {
-                        carousel.carousel('pause');
-                    });
-                    carousel.addEventListener('mouseleave', function () {
-                        carousel.carousel('cycle');
-                    });
+                var carousel = document.getElementById('carouselExampleCaptions');
+                carousel.addEventListener('mouseenter', function() {
+                    carousel.carousel('pause');
+                });
+                carousel.addEventListener('mouseleave', function() {
+                    carousel.carousel('cycle');
+                });
                 </script>
             </div>
 
@@ -68,45 +65,51 @@
                         </div>
                     </div>
                     <div class="card-body" style="height:340px;overflow-y: scroll;">
-                    <ul class="list-group list-group-flush">
-                        @forelse($whatsNew as $news)
+                        <ul class="list-group list-group-flush">
+                            @forelse($whatsNew as $news)
                             <li class="list-group-item">
                                 @if($news->website_url)
-                                    <a href="{{ $news->website_url }}" class="text-primary" target="_blank">
-                                        <span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
-                                                <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"></path>
-                                            </svg>
-                                        </span>
-                                        {{ $news->txtename }}
-                                    </a>
+                                <a href="{{ $news->website_url }}" class="text-primary" target="_blank">
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                            fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd"
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z">
+                                            </path>
+                                        </svg>
+                                    </span>
+                                    {{ $news->txtename }}
+                                </a>
                                 @elseif($news->pdf_file)
-                                    <a href="{{ asset('storage/' . $news->pdf_file) }}" class="text-primary" target="_blank">
-                                        <span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
-                                                <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"></path>
-                                            </svg>
-                                        </span>
-                                        {{ $news->txtename }}
-                                    </a>
+                                <a href="{{ asset('storage/' . $news->pdf_file) }}" class="text-primary"
+                                    target="_blank">
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                            fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd"
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z">
+                                            </path>
+                                        </svg>
+                                    </span>
+                                    {{ $news->txtename }}
+                                </a>
                                 @endif
                             </li>
-                        @empty
+                            @empty
                             <li class="list-group-item text-danger">No data available</li>
-                        @endforelse
-                    </ul>
-
+                            @endforelse
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
-
         <div class="row">
             <!-- Research Centres -->
             <div class="col-12 col-lg-9 mb-4">
                 @foreach($research_centres as $research_centre)
-                <h2 class="text-center uppercase" style="color:#af2910">{{($research_centre->home_title) }} <br><span><img
-                            src="{{ asset('assets/images/devider.png') }}" alt="{{ $research_centre->home_title }}"></span></h2>
+                <h1 class="text-center uppercase" style="color:#af2910">{{($research_centre->home_title) }}
+                    <br><span><img src="{{ asset('assets/images/devider.png') }}"
+                            alt="{{ $research_centre->home_title }}"></span></h1>
                 <p style="text-align: justify;" class="mb-4">{!! $research_centre->description !!}</p>
 
                 @endforeach
@@ -116,7 +119,8 @@
                     <a href="{{ route('mediagallery', ['slug' => $research_centre->research_centre_slug]) }}"
                         class="card border shadow-sm text-center" style="width: 200px;">
                         <div class="card-body">
-                            <img src="{{ asset('assets/images/image (2).png') }}" alt="{{ $research_centre->home_title }}" class="img-fluid">
+                            <img src="{{ asset('assets/images/image (2).png') }}"
+                                alt="{{ $research_centre->home_title }}" class="img-fluid">
                             <h6 class="mt-3">Gallery</h6>
                         </div>
                     </a>
@@ -126,7 +130,8 @@
                     <a href="{{ route('news', ['slug' => $research_centre->research_centre_slug]) }}"
                         class="card border shadow-sm text-center" style="width: 200px;">
                         <div class="card-body">
-                            <img src="{{ asset('assets/images/newspaper (1).png') }}" alt="{{ $research_centre->home_title }}" class="img-fluid">
+                            <img src="{{ asset('assets/images/newspaper (1).png') }}"
+                                alt="{{ $research_centre->home_title }}" class="img-fluid">
                             <h6 class="mt-3">Latest News</h6>
                         </div>
                     </a>
@@ -141,33 +146,40 @@
                         <h5 class="text-white">Quick Links</h5>
                     </div>
                     <div class="card-body" style="max-height: 500px; overflow-y: scroll;">
-                    <ul class="list-group list-group-flush">
-                        @forelse($quickLinks as $link)
+                        <ul class="list-group list-group-flush">
+                            @forelse($quickLinks as $link)
                             <li class="list-group-item">
                                 @if($link->website_url)
-                                    <a href="{{ $link->website_url }}" class="text-primary" target="_blank">
-                                        <span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
-                                                <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"></path>
-                                            </svg>
-                                        </span>
-                                        {{ $link->txtename }}
-                                    </a>
+                                <a href="{{ $link->website_url }}" class="text-primary" target="_blank">
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                            fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd"
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z">
+                                            </path>
+                                        </svg>
+                                    </span>
+                                    {{ $link->txtename }}
+                                </a>
                                 @elseif($link->pdf_file)
-                                    <a href="{{ asset('storage/' . $link->pdf_file) }}" class="text-primary" target="_blank">
-                                        <span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
-                                                <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"></path>
-                                            </svg>
-                                        </span>
-                                        {{ $link->txtename }}
-                                    </a>
+                                <a href="{{ asset('storage/' . $link->pdf_file) }}" class="text-primary"
+                                    target="_blank">
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                            fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd"
+                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z">
+                                            </path>
+                                        </svg>
+                                    </span>
+                                    {{ $link->txtename }}
+                                </a>
                                 @endif
                             </li>
-                        @empty
+                            @empty
                             <li class="list-group-item text-danger">No data available</li>
-                        @endforelse
-                    </ul>
+                            @endforelse
+                        </ul>
 
                     </div>
                 </div>
