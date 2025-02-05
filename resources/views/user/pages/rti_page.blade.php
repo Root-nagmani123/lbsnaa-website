@@ -45,7 +45,7 @@
                 <div class="card ">
                 <div class="accordion" id="accordionExample">
                        <ul class="mt-3 mb-3" style="list-style-type: none;">
-                       {!! renderRTIMenuItems($menuItems) !!}
+                       {!! renderRTIMenuItems($menuItems,$web_slug) !!}
                        </ul>
                     </div>
                 </div>
@@ -53,10 +53,10 @@
             <div class="col-xl-9 col-lg-6 col-12">
                 <div class="mb-4">
                     <h1 class="h1 fw-bold text-primary">
-                        {{$nav_page->menutitle}}
+                        {{$nav_mainpage->menutitle}}
                     </h2>
                 </div>
-                <p>{!! $nav_page->content !!}</p>
+                <p>{!! $nav_mainpage->content !!}</p>
             </div>
         </div>
     </div>

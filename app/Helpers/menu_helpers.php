@@ -317,22 +317,28 @@ if (!function_exists('permisson_navigation')) {
     }
 }
 if (!function_exists('renderRTIMenuItems')) {
-    function renderRTIMenuItems($menuItems) {
-        // print_r($menuItems);die;
+    function renderRTIMenuItems($menuItems, $activeSlug = '') {
         $html = '';
         foreach ($menuItems as $item) {
-            // Check if the menu has child items (i.e., it's a parent with a dropdown)
+            // Check if this item or any of its children is active
+            $isActive = ($item->menu_slug == $activeSlug);
+            $hasActiveChild = hasActiveChild($item->children, $activeSlug);
+
+            // Determine if the collapse should be open
+            $collapseClass = $hasActiveChild ? 'show' : '';
+            $activeClass = $isActive ? 'active' : '';
+
             if ($item->children->isEmpty()) {
                 // Render leaf menu items (without dropdown)
                 $html .= '<li class="nav-item">';
-                $html .= '<a class="nav-link" href="' . $item->menu_slug . '">' . $item->menutitle . '</a>';
+                $html .= '<a class="nav-link ' . $activeClass . '" href="' . url('rti/' . ($item->menu_slug ?? '#')) . '">' . $item->menutitle . '</a>';
                 $html .= '</li>';
             } else {
                 // Render menu with dropdown (it has children)
                 $html .= '<li class="nav-item">';
                 
-                // Add the data-bs-toggle="collapse" and data-bs-target attributes
-                $html .= '<a class="nav-link" data-bs-toggle="collapse" href="#collapse' . $item->id . '" role="button" aria-expanded="false" aria-controls="collapse' . $item->id . '">';
+                // Add the collapse toggle button
+                $html .= '<a class="nav-link" data-bs-toggle="collapse" href="#collapse' . $item->id . '" role="button" aria-expanded="' . ($hasActiveChild ? 'true' : 'false') . '" aria-controls="collapse' . $item->id . '">';
                 $html .= $item->menutitle;
                 
                 // Add the chevron icon
@@ -340,23 +346,31 @@ if (!function_exists('renderRTIMenuItems')) {
                 $html .= '</a>';
     
                 // Render the dropdown content (submenus)
-                $html .= '<div class="collapse" id="collapse' . $item->id . '">';
+                $html .= '<div class="collapse ' . $collapseClass . '" id="collapse' . $item->id . '">';
                 $html .= '<ul class="nav flex-column ms-3">';
     
-                // Render child items (recursive call)
-                $html .= renderRTIMenuItems($item->children);
+                // Recursive call to render child items
+                $html .= renderRTIMenuItems($item->children, $activeSlug);
     
                 $html .= '</ul>';
                 $html .= '</div>';
                 $html .= '</li>';
             }
         }
-    
         return $html;
     }
-   
-    
+
+    // Helper function to check if any child is active
+    function hasActiveChild($children, $activeSlug) {
+        foreach ($children as $child) {
+            if ($child->menu_slug == $activeSlug || hasActiveChild($child->children, $activeSlug)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
+
 
 
 

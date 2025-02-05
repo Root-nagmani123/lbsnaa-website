@@ -620,14 +620,16 @@ $title = ucwords(str_replace('-', ' ', $slug));
         ->where('is_deleted', 0)
         ->where('menu_slug', $slug)
         ->first();
+      
+        $nav_mainpage = $nav_page;
 
     // Get menu items
     $menuItems = $this->getMenuHierarchy($parentId = 0,$slug);
     // dd($menuItems);
     // print_r($menuItems);  // Shows the structure of $menuItems collection
     // die();  // Stop the script for debugging
-
-    return view('user.pages.rti_page', compact('menuItems', 'nav_page', 'breadcrumb','title'));
+$web_slug = '';
+    return view('user.pages.rti_page', compact('menuItems', '$nav_mainpage','nav_page', 'breadcrumb','title','web_slug'));
 }
 
 
@@ -656,8 +658,14 @@ private function getMenuHierarchy($parentId = 0, $slug = null) {
 function get_rti_page_details(Request $request,$slug){
     $title = ucwords(str_replace('-', ' ', $slug));
     $breadcrumb = $this->generateBreadcrumb($slug);
-       
+       $web_slug = $slug;
     // Fetch navigation page
+    $slug = 'rti';
+    $nav_mainpage = DB::table('menus')
+    ->where('menu_status', 1)
+    ->where('is_deleted', 0)
+    ->where('menu_slug', $web_slug)
+    ->first();
     $nav_page = DB::table('menus')
         ->where('menu_status', 1)
         ->where('is_deleted', 0)
@@ -670,7 +678,7 @@ function get_rti_page_details(Request $request,$slug){
     // print_r($menuItems);  // Shows the structure of $menuItems collection
     // die();  // Stop the script for debugging
 
-    return view('user.pages.rti_page', compact('menuItems', 'nav_page', 'breadcrumb','title'));
+    return view('user.pages.rti_page', compact('menuItems', 'nav_mainpage','nav_page', 'breadcrumb','title','web_slug'));
 }
 function feedback(Request $request){
     return view('user.pages.feedback');
