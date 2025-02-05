@@ -194,7 +194,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                            title="Accessibility" aria-label="Expand accessibility menu">
+                            title="Accessibility" aria-label="Expanded accessibility menu">
                             <i class="material-icons menu-icon">accessible</i>
                         </a>
                         <ul class="dropdown-menu">
@@ -210,7 +210,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                            title="Social Media Links" aria-label="Expand Social Media Links">
+                            title="Social Media Links" aria-label="Expanded Social Media Links">
                             <i class="material-icons menu-icon">group</i>
                         </a>
                         @php

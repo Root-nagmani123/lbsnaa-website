@@ -126,7 +126,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-4">
-                    <a href="https://www.india.gov.in/" target="_blank" style="font-size: 16px; color: #af2910;"><img
+                    <a href="#" target="_blank" style="font-size: 16px; color: #af2910;"><img
                             class="img-fluid" src="{{ asset('assets/images/icons/ashok.jpg') }}"
                             alt="Logo of Ashok Stambh" aria-label="Logo of Ashoka Stambh"
                             style="font-size: 510px;height: 50px;">
