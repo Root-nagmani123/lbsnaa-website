@@ -6,96 +6,126 @@
         <div class="row">
             <!-- Slider Section -->
             <style>
-    /* Position the play/pause button on the right */
-    #playPauseBtn {
-        position: absolute;
-        top: 5%;
-        right: 15px;
-        transform: translateY(-5%);
-        z-index: 10;
-        opacity: 0.8;
-        transition: opacity 0.3s ease-in-out;
-    }
+            /* Position the play/pause button on the right */
+            #playPauseBtn {
+                position: absolute;
+                bottom: 1%;
+                right: 15px;
+                transform: translateY(-5%);
+                z-index: 10;
+                opacity: 0.8;
+                transition: opacity 0.3s ease-in-out;
+            }
 
-    /* Hide next/prev arrows by default */
-    .carousel-control-prev,
-    .carousel-control-next {
-        opacity: 0;
-        transition: opacity 0.3s ease-in-out;
-    }
+            /* Hide next/prev arrows by default */
+            .carousel-control-prev,
+            .carousel-control-next {
+                opacity: 0;
+                transition: opacity 0.3s ease-in-out;
+            }
 
-    /* Show next/prev arrows on hover */
-    #carouselExampleCaptions:hover .carousel-control-prev,
-    #carouselExampleCaptions:hover .carousel-control-next {
-        opacity: 1;
-    }
-</style>
+            /* Show next/prev arrows on hover */
+            #carouselExampleCaptions:hover .carousel-control-prev,
+            #carouselExampleCaptions:hover .carousel-control-next {
+                opacity: 1;
+            }
+            /* Ensure the buttons are clearly visible when focused */
+.carousel-indicators button:focus {
+    outline: 2px solid #af2910; /* Blue outline */
+    outline-offset: 2px;
+    box-shadow: 0 0 5px rgba(175, 41, 16, 0.5);
+}
 
-<div class="col-12 col-lg-9 mb-4 position-relative">
-    <div id="carouselExampleCaptions" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="3000">
-        <div class="carousel-indicators">
-            @foreach ($sliders as $i => $slider)
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ $i }}"
-                class="{{ $i == 0 ? 'active' : '' }}" aria-label="{{ $slider->slider_text }}"></button>
-            @endforeach
-        </div>
+/* Optional: Increase the size for better accessibility */
+.carousel-indicators button {
+    width: 12px;
+    height: 12px;
+    border-radius: 10px;
+    margin: 5px;
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+}
 
-        <div class="carousel-inner">
-            @foreach ($sliders as $key => $slider)
-            <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
-                <img src="{{ asset('storage/' . $slider->slider_image) }}" class="d-block img-fluid"
-                    alt="{{ $slider->slider_text }}"
-                    style="width: 100%; height: 400px; object-fit: cover; border-radius: 10px;">
-                <div class="carousel-caption d-none d-md-block" style="bottom: 0 !important;">
-                    <h3 class="text-white slider-caption">{{ $slider->slider_text }}</h3>
+/* Active indicator styling */
+.carousel-indicators .active {
+    background-color: #af2910; /* Blue color for active indicator */
+}
+
+/* Hover effect for better UI feedback */
+.carousel-indicators button:hover {
+    background-color: #af2910;
+}
+
+            </style>
+
+            <div class="col-12 col-lg-9 mb-4 position-relative">
+                <div id="carouselExampleCaptions" class="carousel slide carousel-fade" data-bs-ride="carousel"
+                    data-bs-interval="3000">
+                    <div class="carousel-indicators">
+                        @foreach ($sliders as $i => $slider)
+                        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ $i }}"
+                            class="{{ $i == 0 ? 'active' : '' }}" aria-label="{{ $slider->slider_text }}" tabindex="0">
+                        </button>
+                        @endforeach
+                    </div>
+
+
+                    <div class="carousel-inner">
+                        @foreach ($sliders as $key => $slider)
+                        <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+                            <img src="{{ asset('storage/' . $slider->slider_image) }}" class="d-block img-fluid"
+                                alt="{{ $slider->slider_text }}"
+                                style="width: 100%; height: 400px; object-fit: cover; border-radius: 10px;">
+                            <div class="carousel-caption d-none d-md-block" style="bottom: 0 !important;">
+                                <h3 class="text-white slider-caption">{{ $slider->slider_text }}</h3>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+
+                    <!-- Prev & Next Buttons -->
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+
+                    <!-- Play/Pause Button -->
+                    <button id="playPauseBtn" class="btn btn-danger">
+                        <i class="bi bi-pause-fill"></i>Pause
+                    </button>
                 </div>
             </div>
-            @endforeach
-        </div>
 
-        <!-- Prev & Next Buttons -->
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
-            data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
-            data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
+            <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var carousel = new bootstrap.Carousel(document.getElementById('carouselExampleCaptions'), {
+                    interval: 3000, // Default interval
+                    ride: 'carousel'
+                });
 
-        <!-- Play/Pause Button -->
-        <button id="playPauseBtn" class="btn btn-danger">
-            <i class="bi bi-pause-fill"></i>Pause
-        </button>
-    </div>
-</div>
+                var playPauseBtn = document.getElementById("playPauseBtn");
+                var isPlaying = true; // Track the state of the slider
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        var carousel = new bootstrap.Carousel(document.getElementById('carouselExampleCaptions'), {
-            interval: 3000, // Default interval
-            ride: 'carousel'
-        });
-
-        var playPauseBtn = document.getElementById("playPauseBtn");
-        var isPlaying = true; // Track the state of the slider
-
-        playPauseBtn.addEventListener("click", function () {
-            if (isPlaying) {
-                carousel.pause();
-                playPauseBtn.innerHTML = '<i class="bi bi-play-fill"></i> Play';
-                playPauseBtn.classList.replace("btn-danger", "btn-success");
-            } else {
-                carousel.cycle();
-                playPauseBtn.innerHTML = '<i class="bi bi-pause-fill"></i> Pause';
-                playPauseBtn.classList.replace("btn-success", "btn-danger");
-            }
-            isPlaying = !isPlaying; // Toggle state
-        });
-    });
-</script>
+                playPauseBtn.addEventListener("click", function() {
+                    if (isPlaying) {
+                        carousel.pause();
+                        playPauseBtn.innerHTML = '<i class="bi bi-play-fill"></i> Play';
+                        playPauseBtn.classList.replace("btn-danger", "btn-success");
+                    } else {
+                        carousel.cycle();
+                        playPauseBtn.innerHTML = '<i class="bi bi-pause-fill"></i> Pause';
+                        playPauseBtn.classList.replace("btn-success", "btn-danger");
+                    }
+                    isPlaying = !isPlaying; // Toggle state
+                });
+            });
+            </script>
 
 
 

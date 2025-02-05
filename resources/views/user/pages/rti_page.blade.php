@@ -56,14 +56,13 @@
                 <div class="mb-4">
                     <h1 class="h1 fw-bold text-primary">
                         {{$nav_page->menutitle}}
-                    </h1>
+                    </h2>
                 </div>
                 <p>{!! $nav_page->content !!}</p>
             </div>
         </div>
     </div>
 </section>
-
 
 
 @else
@@ -91,14 +90,4 @@
 
 
 </style>
-<script>
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
-        });
-    });
-});
-</script>
 @include('user.includes.footer')

@@ -219,7 +219,38 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 </script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const slider = document.querySelector('.logo-slider');
+    const sliderContainer = document.querySelector('.logo-slider-container');
+    const sliderWidth = slider.scrollWidth;
+    const containerWidth = sliderContainer.clientWidth;
 
+    let scrollAmount = 0;
+    const scrollStep = 160; // Adjust based on logo width + margin
+    const intervalTime = 3000; // Time in milliseconds for each slide
+    let autoSlide;
+
+    const startAutoSlide = () => {
+        autoSlide = setInterval(() => {
+            scrollAmount += scrollStep;
+            if (scrollAmount >= sliderWidth - containerWidth) {
+                scrollAmount = 0; // Reset to the start
+            }
+            slider.style.transform = `translateX(-${scrollAmount}px)`;
+        }, intervalTime);
+    };
+
+    const stopAutoSlide = () => clearInterval(autoSlide);
+
+    // Start automatic sliding
+    startAutoSlide();
+
+    // Optional: Pause on hover
+    sliderContainer.addEventListener('mouseenter', stopAutoSlide);
+    sliderContainer.addEventListener('mouseleave', startAutoSlide);
+});
+</script>
 <script>
 // JavaScript to handle marquee play/pause
 const marqueeContainer = document.getElementById('marqueeContainer');
@@ -320,8 +351,6 @@ function chooseStyle(action, value) {
     }
 }
 </script>
-
-
 <!-- Scripts -->
 <!-- Libs JS -->
 <script src="{{ asset('assets/libs/%40popperjs/core/dist/umd/popper.min.js') }}"></script>
@@ -337,7 +366,6 @@ function chooseStyle(action, value) {
 <script src="{{ asset('assets/libs/tiny-slider/dist/min/tiny-slider.js') }}"></script>
 <script src="{{ asset('assets/js/vendors/tnsSlider.js') }}"></script>
 <script src="{{ asset('assets/js/vendors/glight.js') }}"></script>
-
 <style>
 .logo-slider-container {
     position: relative;
@@ -454,16 +482,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentLanguage = getLanguageCookie();
     updateLanguageText(currentLanguage);
 });
-
-setTimeout(function() {
-        var searchResults = $(".gsc-results-wrapper-visible");
-        var resultsContainer = $("#search-results-container");
-
-        if (searchResults.length && resultsContainer.length) {
-            // Move the results outside the modal
-            resultsContainer.append(searchResults);
-        }
-    }, 3000); // Adjust the timing if necessary
 </script>
 </body>
 
