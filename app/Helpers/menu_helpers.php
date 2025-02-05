@@ -316,6 +316,47 @@ if (!function_exists('permisson_navigation')) {
             }
     }
 }
+if (!function_exists('renderRTIMenuItems')) {
+    function renderRTIMenuItems($menuItems) {
+        // print_r($menuItems);die;
+        $html = '';
+        foreach ($menuItems as $item) {
+            // Check if the menu has child items (i.e., it's a parent with a dropdown)
+            if ($item->children->isEmpty()) {
+                // Render leaf menu items (without dropdown)
+                $html .= '<li class="nav-item">';
+                $html .= '<a class="nav-link" href="' . $item->menu_slug . '">' . $item->menutitle . '</a>';
+                $html .= '</li>';
+            } else {
+                // Render menu with dropdown (it has children)
+                $html .= '<li class="nav-item">';
+                
+                // Add the data-bs-toggle="collapse" and data-bs-target attributes
+                $html .= '<a class="nav-link" data-bs-toggle="collapse" href="#collapse' . $item->id . '" role="button" aria-expanded="false" aria-controls="collapse' . $item->id . '">';
+                $html .= $item->menutitle;
+                
+                // Add the chevron icon
+                $html .= ' <i class="bi bi-chevron-down"></i>';
+                $html .= '</a>';
+    
+                // Render the dropdown content (submenus)
+                $html .= '<div class="collapse" id="collapse' . $item->id . '">';
+                $html .= '<ul class="nav flex-column ms-3">';
+    
+                // Render child items (recursive call)
+                $html .= renderRTIMenuItems($item->children);
+    
+                $html .= '</ul>';
+                $html .= '</div>';
+                $html .= '</li>';
+            }
+        }
+    
+        return $html;
+    }
+   
+    
+}
 
 
 

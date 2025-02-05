@@ -41,49 +41,16 @@
 
 <section class="py-2">
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-3 card">
-                <ul class="nav nav-pills flex-column">
-                    @foreach($menuItems as $menu)
-                    <li class="nav-item">
-                        @if($menu->children->isNotEmpty())
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="collapse"
-                            data-bs-target="#menu-{{$menu->id}}" aria-expanded="false">
-                            {{ $menu->menutitle }}
-                        </a>
-                        <div class="collapse" id="menu-{{$menu->id}}">
-                            <ul class="nav flex-column ms-3">
-                                @foreach($menu->children as $child)
-                                <li>
-                                    @if($child->children->isNotEmpty())
-                                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="collapse"
-                                        data-bs-target="#menu-{{$child->id}}" aria-expanded="false">
-                                        {{ $child->menutitle }}
-                                    </a>
-                                    <div class="collapse" id="menu-{{$child->id}}">
-                                        <ul class="nav flex-column ms-3">
-                                            @foreach($child->children as $subChild)
-                                            <li><a class="nav-link"
-                                                    href="{{ url('rti/' . $subChild->menu_slug ?? '#') }}">{{ $subChild->menutitle }}</a>
-                                            </li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                    @else
-                                    <a class="nav-link"
-                                        href="{{ url('rti/' . $child->menu_slug ?? '#') }}">{{ $child->menutitle }}</a>
-                                    @endif
-                                </li>
-                                @endforeach
-                            </ul>
-                        </div>
-                        @else
-                        <a class="nav-link"
-                            href="{{ url('rti/' . $menu->menu_slug ?? '#') }}">{{ $menu->menutitle }}</a>
-                        @endif
-                    </li>
-                    @endforeach
-                </ul>
+        <div class="row gy-4 gy-xl-0">
+            <div class="col-xl-3 col-lg-6 col-12">
+                <div class="card ">
+                <div class="accordion" id="accordionExample">
+                        {!! renderRTIMenuItems($menuItems) !!}
+                    </div>
+
+
+
+                </div>
             </div>
             <div class="col-xl-9 col-lg-6 col-12">
                 <div class="mb-4">
@@ -95,13 +62,12 @@
             </div>
         </div>
     </div>
-
 </section>
 
 
 
 @else
-<h4>RTI does not exist</h4>
+<h4>News does not exist</h4>
 @endif
 
 
@@ -109,5 +75,30 @@
 .accordion-button.no-arrow::after {
     display: none;
 }
+/* Remove bullets from the first list item */
+.nav-pills .nav-item:first-child {
+    list-style: none;
+}
+
+/* If you want to remove bullets from all list items */
+.nav-pills, .nav-pills .nav-item {
+    list-style: none; /* Removes the default bullet points */
+}
+
+.nav-pills .nav-link {
+    text-decoration: none; /* Ensures no default underline */
+}
+
+
 </style>
+<script>
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+        });
+    });
+});
+</script>
 @include('user.includes.footer')

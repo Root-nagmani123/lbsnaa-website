@@ -607,6 +607,7 @@ public function souvenir(Request $request)
     // Return to view
     return view('user.pages.souvenir_list', compact('categories', 'souvenir','keywords','title'));
 }
+
 function rti_main_page(Request $request) {
     $slug = 'rti';
 $title = ucwords(str_replace('-', ' ', $slug));
@@ -638,10 +639,11 @@ private function getMenuHierarchy($parentId = 0, $slug = null) {
         ->where('is_deleted', 0)
         ->where('parent_id', $parentId);
 
+
     if ($slug !== null) {
         $query->where('menu_slug', $slug);
     }
-
+    $query->select('id','parent_id','menutitle','menu_slug','menucategory','texttype','txtpostion');
     $menus = $query->orderBy('id')->get();
 
     foreach ($menus as $menu) {
