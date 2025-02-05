@@ -38,18 +38,16 @@
         </div>
     </div>
 </section>
-
 <section class="py-2">
     <div class="container-fluid">
         <div class="row gy-4 gy-xl-0">
             <div class="col-xl-3 col-lg-6 col-12">
                 <div class="card ">
                 <div class="accordion" id="accordionExample">
-                        {!! renderRTIMenuItems($menuItems) !!}
+                       <ul class="mt-3 mb-3" style="list-style-type: none;">
+                       {!! renderRTIMenuItems($menuItems) !!}
+                       </ul>
                     </div>
-
-
-
                 </div>
             </div>
             <div class="col-xl-9 col-lg-6 col-12">
