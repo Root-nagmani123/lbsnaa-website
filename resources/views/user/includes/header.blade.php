@@ -22,16 +22,10 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <title>
-
-        @if(Cookie::get('language') == '2')
-        होम | लाल बहादुर शास्त्री राष्ट्रीय प्रशासन अकादमी
-        @else
         @if(isset($title))
         {{ $title }} | Lal Bahadur Shastri National Academy of Administration
         @else
         Home | Lal Bahadur Shastri National Academy of Administration
-        @endif
-
         @endif
     </title>
     <style>
@@ -142,6 +136,34 @@
     opacity: 0;
     visibility: hidden;
 }
+/* Ensure dropdown opens on hover and keyboard focus */
+.dropdown:hover > .dropdown-menu,
+.dropdown:focus-within > .dropdown-menu {
+    display: block;
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Ensure nested dropdown opens on hover and keyboard focus */
+.dropdown-submenu:hover > .dropdown-menu,
+.dropdown-submenu:focus-within > .dropdown-menu {
+    display: block;
+    visibility: visible;
+    opacity: 1;
+    left: 100%;
+    top: 0;
+    margin-top: -1px;
+}
+
+/* Prevent flickering */
+.dropdown-menu {
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    opacity: 0;
+    visibility: hidden;
+}
+
+
+
 
     </style>
 </head>
@@ -272,6 +294,54 @@
         </div>
 
     </div>
+    <script>
+       $(document).ready(function () {
+    // Open dropdown on hover
+    $(".dropdown, .dropdown-submenu").hover(
+        function () {
+            $(this).addClass("show");
+            $(this).children(".dropdown-menu").addClass("show");
+        },
+        function () {
+            $(this).removeClass("show");
+            $(this).children(".dropdown-menu").removeClass("show");
+        }
+    );
+
+    // Open dropdown on focus (Tab key)
+    $(".dropdown > .nav-link, .dropdown-submenu > .dropdown-item").on("focus", function () {
+        let parent = $(this).parent();
+        parent.addClass("show");
+        parent.children(".dropdown-menu").addClass("show");
+    });
+
+    // Close dropdown on Escape key
+    $(document).on("keydown", function (e) {
+        if (e.key === "Escape") {
+            $(".dropdown, .dropdown-submenu").removeClass("show");
+            $(".dropdown-menu").removeClass("show");
+        }
+    });
+
+    // Enable keyboard navigation inside dropdown
+    $(".dropdown-menu").on("keydown", function (e) {
+        let items = $(this).find(".dropdown-item");
+        let index = items.index(document.activeElement);
+
+        if (e.key === "ArrowDown") {
+            e.preventDefault();
+            let nextIndex = (index + 1) % items.length;
+            items.eq(nextIndex).focus();
+        } else if (e.key === "ArrowUp") {
+            e.preventDefault();
+            let prevIndex = (index - 1 + items.length) % items.length;
+            items.eq(prevIndex).focus();
+        }
+    });
+});
+
+
+    </script>
     <nav class="navbar navbar-expand-lg shadow-none sticky-xl-top sticky-lg-top">
         <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
             <!-- Logo -->

@@ -139,7 +139,7 @@
 
             <!-- Play/Pause Button -->
             <button id="playPauseBtn1" class="btn btn-danger ms-2">
-                <i class="bi bi-pause-fill"></i>
+                <i class="bi bi-pause-fill"></i>Pause
             </button>
         </div>
     </div>
