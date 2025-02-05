@@ -69,24 +69,25 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        let carousel = document.querySelector("#carouselExampleCaptions");
-        let playPauseBtn = document.querySelector("#playPauseBtn");
-        let icon = playPauseBtn.querySelector("i");
-        let carouselInstance = new bootstrap.Carousel(carousel, { interval: 3000 });
+        var carousel = new bootstrap.Carousel(document.getElementById('carouselExampleCaptions'), {
+            interval: 3000, // Default interval
+            ride: 'carousel'
+        });
 
-        let isPlaying = true;
+        var playPauseBtn = document.getElementById("playPauseBtn");
+        var isPlaying = true; // Track the state of the slider
 
         playPauseBtn.addEventListener("click", function () {
             if (isPlaying) {
-            carousel.pause();
-            playPauseBtn.innerHTML = '<i class="bi bi-play-fill"></i> Play';
-            playPauseBtn.classList.replace("btn-danger", "btn-success");
-        } else {
-            carousel.cycle();
-            playPauseBtn.innerHTML = '<i class="bi bi-pause-fill"></i> Pause';
-            playPauseBtn.classList.replace("btn-success", "btn-danger");
-        }
-            isPlaying = !isPlaying;
+                carousel.pause();
+                playPauseBtn.innerHTML = '<i class="bi bi-play-fill"></i> Play';
+                playPauseBtn.classList.replace("btn-danger", "btn-success");
+            } else {
+                carousel.cycle();
+                playPauseBtn.innerHTML = '<i class="bi bi-pause-fill"></i> Pause';
+                playPauseBtn.classList.replace("btn-success", "btn-danger");
+            }
+            isPlaying = !isPlaying; // Toggle state
         });
     });
 </script>

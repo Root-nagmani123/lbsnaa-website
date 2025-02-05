@@ -29,7 +29,7 @@
         @else
         Home | Lal Bahadur Shastri National Academy of Administration
         @endif
-       
+
         @endif
     </title>
     <style>
@@ -97,21 +97,23 @@
         box-shadow: 0 0 5px rgba(211, 4, 49, 0.75);
         /* Optional for extra visibility */
     }
-    .dropdown-toggle:focus, 
-.dropdown-item:focus {
-    outline: 2px solid #af2910 !important;
-    outline-offset: 2px;
-}
-.navbar {
-    overflow: visible !important;
-}
 
-.btn-scroll-top:focus {
-    outline: 2px solid #af2910 !important;
-    outline-offset: 2px;
-    box-shadow: 0 0 5px rgba(211, 4, 49, 0.75);
-    /* Optional for extra visibility */
-}
+    .dropdown-toggle:focus,
+    .dropdown-item:focus {
+        outline: 2px solid #af2910 !important;
+        outline-offset: 2px;
+    }
+
+    .navbar {
+        overflow: visible !important;
+    }
+
+    .btn-scroll-top:focus {
+        outline: 2px solid #af2910 !important;
+        outline-offset: 2px;
+        box-shadow: 0 0 5px rgba(211, 4, 49, 0.75);
+        /* Optional for extra visibility */
+    }
     </style>
 </head>
 
@@ -120,19 +122,21 @@
         <div class="row py-1 align-items-center">
             <div class="col-md-4 d-flex align-items-center" style="font-size: 13px;font-weight:400;">
                 <a href="https://www.india.gov.in/" target="_blank" style="font-size: 16px; color: #af2910;"><img
-                        class="img-fluid" src="{{ asset('assets/images/icons/ashok.jpg') }}" alt="Logo of Ashok Stambh" aria-label="Logo of Ashoka Stambh"
-                        style="font-size: 510px;height: 50px;">
+                        class="img-fluid" src="{{ asset('assets/images/icons/ashok.jpg') }}" alt="Logo of Ashok Stambh"
+                        aria-label="Logo of Ashoka Stambh" style="font-size: 510px;height: 50px;">
                     भारत सरकार | Government of India</a>
             </div>
             <div class="col-md-4">
-                <h1 class="h4 text-center text-primary d-none" ><a href="#" aria-label="{{ $title }} | Lal Bahadur Shastri National Academy of Administration">{{ $title }} | Lal Bahadur Shastri National Academy of Administration</a></h1>
+                <h1 class="h4 text-center text-primary d-none"><a href="#"
+                        aria-label="{{ $title }} | Lal Bahadur Shastri National Academy of Administration">{{ $title }}
+                        | Lal Bahadur Shastri National Academy of Administration</a></h1>
             </div>
             <div class="col-md-4">
                 <ul class="nav justify-content-end align-items-center">
                     <!-- Tooltip Items -->
                     <li class="nav-item">
-                        <a class="nav-link" href="#skip_to_main_content" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                            title="Skip to main content" aria-label="Skip to main content">
+                        <a class="nav-link" href="#skip_to_main_content" data-bs-toggle="tooltip"
+                            data-bs-placement="bottom" title="Skip to main content" aria-label="Skip to main content">
                             <i class="material-icons menu-icon">restart_alt</i>
                         </a>
                     </li>
@@ -199,12 +203,28 @@
                             <i class="material-icons menu-icon">account_tree</i>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://www.google.com" target="_blank" data-bs-toggle="tooltip"
-                            data-bs-placement="bottom" title="Search" aria-label="Search">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="#" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="material-icons menu-icon">search</i>
                         </a>
+                        <div class="dropdown-menu p-2" style="width: 250px;">
+                            <form action="https://www.google.com/search" method="GET" target="_blank">
+                                <input type="text" name="q" class="form-control mb-2" placeholder="Search..." required>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="searchType" value="web"
+                                        id="searchWeb">
+                                    <label class="form-check-label" for="searchWeb">The Web</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="sitesearch" value="lbsnaa.gov.in"
+                                        id="searchDopt" checked>
+                                    <label class="form-check-label" for="searchDopt">LBSNAA.GOV.IN</label>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-sm w-100 mt-2">Search</button>
+                            </form>
+                        </div>
                     </li>
+
 
                     <!-- <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button"
@@ -227,7 +247,8 @@
         <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
             <!-- Logo -->
             <a href="{{ route('home') }}" class="navbar-brand me-auto logo d-flex align-items-center">
-                <img src="{{ asset('admin_assets/images/logo.png') }}" alt="logo-icon" class="img-fluid logo" aria-label="Logo of Lal Bahadur Shastri National Academy of Administration">
+                <img src="{{ asset('admin_assets/images/logo.png') }}" alt="logo-icon" class="img-fluid logo"
+                    aria-label="Logo of Lal Bahadur Shastri National Academy of Administration">
             </a>
 
             <!-- Navbar Toggle Button (For mobile view) -->
@@ -303,7 +324,8 @@
 
                         // Add 'w-100' class to ensure full width for the list item
                         if($submenu->texttype == 3){
-                        $output .= '<li class="check dropdown-submenu dynamic-direction w-100 border-bottom" aria-label="$submenu->menutitle">';
+                        $output .= '<li class="check dropdown-submenu dynamic-direction w-100 border-bottom"
+                            aria-label="$submenu->menutitle" >';
                             $url = '';
                             if ($submenu->web_site_target == 1) {
                             // Internal link
@@ -315,7 +337,8 @@
                             $output .= '<a
                                 class="dropdown-item ' . ($hasChildren ? 'dropdown-toggle d-flex align-items-center' : '') . '"
                                 href="' . $url . '"
-                                target="' . ($submenu->web_site_target == 2 ? '_blank' : '_self') . '" aria-label="$submenu->menutitle">' .
+                                target="' . ($submenu->web_site_target == 2 ? '_blank' : '_self') . '"
+                                aria-label="$submenu->menutitle" aria-expanded="false">' .
                                 $submenu->menutitle . '</a>';
 
                             if ($hasChildren) {
@@ -328,7 +351,7 @@
                         }else if($submenu->texttype == 2){
                         $output .= '<li class="dropdown-submenu dynamic-direction w-100 border-bottom">';
                             $output .= '<a class="dropdown-item" href="' . asset($submenu->pdf_file) . '"
-                                target="_blank">' . $submenu->menutitle . '</a>';
+                                target="_blank" aria-expanded="false">' . $submenu->menutitle . '</a>';
 
                             if ($hasChildren) {
                             $output .= renderMenuItems($submenu->id);
@@ -339,7 +362,7 @@
                         $output .= '<li class="dropdown-submenu dynamic-direction w-100 border-bottom">';
                             $output .= '<a
                                 class="dropdown-item ' . ($hasChildren ? 'dropdown-toggle d-flex align-items-center' : '') . '"
-                                href="' . route('user.navigationpagesbyslug', $submenu->menu_slug) . '">' .
+                                href="' . route('user.navigationpagesbyslug', $submenu->menu_slug) . '" aria-expanded="false">' .
                                 $submenu->menutitle . '</a>';
 
                             if ($hasChildren) {
@@ -365,7 +388,7 @@
                                 class="dropdown-item ' . (isset($category['children']) && count($category['children']) > 0 ? 'dropdown-toggle' : '') . '"
                                 href="' . route('user.courseslug', $category['category']->slug) . '" ' . (isset($category['
                                 children']) && count($category['children'])> 0 ? 'data-bs-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false"' : '') . '>' .
+                                aria-haspopup="true" aria-expanded="false"' : '') . ' aria-expanded="false">' .
                                 $category['category']->category_name . '</a>';
                             if (isset($category['children']) && count($category['children']) > 0) {
                             $output .= renderCourseTree($category['children']);
@@ -405,7 +428,7 @@
                                 $output .= '
                         <li class="dropdown-submenu dynamic-direction w-100 border-bottom">';
                             $output .= '<a class="dropdown-item ' . $dropdownClass . '"
-                                href="' . route('user.courseslug', $node['category']->slug) . '" ' . $dataAttributes . '>';
+                                href="' . route('user.courseslug', $node['category']->slug) . '" ' . $dataAttributes . ' aria-expanded="false">';
                                 $output .= htmlspecialchars($node['category']->category_name);
                                 $output .= '</a>';
 
@@ -426,7 +449,7 @@
                     @foreach($menus as $menu)
                     @if($menu->menutitle === 'RTI')
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('user.get_rti_page', $menu->menu_slug) }}" aria-label>
+                        <a class="nav-link" href="{{ route('user.get_rti_page', $menu->menu_slug) }}" aria-expanded="false">
                             {{ $menu->menutitle }}
                         </a>
                     </li>
@@ -434,7 +457,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle"
                             href="{{ route('user.navigationpagesbyslug', $menu->menu_slug) }}"
-                            data-bs-toggle="dropdown">
+                            data-bs-toggle="dropdown" aria-expanded="false">
                             {{ $menu->menutitle }}
                         </a>
                         <!-- <ul class="dropdown-menu">
@@ -453,18 +476,18 @@
                                 @if($reserch_c->pdf)
                                 <!-- Redirect to PDF -->
                                 <a class="dropdown-item" href="{{ asset('storage/' . $reserch_c->pdf) }}"
-                                    target="_blank">
+                                    target="_blank" aria-expanded="false">
                                     {{ $reserch_c->research_centre_name }}
                                 </a>
                                 @elseif($reserch_c->url)
                                 <!-- Redirect to URL -->
-                                <a class="dropdown-item" href="{{ $reserch_c->url }}" target="_blank">
+                                <a class="dropdown-item" href="{{ $reserch_c->url }}" target="_blank" aria-expanded="false">
                                     {{ $reserch_c->research_centre_name }}
                                 </a>
                                 @else
                                 <!-- Redirect to another page -->
                                 <a class="dropdown-item"
-                                    href="{{ url('lbsnaa-sub/' . $reserch_c->research_centre_slug) }}">
+                                    href="{{ url('lbsnaa-sub/' . $reserch_c->research_centre_slug) }}" aria-expanded="false">
                                     {{ $reserch_c->research_centre_name }}
                                 </a>
                                 @endif
@@ -507,7 +530,7 @@
 
                         <!-- Render the menu link -->
                         <a class="nav-link {{ renderMenuItems($menu->id, $menu->menutitle === 'Training') ? 'dropdown-toggle' : '' }}"
-                            href="{{ $url }}" target="{{ $target }}">
+                            href="{{ $url }}" target="{{ $target }}" aria-expanded="false">
                             {{ $menu->menutitle }}
                         </a>
 
@@ -549,31 +572,28 @@
     });
     </script>
     <script>
-        document.querySelectorAll('.dropdown-toggle').forEach(item => {
-    item.addEventListener('keydown', function(event) {
-        if (event.key === 'Tab') {
-            let dropdown = this.nextElementSibling;
-            if (dropdown && dropdown.classList.contains('dropdown-menu')) {
-                dropdown.querySelector('.dropdown-item').focus();
-            }
-        }
-    });
-});
-
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-    document.querySelectorAll('.dropdown-toggle').forEach((dropdown) => {
-        dropdown.addEventListener('keydown', function (event) {
-            if (event.key === 'Enter' || event.key === ' ') {
-                event.preventDefault();
-                this.click();
+    document.querySelectorAll('.dropdown-toggle').forEach(item => {
+        item.addEventListener('keydown', function(event) {
+            if (event.key === 'Tab') {
+                let dropdown = this.nextElementSibling;
+                if (dropdown && dropdown.classList.contains('dropdown-menu')) {
+                    dropdown.querySelector('.dropdown-item').focus();
+                }
             }
         });
     });
-});
-
     </script>
-    
- <div  id="skip_to_main_content">
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.dropdown-toggle').forEach((dropdown) => {
+            dropdown.addEventListener('keydown', function(event) {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    this.click();
+                }
+            });
+        });
+    });
+    </script>
 
+    <div id="skip_to_main_content">
