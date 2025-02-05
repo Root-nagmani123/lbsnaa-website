@@ -4,7 +4,32 @@
 <!-- slider start -->
 
 <!-- Carousel Container -->
-<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+<style>
+    /* Position the play/pause button on the right */
+    #playPauseBtn {
+        position: absolute;
+        top: 5%;
+        right: 15px;
+        transform: translateY(-5%);
+        z-index: 10;
+        opacity: 0.8;
+    }
+
+    /* Hide navigation arrows by default */
+    .carousel-control-prev,
+    .carousel-control-next {
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    /* Show navigation arrows only on hover */
+    #carouselExampleCaptions:hover .carousel-control-prev,
+    #carouselExampleCaptions:hover .carousel-control-next {
+        opacity: 1;
+    }
+</style>
+
+<div id="carouselExampleCaptions" class="carousel slide position-relative carousel-fade" data-bs-ride="carousel" data-bs-interval="3000">
     <div class="carousel-indicators">
         @foreach($sliders as $i => $slider)
         <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ $i }}"
@@ -35,25 +60,24 @@
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
     </button>
+
     <!-- Play/Pause Button -->
-    <div class="text-center mt-3 mb-3">
-        <button id="playPauseBtn" class="btn btn-danger">
-            <i class="bi bi-pause-fill"></i> Pause
-        </button>
-    </div>
+    <button id="playPauseBtn" class="btn btn-danger">
+        <i class="bi bi-pause-fill"></i>Pause
+    </button>
 </div>
+
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    var carousel = new bootstrap.Carousel(document.getElementById('carouselExampleCaptions'), {
-        interval: 3000, // Default interval
-        ride: 'carousel'
-    });
+    document.addEventListener("DOMContentLoaded", function () {
+        let carousel = document.querySelector("#carouselExampleCaptions");
+        let playPauseBtn = document.querySelector("#playPauseBtn");
+        let icon = playPauseBtn.querySelector("i");
+        let carouselInstance = new bootstrap.Carousel(carousel, { interval: 3000 });
 
-    var playPauseBtn = document.getElementById("playPauseBtn");
-    var isPlaying = true; // Track the state of the slider
+        let isPlaying = true;
 
-    playPauseBtn.addEventListener("click", function() {
-        if (isPlaying) {
+        playPauseBtn.addEventListener("click", function () {
+            if (isPlaying) {
             carousel.pause();
             playPauseBtn.innerHTML = '<i class="bi bi-play-fill"></i> Play';
             playPauseBtn.classList.replace("btn-danger", "btn-success");
@@ -62,9 +86,9 @@ document.addEventListener("DOMContentLoaded", function() {
             playPauseBtn.innerHTML = '<i class="bi bi-pause-fill"></i> Pause';
             playPauseBtn.classList.replace("btn-success", "btn-danger");
         }
-        isPlaying = !isPlaying; // Toggle state
+            isPlaying = !isPlaying;
+        });
     });
-});
 </script>
 
 
@@ -122,24 +146,24 @@ document.addEventListener("DOMContentLoaded", function() {
 
 <!-- ✅ JavaScript for Play/Pause Marquee -->
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        var marquee = document.getElementById("marqueeContainer");
-        var playPauseBtn = document.getElementById("playPauseBtn1");
-        var isPlaying = true; // Initially, marquee is running
+document.addEventListener("DOMContentLoaded", function() {
+    var marquee = document.getElementById("marqueeContainer");
+    var playPauseBtn = document.getElementById("playPauseBtn1");
+    var isPlaying = true; // Initially, marquee is running
 
-        playPauseBtn.addEventListener("click", function () {
-            if (isPlaying) {
-                marquee.style.animationPlayState = "paused";
-                playPauseBtn.innerHTML = '<i class="bi bi-play-fill"></i>';
-                playPauseBtn.classList.replace("btn-danger", "btn-success");
-            } else {
-                marquee.style.animationPlayState = "running";
-                playPauseBtn.innerHTML = '<i class="bi bi-pause-fill"></i>';
-                playPauseBtn.classList.replace("btn-success", "btn-danger");
-            }
-            isPlaying = !isPlaying; // Toggle state
-        });
+    playPauseBtn.addEventListener("click", function() {
+        if (isPlaying) {
+            marquee.style.animationPlayState = "paused";
+            playPauseBtn.innerHTML = '<i class="bi bi-play-fill"></i>';
+            playPauseBtn.classList.replace("btn-danger", "btn-success");
+        } else {
+            marquee.style.animationPlayState = "running";
+            playPauseBtn.innerHTML = '<i class="bi bi-pause-fill"></i>';
+            playPauseBtn.classList.replace("btn-success", "btn-danger");
+        }
+        isPlaying = !isPlaying; // Toggle state
     });
+});
 </script>
 
 
@@ -223,7 +247,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     </div>
                     <div class="card-footer" style="border:none;float: right;text-align: right;">
                         <button class="btn btn-primary btn-sm"> <a href="{{ route('user.runningCourses') }}"
-                                style="color: white;">
+                                style="color: white;" aria-label="View All Running Courses">
                                 @if(Cookie::get('language') == '2')
                                 सभी को देखें
                                 @else
@@ -274,7 +298,8 @@ document.addEventListener("DOMContentLoaded", function() {
                     </div>
                     <div class="card-footer" style="border:none;float: right;text-align: right;">
                         <button class="btn btn-primary btn-sm"><a href="{{ route('user.upcomingCourses') }}"
-                                style="color: white;">@if(Cookie::get('language') == '2')
+                                style="color: white;" aria-label="View All Upcoming Courses">@if(Cookie::get('language')
+                                == '2')
                                 सभी को देखें
                                 @else
                                 View All

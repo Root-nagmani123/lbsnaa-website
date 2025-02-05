@@ -66,7 +66,46 @@
 a:focus, 
 a:focus-visible {
     outline: 2px solid #af2910 !important; /* Red outline to indicate focus */
-    background-color: rgba(255, 0, 0, 0.1); /* Light red background */
+    background-color: rgba(0, 0, 0, 0); /* Light red background */
+    border-radius: 5px;
+}
+/* Ensure the toggle button and menu items are highlighted on focus */
+.navbar-toggler:focus, 
+.navmenu a:focus {
+    outline: 2px solid #007bff; /* Blue outline for accessibility */
+    border-radius: 5px;
+}
+
+/* Ensure dropdown menus are visible when focused */
+.navbar-nav .dropdown:focus-within .dropdown-menu,
+.navbar-nav .dropdown:hover .dropdown-menu {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Dropdown menu transition */
+.dropdown-menu {
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+}
+
+/* Ensure the toggle button bars are visible */
+.navbar-toggler .icon-bar {
+    display: block;
+    width: 30px;
+    height: 4px;
+    background-color: #000;
+    margin: 5px 0;
+    transition: 0.3s;
+}
+
+/* Change toggle button color on focus */
+.navbar-toggler:focus {
+    outline: 2px solid #af2910 !important; /* Red outline to indicate focus */
+    background-color: rgba(0, 0, 0, 0); /* Light red background */
     border-radius: 5px;
 }
 
