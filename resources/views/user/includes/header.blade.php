@@ -121,7 +121,7 @@
     <div class="container-fluid bg-light bar">
         <div class="row py-1 align-items-center">
             <div class="col-md-4 d-flex align-items-center" style="font-size: 13px;font-weight:400;">
-                <a href="https://www.india.gov.in/" target="_blank" style="font-size: 16px; color: #af2910;"><img
+                <a href="#" style="font-size: 16px; color: #af2910;"><img
                         class="img-fluid" src="{{ asset('assets/images/icons/ashok.jpg') }}" alt="Logo of Ashok Stambh"
                         aria-label="Logo of Ashoka Stambh" style="font-size: 510px;height: 50px;">
                     भारत सरकार | Government of India</a>
@@ -217,7 +217,7 @@
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="sitesearch" value="lbsnaa.gov.in"
-                                        id="searchDopt" checked>
+                                        id="searchDopt">
                                     <label class="form-check-label" for="searchDopt">LBSNAA.GOV.IN</label>
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-sm w-100 mt-2">Search</button>
