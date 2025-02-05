@@ -125,13 +125,12 @@
     <section class="bg-light">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-4">
-                    <a href="#" target="_blank" style="font-size: 16px; color: #af2910;"><img
-                            class="img-fluid" src="{{ asset('assets/images/icons/ashok.jpg') }}"
-                            alt="Logo of Ashok Stambh" aria-label="Logo of Ashoka Stambh"
-                            style="font-size: 510px;height: 50px;">
-                        भारत सरकार | Government of India</a>
-                </div>
+            <div class="col-md-4 d-flex align-items-center" style="font-size: 16px;font-weight:400;color:#af2910;">
+                <img class="img-fluid"
+                        src="{{ asset('assets/images/icons/ashok.jpg') }}" alt="Logo of Ashok Stambh"
+                        aria-label="Logo of Ashoka Stambh" style="font-size: 510px;height: 50px;margin-right:5px;">
+                    भारत सरकार | Government of India
+            </div>
                 <div class="col-md-8">
                     <ul class="nav justify-content-end align-items-right">
                         <!-- Tooltip Items -->

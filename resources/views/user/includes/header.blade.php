@@ -166,11 +166,11 @@
 <body class="d-flex flex-column min-vh-100 bg-white" style="overflow-x: hidden">
     <div class="container-fluid bg-light bar">
         <div class="row py-1 align-items-center">
-            <div class="col-md-4 d-flex align-items-center" style="font-size: 13px;font-weight:400;">
-                <a href="#" style="font-size: 16px; color: #af2910;"><img class="img-fluid"
+            <div class="col-md-4 d-flex align-items-center" style="font-size: 16px;font-weight:400;color:#af2910;">
+                <img class="img-fluid"
                         src="{{ asset('assets/images/icons/ashok.jpg') }}" alt="Logo of Ashok Stambh"
-                        aria-label="Logo of Ashoka Stambh" style="font-size: 510px;height: 50px;">
-                    भारत सरकार | Government of India</a>
+                        aria-label="Logo of Ashoka Stambh" style="font-size: 510px;height: 50px;margin-right:5px;">
+                    भारत सरकार | Government of India
             </div>
             <div class="col-md-4">
                 <h1 class="h4 text-center text-primary d-none"><a href="#"
