@@ -59,89 +59,101 @@
     }
 
     .navmenu .nav-link:focus,
-.navmenu .dropdown-item:focus {
-    outline: 2px solid #af2910; /* Highlight focus */
-    background-color: rgba(255, 255, 255, 0); /* Light red background */
-}
-a:focus, 
-a:focus-visible {
-    outline: 2px solid #af2910 !important; /* Red outline to indicate focus */
-    background-color: rgba(0, 0, 0, 0); /* Light red background */
-    border-radius: 5px;
-}
-/* Ensure the toggle button and menu items are highlighted on focus */
-.navbar-toggler:focus, 
-.navmenu a:focus {
-    outline: 2px solid #007bff; /* Blue outline for accessibility */
-    border-radius: 5px;
-}
+    .navmenu .dropdown-item:focus {
+        outline: 2px solid #af2910;
+        /* Highlight focus */
+        background-color: rgba(255, 255, 255, 0);
+        /* Light red background */
+    }
 
-/* Ensure dropdown menus are visible when focused */
-.navbar-nav .dropdown:focus-within .dropdown-menu,
-.navbar-nav .dropdown:hover .dropdown-menu {
-    display: block;
-    opacity: 1;
-    visibility: visible;
-}
+    a:focus,
+    a:focus-visible {
+        outline: 2px solid #af2910 !important;
+        /* Red outline to indicate focus */
+        background-color: rgba(0, 0, 0, 0);
+        /* Light red background */
+        border-radius: 5px;
+    }
 
-/* Dropdown menu transition */
-.dropdown-menu {
-    display: none;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
-}
+    /* Ensure the toggle button and menu items are highlighted on focus */
+    .navbar-toggler:focus,
+    .navmenu a:focus {
+        outline: 2px solid #007bff;
+        /* Blue outline for accessibility */
+        border-radius: 5px;
+    }
 
-/* Ensure the toggle button bars are visible */
-.navbar-toggler .icon-bar {
-    display: block;
-    width: 30px;
-    height: 4px;
-    background-color: #000;
-    margin: 5px 0;
-    transition: 0.3s;
-}
+    /* Ensure dropdown menus are visible when focused */
+    .navbar-nav .dropdown:focus-within .dropdown-menu,
+    .navbar-nav .dropdown:hover .dropdown-menu {
+        display: block;
+        opacity: 1;
+        visibility: visible;
+    }
 
-/* Change toggle button color on focus */
-.navbar-toggler:focus {
-    outline: 2px solid #af2910 !important; /* Red outline to indicate focus */
-    background-color: rgba(0, 0, 0, 0); /* Light red background */
-    border-radius: 5px;
-}
+    /* Dropdown menu transition */
+    .dropdown-menu {
+        display: none;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+    }
 
+    /* Ensure the toggle button bars are visible */
+    .navbar-toggler .icon-bar {
+        display: block;
+        width: 30px;
+        height: 4px;
+        background-color: #000;
+        margin: 5px 0;
+        transition: 0.3s;
+    }
 
+    /* Change toggle button color on focus */
+    .navbar-toggler:focus {
+        outline: 2px solid #af2910 !important;
+        /* Red outline to indicate focus */
+        background-color: rgba(0, 0, 0, 0);
+        /* Light red background */
+        border-radius: 5px;
+    }
     </style>
 
 </head>
 
 <body class="d-flex flex-column min-vh-100 bg-white">
-   <div class="container-fluid">
-    <div class="row">
-    <div class="col-md-4">
-        <a href="https://www.india.gov.in/" target="_blank" style="font-size: 16px; color: #af2910;"><img
-                class="img-fluid" src="{{ asset('assets/images/icons/ashok.jpg') }}" alt="Logo of Ashok Stambh"
-                aria-label="Logo of Ashoka Stambh" style="font-size: 510px;height: 50px;">
-            भारत सरकार | Government of India</a>
-    </div>
-    <div class="col-md-8">
-        <ul class="nav justify-content-end align-items-right">
-            <!-- Tooltip Items -->
-            <li class="nav-item">
-                <a class="nav-link" href="#skip_to_main_content" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                    title="Skip to main content" aria-label="Skip to main content" >
-                    <i class="material-icons menu-icon">restart_alt</i>
-                </a>
-            </li>
-        </ul>
-    </div>
-    </div>
-   </div>
+    <section class="bg-light">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-4">
+                    <a href="https://www.india.gov.in/" target="_blank" style="font-size: 16px; color: #af2910;"><img
+                            class="img-fluid" src="{{ asset('assets/images/icons/ashok.jpg') }}"
+                            alt="Logo of Ashok Stambh" aria-label="Logo of Ashoka Stambh"
+                            style="font-size: 510px;height: 50px;">
+                        भारत सरकार | Government of India</a>
+                </div>
+                <div class="col-md-8">
+                    <ul class="nav justify-content-end align-items-right">
+                        <!-- Tooltip Items -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="#skip_to_main_content" data-bs-toggle="tooltip"
+                                data-bs-placement="bottom" title="Skip to main content"
+                                aria-label="Skip to main content">
+                                <i class="material-icons menu-icon">restart_alt</i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
     <header class="d-lg-block sticky-xl-top sticky-lg-top">
         <nav class="navbar">
             <div class="container-fluid px-0">
                 <a class="navbar-brand" href="{{ route('home') }}"
-                    aria-label="Logo of Lal Bahadur Shastri National Academy of Administration" ><img
-                        src="{{ asset('assets/images/microsites/logo.png') }}" alt="Logo of Lal Bahadur Shastri National Academy of Administration" width="350"></a>
+                    aria-label="Logo of Lal Bahadur Shastri National Academy of Administration"><img
+                        src="{{ asset('assets/images/microsites/logo.png') }}"
+                        alt="Logo of Lal Bahadur Shastri National Academy of Administration" width="350"></a>
                 <!-- Button -->
                 @php
                 // Get the slug from the query parameter or the last segment of the URL
@@ -190,7 +202,7 @@ a:focus-visible {
                 @endphp
                 <ul class="navbar-nav me-auto navmenu">
                     <li class="nav-item">
-                        <a href="{{ url('/lbsnaa-sub/' . $slug) }}" class="nav-link" >Home</a>
+                        <a href="{{ url('/lbsnaa-sub/' . $slug) }}" class="nav-link">Home</a>
                     </li>
                     @php
                     // Get the slug from the request to identify the current research center

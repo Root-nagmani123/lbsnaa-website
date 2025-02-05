@@ -19,6 +19,8 @@
     <link rel="icon" type="image/png" href="{{ asset('admin_assets/images/favicon.ico') }}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="{{ asset('assets/js/orgchart.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <title>
 
         @if(Cookie::get('language') == '2')
@@ -114,6 +116,33 @@
         box-shadow: 0 0 5px rgba(211, 4, 49, 0.75);
         /* Optional for extra visibility */
     }
+    /* Ensure dropdown opens on hover */
+.navbar-nav .dropdown:hover > .dropdown-menu,
+.navbar-nav .dropdown:focus-within > .dropdown-menu {
+    display: block;
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Ensure nested dropdowns also open on hover and keyboard focus */
+.dropdown-submenu:hover > .dropdown-menu,
+.dropdown-submenu:focus-within > .dropdown-menu {
+    display: block;
+    visibility: visible;
+    opacity: 1;
+    left: 30%;
+    right: 0;
+    top: 0;
+    margin-top: -1px;
+}
+
+/* Adjust styling to prevent flickering */
+.dropdown-menu {
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    opacity: 0;
+    visibility: hidden;
+}
+
     </style>
 </head>
 
@@ -570,28 +599,64 @@
             });
         });
     });
-    </script>
-    <script>
-    document.querySelectorAll('.dropdown-toggle').forEach(item => {
-        item.addEventListener('keydown', function(event) {
-            if (event.key === 'Tab') {
-                let dropdown = this.nextElementSibling;
-                if (dropdown && dropdown.classList.contains('dropdown-menu')) {
-                    dropdown.querySelector('.dropdown-item').focus();
-                }
+
+    $(document).ready(function () {
+        // Function to open dropdown on hover
+        $(".dropdown").hover(
+            function () {
+                $(this).addClass("show");
+                $(this).children(".dropdown-menu").addClass("show");
+            },
+            function () {
+                $(this).removeClass("show");
+                $(this).children(".dropdown-menu").removeClass("show");
+            }
+        );
+
+        $(".dropdown-submenu").hover(
+            function () {
+                $(this).addClass("show");
+                $(this).children(".dropdown-menu").addClass("show");
+            },
+            function () {
+                $(this).removeClass("show");
+                $(this).children(".dropdown-menu").removeClass("show");
+            }
+        );
+
+        // Function to handle keyboard navigation
+        $(".nav-link, .dropdown-item").on("focus", function () {
+            let parent = $(this).parent();
+            
+            // Open dropdown when focused
+            if (parent.hasClass("dropdown") || parent.hasClass("dropdown-submenu")) {
+                parent.addClass("show");
+                parent.children(".dropdown-menu").addClass("show");
             }
         });
-    });
-    </script>
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        document.querySelectorAll('.dropdown-toggle').forEach((dropdown) => {
-            dropdown.addEventListener('keydown', function(event) {
-                if (event.key === 'Enter' || event.key === ' ') {
-                    event.preventDefault();
-                    this.click();
-                }
-            });
+
+        // Close dropdown on Esc key press
+        $(document).on("keydown", function (e) {
+            if (e.key === "Escape") {
+                $(".dropdown, .dropdown-submenu").removeClass("show");
+                $(".dropdown-menu").removeClass("show");
+            }
+        });
+
+        // Allow arrow keys to navigate within the dropdown
+        $(".dropdown-menu").on("keydown", function (e) {
+            let items = $(this).find(".dropdown-item");
+            let index = items.index(document.activeElement);
+
+            if (e.key === "ArrowDown") {
+                e.preventDefault();
+                let nextIndex = (index + 1) % items.length;
+                items.eq(nextIndex).focus();
+            } else if (e.key === "ArrowUp") {
+                e.preventDefault();
+                let prevIndex = (index - 1 + items.length) % items.length;
+                items.eq(prevIndex).focus();
+            }
         });
     });
     </script>
