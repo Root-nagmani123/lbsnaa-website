@@ -40,175 +40,48 @@
 </section>
 
 <section class="py-2">
-    <div class="container-fluid">
-        <div class="row gy-4 gy-xl-0">
-            <div class="col-xl-3 col-lg-6 col-12">
-                <div class="card bg-primary">
-                    <div class="accordion" id="accordionExample">
-                        <!-- Loop through parent menus -->
-                        @foreach($menuItems as $menu)
-                        <div class="accordion" id="accordionExample">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="heading-{{$menu->id}}">
-                                    @if($menu->texttype == 3)
-                                    @php $url = '';
-                                    if ($menu->web_site_target == 1) {
-                                    // Internal link
-                                    $url = url($menu->website_url);
-                                    } elseif ($menu->web_site_target == 2) {
-                                    $url = str_starts_with($menu->website_url, 'http') ? $menu->website_url : 'http://'
-                                    . $menu->website_url;
-                                    }
-                                    @endphp
-
-                                    <a href="'{{ $url }}'" target="_blank" class="text-decoration-none">
-                                        <button
-                                            class="accordion-button collapsed {{ $menu->children->isNotEmpty() ? '' : 'no-arrow' }}"
-                                            type="button"
-                                            data-bs-toggle="{{ $menu->children->isNotEmpty() ? 'collapse' : '' }}"
-                                            data-bs-target="{{ $menu->children->isNotEmpty() ? '#collapse-' . $menu->id : '' }}"
-                                            aria-expanded="false"
-                                            aria-controls="{{ $menu->children->isNotEmpty() ? 'collapse-' . $menu->id : '' }}">
-                                            {{ $menu->menutitle }}
-                                        </button>
-                                    </a>
-                                    @elseif ($menu->texttype == 2)
-                                    <a href="{{ asset($menu->pdf_file) }}" target="_blank" class="text-decoration-none">
-                                        <button
-                                            class="accordion-button collapsed {{ $menu->children->isNotEmpty() ? '' : 'no-arrow' }}"
-                                            type="button"
-                                            data-bs-toggle="{{ $menu->children->isNotEmpty() ? 'collapse' : '' }}"
-                                            data-bs-target="{{ $menu->children->isNotEmpty() ? '#collapse-' . $menu->id : '' }}"
-                                            aria-expanded="false"
-                                            aria-controls="{{ $menu->children->isNotEmpty() ? 'collapse-' . $menu->id : '' }}">
-                                            {{ $menu->menutitle }}
-                                        </button>
-                                    </a>
-                                    @else
-                                    <a href="{{ url('rti/' . $menu->menu_slug ?? '#') }}" class="text-decoration-none">
-                                        <button
-                                            class="accordion-button collapsed {{ $menu->children->isNotEmpty() ? '' : 'no-arrow' }}"
-                                            type="button"
-                                            data-bs-toggle="{{ $menu->children->isNotEmpty() ? 'collapse' : '' }}"
-                                            data-bs-target="{{ $menu->children->isNotEmpty() ? '#collapse-' . $menu->id : '' }}"
-                                            aria-expanded="false"
-                                            aria-controls="{{ $menu->children->isNotEmpty() ? 'collapse-' . $menu->id : '' }}">
-                                            {{ $menu->menutitle }}
-                                        </button>
-                                    </a>
-                                    @endif
-                                </h2>
-                                @if($menu->children->isNotEmpty())
-                                <div id="collapse-{{$menu->id}}"
-                                    class="accordion-collapse collapse {{ $loop->first ? 'show' : '' }}"
-                                    aria-labelledby="heading-{{$menu->id}}" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
-                                        <div class="accordion" id="nestedAccordion-{{$menu->id}}">
-                                            @foreach($menu->children as $child)
-                                            <div class="accordion-item">
-                                                <h2 class="accordion-header" id="heading-{{$child->id}}">
-                                                    @if($child->texttype == 3)
-                                                    @php $url = '';
-                                                    if ($child->web_site_target == 1) {
-                                                    // Internal link
-                                                    $url = url($child->website_url);
-                                                    } elseif ($child->web_site_target == 2) {
-                                                    $url = str_starts_with($child->website_url, 'http') ?
-                                                    $child->website_url : 'http://' . $child->website_url;
-                                                    }
-                                                    @endphp
-
-                                                    <a href="'{{ $url }}'" target="_blank" class="text-decoration-none">
-                                                        <button
-                                                            class="accordion-button collapsed {{ $child->children->isNotEmpty() ? '' : 'no-arrow' }}"
-                                                            type="button"
-                                                            data-bs-toggle="{{ $child->children->isNotEmpty() ? 'collapse' : '' }}"
-                                                            data-bs-target="{{ $child->children->isNotEmpty() ? '#collapse-' . $child->id : '' }}"
-                                                            aria-expanded="false"
-                                                            aria-controls="{{ $child->children->isNotEmpty() ? 'collapse-' . $child->id : '' }}">
-                                                            {{ $child->menutitle }}
-                                                        </button>
-                                                    </a>
-                                                    @elseif ($child->texttype == 2)
-                                                    <a href="{{ asset($child->pdf_file) }}" target="_blank"
-                                                        class="text-decoration-none">
-                                                        <button
-                                                            class="accordion-button collapsed {{ $child->children->isNotEmpty() ? '' : 'no-arrow' }}"
-                                                            type="button"
-                                                            data-bs-toggle="{{ $child->children->isNotEmpty() ? 'collapse' : '' }}"
-                                                            data-bs-target="{{ $child->children->isNotEmpty() ? '#collapse-' . $child->id : '' }}"
-                                                            aria-expanded="false"
-                                                            aria-controls="{{ $child->children->isNotEmpty() ? 'collapse-' . $child->id : '' }}">
-                                                            {{ $child->menutitle }}
-                                                        </button>
-                                                    </a>
-                                                    @else
-                                                    <a href="{{ url('rti/' . $child->menu_slug ?? '#') }}"
-                                                        class="text-decoration-none">
-                                                        <button
-                                                            class="accordion-button collapsed {{ $child->children->isNotEmpty() ? '' : 'no-arrow' }}"
-                                                            type="button"
-                                                            data-bs-toggle="{{ $child->children->isNotEmpty() ? 'collapse' : '' }}"
-                                                            data-bs-target="{{ $child->children->isNotEmpty() ? '#collapse-' . $child->id : '' }}"
-                                                            aria-expanded="false"
-                                                            aria-controls="{{ $child->children->isNotEmpty() ? 'collapse-' . $child->id : '' }}">
-                                                            {{ $child->menutitle }}
-                                                        </button>
-                                                    </a>
-                                                    @endif
-                                                </h2>
-                                                @if($child->children->isNotEmpty())
-                                                <div id="collapse-{{$child->id}}" class="accordion-collapse collapse"
-                                                    aria-labelledby="heading-{{$child->id}}"
-                                                    data-bs-parent="#nestedAccordion-{{$menu->id}}">
-                                                    <div class="accordion-body">
-                                                        <div class="accordion" id="nestedAccordion-{{$child->id}}">
-                                                            @foreach($child->children as $grandChild)
-                                                            <div class="accordion-item">
-                                                                <h2 class="accordion-header"
-                                                                    id="heading-{{$grandChild->id}}">
-                                                                    <a href="{{ url('rti/' . $grandChild->menu_slug ?? '#') }}"
-                                                                        class="text-decoration-none">
-                                                                        <button class="accordion-button collapsed"
-                                                                            type="button" data-bs-toggle="collapse"
-                                                                            data-bs-target="#collapse-{{$grandChild->id}}"
-                                                                            aria-expanded="false"
-                                                                            aria-controls="collapse-{{$grandChild->id}}">
-                                                                            {{ $grandChild->menutitle }}
-                                                                        </button>
-                                                                    </a>
-                                                                </h2>
-                                                                <div id="collapse-{{$grandChild->id}}"
-                                                                    class="accordion-collapse collapse"
-                                                                    aria-labelledby="heading-{{$grandChild->id}}"
-                                                                    data-bs-parent="#nestedAccordion-{{$child->id}}">
-                                                                    <div class="accordion-body">
-                                                                        <!-- Content for grandchild goes here -->
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            @endforeach
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                @endif
-                                            </div>
-                                            @endforeach
-                                        </div>
-                                    </div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-3 card">
+            <ul class="nav nav-pills flex-column">
+                @foreach($menuItems as $menu)
+                <li class="nav-item">
+                    @if($menu->children->isNotEmpty())
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="collapse"
+                        data-bs-target="#menu-{{$menu->id}}" aria-expanded="false">
+                        {{ $menu->menutitle }}
+                    </a>
+                    <div class="collapse" id="menu-{{$menu->id}}">
+                        <ul class="nav flex-column ms-3">
+                            @foreach($menu->children as $child)
+                            <li>
+                                @if($child->children->isNotEmpty())
+                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="collapse"
+                                    data-bs-target="#menu-{{$child->id}}" aria-expanded="false">
+                                    {{ $child->menutitle }}
+                                </a>
+                                <div class="collapse" id="menu-{{$child->id}}">
+                                    <ul class="nav flex-column ms-3">
+                                        @foreach($child->children as $subChild)
+                                        <li><a class="nav-link" href="{{ url('rti/' . $subChild->menu_slug ?? '#') }}">{{ $subChild->menutitle }}</a></li>
+                                        @endforeach
+                                    </ul>
                                 </div>
+                                @else
+                                <a class="nav-link" href="{{ url('rti/' . $child->menu_slug ?? '#') }}">{{ $child->menutitle }}</a>
                                 @endif
-                            </div>
-                        </div>
-
-
-                        @endforeach
+                            </li>
+                            @endforeach
+                        </ul>
                     </div>
-
-
-                </div>
-            </div>
-            <div class="col-xl-9 col-lg-6 col-12">
+                    @else
+                    <a class="nav-link" href="{{ url('rti/' . $menu->menu_slug ?? '#') }}">{{ $menu->menutitle }}</a>
+                    @endif
+                </li>
+                @endforeach
+            </ul>
+        </div>
+        <div class="col-xl-9 col-lg-6 col-12">
                 <div class="mb-4">
                     <h1 class="h1 fw-bold text-primary">
                         {{$nav_page->menutitle}}
@@ -216,14 +89,15 @@
                 </div>
                 <p>{!! $nav_page->content !!}</p>
             </div>
-        </div>
     </div>
+</div>
+
 </section>
 
 
 
 @else
-<h4>News does not exist</h4>
+<h4>RTI does not exist</h4>
 @endif
 
 
