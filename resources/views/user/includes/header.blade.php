@@ -174,8 +174,7 @@
             </div>
             <div class="col-md-4">
                 <h1 class="h4 text-center text-primary d-none"><a href="#"
-                        aria-label="{{ $title }} | Lal Bahadur Shastri National Academy of Administration">{{ $title }}
-                        | Lal Bahadur Shastri National Academy of Administration</a></h1>
+                        aria-label="{{ $title }} | Lal Bahadur Shastri National Academy of Administration">{{ $title }}</a></h1>
             </div>
             <div class="col-md-4">
                 <ul class="nav justify-content-end align-items-center">
