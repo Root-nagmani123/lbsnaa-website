@@ -8,7 +8,7 @@
     /* Position the play/pause button on the right */
     #playPauseBtn {
         position: absolute;
-        top: 5%;
+        bottom: 1%;
         right: 15px;
         transform: translateY(-5%);
         z-index: 10;

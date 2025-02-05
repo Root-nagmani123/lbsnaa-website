@@ -61,7 +61,7 @@
     .navmenu .nav-link:focus,
 .navmenu .dropdown-item:focus {
     outline: 2px solid #af2910; /* Highlight focus */
-    background-color: rgba(255, 0, 0, 0.1); /* Light red background */
+    background-color: rgba(255, 255, 255, 0); /* Light red background */
 }
 a:focus, 
 a:focus-visible {
