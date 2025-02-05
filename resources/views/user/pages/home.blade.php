@@ -78,17 +78,20 @@
         var isPlaying = true; // Track the state of the slider
 
         playPauseBtn.addEventListener("click", function () {
-            if (isPlaying) {
-                carousel.pause();
-                playPauseBtn.innerHTML = '<i class="bi bi-play-fill"></i> Play';
-                playPauseBtn.classList.replace("btn-danger", "btn-success");
-            } else {
-                carousel.cycle();
-                playPauseBtn.innerHTML = '<i class="bi bi-pause-fill"></i> Pause';
-                playPauseBtn.classList.replace("btn-success", "btn-danger");
-            }
-            isPlaying = !isPlaying; // Toggle state
-        });
+    if (isPlaying) {
+        carousel.pause();
+        playPauseBtn.innerHTML = '<i class="bi bi-play-fill"></i> Play';
+        playPauseBtn.classList.replace("btn-danger", "btn-success");
+        playPauseBtn.setAttribute("aria-label", "Play button for Sliders"); // Update aria-label
+    } else {
+        carousel.cycle();
+        playPauseBtn.innerHTML = '<i class="bi bi-pause-fill"></i> Pause';
+        playPauseBtn.classList.replace("btn-success", "btn-danger");
+        playPauseBtn.setAttribute("aria-label", "Pause button for Sliders"); // Update aria-label
+    }
+    isPlaying = !isPlaying; // Toggle state
+});
+
     });
 </script>
 
@@ -153,17 +156,20 @@ document.addEventListener("DOMContentLoaded", function() {
     var isPlaying = true; // Initially, marquee is running
 
     playPauseBtn.addEventListener("click", function() {
-        if (isPlaying) {
-            marquee.style.animationPlayState = "paused";
-            playPauseBtn.innerHTML = '<i class="bi bi-play-fill"></i>';
-            playPauseBtn.classList.replace("btn-danger", "btn-success");
-        } else {
-            marquee.style.animationPlayState = "running";
-            playPauseBtn.innerHTML = '<i class="bi bi-pause-fill"></i>';
-            playPauseBtn.classList.replace("btn-success", "btn-danger");
-        }
-        isPlaying = !isPlaying; // Toggle state
-    });
+    if (isPlaying) {
+        marquee.style.animationPlayState = "paused";
+        playPauseBtn.innerHTML = '<i class="bi bi-play-fill"></i>';
+        playPauseBtn.classList.replace("btn-danger", "btn-success");
+        playPauseBtn.setAttribute("aria-label", "Play button for Latest Updates"); // Update aria-label
+    } else {
+        marquee.style.animationPlayState = "running";
+        playPauseBtn.innerHTML = '<i class="bi bi-pause-fill"></i>';
+        playPauseBtn.classList.replace("btn-success", "btn-danger");
+        playPauseBtn.setAttribute("aria-label", "Pause button for Latest Updates"); // Update aria-label
+    }
+    isPlaying = !isPlaying; // Toggle state
+});
+
 });
 </script>
 
