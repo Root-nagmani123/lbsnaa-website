@@ -629,7 +629,7 @@ $title = ucwords(str_replace('-', ' ', $slug));
     // print_r($menuItems);  // Shows the structure of $menuItems collection
     // die();  // Stop the script for debugging
 $web_slug = '';
-    return view('user.pages.rti_page', compact('menuItems', '$nav_mainpage','nav_page', 'breadcrumb','title','web_slug'));
+    return view('user.pages.rti_page', compact('menuItems', 'nav_mainpage','nav_page', 'breadcrumb','title','web_slug'));
 }
 
 
