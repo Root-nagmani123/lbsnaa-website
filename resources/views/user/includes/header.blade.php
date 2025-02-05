@@ -24,8 +24,6 @@
     <title>
         @if(isset($title))
         {{ $title }} | Lal Bahadur Shastri National Academy of Administration
-        @else
-        Home | Lal Bahadur Shastri National Academy of Administration
         @endif
     </title>
     <style>
@@ -110,61 +108,58 @@
         box-shadow: 0 0 5px rgba(211, 4, 49, 0.75);
         /* Optional for extra visibility */
     }
+
     /* Ensure dropdown opens on hover */
-.navbar-nav .dropdown:hover > .dropdown-menu,
-.navbar-nav .dropdown:focus-within > .dropdown-menu {
-    display: block;
-    visibility: visible;
-    opacity: 1;
-}
+    .navbar-nav .dropdown:hover>.dropdown-menu,
+    .navbar-nav .dropdown:focus-within>.dropdown-menu {
+        display: block;
+        visibility: visible;
+        opacity: 1;
+    }
 
-/* Ensure nested dropdowns also open on hover and keyboard focus */
-.dropdown-submenu:hover > .dropdown-menu,
-.dropdown-submenu:focus-within > .dropdown-menu {
-    display: block;
-    visibility: visible;
-    opacity: 1;
-    left: 30%;
-    right: 0;
-    top: 0;
-    margin-top: -1px;
-}
+    /* Ensure nested dropdowns also open on hover and keyboard focus */
+    .dropdown-submenu:hover>.dropdown-menu,
+    .dropdown-submenu:focus-within>.dropdown-menu {
+        display: block;
+        visibility: visible;
+        opacity: 1;
+        left: 30%;
+        top: 0;
+        margin-top: -1px;
+    }
 
-/* Adjust styling to prevent flickering */
-.dropdown-menu {
-    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-    opacity: 0;
-    visibility: hidden;
-}
-/* Ensure dropdown opens on hover and keyboard focus */
-.dropdown:hover > .dropdown-menu,
-.dropdown:focus-within > .dropdown-menu {
-    display: block;
-    visibility: visible;
-    opacity: 1;
-}
+    /* Adjust styling to prevent flickering */
+    .dropdown-menu {
+        transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        opacity: 0;
+        visibility: hidden;
+    }
 
-/* Ensure nested dropdown opens on hover and keyboard focus */
-.dropdown-submenu:hover > .dropdown-menu,
-.dropdown-submenu:focus-within > .dropdown-menu {
-    display: block;
-    visibility: visible;
-    opacity: 1;
-    left: 30%;
-    top: 0;
-    margin-top: -1px;
-}
+    /* Ensure dropdown opens on hover and keyboard focus */
+    .dropdown:hover>.dropdown-menu,
+    .dropdown:focus-within>.dropdown-menu {
+        display: block;
+        visibility: visible;
+        opacity: 1;
+    }
 
-/* Prevent flickering */
-.dropdown-menu {
-    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-    opacity: 0;
-    visibility: hidden;
-}
+    /* Ensure nested dropdown opens on hover and keyboard focus */
+    .dropdown-submenu:hover>.dropdown-menu,
+    .dropdown-submenu:focus-within>.dropdown-menu {
+        display: block;
+        visibility: visible;
+        opacity: 1;
+        left: 100%;
+        top: 0;
+        margin-top: -1px;
+    }
 
-
-
-
+    /* Prevent flickering */
+    .dropdown-menu {
+        transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        opacity: 0;
+        visibility: hidden;
+    }
     </style>
 </head>
 
@@ -172,8 +167,8 @@
     <div class="container-fluid bg-light bar">
         <div class="row py-1 align-items-center">
             <div class="col-md-4 d-flex align-items-center" style="font-size: 13px;font-weight:400;">
-                <a href="#" style="font-size: 16px; color: #af2910;"><img
-                        class="img-fluid" src="{{ asset('assets/images/icons/ashok.jpg') }}" alt="Logo of Ashok Stambh"
+                <a href="#" style="font-size: 16px; color: #af2910;"><img class="img-fluid"
+                        src="{{ asset('assets/images/icons/ashok.jpg') }}" alt="Logo of Ashok Stambh"
                         aria-label="Logo of Ashoka Stambh" style="font-size: 510px;height: 50px;">
                     भारत सरकार | Government of India</a>
             </div>
@@ -204,12 +199,13 @@
                             <i class="material-icons menu-icon">accessible</i>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="javascript:void(0);"
-                                    onclick="set_font_size('increase')">A<sup>+</sup></a></li>
-                            <li><a class="dropdown-item" href="javascript:void(0);" onclick="set_font_size('')">A</a>
+                            <li><a class="dropdown-item" href="javascript:void(0);" onclick="set_font_size('increase')"
+                                    title="Increase font size">A<sup>+</sup></a></li>
+                            <li><a class="dropdown-item" href="javascript:void(0);" onclick="set_font_size('')"
+                                    title="Reset font size">A</a>
                             </li>
-                            <li><a class="dropdown-item" href="javascript:void(0);"
-                                    onclick="set_font_size('decrease')">A<sup>-</sup></a></li>
+                            <li><a class="dropdown-item" href="javascript:void(0);" onclick="set_font_size('decrease')"
+                                    title="Decrease font size">A<sup>-</sup></a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -262,19 +258,20 @@
                             <form action="https://www.google.com/search" method="GET" target="_blank">
                                 <input type="text" name="q" class="form-control mb-2" placeholder="Search..." required>
                                 <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="sitesearch" value="lbsnaa.gov.in" id="searchLbsnaa" checked>
-                                        <label class="form-check-label" for="searchLbsnaa">LBSNAA.GOV.IN</label>
-                                    </div>
-
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="sitesearch" value="" id="searchOther">
-                                        <label class="form-check-label" for="searchOther">The Web</label>
-                                    </div>
+                                    <input class="form-check-input" type="radio" name="searchType" value="web"
+                                        id="searchWeb">
+                                    <label class="form-check-label" for="searchWeb">The Web</label>
+                                </div>
+                                <!-- <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="searchType" value="dopt"
+                                        id="searchDopt" checked>
+                                    <label class="form-check-label" for="searchDopt">DOPT.GOV.IN</label>
+                                </div> -->
                                 <button type="submit" class="btn btn-primary btn-sm w-100 mt-2">Search</button>
-
                             </form>
                         </div>
                     </li>
+
 
 
                     <!-- <li class="nav-item dropdown">
@@ -295,52 +292,50 @@
 
     </div>
     <script>
-       $(document).ready(function () {
-    // Open dropdown on hover
-    $(".dropdown, .dropdown-submenu").hover(
-        function () {
-            $(this).addClass("show");
-            $(this).children(".dropdown-menu").addClass("show");
-        },
-        function () {
-            $(this).removeClass("show");
-            $(this).children(".dropdown-menu").removeClass("show");
-        }
-    );
+    $(document).ready(function() {
+        // Open dropdown on hover
+        $(".dropdown, .dropdown-submenu").hover(
+            function() {
+                $(this).addClass("show");
+                $(this).children(".dropdown-menu").addClass("show");
+            },
+            function() {
+                $(this).removeClass("show");
+                $(this).children(".dropdown-menu").removeClass("show");
+            }
+        );
 
-    // Open dropdown on focus (Tab key)
-    $(".dropdown > .nav-link, .dropdown-submenu > .dropdown-item").on("focus", function () {
-        let parent = $(this).parent();
-        parent.addClass("show");
-        parent.children(".dropdown-menu").addClass("show");
+        // Open dropdown on focus (Tab key)
+        $(".dropdown > .nav-link, .dropdown-submenu > .dropdown-item").on("focus", function() {
+            let parent = $(this).parent();
+            parent.addClass("show");
+            parent.children(".dropdown-menu").addClass("show");
+        });
+
+        // Close dropdown on Escape key
+        $(document).on("keydown", function(e) {
+            if (e.key === "Escape") {
+                $(".dropdown, .dropdown-submenu").removeClass("show");
+                $(".dropdown-menu").removeClass("show");
+            }
+        });
+
+        // Enable keyboard navigation inside dropdown
+        $(".dropdown-menu").on("keydown", function(e) {
+            let items = $(this).find(".dropdown-item");
+            let index = items.index(document.activeElement);
+
+            if (e.key === "ArrowDown") {
+                e.preventDefault();
+                let nextIndex = (index + 1) % items.length;
+                items.eq(nextIndex).focus();
+            } else if (e.key === "ArrowUp") {
+                e.preventDefault();
+                let prevIndex = (index - 1 + items.length) % items.length;
+                items.eq(prevIndex).focus();
+            }
+        });
     });
-
-    // Close dropdown on Escape key
-    $(document).on("keydown", function (e) {
-        if (e.key === "Escape") {
-            $(".dropdown, .dropdown-submenu").removeClass("show");
-            $(".dropdown-menu").removeClass("show");
-        }
-    });
-
-    // Enable keyboard navigation inside dropdown
-    $(".dropdown-menu").on("keydown", function (e) {
-        let items = $(this).find(".dropdown-item");
-        let index = items.index(document.activeElement);
-
-        if (e.key === "ArrowDown") {
-            e.preventDefault();
-            let nextIndex = (index + 1) % items.length;
-            items.eq(nextIndex).focus();
-        } else if (e.key === "ArrowUp") {
-            e.preventDefault();
-            let prevIndex = (index - 1 + items.length) % items.length;
-            items.eq(prevIndex).focus();
-        }
-    });
-});
-
-
     </script>
     <nav class="navbar navbar-expand-lg shadow-none sticky-xl-top sticky-lg-top">
         <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
@@ -424,7 +419,7 @@
                         // Add 'w-100' class to ensure full width for the list item
                         if($submenu->texttype == 3){
                         $output .= '<li class="check dropdown-submenu dynamic-direction w-100 border-bottom"
-                            aria-label="$submenu->menutitle" >';
+                            aria-label="$submenu->menutitle">';
                             $url = '';
                             if ($submenu->web_site_target == 1) {
                             // Internal link
@@ -461,7 +456,8 @@
                         $output .= '<li class="dropdown-submenu dynamic-direction w-100 border-bottom">';
                             $output .= '<a
                                 class="dropdown-item ' . ($hasChildren ? 'dropdown-toggle d-flex align-items-center' : '') . '"
-                                href="' . route('user.navigationpagesbyslug', $submenu->menu_slug) . '" aria-expanded="false">' .
+                                href="' . route('user.navigationpagesbyslug', $submenu->menu_slug) . '"
+                                aria-expanded="false">' .
                                 $submenu->menutitle . '</a>';
 
                             if ($hasChildren) {
@@ -527,7 +523,8 @@
                                 $output .= '
                         <li class="dropdown-submenu dynamic-direction w-100 border-bottom">';
                             $output .= '<a class="dropdown-item ' . $dropdownClass . '"
-                                href="' . route('user.courseslug', $node['category']->slug) . '" ' . $dataAttributes . ' aria-expanded="false">';
+                                href="' . route('user.courseslug', $node['category']->slug) . '" ' . $dataAttributes . '
+                                aria-expanded="false">';
                                 $output .= htmlspecialchars($node['category']->category_name);
                                 $output .= '</a>';
 
@@ -548,15 +545,16 @@
                     @foreach($menus as $menu)
                     @if($menu->menutitle === 'RTI')
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('user.get_rti_page', $menu->menu_slug) }}" aria-expanded="false">
+                        <a class="nav-link" href="{{ route('user.get_rti_page', $menu->menu_slug) }}"
+                            aria-expanded="false">
                             {{ $menu->menutitle }}
                         </a>
                     </li>
                     @elseif($menu->menutitle === 'Research Centers')
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle"
-                            href="{{ route('user.navigationpagesbyslug', $menu->menu_slug) }}"
-                            data-bs-toggle="dropdown" aria-expanded="false">
+                            href="{{ route('user.navigationpagesbyslug', $menu->menu_slug) }}" data-bs-toggle="dropdown"
+                            aria-expanded="false">
                             {{ $menu->menutitle }}
                         </a>
                         <!-- <ul class="dropdown-menu">
@@ -580,13 +578,15 @@
                                 </a>
                                 @elseif($reserch_c->url)
                                 <!-- Redirect to URL -->
-                                <a class="dropdown-item" href="{{ $reserch_c->url }}" target="_blank" aria-expanded="false">
+                                <a class="dropdown-item" href="{{ $reserch_c->url }}" target="_blank"
+                                    aria-expanded="false">
                                     {{ $reserch_c->research_centre_name }}
                                 </a>
                                 @else
                                 <!-- Redirect to another page -->
                                 <a class="dropdown-item"
-                                    href="{{ url('lbsnaa-sub/' . $reserch_c->research_centre_slug) }}" aria-expanded="false">
+                                    href="{{ url('lbsnaa-sub/' . $reserch_c->research_centre_slug) }}"
+                                    aria-expanded="false">
                                     {{ $reserch_c->research_centre_name }}
                                 </a>
                                 @endif
@@ -670,34 +670,34 @@
         });
     });
 
-    $(document).ready(function () {
+    $(document).ready(function() {
         // Function to open dropdown on hover
         $(".dropdown").hover(
-            function () {
+            function() {
                 $(this).addClass("show");
                 $(this).children(".dropdown-menu").addClass("show");
             },
-            function () {
+            function() {
                 $(this).removeClass("show");
                 $(this).children(".dropdown-menu").removeClass("show");
             }
         );
 
         $(".dropdown-submenu").hover(
-            function () {
+            function() {
                 $(this).addClass("show");
                 $(this).children(".dropdown-menu").addClass("show");
             },
-            function () {
+            function() {
                 $(this).removeClass("show");
                 $(this).children(".dropdown-menu").removeClass("show");
             }
         );
 
         // Function to handle keyboard navigation
-        $(".nav-link, .dropdown-item").on("focus", function () {
+        $(".nav-link, .dropdown-item").on("focus", function() {
             let parent = $(this).parent();
-            
+
             // Open dropdown when focused
             if (parent.hasClass("dropdown") || parent.hasClass("dropdown-submenu")) {
                 parent.addClass("show");
@@ -706,7 +706,7 @@
         });
 
         // Close dropdown on Esc key press
-        $(document).on("keydown", function (e) {
+        $(document).on("keydown", function(e) {
             if (e.key === "Escape") {
                 $(".dropdown, .dropdown-submenu").removeClass("show");
                 $(".dropdown-menu").removeClass("show");
@@ -714,7 +714,7 @@
         });
 
         // Allow arrow keys to navigate within the dropdown
-        $(".dropdown-menu").on("keydown", function (e) {
+        $(".dropdown-menu").on("keydown", function(e) {
             let items = $(this).find(".dropdown-item");
             let index = items.index(document.activeElement);
 
