@@ -97,7 +97,7 @@
                     </button>
 
                     <!-- Play/Pause Button -->
-                    <button id="playPauseBtn" class="btn btn-danger">
+                    <button id="playPauseBtn" class="btn btn-danger" aria-label="Play/Pause button for Sliders">
                         <i class="bi bi-pause-fill"></i>Pause
                     </button>
                 </div>
@@ -118,12 +118,12 @@
         carousel.pause();
         playPauseBtn.innerHTML = '<i class="bi bi-play-fill"></i> Play';
         playPauseBtn.classList.replace("btn-danger", "btn-success");
-        playPauseBtn.setAttribute("aria-label", "Play button for Sliders"); // Update aria-label
+        playPauseBtn.setAttribute("aria-label", "Slider paused"); // Update aria-label
     } else {
         carousel.cycle();
         playPauseBtn.innerHTML = '<i class="bi bi-pause-fill"></i> Pause';
         playPauseBtn.classList.replace("btn-success", "btn-danger");
-        playPauseBtn.setAttribute("aria-label", "Pause button for Sliders"); // Update aria-label
+        playPauseBtn.setAttribute("aria-label", "Slider played"); // Update aria-label
     }
     isPlaying = !isPlaying; // Toggle state
 });
