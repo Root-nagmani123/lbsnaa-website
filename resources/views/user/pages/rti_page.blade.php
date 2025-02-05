@@ -43,8 +43,7 @@
     <div class="container-fluid">
         <div class="row gy-4 gy-xl-0">
             <div class="col-xl-3 col-lg-6 col-12">
-                <div class="card">
-                    <div class="accordion" id="accordionExample">
+            <div class="accordion" id="accordionExample">
                         <!-- Loop through parent menus -->
                         @foreach($menuItems as $menu)
                         <div class="accordion" id="accordionExample">
@@ -204,9 +203,6 @@
 
                         @endforeach
                     </div>
-
-
-                </div>
             </div>
             <div class="col-xl-9 col-lg-6 col-12">
                 <div class="mb-6 mb-lg-8">

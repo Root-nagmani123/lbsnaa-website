@@ -251,7 +251,106 @@ document.addEventListener('DOMContentLoaded', () => {
     sliderContainer.addEventListener('mouseleave', startAutoSlide);
 });
 </script>
+<script>
+// JavaScript to handle marquee play/pause
+const marqueeContainer = document.getElementById('marqueeContainer');
+const playPauseBtn = document.getElementById('playPauseBtn');
+let isPaused = false;
+let animationFrame;
+let currentTransform = 0; // Keep track of the current position
 
+// Marquee function
+function startMarquee() {
+    const marqueeSpeed = 2; // Speed in pixels per frame
+
+    function animate() {
+        currentTransform -= marqueeSpeed;
+
+        // Reset position when the entire content scrolls out
+        if (Math.abs(currentTransform) >= marqueeContainer.scrollWidth) {
+            currentTransform = marqueeContainer.offsetWidth;
+        }
+
+        marqueeContainer.style.transform = `translateX(${currentTransform}px)`;
+
+        if (!isPaused) {
+            animationFrame = requestAnimationFrame(animate);
+        }
+    }
+
+    animate();
+}
+
+// Start marquee on page load
+startMarquee();
+
+// Play/Pause functionality
+playPauseBtn.addEventListener('click', () => {
+    if (isPaused) {
+        isPaused = false;
+        playPauseBtn.innerHTML = '<i class="material-icons menu-icon">pause</i>';
+        startMarquee();
+    } else {
+        isPaused = true;
+        playPauseBtn.innerHTML = '<i class="material-icons menu-icon">play_arrow</i>';
+        cancelAnimationFrame(animationFrame);
+    }
+});
+</script>
+<script>
+// Tiny Slider Configuration for Three Items per Row, with first item larger
+const slider = tns({
+    container: '.sliderTestimonialFourth',
+    items: 3, // Display three items at a time
+    slideBy: 1,
+    autoplay: true,
+    autoplayTimeout: 3000,
+    autoplayButtonOutput: false,
+    controlsContainer: "#sliderTestimonialFourthControls",
+    nav: false,
+    gutter: 16, // Spacing between cards
+    responsive: {
+        0: {
+            items: 1 // One item for small screens
+        },
+        768: {
+            items: 2 // Two items for medium screens
+        },
+        1024: {
+            items: 3 // Three items for large screens
+        }
+    },
+    edgePadding: 0,
+    loop: true
+});
+
+function set_font_size(action) {
+    var body = document.body;
+    var currentSize = window.getComputedStyle(body, null).getPropertyValue('font-size');
+    var fontSize = parseFloat(currentSize);
+
+    if (action === 'increase') {
+        body.style.fontSize = (fontSize * 1.1) + 'px'; // Increase by 10%
+    } else if (action === 'decrease') {
+        body.style.fontSize = (fontSize * 0.9) + 'px'; // Decrease by 10%
+    } else {
+        body.style.fontSize = '16px'; // Reset to default size
+    }
+}
+
+// Function to change the style (normal or high contrast)
+function chooseStyle(action, value) {
+    var body = document.body;
+
+    if (action === 'change') {
+        body.classList.add('high-contrast'); // Add high contrast class
+        body.classList.remove('normal'); // Remove normal style class
+    } else {
+        body.classList.add('normal'); // Add normal style class
+        body.classList.remove('high-contrast'); // Remove high contrast style
+    }
+}
+</script>
 <!-- Scripts -->
 <!-- Libs JS -->
 <script src="{{ asset('assets/libs/%40popperjs/core/dist/umd/popper.min.js') }}"></script>
@@ -267,6 +366,123 @@ document.addEventListener('DOMContentLoaded', () => {
 <script src="{{ asset('assets/libs/tiny-slider/dist/min/tiny-slider.js') }}"></script>
 <script src="{{ asset('assets/js/vendors/tnsSlider.js') }}"></script>
 <script src="{{ asset('assets/js/vendors/glight.js') }}"></script>
+<style>
+.logo-slider-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.logo-slider {
+    display: flex;
+    transition: transform 0.3s ease-in-out;
+    will-change: transform;
+}
+
+.logo-item {
+    flex: 0 0 auto;
+    width: 150px;
+    /* Adjust width as needed */
+    margin: 0 10px;
+}
+
+.slider-prev,
+.slider-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.slider-prev {
+    left: 0;
+}
+
+.slider-next {
+    right: 0;
+}
+</style>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const slider = document.querySelector('.logo-slider');
+    const sliderContainer = document.querySelector('.logo-slider-container');
+    const sliderWidth = slider.scrollWidth;
+    const containerWidth = sliderContainer.clientWidth;
+
+    let scrollAmount = 0;
+    const scrollStep = 160; // Adjust based on logo width + margin
+    const intervalTime = 3000; // Time in milliseconds for each slide
+    let autoSlide;
+
+    const startAutoSlide = () => {
+        autoSlide = setInterval(() => {
+            scrollAmount += scrollStep;
+            if (scrollAmount >= sliderWidth - containerWidth) {
+                scrollAmount = 0; // Reset to the start
+            }
+            slider.style.transform = `translateX(-${scrollAmount}px)`;
+        }, intervalTime);
+    };
+
+    const stopAutoSlide = () => clearInterval(autoSlide);
+
+    // Start automatic sliding
+    startAutoSlide();
+
+    // Optional: Pause on hover
+    sliderContainer.addEventListener('mouseenter', stopAutoSlide);
+    sliderContainer.addEventListener('mouseleave', startAutoSlide);
+});
+</script>
+<script>
+// Function to get the current language cookie value
+function getLanguageCookie() {
+    const name = 'language=';
+    const decodedCookies = decodeURIComponent(document.cookie).split(';');
+    for (let i = 0; i < decodedCookies.length; i++) {
+        let cookie = decodedCookies[i].trim();
+        if (cookie.indexOf(name) === 0) {
+            return cookie.substring(name.length, cookie.length);
+        }
+    }
+    return '1'; // Default to English (1) if no cookie exists
+}
+
+// Function to toggle the language cookie and update the text
+function toggleLanguageCookie() {
+    let currentLanguage = getLanguageCookie();
+    let newLanguage = currentLanguage === '1' ? '2' : '1'; // Toggle between 1 (English) and 2 (Hindi)
+    document.cookie =
+        `language=${newLanguage}; path=/; expires=${new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toUTCString()}`;
+
+    // Update the displayed language text
+    updateLanguageText(newLanguage);
+
+    // Optionally reload the page to apply changes
+    location.reload();
+}
+
+// Function to update the displayed language text
+function updateLanguageText(language) {
+    const languageText = document.getElementById('language-text');
+    if (language === '1') {
+        languageText.textContent = 'English';
+    } else {
+        languageText.textContent = 'Hindi';
+    }
+}
+
+// Initialize the displayed language text on page load
+document.addEventListener('DOMContentLoaded', () => {
+    const currentLanguage = getLanguageCookie();
+    updateLanguageText(currentLanguage);
+});
+</script>
 </body>
 
 </html>
