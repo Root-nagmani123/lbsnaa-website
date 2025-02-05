@@ -138,8 +138,8 @@
             </div>
 
             <!-- Play/Pause Button -->
-            <button id="playPauseBtn1" class="btn btn-danger ms-2">
-                <i class="bi bi-pause-fill"></i>Pause
+            <button id="playPauseBtn1" class="btn btn-danger ms-2" aria-label="Play/Pause button">
+                <i class="bi bi-pause-fill"></i>
             </button>
         </div>
     </div>

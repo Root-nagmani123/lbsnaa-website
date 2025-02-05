@@ -150,7 +150,7 @@
     display: block;
     visibility: visible;
     opacity: 1;
-    left: 100%;
+    left: 30%;
     top: 0;
     margin-top: -1px;
 }

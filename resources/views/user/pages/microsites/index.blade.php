@@ -141,7 +141,7 @@
                             </div>
                             <div class="col-lg-6 text-end">
                                 <a href="{{ route('user.whatnewall', ['slug' => $slug]) }}"
-                                    style="text-decoration: none;color: #fff">View All</a>
+                                    style="text-decoration: none;color: #fff" aria-label="view all for what's new">View All</a>
                             </div>
                         </div>
                     </div>
