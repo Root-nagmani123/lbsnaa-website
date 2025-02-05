@@ -23,7 +23,7 @@
 
     <title>
         @if(isset($title))
-        {{ $title }} | Lal Bahadur Shastri National Academy of Administration
+        {{ $title }}
         @endif
     </title>
     <style>
@@ -200,12 +200,12 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="javascript:void(0);" onclick="set_font_size('increase')"
-                                    title="Increase font size">A<sup>+</sup></a></li>
+                                    title="Increase font size" aria-label="Increase font size">A<sup>+</sup></a></li>
                             <li><a class="dropdown-item" href="javascript:void(0);" onclick="set_font_size('')"
-                                    title="Reset font size">A</a>
+                                    title="Reset font size" aria-label="Reset font size">A</a>
                             </li>
                             <li><a class="dropdown-item" href="javascript:void(0);" onclick="set_font_size('decrease')"
-                                    title="Decrease font size">A<sup>-</sup></a></li>
+                                    title="Decrease font size" aria-label="Decrease font size">A<sup>-</sup></a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">

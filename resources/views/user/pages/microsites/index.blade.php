@@ -29,33 +29,34 @@
             #carouselExampleCaptions:hover .carousel-control-next {
                 opacity: 1;
             }
+
             /* Ensure the buttons are clearly visible when focused */
-.carousel-indicators button:focus {
-    outline: 2px solid #af2910; /* Blue outline */
-    outline-offset: 2px;
-    box-shadow: 0 0 5px rgba(175, 41, 16, 0.5);
-}
+            .carousel-indicators button:focus {
+                outline: 2px solid #af2910 !important;
+                /* Red outline to indicate focus */
+                background-color: rgba(255, 255, 255, 0.5);
+                /* Light red background */
+                border-radius: 5px;
+            }
 
-/* Optional: Increase the size for better accessibility */
-.carousel-indicators button {
-    width: 12px;
-    height: 12px;
-    border-radius: 10px;
-    margin: 5px;
-    background-color: rgba(0, 0, 0, 0);
-    border: none;
-}
+            /* Optional: Increase the size for better accessibility */
+            .carousel-indicators button {
+                border-radius: 10px;
+                margin: 5px;
+                background-color: #af2910;
+                border: none;
+            }
 
-/* Active indicator styling */
-.carousel-indicators .active {
-    background-color: #af2910; /* Blue color for active indicator */
-}
+            /* Active indicator styling */
+            .carousel-indicators .active {
+                background-color: #af2910;
+                /* Blue color for active indicator */
+            }
 
-/* Hover effect for better UI feedback */
-.carousel-indicators button:hover {
-    background-color: #af2910;
-}
-
+            /* Hover effect for better UI feedback */
+            .carousel-indicators button:hover {
+                background-color: #af2910;
+            }
             </style>
 
             <div class="col-12 col-lg-9 mb-4 position-relative">
@@ -143,7 +144,8 @@
                             </div>
                             <div class="col-lg-6 text-end">
                                 <a href="{{ route('user.whatnewall', ['slug' => $slug]) }}"
-                                    style="text-decoration: none;color: #fff" aria-label="view all for what's new">View All</a>
+                                    style="text-decoration: none;color: #fff" aria-label="view all for what's new">View
+                                    All</a>
                             </div>
                         </div>
                     </div>
