@@ -211,16 +211,16 @@
                             <form action="https://www.google.com/search" method="GET" target="_blank">
                                 <input type="text" name="q" class="form-control mb-2" placeholder="Search..." required>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="searchType" value="web"
-                                        id="searchWeb">
-                                    <label class="form-check-label" for="searchWeb">The Web</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="sitesearch" value="lbsnaa.gov.in"
-                                        id="searchDopt" checked>
-                                    <label class="form-check-label" for="searchDopt">LBSNAA.GOV.IN</label>
-                                </div>
+                                        <input class="form-check-input" type="radio" name="sitesearch" value="lbsnaa.gov.in" id="searchLbsnaa" checked>
+                                        <label class="form-check-label" for="searchLbsnaa">LBSNAA.GOV.IN</label>
+                                    </div>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="sitesearch" value="" id="searchOther">
+                                        <label class="form-check-label" for="searchOther">The Web</label>
+                                    </div>
                                 <button type="submit" class="btn btn-primary btn-sm w-100 mt-2">Search</button>
+
                             </form>
                         </div>
                     </li>
