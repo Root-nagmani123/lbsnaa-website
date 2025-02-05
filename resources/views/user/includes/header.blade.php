@@ -418,8 +418,9 @@
 
                         // Add 'w-100' class to ensure full width for the list item
                         if($submenu->texttype == 3){
-                        $output .= '<li class="check dropdown-submenu dynamic-direction w-100 border-bottom"
-                            aria-label="$submenu->menutitle">';
+                      $output .= '<li class="check dropdown-submenu dynamic-direction w-100 border-bottom" 
+            aria-label="' . $submenu->menutitle . '">';
+
                             $url = '';
                             if ($submenu->web_site_target == 1) {
                             // Internal link
@@ -429,11 +430,13 @@
                             $submenu->website_url;
                             }
                             $output .= '<a
-                                class="dropdown-item ' . ($hasChildren ? 'dropdown-toggle d-flex align-items-center' : '') . '"
-                                href="' . $url . '"
-                                target="' . ($submenu->web_site_target == 2 ? '_blank' : '_self') . '"
-                                aria-label="$submenu->menutitle" aria-expanded="false">' .
-                                $submenu->menutitle . '</a>';
+                                    class="dropdown-item ' . ($hasChildren ? 'dropdown-toggle d-flex align-items-center' : '') . '"
+                                    href="' . $url . '"
+                                    target="' . ($submenu->web_site_target == 2 ? '_blank' : '_self') . '"
+                                    aria-label="' . htmlspecialchars($submenu->menutitle, ENT_QUOTES, 'UTF-8') . '" 
+                                    aria-expanded="false">' . 
+                                    $submenu->menutitle . 
+                                    '</a>';
 
                             if ($hasChildren) {
                             $output .= renderMenuItems($submenu->id);
