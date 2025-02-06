@@ -324,7 +324,7 @@ public function footer_images_status_update(Request $request, $id)
     public function quick_link_store(Request $request)
     {
         // print_r($_POST);die;
-        $request->validate([
+        $request->validate([ 
             'text' => 'required',
         ]);
       
@@ -406,6 +406,7 @@ public function footer_images_status_update(Request $request, $id)
         $quickLink->url_type = $request->url_type ?? null;
         $quickLink->status = $request->status ?? 0;
         $quickLink->language = $request->language;
+        $quickLink->url = $request->url;
         $quickLink->save();
     
         // Log the update action in ManageAudit

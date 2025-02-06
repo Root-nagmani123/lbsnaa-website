@@ -577,7 +577,7 @@ public function get_course_details_pages(Request $request, $slug)
                     ->whereDate('course_end_date', '<', $currentDate)
                     ->select('id', 'course_name', 'course_start_date', 'course_end_date', 'course_type')
                     ->get();
-                    print_r($subcategory);
+                    //print_r($subcategory);
 
     // Pass the course and subcategory to the view
     return view('user.pages.course_details', compact('parentcategory','course', 'subcategory','courses_list','title'));

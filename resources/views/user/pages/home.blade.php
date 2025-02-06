@@ -100,9 +100,8 @@
 
 
 
-
 <!-- floating notification start -->
-<section class="py-3 bg-light">
+<section class="py-3 bg-light" id="skip_to_main_content">
     <div class="container-fluid">
         <div class="position-relative d-flex overflow-x-hidden align-items-center">
             <!-- Latest Updates Button -->
@@ -406,6 +405,7 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
     </div>
 </section>
+
 <section class="py-5 mb-5 bg-light" id="news">
     <div class="container-fluid">
         <div class="row gy-4">
