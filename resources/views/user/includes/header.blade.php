@@ -236,7 +236,7 @@
                     .custom-dropdown {
                         left: 0 !important;
                         right: auto !important;
-                        transform: translateX(-80%);
+                        transform: translateX(-85%);
                         /* Moves dropdown fully to the left */
                     }
                     </style>
