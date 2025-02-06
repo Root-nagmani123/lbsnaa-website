@@ -127,39 +127,6 @@
         top: 0;
         margin-top: -1px;
     }
-
-    /* Adjust styling to prevent flickering */
-    .dropdown-menu {
-        transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-        opacity: 0;
-        visibility: hidden;
-    }
-
-    /* Ensure dropdown opens on hover and keyboard focus */
-    .dropdown:hover>.dropdown-menu,
-    .dropdown:focus-within>.dropdown-menu {
-        display: block;
-        visibility: visible;
-        opacity: 1;
-    }
-
-    /* Ensure nested dropdown opens on hover and keyboard focus */
-    .dropdown-submenu:hover>.dropdown-menu,
-    .dropdown-submenu:focus-within>.dropdown-menu {
-        display: block;
-        visibility: visible;
-        opacity: 1;
-        left: 100%;
-        top: 0;
-        margin-top: -1px;
-    }
-
-    /* Prevent flickering */
-    .dropdown-menu {
-        transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-        opacity: 0;
-        visibility: hidden;
-    }
     </style>
 </head>
 
@@ -167,14 +134,14 @@
     <div class="container-fluid bg-light bar">
         <div class="row py-1 align-items-center">
             <div class="col-md-4 d-flex align-items-center" style="font-size: 16px;font-weight:400;color:#af2910;">
-                <img class="img-fluid"
-                        src="{{ asset('assets/images/icons/ashok.jpg') }}" alt="Logo of Ashok Stambh"
-                        aria-label="Logo of Ashoka Stambh" style="font-size: 510px;height: 50px;margin-right:5px;">
-                    भारत सरकार | Government of India
+                <img class="img-fluid" src="{{ asset('assets/images/icons/ashok.jpg') }}" alt="Logo of Ashok Stambh"
+                    aria-label="Logo of Ashoka Stambh" style="font-size: 510px;height: 50px;margin-right:5px;">
+                भारत सरकार | Government of India
             </div>
             <div class="col-md-4">
                 <h1 class="h4 text-center text-primary d-none"><a href="#"
-                        aria-label="{{ $title }} | Lal Bahadur Shastri National Academy of Administration">{{ $title }}</a></h1>
+                        aria-label="{{ $title }} | Lal Bahadur Shastri National Academy of Administration">{{ $title }}</a>
+                </h1>
             </div>
             <div class="col-md-4">
                 <ul class="nav justify-content-end align-items-center">
@@ -253,7 +220,7 @@
                         <a class="nav-link" href="#" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="material-icons menu-icon">search</i>
                         </a>
-                        <div class="dropdown-menu p-2" style="width: 250px;">
+                        <div class="dropdown-menu dropdown-menu-start p-2 custom-dropdown" style="width: 250px;">
                             <form action="https://www.google.com/search" method="GET" target="_blank">
                                 <input type="text" name="q" class="form-control mb-2" placeholder="Search..." required>
                                 <div class="form-check">
@@ -261,15 +228,20 @@
                                         id="searchWeb">
                                     <label class="form-check-label" for="searchWeb">The Web</label>
                                 </div>
-                                <!-- <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="searchType" value="dopt"
-                                        id="searchDopt" checked>
-                                    <label class="form-check-label" for="searchDopt">DOPT.GOV.IN</label>
-                                </div> -->
                                 <button type="submit" class="btn btn-primary btn-sm w-100 mt-2">Search</button>
                             </form>
                         </div>
                     </li>
+                    <style>
+                    .custom-dropdown {
+                        left: 0 !important;
+                        right: auto !important;
+                        transform: translateX(-80%);
+                        /* Moves dropdown fully to the left */
+                    }
+                    </style>
+
+
 
 
 
@@ -290,52 +262,7 @@
         </div>
 
     </div>
-    <script>
-    $(document).ready(function() {
-        // Open dropdown on hover
-        $(".dropdown, .dropdown-submenu").hover(
-            function() {
-                $(this).addClass("show");
-                $(this).children(".dropdown-menu").addClass("show");
-            },
-            function() {
-                $(this).removeClass("show");
-                $(this).children(".dropdown-menu").removeClass("show");
-            }
-        );
 
-        // Open dropdown on focus (Tab key)
-        $(".dropdown > .nav-link, .dropdown-submenu > .dropdown-item").on("focus", function() {
-            let parent = $(this).parent();
-            parent.addClass("show");
-            parent.children(".dropdown-menu").addClass("show");
-        });
-
-        // Close dropdown on Escape key
-        $(document).on("keydown", function(e) {
-            if (e.key === "Escape") {
-                $(".dropdown, .dropdown-submenu").removeClass("show");
-                $(".dropdown-menu").removeClass("show");
-            }
-        });
-
-        // Enable keyboard navigation inside dropdown
-        $(".dropdown-menu").on("keydown", function(e) {
-            let items = $(this).find(".dropdown-item");
-            let index = items.index(document.activeElement);
-
-            if (e.key === "ArrowDown") {
-                e.preventDefault();
-                let nextIndex = (index + 1) % items.length;
-                items.eq(nextIndex).focus();
-            } else if (e.key === "ArrowUp") {
-                e.preventDefault();
-                let prevIndex = (index - 1 + items.length) % items.length;
-                items.eq(prevIndex).focus();
-            }
-        });
-    });
-    </script>
     <nav class="navbar navbar-expand-lg shadow-none sticky-xl-top sticky-lg-top">
         <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
             <!-- Logo -->
@@ -417,8 +344,8 @@
 
                         // Add 'w-100' class to ensure full width for the list item
                         if($submenu->texttype == 3){
-                      $output .= '<li class="check dropdown-submenu dynamic-direction w-100 border-bottom" 
-            aria-label="' . $submenu->menutitle . '">';
+                        $output .= '<li class="check dropdown-submenu dynamic-direction w-100 border-bottom"
+                            aria-label="' . $submenu->menutitle . '">';
 
                             $url = '';
                             if ($submenu->web_site_target == 1) {
@@ -429,13 +356,13 @@
                             $submenu->website_url;
                             }
                             $output .= '<a
-                                    class="dropdown-item ' . ($hasChildren ? 'dropdown-toggle d-flex align-items-center' : '') . '"
-                                    href="' . $url . '"
-                                    target="' . ($submenu->web_site_target == 2 ? '_blank' : '_self') . '"
-                                    aria-label="' . htmlspecialchars($submenu->menutitle, ENT_QUOTES, 'UTF-8') . '" 
-                                    aria-expanded="false">' . 
-                                    $submenu->menutitle . 
-                                    '</a>';
+                                class="dropdown-item ' . ($hasChildren ? 'dropdown-toggle d-flex align-items-center' : '') . '"
+                                href="' . $url . '"
+                                target="' . ($submenu->web_site_target == 2 ? '_blank' : '_self') . '"
+                                aria-label="' . htmlspecialchars($submenu->menutitle, ENT_QUOTES, 'UTF-8') . '"
+                                aria-expanded="false">' .
+                                $submenu->menutitle .
+                                '</a>';
 
                             if ($hasChildren) {
                             $output .= renderMenuItems($submenu->id);

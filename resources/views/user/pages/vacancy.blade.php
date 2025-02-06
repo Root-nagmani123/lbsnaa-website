@@ -33,7 +33,7 @@
             </div>
         </div>
         <div class="col-md-12 content-area">
-            <h2 class="heading">@if(Cookie::get('language') ==
+            <h2 class="heading mb-3 text-primary fw-bold">@if(Cookie::get('language') ==
                 '2')रिक्ति
                 @else
                 Vacancy
@@ -42,38 +42,14 @@
 
 
 
-            <table width="100%" border="0" cellspacing="0" align="center" cellpadding="4" class="dataTable">
-                <thead>
-                    <tr class="even">
-                        <th width="5%">#</th>
-                        <th width="20%">
-                        @if(Cookie::get('language') ==
-                            '2')पद का नाम
-                            @else
-                            Job Title
-                            @endif
-                            </th>
-                        <th width="20%">
-                        @if(Cookie::get('language') ==
-                            '2')प्रकाशित तिथि
-                            @else
-                            Publish Date
-                            @endif
-                            </th>
-                        <th width="20%">
-                        @if(Cookie::get('language') ==
-                            '2')अंतिम तिथि
-                            @else
-                            Last Date
-                            @endif
-                            </th>
-                        <th width="15%">
-                        @if(Cookie::get('language') ==
-                            '2')दस्तावेज़
-                            @else
-                            Document
-                            @endif
-                            </th>
+            <table class="table table-striped table-hover table-bordered">
+                <thead class="bg-primary">
+                    <tr>
+                        <th class="col text-white">#</th>
+                        <th class="col text-white">Job Title</th>
+                        <th class="col text-white">Publish Date</th>
+                        <th class="col text-white">Last Date</th>
+                        <th class="col text-white">Document</th>
                     </tr>
                 </thead>
                 <tbody>

@@ -41,24 +41,18 @@
     </div>
 </section>
 
-<section class="py-8 bg-light">
+<section class="py-4">
     <div class="container-fluid">
         <div class="row gy-4 gy-xl-0">
 
             <div class="col-12">
                 <!-- Additional content for the second column -->
                 <div class="mb-3">
-                    <h1 class="h1 fw-bold text-primary">
+                    <h2 class="fw-bold text-primary">
                         {{$nav_page->menutitle}}
-                    </h1>
+                    </h2>
                 </div>
-                @if ($director_img != '')
-                <div class="row">
-                    <img src="{{ asset($director_img->image) }}" alt="mentor" class="avatar avatar-xl rounded-circle">
-
-                </div>
-                @endif
-
+                
                 <p><?= $nav_page->content ?></p>
             </div>
         </div>
