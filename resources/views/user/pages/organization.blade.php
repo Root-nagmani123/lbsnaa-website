@@ -30,6 +30,7 @@
 </section>
 <section class="py-2">
     <div class="container-fluid">
+        <h1 class="h1 fw-bold text-primary">Organization Structure</h1>
         <div class="org-chart">
             <!-- Render the top level (First Layer) -->
             @if (!empty($hierarchy))

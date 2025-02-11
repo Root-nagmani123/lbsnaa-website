@@ -12,7 +12,7 @@ class HomeFrontController extends Controller
 
     public function index()
     {
-        $title  = 'Home | Lal Bahadur Shastri National Academy of Administration';
+        $title  = 'Home ';
         Cookie::queue('language', 1, 60 * 24 * 30);
         $language = Cookie::get('language');
         date_default_timezone_set('Asia/Kolkata');
@@ -161,7 +161,7 @@ class HomeFrontController extends Controller
 
             $staff = $query->get();
 
-         return view('user.pages.staff', compact('staff'));
+         return view('user.pages.staff', compact('staff','title'));
         }elseif ($slug == 'organogram') {
             // echo 'joining';die;
            return redirect('organization');

@@ -39,7 +39,7 @@
                         <!-- Use PUT method for updating -->
 
                         <div class="row">
-                            <div class="col-lg-2">
+                            <div class="col-lg-6">
                                 <div class="form-group mb-4">
                                     <label class="label" for="txtlanguage">Page Language :</label>
                                     <span class="star">*</span>
@@ -49,7 +49,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-5">
+                            <div class="col-lg-6">
                                 <div class="form-group mb-4">
                                     <label class="label" for="menutitle">Menu Title :</label>
                                     <span class="star">*</span>
