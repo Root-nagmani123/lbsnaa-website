@@ -20,7 +20,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="{{ asset('assets/js/orgchart.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
+    <title>
         @if(isset($title))
         {{ $title }} | Lal Bahadur Shastri National Academy of Administration
         @endif
@@ -360,7 +360,7 @@
                         // Add 'w-100' class to ensure full width for the list item
                         if($submenu->texttype == 3){
                         $output .= '<li class="check dropdown-submenu dynamic-direction w-100 border-bottom"
-                            aria-label="' . $submenu->menutitle . '">';
+                            aria-label="Expanded ' . $submenu->menutitle . '">';
 
                             $url = '';
                             if ($submenu->web_site_target == 1) {
@@ -374,7 +374,7 @@
                                 class="dropdown-item ' . ($hasChildren ? 'dropdown-toggle d-flex align-items-center' : '') . '"
                                 href="' . $url . '"
                                 target="' . ($submenu->web_site_target == 2 ? '_blank' : '_self') . '"
-                                aria-label="' . htmlspecialchars($submenu->menutitle, ENT_QUOTES, 'UTF-8') . '"
+                                aria-label="Expanded' . $submenu->menutitle . '"
                                 aria-expanded="false">' .
                                 $submenu->menutitle .
                                 '</a>';

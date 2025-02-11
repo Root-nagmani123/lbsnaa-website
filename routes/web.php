@@ -118,7 +118,7 @@ Route::get('/running_events', [HomeFrontController::class, 'running_events'])->n
 
 
 Route::get('/sitemap', [HomeFrontController::class, 'sitemap'])->name('user.sitemap');
-Route::get('/search', [HomeFrontController::class, 'search'])->name('user.search');
+// Route::get('/search', [HomeFrontController::class, 'search'])->name('user.search');
 Route::get('/screen-reader', [HomeFrontController::class, 'screenReader'])->name('user.screen-reader');
 Route::get('/archive', [HomeFrontController::class, 'archive'])->name('user.archive');
 Route::get('/archive', [HomeFrontController::class, 'archive'])->name('user.archive');
