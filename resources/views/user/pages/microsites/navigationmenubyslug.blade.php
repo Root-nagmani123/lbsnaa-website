@@ -38,7 +38,7 @@
 <!-- Page Content -->
 <section class="py-2">
     <div class="container-fluid">
-        <h2 class="text-primary mb-4">{{ $nav_page->menutitle }}</h2>
+        <h2 class="text-primary mb-4"><a href="#" class="text-primary">{{ $nav_page->menutitle }}</a></h2>
         <div class="row">
             <div class="col-8">
                 <div>

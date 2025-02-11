@@ -520,16 +520,6 @@
                             aria-expanded="false" aria-label="Expanded {{ $menu->menutitle }}">
                             {{ $menu->menutitle }}
                         </a>
-                        <!-- <ul class="dropdown-menu">
-                            @foreach($Research_Center_list as $reserch_c)
-                            <li class="border-bottom">
-                                <a class="dropdown-item"
-                                    href="{{ url('lbsnaa-sub') }}/{{ $reserch_c->research_centre_slug }}">
-                                    {{ $reserch_c->research_centre_name }}
-                                </a>
-                            </li>
-                            @endforeach
-                        </ul> -->
                         <ul class="dropdown-menu">
                             @foreach($Research_Center_list as $reserch_c)
                             <li class="border-bottom">
