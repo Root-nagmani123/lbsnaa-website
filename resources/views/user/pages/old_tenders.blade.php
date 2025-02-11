@@ -41,7 +41,7 @@
                 </div>
             </div>
         </div>
-        <div class="contsearch">
+        <div class="contsearch" id="skip_to_main_content">
             <form id="form2" method="GET" action="{{ route('user.tenders_archive') }}">
                 <div class="row mb-4">
                     <div class="col-lg-4">

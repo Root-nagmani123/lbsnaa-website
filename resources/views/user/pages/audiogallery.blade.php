@@ -40,7 +40,7 @@
         </div>
     </div>
 </section>
-<section class="py-2">
+<section class="py-2" id="skip_to_main_content">
     <div class="container-fluid">
         <h2 class="text-primary mb-2">
             @if(Cookie::get('language') == '2')

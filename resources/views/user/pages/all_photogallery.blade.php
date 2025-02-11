@@ -45,7 +45,7 @@
         </div>
     </div>
 </section>
-<section class="py-5">
+<section class="py-5" id="skip_to_main_content">
     <!-- container -->
     <div class="container-fluid">
         <div class="row">

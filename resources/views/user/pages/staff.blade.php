@@ -31,7 +31,7 @@
         </div>
     </div>
 </section>
-<section class="py-2">
+<section class="py-2" id="skip_to_main_content">
     <div class="container-fluid">
         <div class="card bg-white border-0 rounded-10 mb-4">
             <div class="card-header">

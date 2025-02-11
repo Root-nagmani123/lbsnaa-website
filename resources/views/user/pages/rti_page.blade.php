@@ -38,7 +38,7 @@
         </div>
     </div>
 </section>
-<section class="py-2">
+<section class="py-2" id="skip_to_main_content">
     <div class="container-fluid">
         <div class="row gy-4 gy-xl-0">
             <div class="col-xl-3 col-lg-6 col-12">

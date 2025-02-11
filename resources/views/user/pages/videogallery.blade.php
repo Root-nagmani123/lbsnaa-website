@@ -36,7 +36,7 @@
         </div>
     </div>
 </section>
-<section class="py-2">
+<section class="py-2" id="skip_to_main_content">
     <!-- container -->
     <div class="container-fluid">
         <!-- form -->

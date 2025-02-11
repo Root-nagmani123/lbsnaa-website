@@ -188,7 +188,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row" id="skip_to_main_content">
             <!-- Research Centres -->
             <div class="col-12 col-lg-9 mb-4">
                 @foreach($research_centres as $research_centre)

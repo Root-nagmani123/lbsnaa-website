@@ -32,7 +32,7 @@
     </div>
 </section>
 
-<section class="py-2">
+<section class="py-2" id="skip_to_main_content">
     <div class="container-fluid">
         <div class="col-12">
             <div class="mb-4">

@@ -44,7 +44,7 @@
             </div>
         </section>
         <!-- Tenders Card -->
-        <div class="card bg-white border-0 rounded-4 shadow-sm mb-4">
+        <div class="card bg-white border-0 rounded-4 shadow-sm mb-4" id="skip_to_main_content">
             <div class="card-body p-4">
                 <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-3">
                     <h4 class="fw-semibold fs-18 mb-0">@if(Cookie::get('language') ==

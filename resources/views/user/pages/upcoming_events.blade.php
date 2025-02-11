@@ -32,7 +32,7 @@
         </div>
     </div>
 </section>
-<section class="py-2">
+<section class="py-2" id="skip_to_main_content">
     <div class="container-fluid">
         <div class="card p-3">
             <div class="d-flex justify-content-between align-items-center pb-20 mb-20 mb-2">

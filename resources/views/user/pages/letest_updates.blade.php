@@ -29,7 +29,7 @@
     </div>
 </section>
 
-<section class="py-1">
+<section class="py-1" id="skip_to_main_content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-xl-12 col-md-12 col-12">

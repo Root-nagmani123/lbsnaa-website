@@ -27,7 +27,7 @@
         </div>
     </div>
 </section>
-<section class="container d-flex flex-column">
+<section class="container d-flex flex-column" id="skip_to_main_content">
     <div class="row align-items-center justify-content-center">
         <div class="col-lg-5 col-md-8 mb-3">
             <!-- Success message -->

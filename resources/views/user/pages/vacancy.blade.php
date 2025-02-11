@@ -32,7 +32,7 @@
                 </nav>
             </div>
         </div>
-        <div class="col-md-12 content-area">
+        <div class="col-md-12 content-area" id="skip_to_main_content">
             <h2 class="heading mb-3 text-primary fw-bold">@if(Cookie::get('language') ==
                 '2')रिक्ति
                 @else

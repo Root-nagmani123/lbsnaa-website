@@ -96,7 +96,7 @@
 
 
 <!-- News Section -->
-<section class="py-6">
+<section class="py-6" id="skip_to_main_content">
     <div class="container-fluid">
         @if($news->isNotEmpty())
         <div class="row g-4">

@@ -73,7 +73,7 @@
 
 
                 <!-- Table Section -->
-                <div class="table-responsive">
+                <div class="table-responsive" id="skip_to_main_content">
                     <table class="table table-striped align-middle">
                         <thead class="table">
                             <tr class="bg-primary">

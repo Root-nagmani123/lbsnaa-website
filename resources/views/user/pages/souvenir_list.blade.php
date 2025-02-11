@@ -30,7 +30,7 @@
 </section>
 
 <!-- Product List Section -->
-<section class="py-4">
+<section class="py-4" id="skip_to_main_content">
     <div class="container-fluid">
 
         <!-- Search Form -->

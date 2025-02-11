@@ -30,7 +30,7 @@
             </div>
         </div>
 </section>
-<section class="py-3">
+<section class="py-3" id="skip_to_main_content">
     <div class="container-fluid">
         <div class="row">
             <!-- Media Gallery -->

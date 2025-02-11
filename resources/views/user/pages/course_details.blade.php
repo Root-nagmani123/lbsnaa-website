@@ -50,7 +50,7 @@
     </div>
 </section>
 
-<section class="py-2">
+<section class="py-2" id="skip_to_main_content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">

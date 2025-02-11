@@ -41,7 +41,7 @@
     </div>
 </section>
 
-<section class="py-4">
+<section class="py-4" id="skip_to_main_content">
     <div class="container-fluid">
         <div class="row gy-4 gy-xl-0">
 
