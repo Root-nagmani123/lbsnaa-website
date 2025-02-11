@@ -93,14 +93,13 @@
         box-shadow: 0 0 5px rgba(211, 4, 49, 0.75);
         /* Optional for extra visibility */
     }
-
-    /* Ensure dropdown opens on hover */
     .navbar-nav .dropdown:hover>.dropdown-menu,
     .navbar-nav .dropdown:focus-within>.dropdown-menu {
         display: block;
         visibility: visible;
         opacity: 1;
     }
+
     </style>
 
 </head>
@@ -118,12 +117,14 @@
                     <ul class="nav justify-content-end align-items-right">
                         <!-- Tooltip Items -->
                         <li class="nav-item">
-                            <a class="nav-link" href="#skip_to_main_content" data-bs-toggle="tooltip"
-                                data-bs-placement="bottom" title="Skip to main content"
-                                aria-label="Skip to main content">
-                                <i class="material-icons menu-icon">restart_alt</i>
-                            </a>
-                        </li>
+                        <a class="nav-link fw-bold" href="#skip_to_main_content" data-bs-toggle="tooltip"
+                            data-bs-placement="bottom" title="Skip to main content" aria-label="Skip to main content">
+                            <!-- <i class="material-icons menu-icon">event_repeat</i> -->
+                            <img src="{{ asset('assets/images/skip_to_main_content.png') }}" alt="skip to main content"
+                                style="height: 30px;">
+
+                        </a>
+                    </li>
                     </ul>
                 </div>
             </div>
@@ -282,59 +283,78 @@
         });
     });
     </script>
-    <script>
-    $(document).ready(function () {
-    $(".nav-link, .dropdown-item").on("keydown", function (e) {
-        let $currentItem = $(this);
-        let $parentDropdown = $currentItem.closest(".dropdown, .dropdown-submenu");
-        let $submenu = $parentDropdown.find(".dropdown-menu:first");
-        let $allItems = $currentItem.closest(".dropdown-menu").find(".dropdown-item");
-        let index = $allItems.index(this);
-
-        if (e.key === "ArrowDown") {
-            e.preventDefault();
-
-            if ($submenu.length && !$submenu.hasClass("show")) {
-                // Agar submenu hai toh usko open kare aur pehle item par focus kare
-                $parentDropdown.addClass("show");
-                $submenu.addClass("show").find(".dropdown-item:first").focus();
-            } else {
-                // Agar submenu nahi hai toh next item par move kare
-                let nextIndex = (index + 1) % $allItems.length;
-                $allItems.eq(nextIndex).focus();
+   <script>
+    $(document).ready(function() {
+        // Open dropdown on hover
+        $(".dropdown, .dropdown-submenu").hover(
+            function() {
+                $(this).addClass("show");
+                $(this).children(".dropdown-menu").addClass("show");
+            },
+            function() {
+                $(this).removeClass("show");
+                $(this).children(".dropdown-menu").removeClass("show");
             }
-        } else if (e.key === "ArrowUp") {
-            e.preventDefault();
-            // Previous item par move kare
-            let prevIndex = (index - 1 + $allItems.length) % $allItems.length;
-            $allItems.eq(prevIndex).focus();
-        } else if (e.key === "Tab") {
-            e.preventDefault();
-            // Next item par move kare
-            let nextIndex = (index + 1) % $allItems.length;
-            $allItems.eq(nextIndex).focus();
-        } else if (e.key === "Escape") {
-            e.preventDefault();
-            // Dropdown close kare
-            $parentDropdown.removeClass("show");
-            $submenu.removeClass("show");
+        );
+
+        // Open dropdown when focused on
+        $(".nav-link, .dropdown-item").on("focus", function() {
+            let parent = $(this).closest(".dropdown, .dropdown-submenu");
+            if (parent.length) {
+                parent.addClass("show");
+                parent.children(".dropdown-menu").addClass("show");
+            }
+        });
+
+        // Close dropdown when Escape key is pressed
+        $(document).on("keydown", function(e) {
+            if (e.key === "Escape" || e.keyCode === 27) {
+                e.preventDefault(); // Prevent default action
+
+                let focusedElement = $(document.activeElement);
+                let parentDropdown = focusedElement.closest(".dropdown, .dropdown-submenu");
+
+                if (parentDropdown.length) {
+                    // Close the dropdown
+                    closeDropdown(parentDropdown);
+                }
+            }
+        });
+
+        // Close all dropdowns (including nested ones) on ESC key press
+        function closeDropdown(parent) {
+            parent.removeClass("show");
+            parent.children(".dropdown-menu").removeClass("show");
+            parent.find(".dropdown-menu").hide(); // Hide the dropdown to prevent it from showing up again
         }
+
+        // Allow arrow keys to navigate within the dropdown
+        $(".dropdown-menu").on("keydown", function(e) {
+            let items = $(this).find(".dropdown-item");
+            let index = items.index(document.activeElement);
+
+            if (e.key === "ArrowDown") {
+                e.preventDefault();
+                let nextIndex = (index + 1) % items.length;
+                items.eq(nextIndex).focus();
+            } else if (e.key === "ArrowUp") {
+                e.preventDefault();
+                let prevIndex = (index - 1 + items.length) % items.length;
+                items.eq(prevIndex).focus();
+            }
+        });
+
+        // Ensure ESC key closes nested dropdowns (in submenus)
+        $(".dropdown-menu").on("keydown", function(e) {
+            if (e.key === "Escape") {
+                e.preventDefault();
+                let parentDropdown = $(this).closest(".dropdown, .dropdown-submenu");
+                closeDropdown(parentDropdown);
+            }
+        });
     });
-
-    // Hover par dropdown open kare
-    $(".dropdown, .dropdown-submenu").hover(
-        function () {
-            $(this).addClass("show");
-            $(this).children(".dropdown-menu").addClass("show");
-        },
-        function () {
-            $(this).removeClass("show");
-            $(this).children(".dropdown-menu").removeClass("show");
-        }
-    );
-});
-
 </script>
+
 
 
     <div id="skip_to_main_content">
