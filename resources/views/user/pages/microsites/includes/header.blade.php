@@ -23,7 +23,6 @@
 
     <link rel="canonical" href="LBSNAA">
     <link href="{{ asset('assets/libs/tiny-slider/dist/tiny-slider.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="assets/libs/glightbox/dist/css/glightbox.min.css') }}">
     <link rel="icon" type="image/png" href="{{ asset('admin_assets/images/favicon.ico') }}">
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
@@ -35,7 +34,7 @@
     <title>{{$Title}}</title>
 
     <style>
-    *:focus {
+     *:focus {
         outline: 2px solid #af2910;
         /* High-contrast green */
         outline-offset: 2px;
@@ -59,13 +58,6 @@
         justify-content: center;
         align-items: center;
         text-align: center;
-    }
-
-    .dropdown-item {
-        white-space: normal;
-        /* Allow text wrapping inside menu items */
-        word-wrap: break-word;
-        /* Ensure long words wrap properly */
     }
 
     .navbar-nav .nav-link:focus,
@@ -93,6 +85,8 @@
         box-shadow: 0 0 5px rgba(211, 4, 49, 0.75);
         /* Optional for extra visibility */
     }
+
+    /* Ensure dropdown opens on hover */
     .navbar-nav .dropdown:hover>.dropdown-menu,
     .navbar-nav .dropdown:focus-within>.dropdown-menu {
         display: block;
@@ -100,6 +94,16 @@
         opacity: 1;
     }
 
+    /* Ensure nested dropdowns also open on hover and keyboard focus */
+    .dropdown-submenu:hover>.dropdown-menu,
+    .dropdown-submenu:focus-within>.dropdown-menu {
+        display: block;
+        visibility: visible;
+        opacity: 1;
+        left: 30%;
+        top: 0;
+        margin-top: -1px;
+    }
     </style>
 
 </head>
@@ -284,77 +288,82 @@
     });
     </script>
    <script>
-    $(document).ready(function() {
-        // Open dropdown on hover
-        $(".dropdown, .dropdown-submenu").hover(
-            function() {
-                $(this).addClass("show");
-                $(this).children(".dropdown-menu").addClass("show");
-            },
-            function() {
-                $(this).removeClass("show");
-                $(this).children(".dropdown-menu").removeClass("show");
-            }
-        );
-
-        // Open dropdown when focused on
-        $(".nav-link, .dropdown-item").on("focus", function() {
-            let parent = $(this).closest(".dropdown, .dropdown-submenu");
-            if (parent.length) {
-                parent.addClass("show");
-                parent.children(".dropdown-menu").addClass("show");
-            }
-        });
-
-        // Close dropdown when Escape key is pressed
-        $(document).on("keydown", function(e) {
-            if (e.key === "Escape" || e.keyCode === 27) {
-                e.preventDefault(); // Prevent default action
-
-                let focusedElement = $(document.activeElement);
-                let parentDropdown = focusedElement.closest(".dropdown, .dropdown-submenu");
-
-                if (parentDropdown.length) {
-                    // Close the dropdown
-                    closeDropdown(parentDropdown);
-                }
-            }
-        });
-
-        // Close all dropdowns (including nested ones) on ESC key press
-        function closeDropdown(parent) {
-            parent.removeClass("show");
-            parent.children(".dropdown-menu").removeClass("show");
-            parent.find(".dropdown-menu").hide(); // Hide the dropdown to prevent it from showing up again
+    $(document).ready(function () {
+    // Open dropdown on hover
+    $(".dropdown, .dropdown-submenu").hover(
+        function () {
+            $(this).addClass("show");
+            $(this).children(".dropdown-menu").addClass("show");
+        },
+        function () {
+            $(this).removeClass("show");
+            $(this).children(".dropdown-menu").removeClass("show");
         }
+    );
 
-        // Allow arrow keys to navigate within the dropdown
-        $(".dropdown-menu").on("keydown", function(e) {
-            let items = $(this).find(".dropdown-item");
-            let index = items.index(document.activeElement);
-
-            if (e.key === "ArrowDown") {
-                e.preventDefault();
-                let nextIndex = (index + 1) % items.length;
-                items.eq(nextIndex).focus();
-            } else if (e.key === "ArrowUp") {
-                e.preventDefault();
-                let prevIndex = (index - 1 + items.length) % items.length;
-                items.eq(prevIndex).focus();
-            }
-        });
-
-        // Ensure ESC key closes nested dropdowns (in submenus)
-        $(".dropdown-menu").on("keydown", function(e) {
-            if (e.key === "Escape") {
-                e.preventDefault();
-                let parentDropdown = $(this).closest(".dropdown, .dropdown-submenu");
-                closeDropdown(parentDropdown);
-            }
-        });
+    // Open dropdown on focus (keyboard navigation)
+    $(".nav-link, .dropdown-item").on("focus", function () {
+        let parent = $(this).closest(".dropdown, .dropdown-submenu");
+        if (parent.length) {
+            parent.addClass("show");
+            parent.children(".dropdown-menu").addClass("show");
+        }
     });
+
+    // Close dropdown when Escape key is pressed
+    $(document).on("keydown", function (e) {
+        if (e.key === "Escape" || e.keyCode === 27) {
+            e.preventDefault();
+            $(".dropdown, .dropdown-submenu").removeClass("show");
+            $(".dropdown-menu").removeClass("show");
+        }
+    });
+
+    // Allow Arrow keys & Tab navigation inside dropdown
+    $(".dropdown-menu").on("keydown", function (e) {
+        let items = $(this).find(".dropdown-item");
+        let index = items.index(document.activeElement);
+
+        if (e.key === "ArrowDown") {
+            e.preventDefault();
+            let nextIndex = (index + 1) % items.length;
+            items.eq(nextIndex).focus();
+        } else if (e.key === "ArrowUp") {
+            e.preventDefault();
+            let prevIndex = (index - 1 + items.length) % items.length;
+            items.eq(prevIndex).focus();
+        } else if (e.key === "Tab") {
+            let nextIndex = index + 1;
+            if (nextIndex >= items.length) {
+                $(".dropdown, .dropdown-submenu").removeClass("show");
+                $(".dropdown-menu").removeClass("show");
+            }
+        }
+    });
+
+    // Open nested dropdown when Arrow Down is pressed
+    $(".dropdown-item").on("keydown", function (e) {
+        if (e.key === "ArrowDown") {
+            let parent = $(this).closest(".dropdown, .dropdown-submenu");
+            let submenu = parent.find(".dropdown-menu:first");
+
+            if (submenu.length && !submenu.hasClass("show")) {
+                e.preventDefault();
+                parent.addClass("show");
+                submenu.addClass("show");
+                submenu.find(".dropdown-item:first").focus();
+            }
+        }
+    });
+
+    // Close dropdown on outside click
+    $(document).on("click", function (e) {
+        if (!$(e.target).closest(".dropdown").length) {
+            $(".dropdown, .dropdown-submenu").removeClass("show");
+            $(".dropdown-menu").removeClass("show");
+        }
+    });
+});
+
 </script>
-
-
-
-    <div id="skip_to_main_content">
+<div id="skip_to_main_content">
