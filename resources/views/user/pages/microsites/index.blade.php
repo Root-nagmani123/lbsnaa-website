@@ -78,7 +78,7 @@
                                 alt="{{ $slider->slider_text }}"
                                 style="width: 100%; height: 400px; object-fit: cover; border-radius: 10px;">
                             <div class="carousel-caption d-none d-md-block" style="bottom: 0 !important;">
-                                <h3 class="text-white slider-caption">{{ $slider->slider_text }}</h3>
+                                <p class="text-white slider-caption">{{ $slider->slider_text }}</p>
                             </div>
                         </div>
                         @endforeach
@@ -192,10 +192,10 @@
             <!-- Research Centres -->
             <div class="col-12 col-lg-9 mb-4">
                 @foreach($research_centres as $research_centre)
-                <h3 class="text-center uppercase" style="color:#af2910">{{($research_centre->home_title) }}
+                <p class="text-center uppercase fw-bold" style="color:#af2910; font-size:24px;">{{($research_centre->home_title) }}
                     <br><span><img src="{{ asset('assets/images/devider.png') }}"
                             alt="{{ $research_centre->home_title }}"></span>
-                </h3>
+                </p>
                 <p style="text-align: justify;" class="mb-4">{!! $research_centre->description !!}</p>
 
                 @endforeach

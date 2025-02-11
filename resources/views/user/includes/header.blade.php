@@ -20,10 +20,11 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="{{ asset('assets/js/orgchart.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://img1.digitallocker.gov.in/ux4g/UX4G-CDN-accessibility/css/accesibility-style-v2.1.css">
 
     <title>
         @if(isset($title))
-        {{ $title }}
+        {{ $title }} | Lal Bahadur Shastri National Academy of Administration
         @endif
     </title>
     <style>
@@ -133,43 +134,48 @@
 <body class="d-flex flex-column min-vh-100 bg-white" style="overflow-x: hidden">
     <div class="container-fluid bg-light bar">
         <div class="row py-1 align-items-center">
-            <div class="col-md-4 d-flex align-items-center" style="font-size: 16px;font-weight:400;color:#af2910;">
+            <div class="col-md-3 d-flex align-items-center" style="font-size: 16px;font-weight:400;color:#af2910;">
                 <img class="img-fluid" src="{{ asset('assets/images/icons/ashok.jpg') }}" alt="Logo of Ashok Stambh"
                     aria-label="Logo of Ashoka Stambh" style="font-size: 510px;height: 50px;margin-right:5px;">
                 भारत सरकार | Government of India
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <h1 class="h4 text-center text-primary d-none"><a href="#"
                         aria-label="{{ $title }} | Lal Bahadur Shastri National Academy of Administration">{{ $title }}</a>
                 </h1>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <ul class="nav justify-content-end align-items-center">
                     <!-- Tooltip Items -->
                     <li class="nav-item">
-                        <a class="nav-link" href="#skip_to_main_content" data-bs-toggle="tooltip"
+                        <a class="nav-link fw-bold" href="#skip_to_main_content" data-bs-toggle="tooltip"
                             data-bs-placement="bottom" title="Skip to main content" aria-label="Skip to main content">
-                            <i class="material-icons menu-icon">restart_alt</i>
+                            <!-- <i class="material-icons menu-icon">event_repeat</i> -->
+                            <img src="{{ asset('assets/images/skip_to_main_content.png') }}" alt="skip to main content"
+                                style="height: 30px;">
+
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('user.screen-reader') }}" data-bs-toggle="tooltip"
                             data-bs-placement="bottom" title="Screen Reader" aria-label="Screen Reader">
-                            <i class="material-icons menu-icon">volume_up</i>
+                            <!-- <i class="material-icons menu-icon">volume_up</i> -->
+                            <img src="{{ asset('assets/images/screenreadeer.png') }}" alt="screen reader"
+                                style="height: 30px;">
                         </a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                            title="Accessibility" aria-label="Expanded accessibility menu">
-                            <i class="material-icons menu-icon">accessible</i>
+                            aria-expanded="false" title="Accessibility" aria-label="Expanded accessibility menu">
+                            <!-- <i class="material-icons menu-icon">accessible</i> -->
+                            <img src="{{ asset('assets/images/Accessibility (2).png') }}" alt="accessibility"
+                                style="height: 30px;">
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="javascript:void(0);" onclick="set_font_size('increase')"
                                     title="Increase font size" aria-label="Increase font size">A<sup>+</sup></a></li>
                             <li><a class="dropdown-item" href="javascript:void(0);" onclick="set_font_size('')"
-                                    title="Reset font size" aria-label="Reset font size">A</a>
-                            </li>
+                                    title="Reset font size" aria-label="Reset font size">A</a></li>
                             <li><a class="dropdown-item" href="javascript:void(0);" onclick="set_font_size('decrease')"
                                     title="Decrease font size" aria-label="Decrease font size">A<sup>-</sup></a></li>
                         </ul>
@@ -178,7 +184,9 @@
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false" data-bs-toggle="tooltip" data-bs-placement="bottom"
                             title="Social Media Links" aria-label="Expanded Social Media Links">
-                            <i class="material-icons menu-icon">group</i>
+                            <!-- <i class="material-icons menu-icon">group</i> -->
+                            <img src="{{ asset('assets/images/social_group.png') }}" alt="social media links"
+                                style="height: 30px;">
                         </a>
                         @php
                         $social_media_links = DB::table('social_media_links')->get();
@@ -186,25 +194,25 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="{{ $social_media_links[0]->facebook_url }}" class="dropdown-item"
-                                    target="_blank" data-bs-toggle="tooltip" title="Facebook" aria-label="Facebook">
+                                    target="_blank" title="Facebook" aria-label="Facebook">
                                     <i class="bi bi-facebook fa-2x" style="color: #af2910;"></i>
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ $social_media_links[0]->twitter_url }}" class="dropdown-item"
-                                    target="_blank" data-bs-toggle="tooltip" title="Twitter" aria-label="Twitter">
+                                    target="_blank" title="Twitter" aria-label="Twitter">
                                     <i class="bi bi-twitter-x" style="color: #af2910;"></i>
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ $social_media_links[0]->youtube_url }}" class="dropdown-item"
-                                    target="_blank" data-bs-toggle="tooltip" title="YouTube" aria-label="Youtube">
+                                    target="_blank" title="YouTube" aria-label="YouTube">
                                     <i class="bi bi-youtube" style="color:#af2910;"></i>
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ $social_media_links[0]->linkedin_url }}" class="dropdown-item"
-                                    target="_blank" data-bs-toggle="tooltip" title="LinkedIn" aria-label="Linkedin">
+                                    target="_blank" title="LinkedIn" aria-label="LinkedIn">
                                     <i class="bi bi-linkedin" style="color:#af2910;"></i>
                                 </a>
                             </li>
@@ -213,14 +221,17 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('user.sitemap') }}" data-bs-toggle="tooltip"
                             data-bs-placement="bottom" title="Sitemap" aria-label="Sitemap">
-                            <i class="material-icons menu-icon">account_tree</i>
+                            <!-- <i class="material-icons menu-icon">account_tree</i> -->
+                            <img src="{{ asset('assets/images/sitemap.png') }}" alt="sitemap" style="height: 30px;">
                         </a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="material-icons menu-icon">search</i>
+                        <a class="nav-link" href="#" data-bs-toggle="dropdown" aria-expanded="false"
+                            data-bs-display="static">
+                            <!-- <i class="material-icons menu-icon">search</i> -->
+                            <img src="{{ asset('assets/images/search.png') }}" alt="search" style="height: 30px;">
                         </a>
-                        <div class="dropdown-menu dropdown-menu-start p-2 custom-dropdown" style="width: 250px;">
+                        <div class="dropdown-menu p-2 custom-dropdown" style="width: 250px;">
                             <form action="https://www.google.com/search" method="GET" target="_blank">
                                 <input type="text" name="q" class="form-control mb-2" placeholder="Search..." required>
                                 <div class="form-check">
@@ -236,8 +247,8 @@
                     .custom-dropdown {
                         left: 0 !important;
                         right: auto !important;
-                        transform: translateX(-85%);
-                        /* Moves dropdown fully to the left */
+                        transform: translateX(-85%) !important;
+                        /* Ensures dropdown always opens to the left */
                     }
                     </style>
 
@@ -246,23 +257,219 @@
 
 
                     <!-- <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button"
+                        <a class="nav-link dropdown-toggle fw-bold" href="#" id="languageDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside"
                             data-bs-offset="10,20" aria-label="Language">
-                            <i class="material-icons menu-icon">language</i>
+                            <img src="{{ asset('assets/images/language.png') }}" alt="language" style="height: 30px;">
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="languageDropdown">
-                            <li><a class="dropdown-item" href="{{ route('set.language', 1) }}" aria-label="English">English</a></li>
-                            <li><a class="dropdown-item" href="{{ route('set.language', 2) }}" aria-label="Hindi">Hindi</a></li>
+                            <li><a class="dropdown-item" href="{{ route('set.language', 1) }}"
+                                    aria-label="English">English</a></li>
+                            <li><a class="dropdown-item" href="{{ route('set.language', 2) }}"
+                                    aria-label="Hindi">Hindi</a></li>
                         </ul>
                     </li> -->
-
+                    <li class="nav-item">
+                        <a class="fw-bold text-primary" id="uw-widget-custom-trigger" contenteditable="false"
+                            style="cursor: pointer">
+                            <img src="{{ asset('assets/images/more.png') }}" alt="language" style="height: 30px;">
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
 
     </div>
-
+    <!-- accessibility panel -->
+    <div class="uwaw uw-light-theme gradient-head uwaw-initial paid_widget" id="uw-main">
+        <div class="relative second-panel" style="background-color:#af2910;">
+            <h3>Accessibility options by LBSNAA</h3>
+            <div class="uwaw-close" onclick="closeMain()"></div>
+        </div>
+        <div class="uwaw-body">
+            <div class="h-scroll">
+                <div class="uwaw-features">
+                    <div class="uwaw-features__item reset-feature" id="featureItem_sp">
+                        <button id="speak" class="uwaw-features__item__i"
+                            data-uw-reader-content="Enable the UserWay screen reader"
+                            aria-label="Enable the UserWay screen reader" aria-pressed="false">
+                            <span class="uwaw-features__item__icon">
+                                <span class="ux4g-icon icon-speaker"> </span>
+                            </span>
+                            <span class="uwaw-features__item__name">Text To Speech</span>
+                            <span class="tick-active uwaw-features__item__enabled reset-tick" id="tickIcon_sp"
+                                style="display: none">
+                            </span>
+                        </button>
+                    </div>
+                    <div class="uwaw-features__item reset-feature" id="featureItem">
+                        <button id="btn-s9" class="uwaw-features__item__i"
+                            data-uw-reader-content="Enable the UserWay screen reader"
+                            aria-label="Enable the UserWay screen reader" aria-pressed="false">
+                            <span class="uwaw-features__item__icon">
+                                <span class="ux4g-icon icon-bigger-text"> </span> </span><span
+                                class="uwaw-features__item__name">Bigger Text</span>
+                            <div class="uwaw-features__item__steps reset-steps" id="featureSteps">
+                                <!-- Steps span tags will be dynamically added here -->
+                            </div>
+                            <span class="tick-active uwaw-features__item__enabled reset-tick" id="tickIcon"
+                                style="display: none">
+                            </span>
+                        </button>
+                    </div>
+                    <div class="uwaw-features__item reset-feature" id="featureItem-st">
+                        <button id="btn-small-text" class="uwaw-features__item__i"
+                            data-uw-reader-content="Enable the UserWay screen reader"
+                            aria-label="Enable the UserWay screen reader" aria-pressed="false">
+                            <span class="uwaw-features__item__icon">
+                                <span class="ux4g-icon icon-small-text"> </span> </span><span
+                                class="uwaw-features__item__name">Small Text</span>
+                            <div class="uwaw-features__item__steps reset-steps" id="featureSteps-st">
+                                <!-- Steps span tags will be dynamically added here -->
+                            </div>
+                            <span class="tick-active uwaw-features__item__enabled reset-tick" id="tickIcon-st"
+                                style="display: none">
+                            </span>
+                        </button>
+                    </div>
+                    <div class="uwaw-features__item reset-feature" id="featureItem-lh">
+                        <button id="btn-s12" class="uwaw-features__item__i"
+                            data-uw-reader-content="Enable the UserWay screen reader"
+                            aria-label="Enable the UserWay screen reader" aria-pressed="false">
+                            <span class="uwaw-features__item__icon">
+                                <span class="ux4g-icon icon-line-hight"> </span>
+                            </span>
+                            <span class="uwaw-features__item__name">Line Height</span>
+                            <div class="uwaw-features__item__steps reset-steps" id="featureSteps-lh">
+                                <!-- Steps span tags will be dynamically added here -->
+                            </div>
+                            <span class="tick-active uwaw-features__item__enabled reset-tick" id="tickIcon-lh"
+                                style="display: none">
+                            </span>
+                        </button>
+                    </div>
+                    <div class="uwaw-features__item reset-feature" id="featureItem-ht">
+                        <button id="btn-s10" onclick="highlightLinks()" class="uwaw-features__item__i"
+                            data-uw-reader-content="Enable the UserWay screen reader"
+                            aria-label="Enable the UserWay screen reader" aria-pressed="false">
+                            <span class="uwaw-features__item__icon">
+                                <span class="ux4g-icon icon-highlight-links"> </span>
+                            </span>
+                            <span class="uwaw-features__item__name">Highlight Links</span>
+                            <span class="tick-active uwaw-features__item__enabled reset-tick" id="tickIcon-ht"
+                                style="display: none">
+                            </span>
+                        </button>
+                    </div>
+                    <div class="uwaw-features__item reset-feature" id="featureItem-ts">
+                        <button id="btn-s13" onclick="increaseAndReset()" class="uwaw-features__item__i"
+                            data-uw-reader-content="Enable the UserWay screen reader"
+                            aria-label="Enable the UserWay screen reader" aria-pressed="false">
+                            <span class="uwaw-features__item__icon">
+                                <span class="ux4g-icon icon-text-spacing"> </span>
+                            </span>
+                            <span class="uwaw-features__item__name">Text Spacing</span>
+                            <div class="uwaw-features__item__steps reset-steps" id="featureSteps-ts">
+                                <!-- Steps span tags will be dynamically added here -->
+                            </div>
+                            <span class="tick-active uwaw-features__item__enabled reset-tick" id="tickIcon-ts"
+                                style="display: none">
+                            </span>
+                        </button>
+                    </div>
+                    <div class="uwaw-features__item reset-feature" id="featureItem-df">
+                        <button id="btn-df" onclick="toggleFontFeature()" class="uwaw-features__item__i"
+                            data-uw-reader-content="Enable the UserWay screen reader"
+                            aria-label="Enable the UserWay screen reader" aria-pressed="false">
+                            <span class="uwaw-features__item__icon">
+                                <span class="ux4g-icon icon-dyslexia-font"> </span>
+                            </span>
+                            <span class="uwaw-features__item__name">Dyslexia Friendly</span>
+                            <span class="tick-active uwaw-features__item__enabled reset-tick" id="tickIcon-df"
+                                style="display: none">
+                            </span>
+                        </button>
+                    </div>
+                    <div class="uwaw-features__item reset-feature" id="featureItem-hi">
+                        <button id="btn-s11" onclick="toggleImages()" class="uwaw-features__item__i"
+                            data-uw-reader-content="Enable the UserWay screen reader"
+                            aria-label="Enable the UserWay screen reader" aria-pressed="false">
+                            <span class="uwaw-features__item__icon">
+                                <span class="ux4g-icon icon-hide-images"> </span>
+                            </span>
+                            <span class="uwaw-features__item__name">Hide Images</span>
+                            <span class="tick-active uwaw-features__item__enabled reset-tick" id="tickIcon-hi"
+                                style="display: none">
+                            </span>
+                        </button>
+                    </div>
+                    <div class="uwaw-features__item reset-feature" id="featureItem-Cursor">
+                        <button id="btn-cursor" onclick="toggleCursorFeature()" class="uwaw-features__item__i"
+                            data-uw-reader-content="Enable the UserWay screen reader"
+                            aria-label="Enable the UserWay screen reader" aria-pressed="false">
+                            <span class="uwaw-features__item__icon">
+                                <span class="ux4g-icon icon-cursor"> </span>
+                            </span>
+                            <span class="uwaw-features__item__name">Cursor</span>
+                            <span class="tick-active uwaw-features__item__enabled reset-tick" id="tickIcon-cursor"
+                                style="display: none">
+                            </span>
+                        </button>
+                    </div>
+                    <div class="uwaw-features__item reset-feature" id="featureItem-ht-dark">
+                        <button id="dark-btn" class="uwaw-features__item__i"
+                            data-uw-reader-content="Enable the UserWay screen reader"
+                            aria-label="Enable the UserWay screen reader" aria-pressed="false">
+                            <span class="uwaw-features__item__name">
+                                <span class="light_dark_icon">
+                                    <input type="checkbox" class="light_mode uwaw-featugres__item__i" id="checkbox" />
+                                    <label for="checkbox" class="checkbox-label">
+                                        <!-- <i class="fas fa-moon-stars"></i> -->
+                                        <i class="fas fa-moon-stars">
+                                            <span class="ux4g-icon icon-moon"></span>
+                                        </i>
+                                        <i class="fas fa-sun">
+                                            <span class="ux4g-icon icon-sun"></span>
+                                        </i>
+                                        <span class="ball"></span>
+                                    </label>
+                                </span>
+                                <span class="uwaw-features__item__name">Light-Dark</span>
+                            </span>
+                            <span class="tick-active uwaw-features__item__enabled reset-tick" id="tickIcon-ht-dark"
+                                style="display: none; pointer-events: none">
+                            </span>
+                        </button>
+                    </div>
+                    <!-- Invert Colors Widget -->
+                    <div class="uwaw-features__item reset-feature" id="featureItem-ic">
+                        <button id="btn-invert" class="uwaw-features__item__i"
+                            data-uw-reader-content="Enable the UserWay screen reader"
+                            aria-label="Enable the UserWay screen reader" aria-pressed="false">
+                            <span class="uwaw-features__item__icon">
+                                <span class="ux4g-icon icon-invert"> </span>
+                            </span>
+                            <span class="uwaw-features__item__name">Invert Colors</span>
+                            <span class="tick-active uwaw-features__item__enabled reset-tick" id="tickIcon-ic"
+                                style="display: none">
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Reset Button -->
+        </div>
+        <div class="reset-panel">
+            <!-- copyright accessibility bar -->
+            <div class="copyrights-accessibility">
+                <button class="btn-reset-all" id="reset-all" onclick="resetAll()">
+                    <span class="reset-icon"> </span>
+                    <span class="reset-btn-text">Reset All Settings</span>
+                </button>
+            </div>
+        </div>
+    </div>
+        <script src="https://img1.digitallocker.gov.in/ux4g/UX4G-CDN-accessibility/js/weights-v1.js"></script><script>    document.getElementById('uw-widget-custom-trigger2').addEventListener('click', function() {    openMain();  });</script>
     <nav class="navbar navbar-expand-lg shadow-none sticky-xl-top sticky-lg-top">
         <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
             <!-- Logo -->
@@ -600,8 +807,8 @@
     });
 
     $(document).ready(function() {
-        // Function to open dropdown on hover
-        $(".dropdown").hover(
+        // Open dropdown on hover
+        $(".dropdown, .dropdown-submenu").hover(
             function() {
                 $(this).addClass("show");
                 $(this).children(".dropdown-menu").addClass("show");
@@ -612,33 +819,30 @@
             }
         );
 
-        $(".dropdown-submenu").hover(
-            function() {
-                $(this).addClass("show");
-                $(this).children(".dropdown-menu").addClass("show");
-            },
-            function() {
-                $(this).removeClass("show");
-                $(this).children(".dropdown-menu").removeClass("show");
-            }
-        );
-
-        // Function to handle keyboard navigation
+        // Open dropdown when focused on
         $(".nav-link, .dropdown-item").on("focus", function() {
-            let parent = $(this).parent();
-
-            // Open dropdown when focused
-            if (parent.hasClass("dropdown") || parent.hasClass("dropdown-submenu")) {
+            let parent = $(this).closest(".dropdown, .dropdown-submenu");
+            if (parent.length) {
                 parent.addClass("show");
                 parent.children(".dropdown-menu").addClass("show");
             }
         });
 
-        // Close dropdown on Esc key press
+        // Close the dropdown when Escape key is pressed
         $(document).on("keydown", function(e) {
-            if (e.key === "Escape") {
-                $(".dropdown, .dropdown-submenu").removeClass("show");
-                $(".dropdown-menu").removeClass("show");
+            if (e.key === "Escape" || e.keyCode === 27) {
+                e.preventDefault(); // Prevent default action
+
+                let focusedElement = $(document.activeElement);
+                let parentDropdown = focusedElement.closest(".dropdown");
+
+                if (parentDropdown.length) {
+                    // Close the dropdown
+                    parentDropdown.removeClass("show");
+                    parentDropdown.children(".dropdown-menu").removeClass("show");
+                    parentDropdown.find(".dropdown-menu")
+                        .hide(); // Hide the dropdown to prevent it from showing up again
+                }
             }
         });
 
@@ -659,5 +863,6 @@
         });
     });
     </script>
+
 
     <div id="skip_to_main_content">

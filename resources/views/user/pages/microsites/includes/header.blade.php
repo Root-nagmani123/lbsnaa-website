@@ -35,6 +35,12 @@
     <title>{{$Title}}</title>
 
     <style>
+    *:focus {
+        outline: 2px solid #af2910;
+        /* High-contrast green */
+        outline-offset: 2px;
+    }
+
     .slider-caption {
         position: absolute;
         top: 0;
@@ -42,80 +48,58 @@
         z-index: 1000;
         width: 100%;
         height: 100%;
-        /* Cover the full height of the carousel */
         background: rgba(0, 0, 0, 0.5);
-        /* Semi-transparent black */
         color: #fff;
         font-weight: 600;
         font-size: 100%;
         line-height: 135%;
         padding: 10px;
         display: flex;
-        /* Use flexbox for centering */
         flex-direction: column;
         justify-content: center;
         align-items: center;
         text-align: center;
     }
 
-    .navmenu .nav-link:focus,
-    .navmenu .dropdown-item:focus {
-        outline: 2px solid #af2910;
-        /* Highlight focus */
-        background-color: rgba(255, 255, 255, 0);
-        /* Light red background */
+    .dropdown-item {
+        white-space: normal;
+        /* Allow text wrapping inside menu items */
+        word-wrap: break-word;
+        /* Ensure long words wrap properly */
     }
 
-    a:focus,
-    a:focus-visible {
+    .navbar-nav .nav-link:focus,
+    .navbar-nav .dropdown-item:focus {
         outline: 2px solid #af2910 !important;
-        /* Red outline to indicate focus */
-        background-color: rgba(0, 0, 0, 0);
-        /* Light red background */
-        border-radius: 5px;
+        /* High-contrast green */
+        outline-offset: 2px;
+        box-shadow: 0 0 5px rgba(211, 4, 49, 0.75);
+        /* Optional for extra visibility */
     }
 
-    /* Ensure the toggle button and menu items are highlighted on focus */
-    .navbar-toggler:focus,
-    .navmenu a:focus {
-        outline: 2px solid #007bff;
-        /* Blue outline for accessibility */
-        border-radius: 5px;
+    .dropdown-toggle:focus,
+    .dropdown-item:focus {
+        outline: 2px solid #af2910 !important;
+        outline-offset: 2px;
     }
 
-    /* Ensure dropdown menus are visible when focused */
-    .navbar-nav .dropdown:focus-within .dropdown-menu,
-    .navbar-nav .dropdown:hover .dropdown-menu {
+    .navbar {
+        overflow: visible !important;
+    }
+
+    .btn-scroll-top:focus {
+        outline: 2px solid #af2910 !important;
+        outline-offset: 2px;
+        box-shadow: 0 0 5px rgba(211, 4, 49, 0.75);
+        /* Optional for extra visibility */
+    }
+
+    /* Ensure dropdown opens on hover */
+    .navbar-nav .dropdown:hover>.dropdown-menu,
+    .navbar-nav .dropdown:focus-within>.dropdown-menu {
         display: block;
-        opacity: 1;
         visibility: visible;
-    }
-
-    /* Dropdown menu transition */
-    .dropdown-menu {
-        display: none;
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
-    }
-
-    /* Ensure the toggle button bars are visible */
-    .navbar-toggler .icon-bar {
-        display: block;
-        width: 30px;
-        height: 4px;
-        background-color: #000;
-        margin: 5px 0;
-        transition: 0.3s;
-    }
-
-    /* Change toggle button color on focus */
-    .navbar-toggler:focus {
-        outline: 2px solid #af2910 !important;
-        /* Red outline to indicate focus */
-        background-color: rgba(0, 0, 0, 0);
-        /* Light red background */
-        border-radius: 5px;
+        opacity: 1;
     }
     </style>
 
@@ -125,12 +109,11 @@
     <section class="bg-light">
         <div class="container-fluid">
             <div class="row">
-            <div class="col-md-4 d-flex align-items-center" style="font-size: 16px;font-weight:400;color:#af2910;">
-                <img class="img-fluid"
-                        src="{{ asset('assets/images/icons/ashok.jpg') }}" alt="Logo of Ashok Stambh"
+                <div class="col-md-4 d-flex align-items-center" style="font-size: 16px;font-weight:400;color:#af2910;">
+                    <img class="img-fluid" src="{{ asset('assets/images/icons/ashok.jpg') }}" alt="Logo of Ashok Stambh"
                         aria-label="Logo of Ashoka Stambh" style="font-size: 510px;height: 50px;margin-right:5px;">
                     भारत सरकार | Government of India
-            </div>
+                </div>
                 <div class="col-md-8">
                     <ul class="nav justify-content-end align-items-right">
                         <!-- Tooltip Items -->
@@ -253,9 +236,8 @@
                     }
 
                     echo "<li
-                        class='nav-item " . ($hasChildren ? "dropdown dropdown-submenu dropend" : "") . ($isRoot ? "" : " border-bottom") . " '>
-                        <a href='{$menuLink}'
-                            class='" . ($hasChildren ? "dropdown-item dropdown-toggle" : "nav-link") . "'
+                        class='nav-item " . ($hasChildren ? "dropdown" . (!$isRoot ? " dropend" : "") : "") . ($isRoot ? "" : " border-bottom dropdown-item") . "'>
+                        <a href='{$menuLink}' class='" . ($hasChildren ? "nav-link dropdown-toggle" : "nav-link") . "'
                             target='{$target}'>";
                             echo $menu->menutitle;
                             echo "</a>";
@@ -300,4 +282,59 @@
         });
     });
     </script>
+    <script>
+    $(document).ready(function () {
+    $(".nav-link, .dropdown-item").on("keydown", function (e) {
+        let $currentItem = $(this);
+        let $parentDropdown = $currentItem.closest(".dropdown, .dropdown-submenu");
+        let $submenu = $parentDropdown.find(".dropdown-menu:first");
+        let $allItems = $currentItem.closest(".dropdown-menu").find(".dropdown-item");
+        let index = $allItems.index(this);
+
+        if (e.key === "ArrowDown") {
+            e.preventDefault();
+
+            if ($submenu.length && !$submenu.hasClass("show")) {
+                // Agar submenu hai toh usko open kare aur pehle item par focus kare
+                $parentDropdown.addClass("show");
+                $submenu.addClass("show").find(".dropdown-item:first").focus();
+            } else {
+                // Agar submenu nahi hai toh next item par move kare
+                let nextIndex = (index + 1) % $allItems.length;
+                $allItems.eq(nextIndex).focus();
+            }
+        } else if (e.key === "ArrowUp") {
+            e.preventDefault();
+            // Previous item par move kare
+            let prevIndex = (index - 1 + $allItems.length) % $allItems.length;
+            $allItems.eq(prevIndex).focus();
+        } else if (e.key === "Tab") {
+            e.preventDefault();
+            // Next item par move kare
+            let nextIndex = (index + 1) % $allItems.length;
+            $allItems.eq(nextIndex).focus();
+        } else if (e.key === "Escape") {
+            e.preventDefault();
+            // Dropdown close kare
+            $parentDropdown.removeClass("show");
+            $submenu.removeClass("show");
+        }
+    });
+
+    // Hover par dropdown open kare
+    $(".dropdown, .dropdown-submenu").hover(
+        function () {
+            $(this).addClass("show");
+            $(this).children(".dropdown-menu").addClass("show");
+        },
+        function () {
+            $(this).removeClass("show");
+            $(this).children(".dropdown-menu").removeClass("show");
+        }
+    );
+});
+
+</script>
+
+
     <div id="skip_to_main_content">

@@ -99,8 +99,6 @@
 <!-- Play/Pause Script -->
 
 
-
-
 <!-- floating notification start -->
 <section class="py-3 bg-light">
     <div class="container-fluid">
@@ -181,16 +179,18 @@ document.addEventListener("DOMContentLoaded", function() {
                 <div class="card card-lift text-center text-lg-start h-100">
                     <div class="p-3 p-lg-4 text-center">
                         <img src="{{ asset('assets/images/icons/1.jpg') }}" alt=""
-                            class="avatar avatar-xl rounded-circle" style="object-fit: cover;">
+                            class="avatar avatar-xl rounded-circle">
                     </div>
-                    <div class="card-body pt-2" style=" height: 100px;">
-                        <p class="mb-3 fw-bold">
+                    <div class="card-header " style="border-bottom: none;">
+                    <p class="mb-3 fw-bold">
                             @if(Cookie::get('language') == '2')
                             निदेशक संदेश
                             @else
                             Director Message
                             @endif
                         </p>
+                    </div>
+                    <div class="card-body pt-2" style=" height: 80px;">
                         <a href="{{ url('menu/director-message') }}" class="icon-link icon-link-hover link-primary">
                             @if(Cookie::get('language') == '2')
                             संदेश
@@ -212,16 +212,19 @@ document.addEventListener("DOMContentLoaded", function() {
                 <div class="card card-lift text-center text-lg-start h-100">
                     <div class="p-3 p-lg-4 text-center">
                         <img src="{{ asset('assets/images/icons/3.jpg') }}" alt=""
-                            class="avatar avatar-xl rounded-circle" style="object-fit: cover;">
+                            class="avatar avatar-xl rounded-circle">
                     </div>
-                    <div class="card-body pt-2" style="overflow-y:scroll; height: 100px;">
-                        <p class="mb-3 fw-bold">
+                    <div class="card-header" style="border-bottom: none;">
+                    <p class="fw-bold">
                             @if(Cookie::get('language') == '2')
                             दौड़ पाठ्यक्रम
                             @else
                             Runing Courses
                             @endif
                         </p>
+                    </div>
+                    <div class="card-body pt-2" style="overflow-y:scroll; height: 80px;">
+                        
                         @if(count($current_course) > 0)
                         <ul>
                             @php $i = 0; @endphp
@@ -268,16 +271,18 @@ document.addEventListener("DOMContentLoaded", function() {
                 <div class="card card-lift text-center text-lg-start h-100">
                     <div class="p-3 p-lg-4 text-center">
                         <img src="{{ asset('assets/images/icons/4.jpg') }}" alt=""
-                            class="avatar avatar-xl rounded-circle text-center" style="object-fit: cover;">
+                            class="avatar avatar-xl rounded-circle text-center">
                     </div>
-                    <div class="card-body pt-2 pb-2" style="overflow-y:scroll;height: 100px;">
-                        <p class="mb-3 fw-bold">
-                            @if(Cookie::get('language') == '2')
+                    <div class="card-header" style="border-bottom: none;">
+                    <p class="fw-bold">
+                    @if(Cookie::get('language') == '2')
                             आगामी पाठ्यक्रम
                             @else
                             Upcoming Courses
                             @endif
                         </p>
+                    </div>
+                    <div class="card-body pt-2 pb-2" style="overflow-y:scroll;height: 80px;">
                         @if(count($upcoming_course) > 0)
                         <ul>
 
@@ -319,16 +324,19 @@ document.addEventListener("DOMContentLoaded", function() {
                 <div class="card card-lift text-center text-lg-start h-100">
                     <div class="p-3 p-lg-4 text-center">
                         <img src="{{ asset('assets/images/icons/2.jpg') }}" alt=""
-                            class="avatar avatar-xl rounded-circle text-center" style="object-fit: cover;">
+                            class="avatar avatar-xl rounded-circle text-center">
                     </div>
-                    <div class="card-body pt-2" style="height: 100px;">
-                        <p class="mb-3 fw-bold">
-                            @if(Cookie::get('language') == '2')
+                    <div class="card-header" style="border-bottom: none;">
+                    <p class="fw-bold">
+                    @if(Cookie::get('language') == '2')
                             प्रशिक्षण कैलेंडर
                             @else
                             Training Calendar
                             @endif
                         </p>
+                    </div>
+                    
+                    <div class="card-body pt-2" style="height: 80px;">
                         <a href="{{ url('cms/training_cal') }}" class="icon-link icon-link-hover link-primary">
                             @if(Cookie::get('language') == '2')
                             एलबीएसएनएए का प्रशिक्षण कैलेंडर
@@ -345,14 +353,16 @@ document.addEventListener("DOMContentLoaded", function() {
                         <img src="{{ asset('assets/images/icons/5.jpg') }}" alt=""
                             class="avatar avatar-xl rounded-circle text-center" style="object-fit: cover;">
                     </div>
-                    <div class="card-body pt-2" style="height: 100px;">
-                        <p class="mb-3 fw-bold">
-                            @if(Cookie::get('language') == '2')
+                    <div class="card-header" style="border-bottom: none;">
+                    <p class="fw-bold">
+                    @if(Cookie::get('language') == '2')
                             अकादमी में जीवन
                             @else
                             Life at Academy
                             @endif
                         </p>
+                    </div>
+                    <div class="card-body pt-2" style="height: 80px;">
                         <a href="{{ url('menu/the-academy-experience') }}"
                             class="icon-link icon-link-hover link-primary">
                             @if(Cookie::get('language') == '2')
@@ -378,14 +388,16 @@ document.addEventListener("DOMContentLoaded", function() {
                         <img src="{{ asset('assets/images/icons/6.jpg') }}" alt=""
                             class="avatar avatar-xl rounded-circle text-center" style="object-fit: cover;">
                     </div>
-                    <div class="card-body pt-2" style="height: 100px;">
-                        <p class="mb-3 fw-bold">
-                            @if(Cookie::get('language') == '2')
+                    <div class="card-header" style="border-bottom: none;">
+                    <p class="fw-bold">
+                    @if(Cookie::get('language') == '2')
                             अकादमी स्मारिका
                             @else
                             Academy Souvenir
                             @endif
                         </p>
+                    </div>
+                    <div class="card-body pt-2" style="height: 80px;">
                         <a href="{{ url('souvenir?pro_category=7')}}" class="icon-link icon-link-hover link-primary">
                             @if(Cookie::get('language') == '2')
                             यादगार लम्हे
