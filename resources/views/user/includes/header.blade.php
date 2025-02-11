@@ -359,8 +359,7 @@
 
                         // Add 'w-100' class to ensure full width for the list item
                         if($submenu->texttype == 3){
-                        $output .= '<li class="check dropdown-submenu dynamic-direction w-100 border-bottom"
-                            aria-label="Expanded ' . $submenu->menutitle . '">';
+                        $output .= '<li class="check dropdown-submenu dynamic-direction w-100 border-bottom">';
 
                             $url = '';
                             if ($submenu->web_site_target == 1) {
@@ -374,8 +373,8 @@
                                 class="dropdown-item ' . ($hasChildren ? 'dropdown-toggle d-flex align-items-center' : '') . '"
                                 href="' . $url . '"
                                 target="' . ($submenu->web_site_target == 2 ? '_blank' : '_self') . '"
-                                aria-label="Expanded' . $submenu->menutitle . '"
-                                aria-expanded="false">' .
+                                aria-expanded="false"
+                                aria-label="Expanded' . $submenu->menutitle . '">' .
                                 $submenu->menutitle .
                                 '</a>';
 
@@ -498,7 +497,8 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle"
                             href="{{ route('user.navigationpagesbyslug', $menu->menu_slug) }}" data-bs-toggle="dropdown"
-                            aria-expanded="false">
+                            aria-expanded="false"
+                            aria-label="Expanded {{ $menu->menutitle }}">
                             {{ $menu->menutitle }}
                         </a>
                         <!-- <ul class="dropdown-menu">
@@ -573,7 +573,8 @@
 
                         <!-- Render the menu link -->
                         <a class="nav-link {{ renderMenuItems($menu->id, $menu->menutitle === 'Training') ? 'dropdown-toggle' : '' }}"
-                            href="{{ $url }}" target="{{ $target }}" aria-expanded="false">
+                            href="{{ $url }}" target="{{ $target }}" aria-expanded="false"
+                            aria-label="Expanded {{ $menu->menutitle }}">
                             {{ $menu->menutitle }}
                         </a>
 
