@@ -49,7 +49,7 @@
                 <!-- Additional content for the second column -->
                 <div class="mb-3">
                     <h2 class="fw-bold text-primary">
-                        {{$nav_page->menutitle}}
+                        <a href="#" class="text-primary">{{$nav_page->menutitle}}</a>
                     </h2>
                 </div>
                 

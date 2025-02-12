@@ -20,7 +20,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="{{ asset('assets/js/orgchart.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
+</title>
         @if(isset($title))
         {{ $title }} | Lal Bahadur Shastri National Academy of Administration
         @endif
@@ -132,15 +132,10 @@
 <body class="d-flex flex-column min-vh-100 bg-white" style="overflow-x: hidden">
     <div class="container-fluid bg-light bar">
         <div class="row py-1 align-items-center">
-            <div class="col-md-3 d-flex align-items-center" style="font-size: 16px;font-weight:400;color:#af2910;">
+            <div class="col-md-6 d-flex align-items-center" style="font-size: 16px;font-weight:400;color:#af2910;">
                 <img class="img-fluid" src="{{ asset('assets/images/icons/ashok.jpg') }}" alt="Logo of Ashok Stambh"
                     aria-label="Logo of Ashoka Stambh" style="font-size: 510px;height: 50px;margin-right:5px;">
                 भारत सरकार | Government of India
-            </div>
-            <div class="col-md-3">
-                <h1 class="h4 text-center text-primary d-none"><a href="#"
-                        aria-label="{{ $title }} | Lal Bahadur Shastri National Academy of Administration">{{ $title }}</a>
-                </h1>
             </div>
             <div class="col-md-6">
                 <ul class="nav justify-content-end align-items-center">
@@ -278,13 +273,15 @@
         </div>
 
     </div>
-    <nav class="navbar navbar-expand-lg shadow-none sticky-xl-top sticky-lg-top">
+    <nav class="navbar navbar-expand-lg shadow-none">
         <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
             <!-- Logo -->
-            <a href="{{ route('home') }}" class="navbar-brand me-auto logo d-flex align-items-center">
+           <h1>
+           <a href="{{ route('home') }}" class="navbar-brand me-auto logo d-flex align-items-center">
                 <img src="{{ asset('admin_assets/images/logo.png') }}" alt="logo-icon" class="img-fluid logo"
                     aria-label="Logo of Lal Bahadur Shastri National Academy of Administration">
             </a>
+           </h1>
 
             <!-- Navbar Toggle Button (For mobile view) -->
             <div>

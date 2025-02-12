@@ -188,7 +188,11 @@
                 </div>
             </div>
         </div>
-        <div class="row" id="skip_to_main_content">
+    </div>
+</section>
+<section class="py-2" id="skip_to_main_content">
+    <div class="container-fluid">
+    <div class="row" >
             <!-- Research Centres -->
             <div class="col-12 col-lg-9 mb-4">
                 @foreach($research_centres as $research_centre)
@@ -200,7 +204,7 @@
 
                 @endforeach
 
-                <div class="d-flex flex-wrap gap-3">
+                <div class="d-flex flex-wrap gap-3" >
                     @foreach ($research_centres as $research_centre)
                     <a href="{{ route('mediagallery', ['slug' => $research_centre->research_centre_slug]) }}"
                         class="card border shadow-sm text-center" style="width: 200px;">

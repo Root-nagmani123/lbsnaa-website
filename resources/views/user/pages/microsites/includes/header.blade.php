@@ -134,7 +134,7 @@
             </div>
         </div>
     </section>
-    <header class="d-lg-block sticky-xl-top sticky-lg-top">
+    <header class="d-lg-block">
         <nav class="navbar">
             <div class="container-fluid px-0">
                 <a class="navbar-brand" href="{{ route('home') }}"
@@ -366,4 +366,3 @@
 });
 
 </script>
-<div id="skip_to_main_content">
