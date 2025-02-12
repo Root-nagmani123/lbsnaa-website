@@ -20,7 +20,7 @@
     </div>
 </section>
 
-<section class="container-fluid">
+<section class="container-fluid" id="skip_to_main_content">
     <!-- Gallery Display -->
 
     <div class="row">

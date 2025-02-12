@@ -36,7 +36,7 @@
 </section>
 
 <!-- Page Content -->
-<section class="py-2">
+<section class="py-2" id="skip_to_main_content">
     <div class="container-fluid">
         <h2 class="text-primary mb-4"><a href="#" class="text-primary">{{ $nav_page->menutitle }}</a></h2>
         <div class="row">

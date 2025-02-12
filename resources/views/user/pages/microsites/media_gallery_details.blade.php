@@ -23,7 +23,7 @@
         </div>
     </div>
 </section>
-<section class="container-fluid">
+<section class="container-fluid" id="skip_to_main_content">
     <!-- Gallery Display -->
     @if($gallery_details->isNotEmpty())
     <div class="row">

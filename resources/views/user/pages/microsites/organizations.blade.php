@@ -19,7 +19,7 @@
         </div>
     </div>
 </section>
-<section class="container-fluid">
+<section class="container-fluid" id="skip_to_main_content">
 <h2 class="text-primary mb-4">Organization Details</h2>
     <!-- Gallery Display -->
     @if($organizations->isNotEmpty())

@@ -18,7 +18,7 @@
     </div>
 </section>
 
-<div class="container-fluid">
+<div class="container-fluid" id="skip_to_main_content">
     <div class="row">
         <!-- Left Section: Galleries -->
         <div class="col-12 col-md-9">
