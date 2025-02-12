@@ -20,7 +20,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="{{ asset('assets/js/orgchart.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <title>
+    
         @if(isset($title))
         {{ $title }} | Lal Bahadur Shastri National Academy of Administration
         @endif
@@ -137,7 +137,11 @@
                     aria-label="Logo of Ashoka Stambh" style="font-size: 510px;height: 50px;margin-right:5px;">
                 भारत सरकार | Government of India
             </div>
-            
+            <div class="col-md-3">
+                <h1 class="h4 text-center text-primary d-none"><a href="#"
+                        aria-label="{{ $title }} | Lal Bahadur Shastri National Academy of Administration">{{ $title }}</a>
+                </h1>
+            </div>
             <div class="col-md-6">
                 <ul class="nav justify-content-end align-items-center">
                     <!-- Tooltip Items -->
@@ -271,41 +275,13 @@
         </div>
 
     </div>
-    <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // Get all dropdowns inside the nav
-        let dropdowns = document.querySelectorAll(".nav-item.dropdown");
-
-        dropdowns.forEach((dropdown) => {
-            let toggle = dropdown.querySelector(".nav-link");
-            let menu = dropdown.querySelector(".dropdown-menu");
-
-            // Close dropdown when focus moves outside
-            menu.addEventListener("focusout", function(event) {
-                setTimeout(() => {
-                    if (!menu.contains(document.activeElement) && !toggle.contains(
-                            document.activeElement)) {
-                        menu.classList.remove("show");
-                    }
-                }, 200); // Small delay to ensure transition
-            });
-
-            // Ensure it opens on focus
-            toggle.addEventListener("focus", function() {
-                menu.classList.add("show");
-            });
-        });
-    });
-    </script>
     <nav class="navbar navbar-expand-lg shadow-none sticky-xl-top sticky-lg-top">
         <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
             <!-- Logo -->
-            <h1>
             <a href="{{ route('home') }}" class="navbar-brand me-auto logo d-flex align-items-center">
                 <img src="{{ asset('admin_assets/images/logo.png') }}" alt="logo-icon" class="img-fluid logo"
                     aria-label="Logo of Lal Bahadur Shastri National Academy of Administration">
             </a>
-            </h1>
 
             <!-- Navbar Toggle Button (For mobile view) -->
             <div>
