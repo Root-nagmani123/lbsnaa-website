@@ -199,7 +199,7 @@
 
                 @endforeach
 
-                <div class="d-flex flex-wrap gap-3">
+                <div class="d-flex flex-wrap gap-3" >
                     @foreach ($research_centres as $research_centre)
                     <a href="{{ route('mediagallery', ['slug' => $research_centre->research_centre_slug]) }}"
                         class="card border shadow-sm text-center" style="width: 200px;">
