@@ -267,6 +267,57 @@
                     </li> -->
                 </ul>
             </div>
+            <script>
+            document.addEventListener("DOMContentLoaded", function () {
+    let dropdowns = document.querySelectorAll(".nav-item.dropdown");
+
+    dropdowns.forEach((dropdown) => {
+        let toggle = dropdown.querySelector(".nav-link[data-bs-toggle='dropdown']");
+        let menu = dropdown.querySelector(".dropdown-menu");
+
+        if (toggle && menu) {
+            let bsDropdown = new bootstrap.Dropdown(toggle); // Bootstrap dropdown instance
+
+            // Ensure dropdown opens when toggle gets focus
+            toggle.addEventListener("focus", function () {
+                bsDropdown.show();
+            });
+
+            // Ensure dropdown closes when focus moves outside
+            menu.addEventListener("focusout", function () {
+                setTimeout(() => {
+                    if (!menu.contains(document.activeElement) && !toggle.contains(document.activeElement)) {
+                        bsDropdown.hide(); // Bootstrap method to close dropdown
+                    }
+                }, 150);
+            });
+        }
+    });
+
+    // Special handling for the search form dropdown
+    let searchToggle = document.querySelector(".nav-item.dropdown .nav-link img[alt='search']");
+    let searchDropdown = document.querySelector(".nav-item.dropdown .dropdown-menu form");
+
+    if (searchToggle && searchDropdown) {
+        let searchDropdownInstance = new bootstrap.Dropdown(searchToggle);
+
+        // Open search dropdown when search icon is focused
+        searchToggle.addEventListener("focus", function () {
+            searchDropdownInstance.show();
+        });
+
+        // Close search dropdown when focus moves outside
+        searchDropdown.addEventListener("focusout", function () {
+            setTimeout(() => {
+                if (!searchDropdown.contains(document.activeElement) && !searchToggle.contains(document.activeElement)) {
+                    searchDropdownInstance.hide();
+                }
+            }, 150);
+        });
+    }
+});
+
+            </script>
         </div>
 
     </div>
@@ -274,9 +325,9 @@
         <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
             <!-- Logo -->
             <h1><a href="{{ route('home') }}" class="navbar-brand me-auto logo d-flex align-items-center">
-                <img src="{{ asset('admin_assets/images/logo.png') }}" alt="logo-icon" class="img-fluid logo"
-                    aria-label="Logo of Lal Bahadur Shastri National Academy of Administration">
-            </a></h1>
+                    <img src="{{ asset('admin_assets/images/logo.png') }}" alt="logo-icon" class="img-fluid logo"
+                        aria-label="Logo of Lal Bahadur Shastri National Academy of Administration">
+                </a></h1>
 
             <!-- Navbar Toggle Button (For mobile view) -->
             <div>
