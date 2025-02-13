@@ -157,12 +157,12 @@
                 @endphp
 
                 @if ($centre_name)
-                <h1 class="text-dark">{{ $centre_name->research_centre_name }}<br><span class="text-center"
+                <h1 class="text-dark"><a href="#" class="text-dark">{{ $centre_name->research_centre_name }}<br><span class="text-center"
                         style="font-size:14px;">
                         @if (!empty($centre_name->sub_heading))
                         ( {{ $centre_name->sub_heading }} )
                         @endif
-                    </span></h1>
+                    </span></a></h1>
 
                 @else
 

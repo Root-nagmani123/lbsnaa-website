@@ -190,11 +190,11 @@
             <!-- Research Centres -->
             <div class="col-12 col-lg-9 mb-4">
                 @foreach($research_centres as $research_centre)
-                <p class="text-center uppercase fw-bold" style="color:#af2910; font-size:24px;"><a href="#"
+                <h3 class="text-center uppercase fw-bold" style="color:#af2910; font-size:24px;"><a href="#"
                         style="text-decoration: none;color:#af2910;">{{($research_centre->home_title) }}</a>
                     <br><span><img src="{{ asset('assets/images/devider.png') }}"
                             alt="{{ $research_centre->home_title }}"></span>
-                </p>
+                </h3>
                 <p style="text-align: justify;" class="mb-4">{!! $research_centre->description !!}</p>
 
                 @endforeach
