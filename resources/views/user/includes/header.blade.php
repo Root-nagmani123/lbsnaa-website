@@ -273,10 +273,10 @@
     <nav class="navbar navbar-expand-lg shadow-none">
         <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
             <!-- Logo -->
-            <a href="{{ route('home') }}" class="navbar-brand me-auto logo d-flex align-items-center">
+            <h1><a href="{{ route('home') }}" class="navbar-brand me-auto logo d-flex align-items-center">
                 <img src="{{ asset('admin_assets/images/logo.png') }}" alt="logo-icon" class="img-fluid logo"
                     aria-label="Logo of Lal Bahadur Shastri National Academy of Administration">
-            </a>
+            </a></h1>
 
             <!-- Navbar Toggle Button (For mobile view) -->
             <div>

@@ -28,9 +28,9 @@
         </div>
     </div>
 </section>
-<section class="py-2">
+<section class="py-2" id="skip_to_main_content">
     <div class="container-fluid">
-        <h1 class="h1 fw-bold text-primary">Organization Structure</h1>
+        <h2 class="fw-bold text-primary"><a href="#" class="text-primary">Organization Structure</a></h2>
         <div class="org-chart">
             <!-- Render the top level (First Layer) -->
             @if (!empty($hierarchy))
