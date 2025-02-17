@@ -246,7 +246,7 @@
                         /* Ensures dropdown always opens to the left */
                     }
                     </style>
-                    <!-- <li class="nav-item dropdown">
+                    <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle fw-bold" href="#" id="languageDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside"
                             data-bs-offset="10,20" aria-label="Language">
@@ -258,65 +258,61 @@
                             <li><a class="dropdown-item" href="{{ route('set.language', 2) }}"
                                     aria-label="Hindi">Hindi</a></li>
                         </ul>
-                    </li> -->
-                    <!-- <li class="nav-item">
-                        <a class="fw-bold text-primary" id="uw-widget-custom-trigger" contenteditable="false"
-                            style="cursor: pointer">
-                            <img src="{{ asset('assets/images/more.png') }}" alt="language" style="height: 30px;">
-                        </a>
-                    </li> -->
+                    </li>
                 </ul>
             </div>
             <script>
-            document.addEventListener("DOMContentLoaded", function () {
-    let dropdowns = document.querySelectorAll(".nav-item.dropdown");
+            document.addEventListener("DOMContentLoaded", function() {
+                let dropdowns = document.querySelectorAll(".nav-item.dropdown");
 
-    dropdowns.forEach((dropdown) => {
-        let toggle = dropdown.querySelector(".nav-link[data-bs-toggle='dropdown']");
-        let menu = dropdown.querySelector(".dropdown-menu");
+                dropdowns.forEach((dropdown) => {
+                    let toggle = dropdown.querySelector(".nav-link[data-bs-toggle='dropdown']");
+                    let menu = dropdown.querySelector(".dropdown-menu");
 
-        if (toggle && menu) {
-            let bsDropdown = new bootstrap.Dropdown(toggle); // Bootstrap dropdown instance
+                    if (toggle && menu) {
+                        let bsDropdown = new bootstrap.Dropdown(toggle); // Bootstrap dropdown instance
 
-            // Ensure dropdown opens when toggle gets focus
-            toggle.addEventListener("focus", function () {
-                bsDropdown.show();
-            });
+                        // Ensure dropdown opens when toggle gets focus
+                        toggle.addEventListener("focus", function() {
+                            bsDropdown.show();
+                        });
 
-            // Ensure dropdown closes when focus moves outside
-            menu.addEventListener("focusout", function () {
-                setTimeout(() => {
-                    if (!menu.contains(document.activeElement) && !toggle.contains(document.activeElement)) {
-                        bsDropdown.hide(); // Bootstrap method to close dropdown
+                        // Ensure dropdown closes when focus moves outside
+                        menu.addEventListener("focusout", function() {
+                            setTimeout(() => {
+                                if (!menu.contains(document.activeElement) && !toggle
+                                    .contains(document.activeElement)) {
+                                    bsDropdown
+                                        .hide(); // Bootstrap method to close dropdown
+                                }
+                            }, 150);
+                        });
                     }
-                }, 150);
-            });
-        }
-    });
+                });
 
-    // Special handling for the search form dropdown
-    let searchToggle = document.querySelector(".nav-item.dropdown .nav-link img[alt='search']");
-    let searchDropdown = document.querySelector(".nav-item.dropdown .dropdown-menu form");
+                // Special handling for the search form dropdown
+                let searchToggle = document.querySelector(".nav-item.dropdown .nav-link img[alt='search']");
+                let searchDropdown = document.querySelector(".nav-item.dropdown .dropdown-menu form");
 
-    if (searchToggle && searchDropdown) {
-        let searchDropdownInstance = new bootstrap.Dropdown(searchToggle);
+                if (searchToggle && searchDropdown) {
+                    let searchDropdownInstance = new bootstrap.Dropdown(searchToggle);
 
-        // Open search dropdown when search icon is focused
-        searchToggle.addEventListener("focus", function () {
-            searchDropdownInstance.show();
-        });
+                    // Open search dropdown when search icon is focused
+                    searchToggle.addEventListener("focus", function() {
+                        searchDropdownInstance.show();
+                    });
 
-        // Close search dropdown when focus moves outside
-        searchDropdown.addEventListener("focusout", function () {
-            setTimeout(() => {
-                if (!searchDropdown.contains(document.activeElement) && !searchToggle.contains(document.activeElement)) {
-                    searchDropdownInstance.hide();
+                    // Close search dropdown when focus moves outside
+                    searchDropdown.addEventListener("focusout", function() {
+                        setTimeout(() => {
+                            if (!searchDropdown.contains(document.activeElement) && !
+                                searchToggle.contains(document.activeElement)) {
+                                searchDropdownInstance.hide();
+                            }
+                        }, 150);
+                    });
                 }
-            }, 150);
-        });
-    }
-});
-
+            });
             </script>
         </div>
 
@@ -413,7 +409,7 @@
                             $submenu->website_url;
                             }
                             $output .= '<a
-                                class="dropdown-item ' . ($hasChildren ? 'dropdown-toggle d-flex align-items-center' : '') . '"
+                                class="dropdown-item ' . ($hasChildren ? 'd-flex align-items-center' : '') . '"
                                 href="' . $url . '"
                                 target="' . ($submenu->web_site_target == 2 ? '_blank' : '_self') . '"
                                 aria-expanded="false" aria-label="Expanded' . $submenu->menutitle . '">' .

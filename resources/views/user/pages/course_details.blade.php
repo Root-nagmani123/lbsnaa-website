@@ -3,7 +3,7 @@
 @if(isset($course))
 <!-- Page Content -->
 <section class="py-4">
-    <div class="container-fluid"> 
+    <div class="container-fluid">
         <div class="row align-items-center pb-lg-2">
             <!-- Breadcrumb -->
             <div class="col-12 mb-4 bg-gray-200 rounded-4 py-2">
@@ -135,6 +135,8 @@
 
         </div>
     </div>
+</section>
+<section class="py-4">
 
     <div class="container-fluid mt-4">
         <div class="row">
