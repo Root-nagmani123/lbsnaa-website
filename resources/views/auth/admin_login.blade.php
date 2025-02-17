@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="{{ asset('admin_assets/css/style.css') }}">
 
     <title>LogIn | Lal Bahadur Shastri National Academy of Administration</title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/favicon.ico') }}">
 
     <!-- reCAPTCHA v2 -->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>

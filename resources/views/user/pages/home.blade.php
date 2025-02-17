@@ -62,7 +62,7 @@
     </button>
 
     <!-- Play/Pause Button -->
-    <button id="playPauseBtn" class="btn btn-danger" aria-label="Play/Pause button for Sliders">
+    <button id="playPauseBtn" class="btn btn-danger btn-sm" aria-label="Play/Pause button for Sliders">
         <i class="bi bi-pause-fill"></i>Pause
     </button>
 </div>
@@ -139,7 +139,7 @@
             </div>
 
             <!-- Play/Pause Button -->
-            <button id="playPauseBtn1" class="btn btn-danger ms-2" aria-label="Play/Pause button for Latest Updates">
+            <button id="playPauseBtn1" class="btn btn-danger ms-2 btn-sm" aria-label="Play/Pause button for Latest Updates">
                 <i class="bi bi-pause-fill"></i>
             </button>
         </div>

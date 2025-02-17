@@ -17,14 +17,12 @@
                                 Home
                                 @endif</a>
                         </li>
-                        <li class="breadcrumb-item">
-                            <a href="#" style="color: #af2910;">
+                        <li class="breadcrumb-item active">
                                 @if(Cookie::get('language') ==
                                 '2')आगामी पाठ्यक्रम
                                 @else
                                 Upcoming Courses
                                 @endif
-                            </a>
                         </li>
                     </ol>
                 </nav>
@@ -72,7 +70,7 @@
                 </div>
                 @endforeach
                 @else
-                <p class="text-center">
+                <p>
                     @if(Cookie::get('language') ==
                     '2')कोई आगामी पाठ्यक्रम उपलब्ध नहीं है.
                     @else
