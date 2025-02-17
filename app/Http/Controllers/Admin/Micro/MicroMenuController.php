@@ -192,7 +192,7 @@ class MicroMenuController extends Controller
     private function buildMenuOptions($parentId = null, $spacing = '')
     {
         $parentId = $parentId ?? 0;
-        $menus = micromenu::where('parent_id', $parentId)
+        $menus = MicroMenu::where('parent_id', $parentId)
             ->whereIn('txtpostion', [1, 2])
             ->where('is_deleted', 0)
             ->get();
@@ -287,7 +287,7 @@ class MicroMenuController extends Controller
         ]);
         // dd($request);
         // Check if the combination of menutitle and research_centre already exists
-        $existingMenu = micromenu::where('research_centreid', $request->research_centre)
+        $existingMenu = MicroMenu::where('research_centreid', $request->research_centre)
             ->where('menutitle', $request->menutitle)
             ->first(); 
 
@@ -298,7 +298,7 @@ class MicroMenuController extends Controller
         }
 
         // Create new menu entry
-        $menu = new micromenu();
+        $menu = new MicroMenu();
         $menu->language = $request->language;
         $menu->research_centreid = $request->research_centre;
         $menu->menutitle = $request->menutitle;
@@ -529,7 +529,7 @@ class MicroMenuController extends Controller
     public function update(Request $request, $id)
     {
         // Find the existing menu
-        $menu = micromenu::findOrFail($id);
+        $menu = MicroMenu::findOrFail($id);
     
         // Validate the incoming request data
         $validatedData = $request->validate([
@@ -543,7 +543,7 @@ class MicroMenuController extends Controller
         ]);
     
         // Check for duplicate combination of research_centre and menutitle, excluding the current menu
-        $existingMenu = micromenu::where('research_centreid', $request->research_centre)
+        $existingMenu = MicroMenu::where('research_centreid', $request->research_centre)
             ->where('menutitle', $request->menutitle)
             ->where('id', '!=', $id)
             ->first();
@@ -638,7 +638,7 @@ class MicroMenuController extends Controller
     public function toggleStatus(Request $request, $id)
     {
         
-        $menu = micromenu::findOrFail($id);
+        $menu = MicroMenu::findOrFail($id);
         $menu->menu_status = !$menu->menu_status;
         $menu->save();
 

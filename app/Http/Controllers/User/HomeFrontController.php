@@ -686,6 +686,7 @@ function get_rti_page_details(Request $request,$slug){
     $title = ucwords(str_replace('-', ' ', $slug));
     $breadcrumb = $this->generateBreadcrumb($slug);
        $web_slug = $slug;
+      
     // Fetch navigation page
     $slug = 'rti';
     $nav_mainpage = DB::table('menus')
@@ -693,6 +694,7 @@ function get_rti_page_details(Request $request,$slug){
     ->where('is_deleted', 0)
     ->where('menu_slug', $web_slug)
     ->first();
+   if($nav_mainpage){
     $nav_page = DB::table('menus')
         ->where('menu_status', 1)
         ->where('is_deleted', 0)
@@ -701,6 +703,9 @@ function get_rti_page_details(Request $request,$slug){
 
     // Get menu items
     $menuItems = $this->getMenuHierarchy($nav_page->parent_id,$slug);
+}else{
+    abort(404);
+}
     // dd($menuItems);
     // print_r($menuItems);  // Shows the structure of $menuItems collection
     // die();  // Stop the script for debugging
