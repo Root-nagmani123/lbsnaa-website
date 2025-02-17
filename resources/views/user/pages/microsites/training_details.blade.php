@@ -23,7 +23,7 @@
     </div>
 </section>
 <!-- Quick Links -->
-<section class="py-1">
+<section class="py-1" id="skip_to_main_content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-9 col-12">

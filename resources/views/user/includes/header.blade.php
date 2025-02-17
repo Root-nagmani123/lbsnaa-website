@@ -9,8 +9,8 @@
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/favicon.ico') }}">
 
- <!-- CSS Assets -->
- <link href="{{ asset('assets/fonts/feather/feather.css') }}" rel="stylesheet">
+    <!-- CSS Assets -->
+    <link href="{{ asset('assets/fonts/feather/feather.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/libs/bootstrap-icons/font/bootstrap-icons.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/libs/simplebar/dist/simplebar.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/css/theme.min.css') }}">
@@ -20,7 +20,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="{{ asset('assets/js/orgchart.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
+    <title>
         @if(isset($title))
         {{ $title }} | Lal Bahadur Shastri National Academy of Administration
         @endif
@@ -132,15 +132,10 @@
 <body class="d-flex flex-column min-vh-100 bg-white" style="overflow-x: hidden">
     <div class="container-fluid bg-light bar">
         <div class="row py-1 align-items-center">
-            <div class="col-md-3 d-flex align-items-center" style="font-size: 16px;font-weight:400;color:#af2910;">
+            <div class="col-md-6 d-flex align-items-center" style="font-size: 16px;font-weight:400;color:#af2910;">
                 <img class="img-fluid" src="{{ asset('assets/images/icons/ashok.jpg') }}" alt="Logo of Ashok Stambh"
                     aria-label="Logo of Ashoka Stambh" style="font-size: 510px;height: 50px;margin-right:5px;">
                 भारत सरकार | Government of India
-            </div>
-            <div class="col-md-3">
-                <h1 class="h4 text-center text-primary d-none"><a href="#"
-                        aria-label="{{ $title }} | Lal Bahadur Shastri National Academy of Administration">{{ $title }}</a>
-                </h1>
             </div>
             <div class="col-md-6">
                 <ul class="nav justify-content-end align-items-center">
@@ -226,7 +221,6 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link" href="#" data-bs-toggle="dropdown" aria-expanded="false"
                             data-bs-display="static">
-                            <!-- <i class="material-icons menu-icon">search</i> -->
                             <img src="{{ asset('assets/images/search.png') }}" alt="search" style="height: 30px;">
                         </a>
                         <div class="dropdown-menu p-2 custom-dropdown" style="width: 250px;">
@@ -241,6 +235,9 @@
                             </form>
                         </div>
                     </li>
+
+
+
                     <style>
                     .custom-dropdown {
                         left: 0 !important;
@@ -249,11 +246,6 @@
                         /* Ensures dropdown always opens to the left */
                     }
                     </style>
-
-
-
-
-
                     <!-- <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle fw-bold" href="#" id="languageDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside"
@@ -275,16 +267,67 @@
                     </li> -->
                 </ul>
             </div>
+            <script>
+            document.addEventListener("DOMContentLoaded", function () {
+    let dropdowns = document.querySelectorAll(".nav-item.dropdown");
+
+    dropdowns.forEach((dropdown) => {
+        let toggle = dropdown.querySelector(".nav-link[data-bs-toggle='dropdown']");
+        let menu = dropdown.querySelector(".dropdown-menu");
+
+        if (toggle && menu) {
+            let bsDropdown = new bootstrap.Dropdown(toggle); // Bootstrap dropdown instance
+
+            // Ensure dropdown opens when toggle gets focus
+            toggle.addEventListener("focus", function () {
+                bsDropdown.show();
+            });
+
+            // Ensure dropdown closes when focus moves outside
+            menu.addEventListener("focusout", function () {
+                setTimeout(() => {
+                    if (!menu.contains(document.activeElement) && !toggle.contains(document.activeElement)) {
+                        bsDropdown.hide(); // Bootstrap method to close dropdown
+                    }
+                }, 150);
+            });
+        }
+    });
+
+    // Special handling for the search form dropdown
+    let searchToggle = document.querySelector(".nav-item.dropdown .nav-link img[alt='search']");
+    let searchDropdown = document.querySelector(".nav-item.dropdown .dropdown-menu form");
+
+    if (searchToggle && searchDropdown) {
+        let searchDropdownInstance = new bootstrap.Dropdown(searchToggle);
+
+        // Open search dropdown when search icon is focused
+        searchToggle.addEventListener("focus", function () {
+            searchDropdownInstance.show();
+        });
+
+        // Close search dropdown when focus moves outside
+        searchDropdown.addEventListener("focusout", function () {
+            setTimeout(() => {
+                if (!searchDropdown.contains(document.activeElement) && !searchToggle.contains(document.activeElement)) {
+                    searchDropdownInstance.hide();
+                }
+            }, 150);
+        });
+    }
+});
+
+            </script>
         </div>
 
     </div>
-    <nav class="navbar navbar-expand-lg shadow-none sticky-xl-top sticky-lg-top">
+    <nav class="navbar navbar-expand-lg shadow-none">
         <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
             <!-- Logo -->
-            <a href="{{ route('home') }}" class="navbar-brand me-auto logo d-flex align-items-center">
-                <img src="{{ asset('admin_assets/images/logo.png') }}" alt="logo-icon" class="img-fluid logo"
-                    aria-label="Logo of Lal Bahadur Shastri National Academy of Administration">
-            </a>
+            <h1><a href="{{ route('home') }}" class="navbar-brand me-auto logo d-flex align-items-center">
+                    <img src="{{ asset('admin_assets/images/logo.png') }}" alt="logo-icon" class="img-fluid logo"
+                        aria-label="Logo of Lal Bahadur Shastri National Academy of Administration">
+                </a></h1>
 
             <!-- Navbar Toggle Button (For mobile view) -->
             <div>
@@ -359,8 +402,7 @@
 
                         // Add 'w-100' class to ensure full width for the list item
                         if($submenu->texttype == 3){
-                        $output .= '<li class="check dropdown-submenu dynamic-direction w-100 border-bottom"
-                            aria-label="' . $submenu->menutitle . '">';
+                        $output .= '<li class="check dropdown-submenu dynamic-direction w-100 border-bottom">';
 
                             $url = '';
                             if ($submenu->web_site_target == 1) {
@@ -374,8 +416,7 @@
                                 class="dropdown-item ' . ($hasChildren ? 'dropdown-toggle d-flex align-items-center' : '') . '"
                                 href="' . $url . '"
                                 target="' . ($submenu->web_site_target == 2 ? '_blank' : '_self') . '"
-                                aria-label="' . htmlspecialchars($submenu->menutitle, ENT_QUOTES, 'UTF-8') . '"
-                                aria-expanded="false">' .
+                                aria-expanded="false" aria-label="Expanded' . $submenu->menutitle . '">' .
                                 $submenu->menutitle .
                                 '</a>';
 
@@ -498,19 +539,9 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle"
                             href="{{ route('user.navigationpagesbyslug', $menu->menu_slug) }}" data-bs-toggle="dropdown"
-                            aria-expanded="false">
+                            aria-expanded="false" aria-label="Expanded {{ $menu->menutitle }}">
                             {{ $menu->menutitle }}
                         </a>
-                        <!-- <ul class="dropdown-menu">
-                            @foreach($Research_Center_list as $reserch_c)
-                            <li class="border-bottom">
-                                <a class="dropdown-item"
-                                    href="{{ url('lbsnaa-sub') }}/{{ $reserch_c->research_centre_slug }}">
-                                    {{ $reserch_c->research_centre_name }}
-                                </a>
-                            </li>
-                            @endforeach
-                        </ul> -->
                         <ul class="dropdown-menu">
                             @foreach($Research_Center_list as $reserch_c)
                             <li class="border-bottom">
@@ -573,7 +604,8 @@
 
                         <!-- Render the menu link -->
                         <a class="nav-link {{ renderMenuItems($menu->id, $menu->menutitle === 'Training') ? 'dropdown-toggle' : '' }}"
-                            href="{{ $url }}" target="{{ $target }}" aria-expanded="false">
+                            href="{{ $url }}" target="{{ $target }}" aria-expanded="false"
+                            aria-label="Expanded {{ $menu->menutitle }}">
                             {{ $menu->menutitle }}
                         </a>
 
@@ -671,5 +703,3 @@
         });
     });
     </script>
-
-    

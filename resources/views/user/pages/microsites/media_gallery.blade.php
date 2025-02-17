@@ -22,7 +22,7 @@
     </div>
 </section>
 
-<section class="container-fluid">
+<section class="container-fluid" id="skip_to_main_content">
     <div style="margin: 20px 0;">
         
         <form action="{{ route('user.media_gallery') }}" method="GET" id="filterForm" style="display: flex; gap: 10px; align-items: center;">

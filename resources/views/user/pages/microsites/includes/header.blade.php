@@ -29,12 +29,11 @@
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-    {{-- <title>Research Center | Lal Bahadur Shastri National Academy of Administration</title> --}}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>{{$Title}}</title>
 
     <style>
-     *:focus {
+    *:focus {
         outline: 2px solid #af2910;
         /* High-contrast green */
         outline-offset: 2px;
@@ -121,20 +120,21 @@
                     <ul class="nav justify-content-end align-items-right">
                         <!-- Tooltip Items -->
                         <li class="nav-item">
-                        <a class="nav-link fw-bold" href="#skip_to_main_content" data-bs-toggle="tooltip"
-                            data-bs-placement="bottom" title="Skip to main content" aria-label="Skip to main content">
-                            <!-- <i class="material-icons menu-icon">event_repeat</i> -->
-                            <img src="{{ asset('assets/images/skip_to_main_content.png') }}" alt="skip to main content"
-                                style="height: 30px;">
+                            <a class="nav-link fw-bold" href="#skip_to_main_content" data-bs-toggle="tooltip"
+                                data-bs-placement="bottom" title="Skip to main content"
+                                aria-label="Skip to main content">
+                                <!-- <i class="material-icons menu-icon">event_repeat</i> -->
+                                <img src="{{ asset('assets/images/skip_to_main_content.png') }}"
+                                    alt="skip to main content" style="height: 30px;">
 
-                        </a>
-                    </li>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
         </div>
     </section>
-    <header class="d-lg-block sticky-xl-top sticky-lg-top">
+    <header class="d-lg-block">
         <nav class="navbar">
             <div class="container-fluid px-0">
                 <a class="navbar-brand" href="{{ route('home') }}"
@@ -157,12 +157,12 @@
                 @endphp
 
                 @if ($centre_name)
-                <h1 class="text-dark">{{ $centre_name->research_centre_name }}<br><span class="text-center"
+                <h1 class="text-dark"><a href="#" class="text-dark">{{ $centre_name->research_centre_name }}<br><span class="text-center"
                         style="font-size:14px;">
                         @if (!empty($centre_name->sub_heading))
                         ( {{ $centre_name->sub_heading }} )
                         @endif
-                    </span></h1>
+                    </span></a></h1>
 
                 @else
 
@@ -242,10 +242,12 @@
 
                     echo "<li
                         class='nav-item " . ($hasChildren ? "dropdown" . (!$isRoot ? " dropend" : "") : "") . ($isRoot ? "" : " border-bottom dropdown-item") . "'>
+
                         <a href='{$menuLink}' class='" . ($hasChildren ? "nav-link dropdown-toggle" : "nav-link") . "'
-                            target='{$target}'>";
-                            echo $menu->menutitle;
-                            echo "</a>";
+                            target='{$target}' " . ($hasChildren ? " aria-label='Expandable, {$menu->menutitle}'
+                            aria-expanded='false' aria-haspopup='true'" : "") . ">
+                            {$menu->menutitle}
+                        </a>";
 
                         if ($hasChildren) {
                         echo "<ul class='dropdown-menu'>";
@@ -255,6 +257,7 @@
 
                         echo "
                     </li>";
+
                     }
                     }
 
@@ -287,83 +290,61 @@
         });
     });
     </script>
-   <script>
-    $(document).ready(function () {
-    // Open dropdown on hover
-    $(".dropdown, .dropdown-submenu").hover(
-        function () {
-            $(this).addClass("show");
-            $(this).children(".dropdown-menu").addClass("show");
-        },
-        function () {
-            $(this).removeClass("show");
-            $(this).children(".dropdown-menu").removeClass("show");
-        }
-    );
-
-    // Open dropdown on focus (keyboard navigation)
-    $(".nav-link, .dropdown-item").on("focus", function () {
-        let parent = $(this).closest(".dropdown, .dropdown-submenu");
-        if (parent.length) {
-            parent.addClass("show");
-            parent.children(".dropdown-menu").addClass("show");
-        }
-    });
-
-    // Close dropdown when Escape key is pressed
-    $(document).on("keydown", function (e) {
-        if (e.key === "Escape" || e.keyCode === 27) {
-            e.preventDefault();
-            $(".dropdown, .dropdown-submenu").removeClass("show");
-            $(".dropdown-menu").removeClass("show");
-        }
-    });
-
-    // Allow Arrow keys & Tab navigation inside dropdown
-    $(".dropdown-menu").on("keydown", function (e) {
-        let items = $(this).find(".dropdown-item");
-        let index = items.index(document.activeElement);
-
-        if (e.key === "ArrowDown") {
-            e.preventDefault();
-            let nextIndex = (index + 1) % items.length;
-            items.eq(nextIndex).focus();
-        } else if (e.key === "ArrowUp") {
-            e.preventDefault();
-            let prevIndex = (index - 1 + items.length) % items.length;
-            items.eq(prevIndex).focus();
-        } else if (e.key === "Tab") {
-            let nextIndex = index + 1;
-            if (nextIndex >= items.length) {
-                $(".dropdown, .dropdown-submenu").removeClass("show");
-                $(".dropdown-menu").removeClass("show");
+    <script>
+    $(document).ready(function() {
+        // Open dropdown on hover
+        $(".dropdown, .dropdown-submenu").hover(
+            function() {
+                $(this).addClass("show");
+                $(this).children(".dropdown-menu").addClass("show");
+            },
+            function() {
+                $(this).removeClass("show");
+                $(this).children(".dropdown-menu").removeClass("show");
             }
-        }
-    });
+        );
 
-    // Open nested dropdown when Arrow Down is pressed
-    $(".dropdown-item").on("keydown", function (e) {
-        if (e.key === "ArrowDown") {
+        // Open dropdown when focused on
+        $(".nav-link, .dropdown-item").on("focus", function() {
             let parent = $(this).closest(".dropdown, .dropdown-submenu");
-            let submenu = parent.find(".dropdown-menu:first");
-
-            if (submenu.length && !submenu.hasClass("show")) {
-                e.preventDefault();
+            if (parent.length) {
                 parent.addClass("show");
-                submenu.addClass("show");
-                submenu.find(".dropdown-item:first").focus();
+                parent.children(".dropdown-menu").addClass("show");
             }
-        }
-    });
+        });
 
-    // Close dropdown on outside click
-    $(document).on("click", function (e) {
-        if (!$(e.target).closest(".dropdown").length) {
-            $(".dropdown, .dropdown-submenu").removeClass("show");
-            $(".dropdown-menu").removeClass("show");
-        }
-    });
-});
+        // Close the dropdown when Escape key is pressed
+        $(document).on("keydown", function(e) {
+            if (e.key === "Escape" || e.keyCode === 27) {
+                e.preventDefault(); // Prevent default action
 
-</script>
-<div id="skip_to_main_content">
+                let focusedElement = $(document.activeElement);
+                let parentDropdown = focusedElement.closest(".dropdown");
+
+                if (parentDropdown.length) {
+                    // Close the dropdown
+                    parentDropdown.removeClass("show");
+                    parentDropdown.children(".dropdown-menu").removeClass("show");
+                    parentDropdown.find(".dropdown-menu")
+                        .hide(); // Hide the dropdown to prevent it from showing up again
+                }
+            }
+        });
+
+        // Allow arrow keys to navigate within the dropdown
+        $(".dropdown-menu").on("keydown", function(e) {
+            let items = $(this).find(".dropdown-item");
+            let index = items.index(document.activeElement);
+
+            if (e.key === "ArrowDown") {
+                e.preventDefault();
+                let nextIndex = (index + 1) % items.length;
+                items.eq(nextIndex).focus();
+            } else if (e.key === "ArrowUp") {
+                e.preventDefault();
+                let prevIndex = (index - 1 + items.length) % items.length;
+                items.eq(prevIndex).focus();
+            }
+        });
+    });
+    </script>

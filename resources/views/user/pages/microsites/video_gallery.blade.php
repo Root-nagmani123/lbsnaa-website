@@ -22,7 +22,7 @@
     </div>
 </section>
 
-<div class="container-fluid my-4">
+<div class="container-fluid my-4" id="skip_to_main_content">
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
         @if($videos->isEmpty())
         <div class="col text-center">

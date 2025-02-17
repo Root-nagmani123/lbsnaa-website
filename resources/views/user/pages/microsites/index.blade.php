@@ -1,64 +1,62 @@
 @include('user.pages.microsites.includes.header')
+<!-- Slider Section -->
+<style>
+/* Position the play/pause button on the right */
+#playPauseBtn {
+    position: absolute;
+    bottom: 1%;
+    right: 15px;
+    transform: translateY(-5%);
+    z-index: 10;
+    opacity: 0.8;
+    transition: opacity 0.3s ease-in-out;
+}
 
+/* Hide next/prev arrows by default */
+.carousel-control-prev,
+.carousel-control-next {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Show next/prev arrows on hover */
+#carouselExampleCaptions:hover .carousel-control-prev,
+#carouselExampleCaptions:hover .carousel-control-next {
+    opacity: 1;
+}
+
+/* Ensure the buttons are clearly visible when focused */
+.carousel-indicators button:focus {
+    outline: 2px solid #af2910 !important;
+    /* Red outline to indicate focus */
+    background-color: rgba(255, 255, 255, 0.5);
+    /* Light red background */
+    border-radius: 5px;
+}
+
+/* Optional: Increase the size for better accessibility */
+.carousel-indicators button {
+    border-radius: 10px;
+    margin: 5px;
+    background-color: #af2910;
+    border: none;
+}
+
+/* Active indicator styling */
+.carousel-indicators .active {
+    background-color: #af2910;
+    /* Blue color for active indicator */
+}
+
+/* Hover effect for better UI feedback */
+.carousel-indicators button:hover {
+    background-color: #af2910;
+}
+</style>
 <!-- Page Content -->
 <section class="py-4">
     <div class="container-fluid">
         <div class="row">
-            <!-- Slider Section -->
-            <style>
-            /* Position the play/pause button on the right */
-            #playPauseBtn {
-                position: absolute;
-                bottom: 1%;
-                right: 15px;
-                transform: translateY(-5%);
-                z-index: 10;
-                opacity: 0.8;
-                transition: opacity 0.3s ease-in-out;
-            }
-
-            /* Hide next/prev arrows by default */
-            .carousel-control-prev,
-            .carousel-control-next {
-                opacity: 0;
-                transition: opacity 0.3s ease-in-out;
-            }
-
-            /* Show next/prev arrows on hover */
-            #carouselExampleCaptions:hover .carousel-control-prev,
-            #carouselExampleCaptions:hover .carousel-control-next {
-                opacity: 1;
-            }
-
-            /* Ensure the buttons are clearly visible when focused */
-            .carousel-indicators button:focus {
-                outline: 2px solid #af2910 !important;
-                /* Red outline to indicate focus */
-                background-color: rgba(255, 255, 255, 0.5);
-                /* Light red background */
-                border-radius: 5px;
-            }
-
-            /* Optional: Increase the size for better accessibility */
-            .carousel-indicators button {
-                border-radius: 10px;
-                margin: 5px;
-                background-color: #af2910;
-                border: none;
-            }
-
-            /* Active indicator styling */
-            .carousel-indicators .active {
-                background-color: #af2910;
-                /* Blue color for active indicator */
-            }
-
-            /* Hover effect for better UI feedback */
-            .carousel-indicators button:hover {
-                background-color: #af2910;
-            }
-            </style>
-
             <div class="col-12 col-lg-9 mb-4 position-relative">
                 <div id="carouselExampleCaptions" class="carousel slide carousel-fade" data-bs-ride="carousel"
                     data-bs-interval="3000">
@@ -113,26 +111,22 @@
                 var playPauseBtn = document.getElementById("playPauseBtn");
                 var isPlaying = true; // Track the state of the slider
 
-                playPauseBtn.addEventListener("click", function () {
-    if (isPlaying) {
-        carousel.pause();
-        playPauseBtn.innerHTML = '<i class="bi bi-play-fill"></i> Play';
-        playPauseBtn.classList.replace("btn-danger", "btn-success");
-        playPauseBtn.setAttribute("aria-label", "Slider paused"); // Update aria-label
-    } else {
-        carousel.cycle();
-        playPauseBtn.innerHTML = '<i class="bi bi-pause-fill"></i> Pause';
-        playPauseBtn.classList.replace("btn-success", "btn-danger");
-        playPauseBtn.setAttribute("aria-label", "Slider played"); // Update aria-label
-    }
-    isPlaying = !isPlaying; // Toggle state
-});
+                playPauseBtn.addEventListener("click", function() {
+                    if (isPlaying) {
+                        carousel.pause();
+                        playPauseBtn.innerHTML = '<i class="bi bi-play-fill"></i> Play';
+                        playPauseBtn.classList.replace("btn-danger", "btn-success");
+                        playPauseBtn.setAttribute("aria-label", "Slider paused"); // Update aria-label
+                    } else {
+                        carousel.cycle();
+                        playPauseBtn.innerHTML = '<i class="bi bi-pause-fill"></i> Pause';
+                        playPauseBtn.classList.replace("btn-success", "btn-danger");
+                        playPauseBtn.setAttribute("aria-label", "Slider played"); // Update aria-label
+                    }
+                    isPlaying = !isPlaying; // Toggle state
+                });
             });
             </script>
-
-
-
-
             <!-- What's New Section -->
             <div class="col-12 col-lg-3 mb-4">
                 <div class="card card-hover border">
@@ -188,19 +182,24 @@
                 </div>
             </div>
         </div>
-        <div class="row" id="skip_to_main_content">
+    </div>
+</section>
+<section class="py-2" id="skip_to_main_content">
+    <div class="container-fluid">
+        <div class="row">
             <!-- Research Centres -->
             <div class="col-12 col-lg-9 mb-4">
                 @foreach($research_centres as $research_centre)
-                <p class="text-center uppercase fw-bold" style="color:#af2910; font-size:24px;">{{($research_centre->home_title) }}
+                <h3 class="text-center uppercase fw-bold" style="color:#af2910; font-size:24px;"><a href="#"
+                        style="text-decoration: none;color:#af2910;">{{($research_centre->home_title) }}</a>
                     <br><span><img src="{{ asset('assets/images/devider.png') }}"
                             alt="{{ $research_centre->home_title }}"></span>
-                </p>
+                </h3>
                 <p style="text-align: justify;" class="mb-4">{!! $research_centre->description !!}</p>
 
                 @endforeach
 
-                <div class="d-flex flex-wrap gap-3">
+                <div class="d-flex flex-wrap gap-3" >
                     @foreach ($research_centres as $research_centre)
                     <a href="{{ route('mediagallery', ['slug' => $research_centre->research_centre_slug]) }}"
                         class="card border shadow-sm text-center" style="width: 200px;">

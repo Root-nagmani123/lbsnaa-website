@@ -23,7 +23,7 @@
 
 
 
-<section>
+<section id="skip_to_main_content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-9 col-12">

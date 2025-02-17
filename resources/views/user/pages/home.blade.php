@@ -426,7 +426,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 <div class="mb-3">
                     <div class="card card-hover border">
                         <div class="card-header" style="background-color:#af2910">
-                            <h4 class="text-white h4">@if(Cookie::get('language') == '2')
+                            <h2 class="text-white h4">@if(Cookie::get('language') == '2')
                                 अकादमी समाचार
                                 @else
                                 LBSNAA Academy News
@@ -436,7 +436,7 @@ document.addEventListener("DOMContentLoaded", function() {
                                         सभी को देखें
                                         @else
                                         View All
-                                        @endif</a></span></h4>
+                                        @endif</a></span></h2>
                         </div>
                     </div>
                 </div>

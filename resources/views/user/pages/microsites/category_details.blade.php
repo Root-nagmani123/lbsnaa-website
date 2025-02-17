@@ -4,7 +4,7 @@
 
 
 @if($category->isNotEmpty())
-    <div class="row">
+    <div class="row" id="skip_to_main_content">
         @foreach($category as $gallery)
             @php
                 // Decode the JSON array or split the string

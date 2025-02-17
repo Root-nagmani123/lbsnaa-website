@@ -6,8 +6,8 @@
                           <img src="{{ asset($node->image) }}" alt="{{ $node->name }}" class="avatar avatar-xl rounded-circle">
                           <!--content-->
                           <div class="m-2">
-                              <h2 class="mb-0 h4">{{ $node->name }}</h3>
-                              <h3 class="text-gray-800 h5">{{ $node->designation }}</span>
+                              <h3 class="mb-0 h4">{{ $node->name }}</h3>
+                              <h4 class="text-gray-800 h5">{{ $node->designation }}</span>
                           </div>
                       </div>
                       <div class="card-footer" style="border:0;background-color:transparent;padding:0;">
@@ -40,13 +40,13 @@
                                               style="height:150px;width:150px;">
                                       </div>
                                       <div class="col-lg-3">
-                                          <h3>Name:-</h3>
+                                          <h6>Name:-</h6>
                                           <p>Designation:-</p>
                                           <p>Email:-</p>
                                           <p>Phone:-</p>
                                       </div>
                                       <div class="col-lg-6">
-                                          <h3 id="modalName"></h3>
+                                          <h6 id="modalName"></h6>
                                           <p id="modalDesignation"></p>
                                           <p id="modalEmail"></p>
                                           <p id="modalPhone"></p>
