@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\Micro;
 
 use App\Http\Controllers\Controller;
-use App\Models\Admin\Micro\micromenu;
+use App\Models\Admin\Micro\MicroMenu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
