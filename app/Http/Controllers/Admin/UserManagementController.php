@@ -7,6 +7,7 @@ use App\Models\Admin\ManageAudit;
 use Illuminate\Support\Str; 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class UserManagementController extends Controller
 {
@@ -63,9 +64,9 @@ class UserManagementController extends Controller
     }
     public function users_index()
     {
-        
-        $userId = session('user_id');
-        $user_type = session('user_type');
+        $user = Auth::user();
+        $userId = $user->id;
+        $user_type = $user->user_type;
         if($user_type == 2){
         $module_name = 'Manage User';
         $modules = DB::table('modules as m')
@@ -92,8 +93,9 @@ class UserManagementController extends Controller
     // Show add form
     public function users_create()
     {
-        $userId = session('user_id');
-        $user_type = session('user_type');
+        $user = Auth::user();
+        $userId = $user->id;
+        $user_type = $user->user_type;
         if($user_type == 2){
         $module_name = 'Manage User';
         $modules = DB::table('modules as m')
@@ -137,8 +139,9 @@ class UserManagementController extends Controller
     // Show edit form
     public function users_edit($id)
     {
-        $userId = session('user_id');
-        $user_type = session('user_type');
+        $user = Auth::user();
+        $userId = $user->id;
+        $user_type = $user->user_type;
         if($user_type == 2){
         $module_name = 'Manage User';
         $modules = DB::table('modules as m')
