@@ -71,7 +71,7 @@
                             <td>{{ \Carbon\Carbon::parse($value->expiry_date)->format('d F, Y') }}</td>
                             <td>
                                 @if(!empty($value->document_upload))
-                                <a href="{{ asset('uploads/' . $value->document_upload) }}" target="_blank">Download</a>
+                                <a href="{{ asset('storage/' . $value->document_upload) }}" target="_blank">Download</a>
                                 @else
                                 N/A
                                 @endif

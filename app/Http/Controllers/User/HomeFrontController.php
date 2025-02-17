@@ -342,6 +342,7 @@ class HomeFrontController extends Controller
             ->where('status', 1)
             ->where('publish_date', '<=', $today)
             ->where('expiry_date', '>=', $today)
+            ->orderBy('expiry_date', 'desc')
             ->get();
     
         return view('user.pages.tenders', compact('query','title'));
@@ -369,6 +370,8 @@ class HomeFrontController extends Controller
         if ($request->filled('year')) {
             $query->whereYear('expiry_date', $request->year);
         }
+        $query->orderBy('expiry_date', 'desc');
+
     
        $query = $query->get();
           return view('user.pages.old_tenders',compact('query','years','title'));
@@ -411,6 +414,7 @@ function vacancy(){
     ->where('status', 1)
     ->where('publish_date', '<=', $today)
     ->where('expiry_date', '>=', $today)
+    ->orderBy('publish_date', 'desc')
     ->get();
     return view('user.pages.vacancy',compact('query','title'));
     
@@ -423,6 +427,7 @@ function vacancy_archive(){
 $query = DB::table('manage_vacancies')
 ->where('status', 1)
 ->where('expiry_date', '<', $today)
+->orderBy('publish_date', 'desc')
 ->get();
 return view('user.pages.vacancy_archive',compact('query','title'));
 
