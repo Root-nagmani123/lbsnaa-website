@@ -124,6 +124,45 @@ class MicroManageVacancyController extends Controller
 
     public function update(Request $request, $id)
     {
+        $rules = [
+            'language' => 'required|integer|in:1,2',	
+            'research_centre' => 'required|integer|exists:research_centres,id',	
+            'job_title' => 'required|string|max:255',
+            'job_description' => 'required',
+            'content_type' => 'required|in:PDF,Website',
+            'publish_date' => 'required|date',
+            'expiry_date' => 'required|date|after_or_equal:publish_date',
+            'status' => 'required|integer|in:1,0',
+        ];
+
+        if ($request->content_type == 'PDF') {
+            $rules['document_upload'] = 'required|mimes:pdf,png,jpg,jpeg|max:2048';
+        } elseif ($request->content_type == 'Website') {
+            $rules['website_link'] = 'required|url';
+        }
+
+        // Custom messages
+        $messages = [
+            'language.required' => 'Please select a language.',
+            'research_centre.required' => 'Please select a research centre.',
+            'job_title.required' => 'Please enter a job title.',
+            'job_title.max' => 'The job title cannot exceed 255 characters.',
+            'job_description.required' => 'Please provide a job description.',
+            'content_type.required' => 'Please select a content type.',
+            'content_type.in' => 'Content type must be either PDF or Website.',
+            'publish_date.required' => 'Please provide a publish date.',
+            'publish_date.date' => 'Publish date must be a valid date.',
+            'expiry_date.required' => 'Please provide an expiry date.',
+            'expiry_date.date' => 'Expiry date must be a valid date.',
+            'expiry_date.after_or_equal' => 'Expiry date must be on or after the publish date.',
+            'status.required' => 'Please select a status.',
+            'status.in' => 'Status must be active or inactive.',
+            'document_upload.required' => 'Please upload a document.',
+            'document_upload.mimes' => 'The document must be a file of type: pdf, png, jpg, jpeg.',
+            'document_upload.max' => 'The document size may not exceed 2MB.',
+            'website_link.required' => 'Please provide a website link.',
+            'website_link.url' => 'The website link must be a valid URL.',
+        ];
         // Fetch the record by ID
         $vacancy = MicroManageVacancy::findOrFail($id);
 

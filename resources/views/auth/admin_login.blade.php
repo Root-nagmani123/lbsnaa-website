@@ -21,6 +21,8 @@
         <div class="main-content d-flex flex-column px-0">
             <div class="m-auto mw-510 py-5">
                 <form action="{{ route('admin.login') }}" method="POST">
+                <!-- <form action="{{ secure_url('admin/login') }}" method="POST"> -->
+
                     @csrf
                     <div class="card bg-white border-0 rounded-10 mb-4" style="width: 500px;">
                         <div class="d-flex align-items-center gap-4 mb-3 justify-content-center border-bottom">

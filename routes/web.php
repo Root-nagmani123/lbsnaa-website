@@ -118,7 +118,7 @@ Route::get('/running_events', [HomeFrontController::class, 'running_events'])->n
 
 
 Route::get('/sitemap', [HomeFrontController::class, 'sitemap'])->name('user.sitemap');
-Route::get('/search', [HomeFrontController::class, 'search'])->name('user.search');
+// Route::get('/search', [HomeFrontController::class, 'search'])->name('user.search');
 Route::get('/screen-reader', [HomeFrontController::class, 'screenReader'])->name('user.screen-reader');
 Route::get('/archive', [HomeFrontController::class, 'archive'])->name('user.archive');
 Route::get('/archive', [HomeFrontController::class, 'archive'])->name('user.archive');
@@ -173,8 +173,7 @@ Route::get('lbsnaa-sub_ad/archive_details/{id}', [HomePagesMicroController::clas
 
 Route::get('/lbsnaa-sub_c/category/{id}/{slug}', [HomePagesMicroController::class, 'show'])->name('category.details');
 
-
-Route::middleware('auth')->group(function () {
+Route::group(['middleware' => ['auth']], function () {
 Route::get('/admin', [Controller::class, 'index'])->name('admin.index');
 
 
@@ -199,7 +198,7 @@ Route::post('/module', [UserManagementController::class, 'store'])->name('module
 Route::post('/module/{id}', [UserManagementController::class, 'update'])->name('module.update');
 Route::delete('/module/{id}', [UserManagementController::class, 'destroy'])->name('module.destroy');
 
-
+Route::middleware(['throttle:5,1'])->group(function () {
 Route::get('/users', [UserManagementController::class, 'users_index'])->name('users.index'); // List users
 Route::get('/users/add', [UserManagementController::class, 'users_create'])->name('users.create'); // Show add form
 Route::post('/users/store', [UserManagementController::class, 'users_store'])->name('users.store'); // Add user
@@ -207,7 +206,7 @@ Route::get('/users/edit/{id}', [UserManagementController::class, 'users_edit'])-
 Route::put('/users/update/{id}', [UserManagementController::class, 'users_update'])->name('users.update'); // Update user
 Route::post('/users/delete/{id}', [UserManagementController::class, 'users_destroy'])->name('users.delete'); // Delete user
 Route::post('/users/updateStatus/{id}', [UserManagementController::class, 'updateStatus'])->name('users.updateStatus');
-
+});
 
 Route::get('/users/permissions/{id}', [UserManagementController::class, 'permissions'])->name('users.permissions');
 Route::post('/users/permissions/update', [UserManagementController::class, 'updatePermissions'])->name('users.permissions.update');

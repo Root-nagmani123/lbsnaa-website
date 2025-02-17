@@ -32,6 +32,15 @@
                     </ul>
                 </div>
                 @endif -->
+                @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
                 <form action="{{ route('micro_manage_vacancy.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">

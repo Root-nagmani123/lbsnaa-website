@@ -63,6 +63,28 @@ class UserManagementController extends Controller
     }
     public function users_index()
     {
+        
+        $userId = session('user_id');
+        $user_type = session('user_type');
+        if($user_type == 2){
+        $module_name = 'Manage User';
+        $modules = DB::table('modules as m')
+            ->Join('user_permissions as up', function($join) use ($userId) {
+                $join->on('m.id', '=', 'up.module_id')
+                    ->where('up.user_id', '=', $userId)
+                    ->where('up.is_allowed', 1);
+            })
+            ->where('m.child', $module_name)
+            ->where('m.status', 1)
+            ->select('m.id', 'm.parent', 'm.child', 'm.status', 'up.is_allowed')
+            ->get();
+            if(count($modules) > 0) {
+                
+            }else{
+                return redirect()->route('admin.index')->with('error', 'You do not have permission to access this module.');
+            }
+        }
+
         $users = DB::table('users')->get();
         return view('admin.UserManagement.users.index', compact('users'));
     }
@@ -70,6 +92,26 @@ class UserManagementController extends Controller
     // Show add form
     public function users_create()
     {
+        $userId = session('user_id');
+        $user_type = session('user_type');
+        if($user_type == 2){
+        $module_name = 'Manage User';
+        $modules = DB::table('modules as m')
+            ->Join('user_permissions as up', function($join) use ($userId) {
+                $join->on('m.id', '=', 'up.module_id')
+                    ->where('up.user_id', '=', $userId)
+                    ->where('up.is_allowed', 1);
+            })
+            ->where('m.child', $module_name)
+            ->where('m.status', 1)
+            ->select('m.id', 'm.parent', 'm.child', 'm.status', 'up.is_allowed')
+            ->get();
+            if(count($modules) > 0) {
+                
+            }else{
+                return redirect()->route('admin.index')->with('error', 'You do not have permission to access this module.');
+            }
+        }
         return view('admin.UserManagement.users.create');
     }
 
@@ -95,6 +137,26 @@ class UserManagementController extends Controller
     // Show edit form
     public function users_edit($id)
     {
+        $userId = session('user_id');
+        $user_type = session('user_type');
+        if($user_type == 2){
+        $module_name = 'Manage User';
+        $modules = DB::table('modules as m')
+            ->Join('user_permissions as up', function($join) use ($userId) {
+                $join->on('m.id', '=', 'up.module_id')
+                    ->where('up.user_id', '=', $userId)
+                    ->where('up.is_allowed', 1);
+            })
+            ->where('m.child', $module_name)
+            ->where('m.status', 1)
+            ->select('m.id', 'm.parent', 'm.child', 'm.status', 'up.is_allowed')
+            ->get();
+            if(count($modules) > 0) {
+                
+            }else{
+                return redirect()->route('admin.index')->with('error', 'You do not have permission to access this module.');
+            }
+        }
         $user = DB::table('users')->where('id', $id)->first();
         return view('admin.UserManagement.users.edit', compact('user'));
     }

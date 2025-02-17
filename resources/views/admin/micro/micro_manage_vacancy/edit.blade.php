@@ -23,6 +23,15 @@
                 <div class="d-flex justify-content-between align-items-center border-bottom pb-20 mb-20">
                     <h4 class="fw-semibold fs-18 mb-0">Add Vacancy</h4>
                 </div>
+                @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
                 <form action="{{ route('micro_manage_vacancy.update', $vacancy->id) }}" method="POST"
                     enctype="multipart/form-data">
                     @csrf

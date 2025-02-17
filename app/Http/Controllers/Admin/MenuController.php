@@ -112,6 +112,7 @@ class MenuController extends Controller
             'termination_date' => 'nullable|date|after_or_equal:start_date',
             'menu_status' => 'nullable|boolean',
             'website_url' => 'nullable', // Only if texttype is 3
+            'pdf_file' => 'nullable|file|mimes:pdf|max:2048',
         ],
         [
             'txtlanguage.required' => 'Please select a language.',
@@ -132,25 +133,30 @@ class MenuController extends Controller
             'termination_date.date' => 'The termination date must be a valid date.',
             'termination_date.after_or_equal' => 'The termination date must be after or equal to the start date.',
             'menu_status.boolean' => 'Please select any status.',
+            'pdf_file.required' => 'Please upload a PDF file.',
             'pdf_file.file' => 'The uploaded file must be a valid file.',
-            'pdf_file.mimes' => 'The uploaded file must be a PDF.',
+            'pdf_file.mimes' => 'Only PDF files are allowed.',
             'pdf_file.max' => 'The uploaded file size must not exceed 2MB.',
             'content.string' => 'The content must be a valid string.',
             'website_url.url' => 'The website URL must be valid.',
         ]);
-        $slug = Str::slug($request->menutitle, '-');
+       
+        $menutitle = strip_tags($request->menutitle); // Remove HTML tags
+        $menutitle = htmlspecialchars($menutitle, ENT_QUOTES, 'UTF-8'); 
+        $slug = Str::slug($rmenutitle, '-');
 
         // Check if slug already exists
         $existingMenu = Menu::where('menu_slug', $slug)->where('is_deleted',0)->first();
         if ($existingMenu) {
             return redirect()->back()->withErrors(['menutitle' => 'This menu title already exists.'])->withInput();
         } 
-
         $menu = new Menu();
+
+
         $menu->language = $request->txtlanguage;
-        $menu->menutitle = $request->menutitle;
+        $menu->menutitle = $menutitle;
         if($request->txtlanguage == '1'){
-            $menu->menu_slug = Str::slug($request->menutitle, '-');
+            $menu->menu_slug = Str::slug($menutitle, '-');
         }elseif($request->txtlanguage == '2'){
             $menu->menu_slug = Str::slug($request->meta_title, '-') . '_hi';
 
@@ -220,11 +226,51 @@ class MenuController extends Controller
 
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'txtlanguage' => 'required|in:1,2',
+            'menutitle' => 'required|string|max:255',
+            'texttype' => 'required|integer|in:1,2,3', // Example values for texttype
+            // 'menucategory' => 'required|integer|min:1',
+            'txtpostion' => 'nullable|integer',
+            'start_date' => 'nullable|date',
+            'termination_date' => 'nullable|date|after_or_equal:start_date',
+            'menu_status' => 'nullable|boolean',
+            'website_url' => 'nullable', // Only if texttype is 3
+            'pdf_file' => 'nullable|file|mimes:pdf|max:2048',
+        ],
+        [
+            'txtlanguage.required' => 'Please select a language.',
+            'txtlanguage.in' => 'Invalid language selection.',
+            'menutitle.required' => 'Please enter the menu title.',
+            'menutitle.string' => 'The menu title must be a string.',
+            'menutitle.max' => 'The menu title must not exceed 255 characters.',
+            'texttype.required' => 'Please select a text type.',
+            'texttype.integer' => 'The text type must be a valid integer.',
+            'texttype.in' => 'Invalid text type selection.',
+            
+            'txtpostion.integer' => 'Please select any content Position.',
+            'meta_title.max' => 'The meta title must not exceed 255 characters.',
+            'meta_keyword.max' => 'The meta keyword must not exceed 255 characters.',
+            'meta_description.max' => 'The meta description must not exceed 500 characters.',
+            'web_site_target.url' => 'Please enter a valid website URL.',
+            'start_date.date' => 'The start date must be a valid date.',
+            'termination_date.date' => 'The termination date must be a valid date.',
+            'termination_date.after_or_equal' => 'The termination date must be after or equal to the start date.',
+            'menu_status.boolean' => 'Please select any status.',
+            'pdf_file.required' => 'Please upload a PDF file.',
+            'pdf_file.file' => 'The uploaded file must be a valid file.',
+            'pdf_file.mimes' => 'Only PDF files are allowed.',
+            'pdf_file.max' => 'The uploaded file size must not exceed 2MB.',
+            'content.string' => 'The content must be a valid string.',
+            'website_url.url' => 'The website URL must be valid.',
+        ]);
         $menu = Menu::findOrFail($id);
         $menu->language = $request->txtlanguage;
-        $menu->menutitle = $request->menutitle;
+        $menutitle = strip_tags($request->menutitle); // Remove HTML tags
+        $menutitle = htmlspecialchars($menutitle, ENT_QUOTES, 'UTF-8'); 
+        $menu->menutitle = $menutitle;
         if($request->txtlanguage == '1'){
-            $menu->menu_slug = Str::slug($request->menutitle, '-');
+            $menu->menu_slug = Str::slug($menutitle, '-');
         }elseif($request->txtlanguage == '2'){
             $menu->menu_slug = Str::slug($request->meta_title, '-') . '_hi';
 

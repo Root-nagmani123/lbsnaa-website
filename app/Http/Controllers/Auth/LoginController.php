@@ -9,11 +9,30 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use Illuminate\Validation\ValidationException;
-
 use App\Models\Admin\ManageAudit;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Session;
 class LoginController extends Controller
 {
+    protected function authenticated_bkp(Request $request, $user) {
+        // Pehle user ke purane sessions delete karein
+        DB::table('sessions')->where('user_id', $user->id)->delete();
+    
+        // Naya session start karein
+        Session::put('user_session_id', session()->getId());
+    }
+    protected function authenticated(Request $request, $user) {
+        // ✅ Pehle user ka purana session delete karein
+        DB::table('sessions')->where('user_id', $user->id)->delete();
+    
+        // ✅ Naya session generate karein
+        $request->session()->regenerate();
+    
+        // ✅ Update user table (Optional: store session ID for tracking)
+        DB::table('users')->where('id', $user->id)->update([
+            'session_id' => session()->getId()
+        ]);
+    }
     public function login()
     {
         
@@ -106,9 +125,11 @@ class LoginController extends Controller
 
     public function logout(Request $request)
 {
-    Auth::logout();
+     Auth::logout();
+    Session::flush();
     $request->session()->invalidate();
     $request->session()->regenerateToken();
+    DB::table('sessions')->where('user_id', Auth::id())->delete();
 
     ManageAudit::create([
         'Module_Name' => 'Logout', // Static value
