@@ -96,6 +96,7 @@ Route::get('/tenders-archive', [HomeFrontController::class, 'tenders_archive'])-
 Route::get('/faculty', [HomeFrontController::class, 'faculty'])->name('user.faculty');
 Route::get('/staff', [HomeFrontController::class, 'staff'])->name('user.staff');
 Route::get('/vacancy', [HomeFrontController::class, 'vacancy'])->name('user.vacancy');
+Route::get('/vacancy-archive', [HomeFrontController::class, 'vacancy_archive'])->name('user.vacancy_archive');
 Route::get('/cms/training_cal', [HomeFrontController::class, 'training_cal'])->name('user.training_cal');
 Route::get('/course__subCourselisting/{slug}', [HomeFrontController::class, 'get_course_subcourse_list_pages'])->name('user.course_subcourse_slug');
 Route::get('/course_listing/{slug}', [HomeFrontController::class, 'get_course_list_pages'])->name('user.courseslug');

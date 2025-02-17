@@ -33,13 +33,16 @@ class HomeFrontController extends Controller
         ->when($language == 1, function ($query) use ($language) {
             return $query->where('language', '1');
         })
+        ->orderBy('start_date', 'desc')
         ->get();
         $quick_links = DB::table('quick_links')->where('is_deleted',0)->where('status',1)->when($language == 2, function ($query) use ($language) {
             return $query->where('language', '2');
         })
         ->when($language == 1, function ($query) use ($language) {
             return $query->where('language', '1');
-        })->get();
+        })
+        ->orderBy('id', 'desc')
+        ->get();
         $faculty_members = DB::table('faculty_members')->select('image')->where('designation','Director')->where('page_status',1)->first();
         $news_scrollers=  DB::table('menus')->where('txtpostion',7)->where('is_deleted',0)->where('menu_status',1)->when($language == 2, function ($query) use ($language) {
             return $query->where('language', '2');
@@ -290,7 +293,7 @@ class HomeFrontController extends Controller
         $title = 'Academy News';
         $today = date('Y-m-d');
         $news =  DB::table('news')->where('status',1)->where('start_date', '<=', $today)
-        ->where('end_date', '>=', $today)->get();
+        ->where('end_date', '>=', $today)->orderBy('start_date', 'desc')->get();
     
         return view('user.pages.newsList', compact('news','title'));
         
@@ -401,9 +404,28 @@ function staff(Request $request)
 
 function vacancy(){
         $title = 'Vacancy';
-    $query = DB::table('manage_vacancies')->get();
+        date_default_timezone_set('Asia/Kolkata'); // Set timezone to Asia/Kolkata
+        $today = date('Y-m-d H:i:s'); // Include time for more precise filtering
+  
+    $query = DB::table('manage_vacancies')
+    ->where('status', 1)
+    ->where('publish_date', '<=', $today)
+    ->where('expiry_date', '>=', $today)
+    ->get();
     return view('user.pages.vacancy',compact('query','title'));
     
+}
+function vacancy_archive(){
+    $title = 'Vacancy  Archive';
+    date_default_timezone_set('Asia/Kolkata'); // Set timezone to Asia/Kolkata
+    $today = date('Y-m-d H:i:s'); // Include time for more precise filtering
+
+$query = DB::table('manage_vacancies')
+->where('status', 1)
+->where('expiry_date', '<', $today)
+->get();
+return view('user.pages.vacancy_archive',compact('query','title'));
+
 }
 public function training_cal()
 {
@@ -498,7 +520,7 @@ public function get_course_list_pages(Request $request, $slug){
             ->where('status', 1)
             ->select('id', 'category_name', 'slug','color_theme','description')
             ->first();
-        }
+        } 
         
         // print_r($parent_category);die;
 
@@ -906,6 +928,7 @@ function upcoming_events(){
             $query->whereNull('parent_categories.status') // Include records with no parent
                   ->orWhere('parent_categories.status', 1); // Or active parent categories
         })
+        ->orderBy('course.course_start_date', 'asc') 
         ->get();
 
         
@@ -936,6 +959,7 @@ function running_events(){
             $query->whereNull('parent_categories.status') // Include records with no parent
                   ->orWhere('parent_categories.status', 1); // Or active parent categories
         })
+        ->orderBy('course.course_start_date', 'asc') 
         ->get();
         return view('user.pages.running_events', compact('current_course','title'));
 }

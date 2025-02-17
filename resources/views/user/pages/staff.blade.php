@@ -73,7 +73,7 @@
                                     <th class="col text-white">Office</th>
                                     <th class="col text-white">Residence</th>
                                 </tr>
-                            </thead>
+                            </thead> 
                             <tbody>
                                 @if(count($staff) > 0)
                                 @foreach($staff as $key => $value)
@@ -83,7 +83,7 @@
                                     <td>{{ $value->designation }}</td>
                                     <td>{{ $value->email }}</td>
                                     <td>{{ $value->mobile }}</td>
-                                    <td>{{ $value->phone_internal_residence }}</td>
+                                    <td>{{ $value->country_code }}-{{ $value->std_code }}-{{ $value->phone_pt_office }}</td>
                                 </tr>
                                 @endforeach
                                 @else

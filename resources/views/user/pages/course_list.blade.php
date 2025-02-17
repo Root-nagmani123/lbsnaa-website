@@ -69,7 +69,8 @@
                 @if(count($upcomingCourse) >0)
                 @foreach($upcomingCourse as $upcomingCourses)
                 <div class="current-course-box mb-3 p-3 border rounded bg-light">
-                    <h5 class="fw-bold">{{ $upcomingCourses->course_name }}</h5>
+                <a href="{{ route('user.courseDetailslug', [$upcomingCourses->id]) }}"
+                class="text-primary"><h5 class="fw-bold">{{ $upcomingCourses->course_name }}</h5></a>
                     <p>
                         <strong>
                             @if(Cookie::get('language') == '2')
@@ -77,7 +78,7 @@
                             @else
                             Course Date:
                             @endif
-                        </strong>
+                        </strong> 
                         {{ \Carbon\Carbon::parse($upcomingCourses->course_start_date)->format('d F, Y') }}
                         to
                         {{ \Carbon\Carbon::parse($upcomingCourses->course_end_date)->format('d F, Y') }}
@@ -108,7 +109,8 @@
                 @if(count($currentCourse) >0)
                 @foreach($currentCourse as $currentCourse)
                 <div class="current-course-box mb-3 p-3 border rounded bg-light">
-                    <h5 class="fw-bold">{{ $currentCourse->course_name }}</h5>
+                <a href="{{ route('user.courseDetailslug', [$currentCourse->id]) }}"
+                class="text-primary"><h5 class="fw-bold">{{ $currentCourse->course_name }}</h5></a>
                     <p>
                         <strong>
                             @if(Cookie::get('language') == '2')
