@@ -544,10 +544,12 @@ class MicroMenuController extends Controller
             'txtpostion' => 'required',
             'menu_status' => 'required|in:1,0',
         ]);
-    
+        $menutitle = strip_tags($request->menutitle); // Remove HTML tags
+        $menutitle = htmlspecialchars($menutitle, ENT_QUOTES, 'UTF-8'); 
+        $slug = Str::slug($menutitle, '-');
         // Check for duplicate combination of research_centre and menutitle, excluding the current menu
         $existingMenu = MicroMenu::where('research_centreid', $request->research_centre)
-            ->where('menutitle', $request->menutitle)
+            ->where('menutitle', $menutitle)
             ->where('id', '!=', $id)
             ->first();
     
@@ -586,8 +588,8 @@ class MicroMenuController extends Controller
         // Update other fields
         $menu->language = $request->txtlanguage;
         $menu->research_centreid = $request->research_centre;
-        $menu->menutitle = $request->menutitle;
-        $menu->menu_slug = Str::slug($request->menutitle, '-');
+        $menu->menutitle = $menutitle;
+        $menu->menu_slug = $slug;
         $menu->menucategory = $request->menucategory;
         $menu->parent_id = $request->menucategory;
         $menu->txtpostion = $request->txtpostion;
