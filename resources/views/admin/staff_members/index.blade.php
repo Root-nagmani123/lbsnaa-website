@@ -49,52 +49,49 @@
         @endif
         <div class="default-table-area members-list recent-orders">
             <div class="table-responsive">
-                <table class="table align-middle" id="myTable">
-                    <thead>
-                        <tr class="text-center">
-                            <th class="col">#</th>
-                            <th class="col">Name</th>
-                            <th class="col">Email</th>
-                            <th class="col">Designation</th>
-                            <th class="col">Actions</th>
-                            <th class="col">Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($staffMembers as $staff)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $staff->name }}</td>
-                            <td>{{ $staff->email }}</td>
-                            <td>{{ $staff->designation }}</td>
-                            <td class="text-center">
-                                <div class="d-flex justify-content-center align-items-center gap-2">
-                                    <a href="{{ route('admin.staff.edit', $staff->id) }}"
-                                        class="btn btn-success text-white btn-sm">
-                                        Edit
-                                    </a>
-                                    <form action="{{ route('admin.staff.destroy', $staff->id) }}" method="POST"
-                                        class="m-0">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-primary text-white btn-sm"
-                                            onclick="return confirm('Are you sure you want to delete?')">
-                                            Delete
-                                        </button>
-                                    </form>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input status-toggle" type="checkbox" role="switch"
-                                        data-table="staff_members" data-column="page_status" data-id="{{$staff->id}}"
-                                        {{$staff->page_status ? 'checked' : ''}}>
-                                </div>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+            <table class="table align-middle" id="sortableTable">
+    <thead>
+        <tr class="text-center">
+            <th class="col">#</th>
+            <th class="col">Name</th>
+            <th class="col">Email</th>
+            <th class="col">Designation</th>
+            <th class="col">Actions</th>
+            <th class="col">Status</th>
+        </tr>
+    </thead>
+    <tbody id="sortable-staff">
+        @foreach($staffMembers as $staff)
+        <tr data-id="{{ $staff->id }}" class="sortable-row">
+            <td class="handle" style="cursor: move;">☰</td> <!-- Drag handle -->
+            <td>{{ $staff->name }}</td>
+            <td>{{ $staff->email }}</td>
+            <td>{{ $staff->designation }}</td>
+            <td class="text-center">
+                <div class="d-flex justify-content-center align-items-center gap-2">
+                    <a href="{{ route('admin.staff.edit', $staff->id) }}" class="btn btn-success text-white btn-sm">
+                        Edit
+                    </a>
+                    <form action="{{ route('admin.staff.destroy', $staff->id) }}" method="POST" class="m-0">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-primary text-white btn-sm"
+                            onclick="return confirm('Are you sure you want to delete?')">
+                            Delete
+                        </button>
+                    </form>
+                </div>
+            </td>
+            <td>
+                <div class="form-check form-switch">
+                    <input class="form-check-input status-toggle" type="checkbox" role="switch" data-table="staff_members"
+                        data-column="page_status" data-id="{{$staff->id}}" {{$staff->page_status ? 'checked' : ''}}>
+                </div>
+            </td>
+        </tr>
+        @endforeach
+    </tbody>
+</table>
             </div>
         </div>
     </div>

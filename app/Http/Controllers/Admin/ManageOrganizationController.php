@@ -18,7 +18,8 @@ class ManageOrganizationController extends Controller
     // List faculty members
     public function facultyIndex()
     {
-        $facultyMembers = FacultyMember::get();
+        // $facultyMembers = FacultyMember::get();
+        $facultyMembers = FacultyMember::orderBy('position', 'ASC')->get();
         return view('admin.faculty_members.index', compact('facultyMembers'));
     }
 
@@ -215,7 +216,8 @@ class ManageOrganizationController extends Controller
 
     public function staffIndex()
     {
-        $staffMembers = StaffMember::all();
+        // $staffMembers = StaffMember::all();
+        $staffMembers = StaffMember::orderBy('position', 'ASC')->get();
         return view('admin.staff_members.index', compact('staffMembers'));
     }
 
@@ -618,6 +620,31 @@ class ManageOrganizationController extends Controller
         DB::table('section_category')->where('id', $id)->delete();
         return redirect()->route('admin.section_category.index',$sectionCategory->section_id)->with('success', 'Section Category deleted successfully');
     }
+    public function update_facultyOrder(Request $request)
+    {
+        $order = $request->order;
+    
+        foreach ($order as $index => $id) {
+            DB::table('faculty_members')
+                ->where('id', $id)
+                ->update(['position' => $index + 1]);
+        }
+    
+        return response()->json(['success' => true]);
+    }
+    public function updateStaffOrder(Request $request)
+{
+    $order = $request->order;
+
+    foreach ($order as $index => $id) {
+        DB::table('staff_members')
+            ->where('id', $id)
+            ->update(['position' => $index + 1]);
+    }
+
+    return response()->json(['success' => true]);
+}
+
 
 
     

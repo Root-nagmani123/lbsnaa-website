@@ -65,7 +65,7 @@ class CourseController extends Controller
              'meta_title' => 'required|string|max:255', 
              'meta_keyword' => 'nullable|string|max:255', 
              'coordinator_id' => 'required', 
-             'asst_coordinator_1_id' => 'required', 
+             
              'important_links' => 'nullable', 
              'description' => 'nullable', 
              'course_type' => 'nullable|string|max:255', 

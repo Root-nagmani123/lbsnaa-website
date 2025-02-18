@@ -12,6 +12,7 @@ use Illuminate\Validation\ValidationException;
 use App\Models\Admin\ManageAudit;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Cache;
 class LoginController extends Controller
 {
     protected function authenticated_bkp(Request $request, $user) {
@@ -26,7 +27,7 @@ class LoginController extends Controller
         DB::table('sessions')->where('user_id', $user->id)->delete();
     
         // ✅ Naya session generate karein
-        $request->session()->regenerate();
+        // $request->session()->regenerate();
     
         // ✅ Update user table (Optional: store session ID for tracking)
         DB::table('users')->where('id', $user->id)->update([
@@ -39,7 +40,7 @@ class LoginController extends Controller
         
         return view('auth.admin_login');
     }
-    public function authenticate(Request $request)
+    public function authenticate_bkp(Request $request)
 {
     // print_r($_POST);die(); 
     $request->validate([
@@ -121,6 +122,103 @@ class LoginController extends Controller
         'email' => 'The provided credentials do not match our records.',
     ]);
 }
+public function authenticate(Request $request)
+{
+    // Validate the incoming request
+    $request->validate([
+        'email' => 'required|email',
+        'password' => 'required',
+        'g-recaptcha-response' => 'required',  // Ensure the reCAPTCHA response is present
+    ]);
+
+    // Capture the reCAPTCHA response and prepare for verification
+    $response = $request->input('g-recaptcha-response');
+    $secret = '6LcnL6YqAAAAAFq4QQ4XTwhoLQCOBcR2iU7gWhJm';  // Your reCAPTCHA secret key
+    $remoteip = $request->ip();  // Get user's IP
+
+    // Verify reCAPTCHA response
+    $verify = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+        'secret' => $secret,
+        'response' => $response,
+        'remoteip' => $remoteip,
+    ]);
+
+    // Decode the response
+    $verifyResponse = $verify->json();
+
+    // Check if reCAPTCHA verification failed
+    if (!$verifyResponse['success']) {
+        // Store error message in session or cache
+        Cache::put('login_error', 'reCAPTCHA verification failed. Please try again.', 5); // 5 minutes cache duration
+        return back()->withErrors(['captcha' => 'reCAPTCHA verification failed.']);
+    }
+
+    // Retrieve the user by email
+    $user = User::where('email', $request->email)
+        ->where('status', 1)  // Ensure the user is active
+        ->first();
+        if($user == NULL){
+            Cache::put('login_error', 'Login failed due to user inactive. Please try again.', 5);
+            return back()->withErrors(['login' => 'Login failed. Please try again.']);
+        }
+
+    // Check if the user exists and the password is correct
+    if ($user && Hash::check($request->password, $user->password)) {
+        // Log the user login details into the login table
+        DB::table('user_login_details')->insert([
+            'user_id' => $user->id,
+            'login_time' => now(),
+            'action' => 'Login',
+            'ip_address' => $request->ip(),
+        ]);
+
+        // Log the user in manually
+        Auth::login($user);
+
+        // Check if user is authenticated successfully
+        if (Auth::check()) {
+            // You can store additional session data if needed
+            session(['user_id' => $user->id]);
+
+            // Log the login action in the audit table
+            ManageAudit::create([
+                'Module_Name' => 'Login',
+                'Time_Stamp' => now(),
+                'Created_By' => $user->id,
+                'Action_Type' => 'Login',
+                'IP_Address' => $request->ip(),
+            ]);
+
+            // Redirect to the intended route or a default page (e.g., admin dashboard)
+            return redirect()->intended('admin');
+        } else {
+            // If login failed, store an error in the cache or session
+            Cache::put('login_error', 'Login failed due to unknown reasons. Please try again.', 5);
+            return back()->withErrors(['login' => 'Login failed. Please try again.']);
+        }
+    }else{
+        Cache::put('login_error', 'Login failed due to wrong password. Please try again.', 5);
+            return back()->withErrors(['login' => 'Login failed. Please try again.']);
+    }
+
+    // If the user doesn't exist or the password doesn't match
+    if ($user) {
+        // Log the failed login attempt
+        DB::table('user_login_details')->insert([
+            'user_id' => $user->id,
+            'login_time' => now(),
+            'action' => 'Login failed',
+            'ip_address' => $request->ip(),
+        ]);
+    }
+
+    // If user doesn't exist or the credentials are incorrect
+    Cache::put('login_error', 'The provided credentials do not match our records.', 5); // Cache error for 5 minutes
+    throw ValidationException::withMessages([
+        'email' => 'The provided credentials do not match our records.',
+    ]);
+}
+
 
 
     public function logout(Request $request)
