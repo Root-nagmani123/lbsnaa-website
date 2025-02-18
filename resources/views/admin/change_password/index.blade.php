@@ -41,7 +41,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="form-group mb-4">
-                                <label class="label" for="txtpwd">Enter Old Password</label>
+                                <label class="label" for="txtpwd">Enter Current Password</label>
                                 <div class="form-group">
                                     <div class="password-wrapper position-relative">
                                         <input type="password" id="txtpwd" class="form-control h-58 text-dark" name="old_password">
@@ -70,7 +70,7 @@
                         </div>
                         <div class="col-lg-12">
                             <div class="form-group mb-4">
-                                <label class="label" for="txtcpwd">Confirm Password</label>
+                                <label class="label" for="txtcpwd">Confirm New Password</label>
                                 <div class="form-group">
                                     <div class="password-wrapper position-relative">
                                         <input type="password" id="txtcpwd" class="form-control h-58 text-dark" name="confirm_password">
@@ -103,6 +103,29 @@
                 }
             });
         </script>
+        <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const passwordFields = document.querySelectorAll(".password-wrapper");
+
+        passwordFields.forEach(wrapper => {
+            const input = wrapper.querySelector("input");
+            const toggleIcon = wrapper.querySelector(".password-toggle-icon");
+
+            toggleIcon.addEventListener("click", function () {
+                if (input.type === "password") {
+                    input.type = "text";
+                    toggleIcon.classList.remove("ri-eye-off-line");
+                    toggleIcon.classList.add("ri-eye-line");
+                } else {
+                    input.type = "password";
+                    toggleIcon.classList.remove("ri-eye-line");
+                    toggleIcon.classList.add("ri-eye-off-line");
+                }
+            });
+        });
+    });
+</script>
+
             </div>
         </div>
     </div>
