@@ -251,6 +251,10 @@ Route::post('/screenrender/update', [HomeController::class, 'screen_reader_updat
     Route::get('/faculty/{id}/edit', [ManageOrganizationController::class, 'facultyEdit'])->name('admin.faculty.edit');
     Route::put('/faculty/{id}', [ManageOrganizationController::class, 'facultyUpdate'])->name('admin.faculty.update');
     Route::delete('/faculty/{id}', [ManageOrganizationController::class, 'facultyDestroy'])->name('admin.faculty.destroy');
+    Route::post('/faculty/update-order', [ManageOrganizationController::class, 'update_facultyOrder'])
+    ->name('admin.faculty.updateOrder');
+
+
 
     // Staff Routes 
     Route::get('/staff', [ManageOrganizationController::class, 'staffIndex'])->name('admin.staff.index');
@@ -259,6 +263,9 @@ Route::post('/screenrender/update', [HomeController::class, 'screen_reader_updat
     Route::get('/staff/{id}/edit', [ManageOrganizationController::class, 'staffEdit'])->name('admin.staff.edit');
     Route::put('/staff/{id}', [ManageOrganizationController::class, 'staffUpdate'])->name('admin.staff.update');
     Route::delete('/staff/{id}', [ManageOrganizationController::class, 'staffDestroy'])->name('admin.staff.destroy');
+
+    Route::post('/admin/staff/update-order', [ManageOrganizationController::class, 'updateStaffOrder'])->name('admin.staff.updateOrder');
+
 
     Route::get('sections', [ManageOrganizationController::class, 'sectionIndex'])->name('sections.index');
     Route::get('sections/create', [ManageOrganizationController::class, 'sectionCreate'])->name('sections.create');

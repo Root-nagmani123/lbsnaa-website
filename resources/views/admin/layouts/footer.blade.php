@@ -23,4 +23,53 @@
 <script src="{{ asset('admin_assets/js/custom/custom.js') }}"></script>
 <script src="{{ asset('admin_assets/js/ckeditor.js') }}"></script>
 <script src="{{ asset('admin_assets/js/custom/toggle.js') }}"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 
+<script>
+    $(document).ready(function () {
+        $("#sortable_faculty").sortable({
+            handle: ".handle",
+            update: function (event, ui) {
+                let sortedIDs = $("#sortable_faculty").sortable("toArray", { attribute: "data-id" });
+
+                $.ajax({
+                    url: "{{ route('admin.faculty.updateOrder') }}",
+                    type: "POST",
+                    data: {
+                        order: sortedIDs,
+                        _token: "{{ csrf_token() }}"
+                    },
+                    success: function (response) {
+                        alert("Position Updated Successfully!");
+                    }
+                });
+            }
+        });
+    });
+
+    $(document).ready(function() {
+        $("#sortable-staff").sortable({
+            handle: ".handle", // Specify the handle for dragging
+            update: function(event, ui) {
+              
+                let sortedIDs = $("#sortable-staff").sortable("toArray", { attribute: "data-id" });
+
+                // Send updated order to the server
+                $.ajax({
+                    url: "{{ route('admin.staff.updateOrder') }}",
+                    type: "POST",
+                    data: {
+                        order: sortedIDs,
+                        _token: "{{ csrf_token() }}"
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            alert("Staff order updated successfully!");
+                        }
+                    }
+                });
+            }
+        });
+    });
+
+</script>
