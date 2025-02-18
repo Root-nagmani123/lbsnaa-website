@@ -42,7 +42,7 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\PreventBackHistory::class,
             \App\Http\Middleware\ClickjackingProtection::class,
-            \App\Http\Middleware\SingleSessionMiddleware::class,
+            // \App\Http\Middleware\SingleSessionMiddleware::class,
             // \App\Http\Middleware\ForceHttps::class,
         ],
 
