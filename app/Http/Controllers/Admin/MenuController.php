@@ -143,7 +143,7 @@ class MenuController extends Controller
        
         $menutitle = strip_tags($request->menutitle); // Remove HTML tags
         $menutitle = htmlspecialchars($menutitle, ENT_QUOTES, 'UTF-8'); 
-        $slug = Str::slug($rmenutitle, '-');
+        $slug = Str::slug($menutitle, '-');
 
         // Check if slug already exists
         $existingMenu = Menu::where('menu_slug', $slug)->where('is_deleted',0)->first();

@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
 
 use App\Models\Admin\Micro\MicroManageAudit;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth; 
 use Illuminate\Support\Str;
 
 class MicroMenuController extends Controller
@@ -285,10 +285,13 @@ class MicroMenuController extends Controller
             'txtpostion.required' => 'Please select content position.',
             'menutitle.required' => 'Please enter menu title.',
         ]);
+        $menutitle = strip_tags($request->menutitle); // Remove HTML tags
+        $menutitle = htmlspecialchars($menutitle, ENT_QUOTES, 'UTF-8'); 
+        $slug = Str::slug($menutitle, '-');
         // dd($request);
         // Check if the combination of menutitle and research_centre already exists
         $existingMenu = MicroMenu::where('research_centreid', $request->research_centre)
-            ->where('menutitle', $request->menutitle)
+            ->where('menutitle', $menutitle)
             ->first(); 
 
         if ($existingMenu) {
@@ -301,8 +304,8 @@ class MicroMenuController extends Controller
         $menu = new MicroMenu();
         $menu->language = $request->language;
         $menu->research_centreid = $request->research_centre;
-        $menu->menutitle = $request->menutitle;
-        $menu->menu_slug = Str::slug($request->menutitle, '-');
+        $menu->menutitle = $menutitle;
+        $menu->menu_slug = $slug;
         $menu->texttype = $request->texttype;
         $menu->menucategory = $request->menucategory;
         $menu->parent_id = $request->menucategory;
