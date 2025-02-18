@@ -182,11 +182,12 @@ public function authenticate(Request $request)
 
             // Log the login action in the audit table
             ManageAudit::create([
-                'Module_Name' => 'Login',
-                'Time_Stamp' => now(),
-                'Created_By' => $user->id,
-                'Action_Type' => 'Login',
-                'IP_Address' => $request->ip(),
+                'Module_Name' => 'Login', // Static value
+                'Time_Stamp' => time(), // Use Laravel's now() helper
+                'Created_By' => $user->id, // ID of the authenticated user
+                'Updated_By' => null, // No update on creation, so leave null
+                'Action_Type' => 'Login', // Static value
+                'IP_Address' => $request->ip(), // Get IP address from request
             ]);
 
             // Redirect to the intended route or a default page (e.g., admin dashboard)
