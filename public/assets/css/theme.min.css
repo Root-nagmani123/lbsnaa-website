@@ -7090,7 +7090,7 @@ fieldset:disabled .btn {
   display: flex;
   justify-content: center;
   left: 0;
-  margin-bottom: 1rem;
+  margin-bottom: 3rem;
   margin-left: 15%;
   margin-right: 15%;
   padding: 0;
@@ -7098,23 +7098,25 @@ fieldset:disabled .btn {
   right: 0;
   z-index: 2;
 }
+
 .carousel-indicators [data-bs-target] {
   background-clip: padding-box;
-  background-color: #fff;
+  background-color: #af2910;
   border: 0;
   border-bottom: 10px solid transparent;
   border-top: 10px solid transparent;
   box-sizing: content-box;
   cursor: pointer;
   flex: 0 1 auto;
-  height: 3px;
+  height: 13px;
   margin-left: 3px;
   margin-right: 3px;
   opacity: 0.5;
   padding: 0;
   text-indent: -999px;
   transition: opacity 0.6s ease;
-  width: 30px;
+  width: 14px;
+  border-radius: 100%;
 }
 @media (prefers-reduced-motion: reduce) {
   .carousel-indicators [data-bs-target] {

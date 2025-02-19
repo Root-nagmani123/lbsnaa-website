@@ -34,8 +34,6 @@
 
     .slider-caption {
         position: absolute;
-        top: 0;
-        left: 0;
         z-index: 1000;
         width: 100%;
         height: 100%;
@@ -55,6 +53,7 @@
     .logo {
         width: 350px;
     }
+    
 
     @media (max-width: 768px) {
         .bar {
@@ -246,7 +245,7 @@
                         /* Ensures dropdown always opens to the left */
                     }
                     </style>
-                    <li class="nav-item dropdown">
+                    <!-- <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle fw-bold" href="#" id="languageDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside"
                             data-bs-offset="10,20" aria-label="Language">
@@ -258,7 +257,7 @@
                             <li><a class="dropdown-item" href="{{ route('set.language', 2) }}"
                                     aria-label="Hindi">Hindi</a></li>
                         </ul>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
             <script>
