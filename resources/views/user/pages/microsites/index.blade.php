@@ -5,7 +5,7 @@
 #playPauseBtn {
     position: absolute;
     bottom: 1%;
-    right: 15px;
+    right: 30px;
     transform: translateY(-5%);
     z-index: 10;
     opacity: 0.8;
@@ -95,7 +95,7 @@
                     </button>
 
                     <!-- Play/Pause Button -->
-                    <button id="playPauseBtn" class="btn btn-danger" aria-label="Play/Pause button for Sliders">
+                    <button id="playPauseBtn" class="btn btn-danger btn-sm" aria-label="Play/Pause button for Sliders">
                         <i class="bi bi-pause-fill"></i>Pause
                     </button>
                 </div>
