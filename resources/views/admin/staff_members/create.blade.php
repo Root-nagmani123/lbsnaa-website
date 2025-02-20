@@ -21,6 +21,32 @@
         </li>
     </ul>
 </div>
+@if(Cache::has('success_message'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ Cache::get('success_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('error_message'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ Cache::get('error_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('validation_errors'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <ul>
+            @foreach (Cache::get('validation_errors') as $field => $errors)
+                @foreach ($errors as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            @endforeach
+        </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
 <div class="row justify-content-center">
     <div class="col-lg-12">
         <div class="card bg-white border-0 rounded-10 mb-4">
@@ -42,9 +68,7 @@
                                     <input type="radio" name="language" value="2"
                                         {{ old('language') == '2' ? 'checked' : '' }}> Hindi
                                 </div>
-                                @error('language')
-                                <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                @enderror
+                              
                             </div>
                         </div>
 
@@ -55,9 +79,7 @@
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark  h-58" name="name" id="name"
                                         value="{{ old('name') }}">
-                                    @error('name')
-                                    <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                    @enderror
+                                   
                                 </div>
                             </div>
                         </div>
@@ -77,9 +99,7 @@
                                 <div class="form-group position-relative">
                                     <input type="email" class="form-control text-dark  h-58" name="email" id="email"
                                         value="{{ old('email') }}">
-                                    @error('email')
-                                    <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                    @enderror
+                                    
                                 </div>
                             </div>
                         </div>
@@ -117,9 +137,7 @@
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark  h-58" name="designation"
                                         id="designation" value="{{ old('designation') }}">
-                                    @error('designation')
-                                    <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                    @enderror
+                                    
                                 </div>
                             </div>
                         </div>
@@ -169,9 +187,7 @@
                                     <input type="number" class="form-control text-dark  h-58"
                                         name="phone_internal_office" id="phone_internal_office"
                                         value="{{ old('phone_internal_office') }}">
-                                    @error('phone_internal_office')
-                                    <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                    @enderror
+                                   
                                 </div>
                             </div>
                         </div>
@@ -182,9 +198,7 @@
                                     <input type="number" class="form-control text-dark  h-58"
                                         name="phone_internal_residence" id="phone_internal_residence"
                                         value="{{ old('phone_internal_residence') }}">
-                                    @error('phone_internal_residence')
-                                    <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                    @enderror
+                                    
                                 </div>
                             </div>
                         </div>
@@ -195,9 +209,7 @@
                                 <div class="form-group position-relative">
                                     <input type="number" class="form-control text-dark  h-58" name="phone_pt_office"
                                         id="phone_pt_office" value="{{ old('phone_pt_office') }}">
-                                    @error('phone_pt_office')
-                                    <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                    @enderror
+                                    
                                 </div>
                             </div>
                         </div>
@@ -207,9 +219,7 @@
                                 <div class="form-group position-relative">
                                     <input type="number" class="form-control text-dark  h-58" name="phone_pt_residence"
                                         id="phone_pt_residence" value="{{ old('phone_pt_residence') }}">
-                                    @error('phone_pt_residence')
-                                    <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                    @enderror
+                                   
                                 </div>
                             </div>
                         </div>
@@ -220,9 +230,7 @@
                                 <div class="form-group position-relative">
                                     <input type="number" class="form-control text-dark  h-58" name="mobile" id="mobile"
                                         value="{{ old('mobile') }}">
-                                    @error('mobile')
-                                    <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                    @enderror
+                                    
                                 </div>
                             </div>
                         </div>
@@ -278,9 +286,7 @@
                                     <input type="text" class="form-control text-dark  h-58"
                                         name="acm_status_in_committee" id="acm_status_in_committee"
                                         value="{{ old('acm_status_in_committee') }}">
-                                    @error('exm_date')
-                                    <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                    @enderror
+                                   
                                 </div>
                             </div>
                         </div>
@@ -310,9 +316,7 @@
                                         <option value="0" class="text-dark"
                                             {{ old('page_status') == '0' ? 'selected' : '' }}>Inactive</option>
                                     </select>
-                                    @error('page_status')
-                                    <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                    @enderror
+                                    
                                 </div>
                             </div>
                         </div>

@@ -411,18 +411,22 @@ class MenuController extends Controller
     {
         // Find the menu by its ID or fail if it doesn't exist
         $menu = Menu::findOrFail($id);
-
-        // Check if the menu status is inactive (status = 1) and prevent deletion
+   
+        // Check if the menu status is active (menu_status = 1) and prevent deletion
         if ($menu->menu_status == 1) {
-            return redirect()->route('admin.menus.index')->with('error', 'Active menus cannot be deleted.');
+            Cache::put('error_message', 'Active menus cannot be deleted.', 1);
+            return redirect()->route('admin.menus.index');
         }
-
-        // Mark the menu as deleted (soft delete)
-        $menu->is_deleted = 1;
-        $menu->save();
-
-        return redirect()->route('admin.menus.index')->with('success', 'Menu deleted successfully.');
+        print_r($menu);die;
+        // Hard delete the menu
+        $menu->delete();
+    
+        // Store success message in cache
+        Cache::put('success_message', 'Menu deleted successfully.', 1);
+    
+        return redirect()->route('admin.menus.index');
     }
+    
 
 
     public function toggleStatus(Request $request, $id)

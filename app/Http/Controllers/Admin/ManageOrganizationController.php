@@ -8,6 +8,9 @@ use App\Models\Admin\StaffMember;
 use App\Models\Admin\Staff; // Import the Staff model
 use App\Models\Admin\Section;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 
 use App\Models\Admin\ManageAudit;
@@ -28,7 +31,7 @@ class ManageOrganizationController extends Controller
         $startYear = 2000;
         $currentYear = now()->year; // Get the current year
         $years = range($startYear, $currentYear); // Create an array of years
-
+ 
         // Fetch the codes from the manage_cadres table
         $cadres = DB::table('manage_cadres')->where('status',1)->pluck('code', 'id'); // Get id as key and code as value
         return view('admin.faculty_members.create', compact('cadres','years'));
@@ -54,7 +57,7 @@ class ManageOrganizationController extends Controller
             
         // ]);
 
-        $validated = $request->validate([
+        $rules = [
             'language' => 'required|in:1,2',
             'category' => 'required|in:0,1',
             'name' => 'required|string|max:255',
@@ -67,19 +70,23 @@ class ManageOrganizationController extends Controller
                         $fail("The {$attribute} must not start with special characters.");
                     }
                 },
-            ], 
-
+            ],
             'designation' => 'required|string|max:255',
             'page_status' => 'required|in:0,1',
-        
             'phone_internal_office' => 'nullable|string',
             'phone_internal_residence' => 'nullable|string',
             'phone_pt_office' => 'nullable|string',
             'phone_pt_residence' => 'nullable|string',
             'std_code' => 'nullable|string',
             'country_code' => 'nullable|string',
-        ]);
-        
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            // Store validation errors and old inputs in cache (for 1 minute)
+            Cache::put('validation_errors', $validator->errors()->toArray(), 1);
+    
+            return redirect(session('url.previousdata', url('/')))->withInput();
+        }
         
     
         // Handle image upload
@@ -121,6 +128,7 @@ class ManageOrganizationController extends Controller
         ]);
     
         // Redirect with success message
+        Cache::put('success_message', 'Faculty Member added successfully!', 1);
         return redirect()->route('admin.faculty.index')->with('success', 'Faculty member added successfully.');
     }
     
@@ -146,13 +154,12 @@ class ManageOrganizationController extends Controller
     {
         $facultyMember = FacultyMember::findOrFail($id);
 
-        $request->validate([
+        $rules = [
             'category' => 'required',
             'name' => 'required',
             'email' => 'required|email|unique:faculty_members,email,' . $facultyMember->id,
             'designation' => 'required',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-
             'phone_internal_office' => 'nullable|digits:10',
             'phone_internal_residence' => 'nullable|digits:10',
             'phone_pt_office' => 'nullable|digits:10',
@@ -160,8 +167,14 @@ class ManageOrganizationController extends Controller
             'mobile' => 'nullable|digits:10',
             'std_code' => 'nullable|string',
             'country_code' => 'nullable|string',
-            'phone_pt_office' => 'nullable|string',
-        ]);
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            // Store validation errors and old inputs in cache (for 1 minute)
+            Cache::put('validation_errors', $validator->errors()->toArray(), 1);
+    
+            return redirect(session('url.previousdata', url('/')))->withInput();
+        }
 
         $data = $request->all();
 
@@ -193,6 +206,7 @@ class ManageOrganizationController extends Controller
             'Action_Type' => 'Update', // Static value
             'IP_Address' => $request->ip(), // Get IP address from request
         ]);
+        Cache::put('success_message', 'Faculty member updated successfully.', 1);
 
         return redirect()->route('admin.faculty.index')->with('success', 'Faculty member updated successfully.');
     }
@@ -204,11 +218,15 @@ class ManageOrganizationController extends Controller
         $facultyMember = FacultyMember::findOrFail($id);
         // Check if the faculty member is already inactive (status = 1 or 0), and prevent deletion if necessary
         if ($facultyMember->page_status == 1) {
+        Cache::put('error_message', 'Active faculty members cannot be deleted', 1);
+            
             return redirect()->route('admin.faculty.index')->with('error', 'Active faculty members cannot be deleted.');
         }
         // Permanently delete the faculty member from the database
         $facultyMember->delete();
         // Redirect back with a success message
+        Cache::put('success_message', 'Faculty deleted successfully', 1);
+
         return redirect()->route('admin.faculty.index')->with('success', 'Faculty member deleted successfully.');
     }
 
@@ -232,19 +250,9 @@ class ManageOrganizationController extends Controller
     public function staffStore(Request $request)
     {
         // Validate input fields
-        $validated = $request->validate([
-            'language' => 'required|string|in:1,2', // Replace with your dropdown options
+        $rules = [
+            'language' => 'required|string|in:1,2',
             'name' => 'required|string|max:255',
-            // 'email' => [
-            //     'required',
-            //     'email:rfc,dns',
-            //     'unique:staff_members,email',
-            //     function ($attribute, $value, $fail) {
-            //         if (preg_match('/^[\.\,\/\!\@\#\$\%\^\~\@\d]/', $value)) {
-            //             $fail("The {$attribute} must not start with special characters or numbers.");
-            //         }
-            //     },
-            // ],
             'email' => [
                 'required',
                 'email:rfc,dns',
@@ -255,22 +263,20 @@ class ManageOrganizationController extends Controller
                     }
                 },
             ],
-
             'designation' => 'required|string|max:255',
-            'mobile' => 'required|digits:10|unique:staff_members,mobile', // Ensure valid 10-digit mobile number
-        
-            // Optional fields with uniqueness and format validation
+            'mobile' => 'required|digits:10|unique:staff_members,mobile',
             'phone_pt_office' => 'nullable|string',
             'std_code' => 'nullable|string',
             'country_code' => 'nullable|string',
-        
-            'page_status' => 'required|in:1,0', // Replace with your dropdown options
-            'present_at_station' => 'required|in:1,0', // Replace with your dropdown options
-            'acm_member' => 'required|in:1,0', // Replace with your dropdown options
-            'co_opted_member' => 'required|in:1,0', // Replace with your dropdown options
-            'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048', // Optional image upload with size and format constraints
-        ], [
-            // Custom error messages
+            'page_status' => 'required|in:1,0',
+            'present_at_station' => 'required|in:1,0',
+            'acm_member' => 'required|in:1,0',
+            'co_opted_member' => 'required|in:1,0',
+            'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
+        ];
+    
+        // Custom Error Messages
+        $messages = [
             'email.required' => 'The email field is mandatory.',
             'email.email' => 'Please provide a valid email address.',
             'email.unique' => 'This email is already in use. Please use another one.',
@@ -279,7 +285,19 @@ class ManageOrganizationController extends Controller
             'image.image' => 'The uploaded file must be an image.',
             'image.mimes' => 'Only JPG, PNG, and JPEG formats are allowed.',
             'image.max' => 'The image size should not exceed 2MB.',
-        ]);
+        ];
+    
+        // Validate the request
+        $validator = Validator::make($request->all(), $rules, $messages);
+    
+        if ($validator->fails()) {
+            // **Cache validation errors for 1 minute**
+            Cache::put('validation_errors', $validator->errors()->toArray(), 1);
+    
+            return redirect(session('url.previousdata', url('/')))->withInput();
+        }
+
+    
 
         // Handling image upload
         if ($request->hasFile('image')) {
@@ -301,6 +319,7 @@ class ManageOrganizationController extends Controller
             'Action_Type' => 'Insert',
             'IP_Address' => $request->ip(),
         ]);
+        Cache::put('success_message', 'Staff member created successfully!', 1);
 
         return redirect()->route('admin.staff.index')->with('success', 'Staff member created successfully!');
     }
@@ -319,21 +338,51 @@ class ManageOrganizationController extends Controller
         $staff = StaffMember::findOrFail($id);
 
         // Validate input fields
-        $validated = $request->validate([
-            'language' => 'required|string|in:1,2', // Replace with your dropdown options
+        $validator = Validator::make($request->all(), [
+            'language' => 'required|string|in:1,2',
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:staff_members,email,' . $id, // Exclude current staff email
-            'designation' => 'required|string|max:255',
-            'mobile' => 'required|digits:10|unique:staff_members,mobile,' . $id, // Exclude current mobile number
             
-            // Optional fields without uniqueness checks
+            'email' => [
+                'required',
+                'email:rfc,dns',
+                Rule::unique('staff_members', 'email')->ignore($id),
+            ],
+            
+            'designation' => 'required|string|max:255',
+            
+            'mobile' => [
+                'required',
+                'digits:10',
+                Rule::unique('staff_members', 'mobile')->ignore($id),
+            ],
+            
+            // Optional fields
             'phone_pt_office' => 'nullable|string',
             'std_code' => 'nullable|string',
             'country_code' => 'nullable|string',
 
-            'page_status' => 'required|in:1,0', // Replace with your dropdown options
-            'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048', // Optional image upload with size and format constraints
+            'page_status' => 'required|in:1,0',
+            'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
+        ], [
+            'email.required' => 'Email is required.',
+            'email.email' => 'Enter a valid email address.',
+            'email.unique' => 'This email is already in use.',
+
+            'mobile.required' => 'Mobile number is required.',
+            'mobile.unique' => 'This mobile number is already registered.',
+            'mobile.digits' => 'Mobile number must be exactly 10 digits.',
+
+            'page_status.required' => 'Page status is required.',
+            'image.mimes' => 'Only JPG, PNG, and JPEG formats are allowed.',
+            'image.max' => 'Image size must not exceed 2MB.',
         ]);
+
+        if ($validator->fails()) {
+            // Store validation errors and old inputs in cache (for 1 minute)
+            Cache::put('validation_errors', $validator->errors()->toArray(), 1);
+    
+            return redirect(session('url.previousdata', url('/')))->withInput();
+        }
 
 
         $staffData = $request->all();
@@ -362,6 +411,7 @@ class ManageOrganizationController extends Controller
             'Action_Type' => 'Update', // Static value
             'IP_Address' => $request->ip(), // Get IP address from request
         ]);
+        Cache::put('success_message', 'Staff member updated successfully', 1);
 
         return redirect()->route('admin.staff.index')->with('success', 'Staff member updated successfully!');
     }
@@ -373,11 +423,15 @@ class ManageOrganizationController extends Controller
     
         // Check if the staff member exists
         if (!$staff) {
+        Cache::put('error_message', 'Staff member not found.', 1);
+
             return redirect()->route('admin.staff.index')->with('error', 'Staff member not found.');
         }
     
         // Check if the status is 1 (Inactive), and if so, prevent deletion
         if ($staff->page_status == 1) {
+        Cache::put('error_message', 'Active staff members cannot be deleted', 1);
+
             return redirect()->route('admin.staff.index')->with('error', 'Active staff members cannot be deleted.');
         }
     
@@ -388,6 +442,7 @@ class ManageOrganizationController extends Controller
     
         // Delete the staff record from the database
         DB::table('staff_members')->where('id', $id)->delete();
+        Cache::put('success_message', 'Staff member deleted successfully!', 1);
     
         return redirect()->route('admin.staff.index')->with('success', 'Staff member deleted successfully!');
     }
@@ -409,25 +464,29 @@ class ManageOrganizationController extends Controller
     public function sectionStore(Request $request)
     {
         // Validate the input data
-        $request->validate(
-            [
-                'language' => 'required|in:1,2', // Adjust the 'in' values to your available language options
-                'title' => 'required|string|max:255', // Title is required, must be a string, and max length is 255
-                'status' => 'required|in:1,0', // Status must be one of these options
-            ],
-            [
-                'language.required' => 'Please select a language.', // Custom message for language
-                'language.in' => 'Invalid language selected.', // Invalid language option message
-                'title.required' => 'Please enter a title.', // Custom message for title
-                'title.max' => 'Title must not exceed 255 characters.', // Custom message for max length
-                'status.required' => 'Please select a status.', // Custom message for status
-                'status.in' => 'Invalid status selected.', // Invalid status option message
-            ]
-        );
+        $validator = Validator::make($request->all(), [
+            'language' => 'required|in:1,2', // Adjust the 'in' values to your available language options
+            'title' => 'required|string|max:255', // Title is required, must be a string, and max length is 255
+            'status' => 'required|in:1,0', // Status must be one of these options
+        ], [
+            'language.required' => 'Please select a language.', // Custom message for language
+            'language.in' => 'Invalid language selected.', // Invalid language option message
+            'title.required' => 'Please enter a title.', // Custom message for title
+            'title.max' => 'Title must not exceed 255 characters.', // Custom message for max length
+            'status.required' => 'Please select a status.', // Custom message for status
+            'status.in' => 'Invalid status selected.', // Invalid status option message
+        ]);
+        
+        // Agar validation fail hota hai
+        if ($validator->fails()) {
+            Cache::put('validation_errors', $validator->errors()->toArray(), 1); // Cache me pehla error store karna
+            return redirect(session('url.previousdata', url('/')));
+        }
         
         $sectionData = $request->all(); // No validation
 
         Section::create($sectionData);
+        Cache::put('success_message', 'Section added successfully', 1);
 
         return redirect()->route('sections.index')->with('success', 'Section added successfully');
     }
@@ -456,10 +515,13 @@ class ManageOrganizationController extends Controller
         $section = Section::findOrFail($id);
         // Check if the status is 1 (Inactive), and if so, prevent deletion
         if ($section->status == 1) {
+        Cache::put('error_message', 'Active section cannot be deleted.', 1);
+            
             return redirect()->route('sections.index')->with('error', 'Active section cannot be deleted.');
         }
 
         $section->delete();
+        Cache::put('success_message', 'Section deleted successfully.', 1);
 
         return redirect()->route('sections.index')->with('success', 'Section deleted successfully');
     }
@@ -521,19 +583,34 @@ class ManageOrganizationController extends Controller
     
     public function storeSectionCategory(Request $request)
     {
-        $validatedData = $request->validate([
+        // Validation Rules
+        $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'officer_Incharge' => 'nullable|string',
-            'email' => 'nullable|email',
+            'description' => 'required|string',
+            'officer_Incharge' => 'required|string',
+            'email' => 'required|email',
             'status' => 'required|boolean',
+        ], [
+            'name.required' => 'Name is required.',
+            'name.max' => 'Name must not exceed 255 characters.',
+            'email.email' => 'Enter a valid email address.',
+            'status.required' => 'Status is required.',
+            'status.boolean' => 'Invalid status value.',
         ]);
+    
+        // Agar validation fail hota hai
+        if ($validator->fails()) {
+            Cache::put('validation_errors', $validator->errors()->toArray(), 1); // Pehla error message cache me store karega
+            return redirect(session('url.previousdata', url('/')))
+                ->withErrors($validator)
+                ->withInput(); // Pichle inputs ko preserve karega
+        }
     
         // Insert data using query builder
         DB::table('section_category')->insert([
-            'name' => $validatedData['name'],
-            'description' => $validatedData['description'],
-            'officer_Incharge' => $validatedData['officer_Incharge'],
+            'name' => $request->name,
+            'description' => $request->description,
+            'officer_Incharge' => $request->officer_Incharge,
             'alternative_Incharge_1st' => $request->alternative_incharge_1st,
             'alternative_Incharge_2st' => $request->alternative_incharge_2st,
             'alternative_Incharge_3st' => $request->alternative_incharge_3st,
@@ -545,24 +622,30 @@ class ManageOrganizationController extends Controller
             'phone_p_t_office' => $request->phone_p_t_office,
             'phone_p_t_residence' => $request->phone_p_t_residence,
             'fax' => $request->fax,
-            'email' => $validatedData['email'],
-            'status' => $validatedData['status'],
+            'email' => $request->email,
+            'status' => $request->status,
             'section_id' => $request->section_id,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
     
+        // Audit Log Insert
         ManageAudit::create([
-            'Module_Name' => 'Section Category', // Static value
-            'Time_Stamp' => time(), // Current timestamp
-            'Created_By' => null, // ID of the authenticated user
-            'Updated_By' => null, // No update on creation, so leave null
-            'Action_Type' => 'Insert', // Static value
-            'IP_Address' => $request->ip(), // Get IP address from request
+            'Module_Name' => 'Section Category',
+            'Time_Stamp' => time(),
+            'Created_By' => null,
+            'Updated_By' => null,
+            'Action_Type' => 'Insert',
+            'IP_Address' => $request->ip(),
         ]);
-
-        return redirect()->route('admin.section_category.index', ['catid' => $request->section_id])->with('success', 'Section Category created successfully');
+    
+        // Success Message Cache
+        Cache::put('success_message', 'Section Category created successfully!', 1);
+    
+        // Redirect Using Session-Stored Previous URL
+        return redirect()->route('admin.section_category.index', ['catid' => $request->section_id]);
     }
+    
     public function editSectionCategory($id)
     {
         // Fetch section category and sections using query builder
@@ -580,8 +663,67 @@ class ManageOrganizationController extends Controller
         $officers = $faculty;
         return view('admin.sections.section_category.edit', compact('sectionCategory','officers'));
     }
-
     public function updateSectionCategory(Request $request, $id)
+    {
+        // Validate the request
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'officer_Incharge' => 'nullable|string',
+            'email' => 'nullable|email',
+            'status' => 'required|boolean',
+        ], [
+            'name.required' => 'Name is required.',
+            'name.max' => 'Name must not exceed 255 characters.',
+            'email.email' => 'Enter a valid email address.',
+            'status.required' => 'Status is required.',
+            'status.boolean' => 'Invalid status value.',
+        ]);
+    
+        // Agar validation fail hota hai
+        if ($validator->fails()) {
+            Cache::put('validation_errors', $validator->errors()->toArray(), 1); // Pehla error cache me store karega
+            return redirect(session('url.previousdata', url('/')))
+                ->withErrors($validator)
+                ->withInput(); // Inputs preserve rahenge
+        }
+    
+        // Check if record exists
+        $section = DB::table('section_category')->where('id', $id)->first();
+        if (!$section) {
+            Cache::put('error_message', 'Section Category not found!', 1);
+            return redirect(session('url.previousdata', url('/')))->withErrors(['error' => 'Section Category not found!']);
+        }
+    
+        // Update the record
+        DB::table('section_category')->where('id', $id)->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'officer_Incharge' => $request->officer_Incharge,
+            'alternative_Incharge_1st' => $request->alternative_Incharge_1st,
+            'alternative_Incharge_2st' => $request->alternative_Incharge_2st,
+            'alternative_Incharge_3st' => $request->alternative_Incharge_3st,
+            'alternative_Incharge_4st' => $request->alternative_Incharge_4st,
+            'alternative_Incharge_5st' => $request->alternative_Incharge_5st,
+            'section_head' => $request->section_head,
+            'phone_internal_office' => $request->phone_internal_office,
+            'phone_internal_residence' => $request->phone_internal_residence,
+            'phone_p_t_office' => $request->phone_p_t_office,
+            'phone_p_t_residence' => $request->phone_p_t_residence,
+            'fax' => $request->fax,
+            'email' => $request->email,
+            'status' => $request->status,
+            'updated_at' => now(),
+        ]);
+    
+        // Success message cache me store karega
+        Cache::put('success_message', 'Section Category updated successfully!', 1);
+    
+        // Redirect with success message
+        return redirect()->route('admin.section_category.index', ['catid' => $request->section_id]);
+    }
+    
+    public function updateSectionCategory_bkp(Request $request, $id)
     {
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
@@ -618,7 +760,9 @@ class ManageOrganizationController extends Controller
         // Delete using query builder
         $sectionCategory = DB::table('section_category')->select('section_id')->where('id', $id)->first();        
         DB::table('section_category')->where('id', $id)->delete();
-        return redirect()->route('admin.section_category.index',$sectionCategory->section_id)->with('success', 'Section Category deleted successfully');
+        Cache::put('success_message', 'Section Category deleted successfully!', 1);
+
+        return redirect()->route('admin.section_category.index', ['catid' => $sectionCategory->section_id])->with('success', 'Section Category deleted successfully');
     }
     public function update_facultyOrder(Request $request)
     {

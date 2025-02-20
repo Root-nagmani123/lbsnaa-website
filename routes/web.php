@@ -199,14 +199,16 @@ Route::post('/module', [UserManagementController::class, 'store'])->name('module
 Route::post('/module/{id}', [UserManagementController::class, 'update'])->name('module.update');
 Route::delete('/module/{id}', [UserManagementController::class, 'destroy'])->name('module.destroy');
 
-Route::middleware(['throttle:5,1'])->group(function () {
+
 Route::get('/users', [UserManagementController::class, 'users_index'])->name('users.index'); // List users
 Route::get('/users/add', [UserManagementController::class, 'users_create'])->name('users.create'); // Show add form
-Route::post('/users/store', [UserManagementController::class, 'users_store'])->name('users.store'); // Add user
+
 Route::get('/users/edit/{id}', [UserManagementController::class, 'users_edit'])->name('users.edit'); // Show edit form
 Route::put('/users/update/{id}', [UserManagementController::class, 'users_update'])->name('users.update'); // Update user
 Route::post('/users/delete/{id}', [UserManagementController::class, 'users_destroy'])->name('users.delete'); // Delete user
 Route::post('/users/updateStatus/{id}', [UserManagementController::class, 'updateStatus'])->name('users.updateStatus');
+Route::middleware(['throttle:5,1'])->group(function () {
+    Route::post('/users/store', [UserManagementController::class, 'users_store'])->name('users.store'); // Add user
 });
 
 Route::get('/users/permissions/{id}', [UserManagementController::class, 'permissions'])->name('users.permissions');

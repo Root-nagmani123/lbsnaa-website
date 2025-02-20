@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\DB;
 
 use App\Models\Admin\ManageAudit;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Validator;
 
 class EmployeeController extends Controller
 {
@@ -36,14 +38,32 @@ class EmployeeController extends Controller
     // Category store method to handle form submission for creating new section
     public function organisation_chartStore(Request $request)
     {
-        $request->validate([
+        $rules = [
             'language' => 'required',
             'parentcategory' => 'required',
             'employee_name' => 'required',
             'description' => 'nullable|string',
             'category' => 'nullable',
             'status' => 'required|in:0,1',
-        ]);
+        ];
+    
+        $messages = [
+            'language.required' => 'Language is required.',
+            'parentcategory.required' => 'Parent category is required.',
+            'employee_name.required' => 'Employee name is required.',
+            'description.string' => 'Description must be a valid string.',
+            'status.required' => 'Status is required.',
+            'status.in' => 'Invalid status selection.',
+        ];
+    
+        $validator = Validator::make($request->all(), $rules, $messages);
+    
+        if ($validator->fails()) {
+            // Store validation errors and old inputs in cache (for 1 minute)
+            Cache::put('validation_errors', $validator->errors()->toArray(), 1);
+    
+            return redirect(session('url.previousdata', url('/')))->withInput();
+        }
         // dd($sss);
 
 
@@ -68,10 +88,10 @@ class EmployeeController extends Controller
             'IP_Address' => $request->ip(), // Get IP address from request
         ]);
         
-
+      
+        Cache::put('success_message', 'Employee added successfully', 1);
         // Redirect back to the same URL
-        return redirect()->route('organisation-chart.sub-org', ['parent_id' => $request->input('parent_id')])
-            ->with('success', 'Employee added successfully'); 
+        return redirect()->route('organisation-chart.sub-org', ['parent_id' => $request->input('parent_id')]); 
     }
 
     // Category edit method to show the edit form for a specific section
@@ -90,6 +110,22 @@ class EmployeeController extends Controller
     public function organisation_chartUpdate(Request $request, $id)
     {
         // Validate the request data
+        $rules = [
+            'language' => 'required',
+            'parentcategory' => 'required',
+            'employee_name' => 'required',
+            'description' => 'nullable|string',
+            'category' => 'nullable',
+            'status' => 'required|in:0,1',
+        ];
+    
+        $messages = [
+            'language.required' => 'Language is required.',
+            'parentcategory.required' => 'Parent category is required.',
+            'employee_name.required' => 'Employee name is required.',
+            'status.required' => 'Status is required.',
+            'status.in' => 'Invalid status selection.',
+        ];
         $request->validate([
             'language' => 'required',
             'parentcategory' => 'required',
@@ -98,12 +134,21 @@ class EmployeeController extends Controller
             'category' => 'nullable', 
             'status' => 'required|in:0,1',
         ]);
+        // Validate Request
+        // $validator = Validator::make($request->all(), $rules, $messages);
+    
+        // if ($validator->fails()) {
+        //     // Store validation errors, old inputs, and error message in cache (for 1 minute)
+        //     Cache::put('validation_errors', $validator->errors()->toArray(), 1);
+        //       return redirect(session('url.previousdata', url('/')));
+        // }
 
         // Check if the record exists
         $organisationChart = DB::table('organisation_chart')->where('id', $id)->first();
 
         if (!$organisationChart) {
-            return redirect()->route('organisation_chart.index')->with('error', 'Record not found');
+            Cache::put('error_message', 'Record not found.', 1);
+            return redirect()->route('organisation_chart.index');
         }
 
         // Set category based on the condition
@@ -136,12 +181,11 @@ class EmployeeController extends Controller
 
         // Check if the update was successful
         if ($updated) {
-            return redirect()->route('organisation-chart.sub-org', ['parent_id' => $request->input('parent_id')])
-            ->with('success', 'Employee Updated successfully'); 
-
-            // return redirect()->route('organisation-chart.index')->with('success', 'Updated successfully');
+            Cache::put('success_message', 'Employee updated successfully!', 1);
+            return redirect()->route('organisation-chart.sub-org', ['parent_id' => $request->input('parent_id')]);
         } else {
-            return redirect()->route('organisation-chart.index')->with('error', 'Failed to update record');
+            Cache::put('error_message', 'Failed to update record.', 1);
+            return redirect()->route('organisation-chart.index');
         }
     }
 
@@ -152,12 +196,14 @@ class EmployeeController extends Controller
         $organisationChart = DB::table('organisation_chart')->where('id', $id)->first();
 $parent_id = $organisationChart->parent_id;
         if (!$organisationChart) {
-            return redirect()->route('organisation-chart.sub-org', ['parent_id' => $parent_id])->with('error', 'Record not found');
+            Cache::put('error_message', 'Record not found.', 1);
+            return redirect()->route('organisation-chart.sub-org', ['parent_id' => $parent_id]);
         }
 
         // Check if the status is 1 (Inactive)
         if ($organisationChart->status == 1) {
-            return redirect()->route('organisation-chart.sub-org', ['parent_id' => $parent_id])->with('error', 'Active organisation charts cannot be deleted.');
+            Cache::put('error_message', 'Active organisation charts cannot be deleted.', 1);
+            return redirect()->route('organisation-chart.sub-org', ['parent_id' => $parent_id]);
         }
 
         // Perform the delete operation
@@ -166,8 +212,11 @@ $parent_id = $organisationChart->parent_id;
         if ($deleted) {
             // return redirect()->route('organisation_chart.sub_org', ['parent_id' => $request->input('parent_id')])
             // ->with('success', 'Employee Deleted successfully');
-            return redirect()->route('organisation-chart.sub-org', ['parent_id' => $parent_id])->with('success', 'Deleted successfully');
+        Cache::put('success_message', 'Deleted successfully.', 1);
+
+            return redirect()->route('organisation-chart.sub-org', ['parent_id' => $parent_id]);
         } else {
+            Cache::put('error_message', 'Failed to delete record.', 1);
             return redirect()->route('organisation-chart.sub-org', ['parent_id' => $parent_id])->with('error', 'Failed to delete the record');
         }
     }

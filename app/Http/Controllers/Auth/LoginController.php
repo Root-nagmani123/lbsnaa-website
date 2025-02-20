@@ -159,7 +159,7 @@ public function authenticate(Request $request)
 
     // Check user credentials
     $user = User::where('email', $request->email)->where('status', 1)->first();
-
+   
     if (!$user) {
         Cache::put('login_error', 'User not found or inactive.', 1);
         return redirect(session('url.previousdata', url('/')))->withErrors(['error' => 'Login failed. Please try again.']);

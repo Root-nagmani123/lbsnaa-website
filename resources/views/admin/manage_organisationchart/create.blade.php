@@ -20,6 +20,32 @@
         </li>
     </ul>
 </div> 
+@if(Cache::has('success_message'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ Cache::get('success_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('error_message'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ Cache::get('error_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('validation_errors'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <ul>
+            @foreach (Cache::get('validation_errors') as $field => $errors)
+                @foreach ($errors as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            @endforeach
+        </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
 <div class="row justify-content-center">
     <div class="col-lg-12">
         <div class="card bg-white border-0 rounded-10 mb-4">
@@ -27,6 +53,9 @@
                 <div class="d-flex justify-content-between align-items-center border-bottom pb-20 mb-20">
                     <h4 class="fw-semibold fs-18 mb-0">Add Organization Structure</h4>
                 </div>
+             
+
+
                 <form action="{{ route('organisation_chart.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
@@ -41,9 +70,7 @@
                                     <input type="radio" name="language" value="1"> English
                                     <input type="radio" name="language" value="2"> Hindi
                                 </div>
-                                @error('language')
-                                    <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                @enderror
+                                
                             </div>
                         </div> 
 
@@ -54,15 +81,13 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <select name="parentcategory" id="parentcategory"
-                                        class="form-select form-control  h-58">
+                                        class="form-select form-control  h-58" >
                                         <option value="">Select Employee</option>
                                         @foreach ($records as $record)
                                         <option value={{ $record->id }} {{ $record->id == $organisation_chart->employee_name ? 'selected' : '' }}>{{ $record->name }}</option>
                                         @endforeach
                                     </select>
-                                    @error('parentcategory')
-                                        <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                    @enderror
+                                   
                                 </div>
                             </div>
                         </div>
@@ -81,9 +106,7 @@
                                         <option value={{ $record->id }}>{{ $record->name }}</option>
                                         @endforeach
                                     </select>
-                                    @error('employee_name')
-                                        <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                    @enderror
+                                    
                                 </div>
                             </div>
                         </div>
@@ -98,9 +121,7 @@
                                     <option value="1" class="text-dark">Active</option>
                                     <option value="0" class="text-dark">Inactive</option>
                                 </select>
-                                @error('status')
-                                    <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                @enderror
+                              
                             </div>
                         </div>
                     </div>
