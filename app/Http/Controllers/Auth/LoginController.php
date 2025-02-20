@@ -124,11 +124,6 @@ class LoginController extends Controller
 }
 public function authenticate(Request $request)
 {
-    // Store previous URL before login attempt
-    session(['url.previous' => url()->previous()]);
-
-    // \Log::info('Session stored URL: ' . session('url.previous'));
-
     // Validate request inputs
     $request->validate([
         'email' => 'required|email',
@@ -149,21 +144,21 @@ public function authenticate(Request $request)
 
     $verifyResponse = $verify->json();
     if (!$verifyResponse['success']) {
-        Cache::put('login_error', 'reCAPTCHA verification failed.', 5);
-        return redirect(session('url.previous', url('/')))->withErrors(['error' => 'reCAPTCHA verification failed.']);
+        Cache::put('login_error', 'reCAPTCHA verification failed.', 1);
+        return redirect(session('url.previousdata', url('/')))->withErrors(['error' => 'reCAPTCHA verification failed.']);
     }
 
     // Check user credentials
     $user = User::where('email', $request->email)->where('status', 1)->first();
 
     if (!$user) {
-        Cache::put('login_error', 'User not found or inactive.', 5);
-        return redirect(session('url.previous', url('/')))->withErrors(['error' => 'Login failed. Please try again.']);
+        Cache::put('login_error', 'User not found or inactive.', 1);
+        return redirect(session('url.previousdata', url('/')))->withErrors(['error' => 'Login failed. Please try again.']);
     }
 
     if (!Hash::check($request->password, $user->password)) {
-        Cache::put('login_error', 'Incorrect password.', 5);
-        return redirect(session('url.previous', url('/')))->withErrors(['error' => 'Incorrect password.']);
+        Cache::put('login_error', 'Incorrect password.', 1);
+        return redirect(session('url.previousdata', url('/')))->withErrors(['error' => 'Incorrect password.']);
     }
 
     // Log user login
@@ -179,14 +174,15 @@ public function authenticate(Request $request)
     session(['user_id' => $user->id]);
 
     // Store audit log
-    ManageAudit::create([
-        'Module_Name' => 'Login',
-        'Time_Stamp' => now(),
-        'Created_By' => $user->id,
-        'Updated_By' => null,
-        'Action_Type' => 'Login',
-        'IP_Address' => $request->ip(),
-    ]);
+   ManageAudit::create([
+            'Module_Name' => 'Login', // Static value
+            'Time_Stamp' => time(), // Use Laravel's now() helper
+            'Created_By' => $user->id, // ID of the authenticated user
+            'Updated_By' => null, // No update on creation, so leave null
+            'Action_Type' => 'Login', // Static value
+            'IP_Address' => $request->ip(), // Get IP address from request
+        ]);
+
 
     // Redirect to intended URL or admin dashboard
     return redirect()->intended('admin');

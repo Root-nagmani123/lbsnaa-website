@@ -17,7 +17,7 @@ class StorePreviousUrl
     public function handle(Request $request, Closure $next)
     {
         if ($request->method() === 'GET' && !$request->ajax()) {
-            session(['url.previous' => url()->full()]);
+            session(['url.previousdata' => url()->full()]);
         }
         return $next($request);
     }
