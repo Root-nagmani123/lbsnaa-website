@@ -37,7 +37,7 @@
         z-index: 1000;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.5);
+        background: rgba(175, 11, 16, 0.5);
         color: #fff;
         font-weight: 600;
         font-size: 100%;
@@ -125,6 +125,67 @@
         top: 0;
         margin-top: -1px;
     }
+    #playPauseBtn {
+        position: absolute;
+        bottom: 1%;
+        right: 15px;
+        transform: translateY(-5%);
+        z-index: 10;
+        opacity: 0.8;
+    }
+
+    /* Hide navigation arrows by default */
+    .carousel-control-prev,
+    .carousel-control-next {
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    /* Show navigation arrows only on hover */
+    #carouselExampleCaptions:hover .carousel-control-prev,
+    #carouselExampleCaptions:hover .carousel-control-next {
+        opacity: 1;
+    }
+    #marqueeWrapper {
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+#marqueeContainer {
+    display: inline-flex;
+    white-space: nowrap;
+    will-change: transform;
+}
+
+#marqueeWrapper {
+    overflow: hidden;
+    position: relative;
+}
+
+#marqueeContainer {
+    display: flex;
+    gap: 3px;
+    flex-nowrap: nowrap;
+    align-items: center;
+    animation: marquee 50s linear infinite;
+    will-change: transform;
+    /* Helps with smoother animations */
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.paused {
+    animation-play-state: paused;
+}
     </style>
 </head>
 

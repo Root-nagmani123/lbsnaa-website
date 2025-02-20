@@ -1,58 +1,4 @@
 @include('user.pages.microsites.includes.header')
-<!-- Slider Section -->
-<style>
-/* Position the play/pause button on the right */
-#playPauseBtn {
-    position: absolute;
-    bottom: 1%;
-    right: 30px;
-    transform: translateY(-5%);
-    z-index: 10;
-    opacity: 0.8;
-    transition: opacity 0.3s ease-in-out;
-}
-
-/* Hide next/prev arrows by default */
-.carousel-control-prev,
-.carousel-control-next {
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-}
-
-/* Show next/prev arrows on hover */
-#carouselExampleCaptions:hover .carousel-control-prev,
-#carouselExampleCaptions:hover .carousel-control-next {
-    opacity: 1;
-}
-
-/* Ensure the buttons are clearly visible when focused */
-.carousel-indicators button:focus {
-    outline: 2px solid #af2910 !important;
-    /* Red outline to indicate focus */
-    background-color: rgba(255, 255, 255, 0.5);
-    /* Light red background */
-    border-radius: 5px;
-}
-
-/* Optional: Increase the size for better accessibility */
-.carousel-indicators button {
-    border-radius: 10px;
-    margin: 5px;
-    background-color: #af2910;
-    border: none;
-}
-
-/* Active indicator styling */
-.carousel-indicators .active {
-    background-color: #af2910;
-    /* Blue color for active indicator */
-}
-
-/* Hover effect for better UI feedback */
-.carousel-indicators button:hover {
-    background-color: #af2910;
-}
-</style>
 <!-- Page Content -->
 <section class="py-4">
     <div class="container-fluid">
@@ -74,7 +20,7 @@
                         <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
                             <img src="{{ asset('storage/' . $slider->slider_image) }}" class="d-block img-fluid"
                                 alt="{{ $slider->slider_text }}"
-                                style="width: 100%; height: 400px; object-fit: cover; border-radius: 10px;">
+                                style="width: 100%; height: 500px; object-fit: cover; border-radius: 10px;">
                             <div class="carousel-caption d-none d-md-block" style="bottom: 0 !important;">
                                 <p class="text-white slider-caption">{{ $slider->slider_text }}</p>
                             </div>
@@ -95,38 +41,13 @@
                     </button>
 
                     <!-- Play/Pause Button -->
-                    <button id="playPauseBtn" class="btn btn-danger btn-sm" aria-label="Play/Pause button for Sliders">
+                    <button id="playPauseBtn" class="btn btn-primary btn-sm" aria-label="Play/Pause button for Sliders">
                         <i class="bi bi-pause-fill"></i>Pause
                     </button>
                 </div>
             </div>
 
-            <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                var carousel = new bootstrap.Carousel(document.getElementById('carouselExampleCaptions'), {
-                    interval: 3000, // Default interval
-                    ride: 'carousel'
-                });
 
-                var playPauseBtn = document.getElementById("playPauseBtn");
-                var isPlaying = true; // Track the state of the slider
-
-                playPauseBtn.addEventListener("click", function() {
-                    if (isPlaying) {
-                        carousel.pause();
-                        playPauseBtn.innerHTML = '<i class="bi bi-play-fill"></i> Play';
-                        playPauseBtn.classList.replace("btn-danger", "btn-success");
-                        playPauseBtn.setAttribute("aria-label", "Slider paused"); // Update aria-label
-                    } else {
-                        carousel.cycle();
-                        playPauseBtn.innerHTML = '<i class="bi bi-pause-fill"></i> Pause';
-                        playPauseBtn.classList.replace("btn-success", "btn-danger");
-                        playPauseBtn.setAttribute("aria-label", "Slider played"); // Update aria-label
-                    }
-                    isPlaying = !isPlaying; // Toggle state
-                });
-            });
-            </script>
             <!-- What's New Section -->
             <div class="col-12 col-lg-3 mb-4">
                 <div class="card card-hover border">
@@ -143,7 +64,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-body" style="height:340px;overflow-y: scroll;">
+                    <div class="card-body" style="height:440px;overflow-y: scroll;">
                         <ul class="list-group list-group-flush">
                             @forelse($whatsNew as $news)
                             <li class="list-group-item">
@@ -175,7 +96,7 @@
                                 @endif
                             </li>
                             @empty
-                            <li class="list-group-item text-danger">No data available</li>
+                            <li class="list-group-item text-primary">No data available</li>
                             @endforelse
                         </ul>
                     </div>
@@ -199,7 +120,7 @@
 
                 @endforeach
 
-                <div class="d-flex flex-wrap gap-3" >
+                <div class="d-flex flex-wrap gap-3">
                     @foreach ($research_centres as $research_centre)
                     <a href="{{ route('mediagallery', ['slug' => $research_centre->research_centre_slug]) }}"
                         class="card border shadow-sm text-center" style="width: 200px;">
@@ -262,7 +183,7 @@
                                 @endif
                             </li>
                             @empty
-                            <li class="list-group-item text-danger">No data available</li>
+                            <li class="list-group-item text-primary">No data available</li>
                             @endforelse
                         </ul>
 
