@@ -4,32 +4,9 @@
 <!-- slider start -->
 
 <!-- Carousel Container -->
-<style>
-    /* Position the play/pause button on the right */
-    #playPauseBtn {
-        position: absolute;
-        bottom: 1%;
-        right: 15px;
-        transform: translateY(-5%);
-        z-index: 10;
-        opacity: 0.8;
-    }
 
-    /* Hide navigation arrows by default */
-    .carousel-control-prev,
-    .carousel-control-next {
-        opacity: 0;
-        transition: opacity 0.3s ease-in-out;
-    }
-
-    /* Show navigation arrows only on hover */
-    #carouselExampleCaptions:hover .carousel-control-prev,
-    #carouselExampleCaptions:hover .carousel-control-next {
-        opacity: 1;
-    }
-</style>
-
-<div id="carouselExampleCaptions" class="carousel slide position-relative carousel-fade" data-bs-ride="carousel" data-bs-interval="3000">
+<div id="carouselExampleCaptions" class="carousel slide position-relative carousel-fade" data-bs-ride="carousel"
+    data-bs-interval="3000">
     <div class="carousel-indicators ">
         @foreach($sliders as $i => $slider)
         <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ $i }}"
@@ -67,33 +44,7 @@
     </button>
 </div>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        var carousel = new bootstrap.Carousel(document.getElementById('carouselExampleCaptions'), {
-            interval: 3000, // Default interval
-            ride: 'carousel'
-        });
 
-        var playPauseBtn = document.getElementById("playPauseBtn");
-        var isPlaying = true; // Track the state of the slider
-
-        playPauseBtn.addEventListener("click", function () {
-    if (isPlaying) {
-        carousel.pause();
-        playPauseBtn.innerHTML = '<i class="bi bi-play-fill"></i> Play';
-        playPauseBtn.classList.replace("btn-danger", "btn-success");
-        playPauseBtn.setAttribute("aria-label", "Slider Paused"); // Update aria-label
-    } else {
-        carousel.cycle();
-        playPauseBtn.innerHTML = '<i class="bi bi-pause-fill"></i> Pause';
-        playPauseBtn.classList.replace("btn-success", "btn-danger");
-        playPauseBtn.setAttribute("aria-label", "Slider played"); // Update aria-label
-    }
-    isPlaying = !isPlaying; // Toggle state
-});
-
-    });
-</script>
 
 
 <!-- Play/Pause Script -->
@@ -139,37 +90,15 @@
             </div>
 
             <!-- Play/Pause Button -->
-            <button id="playPauseBtn1" class="btn btn-danger ms-2 btn-sm" aria-label="Play/Pause button for Latest Updates">
+            <button id="playPauseBtn1" class="btn btn-danger ms-2 btn-sm"
+                aria-label="Play/Pause button for Latest Updates">
                 <i class="bi bi-pause-fill"></i>
             </button>
         </div>
     </div>
 </section>
 
-<!-- ✅ JavaScript for Play/Pause Marquee -->
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    var marquee = document.getElementById("marqueeContainer");
-    var playPauseBtn = document.getElementById("playPauseBtn1");
-    var isPlaying = true; // Initially, marquee is running
 
-    playPauseBtn.addEventListener("click", function() {
-    if (isPlaying) {
-        marquee.style.animationPlayState = "paused";
-        playPauseBtn.innerHTML = '<i class="bi bi-play-fill"></i>';
-        playPauseBtn.classList.replace("btn-danger", "btn-success");
-        playPauseBtn.setAttribute("aria-label", "latest Updates paused"); // Update aria-label
-    } else {
-        marquee.style.animationPlayState = "running";
-        playPauseBtn.innerHTML = '<i class="bi bi-pause-fill"></i>';
-        playPauseBtn.classList.replace("btn-success", "btn-danger");
-        playPauseBtn.setAttribute("aria-label", "Latest Updatesr played"); // Update aria-label
-    }
-    isPlaying = !isPlaying; // Toggle state
-});
-
-});
-</script>
 
 
 <section class="py-3">
@@ -182,7 +111,7 @@ document.addEventListener("DOMContentLoaded", function() {
                             class="avatar avatar-xl rounded-circle">
                     </div>
                     <div class="card-header " style="border-bottom: none;">
-                    <p class="mb-3 fw-bold">
+                        <p class="mb-3 fw-bold">
                             @if(Cookie::get('language') == '2')
                             निदेशक संदेश
                             @else
@@ -215,7 +144,7 @@ document.addEventListener("DOMContentLoaded", function() {
                             class="avatar avatar-xl rounded-circle">
                     </div>
                     <div class="card-header" style="border-bottom: none;">
-                    <p class="fw-bold">
+                        <p class="fw-bold">
                             @if(Cookie::get('language') == '2')
                             दौड़ पाठ्यक्रम
                             @else
@@ -224,7 +153,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         </p>
                     </div>
                     <div class="card-body pt-2" style="overflow-y:scroll; height: 80px;">
-                        
+
                         @if(count($current_course) > 0)
                         <ul>
                             @php $i = 0; @endphp
@@ -274,8 +203,8 @@ document.addEventListener("DOMContentLoaded", function() {
                             class="avatar avatar-xl rounded-circle text-center">
                     </div>
                     <div class="card-header" style="border-bottom: none;">
-                    <p class="fw-bold">
-                    @if(Cookie::get('language') == '2')
+                        <p class="fw-bold">
+                            @if(Cookie::get('language') == '2')
                             आगामी पाठ्यक्रम
                             @else
                             Upcoming Courses
@@ -327,15 +256,15 @@ document.addEventListener("DOMContentLoaded", function() {
                             class="avatar avatar-xl rounded-circle text-center">
                     </div>
                     <div class="card-header" style="border-bottom: none;">
-                    <p class="fw-bold">
-                    @if(Cookie::get('language') == '2')
+                        <p class="fw-bold">
+                            @if(Cookie::get('language') == '2')
                             प्रशिक्षण कैलेंडर
                             @else
                             Training Calendar
                             @endif
                         </p>
                     </div>
-                    
+
                     <div class="card-body pt-2" style="height: 80px;">
                         <a href="{{ url('cms/training_cal') }}" class="icon-link icon-link-hover link-primary">
                             @if(Cookie::get('language') == '2')
@@ -354,8 +283,8 @@ document.addEventListener("DOMContentLoaded", function() {
                             class="avatar avatar-xl rounded-circle text-center" style="object-fit: cover;">
                     </div>
                     <div class="card-header" style="border-bottom: none;">
-                    <p class="fw-bold">
-                    @if(Cookie::get('language') == '2')
+                        <p class="fw-bold">
+                            @if(Cookie::get('language') == '2')
                             अकादमी में जीवन
                             @else
                             Life at Academy
@@ -389,8 +318,8 @@ document.addEventListener("DOMContentLoaded", function() {
                             class="avatar avatar-xl rounded-circle text-center" style="object-fit: cover;">
                     </div>
                     <div class="card-header" style="border-bottom: none;">
-                    <p class="fw-bold">
-                    @if(Cookie::get('language') == '2')
+                        <p class="fw-bold">
+                            @if(Cookie::get('language') == '2')
                             अकादमी स्मारिका
                             @else
                             Academy Souvenir
@@ -551,47 +480,4 @@ document.addEventListener("DOMContentLoaded", function() {
         </div>
     </div>
 </section>
-
-<style>
-#marqueeWrapper {
-    position: relative;
-    overflow: hidden;
-    white-space: nowrap;
-}
-
-#marqueeContainer {
-    display: inline-flex;
-    white-space: nowrap;
-    will-change: transform;
-}
-
-#marqueeWrapper {
-    overflow: hidden;
-    position: relative;
-}
-
-#marqueeContainer {
-    display: flex;
-    gap: 3px;
-    flex-nowrap: nowrap;
-    align-items: center;
-    animation: marquee 50s linear infinite;
-    will-change: transform;
-    /* Helps with smoother animations */
-}
-
-@keyframes marquee {
-    0% {
-        transform: translateX(100%);
-    }
-
-    100% {
-        transform: translateX(-100%);
-    }
-}
-
-.paused {
-    animation-play-state: paused;
-}
-</style>
 @include('user.includes.footer')

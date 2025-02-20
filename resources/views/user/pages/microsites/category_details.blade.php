@@ -1,8 +1,4 @@
 @include('user.pages.microsites.includes.header')
-
-
-
-
 @if($category->isNotEmpty())
     <div class="row" id="skip_to_main_content">
         @foreach($category as $gallery)
@@ -27,10 +23,4 @@
 @else
     <p>No galleries found.</p>
 @endif
-
-
-
-
-
-
 @include('user.pages.microsites.includes.footer')
