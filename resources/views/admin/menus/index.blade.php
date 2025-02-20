@@ -39,16 +39,18 @@
             </div>
         </div>
         
-        @if(session('success'))
+        @if(Cache::has('success_message'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ session('success') }}
+        {{ Cache::get('success_message') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         @endif
+     
 
-        @if(session('error'))
+
+        @if(Cache::has('error'))
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            {{ session('error') }}
+        {{ Cache::get('error') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         @endif 

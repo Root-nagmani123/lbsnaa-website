@@ -30,15 +30,18 @@
                 <div class="d-flex justify-content-between align-items-center border-bottom pb-20 mb-20">
                     <h4 class="fw-semibold fs-18 mb-0">Add Menu</h4>
                 </div>
-                @if ($errors->any())
+                @if (Cache::has('validation_errors'))
     <div class="alert alert-danger">
         <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
+            @foreach (Cache::get('validation_errors') as $errors)
+                @foreach ($errors as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
             @endforeach
         </ul>
     </div>
 @endif
+
 
                 <form action="{{ route('admin.menus.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf

@@ -124,18 +124,26 @@ class LoginController extends Controller
 }
 public function authenticate(Request $request)
 {
+    // print_r($_POST);die;
+    $response = $request->input('g-recaptcha-response');
+    if ($response == NULL) {
+        Cache::put('login_error', 'reCAPTCHA verification failed.', 1);
+        return redirect(session('url.previousdata', url('/')))->withErrors(['error' => 'reCAPTCHA verification failed.']);
+    }
     // Validate request inputs
     $request->validate([
         'email' => 'required|email',
         'password' => 'required',
         'g-recaptcha-response' => 'required',
     ]);
-
+    
+ 
+   
     // Verify reCAPTCHA
     $response = $request->input('g-recaptcha-response');
     $secret = '6LcnL6YqAAAAAFq4QQ4XTwhoLQCOBcR2iU7gWhJm';
     $remoteip = $request->ip();
-
+   
     $verify = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
         'secret' => $secret,
         'response' => $response,
@@ -147,6 +155,7 @@ public function authenticate(Request $request)
         Cache::put('login_error', 'reCAPTCHA verification failed.', 1);
         return redirect(session('url.previousdata', url('/')))->withErrors(['error' => 'reCAPTCHA verification failed.']);
     }
+  
 
     // Check user credentials
     $user = User::where('email', $request->email)->where('status', 1)->first();
@@ -182,7 +191,6 @@ public function authenticate(Request $request)
             'Action_Type' => 'Login', // Static value
             'IP_Address' => $request->ip(), // Get IP address from request
         ]);
-
 
     // Redirect to intended URL or admin dashboard
     return redirect()->intended('admin');

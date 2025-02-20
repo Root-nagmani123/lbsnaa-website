@@ -10,6 +10,8 @@ use App\Models\Admin\ManageAudit;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Validator;
 
 class MenuController extends Controller
 {
@@ -101,20 +103,19 @@ class MenuController extends Controller
     public function store(Request $request)
     {
 
-         // Validation rules
-        $request->validate([
+       
+        $rules = [
             'txtlanguage' => 'required|in:1,2',
             'menutitle' => 'required|string|max:255',
             'texttype' => 'required|integer|in:1,2,3', // Example values for texttype
-            // 'menucategory' => 'required|integer|min:1',
             'txtpostion' => 'nullable|integer',
             'start_date' => 'nullable|date',
             'termination_date' => 'nullable|date|after_or_equal:start_date',
             'menu_status' => 'nullable|boolean',
-            'website_url' => 'nullable', // Only if texttype is 3
+            'website_url' => 'nullable|string', // Only if texttype is 3
             'pdf_file' => 'nullable|file|mimes:pdf|max:2048',
-        ],
-        [
+        ];
+        $messages = [
             'txtlanguage.required' => 'Please select a language.',
             'txtlanguage.in' => 'Invalid language selection.',
             'menutitle.required' => 'Please enter the menu title.',
@@ -139,68 +140,72 @@ class MenuController extends Controller
             'pdf_file.max' => 'The uploaded file size must not exceed 2MB.',
             'content.string' => 'The content must be a valid string.',
             'website_url.url' => 'The website URL must be valid.',
-        ]);
-       
-        $menutitle = strip_tags($request->menutitle); // Remove HTML tags
-        $menutitle = htmlspecialchars($menutitle, ENT_QUOTES, 'UTF-8'); 
-        $slug = Str::slug($menutitle, '-');
-
-        // Check if slug already exists
-        $existingMenu = Menu::where('menu_slug', $slug)->where('is_deleted',0)->first();
-        if ($existingMenu) {
-            return redirect()->back()->withErrors(['menutitle' => 'This menu title already exists.'])->withInput();
-        } 
-        $menu = new Menu();
-
-
-        $menu->language = $request->txtlanguage;
-        $menu->menutitle = $menutitle;
-        if($request->txtlanguage == '1'){
-            $menu->menu_slug = Str::slug($menutitle, '-');
-        }elseif($request->txtlanguage == '2'){
-            $menu->menu_slug = Str::slug($request->meta_title, '-') . '_hi';
-
-        }
+        ];
+    
+          
+            $validator = Validator::make($request->all(), $rules, $messages);
         
-        $menu->texttype = $request->texttype;
-        $menu->menucategory = $request->menucategory;
-        $menu->parent_id = $request->menucategory;
-        $menu->txtpostion = $request->txtpostion;
-        $menu->meta_title = $request->input('meta_title');
-        $menu->meta_keyword = $request->input('meta_keyword');
-        $menu->meta_description = $request->input('meta_description');
-        $menu->web_site_target = $request->input('web_site_target');
-        $menu->start_date = $request->input('start_date');
-        $menu->termination_date = $request->input('termination_date');
-        $menu->menu_status = $request->input('menu_status', 0);
-
-        if ($request->hasFile('pdf_file')) {
-            $file = $request->file('pdf_file');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $destinationPath = public_path('pdfs');
-            $file->move($destinationPath, $filename);
-            $menu->pdf_file = 'pdfs/' . $filename;
+            if ($validator->fails()) {
+                Cache::put('validation_errors', $validator->errors()->toArray(), 1); // 1 minute ke liye errors cache karo
+                return redirect(session('url.previousdata', url('/')));
+            }
+        
+            $menutitle = strip_tags($request->menutitle);
+            $menutitle = htmlspecialchars($menutitle, ENT_QUOTES, 'UTF-8'); 
+            $slug = Str::slug($menutitle, '-');
+        
+            // Check if slug already exists
+            $existingMenu = Menu::where('menu_slug', $slug)->where('is_deleted', 0)->first();
+            if ($existingMenu) {
+                Cache::put('validation_errors', ['menutitle' => ['This menu title already exists.']], 1);
+                return redirect(session('url.previousdata', url('/')));
+            }
+        
+            $menu = new Menu();
+            $menu->language = $request->txtlanguage;
+            $menu->menutitle = $menutitle;
+            $menu->menu_slug = $request->txtlanguage == '1' ? Str::slug($menutitle, '-') : Str::slug($request->meta_title, '-') . '_hi';
+            $menu->texttype = $request->texttype;
+            $menu->menucategory = $request->menucategory;
+            $menu->parent_id = $request->menucategory;
+            $menu->txtpostion = $request->txtpostion;
+            $menu->meta_title = $request->input('meta_title');
+            $menu->meta_keyword = $request->input('meta_keyword');
+            $menu->meta_description = $request->input('meta_description');
+            $menu->web_site_target = $request->input('web_site_target');
+            $menu->start_date = $request->input('start_date');
+            $menu->termination_date = $request->input('termination_date');
+            $menu->menu_status = $request->input('menu_status', 0);
+        
+            if ($request->hasFile('pdf_file')) {
+                $file = $request->file('pdf_file');
+                $filename = time() . '_' . $file->getClientOriginalName();
+                $destinationPath = public_path('pdfs');
+                $file->move($destinationPath, $filename);
+                $menu->pdf_file = 'pdfs/' . $filename;
+            }
+        
+            if ($request->texttype == 1) {
+                $menu->content = $request->content;
+            } elseif ($request->texttype == 3) {
+                $menu->website_url = $request->website_url;
+            }
+        
+            $menu->save();
+        
+            ManageAudit::create([
+                'Module_Name' => 'Menu Module',
+                'Time_Stamp' => time(),
+                'Created_By' => null,
+                'Updated_By' => null,
+                'Action_Type' => 'Insert',
+                'IP_Address' => $request->ip(),
+            ]);
+        
+            Cache::put('success_message', 'Menu created successfully.', 1); // Success message bhi cache me store karein
+        
+            return redirect()->route('admin.menus.index');
         }
-
-        if ($request->texttype == 1) {
-            $menu->content = $request->content;
-        } elseif ($request->texttype == 3) {
-            $menu->website_url = $request->website_url;
-        }
-
-        $menu->save();
-
-        ManageAudit::create([
-            'Module_Name' => 'Menu Module',
-            'Time_Stamp' => time(),
-            'Created_By' => null,
-            'Updated_By' => null,
-            'Action_Type' => 'Insert',
-            'IP_Address' => $request->ip(),
-        ]);
-
-        return redirect()->route('admin.menus.index')->with('success', 'Menu created successfully.');
-    }
 
     public function edit($id)
     {
@@ -223,8 +228,95 @@ class MenuController extends Controller
         }
         return $options;
     }
-
     public function update(Request $request, $id)
+    {
+        $rules = [
+            'txtlanguage' => 'required|in:1,2',
+            'menutitle' => 'required|string|max:255',
+            'texttype' => 'required|integer|in:1,2,3', // Example values for texttype
+            'txtpostion' => 'nullable|integer',
+            'start_date' => 'nullable|date',
+            'termination_date' => 'nullable|date|after_or_equal:start_date',
+            'menu_status' => 'nullable|boolean',
+            'website_url' => 'nullable|string', // Only if texttype is 3
+            'pdf_file' => 'nullable|file|mimes:pdf|max:2048',
+        ];
+    
+        $messages = [
+            'txtlanguage.required' => 'Please select a language.',
+            'txtlanguage.in' => 'Invalid language selection.',
+            'menutitle.required' => 'Please enter the menu title.',
+            'menutitle.string' => 'The menu title must be a string.',
+            'menutitle.max' => 'The menu title must not exceed 255 characters.',
+            'texttype.required' => 'Please select a text type.',
+            'texttype.integer' => 'The text type must be a valid integer.',
+            'texttype.in' => 'Invalid text type selection.',
+            'txtpostion.integer' => 'Please select any content Position.',
+            'start_date.date' => 'The start date must be a valid date.',
+            'termination_date.date' => 'The termination date must be a valid date.',
+            'termination_date.after_or_equal' => 'The termination date must be after or equal to the start date.',
+            'menu_status.boolean' => 'Please select any status.',
+            'pdf_file.file' => 'The uploaded file must be a valid file.',
+            'pdf_file.mimes' => 'Only PDF files are allowed.',
+            'pdf_file.max' => 'The uploaded file size must not exceed 2MB.',
+            'website_url.url' => 'The website URL must be valid.',
+        ];
+    
+        // Validate manually
+        $validator = Validator::make($request->all(), $rules, $messages);
+    
+        // Agar validation fail ho jaye
+        if ($validator->fails()) {
+            Cache::put('validation_errors', $validator->errors()->toArray(), 1); // Errors ko 10 minutes ke liye cache me store karo
+            return redirect(session('url.previousdata', url('/')));// Previous URL ko cache se retrieve karo
+        }
+    
+        $menu = Menu::findOrFail($id);
+        $menu->language = $request->txtlanguage;
+    
+        $menutitle = strip_tags($request->menutitle); // Remove HTML tags
+        $menutitle = htmlspecialchars($menutitle, ENT_QUOTES, 'UTF-8'); 
+        $menu->menutitle = $menutitle;
+    
+        if ($request->txtlanguage == '1') {
+            $menu->menu_slug = Str::slug($menutitle, '-');
+        } elseif ($request->txtlanguage == '2') {
+            $menu->menu_slug = Str::slug($request->meta_title, '-') . '_hi';
+        }
+    
+        $menu->texttype = $request->texttype;
+        $menu->menucategory = $request->menucategory;
+        $menu->parent_id = $request->menucategory;
+        $menu->txtpostion = $request->txtpostion;
+        $menu->meta_title = $request->input('meta_title');
+        $menu->meta_keyword = $request->input('meta_keyword');
+        $menu->meta_description = $request->input('meta_description');
+        $menu->content = $request->input('content', null);
+        $menu->website_url = $request->input('website_url', null);
+        $menu->menu_status = $request->input('menu_status', 0);
+        $menu->start_date = $request->input('start_date');
+        $menu->termination_date = $request->input('termination_date');
+        $menu->web_site_target = $request->input('web_site_target');
+    
+        if ($request->hasFile('pdf_file')) {
+            if (File::exists(public_path($menu->pdf_file))) {
+                File::delete(public_path($menu->pdf_file));
+            }
+    
+            $file = $request->file('pdf_file');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('pdfs/'), $fileName);
+            $menu->pdf_file = 'pdfs/' . $fileName;
+        }
+    
+        $menu->save();
+    
+        // Previous success message ko cache me store karna
+        Cache::put('success_message', 'Menu updated successfully.', 1);
+    
+        return redirect()->route('admin.menus.index')->with('success', Cache::get('success_message'));
+    }
+    public function update_bkp(Request $request, $id)
     {
         $request->validate([
             'txtlanguage' => 'required|in:1,2',
