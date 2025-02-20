@@ -71,6 +71,14 @@ class UserManagementController extends Controller
     // Delete Permission
     public function destroy($id)
     {
+        $permissions = DB::table('modules')->where('id', $id)->where('status', 0)->first();
+        if(!$permissions){
+            Cache::put('error_message', 'active Module can not deleted!', 1);
+    
+            // Redirect using session-stored previous URL
+            return redirect(session('url.previousdata', url('/')));
+        }
+        // print_r($permissions);die;
         DB::table('modules')->where('id', $id)->delete();
     
         // Cache success message
@@ -236,6 +244,7 @@ class UserManagementController extends Controller
     // Delete a user
     public function users_destroy($id)
     {
+        
         DB::table('users')->where('id', $id)->delete();
         Cache::put('success_message', 'User updated successfully!', 1);
         return redirect()->route('users.index');

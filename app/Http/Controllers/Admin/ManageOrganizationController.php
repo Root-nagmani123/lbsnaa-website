@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 use App\Models\Admin\ManageAudit;
 use Illuminate\Support\Facades\Auth;
@@ -247,7 +248,7 @@ class ManageOrganizationController extends Controller
 
 
     // Staff Store
-    public function staffStore(Request $request)
+    public function staffStore_bkp(Request $request)
     {
         // Validate input fields
         $rules = [
@@ -323,7 +324,85 @@ class ManageOrganizationController extends Controller
 
         return redirect()->route('admin.staff.index')->with('success', 'Staff member created successfully!');
     }
-
+    public function staffStore(Request $request)
+    {
+        // Validate input fields
+        $rules = [
+            'language' => 'required|string|in:1,2',
+            'name' => 'required|string|max:255',
+            'email' => [
+                'required',
+                'email:rfc,dns',
+                'unique:staff_members,email',
+                function ($attribute, $value, $fail) {
+                    if (preg_match('/^[\.\,\/\!\@\#\$\%\^\~]/', $value)) {
+                        $fail("The {$attribute} must not start with special characters.");
+                    }
+                },
+            ],
+            'designation' => 'required|string|max:255',
+            'mobile' => 'required|digits:10|unique:staff_members,mobile',
+            'phone_pt_office' => 'nullable|string',
+            'std_code' => 'nullable|string',
+            'country_code' => 'nullable|string',
+            'page_status' => 'required|in:1,0',
+            'present_at_station' => 'required|in:1,0',
+            'acm_member' => 'required|in:1,0',
+            'co_opted_member' => 'required|in:1,0',
+            'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
+        ];
+    
+        // Custom Error Messages
+        $messages = [
+            'email.required' => 'The email field is mandatory.',
+            'email.email' => 'Please provide a valid email address.',
+            'email.unique' => 'This email is already in use. Please use another one.',
+            'mobile.required' => 'The mobile number is mandatory.',
+            'mobile.unique' => 'This mobile number is already registered.',
+            'image.image' => 'The uploaded file must be an image.',
+            'image.mimes' => 'Only JPG, PNG, and JPEG formats are allowed.',
+            'image.max' => 'The image size should not exceed 2MB.',
+        ];
+    
+        // Validate the request
+        $validator = Validator::make($request->all(), $rules, $messages);
+    
+        if ($validator->fails()) {
+            // **Cache validation errors for 1 minute**
+            Cache::put('validation_errors', $validator->errors()->toArray(), 1);
+    
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+    
+        // ✅ Fix: Extract validated data
+        $validated = $validator->validated();
+    
+        // Handling image upload
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('staff_images'), $imageName);
+            $validated['image'] = 'staff_images/' . $imageName;
+        }
+    
+        // Save the validated data into the database
+        $staff = StaffMember::create($validated);
+    
+        // Audit log creation
+        ManageAudit::create([
+            'Module_Name' => 'Staff Module',
+            'Time_Stamp' => time(),
+            'Created_By' => auth()->user()->id ?? null,  // 🛑 Agar login system hai to user ID save kare
+            'Updated_By' => null,
+            'Action_Type' => 'Insert',
+            'IP_Address' => $request->ip(),
+        ]);
+    
+        Cache::put('success_message', 'Staff member created successfully!', 1);
+    
+        return redirect()->route('admin.staff.index')->with('success', 'Staff member created successfully!');
+    }
+    
 
     // Staff Edit
     public function staffEdit($id)

@@ -417,7 +417,7 @@ class MenuController extends Controller
             Cache::put('error_message', 'Active menus cannot be deleted.', 1);
             return redirect()->route('admin.menus.index');
         }
-        print_r($menu);die;
+        //print_r($menu);die;
         // Hard delete the menu
         $menu->delete();
     
