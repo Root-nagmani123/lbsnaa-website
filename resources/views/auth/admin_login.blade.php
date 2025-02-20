@@ -30,6 +30,7 @@
                         {{ Cache::get('login_error') }}
                     </div>
                     @endif
+                   
 
 
                     <form action="{{ route('admin.login') }}" method="POST">

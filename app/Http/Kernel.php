@@ -44,6 +44,7 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\ClickjackingProtection::class,
             // \App\Http\Middleware\SingleSessionMiddleware::class,
             // \App\Http\Middleware\ForceHttps::class,
+            \App\Http\Middleware\StorePreviousUrl::class,
         ],
 
         'api' => [
