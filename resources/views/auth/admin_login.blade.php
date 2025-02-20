@@ -26,11 +26,13 @@
                 <div class="m-auto mw-510 py-5">
                     <!-- Display success message if available -->
                     @if (Cache::has('login_error'))
-                    <div class="alert alert-danger">
+                    <div class="alert alert-danger alert-dismissible" role="alert">
                         {{ Cache::get('login_error') }}
+                        <button type="button" class="btn-close shadow-none" data-bs-dismiss="alert"
+                            aria-label="Close"></button>
                     </div>
                     @endif
-                   
+
 
 
                     <form action="{{ route('admin.login') }}" method="POST">
