@@ -32,14 +32,14 @@
                         <h4 class="fw-semibold fs-18 mb-0">Edit Menu</h4>
                     </div>
                     @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
 
                     <form action="{{ route('admin.menus.update', $menu->id) }}" method="POST"
                         enctype="multipart/form-data">
@@ -53,8 +53,10 @@
                                     <label class="label" for="txtlanguage">Page Language :</label>
                                     <span class="star">*</span>
                                     <div class="form-group position-relative">
-                                        <input type="radio" name="txtlanguage" value="1" {{ $menu->language == '1' ? 'checked' : '' }}> English
-                                        <input type="radio" name="txtlanguage" value="2"{{ $menu->language == '2' ? 'checked' : '' }}> Hindi
+                                        <input type="radio" name="txtlanguage" value="1"
+                                            {{ $menu->language == '1' ? 'checked' : '' }}> English
+                                        <input type="radio" name="txtlanguage" value="2"
+                                            {{ $menu->language == '2' ? 'checked' : '' }}> Hindi
                                     </div>
                                 </div>
                             </div>
@@ -69,16 +71,16 @@
                                 </div>
                             </div>
                             <div class="col-lg-6">
-                                    <div class="form-group mb-4">
-                                        <label class="label" for="meta_title">Meta Title:</label>
-                                        <span class="star">*</span>
-                                        <div class="form-group position-relative">
-                                            <input type="text" class="form-control text-dark  h-58"
-                                                name="meta_title" id="meta_title" value="{{ $menu->meta_title }}">
-                                        </div>
+                                <div class="form-group mb-4">
+                                    <label class="label" for="meta_title">Meta Title:</label>
+                                    <span class="star">*</span>
+                                    <div class="form-group position-relative">
+                                        <input type="text" class="form-control text-dark  h-58" name="meta_title"
+                                            id="meta_title" value="{{ $menu->meta_title }}">
                                     </div>
                                 </div>
-                            <div class="col-lg-5">
+                            </div>
+                            <div class="col-lg-6">
                                 <div class="form-group mb-4">
                                     <label class="label" for="texttype">Menu Type :</label>
                                     <span class="star">*</span>
@@ -96,43 +98,43 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="content-field"
-                                style="display: {{ $menu->texttype == 1 ? 'block' : 'none' }};">
+                            <div id="content-field" style="display: {{ $menu->texttype == 1 ? 'block' : 'none' }};">
                                 <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="form-group mb-4">
-                                        <label class="label" for="content">Content :</label>
-                                        <span class="star">*</span>
-                                        <div class="form-group position-relative">
-                                            <textarea class="form-control  text-dark"
-                                                placeholder="Some demo text ... " cols="30" rows="5" name="content"
-                                                id="content">{{ $menu->content }}</textarea>
+                                    <div class="col-lg-12">
+                                        <div class="form-group mb-4">
+                                            <label class="label" for="content">Content :</label>
+                                            <span class="star">*</span>
+                                            <div class="form-group position-relative">
+                                                <textarea class="form-control  text-dark"
+                                                    placeholder="Some demo text ... " cols="30" rows="5" name="content"
+                                                    id="content">{{ $menu->content }}</textarea>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                              
-                                <div class="col-lg-6">
-                                    <div class="form-group mb-4">
-                                        <label class="label" for="meta_keyword">Meta Keyword :</label>
-                                        <span class="star">*</span>
-                                        <div class="form-group position-relative">
-                                            <input type="text" class="form-control text-dark  h-58"
-                                                name="meta_keyword" id="meta_keyword" value="{{ $menu->meta_keyword }}">
+
+                                    <div class="col-lg-6">
+                                        <div class="form-group mb-4">
+                                            <label class="label" for="meta_keyword">Meta Keyword :</label>
+                                            <span class="star">*</span>
+                                            <div class="form-group position-relative">
+                                                <input type="text" class="form-control text-dark  h-58"
+                                                    name="meta_keyword" id="meta_keyword"
+                                                    value="{{ $menu->meta_keyword }}">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="form-group mb-4">
-                                        <label class="label" for="meta_description">Meta Description :</label>
-                                        <span class="star">*</span>
-                                        <div class="form-group position-relative">
-                                            <textarea class="form-control  text-dark"
-                                                placeholder="Some demo text ... " cols="30" rows="5"
-                                                name="meta_description"
-                                                id="meta_description">{{ $menu->meta_description }}</textarea>
+                                    <div class="col-lg-12">
+                                        <div class="form-group mb-4">
+                                            <label class="label" for="meta_description">Meta Description :</label>
+                                            <span class="star">*</span>
+                                            <div class="form-group position-relative">
+                                                <textarea class="form-control  text-dark"
+                                                    placeholder="Some demo text ... " cols="30" rows="5"
+                                                    name="meta_description"
+                                                    id="meta_description">{{ $menu->meta_description }}</textarea>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
                                 </div>
                             </div>
                             <div class="col-lg-6" id="pdf-upload-field"
@@ -141,9 +143,10 @@
                                     <label class="label" for="pdf-upload-field">Upload PDF</label>
                                     <span class="star">*</span>
                                     <div class="form-group position-relative">
-                                    <input id="pdf-upload-field" type="file" name="pdf_file" accept=".pdf" class="form-control text-dark  h-58">
-                                            <p>Current File: <a href="{{ asset($menu->pdf_file) }}"
-                                                    target="_blank">{{ $menu->pdf_file }}</a></p>
+                                        <input id="pdf-upload-field" type="file" name="pdf_file" accept=".pdf"
+                                            class="form-control text-dark  h-58">
+                                        <p>Current File: <a href="{{ asset($menu->pdf_file) }}"
+                                                target="_blank">{{ $menu->pdf_file }}</a></p>
                                     </div>
                                 </div>
                             </div>
@@ -165,12 +168,16 @@
                                             <label class="label" for="web_site_target">Web Site Target :</label>
                                             <span class="star">*</span>
                                             <div class="form-group position-relative">
-                                            <select class="form-select form-control  h-58" name="web_site_target"
-                                                id="web_site_target" autocomplete="off">
-                                                <option selected value="0" class="text-dark">Select</option>
-                                                <option value="1" {{ $menu->web_site_target == 1 ? 'selected' : '' }} class="text-dark">Internal Link</option>
-                                                <option value="2" {{ $menu->web_site_target == 2 ? 'selected' : '' }} class="text-dark">External Link</option>
-                                            </select>
+                                                <select class="form-select form-control  h-58" name="web_site_target"
+                                                    id="web_site_target" autocomplete="off">
+                                                    <option selected value="0" class="text-dark">Select</option>
+                                                    <option value="1"
+                                                        {{ $menu->web_site_target == 1 ? 'selected' : '' }}
+                                                        class="text-dark">Internal Link</option>
+                                                    <option value="2"
+                                                        {{ $menu->web_site_target == 2 ? 'selected' : '' }}
+                                                        class="text-dark">External Link</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -187,15 +194,15 @@
                                             {!! $menuOptions !!}
                                         </select>
                                     </div>
-                                </div> 
+                                </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group mb-4">
                                     <label class="label" for="txtpostion">Content Position :</label>
                                     <span class="star">*</span>
                                     <div class="form-group position-relative">
-                                        <select class="form-select form-control  h-58" id="txtpostion"
-                                            name="txtpostion" required>
+                                        <select class="form-select form-control  h-58" id="txtpostion" name="txtpostion"
+                                            required>
                                             <option class="text-dark">Select</option>
                                             <option value="1" class="text-dark"
                                                 {{ $menu->txtpostion == 1 ? 'selected' : '' }}>Header Menu</option>
@@ -260,8 +267,7 @@
                             <div class="d-flex ms-sm-3 ms-md-0">
                                 <button class="btn btn-success text-white fw-semibold"
                                     type="submit">Update</button>&nbsp;
-                                <a href="{{ route('admin.menus.index') }}"
-                                    class="btn btn-secondary text-white">Back</a>
+                                <a href="{{ route('admin.menus.index') }}" class="btn btn-secondary text-white">Back</a>
                             </div>
                         </div>
                     </form>
@@ -274,14 +280,16 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <script>
-  $.noConflict();
-jQuery(document).ready(function ($) {
+$.noConflict();
+jQuery(document).ready(function($) {
     $('#content').summernote({
         tabsize: 2,
         height: 300,
         toolbar: [
             ['style', ['style']], // Heading styles (e.g., H1, H2)
-            ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']], // Font options
+            ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript',
+                'clear'
+            ]], // Font options
             ['fontname', ['fontname']], // Font family selector
             ['fontsize', ['fontsize']], // Font size selector
             ['color', ['color']], // Font and background color
@@ -293,17 +301,17 @@ jQuery(document).ready(function ($) {
             ['misc', ['undo', 'redo']] // Undo and redo actions
         ],
         buttons: {
-            pdf: function () {
+            pdf: function() {
                 var ui = $.summernote.ui;
 
                 // Create a PDF upload button
                 return ui.button({
                     contents: '<i class="note-icon-file"></i> PDF',
                     tooltip: 'Upload PDF',
-                    click: function () {
+                    click: function() {
                         // Trigger file input dialog
                         $('<input type="file" accept="application/pdf">')
-                            .on('change', function (event) {
+                            .on('change', function(event) {
                                 var file = event.target.files[0];
                                 if (file) {
                                     uploadPDF(file);
@@ -315,8 +323,8 @@ jQuery(document).ready(function ($) {
             }
         }
     });
-    
-    
+
+
 
     function uploadPDF(file) {
         // Use AJAX to upload the file to your server
@@ -330,13 +338,14 @@ jQuery(document).ready(function ($) {
             processData: false,
             contentType: false,
             headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Add CSRF token to headers
-        },
-            success: function (response) {
-                $('#content').summernote('insertText', response.url);
-      
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr(
+                    'content') // Add CSRF token to headers
             },
-            error: function (xhr) {
+            success: function(response) {
+                $('#content').summernote('insertText', response.url);
+
+            },
+            error: function(xhr) {
                 alert('Failed to upload PDF. Please try again.');
             }
         });
@@ -346,7 +355,7 @@ jQuery(document).ready(function ($) {
 //     tabsize: 2,
 //     height: 300
 // });
-</script>  
+</script>
 <!-- here this code end of the editer js -->
 <script>
 document.getElementById('texttype').addEventListener('change', function() {
@@ -357,15 +366,15 @@ document.getElementById('texttype').addEventListener('change', function() {
 });
 document.getElementById('txtpostion').addEventListener('change', function() {
     const value = this.value;
-    if(value == 3 || value == 4 || value == 5 || value == 6 || value == 7)
-    var selectElement = document.getElementById('menucategory');
-        
-        // Loop through all options and disable them except for the one with value '0'
-        for (var i = 0; i < selectElement.options.length; i++) {
-            if (selectElement.options[i].value !== '0') {
-                selectElement.options[i].disabled = true;
-            }
+    if (value == 3 || value == 4 || value == 5 || value == 6 || value == 7)
+        var selectElement = document.getElementById('menucategory');
+
+    // Loop through all options and disable them except for the one with value '0'
+    for (var i = 0; i < selectElement.options.length; i++) {
+        if (selectElement.options[i].value !== '0') {
+            selectElement.options[i].disabled = true;
         }
+    }
 });
 </script>
 @endsection
