@@ -46,7 +46,7 @@
         z-index: 1000;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.5);
+        background: rgba(175, 11, 16, 0.5);
         color: #fff;
         font-weight: 600;
         font-size: 100%;
@@ -103,6 +103,134 @@
         top: 0;
         margin-top: -1px;
     }
+
+    /* Position the play/pause button on the right */
+    #playPauseBtn {
+        position: absolute;
+        bottom: 1%;
+        right: 30px;
+        transform: translateY(-5%);
+        z-index: 10;
+        opacity: 0.8;
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    /* Hide next/prev arrows by default */
+    .carousel-control-prev,
+    .carousel-control-next {
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    /* Show next/prev arrows on hover */
+    #carouselExampleCaptions:hover .carousel-control-prev,
+    #carouselExampleCaptions:hover .carousel-control-next {
+        opacity: 1;
+    }
+
+    /* Ensure the buttons are clearly visible when focused */
+    .carousel-indicators button:focus {
+        outline: 2px solid #af2910 !important;
+        /* Red outline to indicate focus */
+        background-color: rgba(255, 255, 255, 0.5);
+        /* Light red background */
+        border-radius: 5px;
+    }
+
+    /* Optional: Increase the size for better accessibility */
+    .carousel-indicators button {
+        border-radius: 10px;
+        margin: 5px;
+        background-color: #af2910;
+        border: none;
+    }
+
+    /* Active indicator styling */
+    .carousel-indicators .active {
+        background-color: #af2910;
+        /* Blue color for active indicator */
+    }
+
+    /* Hover effect for better UI feedback */
+    .carousel-indicators button:hover {
+        background-color: #af2910;
+    }
+
+    .btn-scroll-top {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        background-color: #fff;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: opacity 0.3s, transform 0.3s;
+        opacity: 0;
+        transform: translateY(100px);
+        outline: none;
+    }
+
+    .btn-scroll-top:focus {
+        outline: 3px solid #af2910;
+        /* Improve focus visibility */
+    }
+
+    .btn-scroll-top.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    #wrap {
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    #external-events {
+        float: left;
+        width: 150px;
+        padding: 0 10px;
+        text-align: left;
+    }
+
+    #external-events h4 {
+        font-size: 16px;
+        margin-top: 0;
+        padding-top: 1em;
+    }
+
+    .external-event {
+        /* try to mimick the look of a real event */
+        margin: 10px 0;
+        padding: 2px 4px;
+        background: #3366cc;
+        color: #fff;
+        font-size: 0.85em;
+        cursor: pointer;
+    }
+
+    #external-events p {
+        margin: 1.5em 0;
+        font-size: 11px;
+        color: #666;
+    }
+
+    #external-events p input {
+        margin: 0;
+        vertical-align: middle;
+    }
+
+    #calendar {
+        /* 		float: right; */
+        margin: 0 auto;
+        width: 900px;
+        background-color: #ffffff;
+        border-radius: 6px;
+        box-shadow: 0 1px 2px #c3c3c3;
+    }
     </style>
 
 </head>
@@ -157,12 +285,12 @@
                 @endphp
 
                 @if ($centre_name)
-                <h1 class="text-dark"><a href="#" class="text-dark">{{ $centre_name->research_centre_name }}<br><span class="text-center"
-                        style="font-size:14px;">
-                        @if (!empty($centre_name->sub_heading))
-                        ( {{ $centre_name->sub_heading }} )
-                        @endif
-                    </span></a></h1>
+                <h1 class="text-dark"><a href="#" class="text-dark">{{ $centre_name->research_centre_name }}<br><span
+                            class="text-center" style="font-size:14px;">
+                            @if (!empty($centre_name->sub_heading))
+                            ( {{ $centre_name->sub_heading }} )
+                            @endif
+                        </span></a></h1>
 
                 @else
 

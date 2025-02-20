@@ -50,8 +50,8 @@ return $query->where('language', '1');
                             <div class="logo-item">
                                 <a href="{{ $footer_icon->link }}" target="_blank">
                                     <img src="{{ asset('footer-images/' . $footer_icon->image) }}"
-                                        alt="Logo of {{ $footer_icon->title }}" title="Logo of {{ $footer_icon->title }}"
-                                        class="img-fluid"
+                                        alt="Logo of {{ $footer_icon->title }}"
+                                        title="Logo of {{ $footer_icon->title }}" class="img-fluid"
                                         style="max-width: 150px; max-height: 60px; object-fit: cover;">
                                 </a>
                             </div>
@@ -135,19 +135,23 @@ return $query->where('language', '1');
                         $social_media_links = DB::table('social_media_links')->get();
                         @endphp
                         <!--Facebook-->
-                        <a href="{{ $social_media_links[0]->facebook_url; }}" class="me-2" target="_blank" aria-label="Facebook">
+                        <a href="{{ $social_media_links[0]->facebook_url; }}" class="me-2" target="_blank"
+                            aria-label="Facebook">
                             <i class="bi bi-facebook fa-2x" style="color: #af2910;"></i>
                         </a>
                         <!--Twitter-->
-                        <a href="{{ $social_media_links[0]->twitter_url; }}" class="me-2" target="_blank" aria-label="Twitter">
+                        <a href="{{ $social_media_links[0]->twitter_url; }}" class="me-2" target="_blank"
+                            aria-label="Twitter">
                             <i class="bi bi-twitter-x" style="color: #af2910;"></i>
                         </a>
 
                         <!--GitHub-->
-                        <a href="{{ $social_media_links[0]->youtube_url; }}" class="me-2" target="_blank" aria-label="Youtube">
+                        <a href="{{ $social_media_links[0]->youtube_url; }}" class="me-2" target="_blank"
+                            aria-label="Youtube">
                             <i class="bi bi-youtube" style="color:#af2910;"></i>
                         </a>
-                        <a href="{{ $social_media_links[0]->linkedin_url; }}" class="me-2" target="_blank" aria-label="Linkedin">
+                        <a href="{{ $social_media_links[0]->linkedin_url; }}" class="me-2" target="_blank"
+                            aria-label="Linkedin">
                             <i class="bi bi-linkedin" style="color:#af2910;"></i>
                         </a>
                     </div>
@@ -163,11 +167,13 @@ return $query->where('language', '1');
 <!-- Scroll top -->
 <div class="btn-scroll-top" tabindex="0" role="button" aria-label="Go to Top">
     <svg class="progress-square svg-content" width="100%" height="100%" viewBox="0 0 40 40">
-        <path d="M8 1H32C35.866 1 39 4.13401 39 8V32C39 35.866 35.866 39 32 39H8C4.13401 39 1 35.866 1 32V8C1 4.13401 4.13401 1 8 1Z"></path>
+        <path
+            d="M8 1H32C35.866 1 39 4.13401 39 8V32C39 35.866 35.866 39 32 39H8C4.13401 39 1 35.866 1 32V8C1 4.13401 4.13401 1 8 1Z">
+        </path>
     </svg>
 </div>
 <style>
-    .btn-scroll-top {
+.btn-scroll-top {
     position: fixed;
     bottom: 20px;
     right: 20px;
@@ -184,21 +190,24 @@ return $query->where('language', '1');
     transform: translateY(100px);
     outline: none;
 }
+
 .btn-scroll-top:focus {
-    outline: 3px solid yellow; /* Improve focus visibility */
+    outline: 3px solid yellow;
+    /* Improve focus visibility */
 }
+
 .btn-scroll-top.show {
     opacity: 1;
     transform: translateY(0);
 }
-
 </style>
+
 <script>
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function() {
     let scrollButton = document.querySelector(".btn-scroll-top");
 
     // Show button when scrolling down
-    window.addEventListener("scroll", function () {
+    window.addEventListener("scroll", function() {
         if (window.scrollY > 200) {
             scrollButton.classList.add("show");
         } else {
@@ -208,14 +217,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Click or Enter/Space key to scroll to top
     scrollButton.addEventListener("click", scrollToTop);
-    scrollButton.addEventListener("keydown", function (event) {
+    scrollButton.addEventListener("keydown", function(event) {
         if (event.key === "Enter" || event.key === " ") {
             scrollToTop();
         }
     });
 
     function scrollToTop() {
-        window.scrollTo({ top: 0, behavior: "smooth" });
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
     }
 });
 </script>
@@ -351,7 +363,58 @@ function chooseStyle(action, value) {
     }
 }
 </script>
-<!-- Scripts -->
+<!-- Scripts file for home slider play/pause button -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var carousel = new bootstrap.Carousel(document.getElementById('carouselExampleCaptions'), {
+            interval: 3000, // Default interval
+            ride: 'carousel'
+        });
+
+        var playPauseBtn = document.getElementById("playPauseBtn");
+        var isPlaying = true; // Track the state of the slider
+
+        playPauseBtn.addEventListener("click", function () {
+    if (isPlaying) {
+        carousel.pause();
+        playPauseBtn.innerHTML = '<i class="bi bi-play-fill"></i> Play';
+        playPauseBtn.classList.replace("btn-danger", "btn-success");
+        playPauseBtn.setAttribute("aria-label", "Slider Paused"); // Update aria-label
+    } else {
+        carousel.cycle();
+        playPauseBtn.innerHTML = '<i class="bi bi-pause-fill"></i> Pause';
+        playPauseBtn.classList.replace("btn-success", "btn-danger");
+        playPauseBtn.setAttribute("aria-label", "Slider played"); // Update aria-label
+    }
+    isPlaying = !isPlaying; // Toggle state
+});
+
+    });
+</script>
+<!-- ✅ JavaScript for Play/Pause Marquee -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    var marquee = document.getElementById("marqueeContainer");
+    var playPauseBtn = document.getElementById("playPauseBtn1");
+    var isPlaying = true; // Initially, marquee is running
+
+    playPauseBtn.addEventListener("click", function() {
+    if (isPlaying) {
+        marquee.style.animationPlayState = "paused";
+        playPauseBtn.innerHTML = '<i class="bi bi-play-fill"></i>';
+        playPauseBtn.classList.replace("btn-danger", "btn-success");
+        playPauseBtn.setAttribute("aria-label", "latest Updates paused"); // Update aria-label
+    } else {
+        marquee.style.animationPlayState = "running";
+        playPauseBtn.innerHTML = '<i class="bi bi-pause-fill"></i>';
+        playPauseBtn.classList.replace("btn-success", "btn-danger");
+        playPauseBtn.setAttribute("aria-label", "Latest Updatesr played"); // Update aria-label
+    }
+    isPlaying = !isPlaying; // Toggle state
+});
+
+});
+</script>
 <!-- Libs JS -->
 <script src="{{ asset('assets/libs/%40popperjs/core/dist/umd/popper.min.js') }}"></script>
 <script src="{{ asset('assets/libs/bootstrap/dist/js/bootstrap.min.js') }}"></script>
