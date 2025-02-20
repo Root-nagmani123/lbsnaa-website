@@ -35,6 +35,7 @@
         <div class="row">
             <!-- Media Gallery -->
             <div class="row gap-2 justify-content-start">
+                
                 <div class="col-12 col-sm-6 col-md-4 col-lg-2">
                     <div class="card card-lift">
                         <a href="{{ route('user.audiogallery')}}"
@@ -49,26 +50,6 @@
                                     '2')अकादमी गीत
                                     @else
                                     Academy Song
-                                    @endif
-                                </h4>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                    <div class="card card-lift">
-                        <a href="{{ route('user.videogallery')}}"
-                            class="bg-white text-center shadow-sm text-wrap rounded-4 w-100">
-                            <div class="p-3">
-                                <img src="{{ asset('assets/images/video.png') }}" alt="Academy Song" class="img-fluid"
-                                    style="max-width: 100px;">
-                            </div>
-                            <div class="mt-3">
-                                <h4 class="text-center">
-                                    @if(Cookie::get('language') ==
-                                    '2')वीडियो गैलरी
-                                    @else
-                                    Video Gallery
                                     @endif
                                 </h4>
                             </div>
@@ -95,6 +76,27 @@
                         </a>
                     </div>
                 </div>
+                <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+                    <div class="card card-lift">
+                        <a href="{{ route('user.videogallery')}}"
+                            class="bg-white text-center shadow-sm text-wrap rounded-4 w-100">
+                            <div class="p-3">
+                                <img src="{{ asset('assets/images/video.png') }}" alt="Academy Song" class="img-fluid"
+                                    style="max-width: 100px;">
+                            </div>
+                            <div class="mt-3">
+                                <h4 class="text-center">
+                                    @if(Cookie::get('language') ==
+                                    '2')वीडियो गैलरी
+                                    @else
+                                    Video Gallery
+                                    @endif
+                                </h4>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
             </div>
         </div>
     </div>

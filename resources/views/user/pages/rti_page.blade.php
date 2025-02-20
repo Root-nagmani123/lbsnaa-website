@@ -12,7 +12,7 @@
                     <ol class="breadcrumb">
                         <!-- Home link -->
                         <li class="breadcrumb-item">
-                            <a href="{{ route('home') }}">@if(Cookie::get('language') ==
+                            <a href="{{ route('home') }}" class="text-primary">@if(Cookie::get('language') ==
                                 '2')घर
                                 @else
                                 Home
@@ -24,7 +24,7 @@
                         @foreach ($breadcrumb as $crumb)
                         @if (!$loop->last)
                         <li class="breadcrumb-item">
-                            <a href="{{ route('user.get_rti_page_details', $crumb['slug']) }}">{{ $crumb['title'] }}</a>
+                            <a href="{{ route('user.get_rti_page_details', $crumb['slug']) }}" class="text-primary">{{ $crumb['title'] }}</a>
                         </li>
                         @else
                         <li class="breadcrumb-item active" aria-current="page">{{ $crumb['title'] }}</li>

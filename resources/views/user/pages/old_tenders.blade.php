@@ -12,7 +12,7 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb p-2 mb-0">
                             <li class="breadcrumb-item">
-                                <a href="{{ route('home') }}" style="color: #af2910;">
+                                <a href="{{ route('home') }}" class="text-primary">
                                     @if(Cookie::get('language') ==
                                     '2')घर
                                     @else
@@ -20,8 +20,8 @@
                                     @endif
                                 </a>
                             </li>
-                            <li class="breadcrumb-item">
-                                <a href="{{ route('user.tenders') }}">
+                            <li class="breadcrumb-item" >
+                                <a href="{{ route('user.tenders') }}" class="text-primary">
                                     @if(Cookie::get('language') ==
                                     '2')नाज़ुक
                                     @else
@@ -72,14 +72,14 @@
 
                     </div>
                     <div class="col-lg-4 d-flex align-items-end gap-2">
-                        <button type="submit" class="btn btn-outline-primary fw-bold w-100">@if(Cookie::get('language')
+                        <button type="submit" class="btn btn-primary fw-bold w-100">@if(Cookie::get('language')
                             ==
                             '2')जमा करना
                             @else
                             Submit
                             @endif
                         </button>
-                        <a href="{{ route('user.tenders_archive') }}" class="btn btn-outline-warning fw-bold w-100">
+                        <a href="{{ route('user.tenders_archive') }}" class="btn btn-warning fw-bold w-100">
                             @if(Cookie::get('language') ==
                             '2')रीसेट करें
                             @else
@@ -158,7 +158,7 @@
                                 <td>
                                     @if(!empty($value->file))
                                     <a href="{{ asset('storage/tender/'.$value->file) }}"
-                                        class="btn btn-sm btn-outline-primary" target="_blank">
+                                        class="btn btn-sm btn-primary" target="_blank">
                                         @if(Cookie::get('language') ==
                                         '2')डाउनलोड करना
                                         @else

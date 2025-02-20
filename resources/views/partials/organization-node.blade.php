@@ -1,4 +1,4 @@
-                  <div class="card" style="width: 18rem;">
+                  <div class="card card-lift" style="width: 18rem;">
                       @php
                       $keyword = str_replace(' ', '+', $node->name);
                       @endphp

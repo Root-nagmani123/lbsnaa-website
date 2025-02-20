@@ -9,7 +9,7 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb p-2 mb-0">
                             <li class="breadcrumb-item">
-                                <a href="{{ route('home') }}" style="color: #af2910;">@if(Cookie::get('language') ==
+                                <a href="{{ route('home') }}" class="text-primary">@if(Cookie::get('language') ==
                                     '2')घर
                                     @else
                                     Home
@@ -33,7 +33,7 @@
                     <h2 class="fw-semibold fs-18 mb-0 text-primary">Tenders</h2>
                 </div>
                 <div class="col-md-3 text-end">
-                    <a href="{{ route('user.tenders_archive') }}" class="btn btn-outline-primary fw-semibold btn-sm">
+                    <a href="{{ route('user.tenders_archive') }}" class="btn btn-primary fw-semibold btn-sm">
                         @if(Cookie::get('language') ==
                         '2')पुरालेख
                         @else
