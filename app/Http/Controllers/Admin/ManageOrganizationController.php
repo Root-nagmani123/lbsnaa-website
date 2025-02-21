@@ -371,7 +371,7 @@ class ManageOrganizationController extends Controller
             // **Cache validation errors for 1 minute**
             Cache::put('validation_errors', $validator->errors()->toArray(), 1);
     
-            return redirect()->back()->withErrors($validator)->withInput();
+            return redirect(session('url.previousdata', url('/')))->withInput();
         }
     
         // ✅ Fix: Extract validated data

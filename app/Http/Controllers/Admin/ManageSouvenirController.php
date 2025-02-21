@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\DB;
 
 use App\Models\Admin\ManageAudit;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Validator;
 
 class ManageSouvenirController extends Controller
 {
@@ -28,12 +30,32 @@ class ManageSouvenirController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $rules = [
             'type' => 'required|string|max:255',
             'category_name' => 'required|string|max:255',
             'category_name_hindi' => 'required|string|max:255',
             'status' => 'required|boolean',
-        ]);
+        ];
+    
+        // **Custom Error Messages**
+        $messages = [
+            'type.required' => 'Type field is required.',
+            'category_name.required' => 'Category Name is required.',
+            'category_name_hindi.required' => 'Category Name in Hindi is required.',
+            'status.required' => 'Status is required.',
+        ];
+    
+        // **Run Validator**
+        $validator = Validator::make($request->all(), $rules, $messages);
+    
+        // **If Validation Fails**
+        if ($validator->fails()) {
+            // **Cache validation errors for 1 minute**
+            Cache::put('validation_errors', $validator->errors()->toArray(), 1);
+    
+            // **Redirect back with errors and old input**
+            return redirect(session('url.previousdata', url('/')))->withInput();
+        }
 
         // Insert into the souvenir category table
         $souvenir = DB::table('souvenircategory')->insert([
@@ -54,6 +76,7 @@ class ManageSouvenirController extends Controller
             'Action_Type' => 'Insert', // Static value
             'IP_Address' => $request->ip(), // Get IP address from request
         ]);
+        Cache::put('success_message', 'Category created successfully!', 1);
 
         return redirect()->route('souvenir.index')->with('success', 'Category created successfully.');
     }
@@ -71,12 +94,32 @@ class ManageSouvenirController extends Controller
     // Update the specified category in the database
     public function update(Request $request, $id)
     {
-        $request->validate([
+        $rules = [
             'type' => 'required|string|max:255',
             'category_name' => 'required|string|max:255',
-            'category_name_hindi' => 'nullable|string|max:255',
+            'category_name_hindi' => 'required|string|max:255',
             'status' => 'required|boolean',
-        ]);
+        ];
+    
+        // **Custom Error Messages**
+        $messages = [
+            'type.required' => 'Type field is required.',
+            'category_name.required' => 'Category Name is required.',
+            'category_name_hindi.required' => 'Category Name in Hindi is required.',
+            'status.required' => 'Status is required.',
+        ];
+    
+        // **Run Validator**
+        $validator = Validator::make($request->all(), $rules, $messages);
+    
+        // **If Validation Fails**
+        if ($validator->fails()) {
+            // **Cache validation errors for 1 minute**
+            Cache::put('validation_errors', $validator->errors()->toArray(), 1);
+    
+            // **Redirect back with errors and old input**
+            return redirect(session('url.previousdata', url('/')))->withInput();
+        }
 
         // Use Query Builder to update the category
         $souvenir = DB::table('souvenircategory')
@@ -98,6 +141,7 @@ class ManageSouvenirController extends Controller
                 'IP_Address' => $request->ip(), // Get IP address from request
                 'Current_State' => json_encode($souvenir), // Save state as JSON
             ]);
+            Cache::put('success_message', 'Category updated successfully!', 1);
 
         return redirect()->route('souvenir.index')->with('success', 'Category updated successfully.');
     }
@@ -109,14 +153,20 @@ class ManageSouvenirController extends Controller
         $category = DB::table('souvenircategory')->where('id', $id)->first();
         // Check if the category exists
         if (!$category) {
+            Cache::put('error_message', 'Category not found!', 1);
+
             return redirect()->route('souvenir.index')->with('error', 'Category not found.');
         }
         // Check if the status is inactive (1)
         if ($category->status == 1) {
+            Cache::put('error_message', 'Active categories cannot be deleted!', 1);
+
             return redirect()->route('souvenir.index')->with('error', 'Active categories cannot be deleted.');
         }
         // Proceed to delete the category
         DB::table('souvenircategory')->where('id', $id)->delete();
+        Cache::put('success_message', 'Category deleted successfully!', 1);
+
         return redirect()->route('souvenir.index')->with('success', 'Category deleted successfully.');
     }
 
@@ -144,7 +194,7 @@ class ManageSouvenirController extends Controller
     public function storeAcademySouvenir(Request $request)
     {
         // Validate the input fields
-        $request->validate([
+        $rules = [
             'language' => 'required|in:1,2',
             'product_category' => 'required|string|max:255',
             'product_title' => 'required|string|max:255',
@@ -155,7 +205,34 @@ class ManageSouvenirController extends Controller
             'document_upload' => 'nullable|file|mimes:jpg,jpeg,png,gif,pdf,doc,docx|max:20480', // 20 MB limit
             'upload_image' => 'required|image|mimes:jpg,jpeg,png,gif|max:10240', // 10 MB limit
             'product_status' => 'required|in:0,1', // Assuming 'active' and 'inactive' are valid statuses
-        ]);
+        ];
+    
+        // **Custom Error Messages**
+        $messages = [
+            'language.required' => 'Language selection is required.',
+            'language.in' => 'Invalid language selection.',
+            'product_category.required' => 'Product category is required.',
+            'product_title.required' => 'Product title is required.',
+            'product_type.required' => 'Product type is required.',
+            'upload_image.required' => 'Product image is required.',
+            'upload_image.image' => 'The uploaded file must be an image.',
+            'upload_image.mimes' => 'Only JPG, JPEG, PNG, and GIF images are allowed.',
+            'upload_image.max' => 'The image must not be larger than 10MB.',
+            'document_upload.mimes' => 'Only JPG, JPEG, PNG, GIF, PDF, DOC, and DOCX files are allowed.',
+            'document_upload.max' => 'The document must not be larger than 20MB.',
+            'product_status.required' => 'Product status is required.',
+            'product_status.in' => 'Invalid product status.',
+        ];
+    
+        // **Run Validator**
+        $validator = Validator::make($request->all(), $rules, $messages);
+    
+        // **If Validation Fails**
+        if ($validator->fails()) {
+            // **Cache validation errors for 1 minute**
+            Cache::put('validation_errors', $validator->errors()->toArray(), 1);
+            return redirect(session('url.previousdata', url('/')))->withInput(); 
+        }   
         try {
         $document_name = '';
         $upload_name = '';
@@ -190,14 +267,16 @@ class ManageSouvenirController extends Controller
             'created_at' => now(),
             'updated_at' => now()
         ]);
+        Cache::put('success_message', 'Academy Souvenir created successfully!', 1);
 
         return redirect()->route('academy_souvenirs.index')->with('success', 'Academy Souvenir created successfully.');
     } catch (\Exception $e) {
         // Log the error for debugging purposes
         \Log::error('Error storing Academy Souvenir: ' . $e->getMessage());
-
+        Cache::put('error_message', 'Something went wrong. Please try again!', 1);
         // Redirect back with an error message
-        return redirect()->back()->withErrors(['error' => 'Something went wrong. Please try again.']);
+        // return redirect()->back()->withErrors(['error' => 'Something went wrong. Please try again.']);
+        return redirect(session('url.previousdata', url('/')))->withInput();    
     }
     }
 
@@ -278,6 +357,7 @@ class ManageSouvenirController extends Controller
             'Action_Type' => 'Update', // Static value
             'IP_Address' => $request->ip(), // Get IP address from request
         ]);
+        Cache::put('success_message', 'Academy Souvenir updated successfully!', 1);
 
         return redirect()->route('academy_souvenirs.index')->with('success', 'Academy Souvenir updated successfully.');
     }
@@ -290,6 +370,8 @@ class ManageSouvenirController extends Controller
 
         // Check if the status is 1 (Inactive), and if so, prevent deletion
         if ($souvenir->product_status == 1) {
+        Cache::put('error_message', 'Active academy souvenirs cannot be deleted!', 1);
+            
             return redirect()->route('academy_souvenirs.index')->with('error', 'Active academy souvenirs cannot be deleted.');
         }
 

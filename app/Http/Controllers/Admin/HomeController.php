@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\DB;
 
 use App\Models\Admin\ManageAudit;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller
 {

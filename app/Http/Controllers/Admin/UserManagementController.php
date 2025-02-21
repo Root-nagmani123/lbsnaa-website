@@ -73,7 +73,7 @@ class UserManagementController extends Controller
     {
         $permissions = DB::table('modules')->where('id', $id)->where('status', 0)->first();
         if(!$permissions){
-            Cache::put('error_message', 'active Module can not deleted!', 1);
+            Cache::put('error_message', 'Active Module can not deleted!', 1);
     
             // Redirect using session-stored previous URL
             return redirect(session('url.previousdata', url('/')));

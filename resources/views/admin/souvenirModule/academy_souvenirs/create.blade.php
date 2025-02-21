@@ -22,13 +22,30 @@
     </ul>
 </div>
 <!-- Display Validation Errors -->
-@if ($errors->any())
-    <div class="alert alert-danger">
+@if(Cache::has('success_message'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ Cache::get('success_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('error_message'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ Cache::get('error_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('validation_errors'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
         <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
+            @foreach (Cache::get('validation_errors') as $field => $errors)
+                @foreach ($errors as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
             @endforeach
         </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 @endif
 
@@ -51,9 +68,7 @@
                                     <input type="radio" name="language" value="1"> English
                                     <input type="radio" name="language" value="2"> Hindi
                                 </div>
-                                @error('language')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                              
                             </div>
                         </div>
                         <div class="col-lg-4">
@@ -67,9 +82,7 @@
                                         <option value="{{ $category->id }}" class="text-dark">{{ $category->category_name }}</option>
                                         @endforeach
                                     </select>
-                                    @error('product_category')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                   
                                 </div>
                             </div>
                         </div>
@@ -80,9 +93,7 @@
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark  h-58" name="product_title"
                                         id="product_title" value="{{ old('product_title') }}">
-                                        @error('product_title')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                      
                                 </div>
                             </div>
                         </div>
@@ -96,9 +107,7 @@
                                         <option value="Sale" class="text-dark">Sale</option>
                                         <option value="Download" class="text-dark">Download</option>
                                     </select>
-                                    @error('product_type')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                    
                                 </div>
                             </div>
                         </div>
@@ -110,9 +119,7 @@
                                     <div class="form-group position-relative">
                                         <input type="number" class="form-control text-dark  h-58" name="product_price"
                                             id="product_price" step="0.01" >
-                                            @error('product_price')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                          
                                     </div>
                                 </div>
                             </div>
@@ -122,9 +129,7 @@
                                     <div class="form-group position-relative">
                                         <input type="number" class="form-control text-dark  h-58" name="product_discounted_price"
                                             id="product_discounted_price" step="0.01" >
-                                            @error('product_discounted_price')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                           
                                     </div>
                                 </div>
                             </div>
@@ -135,9 +140,7 @@
                                     <div class="form-group position-relative">
                                         <input type="email" class="form-control text-dark  h-58" name="contact_email_id"
                                             id="contact_email_id" >
-                                            @error('contact_email_id')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                           
                                     </div>
                                 </div>
                             </div>
@@ -150,9 +153,7 @@
                                     <div class="form-group position-relative">
                                         <input type="file" class="form-control text-dark  h-58" name="document_upload"
                                             id="document_upload">
-                                            @error('document_upload')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                            
                                     </div>
                                 </div>
                             </div>
@@ -164,9 +165,7 @@
                                 <div class="form-group position-relative">
                                     <input type="file" class="form-control text-dark  h-58" name="upload_image"
                                         id="upload_image">
-                                    @error('upload_image')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                    
                                 </div>
                             </div>
                         </div>
@@ -188,9 +187,7 @@
                                         <option value="1" class="text-dark">Active</option>
                                         <option value="0" class="text-dark">Inactive</option>
                                     </select>
-                                    @error('product_status')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                   
                                 </div>
                             </div>
                         </div>
