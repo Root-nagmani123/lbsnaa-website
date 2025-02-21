@@ -53,7 +53,7 @@
     .logo {
         width: 350px;
     }
-    
+
 
     @media (max-width: 768px) {
         .bar {
@@ -125,6 +125,7 @@
         top: 0;
         margin-top: -1px;
     }
+
     #playPauseBtn {
         position: absolute;
         bottom: 1%;
@@ -146,46 +147,54 @@
     #carouselExampleCaptions:hover .carousel-control-next {
         opacity: 1;
     }
+
     #marqueeWrapper {
-    position: relative;
-    overflow: hidden;
-    white-space: nowrap;
-}
-
-#marqueeContainer {
-    display: inline-flex;
-    white-space: nowrap;
-    will-change: transform;
-}
-
-#marqueeWrapper {
-    overflow: hidden;
-    position: relative;
-}
-
-#marqueeContainer {
-    display: flex;
-    gap: 3px;
-    flex-nowrap: nowrap;
-    align-items: center;
-    animation: marquee 50s linear infinite;
-    will-change: transform;
-    /* Helps with smoother animations */
-}
-
-@keyframes marquee {
-    0% {
-        transform: translateX(100%);
+        position: relative;
+        overflow: hidden;
+        white-space: nowrap;
     }
 
-    100% {
-        transform: translateX(-100%);
+    #marqueeContainer {
+        display: inline-flex;
+        white-space: nowrap;
+        will-change: transform;
     }
-}
 
-.paused {
-    animation-play-state: paused;
-}
+    #marqueeWrapper {
+        overflow: hidden;
+        position: relative;
+    }
+
+    #marqueeContainer {
+        display: flex;
+        gap: 3px;
+        flex-nowrap: nowrap;
+        align-items: center;
+        animation: marquee 50s linear infinite;
+        will-change: transform;
+        /* Helps with smoother animations */
+    }
+
+    @keyframes marquee {
+        0% {
+            transform: translateX(100%);
+        }
+
+        100% {
+            transform: translateX(-100%);
+        }
+    }
+
+    .paused {
+        animation-play-state: paused;
+    }
+
+    .custom-dropdown {
+        left: 0 !important;
+        right: auto !important;
+        transform: translateX(-85%) !important;
+        /* Ensures dropdown always opens to the left */
+    }
     </style>
 </head>
 
@@ -206,7 +215,6 @@
                             <!-- <i class="material-icons menu-icon">event_repeat</i> -->
                             <img src="{{ asset('assets/images/skip_to_main_content.png') }}" alt="skip to main content"
                                 style="height: 30px;">
-
                         </a>
                     </li>
                     <li class="nav-item">
@@ -295,17 +303,6 @@
                             </form>
                         </div>
                     </li>
-
-
-
-                    <style>
-                    .custom-dropdown {
-                        left: 0 !important;
-                        right: auto !important;
-                        transform: translateX(-85%) !important;
-                        /* Ensures dropdown always opens to the left */
-                    }
-                    </style>
                     <!-- <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle fw-bold" href="#" id="languageDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside"
@@ -321,59 +318,6 @@
                     </li> -->
                 </ul>
             </div>
-            <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                let dropdowns = document.querySelectorAll(".nav-item.dropdown");
-
-                dropdowns.forEach((dropdown) => {
-                    let toggle = dropdown.querySelector(".nav-link[data-bs-toggle='dropdown']");
-                    let menu = dropdown.querySelector(".dropdown-menu");
-
-                    if (toggle && menu) {
-                        let bsDropdown = new bootstrap.Dropdown(toggle); // Bootstrap dropdown instance
-
-                        // Ensure dropdown opens when toggle gets focus
-                        toggle.addEventListener("focus", function() {
-                            bsDropdown.show();
-                        });
-
-                        // Ensure dropdown closes when focus moves outside
-                        menu.addEventListener("focusout", function() {
-                            setTimeout(() => {
-                                if (!menu.contains(document.activeElement) && !toggle
-                                    .contains(document.activeElement)) {
-                                    bsDropdown
-                                        .hide(); // Bootstrap method to close dropdown
-                                }
-                            }, 150);
-                        });
-                    }
-                });
-
-                // Special handling for the search form dropdown
-                let searchToggle = document.querySelector(".nav-item.dropdown .nav-link img[alt='search']");
-                let searchDropdown = document.querySelector(".nav-item.dropdown .dropdown-menu form");
-
-                if (searchToggle && searchDropdown) {
-                    let searchDropdownInstance = new bootstrap.Dropdown(searchToggle);
-
-                    // Open search dropdown when search icon is focused
-                    searchToggle.addEventListener("focus", function() {
-                        searchDropdownInstance.show();
-                    });
-
-                    // Close search dropdown when focus moves outside
-                    searchDropdown.addEventListener("focusout", function() {
-                        setTimeout(() => {
-                            if (!searchDropdown.contains(document.activeElement) && !
-                                searchToggle.contains(document.activeElement)) {
-                                searchDropdownInstance.hide();
-                            }
-                        }, 150);
-                    });
-                }
-            });
-            </script>
         </div>
 
     </div>
@@ -674,88 +618,3 @@
             </div>
         </div>
     </nav>
-
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const submenus = document.querySelectorAll('.dynamic-direction');
-
-        submenus.forEach(function(submenu) {
-            submenu.addEventListener('mouseenter', function() {
-                const dropdownMenu = submenu.querySelector('.dropdown-menu');
-                if (!dropdownMenu) return;
-
-                // Reset classes
-                submenu.classList.remove('dropend', 'dropstart');
-
-                // Get submenu and dropdown positions
-                const submenuRect = submenu.getBoundingClientRect();
-                const dropdownRect = dropdownMenu.getBoundingClientRect();
-                const viewportWidth = window.innerWidth;
-
-                // Check if the dropdown will overflow to the right
-                if (submenuRect.right + dropdownRect.width > viewportWidth) {
-                    submenu.classList.add('dropstart');
-                } else {
-                    submenu.classList.add('dropend');
-                }
-            });
-        });
-    });
-
-    $(document).ready(function() {
-        // Open dropdown on hover
-        $(".dropdown, .dropdown-submenu").hover(
-            function() {
-                $(this).addClass("show");
-                $(this).children(".dropdown-menu").addClass("show");
-            },
-            function() {
-                $(this).removeClass("show");
-                $(this).children(".dropdown-menu").removeClass("show");
-            }
-        );
-
-        // Open dropdown when focused on
-        $(".nav-link, .dropdown-item").on("focus", function() {
-            let parent = $(this).closest(".dropdown, .dropdown-submenu");
-            if (parent.length) {
-                parent.addClass("show");
-                parent.children(".dropdown-menu").addClass("show");
-            }
-        });
-
-        // Close the dropdown when Escape key is pressed
-        $(document).on("keydown", function(e) {
-            if (e.key === "Escape" || e.keyCode === 27) {
-                e.preventDefault(); // Prevent default action
-
-                let focusedElement = $(document.activeElement);
-                let parentDropdown = focusedElement.closest(".dropdown");
-
-                if (parentDropdown.length) {
-                    // Close the dropdown
-                    parentDropdown.removeClass("show");
-                    parentDropdown.children(".dropdown-menu").removeClass("show");
-                    parentDropdown.find(".dropdown-menu")
-                        .hide(); // Hide the dropdown to prevent it from showing up again
-                }
-            }
-        });
-
-        // Allow arrow keys to navigate within the dropdown
-        $(".dropdown-menu").on("keydown", function(e) {
-            let items = $(this).find(".dropdown-item");
-            let index = items.index(document.activeElement);
-
-            if (e.key === "ArrowDown") {
-                e.preventDefault();
-                let nextIndex = (index + 1) % items.length;
-                items.eq(nextIndex).focus();
-            } else if (e.key === "ArrowUp") {
-                e.preventDefault();
-                let prevIndex = (index - 1 + items.length) % items.length;
-                items.eq(prevIndex).focus();
-            }
-        });
-    });
-    </script>
