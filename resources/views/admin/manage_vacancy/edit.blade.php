@@ -16,6 +16,32 @@
         </li>
     </ul>
 </div>
+@if(Cache::has('success_message'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ Cache::get('success_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('error_message'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ Cache::get('error_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('validation_errors'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <ul>
+            @foreach (Cache::get('validation_errors') as $field => $errors)
+                @foreach ($errors as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            @endforeach
+        </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
 <div class="row justify-content-center">
     <div class="col-lg-12">
         <div class="card bg-white border-0 rounded-10 mb-4">
@@ -58,9 +84,7 @@
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark  h-58" name="job_title"
                                         id="job_title" value="{{ old('job_title', $vacancy->job_title) }}">
-                                    @error('job_title')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                   
                                 </div>
                             </div>
                         </div>
@@ -72,9 +96,7 @@
                                     <textarea class="form-control" id="job_description"
                                         placeholder="Enter the Job Description" name="job_description"
                                         rows="5">{{ old('job_description', $vacancy->job_description) }}</textarea>
-                                    @error('job_description')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                    
                                 </div>
                             </div>
                         </div>
@@ -103,10 +125,7 @@
                                 <div class="form-group position-relative">
                                     <input type="file" class="form-control text-dark  h-58" name="document_upload"
                                         id="document_upload">
-                                    @if ($vacancy->document_upload)
-                                    <a href="{{  asset('storage/' . $vacancy->document_upload) }}" target="_blank">View
-                                        Current Document</a>
-                                    @endif
+                                   
                                 </div>
                             </div>
                         </div>
@@ -118,9 +137,7 @@
                                     <input type="url" class="form-control text-dark  h-58" name="website_link"
                                         id="website_link" value="{{ old('website_link', $vacancy->website_link) }}">
 
-                                    @error('website_link')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                   
                                 </div>
                             </div>
                         </div>
@@ -131,9 +148,7 @@
                                 <div class="form-group position-relative">
                                     <input type="date" class="form-control text-dark  h-58" name="publish_date"
                                         id="publish_date" value="{{ old('publish_date', $vacancy->publish_date) }}">
-                                    @error('publish_date')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                   
                                 </div>
                             </div>
                         </div>
@@ -144,9 +159,7 @@
                                 <div class="form-group position-relative">
                                     <input type="date" class="form-control text-dark  h-58" name="expiry_date"
                                         id="expiry_date" value="{{ old('expiry_date', $vacancy->expiry_date) }}">
-                                    @error('expiry_date')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                 
                                 </div>
                             </div>
                         </div>

@@ -61,12 +61,11 @@
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="type">Type :</label>
-                                <span class="star">*</span>
+                                <span class="star">*</span> 
                                 <div class="form-group position-relative">
                                 <select class="form-select form-control  h-58" name="type" id="type" required>
-                                        <option value="1" class="text-dark" {{ $category->type == 1 ? 'selected' : '' }}>Academy Souvenir</option>
-                                        <option value="2" class="text-dark" {{ $category->type == 2 ? 'selected' : '' }}>Life Academy Souvenir</option>
-                                    </select>
+                                        <option value="Academy Souvenir" class="text-dark" {{ $category->type == 'Academy Souvenir' ? 'selected' : '' }}>Academy Souvenir</option>
+                                         </select>
                                    
                                 </div>
                             </div>

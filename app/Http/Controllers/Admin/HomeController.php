@@ -623,8 +623,7 @@ public function footer_images_status_update(Request $request, $id)
             ]
         );
         Cache::put('success_message', 'Screen render updated successfully.', 1);
-    
-        return redirect()->back()->with('success', 'Screen render updated successfully!');
+        return redirect(session('url.previousdata', url('/')));
     }
     public function uploadPDF(Request $request)
     {

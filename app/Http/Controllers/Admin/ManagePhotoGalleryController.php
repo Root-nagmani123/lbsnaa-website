@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\DB;
 
 use App\Models\Admin\ManageAudit;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Cache;
 
 class ManagePhotoGalleryController extends Controller
 { 
@@ -48,13 +50,36 @@ class ManagePhotoGalleryController extends Controller
     public function store(Request $request)
     {
         // Validate inputs 
-        $request->validate([
-            'image_title_english' => 'required|string|max:255', // Ensure image title (English) is provided
-            'status' => 'required|in:1,0', // Ensure status is required and can only be 1 or 2 (or change these values based on your needs)
-            'image_files' => 'required|array', // Image files are not required
-            'media_categories' => 'required', // Image files are not required
-            'image_files.*' => 'file|mimes:jpeg,png,jpg|max:10240', // Ensure file is an image and max 10MB (10MB = 10240 KB)
-        ]);
+        $rules = [
+            'image_title_english' => 'required|string|max:255', 
+            'status' => 'required|in:1,0', 
+            'image_files' => 'required|array',
+            'media_categories' => 'required',
+            'image_files.*' => 'file|mimes:jpeg,png,jpg|max:10240', 
+        ];
+    
+        // Custom error messages
+        $messages = [
+            'image_title_english.required' => 'Enter an image title in English.',
+            'status.required' => 'Select a status.',
+            'status.in' => 'Status must be active (1) or inactive (0).',
+            'image_files.required' => 'Please upload at least one image.',
+            'media_categories.required' => 'Select a media category.',
+            'image_files.*.mimes' => 'Only JPEG, PNG, and JPG images are allowed.',
+            'image_files.*.max' => 'Each image must not exceed 10MB.',
+        ];
+    
+        // Perform validation
+        $validator = Validator::make($request->all(), $rules, $messages);
+    
+        // If Validation Fails
+        if ($validator->fails()) {
+            // **Cache validation errors for 1 minute**
+            Cache::put('validation_errors', $validator->errors()->toArray(), 1);
+    
+            // **Redirect back with errors and old input**
+            return redirect(session('url.previousdata', url('/')))->withInput();
+        }  
 
         // Collect image files if provided
         $imageFiles = $request->file('image_files');
@@ -66,7 +91,9 @@ class ManagePhotoGalleryController extends Controller
                 // Save image and get the path
                 $data1[] = $file->store('uploads/gallery', 'public');
                 if (!$data1) {
-                    return redirect()->back()->with('error', 'Failed to upload file.');
+                    Cache::put('error_message', 'Failed to upload file!', 1);
+                    return redirect(session('url.previousdata', url('/')))->withInput();
+                    // return redirect()->back()->with('error', 'Failed to upload file.');
                 }
             }
         }
@@ -90,8 +117,9 @@ class ManagePhotoGalleryController extends Controller
         if (!empty($data)) {
             ManagePhotoGallery::insert($data);
         }
+        Cache::put('success_message', 'Gallery added successfully!', 1);
 
-        return redirect()->route('photo-gallery.index')->with('success', 'Gallery added successfully.');
+        return redirect()->route('photo-gallery.index');
     }
 
     public function edit(Request $request, $id)
@@ -145,18 +173,38 @@ class ManagePhotoGalleryController extends Controller
     public function update(Request $request, $id)
     {
         // Validate inputs
-        $request->validate([
-            // 'image_files' => 'nullable|array',
-            // 'image_files.*' => 'nullable|file|mimes:jpeg,png,jpg|max:2048',
-            'image_title_english' => 'required|string|max:255',
-            // 'image_title_hindi' => 'nullable|string|max:255',
-            'status' => 'required',
-            // 'course_id' => 'nullable|integer',
-            // 'related_training_program' => 'nullable|string|max:255',
-            // 'related_news' => 'nullable|string|max:255',
-            // 'related_events' => 'nullable|string|max:255',
-            // 'media_categories' => 'nullable|string|max:255',
-        ]);
+         // Validate inputs 
+         $rules = [
+            'image_title_english' => 'required|string|max:255', 
+            'status' => 'required|in:1,0', 
+            'image_files' => 'required|array',
+            'media_categories' => 'required',
+            'image_files.*' => 'file|mimes:jpeg,png,jpg|max:10240', 
+        ];
+    
+        // Custom error messages
+        $messages = [
+            'image_title_english.required' => 'Enter an image title in English.',
+            'status.required' => 'Select a status.',
+            'status.in' => 'Status must be active (1) or inactive (0).',
+            'image_files.required' => 'Please upload at least one image.',
+            'media_categories.required' => 'Select a media category.',
+            'image_files.*.mimes' => 'Only JPEG, PNG, and JPG images are allowed.',
+            'image_files.*.max' => 'Each image must not exceed 10MB.',
+        ];
+    
+        // Perform validation
+        $validator = Validator::make($request->all(), $rules, $messages);
+    
+        // If Validation Fails
+        if ($validator->fails()) {
+            // **Cache validation errors for 1 minute**
+            Cache::put('validation_errors', $validator->errors()->toArray(), 1);
+    
+            // **Redirect back with errors and old input**
+            return redirect(session('url.previousdata', url('/')))->withInput();
+        }  
+
 
         $gallery = ManagePhotoGallery::findOrFail($id);
 
@@ -222,66 +270,12 @@ class ManagePhotoGalleryController extends Controller
             'Action_Type' => 'Update',
             'IP_Address' => $request->ip(),
         ]);
+        Cache::put('success_message', 'Gallery updated successfully!', 1);
 
-        return redirect()->route('photo-gallery.index')->with('success', 'Gallery updated successfully.');
+        return redirect()->route('photo-gallery.index');
     }
 
-    // public function update(Request $request, $id)
-    // {
-    //     $request->validate([
-    //         'image_title_english' => 'required|string|max:255',
-    //         'status' => 'required',
-    //     ]);
-    //     // dd($request);
-    //     $gallery = ManagePhotoGallery::findOrFail($id);
-
-    //     // Handle images (same as before)
-    //     $existingImages = json_decode($gallery->image_files, true) ?? [];
-    //     $updatedImages = [];
-
-    //     if ($request->has('replaced_files')) {
-    //         foreach ($request->input('replaced_files') as $index => $isReplaced) {
-    //             if ($isReplaced === "true" && isset($existingImages[$index])) {
-    //                 unlink(storage_path('app/public/' . $existingImages[$index])); // Delete file
-    //                 $updatedImages[$index] = $request->file("image_files.{$index}")->store('uploads/gallery', 'public');
-    //             } else {
-    //                 $updatedImages[$index] = $existingImages[$index] ?? null;
-    //             }
-    //         }
-    //     }
-
-    //     if ($request->hasFile('image_files.new')) {
-    //         foreach ($request->file('image_files.new') as $newFile) {
-    //             $updatedImages[] = $newFile->store('uploads/gallery', 'public');
-    //         }
-    //     }
-
-    //     $gallery->image_files = json_encode(array_filter(array_values($updatedImages)));
-
-    //     // Update other fields
-    //     $gallery->image_title_english = $request->input('image_title_english', 'Default Title');
-    //     $gallery->image_title_hindi = $request->input('image_title_hindi') ?? null;
-    //     $gallery->status = $request->input('0', '1');
-    //     $gallery->course_id = $request->input('course_id') !== "" ? $request->input('course_id') : null;
-    //     $gallery->related_training_program = $request->input('related_training_program') !== "" ? $request->input('related_training_program') : null;
-
-    //     $gallery->media_categories = $request->input('media_categories') ?? null;
-
-    //     if ($gallery->save()) {
-    //         ManageAudit::create([
-    //             'Module_Name' => 'Photo Gallery',
-    //             'Time_Stamp' => time(),
-    //             'Created_By' => null,
-    //             'Updated_By' => null,
-    //             'Action_Type' => 'Update',
-    //             'IP_Address' => $request->ip(),
-    //         ]);
-    //         return redirect()->route('photo-gallery.index')->with('success', 'Gallery updated successfully.');
-    //     } else {
-    //         return redirect()->back()->with('error', 'Failed to update gallery.');
-    //     }
-    // }
-
+   
      
     public function destroy($id){
         try {
@@ -290,7 +284,9 @@ class ManagePhotoGalleryController extends Controller
 
             // Check if the status is 1 (Inactive), and if so, prevent deletion
             if ($gallery->status == 1) {
-                return redirect()->route('photo-gallery.index')->with('error', 'Active galleries cannot be deleted.');
+        Cache::put('error_message', 'Active galleries cannot be deleted.', 1);
+                
+                return redirect()->route('photo-gallery.index');
             }
 
             // Delete associated images from storage
@@ -308,11 +304,14 @@ class ManagePhotoGalleryController extends Controller
 
             // Delete the gallery record
             $gallery->delete();
+            Cache::put('success_message', 'Photo Gallery deleted successfully.', 1);
 
             return redirect()->route('photo-gallery.index')->with('success', 'Photo Gallery deleted successfully.');
         } catch (\Exception $e) {
             // Handle errors and return with an error message
-            return redirect()->route('photo-gallery.index')->with('error', 'Error deleting Photo Gallery: ' . $e->getMessage());
+        Cache::put('error_message', 'Error deleting Photo Gallery: ' . $e->getMessage(), 1);
+
+            return redirect()->route('photo-gallery.index');
         }
     }
 

@@ -107,9 +107,10 @@ class CourseController extends Controller
             // **Redirect back with errors and old input**
             return redirect(session('url.previousdata', url('/')))->withInput();
         }
-     
-         // Insert the validated data into the database
-         DB::table('course')->insert($validatedData);
+        $validatedData = $validator->validated();
+
+        // Insert the validated data into the database
+        DB::table('course')->insert($validatedData);
      
          // Log the action in the ManageAudit table
          ManageAudit::create([

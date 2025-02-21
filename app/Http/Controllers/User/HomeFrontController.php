@@ -42,7 +42,7 @@ class HomeFrontController extends Controller
             return $query->where('language', '1');
         })
         ->orderBy('id', 'desc')
-        ->get();
+        ->get(); 
         $faculty_members = DB::table('faculty_members')->select('image')->where('designation','Director')->where('page_status',1)->first();
         $news_scrollers=  DB::table('menus')->where('txtpostion',7)->where('is_deleted',0)->where('menu_status',1)->when($language == 2, function ($query) use ($language) {
             return $query->where('language', '2');
@@ -149,9 +149,9 @@ class HomeFrontController extends Controller
             if ($request->has('keywords') && !empty($request->keywords)) {
                 $query->where('name', 'LIKE', '%' . $request->keywords . '%');
             }
-        
+            $query->orderBy('position', 'ASC');
             $faculty = $query->get();
-        
+       
             return view('user.pages.faculty', compact('faculty'));
 
         }elseif ($slug == 'staff') {
@@ -385,9 +385,10 @@ class HomeFrontController extends Controller
     if ($request->has('keywords') && !empty($request->keywords)) {
         $query->where('name', 'LIKE', '%' . $request->keywords . '%');
     }
-
+    
+    $query->orderBy('position', 'ASC');
     $faculty = $query->get();
-
+    // print_r($faculty);die;
     return view('user.pages.faculty', compact('faculty','title'));
 }
 function staff(Request $request)
@@ -399,7 +400,7 @@ function staff(Request $request)
     if ($request->has('keywords') && !empty($request->keywords)) {
         $query->where('name', 'LIKE', '%' . $request->keywords . '%');
     }
-
+    $query->orderBy('position', 'ASC');
     $staff = $query->get();
 
     return view('user.pages.staff', compact('staff','title'));

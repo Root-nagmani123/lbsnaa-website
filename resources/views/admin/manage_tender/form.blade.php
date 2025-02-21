@@ -11,9 +11,7 @@
                     {{ old('language', $manageTender->language ?? '') == 2 ? 'checked' : '' }}> Hindi
             </div>
 
-            @error('language')
-            <div class="text-danger">{{ $message }}</div>
-            @enderror
+          
         </div>
     </div>
 
@@ -33,9 +31,7 @@
                     </option>
                 </select>
             </div>
-            @error('type')
-            <div class="text-danger">{{ $message }}</div>
-            @enderror
+           
         </div>
     </div>
 
@@ -47,9 +43,7 @@
                 <input type="text" name="title" class="form-control"
                     value="{{ old('title', $manageTender->title ?? '') }}">
             </div>
-            @error('title')
-            <div class="text-danger">{{ $message }}</div>
-            @enderror
+           
         </div>
     </div>
 
@@ -61,9 +55,7 @@
                 <textarea class="form-control" id="description" placeholder="Enter the Description" name="description"
                     rows="5">{{ old('description', $manageTender->description ?? '') ?? '' }}</textarea>
             </div>
-            @error('description')
-            <div class="text-danger">{{ $message }}</div>
-            @enderror
+           
         </div>
     </div>
 
@@ -103,9 +95,7 @@
             </div>
             @endif
 
-            @error('file')
-            <div class="text-danger">{{ $message }}</div>
-            @enderror
+           
         </div>
     </div>
 
@@ -120,9 +110,7 @@
                     value="{{ old('publish_date', isset($manageTender->publish_date) ? date('Y-m-d\TH:i', strtotime($manageTender->publish_date)) : '') }}"
                     min="{{ now()->format('Y-m-d\TH:i') }}">
             </div>
-            @error('publish_date')
-            <div class="text-danger">{{ $message }}</div>
-            @enderror
+          
         </div>
     </div>
 
@@ -135,9 +123,7 @@
                     value="{{ old('expiry_date', isset($manageTender->expiry_date) ? date('Y-m-d\TH:i', strtotime($manageTender->expiry_date)) : '') }}"
                     min="{{ now()->format('Y-m-d\TH:i') }}">
             </div>
-            @error('expiry_date')
-            <div class="text-danger">{{ $message }}</div>
-            @enderror
+           
         </div>
     </div>
 
@@ -156,9 +142,7 @@
                     </option>
                 </select>
             </div>
-            @error('status')
-            <div class="text-danger">{{ $message }}</div>
-            @enderror
+           
         </div>
     </div>
 

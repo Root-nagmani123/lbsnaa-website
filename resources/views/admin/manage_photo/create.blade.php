@@ -20,6 +20,32 @@
         </li>
     </ul>
 </div>
+@if(Cache::has('success_message'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ Cache::get('success_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('error_message'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ Cache::get('error_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('validation_errors'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <ul>
+            @foreach (Cache::get('validation_errors') as $field => $errors)
+                @foreach ($errors as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            @endforeach
+        </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
 <div class="row justify-content-center">
     <div class="col-lg-12">
         <div class="card bg-white border-0 rounded-10 mb-4">
@@ -67,9 +93,7 @@
                                         </option>
                                         @endforeach
                                     </select>
-                                    @error('media_categories')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                  
                                 </div>
                             </div>
                         </div>
@@ -110,9 +134,7 @@
                                     <input type="text" class="form-control text-dark  h-58"
                                         name="image_title_english" id="image_title_english"
                                         value="{{ old('image_title_english', $gallery->image_title_english ?? '') }}">
-                                    @error('image_title_english')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                   
                                 </div>
                             </div>
                         </div>
@@ -133,9 +155,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="file" name="image_files[]" class="form-control text-dark  h-58" accept="image/*">
-                                    @error('image_files')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                   
                                     <button type="button" class="btn btn-outline-danger text-danger remove-file mt-2" style="display: none;">Remove</button>
                                 </div>
                             </div>
@@ -167,9 +187,7 @@
                                         <option value="1" class="text-dark"{{ old('status') == '1' ? 'selected' : '' }}>Active</option>
                                         <option value="0" class="text-dark"{{ old('status') == '0' ? 'selected' : '' }}>Inactive</option>
                                     </select>
-                                    @error('status')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                   
                                 </div>
                             </div>
                         </div>
