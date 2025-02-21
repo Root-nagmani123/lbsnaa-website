@@ -28,14 +28,14 @@
         <div class="d-sm-flex text-center justify-content-between align-items-center border-bottom pb-20 mb-20">
             <h4 class="fw-semibold fs-18 mb-sm-0">User List</h4>
 
-            <a href="{{ route('users.create') }}">
+            <!-- <a href="{{ route('users.create') }}">
                 <button class="border-0 btn btn-success py-2 px-3 px-sm-4 text-white fs-14 fw-semibold rounded-3">
                     <span class="py-sm-1 d-block">
                         <i class="ri-add-line text-white"></i>
                         <span>Add New User</span>
                     </span>
                 </button>
-            </a>
+            </a> -->
         </div>
         @if(Cache::has('success_message'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">

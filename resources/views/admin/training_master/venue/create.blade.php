@@ -20,6 +20,32 @@
         </li>
     </ul>
 </div>
+@if(Cache::has('success_message'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ Cache::get('success_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('error_message'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ Cache::get('error_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('validation_errors'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <ul>
+            @foreach (Cache::get('validation_errors') as $field => $errors)
+                @foreach ($errors as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            @endforeach
+        </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
 <div class="row justify-content-center">
     <div class="col-lg-12">
         <div class="card bg-white border-0 rounded-10 mb-4">
@@ -39,9 +65,7 @@
                                     <input type="radio" name="page_language" value="1" {{ old('page_language') == '1' ? 'checked' : '' }}>&nbsp;English
                                     <input type="radio" name="page_language" value="2" {{ old('page_language') == '2' ? 'checked' : '' }}>&nbsp;Hindi
                                 </div>
-                                @error('page_language')
-                                <div style="color: red;">{{ $message }}</div>
-                                @enderror
+                              
                             </div>
                         </div>
                         <div class="col-lg-6">
@@ -52,9 +76,7 @@
                                     <input type="text" class="form-control text-dark  h-58" name="venue_title"
                                         id="venue_title"  value="{{ old('venue_title') }}">
 
-                                    @error('venue_title')
-                                    <div style="color: red;">{{ $message }}</div>
-                                    @enderror
+                                
                                 </div>
                             </div>
                         </div>
@@ -66,9 +88,7 @@
                                     <input type="text" class="form-control text-dark  h-58" name="venue_detail"
                                         id="venue_detail" value="{{ old('venue_detail') }}">
 
-                                    @error('venue_detail')
-                                    <div style="color: red;">{{ $message }}</div>
-                                    @enderror
+                                  
                                 </div>
                             </div>
                         </div>
@@ -83,9 +103,7 @@
                                         <option value="0" class="text-dark" {{ old('status') == '0' ? 'checked' : '' }}>Inactive</option>
                                     </select>
 
-                                    @error('status')
-                                    <div style="color: red;">{{ $message }}</div>
-                                    @enderror
+                                  
                                 </div>
                             </div>
                         </div>

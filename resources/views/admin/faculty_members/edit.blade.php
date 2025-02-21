@@ -85,9 +85,7 @@
                                         <option value="0" class="text-dark"
                                             {{ $faculty->category == 0 ? 'selected' : '' }}>Visiting</option>
                                     </select>
-                                    @error('category')
-                                    <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                    @enderror
+                                  
                                 </div>
                             </div>
                         </div>
@@ -99,9 +97,7 @@
                                     <input type="text" class="form-control text-dark  h-58" name="name" id="name"
                                         value="{{ $faculty->name }}">
                                 </div>
-                                @error('name')
-                                    <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                @enderror
+                              
                             </div>
                         </div>
                         <div class="col-lg-6">
@@ -120,9 +116,7 @@
                                 <div class="form-group position-relative">
                                     <input type="email" class="form-control text-dark  h-58" name="email" id="email"
                                         value="{{ $faculty->email }}">
-                                    @error('email')
-                                        <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                    @enderror
+                                   
                                 </div>
                             </div>
                         </div>
@@ -162,9 +156,7 @@
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark  h-58" name="designation"
                                         id="designation" value="{{ $faculty->designation }}">
-                                    @error('designation')
-                                        <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                    @enderror
+
                                 </div>
                             </div>
                         </div>
@@ -245,9 +237,7 @@
                                     <input type="number" class="form-control text-dark  h-58"
                                         name="phone_internal_office" id="phone_internal_office"
                                         value="{{ $faculty->phone_internal_office }}">
-                                        @error('phone_internal_office')
-                                            <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                        @enderror
+
                                 </div>
                             </div>
                         </div>
@@ -258,9 +248,7 @@
                                     <input type="number" class="form-control text-dark  h-58"
                                         name="phone_internal_residence" id="phone_internal_residence"
                                         value="{{ $faculty->phone_internal_residence }}">
-                                        @error('phone_internal_residence')
-                                            <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                        @enderror
+
                                 </div>
                             </div>
                         </div>
@@ -271,9 +259,7 @@
                                 <div class="form-group position-relative">
                                     <input type="number" class="form-control text-dark  h-58" name="phone_pt_office"
                                         id="phone_pt_office" value="{{ $faculty->phone_pt_office }}">
-                                        @error('phone_pt_office')
-                                            <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                        @enderror
+
                                 </div>
                             </div>
                         </div>
@@ -284,9 +270,7 @@
                                     <input type="number" class="form-control text-dark  h-58"
                                         name="phone_pt_residence" id="phone_pt_residence"
                                         value="{{ $faculty->phone_pt_residence }}">
-                                        @error('phone_pt_residence')
-                                            <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                        @enderror
+                                       
                                 </div>
                             </div>
                         </div>
@@ -296,9 +280,7 @@
                                 <div class="form-group position-relative">
                                     <input type="number" class="form-control text-dark  h-58" name="mobile"
                                         id="mobile" value="{{ $faculty->mobile }}">
-                                        @error('mobile')
-                                            <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                        @enderror
+
                                 </div>
                             </div>
                         </div>

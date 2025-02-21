@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 
 use App\Models\Admin\ManageAudit;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Validator;
 
 class ManageVenueController extends Controller
 {
@@ -20,19 +22,28 @@ class ManageVenueController extends Controller
     // Store a newly created venue in storage
     public function store(Request $request)
     {
-        $request->validate([
+        $rules = [
             'page_language' => 'required',
             'venue_title' => 'required|string',
             'venue_detail' => 'required|string',
             'status' => 'required|string',
-        ],
-        [
-            'page_language.required' => 'Please select language.', // Custom message for language
-            'venue_title.required' => 'Please enter title.', // Custom message for language
-            'venue_detail.required' => 'Please enter venue details.', // Custom message for organiser name
-            'status.required' => 'Please select status.', // Custom message for status
-        ]
-    );
+        ];
+    
+        $messages = [
+            'page_language.required' => 'Please select language.', 
+            'venue_title.required' => 'Please enter title.', 
+            'venue_detail.required' => 'Please enter venue details.', 
+            'status.required' => 'Please select status.', 
+        ];
+    
+        // Validate Request
+        $validator = Validator::make($request->all(), $rules, $messages);
+    
+        if ($validator->fails()) {
+            // ❇ Cache validation errors for 1 minute
+            Cache::put('validation_errors', $validator->errors()->toArray(), 1);
+            return redirect(session('url.previousdata', url('/')))->withInput();
+        }
 
         $validated['status'] = $request->status === 'active' ? 1 : 0;
         $venue = ManageVenue::create($request->all());
@@ -45,7 +56,7 @@ class ManageVenueController extends Controller
             'Action_Type' => 'Insert', // Static value
             'IP_Address' => $request->ip(), // Get IP address from request
         ]);
-
+        Cache::put('success_message', 'Venue added successfully!', 1);
         return redirect()->route('venues.index')->with('success', 'Venue created successfully.');
     }
 
@@ -65,13 +76,28 @@ class ManageVenueController extends Controller
     // Update the specified venue in storage
     public function update(Request $request, ManageVenue $venue)
     {
-        $request->validate([
+        $rules = [
             'page_language' => 'required',
             'venue_title' => 'required|string',
             'venue_detail' => 'required|string',
             'status' => 'required|string',
-        ]);
-
+        ];
+    
+        $messages = [
+            'page_language.required' => 'Please select language.', 
+            'venue_title.required' => 'Please enter title.', 
+            'venue_detail.required' => 'Please enter venue details.', 
+            'status.required' => 'Please select status.', 
+        ];
+    
+        // Validate Request
+        $validator = Validator::make($request->all(), $rules, $messages);
+    
+        if ($validator->fails()) {
+            // ❇ Cache validation errors for 1 minute
+            Cache::put('validation_errors', $validator->errors()->toArray(), 1);
+            return redirect(session('url.previousdata', url('/')))->withInput();
+        }    
         $venue->update($request->all());
 
         ManageAudit::create([
@@ -82,27 +108,39 @@ class ManageVenueController extends Controller
             'Action_Type' => 'Update', // Static value
             'IP_Address' => $request->ip(), // Get IP address from request
         ]);
+        Cache::put('success_message', 'Venue updated successfully!', 1);
 
         return redirect()->route('venues.index')->with('success', 'Venue updated successfully.');
     }
 
 
     // Remove the specified venue from storage
-    public function destroy($id)
-    {
-        // Find the venue by ID
-        $venue = ManageVenue::findOrFail($id);
+    use Illuminate\Support\Facades\Cache;
 
-        // Check if the status is 1 (Inactive), and if so, prevent deletion
-        if ($venue->status == 1) {
-            return redirect()->route('venues.index')->with('error', 'Active venues cannot be deleted.');
-        }
+public function destroy($id)
+{
+    // Find the venue by ID
+    $venue = ManageVenue::findOrFail($id);
 
-        // Delete the venue
-        $venue->delete();
-
-        return redirect()->route('venues.index')->with('success', 'Venue deleted successfully.');
+    // ❌ Prevent deletion if status = 1 (Active)
+    if ($venue->status == 1) {
+        // **Cache the error message for 1 minute**
+        Cache::put('error_message', 'Active venues cannot be deleted.', 1);
+        
+        // **Redirect with error message**
+        return redirect()->route('venues.index')->with('error', 'Active venues cannot be deleted.');
     }
+
+    // ✅ Delete the venue if status ≠ 1
+    $venue->delete();
+
+    // **Cache success message for 1 minute**
+    Cache::put('success_message', 'Venue deleted successfully.', 1);
+
+    // **Redirect with success message**
+    return redirect()->route('venues.index')->with('success', 'Venue deleted successfully.');
+}
+
 
 
 }

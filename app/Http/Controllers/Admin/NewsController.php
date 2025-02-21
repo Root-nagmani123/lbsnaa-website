@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\File;
 use App\Models\Admin\ManageAudit;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str; 
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Validator;
 
 
 use DOMDocument;
@@ -30,53 +32,59 @@ class NewsController extends Controller
     {
         return view('admin.news.create');
     }
-
-    // Store new news
     public function store(Request $request)
     {
-        $request->validate(
-            [
-                'language' => 'required',
-                'title' => 'required',
-                'short_description' => 'required',
-                'meta_title' => 'required',
-                'description' => 'required',
-                'meta_keywords' => 'required',
-                'meta_description' => 'required',
-                'multiple_images' => 'required',
-                'end_date' => 'required|date|after_or_equal:start_date',
-                'main_image' => 'required|image|mimes:jpeg,png,jpg|max:5120', // Max size 5MB for main image
-                'multiple_images.*' => 'image|mimes:jpeg,png,jpg|max:10240', // max 10MB for each file
-                'start_date' => 'required|date',
-                'status' => 'required|in:0,1',
-            ],
-            [
-                'language.required' => 'Please select a language.',
-                'title.required' => 'Please enter the title.',
-                'short_description.required' => 'Please enter a short description.',
-                'meta_title.required' => 'Please enter a meta title.',
-                'description.required' => 'Please enter the description.',
-                'meta_keywords.required' => 'Please enter meta keywords.',
-                'meta_description.required' => 'Please enter a meta description.',
-                'main_image.required' => 'Please upload a main image. MAX 5MB',
-                'main_image.image' => 'The main image must be a valid image file.',
-                'main_image.mimes' => 'The main image must be in jpeg, png, or jpg format.',
-                'main_image.max' => 'The main image must not exceed 5 MB.',
-                'multiple_images.required' => 'Please upload at least one image. MAX 10MB',
-                'multiple_images.*.image' => 'Each uploaded file in multiple images must be a valid image.',
-                'multiple_images.*.mimes' => 'Each uploaded file in multiple images must be in jpeg, png, or jpg format.',
-                'multiple_images.*.max' => 'Each image must not exceed 5 MB.',
-                'multiple_images.*.min' => 'Each image must be at least 2 MB.',
-                'start_date.required' => 'Please enter the start date.',
-                'start_date.date' => 'The start date must be a valid date.',
-                'end_date.required' => 'Please enter the end date.',
-                'end_date.date' => 'The end date must be a valid date.',
-                'end_date.after_or_equal' => 'The end date must be the same or after the start date.',
-                'status.required' => 'Please select the status.',
-                'status.in' => 'Please select a valid status: active or inactive.',
-            ]
-        );
-        
+    // Store new news
+    $rules = [
+        'language' => 'required',
+        'title' => 'required',
+        'short_description' => 'required',
+        'meta_title' => 'required',
+        'description' => 'required',
+        'meta_keywords' => 'required',
+        'meta_description' => 'required',
+        'multiple_images' => 'required',
+        'end_date' => 'required|date|after_or_equal:start_date',
+        'main_image' => 'required|image|mimes:jpeg,png,jpg|max:5120', // Max size 5MB for main image
+        'multiple_images.*' => 'image|mimes:jpeg,png,jpg|max:10240', // Max 10MB for each file
+        'start_date' => 'required|date',
+        'status' => 'required|in:0,1',
+    ];
+
+    // Custom Error Messages
+    $messages = [
+        'language.required' => 'Please select a language.',
+        'title.required' => 'Please enter the title.',
+        'short_description.required' => 'Please enter a short description.',
+        'meta_title.required' => 'Please enter a meta title.',
+        'description.required' => 'Please enter the description.',
+        'meta_keywords.required' => 'Please enter meta keywords.',
+        'meta_description.required' => 'Please enter a meta description.',
+        'main_image.required' => 'Please upload a main image. MAX 5MB',
+        'main_image.image' => 'The main image must be a valid image file.',
+        'main_image.mimes' => 'The main image must be in jpeg, png, or jpg format.',
+        'main_image.max' => 'The main image must not exceed 5 MB.',
+        'multiple_images.required' => 'Please upload at least one image. MAX 10MB',
+        'multiple_images.*.image' => 'Each uploaded file in multiple images must be a valid image.',
+        'multiple_images.*.mimes' => 'Each uploaded file in multiple images must be in jpeg, png, or jpg format.',
+        'multiple_images.*.max' => 'Each image must not exceed 10 MB.',
+        'start_date.required' => 'Please enter the start date.',
+        'start_date.date' => 'The start date must be a valid date.',
+        'end_date.required' => 'Please enter the end date.',
+        'end_date.date' => 'The end date must be a valid date.',
+        'end_date.after_or_equal' => 'The end date must be the same or after the start date.',
+        'status.required' => 'Please select the status.',
+        'status.in' => 'Please select a valid status: active or inactive.',
+    ];
+
+    // Validate Request Data
+    $validator = Validator::make($request->all(), $rules, $messages);
+
+    if ($validator->fails()) {
+        // **Cache validation errors for 1 minute**
+        Cache::put('validation_errors', $validator->errors()->toArray(), 1);
+        return redirect(session('url.previousdata', url('/')))->withInput();
+    }
         
     
         // Rest of your code remains the same...
@@ -142,6 +150,7 @@ class NewsController extends Controller
             'Action_Type' => 'Insert',
             'IP_Address' => $request->ip(),
         ]);
+        Cache::put('success_message', 'News added successfully!', 1);
     
         return redirect()->route('admin.news.index')->with('success', 'News created successfully.');
     }
@@ -157,7 +166,7 @@ class NewsController extends Controller
     // Update news
     public function update(Request $request, $id)
     {
-        $request->validate([
+        $rules = [
             'language' => 'required',
             'title' => 'required',
             'short_description' => 'required',
@@ -170,8 +179,10 @@ class NewsController extends Controller
             'status' => 'required|in:0,1',
             'main_image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // 2MB max
             'multiple_images.*' => 'image|mimes:jpeg,png,jpg|max:10240', // max 10MB for each file
-        ], [
-            // Custom validation messages
+        ];
+    
+        // Custom Messages
+        $messages = [
             'language.required' => 'Please select a language.',
             'title.required' => 'Please enter the title.',
             'short_description.required' => 'Please enter a short description.',
@@ -179,13 +190,12 @@ class NewsController extends Controller
             'description.required' => 'Please enter the description.',
             'meta_keywords.required' => 'Please enter meta keywords.',
             'meta_description.required' => 'Please enter a meta description.',
-            'main_image.required' => 'Please upload a main image. MAX 5MB',
             'main_image.image' => 'Please ensure the main image is a valid image file.',
             'main_image.mimes' => 'The main image must be in jpeg, png, or jpg format.',
             'main_image.max' => 'The main image must not exceed 2MB.',
             'multiple_images.*.image' => 'Please ensure each file is a valid image.',
             'multiple_images.*.mimes' => 'Each image must be in jpeg, png, or jpg format.',
-            'multiple_images.*.max' => 'Each image must not exceed 2MB.',
+            'multiple_images.*.max' => 'Each image must not exceed 10MB.',
             'start_date.required' => 'Please enter the start date.',
             'start_date.date' => 'Please ensure the start date is a valid date.',
             'end_date.required' => 'Please enter the end date.',
@@ -193,7 +203,16 @@ class NewsController extends Controller
             'end_date.after_or_equal' => 'The end date must be the same or later than the start date.',
             'status.required' => 'Please select a valid status.',
             'status.in' => 'Please select either active or inactive as the status.',
-        ]);
+        ];
+    
+        // Validate Request Data
+        $validator = Validator::make($request->all(), $rules, $messages);
+    
+        if ($validator->fails()) {
+            // **Cache validation errors for 1 minute**
+            Cache::put('validation_errors', $validator->errors()->toArray(), 1);
+            return redirect(session('url.previousdata', url('/')))->withInput();
+        }    
         
 
         $news = News::findOrFail($id);
@@ -332,6 +351,7 @@ class NewsController extends Controller
             'IP_Address' => $request->ip(), // Get IP address from request
             'Current_State' => json_encode($news), // Save state as JSON
         ]);
+        Cache::put('success_message', 'News added successfully!', 1);
 
         return redirect()->route('admin.news.index')->with('success', 'News updated successfully.');
     }
@@ -341,10 +361,14 @@ class NewsController extends Controller
         $news = News::findOrFail($id);
     
         if ($news->status == 1) {
+            
+            Cache::put('error_message', 'Active news items cannot be deleted!', 1);
+
             return redirect()->route('admin.news.index')->with('error', 'Active news items cannot be deleted.');
         }
     
         $news->delete(); // Permanently deletes the record
+       Cache::put('success_message', 'News deleted successfully!', 1);
     
         return redirect()->route('admin.news.index')->with('success', 'News deleted successfully.');
     }

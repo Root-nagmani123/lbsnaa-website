@@ -8,6 +8,9 @@ use App\Models\Admin\ManageCadres;
 use App\Models\Admin\ManageAudit;
 use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Validator;
+
 class ManageCadresController extends Controller
 {
     // Display the list of cadres
@@ -26,20 +29,29 @@ class ManageCadresController extends Controller
     // Store new cadre
     public function store(Request $request)
     {
-        $request->validate([
+        $rules = [
             'code' => 'required',
             'description' => 'required',
             'language' => 'required',
             'status' => 'required|string',
-        ],
-        [
-            'code.required' => 'Please enter code.', // Custom message for language
-            'language.required' => 'Please select language.', // Custom message for language
-            'description.required' => 'Please enter description name.', // Custom message for organiser name
-            'status.required' => 'Please select status.', // Custom message for status
-        ]
-    );
-
+        ];
+    
+        // Custom Error Messages
+        $messages = [
+            'code.required' => 'Please enter code.',
+            'language.required' => 'Please select language.',
+            'description.required' => 'Please enter description name.',
+            'status.required' => 'Please select status.',
+        ];
+    
+        // Validate Request Data
+        $validator = Validator::make($request->all(), $rules, $messages);
+    
+        if ($validator->fails()) {
+            // **Cache validation errors for 1 minute**
+            Cache::put('validation_errors', $validator->errors()->toArray(), 1);
+            return redirect(session('url.previousdata', url('/')))->withInput();
+        }    
 
         // Convert status to integer
         $validated['status'] = $request->status === 'active' ? 1 : 0;
@@ -67,12 +79,29 @@ class ManageCadresController extends Controller
     // Update cadre details
     public function update(Request $request, $id)
     {
-        $request->validate([
+        $rules = [
             'code' => 'required',
             'description' => 'required',
             'language' => 'required',
             'status' => 'required|string',
-        ]);
+        ];
+    
+        // Custom Error Messages
+        $messages = [
+            'code.required' => 'Please enter code.',
+            'language.required' => 'Please select language.',
+            'description.required' => 'Please enter description name.',
+            'status.required' => 'Please select status.',
+        ];
+    
+        // Validate Request Data
+        $validator = Validator::make($request->all(), $rules, $messages);
+    
+        if ($validator->fails()) {
+            // **Cache validation errors for 1 minute**
+            Cache::put('validation_errors', $validator->errors()->toArray(), 1);
+            return redirect(session('url.previousdata', url('/')))->withInput();
+        }    
 
         // Convert status to integer
         $validated['status'] = $request->status === 'active' ? 1 : 0;
@@ -96,15 +125,19 @@ class ManageCadresController extends Controller
     {
         // Find the cadre by ID
         $cadre = ManageCadres::findOrFail($id);
-
-        // Check if the status is 1 (Inactive), and if so, prevent deletion
+    
+        // Check if the status is 1 (Active), prevent deletion
         if ($cadre->status == 1) {
+            Cache::put('error_message', 'Active cadres cannot be deleted.', 1); // Store error in cache
             return redirect()->route('cadres.index')->with('error', 'Active cadres cannot be deleted.');
         }
-
+    
         // Delete the cadre
         $cadre->delete();
-
+    
+        // Cache success message
+        Cache::put('success_message', 'Cadre deleted successfully.', 1);
+    
         return redirect()->route('cadres.index')->with('success', 'Cadre deleted successfully.');
     }
 

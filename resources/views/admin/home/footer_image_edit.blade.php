@@ -16,6 +16,32 @@
         </li>
     </ul>
 </div>
+@if(Cache::has('success_message'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ Cache::get('success_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('error_message'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ Cache::get('error_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('validation_errors'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <ul>
+            @foreach (Cache::get('validation_errors') as $field => $errors)
+                @foreach ($errors as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            @endforeach
+        </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
 <div class="row justify-content-center">
     <div class="col-lg-12">
         <div class="card bg-white border-0 rounded-10 mb-4 p-4">
@@ -37,9 +63,7 @@
                                 <input type="radio" name="language" value="2"
                                     {{ $footerImage->language == '2' ? 'checked' : '' }}> Hindi
                             </div>
-                            @error('language')
-                            <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                            @enderror
+                            
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -49,9 +73,7 @@
                             <div class="form-group position-relative">
                                 <input type="text" class="form-control text-dark  h-58" id="title" name="title"
                                     value="{{ $footerImage->title }}">
-                                @error('title')
-                                <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                @enderror
+                               
                             </div>
                         </div>
                     </div>
@@ -62,9 +84,7 @@
                             <div class="form-group position-relative">
                                 <input type="text" class="form-control text-dark  h-58" id="link" name="link"
                                     value="{{ $footerImage->link }}">
-                                @error('link')
-                                <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                @enderror
+                               
 
                             </div>
                         </div>
@@ -76,9 +96,7 @@
                             <div class="form-group position-relative">
                                 <input type="file" class="form-control text-dark  h-58" id="image" name="image">
                                 <img src="{{ asset('footer-images/' . $footerImage->image) }}" width="100" class="mt-3">
-                                @error('image')
-                                <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                @enderror
+                               
                             </div>
                         </div>
                     </div>
@@ -89,9 +107,7 @@
                             <div class="form-group position-relative">
                                 <textarea name="description" id="description" class="form-control  text-dark"
                                     rows="5">{{ old('description', $footerImage->description) }}</textarea>
-                                @error('description')
-                                <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                @enderror
+                              
                             </div>
                         </div>
                     </div>
@@ -104,9 +120,7 @@
                                 <option value="1" {{ $footerImage->status == 1? 'selected' : '' }}>Active</option>
                                 <option value="0" {{ $footerImage->status == 0? 'selected' : '' }}>Inactive</option>
                             </select>
-                            @error('status')
-                            <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                            @enderror
+                           
                         </div>
                     </div>
                     <div class="d-flex ms-sm-3 ms-md-0">

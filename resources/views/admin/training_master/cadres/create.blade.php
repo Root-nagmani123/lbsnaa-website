@@ -20,6 +20,32 @@
         </li>
     </ul>
 </div>
+@if(Cache::has('success_message'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ Cache::get('success_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('error_message'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ Cache::get('error_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('validation_errors'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <ul>
+            @foreach (Cache::get('validation_errors') as $field => $errors)
+                @foreach ($errors as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            @endforeach
+        </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
 <div class="row justify-content-center">
     <div class="col-lg-12">
         <div class="card bg-white border-0 rounded-10 mb-4">
@@ -39,9 +65,7 @@
                                     <input type="radio" name="language" value="1" {{ old('language') == '1' ? 'checked' : '' }}> English
                                     <input type="radio" name="language" value="2" {{ old('language') == '2' ? 'checked' : '' }}> Hindi
                                 </div>
-                                @error('language')
-                                    <div style="color: red;">{{ $message }}</div>
-                                @enderror
+                               
                             </div>
                         </div>
                         <div class="col-lg-6">
@@ -51,9 +75,7 @@
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark  h-58" name="code"
                                         id="code" value="{{ old('code') }}">
-                                    @error('code')
-                                        <div style="color: red;">{{ $message }}</div>
-                                    @enderror
+                                    
                                 </div>
                             </div>
                         </div>
@@ -67,9 +89,7 @@
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark  h-58" name="description"
                                         id="description" value="{{ old('description') }}">
-                                    @error('description')
-                                        <div style="color: red;">{{ $message }}</div>
-                                    @enderror
+                                   
                                 </div>
                             </div>
                         </div>
@@ -86,9 +106,7 @@
                                         <option value="1" class="text-dark" {{ old('status') == '1' ? 'checked' : '' }}>Active</option>
                                         <option value="0" class="text-dark" {{ old('status') == '0' ? 'checked' : '' }}>Inactive</option>
                                     </select>
-                                    @error('status')
-                                        <div style="color: red;">{{ $message }}</div>
-                                    @enderror
+                                    
                                 </div>
                             </div>
                         </div>
