@@ -340,7 +340,7 @@ Route::post('/screenrender/update', [HomeController::class, 'screen_reader_updat
     Route::post('survey/store', [SurveyController::class, 'surveyStore'])->name('survey.store');
     Route::get('survey/{id}/edit', [SurveyController::class, 'surveyEdit'])->name('survey.edit');
     Route::post('survey/{id}/update', [SurveyController::class, 'surveyUpdate'])->name('survey.update');
-    Route::post('survey/{id}/delete', [SurveyController::class, 'surveyDestroy'])->name('survey.destroy');
+    Route::delete('survey/{id}/delete', [SurveyController::class, 'surveyDestroy'])->name('survey.destroy');
 
     // Manage Social media route
     Route::get('socialmedia', [SocialmediaController::class, 'SocialmediaIndex'])->name('socialmedia.index');

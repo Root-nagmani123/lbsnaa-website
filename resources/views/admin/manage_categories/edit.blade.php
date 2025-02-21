@@ -19,7 +19,32 @@
         </li>
     </ul>
 </div>
+@if(Cache::has('success_message'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ Cache::get('success_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
 
+@if(Cache::has('error_message'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ Cache::get('error_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('validation_errors'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <ul>
+            @foreach (Cache::get('validation_errors') as $field => $errors)
+                @foreach ($errors as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            @endforeach
+        </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
 <div class="row justify-content-center">
     <div class="col-lg-12">
         <div class="card bg-white border-0 rounded-10 mb-4">
@@ -59,9 +84,7 @@
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark  h-58" name="name" id="name"
                                         value="{{ old('name', $category->name) }}">
-                                    @error('name')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                   
                                 </div>
                             </div>
                         </div>
@@ -72,9 +95,7 @@
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark  h-58" name="hindi_name"
                                         id="hindi_name" value="{{ old('hindi_name', $category->hindi_name) }}">
-                                    @error('hindi_name')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                    
                                 </div>
                             </div>
                         </div>
@@ -84,9 +105,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="file" class="form-control text-dark  h-58" name="category_image" id="category_image" accept="image/*">
-                                    @error('category_image')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror 
+                                   
                                 </div>
                                 @if($category->category_image)
                                     <img src="{{ asset('uploads/category_images/' . $category->category_image) }}" alt="Category Image" class="img-thumbnail mt-2" style="width: 150px; height: auto;">

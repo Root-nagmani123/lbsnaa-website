@@ -70,7 +70,7 @@ class ManageVacancyController extends Controller
             // ❇ Cache validation errors for 1 minute
             Cache::put('validation_errors', $validator->errors()->toArray(), 1);
     
-            return redirect()->back()->withErrors($validator->errors())->withInput();
+            return redirect(session('url.previousdata', url('/')))->withInput();
         }
     
         // ✅ Get Validated Data

@@ -8,6 +8,8 @@ use App\Models\Admin\ManageMediaCenter;
 
 use App\Models\Admin\ManageAudit;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Cache;
 
 class ManageMediaCenterController extends Controller
 {
@@ -33,11 +35,11 @@ class ManageMediaCenterController extends Controller
             'category_name' => 'required|string',
             'audio_title_en' => 'required|string',
             'audio_title_hi' => 'nullable|string',
-            'audio_upload' => 'required|mimes:mp3,mp4|max:5120',  // 15 MB limit
-            // 'audio_upload' => 'required|mimes:mp3,mp4|max:15360',  // 15 MB limit
+            'audio_upload' => 'required|mimes:mp3,mp4|max:5120',  // 5MB limit
             'page_status' => 'required|integer|in:1,0',
         ];
-        
+    
+        // Custom validation messages
         $messages = [
             'category_name.required' => 'Select category name.',
             'audio_title_en.required' => 'Enter the English audio title.',
@@ -47,13 +49,20 @@ class ManageMediaCenterController extends Controller
             'page_status.required' => 'Select the page status.',
             'page_status.in' => 'The page status must be either active (1) or inactive (0).',
         ];
-        
-        $request->validate($rules, $messages);
-        
+    
+        // Perform validation
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
+            // **Cache validation errors for 1 minute**
+            Cache::put('validation_errors', $validator->errors()->toArray(), 1);
+    
+            // **Redirect back with errors and old input**
+            return redirect(session('url.previousdata', url('/')))->withInput();
+        }    
         
 
         // Validate request
-        $validatedData = $request->validate($rules, $messages);
+        
 
         // Save the data 
         $audio = new ManageMediaCenter();
@@ -79,8 +88,9 @@ class ManageMediaCenterController extends Controller
             'Action_Type' => 'Insert', // Static value
             'IP_Address' => $request->ip(), // Get IP address from request
         ]);
+        Cache::put('success_message', 'Audio created successfully!', 1);
 
-        return redirect()->route('media-center.index')->with('success', 'Audio created successfully');
+        return redirect()->route('media-center.index');
     }
 
 
@@ -94,13 +104,34 @@ class ManageMediaCenterController extends Controller
     // Update the audio record
     public function update(Request $request, $id)
     {
-        $validatedData = $request->validate([
+        $rules = [
             'category_name' => 'required|string',
             'audio_title_en' => 'required|string',
             'audio_title_hi' => 'nullable|string',
-            'audio_upload' => 'nullable|mimes:mp3,mp4|max:5120',  // Accept .mp4 and audio formats
+            'audio_upload' => 'required|mimes:mp3,mp4|max:5120',  // 5MB limit
             'page_status' => 'required|integer|in:1,0',
-        ]);
+        ];
+    
+        // Custom validation messages
+        $messages = [
+            'category_name.required' => 'Select category name.',
+            'audio_title_en.required' => 'Enter the English audio title.',
+            'audio_upload.required' => 'Please upload an audio file.',
+            'audio_upload.mimes' => 'Only MP3 and MP4 files are allowed.',
+            'audio_upload.max' => 'The audio file size must not exceed 5MB.',
+            'page_status.required' => 'Select the page status.',
+            'page_status.in' => 'The page status must be either active (1) or inactive (0).',
+        ];
+    
+        // Perform validation
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
+            // **Cache validation errors for 1 minute**
+            Cache::put('validation_errors', $validator->errors()->toArray(), 1);
+    
+            // **Redirect back with errors and old input**
+            return redirect(session('url.previousdata', url('/')))->withInput();
+        }    
 
         $audio = ManageMediaCenter::findOrFail($id);
         $audio->category_name = $request->category_name;
@@ -125,8 +156,9 @@ class ManageMediaCenterController extends Controller
             'Action_Type' => 'Update', // Static value
             'IP_Address' => $request->ip(), // Get IP address from request
         ]);
+        Cache::put('success_message', 'Audio updated successfully!', 1);
 
-        return redirect()->route('media-center.index')->with('success', 'Audio updated successfully');
+        return redirect()->route('media-center.index');
     }
 
 
@@ -139,7 +171,9 @@ class ManageMediaCenterController extends Controller
 
             // Check if the status is 1 (Inactive), and if so, prevent deletion
             if ($audio->status == 1) {
-                return redirect()->route('media-center.index')->with('error', 'Active audios cannot be deleted.');
+                Cache::put('error_message', 'Active audios cannot be deleted!', 1);
+
+                return redirect()->route('media-center.index');
             }
  
             // Check and delete the associated audio file
@@ -152,9 +186,10 @@ class ManageMediaCenterController extends Controller
 
             // Delete the audio record from the database
             $audio->delete();
+            Cache::put('success_message', 'Audio deleted successfully!', 1);
 
             // Redirect with a success message
-            return redirect()->route('media-center.index')->with('success', 'Audio deleted successfully.');
+            return redirect()->route('media-center.index');
         } catch (\Exception $e) {
             // Handle errors gracefully and return an error message
             return redirect()->route('media-center.index')->with('error', 'Error deleting audio: ' . $e->getMessage());

@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use App\Models\Admin\ManageAudit;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Cache;
 
 class ManageVideoController extends Controller
 {
@@ -80,6 +82,12 @@ class ManageVideoController extends Controller
 
     public function store(Request $request)
     {
+        $rules = [
+            'category_name' => 'required',
+            'audio_title_en' => 'required',
+            'video_upload' => 'required',
+            'page_status' => 'required|integer|in:1,0',
+        ];
         // Define custom validation messages
         $messages = [
             'category_name.required' => 'Please select a category name.',
@@ -90,14 +98,16 @@ class ManageVideoController extends Controller
             'page_status.integer' => 'Status must be an integer.',
             'page_status.in' => 'Status must be either 1 (Active) or 0 (Inactive).',
         ];
-
-        // Validate the request with custom messages
-        $validated = $request->validate([
-            'category_name' => 'required',
-            'audio_title_en' => 'required',
-            'video_upload' => 'required',
-            'page_status' => 'required|integer|in:1,0',
-        ], $messages);
+        $validator = Validator::make($request->all(), $rules, $messages);
+    
+        // If Validation Fails
+        if ($validator->fails()) {
+            // **Cache validation errors for 1 minute**
+            Cache::put('validation_errors', $validator->errors()->toArray(), 1);
+    
+            // **Redirect back with errors and old input**
+            return redirect(session('url.previousdata', url('/')))->withInput();
+        }  
 
         // Handle file upload if video is provided
         if ($request->hasFile('video_upload')) {
@@ -117,9 +127,9 @@ class ManageVideoController extends Controller
             'Action_Type' => 'Insert', // Static value
             'IP_Address' => $request->ip(), // IP address of the requester
         ]);
-
+        Cache::put('success_message', 'Video added successfully!', 1);
         // Redirect with a success message
-        return redirect()->route('video_gallery.index')->with('success', 'Video added successfully.');
+        return redirect()->route('video_gallery.index');
     }
 
 
@@ -177,24 +187,32 @@ class ManageVideoController extends Controller
     public function update(Request $request, $id)
     {
         // Define custom validation messages
+        $rules = [
+            'category_name' => 'required',
+            'audio_title_en' => 'required',
+            'video_upload' => 'required',
+            'page_status' => 'required|integer|in:1,0',
+        ];
+        // Define custom validation messages
         $messages = [
             'category_name.required' => 'Please select a category name.',
-            'audio_title_en.required' => 'Please enter the English title for the audio.',
-            'audio_title_hi.required' => 'Please enter the Hindi title for the audio.',
+            'audio_title_en.required' => 'Please enter the English title for the video.',
+            'audio_title_hi.required' => 'Please enter the Hindi title for the video.',
             'video_upload.url' => 'Please provide a valid URL for the video.',
             'page_status.required' => 'Please select a status.',
             'page_status.integer' => 'Status must be an integer.',
             'page_status.in' => 'Status must be either 1 (Active) or 0 (Inactive).',
         ];
-
-        // Validate the request with custom messages
-        $validated = $request->validate([
-            'category_name' => 'required',
-            'audio_title_en' => 'required',
-            'audio_title_hi' => 'required',
-            'video_upload' => 'required',  // Check if video_upload is a valid URL
-            'page_status' => 'required|integer|in:1,0', // Ensure valid page status
-        ], $messages);
+        $validator = Validator::make($request->all(), $rules, $messages);
+    
+        // If Validation Fails
+        if ($validator->fails()) {
+            // **Cache validation errors for 1 minute**
+            Cache::put('validation_errors', $validator->errors()->toArray(), 1);
+    
+            // **Redirect back with errors and old input**
+            return redirect(session('url.previousdata', url('/')))->withInput();
+        }  
 
         // Find the existing media record to update
         $media = ManageVideoCenter::findOrFail($id);
@@ -228,9 +246,10 @@ class ManageVideoController extends Controller
             'Action_Type' => 'Update',  // Action type is 'Update'
             'IP_Address' => $request->ip(),  // Capture the request IP address
         ]);
+        Cache::put('success_message', 'Media updated successfully!', 1);
 
         // Redirect with success message
-        return redirect()->route('video_gallery.index')->with('success', 'Media updated successfully.');
+        return redirect()->route('video_gallery.index');
     }
 
 
@@ -243,17 +262,21 @@ class ManageVideoController extends Controller
 
             // Check if the status is 1 (Inactive), and if so, prevent deletion
             if ($media->page_status == 1) {
-                return redirect()->route('video_gallery.index')->with('error', 'Active media cannot be deleted.');
+            Cache::put('error_message', 'Active media cannot be deleted.!', 1);
+                return redirect()->route('video_gallery.index');
             }
 
             // Delete the media record
             $media->delete();
+            Cache::put('success_message', 'Media deleted successfully.', 1);
 
             // Redirect with a success message
-            return redirect()->route('video_gallery.index')->with('success', 'Media deleted successfully.');
+            return redirect()->route('video_gallery.index');
         } catch (\Exception $e) {
             // Handle errors gracefully and return an error message
-            return redirect()->route('video_gallery.index')->with('error', 'Error deleting media: ' . $e->getMessage());
+            Cache::put('error_message', 'Error deleting media: ' . $e->getMessage(), 1);
+
+            return redirect()->route('video_gallery.index');
         }
     }
 

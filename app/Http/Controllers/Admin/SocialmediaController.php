@@ -21,7 +21,7 @@ class SocialmediaController extends Controller
     // Store or update the social media links
     public function SocialmediaStore(Request $request)
     {
-print_r($_POST);
+// print_r($_POST);
         // $request->validate([
         //     'language' => 'required',
         //     'txtename' => 'required',
