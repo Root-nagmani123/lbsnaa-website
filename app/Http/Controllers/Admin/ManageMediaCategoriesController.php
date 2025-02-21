@@ -58,7 +58,9 @@ class ManageMediaCategoriesController extends Controller
             return redirect(session('url.previousdata', url('/')))->withInput();
         }  
     
-    
+        $validated = $validator->validated();
+
+        // Handle category image upload
         if ($request->hasFile('category_image')) {
             $image = $request->file('category_image');
             $imageName = time() . '_' . $image->getClientOriginalName();
@@ -67,7 +69,6 @@ class ManageMediaCategoriesController extends Controller
         } else {
             $validated['category_image'] = null; // Explicitly set null
         }
-        
     
         // Save media category
         $media = ManageMediaCategories::create($validated);
@@ -76,12 +77,15 @@ class ManageMediaCategoriesController extends Controller
         ManageAudit::create([
             'Module_Name' => 'Media Module',
             'Time_Stamp' => time(),
-            'Created_By' => null,
+            'Created_By' => auth()->id() ?? null,
             'Updated_By' => null,
             'Action_Type' => 'Insert',
             'IP_Address' => $request->ip(),
         ]);
+    
+        // Cache success message
         Cache::put('success_message', 'Category added successfully!', 1);
+    
     
         return redirect()->route('media-categories.index');
     }
@@ -126,6 +130,7 @@ class ManageMediaCategoriesController extends Controller
             // **Redirect back with errors and old input**
             return redirect(session('url.previousdata', url('/')))->withInput();
         }  
+        $validated = $validator->validated();
         // Find the category by ID or fail if not found
         $category = ManageMediaCategories::findOrFail($id);
 

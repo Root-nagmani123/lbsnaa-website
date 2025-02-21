@@ -114,7 +114,7 @@ class ManageVideoController extends Controller
             $filePath = $request->file('video_upload')->store('uploads/media', 'public');
             $validated['video_upload'] = $filePath; // Store the file path
         }
-
+        $validated = $validator->validated();
         // Store the validated data in the database
         $video = ManageVideoCenter::create($validated);
 
@@ -213,7 +213,7 @@ class ManageVideoController extends Controller
             // **Redirect back with errors and old input**
             return redirect(session('url.previousdata', url('/')))->withInput();
         }  
-
+        $validated = $validator->validated();
         // Find the existing media record to update
         $media = ManageVideoCenter::findOrFail($id);
 
