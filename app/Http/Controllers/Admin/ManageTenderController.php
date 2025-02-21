@@ -6,6 +6,8 @@ use App\Models\Admin\ManageTender;
 use Illuminate\Http\Request;
 use App\Models\Admin\ManageAudit;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Cache;
 
 class ManageTenderController extends Controller
 {
@@ -26,17 +28,18 @@ class ManageTenderController extends Controller
     {
         // print_r($_FILES);die;
         // Validate the form input
-        $validated = $request->validate([
-            'language' => 'required', // Ensure language is entered
-            'type' => 'required|string|max:255',    // Ensure type is entered
-            'title' => 'required|string|max:255',   // Ensure title is entered
-            'description' => 'required|string',    // Ensure description is entered
-            'file' => 'required|mimes:pdf|max:20480', // Allow only PDFs with a maximum size of 20 MB
-            'publish_date' => 'required|date',     // Ensure publish_date is a valid date
-            'expiry_date' => 'required|date|after_or_equal:publish_date', // expiry_date must be after or on publish_date
-            'status' => 'required|integer|in:1,0', // Ensure status is one of the valid options
-        ], [
-            // Custom error messages
+        $rules = [
+            'language' => 'required', 
+            'type' => 'required|string|max:255',    
+            'title' => 'required|string|max:255',   
+            'description' => 'required|string',    
+            'file' => 'required|mimes:pdf|max:20480', 
+            'publish_date' => 'required|date',     
+            'expiry_date' => 'required|date|after_or_equal:publish_date', 
+            'status' => 'required|integer|in:1,0', 
+        ];
+    
+        $messages = [
             'language.required' => 'Please select language.',
             'type.required' => 'Please specify the type.',
             'title.required' => 'Please enter a title.',
@@ -45,11 +48,18 @@ class ManageTenderController extends Controller
             'file.mimes' => 'Only PDF files are allowed.',
             'file.max' => 'File size must not exceed 20 MB.',
             'publish_date.required' => 'Please select a publish date.',
-            'expiry_date.required' => 'Please select a expiry date.',
+            'expiry_date.required' => 'Please select an expiry date.',
             'expiry_date.after_or_equal' => 'The expiry date must be on or after the publish date.',
             'status.required' => 'Please select a valid status.',
             'status.in' => 'The status must be one of the following values: 1, 0.',
-        ]);
+        ];
+    
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
+            // ❇ Cache validation errors for 1 minute
+            Cache::put('validation_errors', $validator->errors()->toArray(), 1);
+            return redirect(session('url.previousdata', url('/')))->withInput();
+        }       
 
         // Handle the file upload
         if ($request->hasFile('file')) {
@@ -88,8 +98,9 @@ class ManageTenderController extends Controller
             'Action_Type' => 'Insert', // Static value
             'IP_Address' => $request->ip(), // Get IP address from request
         ]);
+        Cache::put('success_message', 'Tender created successfully!', 1);
 
-        return redirect()->route('manage_tender.index')->with('success', 'Tender created successfully.');
+        return redirect()->route('manage_tender.index');
     }
 
 
@@ -111,16 +122,38 @@ class ManageTenderController extends Controller
     public function update(Request $request, ManageTender $manageTender)
     {
         // Validate the input
-        $request->validate([
-            'language' => 'required',
-            'type' => 'required',
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            // 'file' => 'required|mimes:pdf|max:20480', // Allow only PDFs with a maximum size of 20 MB
-            'publish_date' => 'required|date',
-            'expiry_date' => 'required|date|after_or_equal:publish_date',
-            'status' => 'required|integer|in:1,0',
-        ]);
+        $rules = [
+            'language' => 'required', 
+            'type' => 'required|string|max:255',    
+            'title' => 'required|string|max:255',   
+            'description' => 'required|string',    
+            'file' => 'required|mimes:pdf|max:20480', 
+            'publish_date' => 'required|date',     
+            'expiry_date' => 'required|date|after_or_equal:publish_date', 
+            'status' => 'required|integer|in:1,0', 
+        ];
+    
+        $messages = [
+            'language.required' => 'Please select language.',
+            'type.required' => 'Please specify the type.',
+            'title.required' => 'Please enter a title.',
+            'description.required' => 'Please provide a description.',
+            'file.required' => 'Please upload a file.',
+            'file.mimes' => 'Only PDF files are allowed.',
+            'file.max' => 'File size must not exceed 20 MB.',
+            'publish_date.required' => 'Please select a publish date.',
+            'expiry_date.required' => 'Please select an expiry date.',
+            'expiry_date.after_or_equal' => 'The expiry date must be on or after the publish date.',
+            'status.required' => 'Please select a valid status.',
+            'status.in' => 'The status must be one of the following values: 1, 0.',
+        ];
+    
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
+            // ❇ Cache validation errors for 1 minute
+            Cache::put('validation_errors', $validator->errors()->toArray(), 1);
+            return redirect(session('url.previousdata', url('/')))->withInput();
+        }       
     
         // Handle file upload
       // Handle file upload or retain existing file
@@ -161,8 +194,9 @@ class ManageTenderController extends Controller
             'Action_Type' => 'Update', // Action type
             'IP_Address' => $request->ip(), // Get IP address
         ]);
+        Cache::put('success_message', 'Tender updated successfully!', 1);
     
-        return redirect()->route('manage_tender.index')->with('success', 'Tender updated successfully.');
+        return redirect()->route('manage_tender.index');
     }
     
     // Delete the tender
@@ -170,12 +204,16 @@ class ManageTenderController extends Controller
     {
         // Check if the status is 1 (Inactive), and if so, prevent deletion
         if ($manageTender->status == 1) {
-            return redirect()->route('manage_tender.index')->with('error', 'Active tenders cannot be deleted.');
+        Cache::put('error_message', 'Active tenders cannot be deleted!', 1);
+
+            return redirect()->route('manage_tender.index');
         }
 
         // Proceed with deletion if status is not inactive
         $manageTender->delete();
-        return redirect()->route('manage_tender.index')->with('success', 'Tender deleted successfully.');
+        Cache::put('success_message', 'Tender deleted successfully!', 1);
+
+        return redirect()->route('manage_tender.index');
     }
 
 }

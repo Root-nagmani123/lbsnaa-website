@@ -24,13 +24,13 @@
 </div>
 <div class="card bg-white border-0 rounded-10 mb-4">
     <div class="card-body p-4">
-        <div class="d-sm-flex text-center justify-content-between align-items-center border-bottom pb-20 mb-20">
+        <!-- <div class="d-sm-flex text-center justify-content-between align-items-center border-bottom pb-20 mb-20">
             <h4 class="fw-semibold fs-18 mb-sm-0">Manage Module</h4>
             <button type="button" class="btn btn btn-success py-2 px-4 fw-semibold rounded-3 text-white"
                 data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Add Module
             </button>
-        </div>
+        </div> -->
         <!-- Success Message -->
      
         @if(Cache::has('success_message'))

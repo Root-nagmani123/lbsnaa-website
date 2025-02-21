@@ -89,7 +89,7 @@ class CoursesubCategoryController extends Controller
             // **Redirect back with errors and old input**
             return redirect(session('url.previousdata', url('/')))->withInput();
         }
-
+        $validatedData = $validator->validated();
         // Insert the validated data into the database
         DB::table('courses_sub_categories')->insert([
             'language' => $validatedData['language'],
