@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Admin\ManageVenue;
 use Illuminate\Http\Request;
-
+use App\Models\Admin\ManageVenue;
 use App\Models\Admin\ManageAudit;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
@@ -113,9 +112,6 @@ class ManageVenueController extends Controller
         return redirect()->route('venues.index')->with('success', 'Venue updated successfully.');
     }
 
-
-    // Remove the specified venue from storage
-    use Illuminate\Support\Facades\Cache;
 
 public function destroy($id)
 {

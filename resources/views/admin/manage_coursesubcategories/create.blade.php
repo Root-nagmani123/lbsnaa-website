@@ -21,6 +21,32 @@
         </li>
     </ul>
 </div>
+@if(Cache::has('success_message'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ Cache::get('success_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('error_message'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ Cache::get('error_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('validation_errors'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <ul>
+            @foreach (Cache::get('validation_errors') as $field => $errors)
+                @foreach ($errors as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            @endforeach
+        </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
 <div class="row justify-content-center">
     <div class="col-lg-12">
         <div class="card bg-white border-0 rounded-10 mb-4">
@@ -40,9 +66,7 @@
                                     <input type="radio" name="language" value="1"> English
                                     <input type="radio" name="language" value="2"> Hindi
                                 </div>
-                                @error('language')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
+                              
                             </div>
                         </div>
 
@@ -53,9 +77,7 @@
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark  h-58" name="category_name"
                                         id="category_name">
-                                        @error('category_name')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                       
                                 </div>
                             </div>
                         </div>
@@ -65,11 +87,8 @@
                                     <div class="col-6">
                                         <!-- Color Picker Input -->
                                         <label for="color_theme" class="label">Choose Color:</label>
-                                        <input type="color" class="form-control text-dark  h-58" name="color_theme"
-                                            id="color_theme">
-                                            @error('color_theme')
-                                                <div class="text-danger">{{ $message }}</div>
-                                            @enderror
+                                        <input type="color" class="form-control text-dark  h-58" name="color_theme">
+                                          
                                     </div>
                                     <div class="col-6">
                                         <!-- Hex Code Display -->
@@ -77,9 +96,7 @@
                                             Selected Color:
                                             <input type="text" class="text-muted form-control mt-2" id="color_hex"
                                                 name="color_theme">
-                                                @error('color_theme')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                                
                                         </p>
                                     </div>
                                 </div>
@@ -96,9 +113,7 @@
                                         <option value="" selected>It is Root Category</option>
                                         {!! buildCategoryOptions($subcategories) !!}
                                     </select>
-                                    @error('parent_id')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                   
                                 </div> 
                             </div>
                         </div>
@@ -108,9 +123,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                         <textarea name="description" id="description" rows="3" class="form-control text-dark"></textarea>
-                                        @error('description')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                       
                                 </div>
                             </div>
                         </div>
@@ -124,9 +137,7 @@
                                         <option value="1" class="text-dark">Active</option>
                                         <option value="0" class="text-dark">Inactive</option>
                                     </select>
-                                    @error('status')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                  
                                 </div>
                             </div>
                         </div>

@@ -18,6 +18,32 @@
         </li>
     </ul>
 </div>
+@if(Cache::has('success_message'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ Cache::get('success_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('error_message'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ Cache::get('error_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('validation_errors'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <ul>
+            @foreach (Cache::get('validation_errors') as $field => $errors)
+                @foreach ($errors as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            @endforeach
+        </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
 <div class="row justify-content-center">
     <div class="col-lg-12">
         <div class="card bg-white border-0 rounded-10 mb-4">
@@ -50,9 +76,7 @@
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark  h-58" name="course_name"
                                         id="course_name" value="{{ $course->course_name }}">
-                                        @error('course_name')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                      
                                 </div>
                             </div>
                         </div>
@@ -63,9 +87,7 @@
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark  h-58" name="abbreviation"
                                         id="abbreviation" value="{{ $course->abbreviation }}">
-                                        @error('abbreviation')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                      
                                 </div>
                             </div>
                         </div>
@@ -76,9 +98,7 @@
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark  h-58" name="meta_title"
                                         id="meta_title" value="{{ $course->meta_title }}">
-                                        @error('meta_title')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                      
                                 </div>
                             </div>
                         </div>
@@ -97,9 +117,7 @@
                                 <div class="form-group position-relative">
                                         <input type="text" class="form-control text-dark  h-58" name="meta_description" id="meta_description" value="{{ $course->meta_description }}">
                                 </div>
-                                @error('meta_description')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror
+                              
                             </div>
                         </div>
                         <div class="col-lg-12">
@@ -110,9 +128,7 @@
                                     <textarea class="form-control" id="description" placeholder="Enter the Description"
                                         name="description" rows="5">{{ $course->description }}</textarea>
                                 </div>
-                                @error('description')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror
+                                
                             </div>
                         </div>
                         <div class="col-lg-6">
@@ -122,9 +138,7 @@
                                 <div class="form-group position-relative">
                                     <input type="date" class="form-control text-dark  h-58" name="course_start_date"
                                         id="course_start_date" value="{{ $course->course_start_date }}">
-                                        @error('course_start_date')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                      
                                 </div>
                             </div>
                         </div>
@@ -135,9 +149,7 @@
                                 <div class="form-group position-relative">
                                     <input type="date" class="form-control text-dark  h-58" name="course_end_date"
                                         id="course_end_date" value="{{ $course->course_end_date }}">
-                                        @error('course_end_date')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                       
                                 </div>
                             </div>
                         </div>
@@ -156,9 +168,7 @@
                                         </option>
                                         @endforeach
 
-                                        @error('support_section')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                       
                                     </select>
                                 </div>
                             </div>
@@ -348,9 +358,7 @@
                                             {{ $venues->venue_title }}
                                         </option>
                                         @endforeach
-                                        @error('venue_id')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                      
                                     </select>
                                 </div>
                             </div>

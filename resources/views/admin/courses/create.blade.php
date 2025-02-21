@@ -18,6 +18,32 @@
         </li>
     </ul>
 </div>
+@if(Cache::has('success_message'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ Cache::get('success_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('error_message'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ Cache::get('error_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('validation_errors'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <ul>
+            @foreach (Cache::get('validation_errors') as $field => $errors)
+                @foreach ($errors as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            @endforeach
+        </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
 <div class="row justify-content-center">
     <div class="col-lg-12">
         <div class="card bg-white border-0 rounded-10 mb-4">
@@ -25,15 +51,7 @@
                 <div class="d-sm-flex text-center justify-content-between align-items-center border-bottom pb-20 mb-20">
                     <h4 class="fw-semibold fs-18 mb-sm-0">Add New Course</h4>
                 </div>
-                @if($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+               
 
                 <form action="{{ route('admin.courses.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
@@ -52,9 +70,7 @@
                                             {{ old('language') == '2' ? 'checked' : '' }}> Hindi
                                     </label>
                                 </div>
-                                @error('language')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror
+
                             </div>
                         </div>
 
@@ -66,9 +82,7 @@
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark  h-58" name="course_name"
                                         id="course_name" value="{{ old('course_name') }}">
-                                    @error('course_name')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                  
                                 </div>
                             </div>
                         </div>
@@ -79,9 +93,7 @@
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark  h-58" name="abbreviation"
                                         id="abbreviation" value="{{ old('abbreviation') }}">
-                                    @error('abbreviation')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                   
                                 </div>
                             </div>
                         </div>
@@ -92,9 +104,7 @@
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark  h-58" name="meta_title"
                                         id="meta_title" value="{{ old('meta_title') }}">
-                                    @error('meta_title')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+
                                 </div>
                             </div>
                         </div>
@@ -104,9 +114,7 @@
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark  h-58" name="meta_keyword"
                                         id="meta_keyword" value="{{ old('meta_keyword') }}">
-                                    @error('meta_keyword')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                   
                                 </div>
                             </div>
                         </div>
@@ -136,9 +144,7 @@
                                 <div class="form-group position-relative">
                                     <input type="date" class="form-control text-dark  h-58" name="course_start_date"
                                         id="course_start_date" value="{{ old('course_start_date') }}">
-                                    @error('course_start_date')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                  
                                 </div>
                             </div>
                         </div>
@@ -149,32 +155,11 @@
                                 <div class="form-group position-relative">
                                     <input type="date" class="form-control text-dark  h-58" name="course_end_date"
                                         id="course_end_date" value="{{ old('course_end_date') }}">
-                                    @error('course_end_date')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                   
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="col-lg-6">
-                            <div class="form-group mb-4">
-                                <label class="label" for="support_section">Support Section :</label>
-                                <span class="star">*</span>
-                                <div class="form-group position-relative">
-                                    <select class="form-select form-control  h-58" name="support_section"
-                                        id="support_section">
-                                        <option value="" class="text-dark" selected>Select Section</option>
-                                        @foreach($section_category as $section)
-                                        <option value="{{ $section->id }}" class="text-dark">{{ $section->name }}
-                                        </option>
-
-                                        @endforeach
-                                    </select>
-                                    @error('support_section')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div> -->
+                        
 
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
@@ -191,9 +176,7 @@
                                         </option>
                                         @endforeach
                                     </select>
-                                    @error('support_section')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                   
                                 </div>
                             </div>
                         </div>
@@ -415,9 +398,7 @@
                                         </option>
                                         @endforeach
                                     </select>
-                                    @error('venue_id')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                   
                                 </div>
                             </div>
                         </div>
@@ -448,9 +429,7 @@
                                         <option value="0" {{ old('page_status') == '0' ? 'selected' : '' }}
                                             class="text-dark">Inactive</option>
                                     </select>
-                                    @error('page_status')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                  
                                 </div>
                             </div>
                         </div>
