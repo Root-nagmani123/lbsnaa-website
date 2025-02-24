@@ -377,13 +377,13 @@ function chooseStyle(action, value) {
         playPauseBtn.addEventListener("click", function () {
     if (isPlaying) {
         carousel.pause();
-        playPauseBtn.innerHTML = '<i class="bi bi-play-fill"></i> Play';
-        playPauseBtn.classList.replace("btn-danger", "btn-success");
+        playPauseBtn.innerHTML = '<i class="bi bi-play-fill"></i> ';
+        playPauseBtn.classList.replace("btn-primary", "btn-success");
         playPauseBtn.setAttribute("aria-label", "Slider Paused"); // Update aria-label
     } else {
         carousel.cycle();
-        playPauseBtn.innerHTML = '<i class="bi bi-pause-fill"></i> Pause';
-        playPauseBtn.classList.replace("btn-success", "btn-danger");
+        playPauseBtn.innerHTML = '<i class="bi bi-pause-fill"></i>';
+        playPauseBtn.classList.replace("btn-success", "btn-primary");
         playPauseBtn.setAttribute("aria-label", "Slider played"); // Update aria-label
     }
     isPlaying = !isPlaying; // Toggle state
@@ -402,12 +402,12 @@ document.addEventListener("DOMContentLoaded", function() {
     if (isPlaying) {
         marquee.style.animationPlayState = "paused";
         playPauseBtn.innerHTML = '<i class="bi bi-play-fill"></i>';
-        playPauseBtn.classList.replace("btn-danger", "btn-success");
+        playPauseBtn.classList.replace("btn-primary", "btn-success");
         playPauseBtn.setAttribute("aria-label", "latest Updates paused"); // Update aria-label
     } else {
         marquee.style.animationPlayState = "running";
         playPauseBtn.innerHTML = '<i class="bi bi-pause-fill"></i>';
-        playPauseBtn.classList.replace("btn-success", "btn-danger");
+        playPauseBtn.classList.replace("btn-success", "btn-primary");
         playPauseBtn.setAttribute("aria-label", "Latest Updatesr played"); // Update aria-label
     }
     isPlaying = !isPlaying; // Toggle state

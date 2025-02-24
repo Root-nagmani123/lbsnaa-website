@@ -51,16 +51,24 @@
                 @include('partials.organization-node', ['node' => $child])
                 @endforeach
             </div>
+            @endif
+            @endforeach
+            @endif
 
             <!-- Render the third layer (children of second-layer nodes) -->
-            @if (!empty($child->children))
+            @if (!empty($hierarchy))
+            @foreach ($hierarchy as $node)
+            @if (!empty($node->children))
+            @foreach ($node->children as $grandchild)
+            @if (!empty($grandchild->children))
             <div class="line"></div>
             <div class="level" style="margin:0;">
-                @foreach ($child->children as $grandchild)
-                @include('partials.organization-node', ['node' => $grandchild])
+                @foreach ($grandchild->children as $greatgrandchild)
+                @include('partials.organization-node', ['node' => $greatgrandchild])
                 @endforeach
             </div>
             @endif
+            @endforeach
             @endif
             @endforeach
             @endif
