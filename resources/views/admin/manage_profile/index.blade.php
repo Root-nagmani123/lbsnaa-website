@@ -16,6 +16,12 @@
         </li>
     </ul>
 </div>
+@if(Cache::has('error_message'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ Cache::get('error_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
 <div class="row justify-content-center">
     <div class="col-12">
     <div class="welcome-farol card border-0 rounded-0 rounded-top-3 position-relative"
