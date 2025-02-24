@@ -17,23 +17,30 @@ class SingleSessionMiddleware
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next) {
+    public function handle(Request $request, Closure $next)
+    {
         if (Auth::check()) {
             $user = Auth::user();
             $currentSessionId = session()->getId();
 
-            // ✅ Check karein ki user ka ek aur session active hai
+            // ✅ Ensure user_id is stored in the session table
+            DB::table('sessions')
+                ->where('id', $currentSessionId)
+                ->update(['user_id' => $user->id]);
+
+            // ✅ Find existing session for the user (except the current session)
             $existingSession = DB::table('sessions')
                 ->where('user_id', $user->id)
                 ->where('id', '!=', $currentSessionId)
                 ->first();
 
             if ($existingSession) {
-                // ✅ Pehle ka session delete karein
+                // ✅ Delete previous sessions
                 DB::table('sessions')->where('user_id', $user->id)->delete();
 
-                // ✅ User ko logout karein
+                // ✅ Logout the user
                 Auth::logout();
+                session()->invalidate();
                 return redirect('/login')->withErrors(['message' => 'You have been logged out due to login from another device.']);
             }
         }

@@ -16,26 +16,37 @@
         </li>
     </ul>
 </div>
+@if(Cache::has('success_message'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ Cache::get('success_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('error_message'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ Cache::get('error_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('validation_errors'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <ul>
+            @foreach (Cache::get('validation_errors') as $field => $errors)
+                @foreach ($errors as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            @endforeach
+        </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
 <div class="row justify-content-center">
     <div class="col-xxl-9">
         <div class="card bg-white border-0 rounded-10 mb-4">
             <div class="card-body p-4">
-                @if (session('success'))
-                <div id="success-alert" class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-                @endif
-
-                <!-- Check for error messages -->
-                @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-                @endif
+             
                 <form id="changepass" name="changepass" method="post" action="{{ route('update_password') }}" autocomplete="off">
                     @csrf
                     <div class="row">
@@ -46,9 +57,7 @@
                                     <div class="password-wrapper position-relative">
                                         <input type="password" id="txtpwd" class="form-control h-58 text-dark" name="old_password">
                                         <i style="color: #A9A9C8; font-size: 16px; right: 15px !important;" class="ri-eye-off-line password-toggle-icon translate-middle-y top-50 end-0 position-absolute" aria-hidden="true"></i>
-                                        @error('old_password')
-                                        <div class="text-danger">{{ $message }}</div>
-                                        @enderror
+                                       
                                     </div>
                                 </div>
                             </div>
@@ -61,9 +70,7 @@
                                         <input type="password" id="txtnpwd" class="form-control h-58 text-dark" name="new_password">
                                         <i style="color: #A9A9C8; font-size: 16px; right: 15px !important;" class="ri-eye-off-line password-toggle-icon translate-middle-y top-50 end-0 position-absolute" aria-hidden="true"></i>
                                         <small>Password must be 8 characters, with at least 1 number, 1 lowercase, and 1 uppercase letter.</small>
-                                        @error('new_password')
-                                        <div class="text-danger">{{ $message }}</div>
-                                        @enderror
+                                      
                                     </div>
                                 </div>
                             </div>
@@ -75,9 +82,7 @@
                                     <div class="password-wrapper position-relative">
                                         <input type="password" id="txtcpwd" class="form-control h-58 text-dark" name="confirm_password">
                                         <i style="color: #A9A9C8; font-size: 16px; right: 15px !important;" class="ri-eye-off-line password-toggle-icon translate-middle-y top-50 end-0 position-absolute" aria-hidden="true"></i>
-                                        @error('confirm_password')
-                                        <div class="text-danger">{{ $message }}</div>
-                                        @enderror
+                                       
                                     </div>
                                 </div>
                             </div>

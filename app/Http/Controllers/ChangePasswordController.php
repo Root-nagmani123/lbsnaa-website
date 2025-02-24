@@ -39,6 +39,7 @@ class ChangePasswordController extends Controller
             'confirm_password.required' => 'Please confirm your new password.',
             'confirm_password.same' => 'The confirm password must match the new password.',
         ];
+       
         $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->fails()) {
@@ -46,6 +47,10 @@ class ChangePasswordController extends Controller
             Cache::put('validation_errors', $validator->errors()->toArray(), 1);
     
             // **Redirect back with old input**
+            return redirect(session('url.previousdata', url('/')))->withInput();
+        }
+        if($request->new_password !== $request->confirm_password){
+            Cache::put('error_message', 'New password and confirm password do not match', 1);
             return redirect(session('url.previousdata', url('/')))->withInput();
         }
         // Get the currently logged-in user
@@ -62,7 +67,7 @@ class ChangePasswordController extends Controller
                 'Action_Type' => 'Update',
                 'IP_Address' => $request->ip(),
             ]);
-    Cache::put('error_message', 'Old password is incorrect', 1);
+            Cache::put('error_message', 'Old password is incorrect', 1);
 
             return redirect(session('url.previousdata', url('/')))->withInput();
     
