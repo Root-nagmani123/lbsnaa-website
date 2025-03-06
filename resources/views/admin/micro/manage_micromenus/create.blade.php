@@ -21,6 +21,32 @@
         </li>
     </ul>
 </div>
+@if(Cache::has('success_message'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ Cache::get('success_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('error_message'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ Cache::get('error_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('validation_errors'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <ul>
+            @foreach (Cache::get('validation_errors') as $field => $errors)
+                @foreach ($errors as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            @endforeach
+        </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
 <div class="row justify-content-center">
     <div class="col-lg-12">
         <div class="card bg-white border-0 rounded-10 mb-4">
@@ -59,9 +85,7 @@
                                             </option>
                                         @endforeach
                                     </select>
-                                    @error('research_centre')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                 
                                 </div>
                             </div>
                         </div>
@@ -74,9 +98,7 @@
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark  h-58" name="menutitle"
                                         id="menutitle" value="">
-                                    @error('menutitle')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                   
                                 </div>
                             </div>
                         </div>
@@ -96,9 +118,7 @@
                                         <option value="3" class="text-dark"
                                             >Web Site Url</option>
                                     </select>
-                                    @error('texttype')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                 
                                 </div>
                             </div>
                         </div>
@@ -112,9 +132,7 @@
                                             <textarea class="form-control  text-dark" id="description"
                                                 placeholder="Some demo text ... " cols="30" rows="5" name="content"
                                                 ></textarea>
-                                            @error('content')
-                                            <div class="text-danger">{{ $message }}</div>
-                                            @enderror
+                                         
                                         </div>
                                     </div>
                                 </div>
@@ -126,9 +144,7 @@
                                             <div class="form-group position-relative">
                                                 <input type="text" class="form-control text-dark  h-58"
                                                     name="meta_title" id="meta_title" value="">
-                                                @error('meta_title')
-                                                <div class="text-danger">{{ $message }}</div>
-                                                @enderror
+                                             
                                             </div>
                                         </div>
                                     </div>
@@ -140,9 +156,7 @@
                                                 <input type="text" class="form-control text-dark  h-58"
                                                     name="meta_keyword" id="meta_keyword"
                                                     value="">
-                                                @error('meta_keyword')
-                                                <div class="text-danger">{{ $message }}</div>
-                                                @enderror
+                                              
                                             </div>
                                         </div>
                                     </div>
@@ -156,9 +170,7 @@
                                                 placeholder="Some demo text ... " cols="30" rows="5"
                                                 name="meta_description"
                                                 id="meta_description"></textarea>
-                                            @error('meta_description')
-                                            <div class="text-danger">{{ $message }}</div>
-                                            @enderror
+                                        
                                         </div>
                                     </div>
                                 </div>
@@ -172,9 +184,7 @@
                                             <input id="pdf_file" type="file" name="pdf_file" accept=".pdf"
                                                 class="form-control text-dark h-58">
                                                
-                                            @error('pdf_file')
-                                            <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                            @enderror
+                                           
                                         </div>
                                     </div>
                                 </div>
@@ -187,9 +197,7 @@
                                         <div class="form-group position-relative">
                                             <input type="text" class="form-control text-dark  h-58"
                                                 name="website_url" id="website_url" value="">
-                                            @error('website_url')
-                                            <div class="text-danger">{{ $message }}</div>
-                                            @enderror
+                                         
                                         </div>
                                     </div>
                                 </div>
@@ -204,9 +212,7 @@
                                                 <option value="1" class="text-dark">Internal Link</option>
                                                 <option value="2" class="text-dark">External Link</option>
                                             </select>
-                                            @error('web_site_target')
-                                            <div class="text-danger">{{ $message }}</div>
-                                            @enderror
+                                         
                                         </div>
                                     </div>
                                 </div>
@@ -224,9 +230,7 @@
                                     <option value="0">It is Root Category</option>
                                     {!! $menuOptions !!}
                                 </select>
-                                    @error('menucategory')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                  
                                 </div>
                             </div>
                         </div>
@@ -245,9 +249,7 @@
                                            >Header Menu</option>
                                        
                                     </select>
-                                    @error('txtpostion')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                  
                                 </div>
                             </div>
                         </div>
@@ -260,9 +262,7 @@
                                         <div class="form-group position-relative">
                                             <input type="date" class="form-control text-dark  h-58"
                                                 name="start_date" id="start_date" value="">
-                                            @error('start_date')
-                                            <div class="text-danger">{{ $message }}</div>
-                                            @enderror
+                                          
                                         </div>
                                     </div>
                                 </div>
@@ -274,9 +274,7 @@
                                             <input type="text" class="form-control text-dark  h-58"
                                                 name="termination_date" id="termination_date"
                                                 value="">
-                                            @error('termination_date')
-                                            <div class="text-danger">{{ $message }}</div>
-                                            @enderror
+                                           
                                         </div>
                                     </div>
                                 </div>
@@ -295,9 +293,7 @@
                                         <option value="0" class="text-dark"
                                            >Inactive</option>
                                     </select>
-                                    @error('menu_status')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                   
                                 </div>
                             </div>
                         </div>

@@ -30,15 +30,30 @@
                 <div class="d-flex justify-content-between align-items-center border-bottom pb-20 mb-20">
                     <h4 class="fw-semibold fs-18 mb-0">Add Menu</h4>
                 </div>
-                @if (Cache::has('validation_errors'))
-    <div class="alert alert-danger">
+                @if(Cache::has('success_message'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ Cache::get('success_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('error_message'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ Cache::get('error_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('validation_errors'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
         <ul>
-            @foreach (Cache::get('validation_errors') as $errors)
+            @foreach (Cache::get('validation_errors') as $field => $errors)
                 @foreach ($errors as $error)
                     <li>{{ $error }}</li>
                 @endforeach
             @endforeach
         </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 @endif
 
@@ -54,11 +69,9 @@
                                     <input type="radio" name="txtlanguage" value="1"> English
                                     <input type="radio" name="txtlanguage" value="2"> Hindi
                                 </div>
-                                @error('txtlanguage')
-                                <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                @enderror
+                              
                             </div>
-                        </div>
+                        </div> 
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="menutitle">Menu Title :</label>
@@ -67,9 +80,7 @@
                                     <input type="text" class="form-control text-dark  h-58" name="menutitle"
                                         id="menutitle">
                                     <small id="titleFeedback" class="text-danger"></small>
-                                    @error('menutitle')
-                                    <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                    @enderror
+                                    
                                 </div>
                             </div>
                         </div>
@@ -96,9 +107,7 @@
                                         <option value="6" class="text-dark">Other Pages</option>
                                         <option value="7" class="text-dark">Latest Updates</option>
                                     </select>
-                                    @error('txtpostion')
-                                    <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                    @enderror
+                                   
                                 </div>
                             </div>
                         </div>
@@ -117,9 +126,7 @@
                                         </option>
                                     </select>
 
-                                    @error('texttype')
-                                    <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                    @enderror
+                                  
                                 </div>
                             </div>
                         </div>
@@ -163,9 +170,7 @@
                                 <div class="fomr-group position-relative">
                                     <input id="pdf_file" type="file" name="pdf_file" accept=".pdf"
                                         class="form-control text-dark  h-58">
-                                    @error('pdf_file')
-                                    <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                    @enderror
+                                    
                                 </div>
                             </div>
                         </div>
@@ -209,9 +214,7 @@
                                         </option>
                                         {!! $menuOptions !!}
                                     </select>
-                                    @error('menucategory')
-                                    <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                    @enderror
+                                   
                                 </div>
                             </div>
                         </div>
@@ -225,9 +228,7 @@
                                             <input type="date" class="form-control text-dark  h-58" name="start_date"
                                                 id="start_date" onfocus="(this.type='date')"
                                                 onblur="(this.type='text')">
-                                            @error('start_date')
-                                            <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                            @enderror
+                                           
                                         </div>
                                     </div>
                                 </div>
@@ -239,9 +240,7 @@
                                             <input type="text" class="form-control text-dark  h-58"
                                                 name="termination_date" id="termination_date" placeholder="dd/mm/yyyy"
                                                 onfocus="(this.type='date')" onblur="(this.type='text')">
-                                            @error('termination_date')
-                                            <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                            @enderror
+                                          
                                         </div>
                                     </div>
                                 </div>
@@ -257,9 +256,7 @@
                                         <option value="1" class="text-dark">Active</option>
                                         <option value="0" class="text-dark">Inactive</option>
                                     </select>
-                                    @error('menu_status')
-                                    <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                    @enderror
+                                 
                                 </div>
                             </div>
                         </div>

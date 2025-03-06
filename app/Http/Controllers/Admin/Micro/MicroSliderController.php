@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\DB;
 
 use App\Models\Admin\Micro\MicroManageAudit;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Validator;
 
 class MicroSliderController extends Controller
 {
@@ -46,38 +48,51 @@ class MicroSliderController extends Controller
     public function store(Request $request)
     {
         // Define validation rules
-        $validated = $request->validate([
-            'slider_image' => 'required|image|mimes:jpeg,png,jpg|max:10240',
+        $rules = [
+            'slider_image' => 'required|image|mimes:jpeg,png,jpg|max:10240', // 10MB max
             'slider_text' => 'required|string|max:255',
             'slider_description' => 'required|string',
-            'research_centre' => 'required|string',
+            'research_centre' => 'required|string|max:255',
             'language' => 'required|integer|in:1,2',
             'status' => 'required|integer|in:1,0',
-        ], [
-            // Custom validation messages
+        ];
+        
+        $messages = [
             'slider_image.required' => 'Please upload a slider image.',
-            'slider_image.image' => 'The file must be an image.',
-            'slider_image.mimes' => 'Only jpeg, png, and jpg images are allowed.',
+            'slider_image.image' => 'The file must be a valid image.',
+            'slider_image.mimes' => 'Only JPEG, PNG, and JPG images are allowed.',
             'slider_image.max' => 'The image size must be less than 10MB.',
-            
+        
             'slider_text.required' => 'Please enter the slider text.',
-            'slider_text.string' => 'The slider text must be a valid string.',
+            'slider_text.string' => 'The slider text must be valid text.',
             'slider_text.max' => 'The slider text cannot exceed 255 characters.',
-            
+        
             'slider_description.required' => 'Please enter a slider description.',
-            'slider_description.string' => 'The description must be a valid string.',
-            
+            'slider_description.string' => 'The description must be valid text.',
+        
             'research_centre.required' => 'Please enter the research centre name.',
-            'research_centre.string' => 'The research centre name must be a valid string.',
-            
+            'research_centre.string' => 'The research centre name must be valid text.',
+            'research_centre.max' => 'The research centre name cannot exceed 255 characters.',
+        
             'language.required' => 'Please select a language.',
             'language.integer' => 'The language must be a valid number.',
             'language.in' => 'The selected language is invalid.',
-            
+        
             'status.required' => 'Please select a status.',
             'status.integer' => 'The status must be a valid number.',
             'status.in' => 'The selected status is invalid.',
-        ]);
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages);
+    
+        // **If Validation Fails**
+        if ($validator->fails()) {
+            // **Cache validation errors for 1 minute**
+            Cache::put('validation_errors', $validator->errors()->toArray(), 1);
+    
+            // **Redirect back with errors and old input**
+            return redirect(session('url.previousdata', url('/')))->withInput();
+        }
+        $validatedData = $validator->validated();
 
         // Save the slider
         $slider = new MicroSlider();
@@ -138,14 +153,51 @@ class MicroSliderController extends Controller
 
     public function update(Request $request, $id)
     {
-        $validated = $request->validate([
-            'slider_image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        $rules = [
+            'slider_image' => 'required|image|mimes:jpeg,png,jpg|max:10240', // 10MB max
             'slider_text' => 'required|string|max:255',
             'slider_description' => 'required|string',
-            'research_centre' => 'required',
+            'research_centre' => 'required|string|max:255',
             'language' => 'required|integer|in:1,2',
             'status' => 'required|integer|in:1,0',
-        ]);
+        ];
+        
+        $messages = [
+            'slider_image.required' => 'Please upload a slider image.',
+            'slider_image.image' => 'The file must be a valid image.',
+            'slider_image.mimes' => 'Only JPEG, PNG, and JPG images are allowed.',
+            'slider_image.max' => 'The image size must be less than 10MB.',
+        
+            'slider_text.required' => 'Please enter the slider text.',
+            'slider_text.string' => 'The slider text must be valid text.',
+            'slider_text.max' => 'The slider text cannot exceed 255 characters.',
+        
+            'slider_description.required' => 'Please enter a slider description.',
+            'slider_description.string' => 'The description must be valid text.',
+        
+            'research_centre.required' => 'Please enter the research centre name.',
+            'research_centre.string' => 'The research centre name must be valid text.',
+            'research_centre.max' => 'The research centre name cannot exceed 255 characters.',
+        
+            'language.required' => 'Please select a language.',
+            'language.integer' => 'The language must be a valid number.',
+            'language.in' => 'The selected language is invalid.',
+        
+            'status.required' => 'Please select a status.',
+            'status.integer' => 'The status must be a valid number.',
+            'status.in' => 'The selected status is invalid.',
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages);
+    
+        // **If Validation Fails**
+        if ($validator->fails()) {
+            // **Cache validation errors for 1 minute**
+            Cache::put('validation_errors', $validator->errors()->toArray(), 1);
+    
+            // **Redirect back with errors and old input**
+            return redirect(session('url.previousdata', url('/')))->withInput();
+        }
+        $validatedData = $validator->validated();
         // dd($validated);
     
         $slider = MicroSlider::findOrFail($id);

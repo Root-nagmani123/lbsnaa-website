@@ -16,6 +16,32 @@
         </li>
     </ul>
 </div>
+@if(Cache::has('success_message'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ Cache::get('success_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('error_message'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ Cache::get('error_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('validation_errors'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <ul>
+            @foreach (Cache::get('validation_errors') as $field => $errors)
+                @foreach ($errors as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            @endforeach
+        </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
 <div class="row justify-content-center">
     <div class="col-lg-12">
         <div class="card bg-white border-0 rounded-10 mb-4 p-4">
@@ -72,9 +98,7 @@
                             <div class="form-group position-relative">
                                 <input type="text" name="program_name" class="form-control text-dark  h-58"
                                     value="{{ $trainingProgram->program_name }}">
-                                @error('program_name')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
+                             
                             </div>
                         </div>
                     </div>
@@ -85,9 +109,7 @@
                             <div class="form-group position-relative">
                                 <input type="text" name="venue" class="form-control text-dark  h-58"
                                     value="{{ $trainingProgram->venue }}">
-                                @error('venue')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
+                              
                             </div>
 
                         </div>
@@ -108,9 +130,7 @@
                             <div class="form-group position-relative">
                                 <textarea name="program_description" class="form-control text-dark  h-58" id="description">
                                     {{ $trainingProgram->program_description }}</textarea>
-                                @error('program_description')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
+                               
                             </div>
                         </div>
                     </div>
@@ -121,9 +141,7 @@
                             <div class="form-group position-relative">
                                 <input type="date" name="start_date" class="form-control text-dark  h-58"
                                     value="{{ $trainingProgram->start_date }}">
-                                @error('start_date')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
+                               
                             </div>
                         </div>
                     </div>
@@ -134,9 +152,7 @@
                             <div class="form-group position-relative">
                                 <input type="date" name="end_date" class="form-control text-dark  h-58"
                                     value="{{ $trainingProgram->end_date }}">
-                                @error('end_date')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
+                              
                             </div>
                         </div>
                     </div> -->
@@ -148,9 +164,7 @@
             <!-- Text input for start date -->
             <input type="text" id="start_date" name="start_date" class="form-control text-dark h-58"
                 value="{{ $trainingProgram->start_date }}">
-            @error('start_date')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
+          
         </div>
     </div>
 </div>
@@ -163,9 +177,7 @@
             <!-- Text input for end date -->
             <input type="text" id="end_date" name="end_date" class="form-control text-dark h-58"
                 value="{{ $trainingProgram->end_date }}">
-            @error('end_date')
-                <div class="text-danger">{{ $message }}</div>
-            @enderror
+          
         </div>
     </div>
 </div>

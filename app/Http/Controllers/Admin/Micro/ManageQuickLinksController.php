@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use App\Models\Admin\Micro\MicroManageAudit;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Validator;
 
 class ManageQuickLinksController extends Controller
 {
@@ -37,7 +39,7 @@ class ManageQuickLinksController extends Controller
     public function quick_link_store(Request $request)
     {
         // Validate the input
-        $validatedData = $request->validate([
+        $rules = [
             'research_centre_id' => 'required|integer',
             'language' => 'required|in:1,2',
             'category_type' => 'required|in:1,2',
@@ -52,8 +54,49 @@ class ManageQuickLinksController extends Controller
             'start_date' => 'required|date',
             'termination_date' => 'required|date|after:start_date',
             'status' => 'required|in:1,0',
-        ]);
-
+        ];
+        
+        $messages = [
+            'research_centre_id.required' => 'Research Centre ID is required.',
+            'research_centre_id.integer' => 'Research Centre ID must be an integer.',
+            'language.required' => 'Language selection is required.',
+            'language.in' => 'Invalid language selection.',
+            'category_type.required' => 'Category type is required.',
+            'category_type.in' => 'Invalid category type selection.',
+            'name.required' => 'The name field is required.',
+            'name.string' => 'The name must be a string.',
+            'name.max' => 'The name must not exceed 255 characters.',
+            'menu_type.required' => 'Menu type is required.',
+            'menu_type.in' => 'Invalid menu type selection.',
+            'meta_title.string' => 'Meta title must be a string.',
+            'meta_title.max' => 'Meta title must not exceed 255 characters.',
+            'meta_keyword.string' => 'Meta keyword must be a string.',
+            'meta_description.string' => 'Meta description must be a string.',
+            'description.string' => 'Description must be a string.',
+            'pdf_file.file' => 'The uploaded file must be a valid file.',
+            'pdf_file.mimes' => 'Only PDF files are allowed.',
+            'pdf_file.max' => 'The PDF file size must not exceed 2MB.',
+            'website_url.url' => 'Please enter a valid URL.',
+            'start_date.required' => 'Start date is required.',
+            'start_date.date' => 'Start date must be a valid date.',
+            'termination_date.required' => 'Termination date is required.',
+            'termination_date.date' => 'Termination date must be a valid date.',
+            'termination_date.after' => 'Termination date must be after the start date.',
+            'status.required' => 'Status selection is required.',
+            'status.in' => 'Invalid status selection.',
+        ];
+        
+        $validator = Validator::make($request->all(), $rules, $messages);
+    
+        // **If Validation Fails**
+        if ($validator->fails()) {
+            // **Cache validation errors for 1 minute**
+            Cache::put('validation_errors', $validator->errors()->toArray(), 1);
+    
+            // **Redirect back with errors and old input**
+            return redirect(session('url.previousdata', url('/')))->withInput();
+        }
+        $validatedData = $validator->validated();
         // Convert the start_date and termination_date to Y-m-d format using Carbon
         $startDate = Carbon::createFromFormat('d-m-Y', $validatedData['start_date'])->format('Y-m-d');
         $terminationDate = Carbon::createFromFormat('d-m-Y', $validatedData['termination_date'])->format('Y-m-d');
@@ -125,11 +168,11 @@ class ManageQuickLinksController extends Controller
     public function quick_link_update(Request $request, $id)
     {
         // Validate the incoming request data
-        $validatedData = $request->validate([
+        $rules = [
             'research_centre_id' => 'required|integer',
             'language' => 'required|in:1,2',
-            'categorytype' => 'required|in:1,2',
-            'txtename' => 'required|string|max:255',
+            'category_type' => 'required|in:1,2',
+            'name' => 'required|string|max:255',
             'menu_type' => 'required|in:1,2,3',
             'meta_title' => 'nullable|string|max:255',
             'meta_keyword' => 'nullable|string',
@@ -137,11 +180,52 @@ class ManageQuickLinksController extends Controller
             'description' => 'nullable|string',
             'pdf_file' => 'nullable|file|mimes:pdf|max:2048',
             'website_url' => 'nullable|url',
-            'start_date' => 'nullable|date_format:d-m-Y', // Ensure it's in DD-MM-YYYY format
-            'termination_date' => 'required|date_format:d-m-Y|after_or_equal:start_date', // Ensure termination_date is after start_date
+            'start_date' => 'required|date',
+            'termination_date' => 'required|date|after:start_date',
             'status' => 'required|in:1,0',
-        ]);
-
+        ];
+        
+        $messages = [
+            'research_centre_id.required' => 'Research Centre ID is required.',
+            'research_centre_id.integer' => 'Research Centre ID must be an integer.',
+            'language.required' => 'Language selection is required.',
+            'language.in' => 'Invalid language selection.',
+            'category_type.required' => 'Category type is required.',
+            'category_type.in' => 'Invalid category type selection.',
+            'name.required' => 'The name field is required.',
+            'name.string' => 'The name must be a string.',
+            'name.max' => 'The name must not exceed 255 characters.',
+            'menu_type.required' => 'Menu type is required.',
+            'menu_type.in' => 'Invalid menu type selection.',
+            'meta_title.string' => 'Meta title must be a string.',
+            'meta_title.max' => 'Meta title must not exceed 255 characters.',
+            'meta_keyword.string' => 'Meta keyword must be a string.',
+            'meta_description.string' => 'Meta description must be a string.',
+            'description.string' => 'Description must be a string.',
+            'pdf_file.file' => 'The uploaded file must be a valid file.',
+            'pdf_file.mimes' => 'Only PDF files are allowed.',
+            'pdf_file.max' => 'The PDF file size must not exceed 2MB.',
+            'website_url.url' => 'Please enter a valid URL.',
+            'start_date.required' => 'Start date is required.',
+            'start_date.date' => 'Start date must be a valid date.',
+            'termination_date.required' => 'Termination date is required.',
+            'termination_date.date' => 'Termination date must be a valid date.',
+            'termination_date.after' => 'Termination date must be after the start date.',
+            'status.required' => 'Status selection is required.',
+            'status.in' => 'Invalid status selection.',
+        ];
+        
+        $validator = Validator::make($request->all(), $rules, $messages);
+    
+        // **If Validation Fails**
+        if ($validator->fails()) {
+            // **Cache validation errors for 1 minute**
+            Cache::put('validation_errors', $validator->errors()->toArray(), 1);
+    
+            // **Redirect back with errors and old input**
+            return redirect(session('url.previousdata', url('/')))->withInput();
+        }
+        $validatedData = $validator->validated();
         // Convert start_date and termination_date to 'Y-m-d' format if present
         if ($request->has('start_date')) {
             $startDate = Carbon::createFromFormat('d-m-Y', $validatedData['start_date'])->format('Y-m-d');

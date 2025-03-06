@@ -10,6 +10,8 @@ use Illuminate\Validation\Rule;
 
 use App\Models\Admin\Micro\MicroManageAudit;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Validator;
 
 class OrganizationSetupController extends Controller
 {
@@ -40,42 +42,68 @@ class OrganizationSetupController extends Controller
     {
         // Define validation rules
         $rules = [
-            'research_centre' => 'required',
+            'research_centre' => 'required|string|max:255',
             'language' => 'required|integer|in:1,2',
-            'employee_name' => 'required',
-            'designation' => 'required',
+            'employee_name' => 'required|string|max:255',
+            'designation' => 'required|string|max:255',
             'email' => [
                 'required',
                 'email',
-                // 'unique:mirco_organization_setups,email', // Check for duplicate email in the table
+                // 'unique:mirco_organization_setups,email', // Uncomment if you want to enforce unique email validation
                 'max:255',
             ],
-            'program_description' => 'required',
-            'main_image' => 'required|image|mimes:jpeg,png,jpg',
+            'program_description' => 'required|string',
+            'main_image' => 'required|image|mimes:jpeg,png,jpg|max:10240', // 10MB max size
             'page_status' => 'required|integer|in:1,0',
         ];
-    
-        // Define custom error messages
+        
         $messages = [
             'research_centre.required' => 'Please select a research centre.',
+            'research_centre.string' => 'Research centre must be a valid string.',
+            'research_centre.max' => 'Research centre cannot exceed 255 characters.',
+        
             'language.required' => 'Please select a language.',
+            'language.integer' => 'The language must be a valid number.',
             'language.in' => 'Invalid language selection.',
+        
             'employee_name.required' => 'Please enter the employee name.',
+            'employee_name.string' => 'Employee name must be a valid string.',
+            'employee_name.max' => 'Employee name cannot exceed 255 characters.',
+        
             'designation.required' => 'Please enter the designation.',
+            'designation.string' => 'Designation must be a valid string.',
+            'designation.max' => 'Designation cannot exceed 255 characters.',
+        
             'email.required' => 'Please enter an email address.',
             'email.email' => 'Please enter a valid email address.',
             'email.unique' => 'This email address is already in use. Please provide a different email.',
             'email.max' => 'The email address cannot exceed 255 characters.',
+        
             'program_description.required' => 'Please provide a program description.',
+            'program_description.string' => 'Program description must be a valid string.',
+        
             'main_image.required' => 'Please upload an image.',
             'main_image.image' => 'The file must be an image.',
             'main_image.mimes' => 'The image must be a file of type: jpeg, png, jpg.',
+            'main_image.max' => 'The image size must be less than 10MB.',
+        
             'page_status.required' => 'Please select the page status.',
+            'page_status.integer' => 'The page status must be a valid number.',
             'page_status.in' => 'Invalid status selection.',
         ];
     
         // Validate the request
-        $request->validate($rules, $messages);
+        $validator = Validator::make($request->all(), $rules, $messages);
+    
+        // **If Validation Fails**
+        if ($validator->fails()) {
+            // **Cache validation errors for 1 minute**
+            Cache::put('validation_errors', $validator->errors()->toArray(), 1);
+    
+            // **Redirect back with errors and old input**
+            return redirect(session('url.previousdata', url('/')))->withInput();
+        }
+        $validatedData = $validator->validated();
     
         // Process the data
         $data = $request->all();
@@ -221,16 +249,69 @@ class OrganizationSetupController extends Controller
     public function update(Request $request, $id)
     {
         // Validation and data preparation
-        $validatedData = $request->validate([
-            'research_centre' => 'required',
+        $rules = [
+            'research_centre' => 'required|string|max:255',
             'language' => 'required|integer|in:1,2',
             'employee_name' => 'required|string|max:255',
             'designation' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'program_description' => 'required|string|max:10000',
-            'main_image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'email' => [
+                'required',
+                'email',
+                // 'unique:mirco_organization_setups,email', // Uncomment if you want to enforce unique email validation
+                'max:255',
+            ],
+            'program_description' => 'required|string',
+            'main_image' => 'required|image|mimes:jpeg,png,jpg|max:10240', // 10MB max size
             'page_status' => 'required|integer|in:1,0',
-        ]);
+        ];
+        
+        $messages = [
+            'research_centre.required' => 'Please select a research centre.',
+            'research_centre.string' => 'Research centre must be a valid string.',
+            'research_centre.max' => 'Research centre cannot exceed 255 characters.',
+        
+            'language.required' => 'Please select a language.',
+            'language.integer' => 'The language must be a valid number.',
+            'language.in' => 'Invalid language selection.',
+        
+            'employee_name.required' => 'Please enter the employee name.',
+            'employee_name.string' => 'Employee name must be a valid string.',
+            'employee_name.max' => 'Employee name cannot exceed 255 characters.',
+        
+            'designation.required' => 'Please enter the designation.',
+            'designation.string' => 'Designation must be a valid string.',
+            'designation.max' => 'Designation cannot exceed 255 characters.',
+        
+            'email.required' => 'Please enter an email address.',
+            'email.email' => 'Please enter a valid email address.',
+            'email.unique' => 'This email address is already in use. Please provide a different email.',
+            'email.max' => 'The email address cannot exceed 255 characters.',
+        
+            'program_description.required' => 'Please provide a program description.',
+            'program_description.string' => 'Program description must be a valid string.',
+        
+            'main_image.required' => 'Please upload an image.',
+            'main_image.image' => 'The file must be an image.',
+            'main_image.mimes' => 'The image must be a file of type: jpeg, png, jpg.',
+            'main_image.max' => 'The image size must be less than 10MB.',
+        
+            'page_status.required' => 'Please select the page status.',
+            'page_status.integer' => 'The page status must be a valid number.',
+            'page_status.in' => 'Invalid status selection.',
+        ];
+    
+        // Validate the request
+        $validator = Validator::make($request->all(), $rules, $messages);
+    
+        // **If Validation Fails**
+        if ($validator->fails()) {
+            // **Cache validation errors for 1 minute**
+            Cache::put('validation_errors', $validator->errors()->toArray(), 1);
+    
+            // **Redirect back with errors and old input**
+            return redirect(session('url.previousdata', url('/')))->withInput();
+        }
+        $validatedData = $validator->validated();
     
         // Prepare the data for update
         $data = [

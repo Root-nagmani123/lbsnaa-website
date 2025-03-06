@@ -28,18 +28,32 @@
                 <div class="d-flex justify-content-between align-items-center border-bottom pb-20 mb-20">
                     <h4 class="fw-semibold fs-18 mb-0">Manage Media Categories</h4>
                 </div>
-                @if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        @endif
-        @if(session('error'))
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            {{ session('error') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        @endif
+                @if(Cache::has('success_message'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ Cache::get('success_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('error_message'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ Cache::get('error_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('validation_errors'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <ul>
+            @foreach (Cache::get('validation_errors') as $field => $errors)
+                @foreach ($errors as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            @endforeach
+        </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
                 <form
                     action="{{ isset($category) ? route('photovideogallery.update', $category->id) : route('photovideogallery.store') }}"
                     method="POST" enctype="multipart/form-data">
@@ -62,9 +76,7 @@
                                             {{ $name }}</option>
                                         @endforeach
                                     </select>
-                                    @error('research_centre')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                  
                                 </div>
                             </div>
                         </div>
@@ -84,9 +96,7 @@
                                             {{ isset($category) && $category->media_gallery == '2' ? 'selected' : '' }}>
                                             Video Gallery</option>
                                     </select>
-                                    @error('media_gallery')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                 
                                 </div>
                             </div>
                         </div>
@@ -97,9 +107,7 @@
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark  h-58" name="name" id="name"
                                         value="{{ old('name', $category->name ?? '') }}">
-                                    @error('name')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                  
                                 </div>
                             </div>
                         </div>
@@ -124,9 +132,7 @@
                                         id="category_image" 
                                         accept="image/*" 
                                         value="{{ old('category_image') }}">
-                                    @error('category_image')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                   
                                 </div>
                             </div>
                         </div>
@@ -144,9 +150,7 @@
                                         <option value="0" class="text-dark"
                                             {{ old('status') == '0' ? 'selected' : '' }}>Inactive</option>
                                     </select>
-                                    @error('status')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                    
                                 </div>
                             </div>
                         </div>

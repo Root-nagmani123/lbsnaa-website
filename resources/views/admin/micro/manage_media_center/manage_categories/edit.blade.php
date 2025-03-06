@@ -28,9 +28,32 @@
                 <div class="d-flex justify-content-between align-items-center border-bottom pb-20 mb-20">
                     <h4 class="fw-semibold fs-18 mb-0">Edit Media Categories</h4>
                 </div>
-                @if (session('success'))
-                <div class="alert alert-success">{{ session('success') }}</div>
-                @endif
+                @if(Cache::has('success_message'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ Cache::get('success_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('error_message'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ Cache::get('error_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('validation_errors'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <ul>
+            @foreach (Cache::get('validation_errors') as $field => $errors)
+                @foreach ($errors as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            @endforeach
+        </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
                 <form action="{{ route('photovideogallery.update', $category->id) }}" method="POST"
                     enctype="multipart/form-data">
                     @csrf
@@ -50,9 +73,7 @@
                                             </option>
                                         @endforeach
                                     </select>
-                                    @error('research_centre')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                  
                                 </div>
                             </div>
                         </div>
@@ -110,9 +131,7 @@
                                         <img src="{{ asset('storage/uploads/category_images/' . $category->category_image) }}"
                                             alt="Category Image" class="img-thumbnail mt-2" style="width: 150px; height: auto;">
                                     @endif
-                                    @error('category_image')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                   
                                 </div>
                             </div>
                         </div>

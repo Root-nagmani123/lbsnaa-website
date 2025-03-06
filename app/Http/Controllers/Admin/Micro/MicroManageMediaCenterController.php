@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Validator;
 
 class MicroManageMediaCenterController extends Controller
 {
@@ -112,14 +114,46 @@ class MicroManageMediaCenterController extends Controller
     public function store(Request $request)
     {
         // Validate inputs
-        $validated = $request->validate([
+        $rules = [
             'media_gallery' => 'required|integer|in:1,2',
             'name' => 'required|string|max:255',
             'research_centre' => 'required|string|max:255',
             'hindi_name' => 'nullable|string|max:255',
             'status' => 'required|integer|in:1,0',
-            'category_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4098',  // 'nullable' so it's not required on edit
-        ]);
+            'category_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4098',
+        ];
+        
+        $messages = [
+            'media_gallery.required' => 'Media gallery selection is required.',
+            'media_gallery.integer' => 'Media gallery must be a valid number.',
+            'media_gallery.in' => 'Invalid media gallery selection.',
+            'name.required' => 'The name field is required.',
+            'name.string' => 'The name must be a valid string.',
+            'name.max' => 'The name must not exceed 255 characters.',
+            'research_centre.required' => 'Research Centre is required.',
+            'research_centre.string' => 'Research Centre must be a valid string.',
+            'research_centre.max' => 'Research Centre must not exceed 255 characters.',
+            'hindi_name.string' => 'Hindi Name must be a valid string.',
+            'hindi_name.max' => 'Hindi Name must not exceed 255 characters.',
+            'status.required' => 'Status is required.',
+            'status.integer' => 'Status must be a valid number.',
+            'status.in' => 'Invalid status selection.',
+            'category_image.image' => 'Category image must be a valid image file.',
+            'category_image.mimes' => 'Category image must be of type: jpeg, png, jpg, gif.',
+            'category_image.max' => 'Category image size must not exceed 4MB.',
+        ];
+        
+        $validator = Validator::make($request->all(), $rules, $messages);
+    
+        // **If Validation Fails**
+        if ($validator->fails()) {
+            // **Cache validation errors for 1 minute**
+            Cache::put('validation_errors', $validator->errors()->toArray(), 1);
+    
+            // **Redirect back with errors and old input**
+            return redirect(session('url.previousdata', url('/')))->withInput();
+        }
+        $validatedData = $validator->validated();
 
         // Handle file upload
         if ($request->hasFile('category_image')) {
@@ -256,20 +290,46 @@ class MicroManageMediaCenterController extends Controller
     public function update(Request $request, $id)
     {
         // Validate the incoming request
-        $validated = $request->validate([
+        $rules = [
             'media_gallery' => 'required|integer|in:1,2',
             'name' => 'required|string|max:255',
+            'research_centre' => 'required|string|max:255',
             'hindi_name' => 'nullable|string|max:255',
             'status' => 'required|integer|in:1,0',
-            'research_centre' => 'required|string|max:255',
             'category_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4098',
-        ], [
-            'media_gallery.required' => 'Please select a gallery type.',
-            'name.required' => 'Please enter the name.',
-            'status.required' => 'Please select a status.',
-            'category_image.image' => 'The uploaded file must be an image (JPEG, PNG, JPG, or GIF).',
-            'category_image.max' => 'The image size must not exceed 4MB.',
-        ]);
+        ];
+        
+        $messages = [
+            'media_gallery.required' => 'Media gallery selection is required.',
+            'media_gallery.integer' => 'Media gallery must be a valid number.',
+            'media_gallery.in' => 'Invalid media gallery selection.',
+            'name.required' => 'The name field is required.',
+            'name.string' => 'The name must be a valid string.',
+            'name.max' => 'The name must not exceed 255 characters.',
+            'research_centre.required' => 'Research Centre is required.',
+            'research_centre.string' => 'Research Centre must be a valid string.',
+            'research_centre.max' => 'Research Centre must not exceed 255 characters.',
+            'hindi_name.string' => 'Hindi Name must be a valid string.',
+            'hindi_name.max' => 'Hindi Name must not exceed 255 characters.',
+            'status.required' => 'Status is required.',
+            'status.integer' => 'Status must be a valid number.',
+            'status.in' => 'Invalid status selection.',
+            'category_image.image' => 'Category image must be a valid image file.',
+            'category_image.mimes' => 'Category image must be of type: jpeg, png, jpg, gif.',
+            'category_image.max' => 'Category image size must not exceed 4MB.',
+        ];
+        
+        $validator = Validator::make($request->all(), $rules, $messages);
+    
+        // **If Validation Fails**
+        if ($validator->fails()) {
+            // **Cache validation errors for 1 minute**
+            Cache::put('validation_errors', $validator->errors()->toArray(), 1);
+    
+            // **Redirect back with errors and old input**
+            return redirect(session('url.previousdata', url('/')))->withInput();
+        }
+        $validatedData = $validator->validated();
     
         // Find the category by ID
         $category = MicroManageMediaCategories::findOrFail($id);

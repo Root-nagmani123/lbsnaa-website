@@ -23,13 +23,30 @@
                 <div class="d-flex justify-content-between align-items-center border-bottom pb-20 mb-20">
                     <h4 class="fw-semibold fs-18 mb-0">Add Vacancy</h4>
                 </div>
-                @if ($errors->any())
-    <div class="alert alert-danger">
+                @if(Cache::has('success_message'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ Cache::get('success_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('error_message'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ Cache::get('error_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('validation_errors'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
         <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
+            @foreach (Cache::get('validation_errors') as $field => $errors)
+                @foreach ($errors as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
             @endforeach
         </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 @endif
                 <form action="{{ route('micro_manage_vacancy.update', $vacancy->id) }}" method="POST"
@@ -57,9 +74,7 @@
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark  h-58" name="job_title"
                                         id="job_title" value="{{ old('job_title', $vacancy->job_title) }}">
-                                    @error('job_title')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                  
                                 </div>
                             </div>
                         </div>
@@ -77,9 +92,7 @@
                                             {{ $name }}</option>
                                         @endforeach
                                     </select>
-                                    @error('research_centre')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+
                                 </div>
                             </div>
                         </div> -->
@@ -97,9 +110,7 @@
                                             </option>
                                         @endforeach
                                     </select>
-                                    @error('research_centre')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                
                                 </div>
                             </div>
                         </div>
@@ -110,9 +121,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <textarea class="form-control" id="job_description" name="job_description">{{ old('job_description', $vacancy->job_description) }}</textarea>
-                                    @error('job_description')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                
                                 </div>
                             </div>
                         </div>
@@ -158,9 +167,7 @@
                                     <input type="url" class="form-control text-dark  h-58" name="website_link"
                                         id="website_link" value="{{ old('website_link', $vacancy->website_link) }}">
 
-                                    @error('website_link')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                
                                 </div>
                             </div>
                         </div>
@@ -171,9 +178,7 @@
                                 <div class="form-group position-relative">
                                     <input type="date" class="form-control text-dark  h-58" name="publish_date"
                                         id="publish_date" value="{{ old('publish_date', $vacancy->publish_date) }}">
-                                    @error('publish_date')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                 
                                 </div>
                             </div>
                         </div>
@@ -184,9 +189,7 @@
                                 <div class="form-group position-relative">
                                     <input type="date" class="form-control text-dark  h-58" name="expiry_date"
                                         id="expiry_date" value="{{ old('expiry_date', $vacancy->expiry_date) }}">
-                                    @error('expiry_date')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                   
                                 </div>
                             </div>
                         </div>

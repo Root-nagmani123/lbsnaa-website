@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Admin\Micro\MicroManageAudit;
 use Illuminate\Support\Facades\Auth; 
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Validator;
 
 class MicroMenuController extends Controller
 { 
@@ -212,20 +214,47 @@ public function add_menu(Request $request){
 }
     public function store(Request $request)
     {
-        // Validate the incoming request data
-        // $validatedData = $request->validate([
-        //     'language' => 'required',
-        //     'research_centre' => 'required',
-        //     'menutitle' => 'required|string|max:255',
-        //     'texttype' => 'required',
-        //     'menucategory' => 'required',
-        //     'txtpostion' => 'required',
-        //     'menu_status' => 'required|in:1,0',
-        // ], [
-        //     'texttype.required' => 'Please select menu type.',
-        //     'txtpostion.required' => 'Please select content position.',
-        //     'menutitle.required' => 'Please enter menu title.',
-        // ]);
+        $rules = [
+            'txtlanguage' => 'required|string',
+            'research_centre' => 'required|string',
+            'menutitle' => 'required|string|max:255',
+            'texttype' => 'required|string',
+            'menucategory' => 'required|string',
+            'txtpostion' => 'required|integer',
+            'menu_status' => 'required|integer|in:1,0',
+        ];
+        
+        $messages = [
+            'txtlanguage.required' => 'The language field is required.',
+            'research_centre.required' => 'Please select a research centre.',
+            
+            'menutitle.required' => 'Menu title is required.',
+            'menutitle.string' => 'Menu title must be a valid text.',
+            'menutitle.max' => 'Menu title must not exceed 255 characters.',
+            
+            'texttype.required' => 'The text type is required.',
+            
+            'menucategory.required' => 'The menu category is required.',
+        
+            'txtpostion.required' => 'The position field is required.',
+            'txtpostion.integer' => 'The position must be a valid number.',
+        
+            'menu_status.required' => 'Menu status is required.',
+            'menu_status.integer' => 'Invalid menu status format.',
+            'menu_status.in' => 'Menu status must be either 1 (active) or 0 (inactive).',
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages);
+    
+        // **If Validation Fails**
+        if ($validator->fails()) {
+            // **Cache validation errors for 1 minute**
+            Cache::put('validation_errors', $validator->errors()->toArray(), 1);
+    
+            // **Redirect back with errors and old input**
+            return redirect(session('url.previousdata', url('/')))->withInput();
+        }
+        $validatedData = $validator->validated();
+        
         $menutitle = strip_tags($request->menutitle); // Remove HTML tags
         $menutitle = htmlspecialchars($menutitle, ENT_QUOTES, 'UTF-8'); 
         $slug = Str::slug($menutitle, '-');
@@ -476,15 +505,46 @@ public function add_menu(Request $request){
         $menu = MicroMenu::findOrFail($id);
     
         // Validate the incoming request data
-        $validatedData = $request->validate([
-            'txtlanguage' => 'required',
-            'research_centre' => 'required',
+        $rules = [
+            'txtlanguage' => 'required|string',
+            'research_centre' => 'required|string',
             'menutitle' => 'required|string|max:255',
-            'texttype' => 'required',
-            'menucategory' => 'required',
-            'txtpostion' => 'required',
-            'menu_status' => 'required|in:1,0',
-        ]);
+            'texttype' => 'required|string',
+            'menucategory' => 'required|string',
+            'txtpostion' => 'required|integer',
+            'menu_status' => 'required|integer|in:1,0',
+        ];
+        
+        $messages = [
+            'txtlanguage.required' => 'The language field is required.',
+            'research_centre.required' => 'Please select a research centre.',
+            
+            'menutitle.required' => 'Menu title is required.',
+            'menutitle.string' => 'Menu title must be a valid text.',
+            'menutitle.max' => 'Menu title must not exceed 255 characters.',
+            
+            'texttype.required' => 'The text type is required.',
+            
+            'menucategory.required' => 'The menu category is required.',
+        
+            'txtpostion.required' => 'The position field is required.',
+            'txtpostion.integer' => 'The position must be a valid number.',
+        
+            'menu_status.required' => 'Menu status is required.',
+            'menu_status.integer' => 'Invalid menu status format.',
+            'menu_status.in' => 'Menu status must be either 1 (active) or 0 (inactive).',
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages);
+    
+        // **If Validation Fails**
+        if ($validator->fails()) {
+            // **Cache validation errors for 1 minute**
+            Cache::put('validation_errors', $validator->errors()->toArray(), 1);
+    
+            // **Redirect back with errors and old input**
+            return redirect(session('url.previousdata', url('/')))->withInput();
+        }
+        $validatedData = $validator->validated();
         $menutitle = strip_tags($request->menutitle); // Remove HTML tags
         $menutitle = htmlspecialchars($menutitle, ENT_QUOTES, 'UTF-8'); 
         $slug = Str::slug($menutitle, '-');

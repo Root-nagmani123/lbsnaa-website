@@ -16,6 +16,32 @@
         </li>
     </ul>
 </div>
+@if(Cache::has('success_message'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ Cache::get('success_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('error_message'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ Cache::get('error_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('validation_errors'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <ul>
+            @foreach (Cache::get('validation_errors') as $field => $errors)
+                @foreach ($errors as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            @endforeach
+        </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
 <div class="row justify-content-center">
     <div class="col-lg-12">
         <div class="card bg-white border-0 rounded-10 mb-4 p-4">
@@ -39,9 +65,7 @@
                                     {{ old('language') == '2' ? 'checked' : '' }}>
                                 <label for="language_hindi">Hindi</label>
                             </div>
-                            @error('language')
-                            <div class="text-danger">{{ $message }}</div>
-                            @enderror
+                          
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -57,9 +81,7 @@
                                         {{ $name }}</option>
                                     @endforeach
                                 </select>
-                                @error('research_centre')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror
+                             
                             </div>
                         </div>
                     </div>
@@ -70,9 +92,7 @@
                             <div class="form-group position-relative">
                                 <input type="text" name="employee_name" class="form-control text-dark  h-58"
                                     id="employee_name" value="{{ old('employee_name') }}">
-                                @error('employee_name')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror
+                             
                             </div>
                         </div>
                     </div>
@@ -83,9 +103,7 @@
                             <div class="form-group position-relative">
                                 <input type="text" name="designation" class="form-control text-dark  h-58"
                                     id="designation" value="{{ old('designation') }}">
-                                @error('designation')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror
+                             
                             </div>
                         </div>
                     </div>
@@ -104,9 +122,7 @@
                                     pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}" 
                                     title="Please enter a valid email address.">
                                 <small id="email-feedback" class="text-muted"></small>
-                                @error('email')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror
+                              
                             </div>
                         </div>
                     </div>
@@ -117,9 +133,7 @@
                             <div class="form-group position-relative">
                                 <textarea name="program_description" class="form-control text-dark  h-58"
                                     value="{{ old('program_description') }}" id="description"></textarea>
-                                @error('program_description')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror
+                            
                             </div>
                         </div>
                     </div>
@@ -132,9 +146,7 @@
                                 <input type="file" name="main_image" class="form-control text-dark  h-58"
                                     id="main_image" accept=".jpg,.jpeg,.png">
                                 <small id="file-name" class="text-muted"></small>
-                                @error('main_image')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror
+                              
                             </div>
                         </div>
                     </div>
@@ -152,9 +164,7 @@
                                     <option value="0" class="col" {{ old('page_status') == '0' ? 'selected' : '' }}>
                                         Inactive</option>
                                 </select>
-                                @error('page_status')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror
+                              
                             </div>
                         </div>
                     </div>

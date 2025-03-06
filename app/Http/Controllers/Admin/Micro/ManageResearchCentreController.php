@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Admin\Micro\MicroManageAudit;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Validator;
 
 
 class ManageResearchCentreController extends Controller
@@ -62,15 +64,43 @@ class ManageResearchCentreController extends Controller
     public function researchcentresStore(Request $request)
     {
         // Validate input fields
-        $validatedData = $request->validate([
+        $rules = [
             'language' => 'required|in:1,2',
             'research_centre_name' => 'required|string|max:255',
             'description' => 'required|string',
             'status' => 'required|boolean',
-            'texttype' => 'nullable|in:1,2', // Ensure texttype is present and valid
-            'pdfUpload' => 'nullable|file|mimes:pdf|max:2048', // Validate PDF file
-            'websiteUrl' => 'nullable|url|max:255', // Validate URL
-        ]);
+            'texttype' => 'nullable|in:1,2', 
+            'pdfUpload' => 'nullable|file|mimes:pdf|max:2048', 
+            'websiteUrl' => 'nullable|url|max:255',
+        ];
+        
+        $messages = [
+            'language.required' => 'Language selection is required.',
+            'language.in' => 'Invalid language selection.',
+            'research_centre_name.required' => 'Research Centre Name is required.',
+            'research_centre_name.string' => 'Research Centre Name must be a valid string.',
+            'research_centre_name.max' => 'Research Centre Name must not exceed 255 characters.',
+            'description.required' => 'Description is required.',
+            'status.required' => 'Status is required.',
+            'status.boolean' => 'Status must be either 1 (Active) or 0 (Inactive).',
+            'texttype.in' => 'Invalid text type selection.',
+            'pdfUpload.mimes' => 'Only PDF files are allowed.',
+            'pdfUpload.max' => 'PDF file size must not exceed 2MB.',
+            'websiteUrl.url' => 'Enter a valid website URL.',
+            'websiteUrl.max' => 'Website URL must not exceed 255 characters.',
+        ];
+        
+        $validator = Validator::make($request->all(), $rules, $messages);
+    
+        // **If Validation Fails**
+        if ($validator->fails()) {
+            // **Cache validation errors for 1 minute**
+            Cache::put('validation_errors', $validator->errors()->toArray(), 1);
+    
+            // **Redirect back with errors and old input**
+            return redirect(session('url.previousdata', url('/')))->withInput();
+        }
+        $validatedData = $validator->validated();
 
         // Initialize PDF and URL variables
         $pdf = null;
@@ -181,18 +211,43 @@ class ManageResearchCentreController extends Controller
 
     public function researchcentresUpdate(Request $request, $id)
     {
-        $validatedData = $request->validate([
+        $rules = [
             'language' => 'required|in:1,2',
             'research_centre_name' => 'required|string|max:255',
-            'sub_heading' => 'nullable|string',
-            'home_title' => 'nullable|string',
-            'description' => 'nullable|string',
+            'description' => 'required|string',
             'status' => 'required|boolean',
-
-            'texttype' => 'nullable|in:1,2', // Ensure texttype is present and valid
-            'pdfUpload' => 'nullable|file|mimes:pdf|max:2048', // Validate PDF file
-            'websiteUrl' => 'nullable|url|max:255', // Validate URL
-        ]);
+            'texttype' => 'nullable|in:1,2', 
+            'pdfUpload' => 'nullable|file|mimes:pdf|max:2048', 
+            'websiteUrl' => 'nullable|url|max:255',
+        ];
+        
+        $messages = [
+            'language.required' => 'Language selection is required.',
+            'language.in' => 'Invalid language selection.',
+            'research_centre_name.required' => 'Research Centre Name is required.',
+            'research_centre_name.string' => 'Research Centre Name must be a valid string.',
+            'research_centre_name.max' => 'Research Centre Name must not exceed 255 characters.',
+            'description.required' => 'Description is required.',
+            'status.required' => 'Status is required.',
+            'status.boolean' => 'Status must be either 1 (Active) or 0 (Inactive).',
+            'texttype.in' => 'Invalid text type selection.',
+            'pdfUpload.mimes' => 'Only PDF files are allowed.',
+            'pdfUpload.max' => 'PDF file size must not exceed 2MB.',
+            'websiteUrl.url' => 'Enter a valid website URL.',
+            'websiteUrl.max' => 'Website URL must not exceed 255 characters.',
+        ];
+        
+        $validator = Validator::make($request->all(), $rules, $messages);
+    
+        // **If Validation Fails**
+        if ($validator->fails()) {
+            // **Cache validation errors for 1 minute**
+            Cache::put('validation_errors', $validator->errors()->toArray(), 1);
+    
+            // **Redirect back with errors and old input**
+            return redirect(session('url.previousdata', url('/')))->withInput();
+        }
+        $validatedData = $validator->validated();
 
         // Retrieve existing record
         $existingData = DB::table('research_centres')->where('id', $id)->first();

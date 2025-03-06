@@ -20,6 +20,32 @@
         </li>
     </ul>
 </div>
+@if(Cache::has('success_message'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ Cache::get('success_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('error_message'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ Cache::get('error_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('validation_errors'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <ul>
+            @foreach (Cache::get('validation_errors') as $field => $errors)
+                @foreach ($errors as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            @endforeach
+        </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
 <div class="row justify-content-center">
     <div class="col-lg-12">
         <div class="card bg-white border-0 rounded-10 mb-4">
@@ -49,9 +75,7 @@
                                             </option>
                                         @endforeach
                                     </select>
-                                    @error('research_centre')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                 
                                 </div>
                             </div>
                         </div>
@@ -70,9 +94,7 @@
                                             </option>
                                         @endforeach
                                     </select>
-                                    @error('category_name')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                  
                                 </div>
                             </div>
                         </div>
@@ -86,9 +108,7 @@
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark  h-58" name="video_title_en"
                                         id="video_title_en" value="{{ $video->video_title_en }}">
-                                    @error('video_title_en')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                 
                                 </div>
                             </div>
                         </div>
@@ -110,9 +130,7 @@
                                 <div class="form-group position-relative">
                                     <input type="url" name="video_upload" id="video_upload" class="form-control text-dark  h-58"
                                         value="{{ $video->video_upload }}" >
-                                    @error('video_upload')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                               
                                 </div>
                             </div>
                         </div>

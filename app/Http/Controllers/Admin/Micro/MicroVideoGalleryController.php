@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\DB;
 
 use App\Models\Admin\Micro\MicroManageAudit;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Validator;
 
 class MicroVideoGalleryController extends Controller
 {
@@ -58,24 +60,54 @@ class MicroVideoGalleryController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'category_name' => 'required',
-            'video_title_en' => 'required',
-            'video_title_hi' => 'nullable',
-            'video_upload' => 'required|url|regex:/^https:\/\/(www\.)?youtube\.com\/.+$/',
-            'page_status' => 'required|in:1,0',
-            'research_centre' => 'required',
-        ], [
+        $rules = [
+            'category_name' => 'required|string|max:255',
+            'video_title_en' => 'required|string|max:255',
+            'video_title_hi' => 'nullable|string|max:255',
+            'video_upload' => [
+                'required',
+                'url',
+                'regex:/^https:\/\/(www\.)?youtube\.com\/.+$/',
+            ],
+            'page_status' => 'required|integer|in:1,0',
+            'research_centre' => 'required|string|max:255',
+        ];
+        
+        $messages = [
             'category_name.required' => 'Please enter a category name.',
+            'category_name.string' => 'Category name must be a valid string.',
+            'category_name.max' => 'Category name cannot exceed 255 characters.',
+        
             'video_title_en.required' => 'Please provide a title for the video in English.',
-            'video_title_hi.required' => 'Please provide a title for the video in Hindi if applicable.',
+            'video_title_en.string' => 'Video title must be a valid string.',
+            'video_title_en.max' => 'Video title cannot exceed 255 characters.',
+        
+            'video_title_hi.string' => 'Video title in Hindi must be a valid string.',
+            'video_title_hi.max' => 'Video title in Hindi cannot exceed 255 characters.',
+        
             'video_upload.required' => 'Please provide a YouTube video URL.',
             'video_upload.url' => 'Please provide a valid YouTube video URL.',
             'video_upload.regex' => 'The video URL must be a valid YouTube link starting with "https://www.youtube.com".',
+        
             'page_status.required' => 'Please select the page status.',
+            'page_status.integer' => 'The page status must be a valid number.',
             'page_status.in' => 'The page status must be either 1 (active) or 0 (inactive).',
+        
             'research_centre.required' => 'Please select a research centre.',
-        ]);
+            'research_centre.string' => 'Research centre must be a valid string.',
+            'research_centre.max' => 'Research centre cannot exceed 255 characters.',
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages);
+    
+        // **If Validation Fails**
+        if ($validator->fails()) {
+            // **Cache validation errors for 1 minute**
+            Cache::put('validation_errors', $validator->errors()->toArray(), 1);
+    
+            // **Redirect back with errors and old input**
+            return redirect(session('url.previousdata', url('/')))->withInput();
+        }
+        $validatedData = $validator->validated();
 
         // Store the request data
         $data = $request->all();
@@ -127,25 +159,54 @@ class MicroVideoGalleryController extends Controller
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'category_name' => 'required',
-            'video_title_en' => 'required',
-            'video_title_hi' => 'nullable',
-            'video_upload' => 'required|url|regex:/^https:\/\/(www\.)?youtube\.com\/.+$/',
-            'page_status' => 'required|in:1,0',
-            'research_centre' => 'required',
-        ], [
+        $rules = [
+            'category_name' => 'required|string|max:255',
+            'video_title_en' => 'required|string|max:255',
+            'video_title_hi' => 'nullable|string|max:255',
+            'video_upload' => [
+                'required',
+                'url',
+                'regex:/^https:\/\/(www\.)?youtube\.com\/.+$/',
+            ],
+            'page_status' => 'required|integer|in:1,0',
+            'research_centre' => 'required|string|max:255',
+        ];
+        
+        $messages = [
             'category_name.required' => 'Please enter a category name.',
+            'category_name.string' => 'Category name must be a valid string.',
+            'category_name.max' => 'Category name cannot exceed 255 characters.',
+        
             'video_title_en.required' => 'Please provide a title for the video in English.',
-            'video_title_hi.required' => 'Please provide a title for the video in Hindi if applicable.',
+            'video_title_en.string' => 'Video title must be a valid string.',
+            'video_title_en.max' => 'Video title cannot exceed 255 characters.',
+        
+            'video_title_hi.string' => 'Video title in Hindi must be a valid string.',
+            'video_title_hi.max' => 'Video title in Hindi cannot exceed 255 characters.',
+        
             'video_upload.required' => 'Please provide a YouTube video URL.',
             'video_upload.url' => 'Please provide a valid YouTube video URL.',
             'video_upload.regex' => 'The video URL must be a valid YouTube link starting with "https://www.youtube.com".',
+        
             'page_status.required' => 'Please select the page status.',
+            'page_status.integer' => 'The page status must be a valid number.',
             'page_status.in' => 'The page status must be either 1 (active) or 0 (inactive).',
+        
             'research_centre.required' => 'Please select a research centre.',
-        ]);
-
+            'research_centre.string' => 'Research centre must be a valid string.',
+            'research_centre.max' => 'Research centre cannot exceed 255 characters.',
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages);
+    
+        // **If Validation Fails**
+        if ($validator->fails()) {
+            // **Cache validation errors for 1 minute**
+            Cache::put('validation_errors', $validator->errors()->toArray(), 1);
+    
+            // **Redirect back with errors and old input**
+            return redirect(session('url.previousdata', url('/')))->withInput();
+        }
+        $validatedData = $validator->validated();
         $video = MicroVideoGallery::findOrFail($id);
         $data = $request->all();
 

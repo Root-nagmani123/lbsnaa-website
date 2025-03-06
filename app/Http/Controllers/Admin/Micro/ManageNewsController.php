@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str; 
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Validator;
 
 
 class ManageNewsController extends Controller
@@ -45,7 +47,7 @@ class ManageNewsController extends Controller
     public function store(Request $request)
     {
         // Validation    
-        $request->validate([
+        $rules = [
             'language' => 'required',
             'research_centre' => 'required',
             'title' => 'required',
@@ -54,12 +56,13 @@ class ManageNewsController extends Controller
             'description' => 'required',
             'main_image' => 'required|image|mimes:jpeg,png,jpg|max:5120', // Main image max 5MB
             'status' => 'required',
-            'start_date' => 'required|date', // No need to check the format, just check it's a valid date
-            'end_date' => 'required|date|after_or_equal:start_date', // Ensure end date is after or equal to start date
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:start_date', // End date must be after or equal to start date
             'multiple_images' => 'required|array',
             'multiple_images.*' => 'image|mimes:jpeg,png,jpg|max:10240', // Each file max 10MB
-        ], [
-            // Custom error messages
+        ];
+        
+        $messages = [
             'language.required' => 'Please select a language.',
             'research_centre.required' => 'Please select a research centre.',
             'title.required' => 'The title field is required.',
@@ -70,8 +73,8 @@ class ManageNewsController extends Controller
             'main_image.image' => 'The main image must be an image file.',
             'main_image.mimes' => 'The main image must be a file of type: jpeg, png, jpg.',
             'main_image.max' => 'The main image must not exceed 5MB in size.',
-            'start_date.required' => 'Please provide the start date.',
             'status.required' => 'Please select the status.',
+            'start_date.required' => 'Please provide the start date.',
             'end_date.required' => 'Please provide the end date.',
             'end_date.after_or_equal' => 'The end date must not be earlier than the start date.',
             'multiple_images.required' => 'Please upload at least one image.',
@@ -79,7 +82,20 @@ class ManageNewsController extends Controller
             'multiple_images.*.image' => 'Each uploaded file must be an image.',
             'multiple_images.*.mimes' => 'Each image must be a file of type: jpeg, png, jpg.',
             'multiple_images.*.max' => 'Each image must not exceed 10MB in size.',
-        ]);
+        ];
+        
+        $validator = Validator::make($request->all(), $rules, $messages);
+    
+        // **If Validation Fails**
+        if ($validator->fails()) {
+            // **Cache validation errors for 1 minute**
+            Cache::put('validation_errors', $validator->errors()->toArray(), 1);
+    
+            // **Redirect back with errors and old input**
+            return redirect(session('url.previousdata', url('/')))->withInput();
+        }
+        $validatedData = $validator->validated();
+        
     
         // Create a new news instance
         $news = new Managenews();
@@ -155,33 +171,54 @@ class ManageNewsController extends Controller
     public function update(Request $request, $id)
     {
         
-        $request->validate([
+        $rules = [
             'language' => 'required',
             'research_centre' => 'required',
             'title' => 'required',
             'short_description' => 'required',
             'meta_title' => 'required',
             'description' => 'required',
+            'main_image' => 'required|image|mimes:jpeg,png,jpg|max:5120', // Main image max 5MB
             'status' => 'required',
-            // 'main_image' => 'required|image|mimes:jpeg,png,jpg|max:5120', // max 5MB for a single file
-            'multiple_images.*' => 'image|mimes:jpeg,png,jpg|max:10240', // max 10MB for each file
-        ], [
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:start_date', // End date must be after or equal to start date
+            'multiple_images' => 'required|array',
+            'multiple_images.*' => 'image|mimes:jpeg,png,jpg|max:10240', // Each file max 10MB
+        ];
+        
+        $messages = [
             'language.required' => 'Please select a language.',
             'research_centre.required' => 'Please select a research centre.',
-            'title.required' => 'Please fill in the title field.',
-            'short_description.required' => 'Please provide a short description.',
+            'title.required' => 'The title field is required.',
+            'short_description.required' => 'The short description is required.',
             'meta_title.required' => 'Please enter a meta title.',
             'description.required' => 'Please fill in the description field.',
-            'status.required' => 'Please select a status.',
-            'main_image.required' => 'Please upload the main image. MAX 5MB',
-            'main_image.image' => 'The main image must be a valid image file.',
-            'main_image.mimes' => 'The main image must be in jpeg, png, or jpg format.',
-            'main_image.max' => 'The main image must not exceed 5MB.',
-            'multiple_images.*.image' => 'Each uploaded file in multiple images must be a valid image.',
-            'multiple_images.*.mimes' => 'Each uploaded file in multiple images must be in jpeg, png, or jpg format.',
-            'multiple_images.*.max' => 'Each uploaded image must not exceed 10MB.',
-        ]);
+            'main_image.required' => 'Please upload the main image (max 5MB).',
+            'main_image.image' => 'The main image must be an image file.',
+            'main_image.mimes' => 'The main image must be a file of type: jpeg, png, jpg.',
+            'main_image.max' => 'The main image must not exceed 5MB in size.',
+            'status.required' => 'Please select the status.',
+            'start_date.required' => 'Please provide the start date.',
+            'end_date.required' => 'Please provide the end date.',
+            'end_date.after_or_equal' => 'The end date must not be earlier than the start date.',
+            'multiple_images.required' => 'Please upload at least one image.',
+            'multiple_images.array' => 'The multiple images field must be an array.',
+            'multiple_images.*.image' => 'Each uploaded file must be an image.',
+            'multiple_images.*.mimes' => 'Each image must be a file of type: jpeg, png, jpg.',
+            'multiple_images.*.max' => 'Each image must not exceed 10MB in size.',
+        ];
         
+        $validator = Validator::make($request->all(), $rules, $messages);
+    
+        // **If Validation Fails**
+        if ($validator->fails()) {
+            // **Cache validation errors for 1 minute**
+            Cache::put('validation_errors', $validator->errors()->toArray(), 1);
+    
+            // **Redirect back with errors and old input**
+            return redirect(session('url.previousdata', url('/')))->withInput();
+        }
+        $validatedData = $validator->validated();
 
         $news = Managenews::findOrFail($id);
 

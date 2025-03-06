@@ -17,6 +17,32 @@
         </li>
     </ul>
 </div>
+@if(Cache::has('success_message'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ Cache::get('success_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('error_message'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ Cache::get('error_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('validation_errors'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <ul>
+            @foreach (Cache::get('validation_errors') as $field => $errors)
+                @foreach ($errors as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            @endforeach
+        </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
 <div class="row justify-content-center">
     <div class="col-lg-12">
         <div class="card bg-white border-0 rounded-10 mb-4 p-4">
@@ -39,9 +65,7 @@
                                 <input type="radio" name="language" id="language" value="2"
                                     {{ old('language', $researchCentre->language) == 2 ? 'checked' : '' }}> Hindi
                             </div>
-                            @error('language')
-                            <div class="text-danger">{{ $message }}</div>
-                            @enderror
+                          
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -53,9 +77,7 @@
                                     class="form-control text-dark  h-58"
                                     value="{{ old('research_centre_name', $researchCentre->research_centre_name) }}">
                             </div>
-                            @error('research_centre_name')
-                            <div class="text-danger">{{ $message }}</div>
-                            @enderror
+                         
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -66,9 +88,7 @@
                                     class="form-control text-dark  h-58"
                                     value="{{ old('sub_heading', $researchCentre->sub_heading) }}">
                             </div>
-                            @error('home_title')
-                            <div class="text-danger">{{ $message }}</div>
-                            @enderror
+                          
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -79,9 +99,7 @@
                                     class="form-control text-dark  h-58"
                                     value="{{ old('home_title', $researchCentre->home_title) }}">
                             </div>
-                            @error('home_title')
-                            <div class="text-danger">{{ $message }}</div>
-                            @enderror
+                          
                         </div>
                     </div>
 
@@ -134,9 +152,7 @@
                                     name="description"
                                     rows="5">{{ old('description', $researchCentre->description) }}</textarea>
                             </div>
-                            @error('description')
-                            <div class="text-danger">{{ $message }}</div>
-                            @enderror
+                          
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -150,9 +166,7 @@
                                 <option value="0" {{ old('status', $researchCentre->status) == 0 ? 'selected' : '' }}>
                                     Inactive</option>
                             </select>
-                            @error('status')
-                            <div class="text-danger">{{ $message }}</div>
-                            @enderror
+                          
                         </div>
                     </div>
 

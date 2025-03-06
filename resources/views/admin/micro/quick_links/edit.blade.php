@@ -16,6 +16,32 @@
         </li>
     </ul>
 </div>
+@if(Cache::has('success_message'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ Cache::get('success_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('error_message'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ Cache::get('error_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('validation_errors'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <ul>
+            @foreach (Cache::get('validation_errors') as $field => $errors)
+                @foreach ($errors as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            @endforeach
+        </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
 <div class="row justify-content-center">
     <div class="col-lg-12">
         <div class="card bg-white border-0 rounded-10 mb-4">
@@ -55,9 +81,7 @@
                                         </option>
                                         @endforeach
                                     </select>
-                                    @error('research_centre_id')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                
                                 </div>
                             </div>
                         </div>
@@ -88,9 +112,7 @@
                                 <div class="form-group position-relative">
                                     <input type="text" name="txtename" id="txtename"
                                         class="form-control text-dark  h-58" value="{{ $quickLink->txtename }}">
-                                        @error('txtename')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                     
                                 </div>
                             </div>
                         </div>
@@ -110,9 +132,7 @@
                                         <option value="3" {{ $quickLink->menu_type == 3 ? 'selected' : '' }}>Website URL
                                         </option>
                                     </select>
-                                    @error('menu_type')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                
                                 </div>
                             </div>
                         </div>
@@ -127,9 +147,7 @@
                                             <input type="text" name="meta_title" id="meta_title"
                                                 class="form-control text-dark  h-58"
                                                 value="{{ $quickLink->meta_title }}">
-                                                @error('meta_title')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                              
                                         </div>
                                     </div>
                                 </div>
@@ -212,9 +230,7 @@
                                         class="form-control text-dark  h-58"
                                         value="{{ old('termination_date', $terminationDate) }}">
                                 </div>
-                                @error('termination_date')
-                                    <div class="text-danger">{{ $message }}</div> 
-                                    @enderror
+                              
                             </div>
                         </div>
 

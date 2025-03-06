@@ -7,6 +7,8 @@ use App\Models\Admin\Course;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Validator;
 
 
 use App\Models\Admin\Micro\MicroManageAudit;
@@ -90,26 +92,40 @@ class MicroManagePhotoGalleryController extends Controller
     public function store(Request $request)
     {
         // Validate inputs
-        $request->validate([
+        $rules = [
             'image_files' => 'required|array', // Ensure an array of images is provided
             'image_files.*' => 'file|mimes:jpeg,png,jpg|max:2048', // Validate each file in the array
             'image_title_english' => 'required|string|max:255', // Ensure the English title is provided
-            'research_centre' => 'required',
-            'status' => 'required|integer|in:1,0', // Ensure status is one of the valid values
-            // 'course_id' => 'required|integer|exists:courses,id', // Ensure course ID exists in the database
-            'media_categories' => 'required', // Ensure course ID exists in the database
-            
-        ], [
-            // Custom error messages
+            'research_centre' => 'required|string', // Ensure research centre is provided
+            'status' => 'required|integer|in:1,0', // Ensure status is either 1 or 0
+            'media_categories' => 'required', // Ensure media categories are selected
+        ];
+        
+        $messages = [
             'image_files.required' => 'Please upload at least one image.',
-            'image_files.*.mimes' => 'Each image must be a file of type: jpeg, png, jpg.',
+            'image_files.array' => 'Images must be uploaded as an array.',
+            'image_files.*.mimes' => 'Each image must be of type: jpeg, png, jpg.',
             'image_files.*.max' => 'Each image must not exceed 2MB.',
             'image_title_english.required' => 'Please enter the English title.',
+            'image_title_english.max' => 'The English title should not exceed 255 characters.',
+            'research_centre.required' => 'Please select a research centre.',
             'status.required' => 'Please select a valid status.',
-            // 'course_id.required' => 'Please select a course.',
-            // 'course_id.exists' => 'The selected course is invalid.',
-            'research_centre.required' => 'Please select research center.',
-        ]);
+            'status.integer' => 'Status must be a valid number.',
+            'status.in' => 'Invalid status selection.',
+            'media_categories.required' => 'Please select at least one media category.',
+        ];
+        
+        $validator = Validator::make($request->all(), $rules, $messages);
+    
+        // **If Validation Fails**
+        if ($validator->fails()) {
+            // **Cache validation errors for 1 minute**
+            Cache::put('validation_errors', $validator->errors()->toArray(), 1);
+    
+            // **Redirect back with errors and old input**
+            return redirect(session('url.previousdata', url('/')))->withInput();
+        }
+        $validatedData = $validator->validated();
 
         // Ensure image files are provided
         $imageFiles = $request->file('image_files');
@@ -232,27 +248,40 @@ class MicroManagePhotoGalleryController extends Controller
     public function update(Request $request, $id)
     {
         // Validate inputs
-        $request->validate([
-            'image_files' => 'nullable|array',
-            'image_files.*' => 'nullable|file|mimes:jpeg,png,jpg|max:2048', // Validate image files
-            'image_title_english' => 'required|string|max:255', // Validate English title
-            'research_centre' => 'required',
-            'status' => 'required|integer|in:1,0', // Validate status (either 1 or 0)
-            // 'course_id' => 'required|integer|exists:courses,id', // Validate course ID exists
-            
-        ], [
-            // Custom error messages
+        $rules = [
+            'image_files' => 'required|array', // Ensure an array of images is provided
+            'image_files.*' => 'file|mimes:jpeg,png,jpg|max:2048', // Validate each file in the array
+            'image_title_english' => 'required|string|max:255', // Ensure the English title is provided
+            'research_centre' => 'required|string', // Ensure research centre is provided
+            'status' => 'required|integer|in:1,0', // Ensure status is either 1 or 0
+            'media_categories' => 'required', // Ensure media categories are selected
+        ];
+        
+        $messages = [
             'image_files.required' => 'Please upload at least one image.',
-            'image_files.*.mimes' => 'Each image must be a file of type: jpeg, png, jpg.',
+            'image_files.array' => 'Images must be uploaded as an array.',
+            'image_files.*.mimes' => 'Each image must be of type: jpeg, png, jpg.',
             'image_files.*.max' => 'Each image must not exceed 2MB.',
             'image_title_english.required' => 'Please enter the English title.',
+            'image_title_english.max' => 'The English title should not exceed 255 characters.',
+            'research_centre.required' => 'Please select a research centre.',
             'status.required' => 'Please select a valid status.',
-            'status.in' => 'Status must be either 1 or 0.',
-            'course_id.required' => 'Please select a course.',
-            'course_id.exists' => 'The selected course is invalid.',
-            'research_centre.required' => 'Please select research center.',
-            
-        ]);
+            'status.integer' => 'Status must be a valid number.',
+            'status.in' => 'Invalid status selection.',
+            'media_categories.required' => 'Please select at least one media category.',
+        ];
+        
+        $validator = Validator::make($request->all(), $rules, $messages);
+    
+        // **If Validation Fails**
+        if ($validator->fails()) {
+            // **Cache validation errors for 1 minute**
+            Cache::put('validation_errors', $validator->errors()->toArray(), 1);
+    
+            // **Redirect back with errors and old input**
+            return redirect(session('url.previousdata', url('/')))->withInput();
+        }
+        $validatedData = $validator->validated();
 
         // Find the gallery by ID
         $gallery = MicroManagePhotoGallery::findOrFail($id);

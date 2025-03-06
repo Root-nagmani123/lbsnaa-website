@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\DB;
 
 use App\Models\Admin\Micro\MicroManageAudit;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Validator;
 
 class MicroManageVacancyController extends Controller
 {
@@ -42,44 +44,63 @@ class MicroManageVacancyController extends Controller
             'language' => 'required|integer|in:1,2',	
             'research_centre' => 'required|integer|exists:research_centres,id',	
             'job_title' => 'required|string|max:255',
-            'job_description' => 'required',
-            'content_type' => 'required|in:PDF,Website',
+            'job_description' => 'required|string',
+            'content_type' => 'required|string|in:PDF,Website',
             'publish_date' => 'required|date',
             'expiry_date' => 'required|date|after_or_equal:publish_date',
             'status' => 'required|integer|in:1,0',
         ];
-
+          
         if ($request->content_type == 'PDF') {
             $rules['document_upload'] = 'required|mimes:pdf,png,jpg,jpeg|max:2048';
         } elseif ($request->content_type == 'Website') {
             $rules['website_link'] = 'required|url';
         }
-
-        // Custom messages
+        
         $messages = [
-            'language.required' => 'Please select a language.',
+            'language.required' => 'The language field is required.',
+            'language.integer' => 'Invalid language selection.',
+            'language.in' => 'Language must be either 1 or 2.',
+        
             'research_centre.required' => 'Please select a research centre.',
-            'job_title.required' => 'Please enter a job title.',
-            'job_title.max' => 'The job title cannot exceed 255 characters.',
-            'job_description.required' => 'Please provide a job description.',
+            'research_centre.integer' => 'Invalid research centre ID format.',
+            'research_centre.exists' => 'The selected research centre does not exist.',
+        
+            'job_title.required' => 'Please provide a job title.',
+            'job_title.string' => 'The job title must be a valid text.',
+            'job_title.max' => 'The job title must not exceed 255 characters.',
+        
+            'job_description.required' => 'The job description is required.',
+            'job_description.string' => 'The job description must be a valid text.',
+        
             'content_type.required' => 'Please select a content type.',
-            'content_type.in' => 'Content type must be either PDF or Website.',
+            'content_type.in' => 'Invalid content type. Choose either PDF or Website.',
+        
             'publish_date.required' => 'Please provide a publish date.',
             'publish_date.date' => 'Publish date must be a valid date.',
+        
             'expiry_date.required' => 'Please provide an expiry date.',
             'expiry_date.date' => 'Expiry date must be a valid date.',
-            'expiry_date.after_or_equal' => 'Expiry date must be on or after the publish date.',
-            'status.required' => 'Please select a status.',
-            'status.in' => 'Status must be active or inactive.',
-            'document_upload.required' => 'Please upload a document.',
-            'document_upload.mimes' => 'The document must be a file of type: pdf, png, jpg, jpeg.',
-            'document_upload.max' => 'The document size may not exceed 2MB.',
-            'website_link.required' => 'Please provide a website link.',
-            'website_link.url' => 'The website link must be a valid URL.',
+            'expiry_date.after_or_equal' => 'Expiry date must be after or equal to the publish date.',
+        
+            'status.required' => 'Status is required.',
+            'status.integer' => 'Invalid status format.',
+            'status.in' => 'Status must be either 1 (active) or 0 (inactive).',
         ];
+        $validator = Validator::make($request->all(), $rules, $messages);
+    
+        // **If Validation Fails**
+        if ($validator->fails()) {
+            // **Cache validation errors for 1 minute**
+            Cache::put('validation_errors', $validator->errors()->toArray(), 1);
+    
+            // **Redirect back with errors and old input**
+            return redirect(session('url.previousdata', url('/')))->withInput();
+        }
+        $validatedData = $validator->validated();
+      
 
-        // Validate request
-        $validatedData = $request->validate($rules, $messages);
+       
 
         // Create and save the vacancy
         $vacancy = new MicroManageVacancy($validatedData);
@@ -128,41 +149,59 @@ class MicroManageVacancyController extends Controller
             'language' => 'required|integer|in:1,2',	
             'research_centre' => 'required|integer|exists:research_centres,id',	
             'job_title' => 'required|string|max:255',
-            'job_description' => 'required',
-            'content_type' => 'required|in:PDF,Website',
+            'job_description' => 'required|string',
+            'content_type' => 'required|string|in:PDF,Website',
             'publish_date' => 'required|date',
             'expiry_date' => 'required|date|after_or_equal:publish_date',
             'status' => 'required|integer|in:1,0',
         ];
-
         if ($request->content_type == 'PDF') {
             $rules['document_upload'] = 'required|mimes:pdf,png,jpg,jpeg|max:2048';
         } elseif ($request->content_type == 'Website') {
             $rules['website_link'] = 'required|url';
         }
-
-        // Custom messages
         $messages = [
-            'language.required' => 'Please select a language.',
+            'language.required' => 'The language field is required.',
+            'language.integer' => 'Invalid language selection.',
+            'language.in' => 'Language must be either 1 or 2.',
+        
             'research_centre.required' => 'Please select a research centre.',
-            'job_title.required' => 'Please enter a job title.',
-            'job_title.max' => 'The job title cannot exceed 255 characters.',
-            'job_description.required' => 'Please provide a job description.',
+            'research_centre.integer' => 'Invalid research centre ID format.',
+            'research_centre.exists' => 'The selected research centre does not exist.',
+        
+            'job_title.required' => 'Please provide a job title.',
+            'job_title.string' => 'The job title must be a valid text.',
+            'job_title.max' => 'The job title must not exceed 255 characters.',
+        
+            'job_description.required' => 'The job description is required.',
+            'job_description.string' => 'The job description must be a valid text.',
+        
             'content_type.required' => 'Please select a content type.',
-            'content_type.in' => 'Content type must be either PDF or Website.',
+            'content_type.in' => 'Invalid content type. Choose either PDF or Website.',
+        
             'publish_date.required' => 'Please provide a publish date.',
             'publish_date.date' => 'Publish date must be a valid date.',
+        
             'expiry_date.required' => 'Please provide an expiry date.',
             'expiry_date.date' => 'Expiry date must be a valid date.',
-            'expiry_date.after_or_equal' => 'Expiry date must be on or after the publish date.',
-            'status.required' => 'Please select a status.',
-            'status.in' => 'Status must be active or inactive.',
-            'document_upload.required' => 'Please upload a document.',
-            'document_upload.mimes' => 'The document must be a file of type: pdf, png, jpg, jpeg.',
-            'document_upload.max' => 'The document size may not exceed 2MB.',
-            'website_link.required' => 'Please provide a website link.',
-            'website_link.url' => 'The website link must be a valid URL.',
+            'expiry_date.after_or_equal' => 'Expiry date must be after or equal to the publish date.',
+        
+            'status.required' => 'Status is required.',
+            'status.integer' => 'Invalid status format.',
+            'status.in' => 'Status must be either 1 (active) or 0 (inactive).',
         ];
+        $validator = Validator::make($request->all(), $rules, $messages);
+    
+        // **If Validation Fails**
+        if ($validator->fails()) {
+            // **Cache validation errors for 1 minute**
+            Cache::put('validation_errors', $validator->errors()->toArray(), 1);
+    
+            // **Redirect back with errors and old input**
+            return redirect(session('url.previousdata', url('/')))->withInput();
+        }
+        $validatedData = $validator->validated();
+
         // Fetch the record by ID
         $vacancy = MicroManageVacancy::findOrFail($id);
 

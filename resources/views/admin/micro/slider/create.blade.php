@@ -20,6 +20,32 @@
         </li>
     </ul>
 </div>
+@if(Cache::has('success_message'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ Cache::get('success_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('error_message'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ Cache::get('error_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('validation_errors'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <ul>
+            @foreach (Cache::get('validation_errors') as $field => $errors)
+                @foreach ($errors as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            @endforeach
+        </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
 <div class="row justify-content-center">
     <div class="col-lg-12">
         <div class="card bg-white border-0 rounded-10 mb-4">
@@ -46,9 +72,7 @@
                                         {{ old('language') == '2' ? 'checked' : '' }}>
                                     <label for="language_hindi">Hindi</label>
                                 </div>
-                                @error('language')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror
+                              
                             </div>
                         </div>
 
@@ -65,9 +89,7 @@
                                             {{ $name }}</option>
                                         @endforeach
                                     </select>
-                                    @error('research_centre')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                 
                                 </div>
                             </div>
                         </div>
@@ -80,9 +102,7 @@
                                     <input type="file" name="slider_image" id="slider_image"
                                         class="form-control text-dark  h-58" value="{{ old('slider_image') }}">
                                         <span class="star">Best Size for banner is : 1,365px × 475px</span>
-                                    @error('slider_image')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                
                                 </div>
                             </div>
                         </div>
@@ -93,9 +113,7 @@
                                 <div class="form-group position-relative">
                                     <input type="text" name="slider_text" id="slider_text"
                                         class="form-control text-dark  h-58" value="{{ old('slider_text') }}">
-                                    @error('slider_text')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                   
                                 </div>
                             </div>
                         </div>
@@ -105,9 +123,7 @@
                             <label for="slider_description" class="label">Description:</label>
                             <textarea name="slider_description" id="description" class="form-control"
                                 value="{{ old('slider_description') }}">{{ old('slider_description') }}</textarea>
-                            @error('slider_description')
-                            <div class="text-danger">{{ $message }}</div>
-                            @enderror
+                         
                         </div>
                         </div>
 
@@ -121,9 +137,7 @@
                                         <option value="1" {{ old('status') == '1' ? 'selected' : '' }}>Active</option>
                                         <option value="0" {{ old('status') == '0' ? 'selected' : '' }}>Inactive</option>
                                     </select>
-                                    @error('status')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                 
                                 </div>
                             </div>
                         </div>

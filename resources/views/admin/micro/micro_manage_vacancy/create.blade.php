@@ -23,22 +23,30 @@
                 <div class="d-flex justify-content-between align-items-center border-bottom pb-20 mb-20">
                     <h4 class="fw-semibold fs-18 mb-0">Add Vacancy</h4>
                 </div>
-                <!-- @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-                @endif -->
-                @if ($errors->any())
-    <div class="alert alert-danger">
+                @if(Cache::has('success_message'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ Cache::get('success_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('error_message'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ Cache::get('error_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('validation_errors'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
         <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
+            @foreach (Cache::get('validation_errors') as $field => $errors)
+                @foreach ($errors as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
             @endforeach
         </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 @endif
                 <form action="{{ route('micro_manage_vacancy.store') }}" method="POST" enctype="multipart/form-data">
@@ -58,9 +66,7 @@
                                         {{ old('language') == '2' ? 'checked' : '' }}>
                                     <label for="language_hindi">Hindi</label>
                                 </div>
-                                @error('language')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror
+                             
                             </div>
                         </div>
                         <!-- New Dropdown for Research Centre -->
@@ -77,9 +83,7 @@
                                             {{ $name }}</option>
                                         @endforeach
                                     </select>
-                                    @error('research_centre')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                               
                                 </div>
                             </div>
                         </div>
@@ -92,9 +96,7 @@
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark  h-58" name="job_title"
                                         id="job_title" value="{{ old('job_title') }}">
-                                    @error('job_title')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                  
                                 </div>
                             </div>
                         </div>
@@ -105,9 +107,7 @@
                                 <span class="star">*</span>
                                 <textarea class="form-control" name="job_description" id="job_description" rows="5"
                                     value="{{ old('program_name') }}"></textarea>
-                                @error('job_description')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror
+                              
                             </div>
                         </div>
 
@@ -124,9 +124,7 @@
                                         <option value="Website" class="text-dark"
                                             {{ old('content_type') == 'Website' ? 'checked' : '' }}>Website URL</option>
                                     </select>
-                                    @error('content_type')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                   
                                 </div>
                             </div>
                         </div>
@@ -137,9 +135,7 @@
                                 <div class="form-group position-relative">
                                     <input type="file" class="form-control text-dark  h-58" name="document_upload"
                                         id="document_upload" value="{{ old('document_upload') }}">
-                                    @error('document_upload')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                  
                                 </div>
                             </div>
                         </div>
@@ -150,9 +146,7 @@
                                 <div class="form-group position-relative">
                                     <input type="url" class="form-control text-dark  h-58" name="website_link"
                                         id="website_link" value="{{ old('website_link') }}">
-                                    @error('website_link')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                 
                                 </div>
                             </div>
                         </div>
@@ -163,9 +157,7 @@
                                 <div class="form-group position-relative">
                                     <input type="date" class="form-control text-dark  h-58" name="publish_date"
                                         id="publish_date" value="{{ old('publish_date') }}">
-                                    @error('publish_date')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                  
                                 </div>
                             </div>
                         </div>
@@ -176,9 +168,7 @@
                                 <div class="form-group position-relative">
                                     <input type="date" class="form-control text-dark  h-58" name="expiry_date"
                                         id="expiry_date" value="{{ old('expiry_date') }}">
-                                    @error('expiry_date')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                  
                                 </div>
                             </div>
                         </div>
@@ -194,9 +184,7 @@
                                         <option value="0" class="text-dark"
                                             {{ old('status') == '0' ? 'selected' : '' }}>Inactive</option>
                                     </select>
-                                    @error('status')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                  
                                 </div>
                             </div>
                         </div>

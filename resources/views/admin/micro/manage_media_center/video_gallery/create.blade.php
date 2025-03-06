@@ -20,6 +20,32 @@
         </li>
     </ul>
 </div>
+@if(Cache::has('success_message'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ Cache::get('success_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('error_message'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ Cache::get('error_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('validation_errors'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <ul>
+            @foreach (Cache::get('validation_errors') as $field => $errors)
+                @foreach ($errors as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            @endforeach
+        </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
 <div class="row justify-content-center">
     <div class="col-lg-12">
         <div class="card bg-white border-0 rounded-10 mb-4">
@@ -43,9 +69,7 @@
                                     <option value="{{ $id }}">{{ $name }}</option>
                                     @endforeach
                                 </select>
-                                @error('research_centre')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror
+                               
                             </div>
                         </div>
                         <div class="col-lg-6">
@@ -55,9 +79,7 @@
                                 <select name="category_name" id="category_name" class="form-control h-58 text-dark">
                                     <option value="" selected>Select Media Category</option>
                                 </select>
-                                @error('category_name')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror
+                               
                             </div>
                         </div>
 
@@ -69,9 +91,7 @@
                                 <span class="star">*</span>
                                 <input type="text" name="video_title_en" id="video_title_en" class="form-control h-58 text-dark"
                                     value="{{ old('video_title_en') }}">
-                                @error('video_title_en')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror
+                             
                             </div>
                         </div>
                         <div class="col-lg-6">
@@ -88,9 +108,7 @@
                                 <span class="star">*</span>
                                 <input type="url" name="video_upload" id="video_upload" class="form-control h-58 text-dark"
                                     value="{{ old('video_upload') }}" placeholder="Enter YouTube video URL">
-                                @error('video_upload')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror
+                              
                             </div>
                         </div>
 
@@ -104,9 +122,7 @@
                                     <option value="0" {{ old('page_status') == '0' ? 'selected' : '' }}>Inactive
                                     </option>
                                 </select>
-                                @error('page_status')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror
+                               
                             </div>
                         </div>
                         <div class="d-flex ms-sm-3 ms-md-0">

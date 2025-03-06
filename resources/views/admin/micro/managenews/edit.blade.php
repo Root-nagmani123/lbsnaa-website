@@ -17,6 +17,32 @@
         </li>
     </ul>
 </div>
+@if(Cache::has('success_message'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ Cache::get('success_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('error_message'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ Cache::get('error_message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if(Cache::has('validation_errors'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <ul>
+            @foreach (Cache::get('validation_errors') as $field => $errors)
+                @foreach ($errors as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            @endforeach
+        </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
 <div class="row justify-content-center">
     <div class="col-lg-12">
         <div class="card bg-white border-0 rounded-10 mb-4">
@@ -38,9 +64,7 @@
                                         {{ $news->language == '1' ? 'checked' : '' }}> English
                                     <input type="radio" name="language" value="2"
                                         {{ $news->language == '2' ? 'checked' : '' }}> Hindi
-                                    @error('language')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                   
                                 </div>
                             </div>
                         </div>
@@ -60,9 +84,7 @@
                                             {{ $name }}</option>
                                         @endforeach
                                     </select>
-                                    @error('research_centre')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                 
                                 </div>
                             </div>
                         </div>
@@ -74,9 +96,7 @@
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark  h-58" name="title" id="title"
                                         value="{{ old('title', $news->title) }}">
-                                    @error('title')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                 
                                 </div>
                             </div>
                         </div>
@@ -87,9 +107,7 @@
                                 <div class="form-group position-relative">
                                     <textarea name="short_description" id="short_description"
                                         class="form-control  text-dark">{{ old('short_description', $news->short_description) }}</textarea>
-                                    @error('short_description')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                  
                                 </div>
                             </div>
                         </div>
@@ -100,9 +118,7 @@
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark  h-58" name="meta_title"
                                         id="meta_title" value="{{ old('meta_title', $news->meta_title) }}">
-                                    @error('meta_title')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                  
                                 </div>
                             </div>
                         </div>
@@ -122,9 +138,7 @@
                                 <div class="form-group position-relative">
                                     <textarea name="meta_description" id="meta_description"
                                         class="form-control  text-dark">{{ old('meta_description', $news->meta_description) }}</textarea>
-                                    @error('meta_description')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                  
                                 </div>
                             </div>
                         </div>
@@ -135,9 +149,7 @@
                                 <div class="form-group position-relative">
                                     <textarea name="description" id="description"
                                         class="form-control  text-dark">{{ old('description', $news->description) }}</textarea>
-                                    @error('description')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                 
                                 </div>
                             </div>
                         </div>
@@ -150,9 +162,7 @@
                                         class="form-control text-dark  h-58" value="{{ old('main_image', $news->main_image) }}">
                                     <small>Current: <img src="{{ asset( $news->main_image) }}" alt="Current Image"
                                             style="max-width: 150px;"></small>
-                                    @error('main_image')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                
                                 </div>
                             </div>
                         </div>
@@ -169,9 +179,7 @@
                                             style="max-width: 150px; margin: 5px;">
                                         @endforeach
                                     </small>
-                                    @error('multiple_images')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                 
                                 </div>
                             </div>
                         </div>
@@ -183,9 +191,7 @@
                                     <input type="date" name="start_date" id="start_date"
                                         class="form-control text-dark  h-58"
                                         value="{{ old('start_date', $news->start_date) }}">
-                                    @error('start_date')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                
                                 </div>
                             </div>
                         </div>
@@ -197,9 +203,7 @@
                                     <input type="date" name="end_date" id="end_date"
                                         class="form-control text-dark  h-58"
                                         value="{{ old('end_date', $news->end_date) }}">
-                                    @error('end_date')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                 
                                 </div>
                             </div>
                         </div>
@@ -215,9 +219,7 @@
                                         <option value="0" class="text-dark" {{ $news->status == 0? 'selected' : '' }}>
                                             Inactive</option>
                                     </select>
-                                    @error('status')
-                                    <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                  
                                 </div>
                             </div>
                         </div>
