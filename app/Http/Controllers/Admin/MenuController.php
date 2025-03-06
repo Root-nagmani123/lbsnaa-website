@@ -239,7 +239,7 @@ class MenuController extends Controller
             'termination_date' => 'nullable|date|after_or_equal:start_date',
             'menu_status' => 'nullable|boolean',
             'website_url' => 'nullable|string', // Only if texttype is 3
-            'pdf_file' => 'nullable|file|mimes:pdf|max:2048',
+            'pdf_file' => 'nullable|file|mimes:pdf',
         ];
     
         $messages = [

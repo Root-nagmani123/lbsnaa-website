@@ -29,43 +29,43 @@
                     <h4 class="fw-semibold fs-18 mb-0">Add New Menu</h4>
                 </div>
                 <form action="{{ route('micromenus.store') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class="row">
+                @csrf
+                <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="menutitle">Page Language :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="radio" name="language" value="1"
-                                        {{ old('language') == 1 ? 'checked' : '' }}> English
+                                       > English
                                     <input type="radio" name="language" value="2"
-                                        {{ old('language') == 2 ? 'checked' : '' }}> Hindi
+                                       > Hindi
                                 </div>
-                                @error('language')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror
+                              
                             </div>
                         </div>
-
 
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
-                                <label for="select_research_centre" class="label">Select Research Centre:</label>
+                                <label class="label" for="research_centre">Select Research Centre :</label>
                                 <span class="star">*</span>
-                                <select id="select_research_centre" name="research_centre"
-                                    class="form-control h-58 text-dark">
-                                    <option value="" selected>Select Research Centre</option>
-                                    @foreach ($researchCentres as $id => $name)
-                                    <!-- <option value="{{ $id }}">{{ $name }}</option> -->
-                                    <option value="{{ $id }}" {{ old('research_centre') == $id ? 'selected' : '' }}>
-                                        {{ $name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('research_centre')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror
+                                <div class="form-group position-relative">
+                                  
+                                    <select name="research_centre" class="form-control">
+                                        <option value="" selected>Select Research Centre</option>
+                                        @foreach ($researchCentres as $id => $name)
+                                            <option value="{{ $id }}">
+                                                {{ $name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('research_centre')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
                             </div>
                         </div>
+
 
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
@@ -73,7 +73,7 @@
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark  h-58" name="menutitle"
-                                        id="menutitle" value="{{ old('menutitle') }}">
+                                        id="menutitle" value="">
                                     @error('menutitle')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -85,16 +85,16 @@
                                 <label class="label" for="texttype">Menu Type :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control  h-58" aria-label="Default select example"
-                                        name="texttype" id="texttype" autocomplete="off"
-                                        onchange="addmenutype(this.value)">
-                                        <option selected value="" class="text-dark">Select</option>
-                                        <option value="1" class="text-dark">Content</option>
-                                        <!-- <option value="1" class="text-dark" {{ old('texttype') == '1' ? 'selected' : '' }}>Content</option> -->
-
-
-                                        <option value="2" class="text-dark">PDF file Upload</option>
-                                        <option value="3" class="text-dark">Web Site Url</option>
+                                    <select class="form-select form-control  h-58"
+                                        aria-label="Default select example" name="texttype" id="texttype"
+                                        autocomplete="off" onchange="addmenutype(this.value)" required>
+                                        <option class="text-dark">Select</option>
+                                        <option value="1" class="text-dark"
+                                            >Content</option>
+                                        <option value="2" class="text-dark"
+                                            >PDF file Upload</option> 
+                                        <option value="3" class="text-dark"
+                                            >Web Site Url</option>
                                     </select>
                                     @error('texttype')
                                     <div class="text-danger">{{ $message }}</div>
@@ -103,14 +103,18 @@
                             </div>
                         </div>
                         <div style="display: none;" id="additional-fields">
-                            <div class="row" id="content-field" style="display: none;">
+                            <div class="row" id="content-field">
                                 <div class="col-lg-12">
                                     <div class="form-group mb-0">
                                         <label class="label" for="content">Content :</label>
                                         <span class="star">*</span>
                                         <div class="form-group position-relative">
-                                            <textarea class="form-control  text-dark" rows="5" name="content" id="description"
-                                             value="{{ old('content') }}"></textarea>
+                                            <textarea class="form-control  text-dark" id="description"
+                                                placeholder="Some demo text ... " cols="30" rows="5" name="content"
+                                                ></textarea>
+                                            @error('content')
+                                            <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -121,7 +125,10 @@
                                             <span class="star">*</span>
                                             <div class="form-group position-relative">
                                                 <input type="text" class="form-control text-dark  h-58"
-                                                    name="meta_title" id="meta_title" value="{{ old('meta_title') }}">
+                                                    name="meta_title" id="meta_title" value="">
+                                                @error('meta_title')
+                                                <div class="text-danger">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -132,46 +139,56 @@
                                             <div class="form-group position-relative">
                                                 <input type="text" class="form-control text-dark  h-58"
                                                     name="meta_keyword" id="meta_keyword"
-                                                    value="{{ old('meta_keyword') }}">
+                                                    value="">
+                                                @error('meta_keyword')
+                                                <div class="text-danger">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
-                                    <div class="form-group mb-4">
+                                    <div class="form-group mb-0">
                                         <label class="label" for="meta_description">Meta Description :</label>
                                         <span class="star">*</span>
                                         <div class="form-group position-relative">
-                                            <textarea class="form-control  text-dark" placeholder="Some demo text ... "
-                                                cols="30" rows="5" name="meta_description" id="meta_description"
-                                                value="{{ old('meta_description') }}"></textarea>
+                                            <textarea class="form-control  text-dark"
+                                                placeholder="Some demo text ... " cols="30" rows="5"
+                                                name="meta_description"
+                                                id="meta_description"></textarea>
+                                            @error('meta_description')
+                                            <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6" style="display: none;" id="pdf-upload-field">
-                                <div class="form-group mb-4">
-                                    <label class="label" for="pdf_file">Upload PDF :</label>
-                                    <span class="star">*</span>
-                                    <div class="form-group position-relative">
-                                        <input id="file-upload" type="file" name="pdf_file" accept=".pdf"
-                                            onchange="displayFileName()" class="form-control text-dark  h-58">
-                                    </div>
-                                    @error('pdf_file')
+                            <div class="row" style="display: none;" id="pdf-upload-field">
+                                <div class="col-lg-6">
+                                    <div class="form-group mb-0">
+                                        <label class="label" for="pdf_file">Upload PDF</label>
+                                        <span class="star">*</span>
+                                        <div class="fomr-group position-relative">
+                                            <input id="pdf_file" type="file" name="pdf_file" accept=".pdf"
+                                                class="form-control text-dark h-58">
+                                               
+                                            @error('pdf_file')
                                             <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
-                                        @enderror
+                                            @enderror
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="row" id="website-url-field" style="display: none;">
+                            <div class="row" id="website-url-field">
                                 <div class="col-lg-6">
                                     <div class="form-group mb-4">
                                         <label class="label" for="website_url">Website URL:</label>
                                         <span class="star">*</span>
                                         <div class="form-group position-relative">
-                                            <input type="text" class="form-control text-dark  h-58" name="website_url"
-                                                id="website_url">
+                                            <input type="text" class="form-control text-dark  h-58"
+                                                name="website_url" id="website_url" value="">
                                             @error('website_url')
-                                            <div style="color: red;">{{ $message }}</div> <!-- Display error if any -->
+                                            <div class="text-danger">{{ $message }}</div>
                                             @enderror
                                         </div>
                                     </div>
@@ -181,7 +198,7 @@
                                         <label class="label" for="web_site_target">Web Site Target :</label>
                                         <span class="star">*</span>
                                         <div class="form-group position-relative">
-                                            <select class="form-select form-control  h-58" name="web_site_target"
+                                        <select class="form-select form-control  h-58" name="web_site_target"
                                                 id="web_site_target" autocomplete="off">
                                                 <option selected class="text-dark">Select</option>
                                                 <option value="1" class="text-dark">Internal Link</option>
@@ -196,42 +213,72 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-6">
+
+
+                        <div class="col-lg-6 mt-4">
                             <div class="form-group mb-4">
-                                <label for="menucategory" class="label">Primary Link :</label>
+                                <label class="label" for="menucategory">Primary Link :</label>
                                 <span class="star">*</span>
-                                <select class="form-control h-58 text-dark" name="menucategory" id="menucategory">
-                                    <option value="0" selected>It is Root Category</option>
+                                <div class="form-group position-relative">
+                                <select name="menucategory" id="menucategory" class="form-control">
+                                    <option value="0">It is Root Category</option>
+                                    {!! $menuOptions !!}
                                 </select>
-                                @error('menucategory')
-                                <div class="text-danger">{{ $message }}</div>
-                                @enderror
+                                    @error('menucategory')
+                                    <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
                             </div>
                         </div>
 
 
-                        <div class="col-lg-6">
+
+                        <div class="col-lg-6 mt-4">
                             <div class="form-group mb-4">
                                 <label class="label" for="txtpostion">Content Position :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control  h-58" id="txtpostion" autocomplete="off"
-                                        autocomplete="off" name="txtpostion" onchange="showDateFields(this.value)">
-                                        <option selected value="" class="text-dark">Select</option>
-                                        <!-- <option value="1" class="text-dark">Header Menu</option> -->
+                                    <select class="form-select form-control  h-58" id="txtpostion"
+                                        name="txtpostion">
+                                        <option class="text-dark">Select</option>
                                         <option value="1" class="text-dark"
-                                            {{ old('txtpostion') == '1' ? 'selected' : '' }}>Header Menu</option>
-
-                                        <!-- <option value="2" class="text-dark">Bottom Menu</option>
-                                        <option value="3" class="text-dark">Footer Menu</option>
-                                        <option value="4" class="text-dark">Director Message Menu</option>
-                                        <option value="5" class="text-dark">Life Academy Menu</option>
-                                        <option value="6" class="text-dark">Other Pages</option>
-                                        <option value="7" class="text-dark">Latest Updates</option> -->
+                                           >Header Menu</option>
+                                       
                                     </select>
                                     @error('txtpostion')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div id="date-fields" style="display: none;">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group mb-4">
+                                        <label class="label" for="start_date">Start Date:</label>
+                                        <span class="star">*</span>
+                                        <div class="form-group position-relative">
+                                            <input type="date" class="form-control text-dark  h-58"
+                                                name="start_date" id="start_date" value="">
+                                            @error('start_date')
+                                            <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group mb-4">
+                                        <label class="label" for="termination_date">Termination Date :</label>
+                                        <span class="star">*</span>
+                                        <div class="form-group position-relative">
+                                            <input type="text" class="form-control text-dark  h-58"
+                                                name="termination_date" id="termination_date"
+                                                value="">
+                                            @error('termination_date')
+                                            <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -240,13 +287,13 @@
                                 <label class="label" for="menu_status">Status :</label>
                                 <span class="star">*</span>
                                 <div class="form-group position-relative">
-                                    <select class="form-select form-control  h-58" id="menu_status" name="menu_status">
-                                        <option value="">Select</option>
+                                    <select class="form-select form-control  h-58" id="menu_status"
+                                        name="menu_status">
+                                        <option class="text-dark">Select</option>
                                         <option value="1" class="text-dark"
-                                            {{ old('menu_status') == '1' ? 'selected' : '' }}>Active</option>
+                                            >Active</option>
                                         <option value="0" class="text-dark"
-                                            {{ old('menu_status') == '0' ? 'selected' : '' }}>Inactive</option>
-
+                                           >Inactive</option>
                                     </select>
                                     @error('menu_status')
                                     <div class="text-danger">{{ $message }}</div>
@@ -259,8 +306,7 @@
                             <a href="{{ route('micromenus.index') }}" class="btn btn-secondary text-white">Back</a>
                         </div>
                     </div>
-                </form>
-
+                    </form>
 
             </div>
         </div>

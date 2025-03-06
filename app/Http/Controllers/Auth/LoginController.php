@@ -36,9 +36,7 @@ class LoginController extends Controller
     }
     public function login()
     {
-        
-        
-        return view('auth.admin_login');
+         return view('auth.admin_login');
     }
     public function authenticate_bkp(Request $request)
 {
@@ -124,7 +122,7 @@ class LoginController extends Controller
 }
 public function authenticate(Request $request)
 {
-    // print_r($_POST);die;
+    //print_r($_POST);
     $response = $request->input('g-recaptcha-response');
     if ($response == NULL) {
         Cache::put('login_error', 'reCAPTCHA verification failed.', 1);
@@ -164,8 +162,26 @@ public function authenticate(Request $request)
         Cache::put('login_error', 'User not found or inactive.', 1);
         return redirect(session('url.previousdata', url('/')))->withErrors(['error' => 'Login failed. Please try again.']);
     }
-
-    if (!Hash::check($request->password, $user->password)) {
+   $encodedKey = config('app.key'); // Get APP_KEY
+   if (strpos($encodedKey, 'base64:') === 0) {
+       $encodedKey = substr($encodedKey, 7); // Remove "base64:" prefix
+   }
+   $secretKey = base64_decode($encodedKey); // Decode Key
+   if (strlen($secretKey) !== 32) {
+       return response()->json(["error" => "Invalid key length!"], 400);
+   }
+   $iv = "1234567890123456"; // Must be exactly 16 bytes
+   $encryptedPassword = base64_decode($request->password); // Decode from Base64
+   $decryptedPassword = openssl_decrypt(
+       $encryptedPassword,
+       'AES-256-CBC',
+       $secretKey,
+       OPENSSL_RAW_DATA,
+       $iv
+   );
+   
+    if (!Hash::check($decryptedPassword, $user->password)) {
+        
         Cache::put('login_error', 'Incorrect password.', 1);
         return redirect(session('url.previousdata', url('/')))->withErrors(['error' => 'Incorrect password.']);
     }

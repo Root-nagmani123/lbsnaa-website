@@ -35,7 +35,7 @@
 
 
 
-                    <form action="{{ route('admin.login') }}" method="POST">
+                    <form id="loginForm" action="{{ route('admin.login') }}" method="POST">
                         @csrf
                         <div class="card bg-white border-0 rounded-10 mb-4" style="width: 500px;">
                             <div class="d-flex align-items-center gap-4 mb-3 justify-content-center border-bottom">
@@ -55,8 +55,7 @@
                                 <div class="form-group mb-4">
                                     <label class="label">Password *</label>
                                     <div class="password-wrapper position-relative">
-                                        <input type="password" name="password" class="form-control h-58 text-dark"
-                                            required>
+                                    <input type="password" name="password" id="password" class="form-control h-58 text-dark" required>
                                     </div>
                                 </div>
 
@@ -81,6 +80,32 @@
 
 
     <script src="{{ asset('admin_assets/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+
+
+
+    <script>
+async function encryptPassword(password) {
+    
+    let key = CryptoJS.enc.Base64.parse("{{ substr(config('app.key'), 7) }}");
+    const iv = CryptoJS.enc.Utf8.parse("1234567890123456"); 
+    const encrypted = CryptoJS.AES.encrypt(password, key, {
+        iv: iv,
+        mode: CryptoJS.mode.CBC,
+        padding: CryptoJS.pad.Pkcs7
+    });
+    return encrypted.toString(); 
+}
+
+document.getElementById("loginForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+    let passwordField = document.getElementById("password");
+    let encryptedPassword = await encryptPassword(passwordField.value);
+    passwordField.value = encryptedPassword; // Send encrypted password
+    this.submit(); // Now submit the form
+});
+
+</script>
 </body>
 
 </html>

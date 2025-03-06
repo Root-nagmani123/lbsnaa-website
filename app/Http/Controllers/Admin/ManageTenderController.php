@@ -60,7 +60,7 @@ class ManageTenderController extends Controller
             Cache::put('validation_errors', $validator->errors()->toArray(), 1);
             return redirect(session('url.previousdata', url('/')))->withInput();
         }       
-
+        $validated = $validator->validated();
         // Handle the file upload
         if ($request->hasFile('file')) {
             $filename = time() . '_file.' . $request->file('file')->getClientOriginalExtension();
@@ -74,7 +74,7 @@ class ManageTenderController extends Controller
             $validated['corrigendum'] = $filename_corrigendum;
         }
         
-        
+       
         // Save the tender
         $tender = ManageTender::create([
             'language' => $validated['language'],

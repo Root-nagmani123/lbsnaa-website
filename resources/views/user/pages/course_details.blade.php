@@ -136,6 +136,22 @@
         </div>
     </div>
 </section>
+@if($course->important_links != '')
+<section class="py-2">
+
+    <div class="container-fluid mt-4">
+        <div class="row">
+            <div class="col-12">
+                <h4>Related Links</h4>
+                <div class="form-group">
+                {!! $course->important_links !!}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@endif
 <section class="py-4">
 
     <div class="container-fluid mt-4">

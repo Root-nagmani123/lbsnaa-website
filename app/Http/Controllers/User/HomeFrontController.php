@@ -837,7 +837,8 @@ public function organization(Request $request)
             'faculty.name as name' // Fetch designation from faculty_members table
         )
         ->where('organisation_chart.status', 1)
-        ->orderBy('organisation_chart.id')
+        // ->orderBy('organisation_chart.id')
+        ->orderBy('organisation_chart.position', 'ASC')
         ->get();
     $orgChart = $orgChart->toArray();
     $hierarchy = $this->buildHierarchy($orgChart);

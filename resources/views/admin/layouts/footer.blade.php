@@ -71,5 +71,28 @@
             }
         });
     });
+    $(document).ready(function() {
+        $("#sortable-org_chart").sortable({
+            handle: ".handle", // Specify the handle for dragging
+            update: function(event, ui) {
+              
+                let sortedIDs = $("#sortable-org_chart").sortable("toArray", { attribute: "data-id" });
+// console.log(sortedIDs); Send updated order to the server
+                $.ajax({
+                    url: "{{ route('admin.sub_org.updateOrder') }}",
+                    type: "POST",
+                    data: {
+                        order: sortedIDs,
+                        _token: "{{ csrf_token() }}"
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            alert("Order updated successfully!");
+                        }
+                    }
+                });
+            }
+        });
+    });
 
 </script>

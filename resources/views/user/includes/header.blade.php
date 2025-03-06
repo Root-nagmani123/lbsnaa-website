@@ -513,7 +513,8 @@
                         ->leftJoin('courses_sub_categories as parent', 'sub.parent_id', '=', 'parent.id')
                         ->select('sub.*', 'parent.category_name as parent_category_name')
                         ->where('sub.status', 1)
-
+                        ->orderBy('parent.category_name', 'asc')
+                        ->orderBy('sub.category_name', 'asc')
                         ->get();
 
                         $categoryTree = buildCategoryTree($subcategories);

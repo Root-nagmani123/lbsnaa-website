@@ -867,6 +867,18 @@ class ManageOrganizationController extends Controller
 
     return response()->json(['success' => true]);
 }
+    public function updatesub_orgOrder(Request $request)
+{
+    $order = $request->order;
+
+    foreach ($order as $index => $id) {
+        DB::table('organisation_chart')
+            ->where('id', $id)
+            ->update(['position' => $index + 1]);
+    }
+
+    return response()->json(['success' => true]);
+}
 
 
 

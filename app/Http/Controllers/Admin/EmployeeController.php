@@ -254,6 +254,7 @@ $parent_id = $organisationChart->parent_id;
                 ->leftJoin('faculty_members as fm1', 'oc.employee_name', '=', 'fm1.id')
                 ->leftJoin('faculty_members as fm2', 'oc.faculty_id', '=', 'fm2.id')
                 ->where('oc.parent_id', $parent_id)
+                ->orderBy('oc.position', 'ASC')
                 ->select(
                     'oc.*',
                     'fm1.name as employeeNames',

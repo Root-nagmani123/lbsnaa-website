@@ -71,7 +71,7 @@ use App\Http\Controllers\User\HomeFrontmicroController;
 
 use App\Http\Controllers\User\HomePagesMicroController;
 
-
+use App\Http\Middleware\PreventBackHistory;
 /*
 
 |--------------------------------------------------------------------------
@@ -267,6 +267,7 @@ Route::post('/screenrender/update', [HomeController::class, 'screen_reader_updat
     Route::delete('/staff/{id}', [ManageOrganizationController::class, 'staffDestroy'])->name('admin.staff.destroy');
 
     Route::post('/admin/staff/update-order', [ManageOrganizationController::class, 'updateStaffOrder'])->name('admin.staff.updateOrder');
+    Route::post('/admin/sub_org/update-order', [ManageOrganizationController::class, 'updatesub_orgOrder'])->name('admin.sub_org.updateOrder');
 
 
     Route::get('sections', [ManageOrganizationController::class, 'sectionIndex'])->name('sections.index');
@@ -486,7 +487,8 @@ Route::post('/screenrender/update', [HomeController::class, 'screen_reader_updat
     //Manage micro Menu cms Page
     Route::get('micromenu', [MicroMenuController::class, 'index'])->name('micromenus.index');
     Route::get('micromenu/create', [MicroMenuController::class, 'create'])->name('micromenus.create');
-    Route::post('micromenu', [MicroMenuController::class, 'store'])->name('micromenus.store');
+    Route::post('micromenu/add', [MicroMenuController::class, 'store'])->name('micromenus.store');
+    Route::post('micromenu/add_menu', [MicroMenuController::class, 'add_menu'])->name('micromenus.add_menu');
     Route::get('micromenu/{id}/edit', [MicroMenuController::class, 'edit'])->name('micromenus.edit');
     Route::put('micromenu/{id}', [MicroMenuController::class, 'update'])->name('micromenu.update');
     Route::delete('micromenu/{id}/delete', [MicroMenuController::class, 'delete'])->name('micromenu.delete');
@@ -527,9 +529,11 @@ Route::post('/admin/toggle-status', [MenuController::class, 'toggle_status'])->n
 });
 
 // login wrok here mayank
-Route::get('/login', [LoginController::class, 'login'])->name('login');
-Route::get('/refresh_captcha',[LoginController::class, 'refreshCaptcha'])->name('refresh_captcha');
-Route::post('/admin/login', [LoginController::class, 'authenticate'])->name('admin.login');
-Route::post('/admin/logout', [LoginController::class, 'logout'])->name('admin.logout');
+Route::group(['middleware' => [PreventBackHistory::class]], function () {
+    Route::get('/login', [LoginController::class, 'login'])->name('login');
+    Route::get('/refresh_captcha', [LoginController::class, 'refreshCaptcha'])->name('refresh_captcha');
+    Route::post('/admin/login', [LoginController::class, 'authenticate'])->name('admin.login');
+    Route::post('/admin/logout', [LoginController::class, 'logout'])->name('admin.logout');
+});
 
 

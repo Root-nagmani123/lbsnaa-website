@@ -75,7 +75,7 @@
         @endif
         <div class="default-table-area members-list">
             <div class="table-responsive">
-                <table class="table align-middle" id="myTable">
+                <table class="table align-middle" id="sortableTable">
                     <thead>
                         <tr class="text-center">
                             <th class="col">#</th>
@@ -87,15 +87,15 @@
                             <th class="col">Action</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="sortable-org_chart">
                         @if ($records->isEmpty())
                         <div class="alert alert-warning text-center" role="alert" colspan="6" class="text-center">
                             No records found
                         </div>
                         @else
                         @foreach($records as $record)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
+                        <tr data-id="{{ $record->id }}" class="sortable-row">
+                        <td class="handle" style="cursor: move;">☰</td> <!-- Drag handle -->
                             <td>{{ $record->employeeNames }}</td>
                             <td><a href="{{ route('organisation-chart.sub-org', ['parent_id' => $record->id]) }}"
                                     class="btn btn-secondary btn-sm text-white">click here</a></td>
@@ -133,4 +133,4 @@
         </div>
     </div>
 </div>
-@endsection
+@endsection 

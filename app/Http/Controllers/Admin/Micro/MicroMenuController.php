@@ -183,9 +183,9 @@ class MicroMenuController extends Controller
 
 
         $menuOptions = $this->buildMenuOptions();
-
+$menu = [];
         // Return view with filtered research centres and menu options
-        return view('admin.micro.manage_micromenus.create', compact('menuOptions', 'researchCentres'));
+        return view('admin.micro.manage_micromenus.create', compact('menuOptions', 'researchCentres','menu'));
     } 
 
 
@@ -206,85 +206,26 @@ class MicroMenuController extends Controller
         return $options;
     }
 
-    // public function store(Request $request)
-    // {
-    //     // Validate the incoming request data
-    //     $validatedData = $request->validate([
-    //         'language' => 'required',
-    //         'research_centre' => 'required',
-    //         'menutitle' => 'required|string|max:255',
-    //         'texttype' => 'required',
-    //         'menucategory' => 'required',
-    //         'txtpostion' => 'required',            
-    //         'menu_status' => 'required|in:1,0',
-            
-    //     ]);
-
-    //     // Create new menu entry
-    //     $menu = new micromenu();
-    //     $menu->language = $request->language;
-    //     $menu->research_centreid = $request->research_centre;
-    //     $menu->menutitle = $request->menutitle;
-    //     $menu->menu_slug = Str::slug($request->menutitle, '-'); 
-    //     $menu->texttype = $request->texttype;
-    //     $menu->menucategory = $request->menucategory;
-    //     $menu->parent_id = $request->menucategory;
-    //     $menu->txtpostion = $request->txtpostion;
-    //     $menu->meta_title = $request->input('meta_title');
-    //     $menu->meta_keyword = $request->input('meta_keyword');
-    //     $menu->meta_description = $request->input('meta_description');
-    //     $menu->web_site_target = $request->input('web_site_target'); // Store web_site_target as integer
-    //     $menu->menu_status = $request->menu_status;
-
-    //     // Handle file upload
-    //     if ($request->hasFile('pdf_file')) {
-    //         $file = $request->file('pdf_file');
-    //         $filename = time() . '_' . $file->getClientOriginalName();
-    //         $destinationPath = public_path('pdfs');
-    //         $file->move($destinationPath, $filename);
-    //         $menu->pdf_file = 'pdfs/' . $filename;
-    //     }
-
-    //     // Handle content based on texttype
-    //     if ($request->texttype == 1) {
-    //         $menu->content = $request->content;
-    //     } elseif ($request->texttype == 3) {
-    //         $menu->website_url = $request->website_url;
-    //     }
- 
-    //     // Save the menu to the database
-    //     $menu->save();
-
-    //     // Audit logging
-    //     MicroManageAudit::create([
-    //         'Module_Name' => 'Menu',
-    //         'Time_Stamp' => time(),
-    //         'Created_By' => null,
-    //         'Updated_By' => null,
-    //         'Action_Type' => 'Insert',
-    //         'IP_Address' => $request->ip(),
-    //     ]);
-
-    //     // Redirect with success message
-    //     return redirect()->route('micromenus.index')->with('success', 'Menu created successfully.');
-    // }
-
+   
+public function add_menu(Request $request){
+    print_r($_POST);die;
+}
     public function store(Request $request)
     {
         // Validate the incoming request data
-        $validatedData = $request->validate([
-            'language' => 'required',
-            'research_centre' => 'required',
-            'menutitle' => 'required|string|max:255',
-            'texttype' => 'required',
-            'menucategory' => 'required',
-            'txtpostion' => 'required',
-            'menu_status' => 'required|in:1,0',
-        ], [
-            'texttype.required' => 'Please select menu type.',
-            'txtpostion.required' => 'Please select content position.',
-            'menutitle.required' => 'Please enter menu title.',
-        ]);
+        // $validatedData = $request->validate([
+        //     'language' => 'required',
+        //     'research_centre' => 'required',
+        //     'menutitle' => 'required|string|max:255',
+        //     'texttype' => 'required',
+        //     'menucategory' => 'required',
+        //     'txtpostion' => 'required',
+        //     'menu_status' => 'required|in:1,0',
+        // ], [
+        //     'texttype.required' => 'Please select menu type.',
+        //     'txtpostion.required' => 'Please select content position.',
+        //     'menutitle.required' => 'Please enter menu title.',
+        // ]);
         $menutitle = strip_tags($request->menutitle); // Remove HTML tags
         $menutitle = htmlspecialchars($menutitle, ENT_QUOTES, 'UTF-8'); 
         $slug = Str::slug($menutitle, '-');
