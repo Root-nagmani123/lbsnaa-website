@@ -17,7 +17,7 @@
         </li>
         <li>
             <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Photo Gallery</span>
-        </li>
+        </li> 
     </ul>
 </div>
 @if(Cache::has('success_message'))
@@ -194,7 +194,7 @@
     </div>
 </div>
 
-
+@endsection
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     // Make sure the DOM is fully loaded before running the script
