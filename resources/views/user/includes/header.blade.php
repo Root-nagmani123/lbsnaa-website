@@ -413,7 +413,7 @@
                             $submenu->website_url;
                             }
                             $output .= '<a
-                                class="dropdown-item ' . ($hasChildren ? 'd-flex align-items-center' : '') . '"
+                                class="dropdown-item ' . ($hasChildren ? 'd-flex align-items-center dropdown-toggle' : '') . '"
                                 href="' . $url . '"
                                 target="' . ($submenu->web_site_target == 2 ? '_blank' : '_self') . '"
                                 aria-expanded="false" aria-label="Expanded' . $submenu->menutitle . '">' .
