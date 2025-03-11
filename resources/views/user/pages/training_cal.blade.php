@@ -56,30 +56,32 @@
                     </label>
                 </div>
                 <div class="col-lg-3">
-                    <select name="select_year" id="select_year" class="form-control ps-5 text-dark h-58">
-                        <option value="">Select Year</option>
-                        @php
-                        $currentYear = date('Y'); // Current year
-                        $currentMonth = date('m'); // Current month
-                        $startYear = $currentYear - 3; // Start year (adjust as needed)
+                @php
+$currentYear = date('Y'); // Current year
+$currentMonth = date('m'); // Current month
+$startYear = $currentYear - 3; // Start year (adjust as needed)
 
-                        // Determine the current financial year
-                        if ($currentMonth >= 4) {
-                        // Financial year starts in April, so it's the current year - next year
-                        $selectedYearStart = $currentYear;
-                        $selectedYearEnd = $currentYear + 1;
-                        } else {
-                        // If before April, financial year is previous year - current year
-                        $selectedYearStart = $currentYear - 1;
-                        $selectedYearEnd = $currentYear;
-                        }
-                        @endphp
-                        @for ($year = $startYear; $year <= $currentYear + 3; $year++) <option value="{{ $year }}"
-                            {{ ($year == $selectedYearEnd) ? 'selected' : '' }}>
-                            {{ $year - 1 }} - {{ $year }}
-                            </option>
-                            @endfor
-                    </select>
+// Get selected year from request
+$selectedYear = request()->input('select_year');
+
+// Agar user ne select nahi kiya toh default financial year set karein
+if (!$selectedYear) {
+    if ($currentMonth >= 4) {
+        $selectedYear = $currentYear + 1; // Financial year (current - next)
+    } else {
+        $selectedYear = $currentYear; // Previous - current year
+    }
+}
+@endphp
+
+<select name="select_year" id="select_year" class="form-control ps-5 text-dark h-58">
+    <option value="">Select Year</option>
+    @for ($year = $startYear; $year <= $currentYear + 3; $year++)
+        <option value="{{ $year }}" {{ ($year == $selectedYear) ? 'selected' : '' }}>
+            {{ $year - 1 }} - {{ $year }}
+        </option>
+    @endfor
+</select>
                 </div>
                 <div class="col-lg-3">
                     <button type="submit" id="btn2" class="btn btn-outline-primary">@if(Cookie::get('language') ==

@@ -155,27 +155,27 @@ document.addEventListener('DOMContentLoaded', function() {
     const now = new Date().toISOString().slice(0, 16); // Get current datetime in YYYY-MM-DDTHH:mm format
 
     // Set the minimum date to prevent selecting past dates
-    publishDateInput.setAttribute('min', now);
-    expiryDateInput.setAttribute('min', now);
+    // publishDateInput.setAttribute('min', now);
+    // expiryDateInput.setAttribute('min', now);
 
     // Ensure expiry date is always after or equal to publish date
-    publishDateInput.addEventListener('change', function() {
-        const publishDate = publishDateInput.value;
-        if (publishDate) {
-            // Set expiry_date min to publish_date value
-            expiryDateInput.setAttribute('min', publishDate);
-        } else {
-            // Reset to current date if publish date is cleared
-            expiryDateInput.setAttribute('min', now);
-        }
-    });
+    // publishDateInput.addEventListener('change', function() {
+    //     const publishDate = publishDateInput.value;
+    //     if (publishDate) {
+    //         // Set expiry_date min to publish_date value
+    //         expiryDateInput.setAttribute('min', publishDate);
+    //     } else {
+    //         // Reset to current date if publish date is cleared
+    //         expiryDateInput.setAttribute('min', now);
+    //     }
+    // });
 
     // Ensure users cannot set old dates manually in publish_date field
-    publishDateInput.addEventListener('blur', function() {
-        if (publishDateInput.value < now) {
-            alert("Publish date cannot be in the past!");
-            publishDateInput.value = now; // Reset to current date
-        }
-    });
+    // publishDateInput.addEventListener('blur', function() {
+    //     if (publishDateInput.value < now) {
+    //         alert("Publish date cannot be in the past!");
+    //         publishDateInput.value = now; // Reset to current date
+    //     }
+    // });
 });
 </script>

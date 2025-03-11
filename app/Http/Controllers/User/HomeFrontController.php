@@ -433,7 +433,7 @@ $query = DB::table('manage_vacancies')
 return view('user.pages.vacancy_archive',compact('query','title'));
 
 }
-public function training_cal()
+public function training_cal(Request $request)
 {
     $title = 'Training Calendar';
     // Step 1: Fetch all parent categories
@@ -451,17 +451,44 @@ public function training_cal()
         ->get();
 
     // Step 3: Fetch all courses in one query
+    $selectedYear = $request->input('select_year'); // e.g., 2024 (selected year means 2023-24 FY)
+    
+    // Agar user ne koi year select nahi kiya, toh default financial year lein
+    if (!$selectedYear) {
+        $currentYear = date('Y');
+        $currentMonth = date('m');
+
+        if ($currentMonth >= 4) {
+            // April ke baad hai toh current year - next year
+            $selectedYearStart = $currentYear;
+            $selectedYearEnd = $currentYear + 1;
+        } else {
+            // March se pehle hai toh pichle saal - current saal
+            $selectedYearStart = $currentYear - 1;
+            $selectedYearEnd = $currentYear;
+        }
+    } else {
+        // User ne financial year select kiya toh uske hisaab se set karein
+        $selectedYearStart = $selectedYear - 1; // FY start year
+        $selectedYearEnd = $selectedYear;       // FY end year
+    }
+
+    // Financial year ke hisaab se start aur end dates set karein
+    $start_date = $selectedYearStart . '-04-01 00:00:00';
+    $end_date = $selectedYearEnd . '-03-31 23:59:59';
+
+    // Training courses fetch karein jo selected financial year me fall karte hain
     $courses = DB::table('course')
         ->leftJoin('section_category', 'course.support_section', '=', 'section_category.id')
-        // ->where('section_category.status', 1)
         ->where('course.page_status', 1)
+        ->whereBetween('course.course_start_date', [$start_date, $end_date])
         ->select(
             'course.id',
             'course.course_name',
             'course.coordinator_id',
             'course.course_start_date',
             'course.course_end_date',
-            'course.course_type', // This links the course to a subcategory
+            'course.course_type',
             'section_category.name as support_section'
         )
         ->get();
@@ -503,7 +530,7 @@ public function training_cal()
                 ];
             }
         }
-    } 
+    }  
 // print_r($organizedCategories);die;
     return view('user.pages.training_cal', compact('organizedCategories','title'));
 }

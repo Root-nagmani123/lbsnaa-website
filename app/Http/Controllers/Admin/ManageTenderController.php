@@ -35,7 +35,7 @@ class ManageTenderController extends Controller
             'description' => 'required|string',    
             'file' => 'required|mimes:pdf|max:20480', 
             'publish_date' => 'required|date',     
-            'expiry_date' => 'required|date|after_or_equal:publish_date', 
+            'expiry_date' => 'required|date', 
             'status' => 'required|integer|in:1,0', 
         ];
     
@@ -129,7 +129,7 @@ class ManageTenderController extends Controller
             'description' => 'required|string',    
             'file' => 'required|mimes:pdf|max:20480', 
             'publish_date' => 'required|date',     
-            'expiry_date' => 'required|date|after_or_equal:publish_date', 
+            'expiry_date' => 'required|date', 
             'status' => 'required|integer|in:1,0', 
         ];
     
