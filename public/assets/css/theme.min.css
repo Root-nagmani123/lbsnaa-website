@@ -24721,8 +24721,7 @@ a.fc-event:hover {
 }
 .carousel-item img{
     width: 100%;
-    height: 600px;
-    object-fit: cover;
+    height: 475px;
 }
 @media (max-width: 640px) {
   .carousel-item img{
