@@ -215,23 +215,7 @@ $('#job_description').summernote({
 
 @endsection
 
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    let today = new Date().toISOString().split('T')[0];
 
-    const startDateInput = document.querySelector('input[name="publish_date"]');
-    const endDateInput = document.querySelector('input[name="expiry_date"]');
-
-    // Set min date for both start and end date on page load
-    startDateInput.setAttribute('min', today);
-    endDateInput.setAttribute('min', today);
-
-    // Update end date min whenever start date is changed
-    startDateInput.addEventListener('change', function() {
-        endDateInput.setAttribute('min', this.value);
-    });
-});
-</script>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {

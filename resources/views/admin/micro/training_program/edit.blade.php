@@ -250,20 +250,6 @@ $('#important_links').summernote({
 <!-- Bootstrap Datepicker CSS -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker.min.css" rel="stylesheet">
 
-<script>
-    $(document).ready(function(){
-        // Initialize the datepicker for start and end date fields
-        $('#start_date').datepicker({
-            format: 'yyyy-mm-dd', // Date format that matches your value format
-            autoclose: true // Close datepicker after selecting a date
-        });
-
-        $('#end_date').datepicker({
-            format: 'yyyy-mm-dd',
-            autoclose: true
-        });
-    });
-</script>
 <!-- here this code end of the editer js -->
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

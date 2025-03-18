@@ -47,7 +47,7 @@ class MicroManageVacancyController extends Controller
             'job_description' => 'required|string',
             'content_type' => 'required|string|in:PDF,Website',
             'publish_date' => 'required|date',
-            'expiry_date' => 'required|date|after_or_equal:publish_date',
+            'expiry_date' => 'required|date',
             'status' => 'required|integer|in:1,0',
         ];
           
@@ -81,7 +81,6 @@ class MicroManageVacancyController extends Controller
         
             'expiry_date.required' => 'Please provide an expiry date.',
             'expiry_date.date' => 'Expiry date must be a valid date.',
-            'expiry_date.after_or_equal' => 'Expiry date must be after or equal to the publish date.',
         
             'status.required' => 'Status is required.',
             'status.integer' => 'Invalid status format.',
@@ -152,7 +151,7 @@ class MicroManageVacancyController extends Controller
             'job_description' => 'required|string',
             'content_type' => 'required|string|in:PDF,Website',
             'publish_date' => 'required|date',
-            'expiry_date' => 'required|date|after_or_equal:publish_date',
+            'expiry_date' => 'required|date',
             'status' => 'required|integer|in:1,0',
         ];
         if ($request->content_type == 'PDF') {
@@ -184,7 +183,6 @@ class MicroManageVacancyController extends Controller
         
             'expiry_date.required' => 'Please provide an expiry date.',
             'expiry_date.date' => 'Expiry date must be a valid date.',
-            'expiry_date.after_or_equal' => 'Expiry date must be after or equal to the publish date.',
         
             'status.required' => 'Status is required.',
             'status.integer' => 'Invalid status format.',

@@ -226,23 +226,7 @@ $('#important_links').summernote({
 <!-- here this code end of the editer js -->
 @endsection
 
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    let today = new Date().toISOString().split('T')[0];
 
-    const startDateInput = document.querySelector('input[name="start_date"]');
-    const endDateInput = document.querySelector('input[name="end_date"]');
-
-    // Set min date for both start and end date on page load
-    startDateInput.setAttribute('min', today);
-    endDateInput.setAttribute('min', today);
-
-    // Update end date min whenever start date is changed
-    startDateInput.addEventListener('change', function() {
-        endDateInput.setAttribute('min', this.value);
-    });
-});
-</script>
 <!-- here this code use for the editer js -->
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

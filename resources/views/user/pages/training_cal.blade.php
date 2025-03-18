@@ -100,17 +100,24 @@ if (!$selectedYear) {
                 <table class="table align-middle table-bordered" id="myTable">
                     @php
                         // Determine current year and month
-                        $currentYear = date('Y');
-                        $currentMonth = date('m');
+                        $selectedYear = request()->input('select_year');
+                        if (!$selectedYear) {
+    $currentYear = date('Y');
+    $currentMonth = date('m');
 
-                        // Set the start and end year for the table
-                        if ($currentMonth >= 4) {
-                            $startYear = $currentYear;
-                            $endYear = $currentYear + 1;
-                        } else {
-                            $startYear = $currentYear - 1;
-                            $endYear = $currentYear;
-                        }
+    if ($currentMonth >= 4) {
+        $startYear = $currentYear;
+        $endYear = $currentYear + 1;
+    } else {
+        $startYear = $currentYear - 1;
+        $endYear = $currentYear;
+    }
+} else {
+    // Agar user ne year select kiya hai toh usko financial year ka start-end banayein
+    $startYear = $selectedYear - 1;  // Financial Year Start
+    $endYear = $selectedYear;        // Financial Year End
+}
+
 
                         // Months for the financial year
                         $months = ['Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar'];

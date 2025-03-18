@@ -43,7 +43,7 @@ class TrainingProgramController extends Controller
             'program_coordinator' => 'nullable|string|max:255',
             'program_description' => 'required|string',
             'start_date' => 'required|date',
-            'end_date' => 'required|date|after_or_equal:start_date',
+            'end_date' => 'required|date',
             'registration_status' => 'required|integer|in:1,2',
             'page_status' => 'required|integer|in:1,0',
         ];
@@ -76,7 +76,6 @@ class TrainingProgramController extends Controller
         
             'end_date.required' => 'Please select an end date.',
             'end_date.date' => 'End date must be a valid date.',
-            'end_date.after_or_equal' => 'The end date must be after or equal to the start date.',
         
             'registration_status.required' => 'Please select the registration status.',
             'registration_status.integer' => 'The registration status must be a valid number.',
@@ -141,7 +140,7 @@ class TrainingProgramController extends Controller
             'program_coordinator' => 'nullable|string|max:255',
             'program_description' => 'required|string',
             'start_date' => 'required|date',
-            'end_date' => 'required|date|after_or_equal:start_date',
+            'end_date' => 'required|date',
             'registration_status' => 'required|integer|in:1,2',
             'page_status' => 'required|integer|in:1,0',
         ];
@@ -174,7 +173,6 @@ class TrainingProgramController extends Controller
         
             'end_date.required' => 'Please select an end date.',
             'end_date.date' => 'End date must be a valid date.',
-            'end_date.after_or_equal' => 'The end date must be after or equal to the start date.',
         
             'registration_status.required' => 'Please select the registration status.',
             'registration_status.integer' => 'The registration status must be a valid number.',

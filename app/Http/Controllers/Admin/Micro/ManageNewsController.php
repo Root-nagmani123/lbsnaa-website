@@ -57,7 +57,7 @@ class ManageNewsController extends Controller
             'main_image' => 'required|image|mimes:jpeg,png,jpg|max:5120', // Main image max 5MB
             'status' => 'required',
             'start_date' => 'required|date',
-            'end_date' => 'required|date|after_or_equal:start_date', // End date must be after or equal to start date
+            'end_date' => 'required|date', // End date must be after or equal to start date
             'multiple_images' => 'required|array',
             'multiple_images.*' => 'image|mimes:jpeg,png,jpg|max:10240', // Each file max 10MB
         ];
@@ -76,7 +76,6 @@ class ManageNewsController extends Controller
             'status.required' => 'Please select the status.',
             'start_date.required' => 'Please provide the start date.',
             'end_date.required' => 'Please provide the end date.',
-            'end_date.after_or_equal' => 'The end date must not be earlier than the start date.',
             'multiple_images.required' => 'Please upload at least one image.',
             'multiple_images.array' => 'The multiple images field must be an array.',
             'multiple_images.*.image' => 'Each uploaded file must be an image.',
@@ -181,7 +180,7 @@ class ManageNewsController extends Controller
             'main_image' => 'required|image|mimes:jpeg,png,jpg|max:5120', // Main image max 5MB
             'status' => 'required',
             'start_date' => 'required|date',
-            'end_date' => 'required|date|after_or_equal:start_date', // End date must be after or equal to start date
+            'end_date' => 'required|date', // End date must be after or equal to start date
             'multiple_images' => 'required|array',
             'multiple_images.*' => 'image|mimes:jpeg,png,jpg|max:10240', // Each file max 10MB
         ];
@@ -200,7 +199,6 @@ class ManageNewsController extends Controller
             'status.required' => 'Please select the status.',
             'start_date.required' => 'Please provide the start date.',
             'end_date.required' => 'Please provide the end date.',
-            'end_date.after_or_equal' => 'The end date must not be earlier than the start date.',
             'multiple_images.required' => 'Please upload at least one image.',
             'multiple_images.array' => 'The multiple images field must be an array.',
             'multiple_images.*.image' => 'Each uploaded file must be an image.',

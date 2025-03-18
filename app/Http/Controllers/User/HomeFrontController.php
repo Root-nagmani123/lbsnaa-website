@@ -474,8 +474,8 @@ public function training_cal(Request $request)
     }
 
     // Financial year ke hisaab se start aur end dates set karein
-    $start_date = $selectedYearStart . '-04-01 00:00:00';
-    $end_date = $selectedYearEnd . '-03-31 23:59:59';
+    $start_date = $selectedYearStart . '-04-01';
+    $end_date = $selectedYearEnd . '-03-31';
 
     // Training courses fetch karein jo selected financial year me fall karte hain
     $courses = DB::table('course')

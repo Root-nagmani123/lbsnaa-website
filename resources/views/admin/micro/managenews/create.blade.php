@@ -317,24 +317,6 @@ $('#meta_description').summernote({
     });
 </script>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const startDateInput = document.getElementById('start_date');
-        const endDateInput = document.getElementById('end_date');
-
-        // Ensure end date is always after or equal to start date
-        startDateInput.addEventListener('change', function () {
-            const startDate = startDateInput.value;
-            if (startDate) {
-                // Set the min value of the end_date input to the selected start date
-                endDateInput.setAttribute('min', startDate);
-            } else {
-                // Remove the min attribute if no start date is selected
-                endDateInput.removeAttribute('min');
-            }
-        });
-    });
-</script>
 
 <!-- here this code use for the editer js -->
 
