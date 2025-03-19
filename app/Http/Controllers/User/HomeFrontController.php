@@ -563,6 +563,7 @@ public function get_course_list_pages(Request $request, $slug){
         $courses = DB::table('course')
             ->where('course_type', $subcategory->id)
             ->whereDate('course_end_date', '<', $currentDate)
+            ->where('page_status', 1)
             ->select('id', 'course_name', 'course_start_date', 'course_end_date', 'course_type')
             ->get();
     }
@@ -572,11 +573,13 @@ public function get_course_list_pages(Request $request, $slug){
         ->where('course_type', $subcategory->id)
         ->whereDate('course_start_date', '<=', $currentDate)
         ->whereDate('course_end_date', '>=', $currentDate)
+        ->where('page_status', 1)
         ->get();
 
         $upcomingCourse = DB::table('course')
         ->where('course_type', $subcategory->id)
         ->whereDate('course_start_date', '>', $currentDate)
+        ->where('page_status', 1)
         ->get();
 //  print_r($parent_category);die;
     return view('user.pages.course_list', compact('parent_category','subcategory', 'currentCourse', 'courses','upcomingCourse','title'));
