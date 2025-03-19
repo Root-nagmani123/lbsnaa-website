@@ -303,7 +303,7 @@ class HomePagesMicroController extends Controller
             ->where('mmtp.page_status', 1)
             ->where('rc.research_centre_slug', $slug)
               ->select('mmtp.program_name', 'mmtp.venue', 'mmtp.start_date', 'mmtp.end_date', 'mmtp.registration_status', 'mmtp.id', 'rc.research_centre_slug')
-              ->orderByRaw("STR_TO_DATE(mmtp.start_date, '%Y-%m-%d') DESC")
+              ->orderByRaw("STR_TO_DATE(mmtp.start_date, '%d/%m/%Y') DESC")
             ->get();
 
         $quickLinks = DB::table('micro_quick_links')
