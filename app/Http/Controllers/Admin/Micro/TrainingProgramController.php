@@ -127,7 +127,7 @@ class TrainingProgramController extends Controller
         // Pass the variables to the Blade file
         return view('admin.micro.training_program.edit', compact('trainingProgram', 'researchCentres'));
     }
-
+ 
 
 
     public function update(Request $request, TrainingProgram $trainingProgram)
