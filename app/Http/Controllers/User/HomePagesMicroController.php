@@ -303,8 +303,12 @@ class HomePagesMicroController extends Controller
             ->where('mmtp.page_status', 1)
             ->where('rc.research_centre_slug', $slug)
               ->select('mmtp.program_name', 'mmtp.venue', 'mmtp.start_date', 'mmtp.end_date', 'mmtp.registration_status', 'mmtp.id', 'rc.research_centre_slug')
-              ->orderByRaw("STR_TO_DATE(mmtp.start_date, '%d/%m/%Y') DESC")
+              ->orderBy('mmtp.start_date', 'DESC')
             ->get();
+            foreach ($trainingprograms as $program) {
+                $program->start_date = Carbon::parse($program->start_date)->format('d-m-Y');
+                $program->end_date = Carbon::parse($program->end_date)->format('d-m-Y');
+            }
 
         $quickLinks = DB::table('micro_quick_links')
             ->join('research_centres', 'micro_quick_links.research_centre_id', '=', 'research_centres.id')  // Join with 'research_centres'

@@ -162,7 +162,7 @@
         <span class="star">*</span>
         <div class="form-group position-relative">
             <!-- Text input for start date -->
-            <input type="text" id="start_date" name="start_date" class="form-control text-dark h-58"
+            <input type="date" id="start_date" name="start_date" class="form-control text-dark h-58"
                 value="{{ $trainingProgram->start_date }}">
           
         </div>
@@ -175,7 +175,7 @@
         <span class="star">*</span>
         <div class="form-group position-relative">
             <!-- Text input for end date -->
-            <input type="text" id="end_date" name="end_date" class="form-control text-dark h-58"
+            <input type="date" id="end_date" name="end_date" class="form-control text-dark h-58"
                 value="{{ $trainingProgram->end_date }}">
           
         </div>
