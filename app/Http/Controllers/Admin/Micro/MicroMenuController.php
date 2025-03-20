@@ -215,7 +215,7 @@ public function add_menu(Request $request){
     public function store(Request $request)
     {
         $rules = [
-            'txtlanguage' => 'required|string',
+            
             'research_centre' => 'required|string',
             'menutitle' => 'required|string|max:255',
             'texttype' => 'required|string',
@@ -225,7 +225,7 @@ public function add_menu(Request $request){
         ];
         
         $messages = [
-            'txtlanguage.required' => 'The language field is required.',
+           
             'research_centre.required' => 'Please select a research centre.',
             
             'menutitle.required' => 'Menu title is required.',
@@ -506,7 +506,7 @@ public function add_menu(Request $request){
     
         // Validate the incoming request data
         $rules = [
-            'txtlanguage' => 'required|string',
+          
             'research_centre' => 'required|string',
             'menutitle' => 'required|string|max:255',
             'texttype' => 'required|string',
@@ -516,7 +516,7 @@ public function add_menu(Request $request){
         ];
         
         $messages = [
-            'txtlanguage.required' => 'The language field is required.',
+
             'research_centre.required' => 'Please select a research centre.',
             
             'menutitle.required' => 'Menu title is required.',
