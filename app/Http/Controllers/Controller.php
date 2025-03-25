@@ -24,5 +24,13 @@ class Controller extends BaseController
      
         // return view('admin.welcome'); // Pass the tree to the view
     }
-    
+    function getLang()
+    {
+        if (isset($_COOKIE['language'])) {
+            $language = $_COOKIE['language'];
+        } else {
+            $language = 1;
+        }
+        return $language;
+    }
 }

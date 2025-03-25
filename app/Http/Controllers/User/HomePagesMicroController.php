@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use DOMDocument;
 use Carbon\Carbon;
+use App\Models\Admin\Micro\ManageNews;
 
 class HomePagesMicroController extends Controller
 {
@@ -124,13 +125,14 @@ class HomePagesMicroController extends Controller
 
     public function newsdetails(Request $request, $id)
     {
+        // ManageNews
         // Get the slug from the request (query parameter) or from the route parameter if it's provided
         $slug = $request->query('slug'); // Fetch the 'slug' query parameter from the URL
-        $news = DB::table('managenews')
-            ->join('research_centres as rc', 'managenews.research_centreid', '=', 'rc.id') // Join with the research_centres table
+        $news = ManageNews::join('research_centres as rc', 'managenews.research_centreid', '=', 'rc.id') // Join with the research_centres table
             ->where('managenews.id', $id) // Filter by the specific news ID
             ->where('rc.research_centre_slug', $slug) // Filter by the research centre slug from the request
             ->where('managenews.status', 1) // Ensure the news is active
+            ->where('managenews.language', $this->getLang())
             ->select('managenews.*') // Select all columns from managenews and research_centres
             ->first(); // Fetch a single result
 
