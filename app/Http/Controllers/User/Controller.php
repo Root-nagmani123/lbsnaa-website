@@ -10,4 +10,14 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    function getLang()
+    {
+        if (isset($_COOKIE['language'])) {
+            $language = $_COOKIE['language'];
+        } else {
+            $language = 1;
+        }
+        return $language;
+    }
 }

@@ -122,7 +122,7 @@ Route::get('/sitemap', [HomeFrontController::class, 'sitemap'])->name('user.site
 Route::get('/screen-reader', [HomeFrontController::class, 'screenReader'])->name('user.screen-reader');
 Route::get('/archive', [HomeFrontController::class, 'archive'])->name('user.archive');
 Route::get('/archive', [HomeFrontController::class, 'archive'])->name('user.archive');
-// Route::post('/set_language/{numb}', [HomeFrontController::class, 'set_language'])->name('set.language');
+Route::post('/set_language/{numb}', [HomeFrontController::class, 'set_language'])->name('set.language');
 Route::get('/set-language/{lang}', [HomeFrontController::class, 'set_language']);
 
 //micro  
