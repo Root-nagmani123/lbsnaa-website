@@ -338,6 +338,7 @@
                     ->where('micromenus.is_deleted', 0)
                     ->where('micromenus.research_centreid', $researchCenterId)
                     ->select('micromenus.*', 'research_centres.research_centre_slug')
+                    ->orderBy('micromenus.position', 'ASC')
                     ->get();
 
                     // Organize menus by parent_id

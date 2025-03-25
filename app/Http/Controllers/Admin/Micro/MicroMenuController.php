@@ -60,7 +60,8 @@ class MicroMenuController extends Controller
             'micromenus.updated_at',
             'micromenus.parent_id'
         )
-        ->where('micromenus.is_deleted', 0)
+        ->where('micromenus.is_deleted', 0) 
+        ->orderBy('micromenus.position', 'ASC')
         ->get(); 
 
     // Convert the result into an array (optional step)
@@ -73,8 +74,14 @@ class MicroMenuController extends Controller
 }
 
 
-
-
+public function updatePosition(Request $request)
+    {
+        foreach ($request->positions as $position) {
+            DB::table('micromenus')->where('id', $position['id'])->update(['position' => $position['position']]);
+        }
+    
+        return response()->json(['status' => 'success', 'message' => 'Menu positions updated']);
+    }
 
 //     public function index()
 // {

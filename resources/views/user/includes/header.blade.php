@@ -303,19 +303,17 @@
                             </form>
                         </div>
                     </li>
-                    <!-- <li class="nav-item dropdown">
+                    <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle fw-bold" href="#" id="languageDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside"
                             data-bs-offset="10,20" aria-label="Language">
                             <img src="{{ asset('assets/images/language.png') }}" alt="language" style="height: 30px;">
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="languageDropdown">
-                            <li><a class="dropdown-item" href="{{ route('set.language', 1) }}"
-                                    aria-label="English">English</a></li>
-                            <li><a class="dropdown-item" href="{{ route('set.language', 2) }}"
-                                    aria-label="Hindi">Hindi</a></li>
+                            <li><a class="dropdown-item set-language" data-lang="1" href="#" aria-label="English">English</a></li>
+                            <li><a class="dropdown-item set-language" data-lang="2" href="#" aria-label="Hindi">Hindi</a></li>
                         </ul>
-                    </li> -->
+                    </li>
                 </ul>
             </div>
         </div>

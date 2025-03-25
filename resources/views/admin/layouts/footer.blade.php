@@ -7,7 +7,7 @@
 </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
 <script src="{{ asset('admin_assets/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('admin_assets/js/sidebar-menu.js') }}"></script>
 <script src="{{ asset('admin_assets/js/dragdrop.js') }}"></script>
@@ -94,5 +94,37 @@
             }
         });
     });
+    $(document).ready(function() {
+        $("#sortable_micromenu").sortable({
+            // handle: ".handle", // Specify the handle for dragging
+            update: function(event, ui) {
+                let positions = [];
+                $("#sortable_micromenu tr").each(function(index) {
+                    positions.push({
+                        id: $(this).attr("data-id"),
+                        position: index + 1
+                    });
+                });
+              
+                // let sortedIDs = $("#sortable_micromenu").sortable("toArray", { attribute: "data-id" });
+// console.log(sortedIDs); //Send updated order to the server
+$.ajax({
+                    url: "{{ route('micromenu.updateOrder') }}",
+                    type: "POST",
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        positions: positions
+                    },
+                    success: function(response) {
+                        if (response.status) {
+                            alert("Order updated successfully!");
+                        }
+                    }
+                });
+             
+            }
+        });
+    });
+    
 
 </script>

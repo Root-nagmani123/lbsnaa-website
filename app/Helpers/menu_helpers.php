@@ -96,8 +96,10 @@ if (!function_exists('renderMenu')) {
 if (!function_exists('renderMicroMenu')) {
     function renderMicroMenu($menu, $indent = '', &$counter = 1)
     {
-        $output = '<tr>';
-        $output .= '<td>' . $counter . '</td>'; // Use the counter for numbering
+        $output = '<tr class="sortable-row" data-id="' . $menu->id . '">';
+
+        $output .= '<td class="handle"  style="cursor: move;">☰</td>';
+      
         $output .= '<td>' . $indent . htmlspecialchars($menu->menutitle) . '</td>';  // Object access
         $output .= '<td>' . htmlspecialchars($menu->research_centre_name) . '</td>';  // Object access
         $output .= '<td>' . ($menu->parent_id ? htmlspecialchars(\App\Models\Admin\Micro\MicroMenu::find($menu->parent_id)->menutitle) : 'Root Category') . '</td>';

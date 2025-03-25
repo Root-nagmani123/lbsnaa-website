@@ -7,14 +7,20 @@ use DOMDocument;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cookie;
 use App\Models\Admin\Menu;
+use Illuminate\Support\Facades\Session;
 class HomeFrontController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
         $title  = 'Home ';
-        Cookie::queue('language', 1, 60 * 24 * 30);
-        $language = Cookie::get('language');
+       
+   
+     if(isset($_COOKIE['language'])){  
+        $language = $_COOKIE['language'];
+     }else{
+        $language =1;
+     }
         date_default_timezone_set('Asia/Kolkata');
         $today = date('Y-m-d'); 
         $sliders =  DB::table('sliders')->where('status',1)->where('is_deleted',0) ->when($language == 2, function ($query) use ($language) {
@@ -1054,19 +1060,39 @@ function archive(Request $request){
     $title = 'Archive';
     return view('user.pages.archive', compact('title'));
 }
-function set_language(Request $request,$lang) {
-    $languages = ['1', '2']; // Supported languages
-    if (in_array($lang, $languages)) {
-        // Set the language cookie
-        Cookie::queue('language', $lang, 60 * 24 * 30); // Set for 30 days
-        
-        // Set the application's locale based on the selected language
-      
-    }
+public function set_language1(Request $request, $lang) {
+    // $languages = ['1', '2']; // English (1) & Hindi (2)
 
-    // Redirect back to the previous page or to the home page
-    return redirect()->back();
-}
+    //     if (in_array($lang, $languages)) {
+    //         // ✅ Language ko session aur cookie me set karna
+    //         Session::put('language', $lang);
+    //         Cookie::queue('language', $lang, 60 * 24 * 30);
+
+    //         return response()->json(['message' => 'Language Set']);
+    //     }
+
+    //     return response()->json(['message' => 'Invalid Language'], 400);
+    session(['test' => 'working']);
+    return response()->json([
+        'session' => session()->all(),
+        'headers' => request()->headers->all(),
+    ]);
+    }
+    public function set_language(Request $request, $lang) {
+        // ✅ Set cookie for language
+        setcookie('language', $lang, time() + (86400 * 30), "/"); // 30 days expiry
+    
+        // ✅ Store in session
+        session(['language' => $lang]);
+        session()->save();
+    
+        return response()->json([
+            'message' => 'Language Set',
+            'language' => session('language') // ✅ Confirm session data
+        ]);
+    }
+    
+
 
 
 

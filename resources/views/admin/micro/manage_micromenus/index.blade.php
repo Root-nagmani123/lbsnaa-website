@@ -49,10 +49,11 @@
         @endif
         <div class="default-table-area members-list">
             <div class="table-responsive">
-                <table class="table align-middle" id="myTable">
+            <table class="table align-middle" id="sortableTable">
                     <thead>
                         <tr class="text-center">
                             <th class="col">#</th>
+                           
                             <th class="col">Menu Title</th>
                             <th class="col">Research Center</th>
                             <th class="col">Parent Menu</th>
@@ -61,8 +62,8 @@
                             <th class="col">Action</th>
                             <th class="col">Status</th>
                         </tr>
-                    </thead>
-                    <tbody>
+                    </thead> 
+                    <tbody  id="sortable_micromenu">
                         @foreach($menuTree as $menu)
                         {!! renderMicroMenu($menu) !!}
                         @endforeach

@@ -684,6 +684,32 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentLanguage = getLanguageCookie();
     updateLanguageText(currentLanguage);
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".set-language").forEach(function (el) {
+            el.addEventListener("click", function (e) {
+                e.preventDefault();
+
+                let lang = this.getAttribute("data-lang");
+
+                fetch("{{ url('/set-language') }}/" + lang, {
+                    method: "GET",
+                    headers: {
+                        "X-Requested-With": "XMLHttpRequest"
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // if (data.message === "Language Set") {
+                        location.reload(); // Refresh page to apply language change
+                    // } else {
+                    //     alert("Error changing language!");
+                    // }
+                })
+                .catch(error => console.error("Error:", error));
+            });
+        });
+    });
 </script>
 </body>
 
