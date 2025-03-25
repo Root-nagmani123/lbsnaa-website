@@ -71,7 +71,9 @@ class ManageResearchCentreController extends Controller
             'status' => 'required|boolean',
             'texttype' => 'nullable|in:1,2', 
             'pdfUpload' => 'nullable|file|mimes:pdf|max:2048', 
-            'websiteUrl' => 'nullable|url|max:255',
+            'websiteUrl' => 'nullable|max:255',
+            'sub_heading' => 'nullable|string|max:255',
+            'home_title' => 'nullable|string|max:255',
         ];
         
         $messages = [
@@ -119,7 +121,7 @@ class ManageResearchCentreController extends Controller
         DB::table('research_centres')->insert([
             'language' => $validatedData['language'],
             'research_centre_name' => $validatedData['research_centre_name'],
-            'sub_heading' => 'sub_heading',
+            'sub_heading' => $validatedData['sub_heading'],
             'home_title' => 'home_title',
             'texttype' => $validatedData['texttype'],
             'pdf' => $pdf,

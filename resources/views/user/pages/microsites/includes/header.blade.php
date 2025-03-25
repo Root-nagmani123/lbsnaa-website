@@ -332,11 +332,13 @@
                     $researchCenterId = $currentResearchCenter->id;
 
                     // Fetch menus specific to the current research center
+                    $language = isset($_COOKIE['language']) ? $_COOKIE['language'] : null;
                     $allMenus = DB::table('micromenus')
                     ->join('research_centres', 'micromenus.research_centreid', '=', 'research_centres.id')
                     ->where('micromenus.menu_status', 1)
                     ->where('micromenus.is_deleted', 0)
                     ->where('micromenus.research_centreid', $researchCenterId)
+                    ->where('micromenus.language', $language) // Add language condition
                     ->select('micromenus.*', 'research_centres.research_centre_slug')
                     ->orderBy('micromenus.position', 'ASC')
                     ->get();
