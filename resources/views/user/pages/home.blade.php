@@ -57,7 +57,7 @@
             <!-- Latest Updates Button -->
             <button class="btn btn-primary btn-sm me-2 rounded py-2" id="basic-addon2"
                 style="z-index: 999;width: 200px;">
-                @if(Cookie::get('language') == '2')
+                @if($_COOKIE['language'] == '2')
                 नवीनतम अपडेट
                 @else
                 Latest Updates
@@ -112,7 +112,7 @@
                     </div>
                     <div class="card-header " style="border-bottom: none;">
                         <p class="mb-3 fw-bold">
-                            @if(Cookie::get('language') == '2')
+                            @if($_COOKIE['language'] == '2')
                             निदेशक संदेश
                             @else
                             Director Message
@@ -121,14 +121,14 @@
                     </div>
                     <div class="card-body pt-2" style=" height: 80px;">
                         <a href="{{ url('menu/director-message') }}" class="icon-link icon-link-hover link-primary">
-                            @if(Cookie::get('language') == '2')
+                            @if($_COOKIE['language'] == '2')
                             संदेश
                             @else
                             Message
                             @endif
                         </a> <br>
                         <a href="{{ url('menu/previous-directors') }}" class="icon-link icon-link-hover link-primary">
-                            @if(Cookie::get('language') == '2')
+                            @if($_COOKIE['language'] == '2')
                             पूर्व निदेशक
                             @else
                             Previous Director
@@ -145,7 +145,7 @@
                     </div>
                     <div class="card-header" style="border-bottom: none;">
                         <p class="fw-bold">
-                            @if(Cookie::get('language') == '2')
+                            @if($_COOKIE['language'] == '2')
                             दौड़ पाठ्यक्रम
                             @else
                             Runing Courses
@@ -176,7 +176,7 @@
 
                         @else
                         <span>
-                            @if(Cookie::get('language') == '2')
+                            @if($_COOKIE['language'] == '2')
                             कोई पाठ्यक्रम उपलब्ध नहीं है
                             @else
                             No Course Available
@@ -187,7 +187,7 @@
                     <div class="card-footer" style="border:none;float: right;text-align: right;">
                         <button class="btn btn-primary btn-sm"> <a href="{{ route('user.runningCourses') }}"
                                 style="color: white;" aria-label="View All Running Courses">
-                                @if(Cookie::get('language') == '2')
+                                @if($_COOKIE['language'] == '2')
                                 सभी को देखें
                                 @else
                                 View All
@@ -204,7 +204,7 @@
                     </div>
                     <div class="card-header" style="border-bottom: none;">
                         <p class="fw-bold">
-                            @if(Cookie::get('language') == '2')
+                            @if($_COOKIE['language'] == '2')
                             आगामी पाठ्यक्रम
                             @else
                             Upcoming Courses
@@ -230,7 +230,7 @@
                         </ul>
 
                         @else
-                        <span> @if(Cookie::get('language') == '2')
+                        <span> @if($_COOKIE['language'] == '2')
                             कोई पाठ्यक्रम उपलब्ध नहीं है
                             @else
                             No Course Available
@@ -239,7 +239,7 @@
                     </div>
                     <div class="card-footer" style="border:none;float: right;text-align: right;">
                         <button class="btn btn-primary btn-sm"><a href="{{ route('user.upcomingCourses') }}"
-                                style="color: white;" aria-label="View All Upcoming Courses">@if(Cookie::get('language')
+                                style="color: white;" aria-label="View All Upcoming Courses">@if($_COOKIE['language']
                                 == '2')
                                 सभी को देखें
                                 @else
@@ -257,7 +257,7 @@
                     </div>
                     <div class="card-header" style="border-bottom: none;">
                         <p class="fw-bold">
-                            @if(Cookie::get('language') == '2')
+                            @if($_COOKIE['language'] == '2')
                             प्रशिक्षण कैलेंडर
                             @else
                             Training Calendar
@@ -267,7 +267,7 @@
 
                     <div class="card-body pt-2" style="height: 80px;">
                         <a href="{{ url('cms/training_cal') }}" class="icon-link icon-link-hover link-primary">
-                            @if(Cookie::get('language') == '2')
+                            @if($_COOKIE['language'] == '2')
                             एलबीएसएनएए का प्रशिक्षण कैलेंडर
                             @else
                             Training Calendar of LBSNAA
@@ -284,7 +284,7 @@
                     </div>
                     <div class="card-header" style="border-bottom: none;">
                         <p class="fw-bold">
-                            @if(Cookie::get('language') == '2')
+                            @if($_COOKIE['language'] == '2')
                             अकादमी में जीवन
                             @else
                             Life at Academy
@@ -294,7 +294,7 @@
                     <div class="card-body pt-2" style="height: 80px;">
                         <a href="{{ url('menu/the-academy-experience') }}"
                             class="icon-link icon-link-hover link-primary">
-                            @if(Cookie::get('language') == '2')
+                            @if($_COOKIE['language'] == '2')
                             अकादमी का अनुभव
                             @else
                             The Academy Experience
@@ -303,7 +303,7 @@
                         </a><br>
                         <a href="{{ url('menu/a-day-in-the-life-of-a-trainee') }}"
                             class="icon-link icon-link-hover link-primary">
-                            @if(Cookie::get('language') == '2')
+                            @if($_COOKIE['language'] == '2')
                             एक प्रशिक्षु के जीवन का एक दिन
                             @else
                             A day in the life of a Trainee
@@ -319,7 +319,7 @@
                     </div>
                     <div class="card-header" style="border-bottom: none;">
                         <p class="fw-bold">
-                            @if(Cookie::get('language') == '2')
+                            @if($_COOKIE['language'] == '2')
                             अकादमी स्मारिका
                             @else
                             Academy Souvenir
@@ -328,14 +328,14 @@
                     </div>
                     <div class="card-body pt-2" style="height: 80px;">
                         <a href="{{ url('souvenir?pro_category=7')}}" class="icon-link icon-link-hover link-primary">
-                            @if(Cookie::get('language') == '2')
+                            @if($_COOKIE['language'] == '2')
                             यादगार लम्हे
                             @else
                             Memorabilia
                             @endif
                         </a><br>
                         <a href="{{ url('souvenir?pro_category=6')}}" class="icon-link icon-link-hover link-primary">
-                            @if(Cookie::get('language') == '2')
+                            @if($_COOKIE['language'] == '2')
                             परिधान
                             @else
                             Apparel
@@ -355,13 +355,13 @@
                 <div class="mb-3">
                     <div class="card card-hover border">
                         <div class="card-header" style="background-color:#af2910">
-                            <h2 class="text-white h4">@if(Cookie::get('language') == '2')
+                            <h2 class="text-white h4">@if($_COOKIE['language'] == '2')
                                 अकादमी समाचार
                                 @else
                                 LBSNAA Academy News
                                 @endif <span class="float-end"><a href="{{ route('user.news_listing') }}"
                                         class="text-white" style="text-decoration: none;font-size:14px"
-                                        aria-label="View All Academy News">@if(Cookie::get('language') == '2')
+                                        aria-label="View All Academy News">@if($_COOKIE['language'] == '2')
                                         सभी को देखें
                                         @else
                                         View All
@@ -388,7 +388,7 @@
                                         </div>
                                         <div class="card-body" style="height: 200px; overflow-y: hidden;">
                                             <span class="fs-5 mb-2 fw-semibold d-block" style="color:#007A33;">
-                                                @if(Cookie::get('language') == '2')
+                                                @if($_COOKIE['language'] == '2')
                                                 प्रकाशित किया गया:
                                                 @else
                                                 Posted On:
@@ -405,7 +405,7 @@
                                                 class="icon-link icon-link-hover link-primary fw-semibold"
                                                 aria-label="Read More {{ $slider->short_description }}">
                                                 <span>
-                                                    @if(Cookie::get('language') == '2')
+                                                    @if($_COOKIE['language'] == '2')
                                                     और पढ़ें
                                                     @else
                                                     Read More
@@ -435,7 +435,7 @@
                 <!-- Quick Links Section -->
                 <div class="card card-hover border">
                     <div class="card-header" style="background-color:#af2910">
-                        <h4 class="text-white">@if(Cookie::get('language') == '2') त्वरित लिंक्स @else Quick Links
+                        <h4 class="text-white">@if($_COOKIE['language'] == '2') त्वरित लिंक्स @else Quick Links
                             @endif</h4>
                     </div>
                     <div class="card-body p-0" style="height: 520px; overflow-y: scroll;">

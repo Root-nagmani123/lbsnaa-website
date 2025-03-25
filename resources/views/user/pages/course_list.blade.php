@@ -11,7 +11,7 @@
                     <ol class="breadcrumb p-2 mb-0">
                         <li class="breadcrumb-item">
                             <a href="{{ route('home') }}" style="color: #af2910;">
-                                @if(Cookie::get('language') == '2')
+                                @if($_COOKIE['language'] == '2')
                                 घर
                                 @else
                                 Home
@@ -21,7 +21,7 @@
                         <li class="breadcrumb-item">
                             <a href="{{ route('user.navigationpagesbyslug', ['slug' => 'training']) }}"
                                 class="text-danger">
-                                @if(Cookie::get('language') == '2')
+                                @if($_COOKIE['language'] == '2')
                                 प्रशिक्षण पाठ्यक्रम
                                 @else
                                 Training Courses
@@ -60,7 +60,7 @@
         <section class="py-4">
             <div class="container-fluid">
                 <h4 class="mb-3">
-                    @if(Cookie::get('language') == '2')
+                    @if($_COOKIE['language'] == '2')
                     आगामी पाठ्यक्रम:
                     @else
                     Upcoming Courses:
@@ -73,7 +73,7 @@
                 class="text-primary"><h5 class="fw-bold">{{ $upcomingCourses->course_name }}</h5></a>
                     <p>
                         <strong>
-                            @if(Cookie::get('language') == '2')
+                            @if($_COOKIE['language'] == '2')
                             पाठ्यक्रम तिथि:
                             @else
                             Course Date:
@@ -87,7 +87,7 @@
                 @endforeach
                 @else
                 <p class="text-muted">
-                    @if(Cookie::get('language') == '2')
+                    @if($_COOKIE['language'] == '2')
                     इस श्रेणी के लिए कोई आगामी पाठ्यक्रम उपलब्ध नहीं है।
                     @else
                     No Upcoming courses available for this category.
@@ -100,7 +100,7 @@
         <section class="py-4">
             <div class="container-fluid">
                 <h4 class="mb-3">
-                    @if(Cookie::get('language') == '2')
+                    @if($_COOKIE['language'] == '2')
                     वर्तमान पाठ्यक्रम:
                     @else
                     Current Courses:
@@ -113,7 +113,7 @@
                 class="text-primary"><h5 class="fw-bold">{{ $currentCourse->course_name }}</h5></a>
                     <p>
                         <strong>
-                            @if(Cookie::get('language') == '2')
+                            @if($_COOKIE['language'] == '2')
                             पाठ्यक्रम तिथि:
                             @else
                             Course Date:
@@ -127,7 +127,7 @@
                 @endforeach
                 @else
                 <p class="text-muted">
-                    @if(Cookie::get('language') == '2')
+                    @if($_COOKIE['language'] == '2')
                     इस श्रेणी के लिए कोई वर्तमान पाठ्यक्रम उपलब्ध नहीं है।
                     @else
                     No current courses available for this category.
@@ -141,7 +141,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12 mt-4">
-                    <h4 class="mb-3">@if(Cookie::get('language') == '2')
+                    <h4 class="mb-3">@if($_COOKIE['language'] == '2')
                         संग्रहीत पाठ्यक्रम:
                         @else
                         Archived Courses:
@@ -149,7 +149,7 @@
                     @if($courses->isNotEmpty())
                     <div class="form-group">
                         <label for="archive_course" class="form-label">
-                        @if(Cookie::get('language') == '2')
+                        @if($_COOKIE['language'] == '2')
                         संग्रहीत पाठ्यक्रम का चयन करें:
                         @else
                         Select Archived Course:
@@ -167,7 +167,7 @@
                     </div>
                     @else
                     <p class="text-muted">
-                        @if(Cookie::get('language') == '2')
+                        @if($_COOKIE['language'] == '2')
                         कोई संग्रहित पाठ्यक्रम उपलब्ध नहीं है.
                         @else
                         No archived courses available.
@@ -184,7 +184,7 @@
 
 @else
 <h4>
-    @if(Cookie::get('language') == '2')
+    @if($_COOKIE['language'] == '2')
     मौजूद नहीं
     @else
     Does not exist

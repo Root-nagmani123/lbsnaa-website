@@ -9,14 +9,14 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb p-2 mb-0">
                             <li class="breadcrumb-item">
-                                <a href="{{ route('home') }}" class="text-primary">@if(Cookie::get('language') ==
+                                <a href="{{ route('home') }}" class="text-primary">@if($_COOKIE['language'] ==
                                     '2')घर
                                     @else
                                     Home
                                     @endif</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">
-                                @if(Cookie::get('language') ==
+                                @if($_COOKIE['language'] ==
                                 '2')निविदाओं
                                 @else
                                 Tenders
@@ -34,7 +34,7 @@
                 </div>
                 <div class="col-md-3 text-end">
                     <a href="{{ route('user.tenders_archive') }}" class="btn btn-primary fw-semibold btn-sm">
-                        @if(Cookie::get('language') ==
+                        @if($_COOKIE['language'] ==
                         '2')पुरालेख
                         @else
                         Archive
@@ -47,7 +47,7 @@
         <div class="card bg-white border-0 rounded-4 shadow-sm mb-4" id="skip_to_main_content">
             <div class="card-body p-4">
                 <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-3">
-                    <h4 class="fw-semibold fs-18 mb-0">@if(Cookie::get('language') ==
+                    <h4 class="fw-semibold fs-18 mb-0">@if($_COOKIE['language'] ==
                         '2')निविदाओं
                         @else
                         Tenders
@@ -61,34 +61,34 @@
                             <tr class="text-center">
                                 <th>#</th>
                                 <th>
-                                    @if(Cookie::get('language') ==
+                                    @if($_COOKIE['language'] ==
                                     '2')निविदा शीर्षक
                                     @else
                                     Tender Title
                                     @endif</th>
                                 <th>
-                                    @if(Cookie::get('language') ==
+                                    @if($_COOKIE['language'] ==
                                     '2')प्रकाशित तिथि
                                     @else
                                     Publish Date
                                     @endif
                                 </th>
                                 <th>
-                                    @if(Cookie::get('language') ==
+                                    @if($_COOKIE['language'] ==
                                     '2')अंतिम तिथि
                                     @else
                                     Last Date
                                     @endif
                                 </th>
                                 <th>
-                                    @if(Cookie::get('language') ==
+                                    @if($_COOKIE['language'] ==
                                     '2')दस्तावेज़
                                     @else
                                     Document
                                     @endif
                                 </th>
                                 <th>
-                                    @if(Cookie::get('language') ==
+                                    @if($_COOKIE['language'] ==
                                     '2')शुद्धिपत्र
                                     @else
                                     Corrigendum
@@ -125,7 +125,7 @@
                             @else
                             <tr>
                                 <td colspan="6" class="text-center text-muted">
-                                    @if(Cookie::get('language') ==
+                                    @if($_COOKIE['language'] ==
                                     '2')कोई रिकॉर्ड नहीं मिला
                                     @else
                                     No records found

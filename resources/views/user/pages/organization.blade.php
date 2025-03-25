@@ -7,7 +7,7 @@
                     <ol class="breadcrumb p-2">
                         <li class="breadcrumb-item">
                             <a href="{{ route('home')}}" style="color: #af2910;">
-                                @if(Cookie::get('language') ==
+                                @if($_COOKIE['language'] ==
                                 '2')घर
                                 @else
                                 Home
@@ -15,7 +15,7 @@
                             </a>
                         </li>
                         <li class="breadcrumb-item active">
-                            @if(Cookie::get('language') ==
+                            @if($_COOKIE['language'] ==
                             '2')संगठनात्मक संरचना
                             @else
                             Organizational Structure

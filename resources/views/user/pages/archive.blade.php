@@ -7,14 +7,14 @@
                 <nav aria-label="breadcrumb ">
                     <ol class="breadcrumb p-2">
                         <li class="breadcrumb-item">
-                            <a href="{{ route('home') }}" style="color: #af2910;">@if(Cookie::get('language') == '2')
+                            <a href="{{ route('home') }}" style="color: #af2910;">@if($_COOKIE['language'] == '2')
                                 घर
                                 @else
                                 Home
                                 @endif</a>
                         </li>
                         <li class="breadcrumb-item active">
-                                @if(Cookie::get('language') == '2')
+                                @if($_COOKIE['language'] == '2')
                                 अभिलेखागार
                                 @else
                                 Archives
@@ -33,7 +33,7 @@
                 <form id="form2" name="form2" action="javascript:void(0);" onsubmit="return redirectToCategory();">
                     <fieldset>
                         <label class="txt">
-                            @if(Cookie::get('language') == '2')
+                            @if($_COOKIE['language'] == '2')
                             खोज :
                             @else
                             Search :
@@ -42,35 +42,35 @@
                         <label for="category">
                             <select name="cattype" id="cattype" fdprocessedid="247li8" class="form-control">
                                 <option value="">
-                                    @if(Cookie::get('language') == '2')
+                                    @if($_COOKIE['language'] == '2')
                                     श्रेणी चुनना
                                     @else
                                     Select Category
                                     @endif
                                 </option>
                                 <option value="1">
-                                    @if(Cookie::get('language') == '2')
+                                    @if($_COOKIE['language'] == '2')
                                     समाचार
                                     @else
                                     News
                                     @endif
                                 </option>
                                 <option value="2">
-                                    @if(Cookie::get('language') == '2')
+                                    @if($_COOKIE['language'] == '2')
                                     निविदाओं
                                     @else
                                     Tenders
                                     @endif
                                 </option>
                                 <option value="4">
-                                    @if(Cookie::get('language') == '2')
+                                    @if($_COOKIE['language'] == '2')
                                     नवीनतम अपडेट
                                     @else
                                     Latest Updates
                                     @endif
                                 </option>
                                 <option value="5">
-                                    @if(Cookie::get('language') == '2')
+                                    @if($_COOKIE['language'] == '2')
                                     आदेश और परिपत्र
                                     @else
                                     Orders and circulars

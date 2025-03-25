@@ -12,7 +12,7 @@
                     <ol class="breadcrumb p-2">
                         <li class="breadcrumb-item">
                             <a href="{{ route('home')}}" style="color: #af2910;">
-                                @if(Cookie::get('language') ==
+                                @if($_COOKIE['language'] ==
                                 '2')घर
                                 @else
                                 Home
@@ -21,7 +21,7 @@
                         </li>
                         <li class="breadcrumb-item">
                             <a href="#" style="color: #af2910;">
-                                @if(Cookie::get('language') ==
+                                @if($_COOKIE['language'] ==
                                 '2')अकादमी समाचार
                                 @else
                                 Academy News
@@ -71,7 +71,7 @@
 
 @else
 <h4>
-    @if(Cookie::get('language') ==
+    @if($_COOKIE['language'] ==
     '2')समाचार मौजूद नहीं है
     @else
     News does not exist

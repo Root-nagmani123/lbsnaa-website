@@ -12,7 +12,7 @@
                     <ol class="breadcrumb p-2">
                         <li class="breadcrumb-item">
                             <a href="{{ route('home')}}" style="color: #af2910;">
-                                @if(Cookie::get('language') ==
+                                @if($_COOKIE['language'] ==
                                 '2')घर
                                 @else
                                 Home
@@ -20,7 +20,7 @@
                             </a>
                         </li>
                         <li class="breadcrumb-item active">
-                        @if(Cookie::get('language') ==
+                        @if($_COOKIE['language'] ==
                                 '2')रिक्ति
                                 @else
                                 Vacancy
@@ -34,7 +34,7 @@
            <div class="container-fluid">
            <div class="row mb-3">
                 <div class="col-md-9">
-                    <h2 class="heading mb-3 text-primary fw-bold">@if(Cookie::get('language') ==
+                    <h2 class="heading mb-3 text-primary fw-bold">@if($_COOKIE['language'] ==
                         '2')रिक्ति
                         @else
                         Vacancy
@@ -42,7 +42,7 @@
                 </div>
                 <div class="col-md-3 text-end">
                     <a href="{{ route('user.vacancy_archive') }}" class="btn btn-outline-primary fw-semibold btn-sm">
-                        @if(Cookie::get('language') ==
+                        @if($_COOKIE['language'] ==
                         '2')पुरालेख
                         @else
                         Archive
@@ -81,7 +81,7 @@
                         @else
                         <tr>
                             <td colspan="5" class="text-center">
-                                @if(Cookie::get('language') ==
+                                @if($_COOKIE['language'] ==
                                 '2')कोई रिकॉर्ड नहीं मिला
                                 @else
                                 No records found

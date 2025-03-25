@@ -8,7 +8,7 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb p-2">
                             <li class="breadcrumb-item">
-                                <a href="{{ route('home') }}" style="color: #af2910;">@if(Cookie::get('language') ==
+                                <a href="{{ route('home') }}" style="color: #af2910;">@if($_COOKIE['language'] ==
                                     '2')घर
                                     @else
                                     Home
@@ -16,7 +16,7 @@
                                 </a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">
-                                @if(Cookie::get('language') ==
+                                @if($_COOKIE['language'] ==
                                 '2')उत्पादों की सूची
                                 @else
                                 Product List
@@ -37,7 +37,7 @@
         <form id="search_frm" name="search_frm" method="get" action="">
             <div class="content-box mb-4">
                 <h3>
-                    @if(Cookie::get('language') ==
+                    @if($_COOKIE['language'] ==
                     '2')उत्पादों को खोजना
                     @else
                     Search Products
@@ -46,7 +46,7 @@
                 <div class="row g-3">
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label for="Keywords"> @if(Cookie::get('language') ==
+                            <label for="Keywords"> @if($_COOKIE['language'] ==
                                 '2')कीवर्ड:
                                 @else
                                 Keywords:
@@ -59,7 +59,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="Products">
-                                @if(Cookie::get('language') ==
+                                @if($_COOKIE['language'] ==
                                 '2')उत्पाद:
                                 @else
                                 Products:
@@ -79,7 +79,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="Products">
-                                @if(Cookie::get('language') ==
+                                @if($_COOKIE['language'] ==
                                 '2')उत्पाद का प्रकार:
                                 @else
                                 Product Type:
@@ -97,7 +97,7 @@
                     <div class="col-md-3 d-flex align-items-end gap-2">
 
                         <button id="btn2" type="submit"
-                            class="btn btn-outline-primary fw-bold w-100">@if(Cookie::get('language') ==
+                            class="btn btn-outline-primary fw-bold w-100">@if($_COOKIE['language'] ==
                             '2')जमा करना
                             @else
                             Submit
@@ -105,7 +105,7 @@
                         <input type="hidden" name="action" value="submit">
                         <a href="{{ route('user.souvenir')}}" id="btn2" type="reset"
                             class="btn btn-outline-warning fw-bold w-100">
-                            @if(Cookie::get('language') ==
+                            @if($_COOKIE['language'] ==
                             '2')रीसेट करें
                             @else
                             Reset

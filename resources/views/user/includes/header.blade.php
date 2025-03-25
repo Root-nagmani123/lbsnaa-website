@@ -342,7 +342,7 @@
             <div class="collapse navbar-collapse" id="navbar-default">
                 <ul class="navbar-nav ms-auto navmenu">
                     @php
-                    $language = Cookie::get('language');
+                    $language = $_COOKIE['language'];
                     $menus = DB::table('menus')
                     ->where('menu_status', 1)
                     ->where('is_deleted', 0)
@@ -362,7 +362,7 @@
                     ->get();
 
                     function renderMenuItems($parentId, $isCourseOrTraining = false) {
-                    $language = Cookie::get('language');
+                    $language = $_COOKIE['language'];
                     $submenus = DB::table('menus')
                     ->where('menu_status', 1)
                     ->where('is_deleted', 0)

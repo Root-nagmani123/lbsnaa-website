@@ -12,7 +12,7 @@
                     <ol class="breadcrumb">
                         <!-- Home link -->
                         <li class="breadcrumb-item">
-                            <a href="{{ route('home') }}" class="text-primary">@if(Cookie::get('language') ==
+                            <a href="{{ route('home') }}" class="text-primary">@if($_COOKIE['language'] ==
                                 '2')घर
                                 @else
                                 Home

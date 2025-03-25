@@ -11,7 +11,7 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb p-2 mb-0">
                     <li class="breadcrumb-item">
-                                <a href="{{ route('home') }}" style="color: #af2910;">@if(Cookie::get('language') ==
+                                <a href="{{ route('home') }}" style="color: #af2910;">@if($_COOKIE['language'] ==
                                     '2')
                                     घर
                                     @else
@@ -20,7 +20,7 @@
                                 </a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">
-                                @if(Cookie::get('language') ==
+                                @if($_COOKIE['language'] ==
                                 '2')
                                 संकाय
                                 @else
@@ -34,7 +34,7 @@
         <div class="card bg-white border-0 rounded-10 mb-4" id="skip_to_main_content">
             <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center pb-20 mb-20 mb-2">
-                    <h3 class="fw-semibold fs-18 mb-0">@if(Cookie::get('language') ==
+                    <h3 class="fw-semibold fs-18 mb-0">@if($_COOKIE['language'] ==
                                 '2')
                                 इनहाउस फैकल्टी
                                 @else
@@ -61,7 +61,7 @@
                                 <tr class="text-center bg-primary">
                                     <th class="col text-white">#</th>
                                     <th class="col text-white">
-                                    @if(Cookie::get('language') ==
+                                    @if($_COOKIE['language'] ==
                                 '2')
                                 नाम
                                 @else
@@ -69,7 +69,7 @@
                                 @endif
                                 </th>
                                     <th class="col text-white">
-                                    @if(Cookie::get('language') ==
+                                    @if($_COOKIE['language'] ==
                                 '2')
                                 पद का नाम
                                 @else
@@ -77,7 +77,7 @@
                                 @endif
                                 </th>
                                     <th class="col text-white">
-                                    @if(Cookie::get('language') ==
+                                    @if($_COOKIE['language'] ==
                                 '2')
                                 ईमेल
                                 @else
@@ -85,7 +85,7 @@
                                 @endif
                                 </th>
                                     <th class="col text-white">
-                                    @if(Cookie::get('language') ==
+                                    @if($_COOKIE['language'] ==
                                 '2')कार्यालय
                                 @else
                                 Office
@@ -107,7 +107,7 @@
                                 @else
                                 <tr>
                                     <td colspan="5" class="text-center">
-                                    @if(Cookie::get('language') ==
+                                    @if($_COOKIE['language'] ==
                                 '2')कोई रिकॉर्ड नहीं मिला
                                 @else
                                 No records found

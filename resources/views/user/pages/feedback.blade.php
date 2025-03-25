@@ -8,14 +8,14 @@
                     <ol class="breadcrumb p-2">
                         <li class="breadcrumb-item">
                             <a href="{{ route('home') }}" class="text-danger">
-                                @if(Cookie::get('language') ==
+                                @if($_COOKIE['language'] ==
                                 '2')घर
                                 @else
                                 Home
                                 @endif
                             </a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">@if(Cookie::get('language') ==
+                        <li class="breadcrumb-item active" aria-current="page">@if($_COOKIE['language'] ==
                             '2')प्रतिक्रिया
                             @else
                             Feedback
@@ -45,7 +45,7 @@
                     <form method="POST" action="{{ route('feedback.store') }}">
                         @csrf
                         <div class="mb-3 ">
-                            <label class="form-label" for="name">@if(Cookie::get('language') ==
+                            <label class="form-label" for="name">@if($_COOKIE['language'] ==
                                 '2')नाम
                                 @else
                                 Name
@@ -56,7 +56,7 @@
                         </div>
                         <div class="mb-3 ">
                             <label class="form-label" for="mobile">
-                                @if(Cookie::get('language') ==
+                                @if($_COOKIE['language'] ==
                                 '2')मोबाइल नंबर
                                 @else
                                 Mobile No.
@@ -68,7 +68,7 @@
                         </div>
 
                         <div class="mb-3 ">
-                            <label class="form-label" for="email"> @if(Cookie::get('language') ==
+                            <label class="form-label" for="email"> @if($_COOKIE['language'] ==
                                 '2')ईमेल
                                 @else
                                 Email
@@ -79,7 +79,7 @@
                         </div>
                         <div class="mb-3 ">
                             <label class="form-label" for="category">
-                                @if(Cookie::get('language') ==
+                                @if($_COOKIE['language'] ==
                                 '2')वर्ग
                                 @else
                                 Category
@@ -96,7 +96,7 @@
                         </div>
                         <div class="mb-3 ">
                             <label class="form-label" for="comments">
-                                @if(Cookie::get('language') ==
+                                @if($_COOKIE['language'] ==
                                 '2')टिप्पणियाँ
                                 @else
                                 Comments
@@ -107,7 +107,7 @@
                         </div>
                         <div class="mb-3">
                             <button type="submit" class="btn btn-primary">
-                            @if(Cookie::get('language') ==
+                            @if($_COOKIE['language'] ==
                                 '2')जमा करना
                                 @else
                                 Submit

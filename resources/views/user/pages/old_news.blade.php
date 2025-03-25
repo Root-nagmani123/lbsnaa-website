@@ -10,7 +10,7 @@
                     <ol class="breadcrumb p-2">
                         <li class="breadcrumb-item">
                             <a href="{{ route('home') }}" class="text-danger">
-                                @if(Cookie::get('language') == '2')
+                                @if($_COOKIE['language'] == '2')
                                 घर
                                 @else
                                 Home
@@ -19,7 +19,7 @@
                         </li>
                         <li class="breadcrumb-item">
                             <a href="#" class="text-danger">
-                                @if(Cookie::get('language') == '2')
+                                @if($_COOKIE['language'] == '2')
                                 अकादमी समाचार
                                 @else
                                 Academy News
@@ -27,7 +27,7 @@
                             </a>
                         </li>
                         <li class="breadcrumb-item active" aria-current="page">
-                            @if(Cookie::get('language') == '2')
+                            @if($_COOKIE['language'] == '2')
                             पुरालेख अकादमी समाचार
                             @else
                             Archive Academy News
@@ -47,7 +47,7 @@
             <form id="form2" method="GET" action="{{ route('user.news_old_listing') }}" class="row">
                 <div class="col-lg-4">
                     <label for="Keywords" class="form-label">
-                        @if(Cookie::get('language') == '2')
+                        @if($_COOKIE['language'] == '2')
                         दिन/माह/वर्ष के अनुसार खोजें:
                         @else
                         Search by Day/Month/Year:
@@ -58,7 +58,7 @@
                 </div>
                 <div class="col-lg-4">
                     <label for="year" class="form-label">
-                        @if(Cookie::get('language') == '2')
+                        @if($_COOKIE['language'] == '2')
                         साल
                         @else
                         Years
@@ -74,14 +74,14 @@
                 </div>
                 <div class="col-lg-4 d-flex align-items-end gap-2">
                     <button type="submit" class="btn btn-outline-primary fw-bold w-100">
-                        @if(Cookie::get('language') == '2')
+                        @if($_COOKIE['language'] == '2')
                         जमा करना
                         @else
                         Submit
                         @endif
                     </button>
                     <a href="{{ route('user.news_old_listing') }}" class="btn btn-outline-warning fw-bold w-100">
-                        @if(Cookie::get('language') == '2')
+                        @if($_COOKIE['language'] == '2')
                         रीसेट करें
                         @else
                         Reset
@@ -113,7 +113,7 @@
                     <!-- Card body -->
                     <div class="card-body d-flex flex-column">
                         <a href="#" class="fs-6 mb-2 fw-semibold d-block" style="color:#007A33;">
-                            @if(Cookie::get('language') == '2')
+                            @if($_COOKIE['language'] == '2')
                             प्रकाशित किया गया:
                             @else
                             Posted On:
@@ -131,7 +131,7 @@
                     <!-- Card footer -->
                     <div class="card-footer bg-white border-0 text-end">
                         <a href="{{ route('user.newsbyslug', $slider->title_slug) }}" class="text-primary">
-                            @if(Cookie::get('language') == '2')
+                            @if($_COOKIE['language'] == '2')
                             और पढ़ें
                             @else
                             Read More
@@ -144,7 +144,7 @@
         </div>
         @else
         <h4>
-            @if(Cookie::get('language') == '2')
+            @if($_COOKIE['language'] == '2')
             कोई समाचार नहीं मिला
             @else
             No News Found

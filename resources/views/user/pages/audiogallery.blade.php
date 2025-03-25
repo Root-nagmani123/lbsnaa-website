@@ -8,7 +8,7 @@
                     <ol class="breadcrumb p-2">
                         <li class="breadcrumb-item">
                             <a href="{{ route('home') }}" style="color: #af2910;">
-                                @if(Cookie::get('language') == '2')
+                                @if($_COOKIE['language'] == '2')
                                 घर
                                 @else
                                 Home
@@ -17,7 +17,7 @@
                         </li>
                         <li class="breadcrumb-item">
                             <a href="{{ route('user.mediagallery')}}" style="color: #af2910;">
-                                @if(Cookie::get('language') == '2')
+                                @if($_COOKIE['language'] == '2')
                                 मीडिया गैलरी
                                 @else
                                 Media Gallery
@@ -27,7 +27,7 @@
 
                         <li class="breadcrumb-item">
                             <a href="#" style="color: #af2910;">
-                                @if(Cookie::get('language') == '2')
+                                @if($_COOKIE['language'] == '2')
                                 ऑडियो गैलरी विवरण
                                 @else
                                 Audio Gallery Details
@@ -43,7 +43,7 @@
 <section class="py-2" id="skip_to_main_content">
     <div class="container-fluid">
         <h2 class="text-primary mb-2">
-            @if(Cookie::get('language') == '2')
+            @if($_COOKIE['language'] == '2')
             ऑडियो गैलरी
             @else
             Audio Gallery
@@ -69,7 +69,7 @@
             @endforeach
             @else
             <p>
-                @if(Cookie::get('language') == '2')
+                @if($_COOKIE['language'] == '2')
                 कोई ऑडियो नहीं मिला
                 @else
                 No Audio Found
