@@ -83,7 +83,6 @@ use App\Http\Middleware\PreventBackHistory;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', [HomeFrontController::class,'index'])->name('home');
 Route::get('/news/{slug}', [HomeFrontController::class,'get_news'])->name('user.newsbyslug');
 Route::get('/menu/{slug}', [HomeFrontController::class, 'get_navigation_pages'])->name('user.navigationpagesbyslug');
