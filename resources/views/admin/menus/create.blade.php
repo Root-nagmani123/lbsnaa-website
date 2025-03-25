@@ -87,6 +87,7 @@
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label" for="meta_title">Meta Title:</label>
+                                <span>Hindi menu slug is created by meta Title</span>
                                 <div class="form-group position-relative">
                                     <input type="text" class="form-control text-dark  h-58" name="meta_title"
                                         id="meta_title">

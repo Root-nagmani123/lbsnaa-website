@@ -1,6 +1,12 @@
 @php
 $language = $_COOKIE['language'];
-$footer_icons = DB::table('home_footer_images')->where('status',1)->get();
+$footer_icons = DB::table('home_footer_images')->where('status',1)->when($language == 2, function
+($query) use ($language) {
+return $query->where('language', '2');
+})
+->when($language == 1, function ($query) use ($language) {
+return $query->where('language', '1');
+})->get();
 $footer_links = DB::table('menus')->where('txtpostion',3)->where('menu_status',1)->when($language == 2, function
 ($query) use ($language) {
 return $query->where('language', '2');
@@ -701,7 +707,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 .then(response => response.json())
                 .then(data => {
                     // if (data.message === "Language Set") {
-                        location.reload(); // Refresh page to apply language change
+                        window.location.href = "{{ route('home') }}";
+                        // location.reload(); // Refresh page to apply language change
                     // } else {
                     //     alert("Error changing language!");
                     // }

@@ -39,9 +39,12 @@
     </button>
 
     <!-- Play/Pause Button -->
-    <button id="playPauseBtn" class="btn btn-primary btn-sm" aria-label="Play/Pause button for Sliders">
-        <i class="bi bi-pause-fill"></i>Pause
-    </button>
+   <button id="playPauseBtn" class="btn btn-primary btn-sm" aria-label="
+    {{ $_COOKIE['language'] == '2' ? 'स्लाइडर के लिए प्ले / पॉज़ बटन' : 'Play/Pause button for Sliders' }}">
+    <i class="bi bi-pause-fill"></i>
+    {{ $_COOKIE['language'] == '2' ? 'रोकें' : 'Pause' }}
+</button>
+
 </div>
 
 

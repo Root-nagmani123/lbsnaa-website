@@ -107,6 +107,7 @@ class MenuController extends Controller
         $rules = [
             'txtlanguage' => 'required|in:1,2',
             'menutitle' => 'required|string|max:255',
+            'meta_title' => 'required|string|max:255',
             'texttype' => 'required|integer|in:1,2,3', // Example values for texttype
             'txtpostion' => 'nullable|integer',
             'start_date' => 'nullable|date',
@@ -119,6 +120,7 @@ class MenuController extends Controller
             'txtlanguage.required' => 'Please select a language.',
             'txtlanguage.in' => 'Invalid language selection.',
             'menutitle.required' => 'Please enter the menu title.',
+            'meta_title.required' => 'Please enter the meta title.',
             'menutitle.string' => 'The menu title must be a string.',
             'menutitle.max' => 'The menu title must not exceed 255 characters.',
             'texttype.required' => 'Please select a text type.',
@@ -233,6 +235,7 @@ class MenuController extends Controller
         $rules = [
             'txtlanguage' => 'required|in:1,2',
             'menutitle' => 'required|string|max:255',
+            'meta_title' => 'required|string|max:255',
             'texttype' => 'required|integer|in:1,2,3', // Example values for texttype
             'txtpostion' => 'nullable|integer',
             'start_date' => 'nullable|date',
@@ -246,6 +249,7 @@ class MenuController extends Controller
             'txtlanguage.required' => 'Please select a language.',
             'txtlanguage.in' => 'Invalid language selection.',
             'menutitle.required' => 'Please enter the menu title.',
+            'meta_title.required' => 'Please enter the meta title.',
             'menutitle.string' => 'The menu title must be a string.',
             'menutitle.max' => 'The menu title must not exceed 255 characters.',
             'texttype.required' => 'Please select a text type.',

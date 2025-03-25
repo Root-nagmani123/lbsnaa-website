@@ -211,27 +211,30 @@
                     <!-- Tooltip Items -->
                     <li class="nav-item">
                         <a class="nav-link fw-bold" href="#skip_to_main_content" data-bs-toggle="tooltip"
-                            data-bs-placement="bottom" title="Skip to main content" aria-label="Skip to main content">
-                            <!-- <i class="material-icons menu-icon">event_repeat</i> -->
+                            data-bs-placement="bottom"title="@if($_COOKIE['language'] == '2')मुख्य सामग्री पर जाएं @else Skip to main content @endif"
+                            aria-label="@if($_COOKIE['language'] == '2')मुख्य सामग्री पर जाएं @else Skip to main content @endif">
                             <img src="{{ asset('assets/images/skip_to_main_content.png') }}" alt="skip to main content"
                                 style="height: 30px;">
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('user.screen-reader') }}" data-bs-toggle="tooltip"
-                            data-bs-placement="bottom" title="Screen Reader" aria-label="Screen Reader">
-                            <!-- <i class="material-icons menu-icon">volume_up</i> -->
+                            data-bs-placement="bottom" title="@if($_COOKIE['language'] == '2')स्क्रीन रीडर @else Screen Reader @endif"
+                            aria-label="@if($_COOKIE['language'] == '2')स्क्रीन रीडर @else Screen Reader @endif">
                             <img src="{{ asset('assets/images/screenreadeer.png') }}" alt="screen reader"
                                 style="height: 30px;">
                         </a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false" title="Accessibility" aria-label="Expanded accessibility menu">
-                            <!-- <i class="material-icons menu-icon">accessible</i> -->
-                            <img src="{{ asset('assets/images/Accessibility (2).png') }}" alt="accessibility"
-                                style="height: 30px;">
-                        </a>
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                        title="@if($_COOKIE['language'] == '2')सुलभता @else Accessibility @endif"
+                        aria-label="@if($_COOKIE['language'] == '2')विस्तारित सुलभता मेनू @else Expanded accessibility menu @endif">
+                        <img src="{{ asset('assets/images/Accessibility (2).png') }}" 
+                            alt="@if($_COOKIE['language'] == '2')सुलभता @else Accessibility @endif"
+                            style="height: 30px;">
+                    </a>
+
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="javascript:void(0);" onclick="set_font_size('increase')"
                                     title="Increase font size" aria-label="Increase font size">A<sup>+</sup></a></li>
@@ -242,13 +245,15 @@
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false" data-bs-toggle="tooltip" data-bs-placement="bottom"
-                            title="Social Media Links" aria-label="Expanded Social Media Links">
-                            <!-- <i class="material-icons menu-icon">group</i> -->
-                            <img src="{{ asset('assets/images/social_group.png') }}" alt="social media links"
+                            title="@if($_COOKIE['language'] == '2')सोशल मीडिया लिंक @else Social Media Links @endif"
+                            aria-label="@if($_COOKIE['language'] == '2')विस्तारित सोशल मीडिया लिंक @else Expanded Social Media Links @endif">
+                            <img src="{{ asset('assets/images/social_group.png') }}" 
+                                alt="@if($_COOKIE['language'] == '2')सोशल मीडिया लिंक @else Social Media Links @endif"
                                 style="height: 30px;">
                         </a>
+
                         @php
                         $social_media_links = DB::table('social_media_links')->get();
                         @endphp
@@ -280,11 +285,15 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('user.sitemap') }}" data-bs-toggle="tooltip"
-                            data-bs-placement="bottom" title="Sitemap" aria-label="Sitemap">
-                            <!-- <i class="material-icons menu-icon">account_tree</i> -->
-                            <img src="{{ asset('assets/images/sitemap.png') }}" alt="sitemap" style="height: 30px;">
-                        </a>
+                    <a class="nav-link" href="{{ route('user.sitemap') }}" data-bs-toggle="tooltip"
+                        data-bs-placement="bottom"
+                        title="@if($_COOKIE['language'] == '2')साइटमैप @else Sitemap @endif"
+                        aria-label="@if($_COOKIE['language'] == '2')साइटमैप @else Sitemap @endif">
+                        <img src="{{ asset('assets/images/sitemap.png') }}" 
+                            alt="@if($_COOKIE['language'] == '2')साइटमैप @else Sitemap @endif"
+                            style="height: 30px;">
+                    </a>
+
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link" href="#" data-bs-toggle="dropdown" aria-expanded="false"
