@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Admin\{ResearchCentre, MicroQuickLinks};
 use DOMDocument;
 
 class HomeFrontmicroController extends Controller
@@ -33,8 +34,7 @@ class HomeFrontmicroController extends Controller
         ->get();
 
 
-        $quickLinks = DB::table('micro_quick_links')
-        ->join('research_centres', 'micro_quick_links.research_centre_id', '=', 'research_centres.id')  // Join with 'research_centres'
+        $quickLinks = MicroQuickLinks::join('research_centres', 'micro_quick_links.research_centre_id', '=', 'research_centres.id')  // Join with 'research_centres'
         ->where('micro_quick_links.categorytype', 2)
         ->where('micro_quick_links.status', 1)
         ->when($slug, function ($query) use ($slug) {
@@ -42,20 +42,24 @@ class HomeFrontmicroController extends Controller
         })
         ->whereDate('micro_quick_links.start_date', '<=', now())  // Ensure start_date is before or equal to today
         ->whereDate('micro_quick_links.termination_date', '>=', now())  // Ensure termination_date is after or equal to today
+        ->where('micro_quick_links.language', $this->getLang())
         ->select('micro_quick_links.*', 'research_centres.research_centre_name as research_centre_name')
         ->get();
 
         // Fetch research centres, using the slug if it's provided
-        $query = DB::table('research_centres')->where('research_centres.status', 1);
+        // $query = DB::table('research_centres')->where('research_centres.status', 1);
+        $query = ResearchCentre::where('research_centres.status', 1)->where('language', $this->getLang());
+
+        $Title = $pageTitle = '';
         if ($slug) {
             // Filter by research_centre_slug if provided
-            $query->where('research_centres.research_centre_slug', $slug);
+            $query->where('research_centre_slug', $slug);
             
             // Fetch the research centre name dynamically
             $researchCentre = $query->first();
-            $Title = ucwords(str_replace('-', ' ', $researchCentre->research_centre_name)). ' | Lal Bahadur Shastri National Academy of Administration';
-
+            
             if ($researchCentre) {
+                $Title = ucwords(str_replace('-', ' ', $researchCentre->research_centre_name)). ' | Lal Bahadur Shastri National Academy of Administration';
                 $pageTitle = $researchCentre->research_centre_name;
             }
         }

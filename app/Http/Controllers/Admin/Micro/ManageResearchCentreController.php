@@ -219,6 +219,8 @@ class ManageResearchCentreController extends Controller
             'texttype' => 'nullable|in:1,2', 
             'pdfUpload' => 'nullable|file|mimes:pdf|max:2048', 
             'websiteUrl' => 'nullable|url|max:255',
+            'sub_heading' => 'nullable|string',
+            'home_title' => 'nullable|string',
         ];
         
         $messages = [

@@ -310,8 +310,8 @@
                             <img src="{{ asset('assets/images/language.png') }}" alt="language" style="height: 30px;">
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="languageDropdown">
-                            <li><a class="dropdown-item set-language" data-lang="1" href="#" aria-label="English">English</a></li>
-                            <li><a class="dropdown-item set-language" data-lang="2" href="#" aria-label="Hindi">Hindi</a></li>
+                            <li><a class="dropdown-item set-language" data-lang="1" href="{{ route('set.language', 1) }}" aria-label="English">English</a></li>
+                            <li><a class="dropdown-item set-language" data-lang="2" href="{{ route('set.language', 2) }}" aria-label="Hindi">Hindi</a></li>
                         </ul>
                     </li>
                 </ul>
