@@ -79,7 +79,7 @@
                             </script>
                         </span>
                         <span>
-                            @if(Cookie::get('language') == '2')
+                            @if($_COOKIE['language'] == '2')
                             लाल बहादुर शास्त्री राष्ट्रीय प्रशासन अकादमी मसूरी, भारत सरकार। सर्वाधिकार सुरक्षित
                             @else
                             Lal Bahadur Shastri National Academy of Administration Mussoorie,Govt of India. All Right

@@ -12,7 +12,7 @@
                     <ol class="breadcrumb p-2">
                         <li class="breadcrumb-item">
                             <a href="{{ route('home')}}" style="color: #af2910;">
-                                @if(Cookie::get('language') ==
+                                @if($_COOKIE['language'] ==
                                 '2')घर
                                 @else
                                 Home
@@ -48,7 +48,7 @@
 
 @else
 <h4>
-    @if(Cookie::get('language') ==
+    @if($_COOKIE['language'] ==
     '2')कोई अपडेट नहीं है
     @else
     Doesn't have any update

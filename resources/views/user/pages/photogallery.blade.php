@@ -9,7 +9,7 @@
                         <ol class="breadcrumb p-2">
                             <li class="breadcrumb-item">
                                 <a href="{{ route('home') }}" style="color: #af2910;">
-                                    @if(Cookie::get('language') ==
+                                    @if($_COOKIE['language'] ==
                                     '2')घर
                                     @else
                                     Home
@@ -18,7 +18,7 @@
                             </li>
                             <li class="breadcrumb-item">
                                 <a href="{{ route('user.mediagallery') }}" style="color: #af2910;">
-                                    @if(Cookie::get('language') ==
+                                    @if($_COOKIE['language'] ==
                                     '2')मीडिया गैलरी
                                     @else
                                     Media Gallery
@@ -26,7 +26,7 @@
                                 </a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">
-                                @if(Cookie::get('language') ==
+                                @if($_COOKIE['language'] ==
                                 '2')फोटो गैलरी
                                 @else
                                 Photo Gallery
@@ -53,7 +53,7 @@
             </div>
         </div>
         @endif
-        <h2 class="text-primary mb-2">@if(Cookie::get('language') ==
+        <h2 class="text-primary mb-2">@if($_COOKIE['language'] ==
             '2')फोटो गैलरी
             @else
             Photo Gallery
@@ -64,7 +64,7 @@
                 <form id="form2" action="{{ route('user.photogallery') }}" method="GET" class="row g-2">
                     <div class="col-md-3">
                         <label for="Keywords" class="form-label">
-                            @if(Cookie::get('language') ==
+                            @if($_COOKIE['language'] ==
                             '2')खोज:
                             @else
                             Search:
@@ -74,7 +74,7 @@
                     </div>
                     <div class="col-md-3">
                         <label for="txtcategory" class="form-label">
-                            @if(Cookie::get('language') ==
+                            @if($_COOKIE['language'] ==
                             '2')वर्ग:
                             @else
                             Category:
@@ -98,7 +98,7 @@
                     </div>
                     <div class="col-md-3">
                         <label for="year" class="form-label">
-                            @if(Cookie::get('language') ==
+                            @if($_COOKIE['language'] ==
                             '2')वर्ष:
                             @else
                             Year:
@@ -115,14 +115,14 @@
                     </div>
                     <div class="col-md-3 d-flex align-items-end gap-2">
                         <button type="submit" class="btn btn-outline-primary fw-bold w-100">
-                            @if(Cookie::get('language') ==
+                            @if($_COOKIE['language'] ==
                             '2')जमा करना
                             @else
                             Submit
                             @endif
                         </button>
                         <a href="{{ route('user.photogallery') }}" class="btn btn-outline-warning fw-bold w-100">
-                            @if(Cookie::get('language') ==
+                            @if($_COOKIE['language'] ==
                             '2')रीसेट करें
                             @else
                             Reset

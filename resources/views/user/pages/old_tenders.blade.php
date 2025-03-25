@@ -13,7 +13,7 @@
                         <ol class="breadcrumb p-2 mb-0">
                             <li class="breadcrumb-item">
                                 <a href="{{ route('home') }}" class="text-primary">
-                                    @if(Cookie::get('language') ==
+                                    @if($_COOKIE['language'] ==
                                     '2')घर
                                     @else
                                     Home
@@ -22,7 +22,7 @@
                             </li>
                             <li class="breadcrumb-item" >
                                 <a href="{{ route('user.tenders') }}" class="text-primary">
-                                    @if(Cookie::get('language') ==
+                                    @if($_COOKIE['language'] ==
                                     '2')नाज़ुक
                                     @else
                                     Tender
@@ -30,7 +30,7 @@
                                 </a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">
-                                @if(Cookie::get('language') ==
+                                @if($_COOKIE['language'] ==
                                 '2')पुरालेख निविदाएं
                                 @else
                                 Archive Tenders
@@ -46,7 +46,7 @@
                 <div class="row mb-4">
                     <div class="col-lg-4">
                         <label class="form-label" for="Keywords">
-                            @if(Cookie::get('language') ==
+                            @if($_COOKIE['language'] ==
                             '2')खोज :
                             @else
                             Search :
@@ -57,7 +57,7 @@
                     </div>
                     <div class="col-lg-4">
                         <label for="year" class="form-label">
-                            @if(Cookie::get('language') ==
+                            @if($_COOKIE['language'] ==
                             '2')वर्ष
                             @else
                             Year
@@ -72,7 +72,7 @@
 
                     </div>
                     <div class="col-lg-4 d-flex align-items-end gap-2">
-                        <button type="submit" class="btn btn-primary fw-bold w-100">@if(Cookie::get('language')
+                        <button type="submit" class="btn btn-primary fw-bold w-100">@if($_COOKIE['language']
                             ==
                             '2')जमा करना
                             @else
@@ -80,7 +80,7 @@
                             @endif
                         </button>
                         <a href="{{ route('user.tenders_archive') }}" class="btn btn-warning fw-bold w-100">
-                            @if(Cookie::get('language') ==
+                            @if($_COOKIE['language'] ==
                             '2')रीसेट करें
                             @else
                             Reset
@@ -96,7 +96,7 @@
             <div class="card-body p-4">
                 <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-3">
                     <h4 class="fw-semibold fs-18 mb-0">
-                        @if(Cookie::get('language') ==
+                        @if($_COOKIE['language'] ==
                         '2')निविदाओं
                         @else
                         Tenders
@@ -111,35 +111,35 @@
                             <tr class="text-center">
                                 <th>#</th>
                                 <th>
-                                    @if(Cookie::get('language') ==
+                                    @if($_COOKIE['language'] ==
                                     '2')निविदा शीर्षक
                                     @else
                                     Tender Title
                                     @endif
                                 </th>
                                 <th>
-                                    @if(Cookie::get('language') ==
+                                    @if($_COOKIE['language'] ==
                                     '2')प्रकाशित तिथि
                                     @else
                                     Publish Date
                                     @endif
                                 </th>
                                 <th>
-                                    @if(Cookie::get('language') ==
+                                    @if($_COOKIE['language'] ==
                                     '2')अंतिम तिथि
                                     @else
                                     Last Date
                                     @endif
                                 </th>
                                 <th>
-                                    @if(Cookie::get('language') ==
+                                    @if($_COOKIE['language'] ==
                                     '2')दस्तावेज़
                                     @else
                                     Document
                                     @endif
                                 </th>
                                 <th>
-                                    @if(Cookie::get('language') ==
+                                    @if($_COOKIE['language'] ==
                                     '2')शुद्धिपत्र
                                     @else
                                     Corrigendum
@@ -159,7 +159,7 @@
                                     @if(!empty($value->file))
                                     <a href="{{ asset('storage/tender/'.$value->file) }}"
                                         class="btn btn-sm btn-primary" target="_blank">
-                                        @if(Cookie::get('language') ==
+                                        @if($_COOKIE['language'] ==
                                         '2')डाउनलोड करना
                                         @else
                                         Download
@@ -173,7 +173,7 @@
                                     @if(!empty($value->corrigendum))
                                     <a href="{{ asset('storage/tender/'.$value->corrigendum) }}"
                                         class="btn btn-sm btn-outline-primary"
-                                        target="_blank">@if(Cookie::get('language') ==
+                                        target="_blank">@if($_COOKIE['language'] ==
                                         '2')डाउनलोड करना
                                         @else
                                         Download
@@ -187,7 +187,7 @@
                             @else
                             <tr>
                                 <td colspan="5" class="text-center text-muted">
-                                    @if(Cookie::get('language') ==
+                                    @if($_COOKIE['language'] ==
                                     '2')कोई रिकॉर्ड नहीं मिला
                                     @else
                                     No records found

@@ -11,7 +11,7 @@
                     <ol class="breadcrumb p-2">
                         <li class="breadcrumb-item">
                             <a href="{{ route('home') }}" class="text-danger">
-                                @if(Cookie::get('language') == '2')
+                                @if($_COOKIE['language'] == '2')
                                 घर
                                 @else
                                 Home
@@ -21,7 +21,7 @@
                         <li class="breadcrumb-item">
                             <a href="{{ route('user.navigationpagesbyslug', ['slug' => 'training']) }}"
                                 class="text-danger">
-                                @if(Cookie::get('language') == '2')
+                                @if($_COOKIE['language'] == '2')
                                 प्रशिक्षण पाठ्यक्रम
                                 @else
                                 Training Courses
@@ -62,7 +62,7 @@
                         <table class="table table-striped table-bordered">
                             <tr>
                                 <th colspan="2" class="text-primary"><b>
-                                        @if(Cookie::get('language') == '2')
+                                        @if($_COOKIE['language'] == '2')
                                         पाठ्यक्रम संबंधी जानकारी
                                         @else
                                         Course Information
@@ -71,7 +71,7 @@
                             </tr>
                             <tr>
                                 <td style="width:50%;"><b>
-                                        @if(Cookie::get('language') == '2')
+                                        @if($_COOKIE['language'] == '2')
                                         अनुभाग:
                                         @else
                                         Section:
@@ -81,7 +81,7 @@
                             </tr>
                             <tr>
                                 <td><b>
-                                        @if(Cookie::get('language') == '2')
+                                        @if($_COOKIE['language'] == '2')
                                         कार्यक्रम का स्थान:
                                         @else
                                         Venue:
@@ -91,7 +91,7 @@
                             </tr>
                             <tr>
                                 <td><b>
-                                        @if(Cookie::get('language') == '2')
+                                        @if($_COOKIE['language'] == '2')
                                         पाठ्यक्रम समन्वयक:
                                         @else
                                         Course Coordinator:
@@ -101,7 +101,7 @@
                             </tr>
                             <tr>
                                 <td><b>
-                                        @if(Cookie::get('language') == '2')
+                                        @if($_COOKIE['language'] == '2')
                                         एसोसिएट कोर्स समन्वयक:
                                         @else
                                         Associate Course Coordinators:
@@ -119,7 +119,7 @@
                             </tr>
                             <tr>
                                 <td><b>
-                                        @if(Cookie::get('language') == '2')
+                                        @if($_COOKIE['language'] == '2')
                                         अवधि:
                                         @else
                                         Duration:
@@ -158,7 +158,7 @@
         <div class="row">
             <div class="col-12">
                 <h4>
-                    @if(Cookie::get('language') == '2')
+                    @if($_COOKIE['language'] == '2')
                     संग्रहीत पाठ्यक्रम:
                     @else
                     Archived Courses:
@@ -169,7 +169,7 @@
                     <select class="form-control ps-5 text-dark h-58" name="archive" id="archive_course"
                         onchange="navigateToArchivedCourse(this.value)">
                         <option value="">
-                            @if(Cookie::get('language') == '2')
+                            @if($_COOKIE['language'] == '2')
                             संग्रहीत पाठ्यक्रम चुनें
                             @else
                             Select Archived Course
@@ -183,7 +183,7 @@
                     </select>
                 </div>
                 @else
-                <p>@if(Cookie::get('language') == '2')
+                <p>@if($_COOKIE['language'] == '2')
                     कोई संग्रहित पाठ्यक्रम उपलब्ध नहीं है.
                     @else
                     No archived courses available.
@@ -201,7 +201,7 @@
         <div class="row">
             <div class="col-12">
                 <h4 class="text-center">
-                    @if(Cookie::get('language') == '2')
+                    @if($_COOKIE['language'] == '2')
                     पाठ्यक्रम नहीं मिला!
                     @else
                     Course not found!

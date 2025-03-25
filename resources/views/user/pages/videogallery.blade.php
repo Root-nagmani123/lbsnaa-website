@@ -7,7 +7,7 @@
                 <nav aria-label="breadcrumb ">
                     <ol class="breadcrumb p-2">
                         <li class="breadcrumb-item">
-                            <a href="{{ route('home')}}" style="color: #af2910;">@if(Cookie::get('language') ==
+                            <a href="{{ route('home')}}" style="color: #af2910;">@if($_COOKIE['language'] ==
                                 '2')घर
                                 @else
                                 Home
@@ -15,7 +15,7 @@
                         </li>
                         <li class="breadcrumb-item">
                             <a href="{{ route('user.mediagallery')}}" style="color: #af2910;">
-                                @if(Cookie::get('language') ==
+                                @if($_COOKIE['language'] ==
                                 '2')मीडिया गैलरी
                                 @else
                                 Media Gallery
@@ -24,7 +24,7 @@
                         </li>
 
                         <li class="breadcrumb-item active">
-                            @if(Cookie::get('language') ==
+                            @if($_COOKIE['language'] ==
                             '2')वीडियो गैलरी विवरण
                             @else
                             Video Gallery Details
@@ -46,7 +46,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         @endif
-        <h2 class="text-primary mb-2">@if(Cookie::get('language') ==
+        <h2 class="text-primary mb-2">@if($_COOKIE['language'] ==
             '2')वीडियो गैलरी
             @else
             Video Gallery

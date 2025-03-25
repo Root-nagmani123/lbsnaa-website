@@ -10,7 +10,7 @@
                         <ol class="breadcrumb p-2 mb-0">
                             <li class="breadcrumb-item">
                                 <a href="{{ route('home') }}" style="color: #af2910;">
-                                    @if(Cookie::get('language') ==
+                                    @if($_COOKIE['language'] ==
                                     '2')घर
                                     @else
                                     Home
@@ -18,7 +18,7 @@
                                 </a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">
-                                @if(Cookie::get('language') ==
+                                @if($_COOKIE['language'] ==
                                 '2')मीडिया गैलरी
                                 @else
                                 Media Gallery
@@ -46,7 +46,7 @@
                             </div>
                             <div class="mt-3">
                                 <h4 class="text-center">
-                                    @if(Cookie::get('language') ==
+                                    @if($_COOKIE['language'] ==
                                     '2')अकादमी गीत
                                     @else
                                     Academy Song
@@ -66,7 +66,7 @@
                             </div>
                             <div class="mt-3">
                                 <h4 class="text-center">
-                                    @if(Cookie::get('language') ==
+                                    @if($_COOKIE['language'] ==
                                     '2')फोटो गैलरी
                                     @else
                                     Photos Gallery
@@ -86,7 +86,7 @@
                             </div>
                             <div class="mt-3">
                                 <h4 class="text-center">
-                                    @if(Cookie::get('language') ==
+                                    @if($_COOKIE['language'] ==
                                     '2')वीडियो गैलरी
                                     @else
                                     Video Gallery

@@ -12,7 +12,7 @@
                     <ol class="breadcrumb p-2">
                         <li class="breadcrumb-item">
                             <a href="{{ route('home') }}" class="text-danger">
-                                @if(Cookie::get('language') == '2')
+                                @if($_COOKIE['language'] == '2')
                                 घर
                                 @else
                                 Home
@@ -20,7 +20,7 @@
                             </a>
                         </li>
                         <li class="breadcrumb-item active" aria-current="page">
-                            @if(Cookie::get('language') == '2')
+                            @if($_COOKIE['language'] == '2')
                             अकादमी समाचार
                             @else
                             Academy News
@@ -39,7 +39,7 @@
             <div class="row mb-3">
                 <div class="col-md-9">
                     <h3 class="fw-semibold fs-18 mb-0 text-primary">
-                        @if(Cookie::get('language') == '2')
+                        @if($_COOKIE['language'] == '2')
                         अकादमी समाचार
                         @else
                         Academy News
@@ -48,7 +48,7 @@
                 </div>
                 <div class="col-md-3 text-end">
                     <a href="{{ route('user.news_old_listing') }}" class="btn btn-outline-primary fw-semibold btn-sm">
-                        @if(Cookie::get('language') == '2')
+                        @if($_COOKIE['language'] == '2')
                         पुरालेख
                         @else
                         Archive
@@ -71,7 +71,7 @@
                     <!-- Card body -->
                     <div class="card-body d-flex flex-column">
                         <p class="fs-5 mb-2 fw-semibold d-block" style="color:#007A33;">
-                            @if(Cookie::get('language') == '2')
+                            @if($_COOKIE['language'] == '2')
                             प्रकाशित किया गया:
                             @else
                             Posted On:
@@ -89,7 +89,7 @@
                     <!-- Card footer -->
                     <div class="card-footer bg-white border-0 text-start">
                         <a href="{{ route('user.newsbyslug', $slider->title_slug) }}" class="text-primary">
-                            @if(Cookie::get('language') == '2')
+                            @if($_COOKIE['language'] == '2')
                             और पढ़ें
                             @else
                             Read More

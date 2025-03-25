@@ -11,7 +11,7 @@
                 <nav aria-label="breadcrumb ">
                     <ol class="breadcrumb p-2">
                         <li class="breadcrumb-item">
-                            <a href="{{ route('home')}}" style="color: #af2910;">@if(Cookie::get('language') ==
+                            <a href="{{ route('home')}}" style="color: #af2910;">@if($_COOKIE['language'] ==
                                 '2')घर
                                 @else
                                 Home
@@ -19,7 +19,7 @@
                         </li>
                         <li class="breadcrumb-item">
 
-                            @if(Cookie::get('language') ==
+                            @if($_COOKIE['language'] ==
                             '2')प्रशिक्षण कैलेंडर
                             @else
                             Traning Calendar
@@ -37,7 +37,7 @@
         <div class="col-12">
             <div class="mb-4">
                 <h2 class="h1 fw-bold text-primary">
-                    @if(Cookie::get('language') ==
+                    @if($_COOKIE['language'] ==
                     '2')प्रशिक्षण कैलेंडर
                     @else
                     Traning Calendar
@@ -48,7 +48,7 @@
         <form id="form2" action="{{ url()->current() }}" method="GET">
             <div class="row mb-4">
                 <div class="col-lg-1">
-                    <label for="select_year" class="form-label"> @if(Cookie::get('language') ==
+                    <label for="select_year" class="form-label"> @if($_COOKIE['language'] ==
                         '2')फ़िल्टर वर्ष
                         @else
                         Filter Year
@@ -84,7 +84,7 @@ if (!$selectedYear) {
 </select>
                 </div>
                 <div class="col-lg-3">
-                    <button type="submit" id="btn2" class="btn btn-outline-primary">@if(Cookie::get('language') ==
+                    <button type="submit" id="btn2" class="btn btn-outline-primary">@if($_COOKIE['language'] ==
                         '2')जमा करना
                         @else
                         Submit
@@ -127,28 +127,28 @@ if (!$selectedYear) {
                         <tr>
                             <th>Serial</th>
                             <th>
-                                @if (Cookie::get('language') == '2')
+                                @if ($_COOKIE['language'] == '2')
                                     कोर्स का नाम
                                 @else
                                     Course Name
                                 @endif
                             </th>
                             <th>
-                                @if (Cookie::get('language') == '2')
+                                @if ($_COOKIE['language'] == '2')
                                     सहायता अनुभाग
                                 @else
                                     Support Section
                                 @endif
                             </th>
                             <th>
-                                @if (Cookie::get('language') == '2')
+                                @if ($_COOKIE['language'] == '2')
                                     पाठ्यक्रम समन्वयक
                                 @else
                                     Course Coordinator
                                 @endif
                             </th>
                             <th>
-                                @if (Cookie::get('language') == '2')
+                                @if ($_COOKIE['language'] == '2')
                                     अवधि
                                 @else
                                     Duration

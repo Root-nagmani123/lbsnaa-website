@@ -11,7 +11,7 @@
                     <ol class="breadcrumb p-2 mb-0">
                         <li class="breadcrumb-item">
                             <a href="{{ route('home') }}" style="color: #af2910;">
-                                @if(Cookie::get('language') == '2')
+                                @if($_COOKIE['language'] == '2')
                                 घर
                                 @else
                                 Home
@@ -21,7 +21,7 @@
                         <li class="breadcrumb-item">
                             <a href="{{ route('user.navigationpagesbyslug', ['slug' => 'training']) }}"
                                 class="text-danger">
-                                @if(Cookie::get('language') == '2')
+                                @if($_COOKIE['language'] == '2')
                                 प्रशिक्षण पाठ्यक्रम
                                 @else
                                 Training Courses
@@ -57,7 +57,7 @@
         <section class="py-4">
             <div class="container-fluid">
                 <h4 class="mb-3">
-                    @if(Cookie::get('language') == '2')
+                    @if($_COOKIE['language'] == '2')
                     पाठ्यक्रमों की सूची:
                     @else
                     List Courses:
@@ -74,7 +74,7 @@
                 @endforeach
                 @else
                 <p class="text-muted">
-                    @if(Cookie::get('language') == '2')
+                    @if($_COOKIE['language'] == '2')
                     इस श्रेणी के लिए कोई वर्तमान पाठ्यक्रम उपलब्ध नहीं है।
                     @else
                     No current courses available for this category.
@@ -91,7 +91,7 @@
 
 @else
 <h4>
-    @if(Cookie::get('language') == '2')
+    @if($_COOKIE['language'] == '2')
     मौजूद नहीं
     @else
     Does not exist

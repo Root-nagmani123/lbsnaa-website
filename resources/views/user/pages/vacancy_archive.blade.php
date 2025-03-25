@@ -12,7 +12,7 @@
                     <ol class="breadcrumb p-2">
                         <li class="breadcrumb-item">
                             <a href="{{ route('home')}}" style="color: #af2910;">
-                                @if(Cookie::get('language') ==
+                                @if($_COOKIE['language'] ==
                                 '2')घर
                                 @else
                                 Home
@@ -20,7 +20,7 @@
                             </a>
                         </li>
                         <li class="breadcrumb-item">
-                        @if(Cookie::get('language') ==
+                        @if($_COOKIE['language'] ==
                                 '2')रिक्ति
                                 @else
                                 Vacancy Archive
@@ -31,7 +31,7 @@
             </div>
         </div>
         <div class="col-md-12 content-area" id="skip_to_main_content">
-            <h2 class="heading mb-3 text-primary fw-bold">@if(Cookie::get('language') ==
+            <h2 class="heading mb-3 text-primary fw-bold">@if($_COOKIE['language'] ==
                 '2')रिक्ति
                 @else
                 Vacancy Archive
@@ -70,7 +70,7 @@
                     @else
                     <tr>
                         <td colspan="5" class="text-center">
-                            @if(Cookie::get('language') ==
+                            @if($_COOKIE['language'] ==
                             '2')कोई रिकॉर्ड नहीं मिला
                             @else
                             No records found

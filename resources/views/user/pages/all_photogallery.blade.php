@@ -8,7 +8,7 @@
                     <ol class="breadcrumb p-2">
                         <li class="breadcrumb-item">
                             <a href="{{ route('home')}}" style="color: #af2910;">
-                                @if(Cookie::get('language') == '2')
+                                @if($_COOKIE['language'] == '2')
                                 घर
                                 @else
                                 Home
@@ -17,7 +17,7 @@
                         </li>
                         <li class="breadcrumb-item">
                             <a href="{{ route('user.mediagallery')}}" style="color: #af2910;">
-                                @if(Cookie::get('language') == '2')
+                                @if($_COOKIE['language'] == '2')
                                 मीडिया गैलरी
                                 @else
                                 Home
@@ -26,7 +26,7 @@
                         </li>
                         <li class="breadcrumb-item">
                             <a href="{{ route('user.photogallery')}}" style="color: #af2910;">
-                                @if(Cookie::get('language') == '2')
+                                @if($_COOKIE['language'] == '2')
                                 फोटो गैलरी
                                 @else
                                 Photo Gallery
@@ -34,7 +34,7 @@
                             </a>
                         </li>
                         <li class="breadcrumb-item active">
-                            @if(Cookie::get('language') == '2')
+                            @if($_COOKIE['language'] == '2')
                             फोटो गैलरी विवरण
                             @else
                             Photo Gallery Details
@@ -107,7 +107,7 @@
             @else
             <p>
 
-                @if(Cookie::get('language') == '2')
+                @if($_COOKIE['language'] == '2')
                 कोई छवि उपलब्ध नहीं है
                 @else
                 No images available

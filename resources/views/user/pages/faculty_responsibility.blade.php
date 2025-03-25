@@ -12,7 +12,7 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb p-2 mb-0">
                             <li class="breadcrumb-item">
-                                <a href="{{ route('home') }}" style="color: #af2910;">@if(Cookie::get('language') ==
+                                <a href="{{ route('home') }}" style="color: #af2910;">@if($_COOKIE['language'] ==
                                     '2')
                                     घर
                                     @else
@@ -21,7 +21,7 @@
                                 </a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">
-                                @if(Cookie::get('language') ==
+                                @if($_COOKIE['language'] ==
                                 '2')
                                 संकाय जिम्मेदारी
                                 @else
@@ -41,7 +41,7 @@
                     <div class="col-lg-6">
                         <div class="d-flex justify-content-between align-items-center">
                             <h4 class="fw-semibold fs-18 mb-0">
-                                @if(Cookie::get('language') ==
+                                @if($_COOKIE['language'] ==
                                 '2')
                                 संकाय जिम्मेदारी
                                 @else
@@ -77,14 +77,14 @@
                     <table class="table table-striped align-middle">
                         <thead class="table">
                             <tr class="bg-primary">
-                                <th class="col text-white">@if(Cookie::get('language') ==
+                                <th class="col text-white">@if($_COOKIE['language'] ==
                                     '2')
                                     आनुक्रमिक
                                     @else
                                     #
                                     @endif
                                 </th>
-                                <th class="col text-white">@if(Cookie::get('language') ==
+                                <th class="col text-white">@if($_COOKIE['language'] ==
                                     '2')
                                     शीर्षक
                                     @else
@@ -92,7 +92,7 @@
                                     @endif
                                 </th>
                                 <th class="col text-white">
-                                    @if(Cookie::get('language') ==
+                                    @if($_COOKIE['language'] ==
                                     '2')
                                     प्रभारी अधिकारी
                                     @else
@@ -100,7 +100,7 @@
                                     @endif
                                 </th>
                                 <th class="col text-white">
-                                    @if(Cookie::get('language') ==
+                                    @if($_COOKIE['language'] ==
                                     '2')
                                     उप प्रभारी
                                     @else
@@ -128,7 +128,7 @@
                                         @endforeach
                                     </ul>
                                     @else
-                                    <span class="text-muted">@if(Cookie::get('language') ==
+                                    <span class="text-muted">@if($_COOKIE['language'] ==
                                         '2')
                                         कोई जिम्मेदारी नहीं
                                         @else
@@ -150,7 +150,7 @@
                                         @endforeach
                                     </ul>
                                     @else
-                                    <span class="text-muted">@if(Cookie::get('language') ==
+                                    <span class="text-muted">@if($_COOKIE['language'] ==
                                         '2')
                                         कोई जिम्मेदारी नहीं
                                         @else
@@ -163,7 +163,7 @@
                             @else
                             <tr>
                                 <td colspan="5" class="text-center text-muted">
-                                    @if(Cookie::get('language') ==
+                                    @if($_COOKIE['language'] ==
                                     '2')
                                     कोई रिकॉर्ड नहीं मिला
                                     @else

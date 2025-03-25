@@ -13,7 +13,7 @@
                         <!-- Home link -->
                         <li class="breadcrumb-item">
                             <a href="{{ route('home') }}" class="text-primary">
-                                @if(Cookie::get('language') ==
+                                @if($_COOKIE['language'] ==
                                 '2')घर
                                 @else
                                 Home
@@ -62,7 +62,7 @@
 
 @else
 <h4>
-    @if(Cookie::get('language') ==
+    @if($_COOKIE['language'] ==
     '2')समाचार मौजूद नहीं है
     @else
     News does not exist
