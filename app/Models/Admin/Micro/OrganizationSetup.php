@@ -4,6 +4,7 @@
 namespace App\Models\Admin\Micro;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Admin\ResearchCentre;
 
 class OrganizationSetup extends Model
 {
@@ -19,7 +20,9 @@ class OrganizationSetup extends Model
         'main_image',
         'page_status',
     ];
+
+    public function researchCentre()
+    {
+        return $this->belongsTo(ResearchCentre::class, 'research_centre');
+    }
 }
-
-
-

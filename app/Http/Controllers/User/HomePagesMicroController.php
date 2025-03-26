@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use DOMDocument;
 use Carbon\Carbon;
-use App\Models\Admin\Micro\ManageNews;
+use App\Models\Admin\Micro\{ManageNews, OrganizationSetup};
+use App\Models\Admin\MicroQuickLinks;
 
 class HomePagesMicroController extends Controller
 {
@@ -52,7 +53,7 @@ class HomePagesMicroController extends Controller
         $photoGalleries = $query->get();
 
         // Pass data to the view
-        return view('user.pages.microsites.media_gallery', compact('photoGalleries', 'slug','Title'));
+        return view('user.pages.microsites.media_gallery', compact('photoGalleries', 'slug', 'Title'));
     }
 
 
@@ -75,16 +76,16 @@ class HomePagesMicroController extends Controller
             ->whereDate('micro_quick_links.start_date', '<=', now())  // Ensure start_date is before or equal to today
             ->whereDate('micro_quick_links.termination_date', '>=', now())  // Ensure termination_date is after or equal to today
             ->select('micro_quick_links.*', 'research_centres.research_centre_name as research_centre_name')
-            ->get();    
+            ->get();
 
-            if ($research_centre) {
-                $research_centre_slug = $research_centre->research_centre_slug;  // Get the first news item and its associated research_centre_slug
-    
-                // Concatenate the research centre slug with the title
-                $Title = "Media gallery  | " . ucfirst(str_replace('-', ' ', $research_centre_slug));
-            }
+        if ($research_centre) {
+            $research_centre_slug = $research_centre->research_centre_slug;  // Get the first news item and its associated research_centre_slug
 
-        return view('user.pages.microsites.mediagallery', compact('quickLinks', 'research_centre', 'slug','Title'));
+            // Concatenate the research centre slug with the title
+            $Title = "Media gallery  | " . ucfirst(str_replace('-', ' ', $research_centre_slug));
+        }
+
+        return view('user.pages.microsites.mediagallery', compact('quickLinks', 'research_centre', 'slug', 'Title'));
     }
 
     public function news(Request $request)
@@ -166,7 +167,7 @@ class HomePagesMicroController extends Controller
             ->get();
 
         // Pass the data to the view
-        return view('user.pages.microsites.archive', compact('archives', 'slug','Title'));
+        return view('user.pages.microsites.archive', compact('archives', 'slug', 'Title'));
     }
 
 
@@ -265,15 +266,23 @@ class HomePagesMicroController extends Controller
     {
         $Title = "Organizations";
         // Fetch the data from the database
-        $organizations = DB::table('mirco_organization_setups as org')
-            ->join('research_centres as rc', 'org.research_centre', '=', 'rc.id')
-            ->where('org.page_status', 1)
-            ->where('rc.research_centre_slug', $slug)
-            ->select('org.designation', 'org.email', 'org.program_description', 'org.main_image', 'org.employee_name', 'org.id')
+
+        // $organizations = DB::table('mirco_organization_setups as org')
+        //     ->join('research_centres as rc', 'org.research_centre', '=', 'rc.id')
+        //     ->where('org.page_status', 1)
+        //     ->where('rc.research_centre_slug', $slug)
+        //     ->select('org.designation', 'org.email', 'org.program_description', 'org.main_image', 'org.employee_name', 'org.id')
+        //     ->get();
+
+        $organizations = OrganizationSetup::where('page_status', 1)->where('language', $this->getLang())
+            ->whereHas('researchCentre', function ($query) use ($slug) {
+                $query->where('research_centre_slug', $slug);
+            })
+            ->select('designation', 'email', 'program_description', 'main_image', 'employee_name', 'id')
             ->get();
 
-        $quickLinks = DB::table('micro_quick_links')
-            ->join('research_centres', 'micro_quick_links.research_centre_id', '=', 'research_centres.id')  // Join with 'research_centres'
+
+        $quickLinks = MicroQuickLinks::join('research_centres', 'micro_quick_links.research_centre_id', '=', 'research_centres.id')  // Join with 'research_centres'
             ->where('micro_quick_links.categorytype', 2)
             ->where('micro_quick_links.status', 1)
             ->when($slug, function ($query) use ($slug) {
@@ -304,13 +313,13 @@ class HomePagesMicroController extends Controller
             ->join('research_centres as rc', 'mmtp.research_centre', '=', 'rc.id')
             ->where('mmtp.page_status', 1)
             ->where('rc.research_centre_slug', $slug)
-              ->select('mmtp.program_name', 'mmtp.venue', 'mmtp.start_date', 'mmtp.end_date', 'mmtp.registration_status', 'mmtp.id', 'rc.research_centre_slug')
-              ->orderBy('mmtp.start_date', 'DESC')
+            ->select('mmtp.program_name', 'mmtp.venue', 'mmtp.start_date', 'mmtp.end_date', 'mmtp.registration_status', 'mmtp.id', 'rc.research_centre_slug')
+            ->orderBy('mmtp.start_date', 'DESC')
             ->get();
-            foreach ($trainingprograms as $program) {
-                $program->start_date = Carbon::parse($program->start_date)->format('d-m-Y');
-                $program->end_date = Carbon::parse($program->end_date)->format('d-m-Y');
-            }
+        foreach ($trainingprograms as $program) {
+            $program->start_date = Carbon::parse($program->start_date)->format('d-m-Y');
+            $program->end_date = Carbon::parse($program->end_date)->format('d-m-Y');
+        }
 
         $quickLinks = DB::table('micro_quick_links')
             ->join('research_centres', 'micro_quick_links.research_centre_id', '=', 'research_centres.id')  // Join with 'research_centres'
