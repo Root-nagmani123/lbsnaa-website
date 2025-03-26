@@ -10,9 +10,20 @@
                     <ol class="breadcrumb p-2">
                         <li class="breadcrumb-item">
                             <a href="{{ route('user.micrositebyslug', ['slug' => $slug]) }}"
-                                style="color: #af2910;">Home</a>
+                                style="color: #af2910;">@if(isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                                होम
+                                    @else
+                                    Home
+                          @endif    </a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">Organization Details</li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                        @if(isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                        संगठन विवरण
+                                    @else
+                                    Organization Details
+                          @endif    
+                        
+                        </li>
                     </ol>
                 </nav>
             </div>
@@ -20,7 +31,11 @@
     </div>
 </section>
 <section class="container-fluid" id="skip_to_main_content">
-<h2 class="text-primary mb-4">Organization Details</h2>
+<h2 class="text-primary mb-4"> @if(isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                        संगठन विवरण
+                                    @else
+                                    Organization Details
+                          @endif    </h2>
     <!-- Gallery Display -->
     @if($organizations->isNotEmpty())
     <div class="row">
@@ -70,15 +85,31 @@
                                         <table class="table table-borderless">
                                             <tbody>
                                                 <tr>
-                                                    <th class="col">Name :-</th>
+                                                    <th class="col">
+                                                    @if(isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                                                    नाम
+                                    @else
+                                    Name
+                          @endif        
+                                                     :-</th>
                                                     <td>{{ $organization->employee_name ?? '' }}</td>
                                                 </tr>
                                                 <tr>
-                                                    <th class="col">Designation :-</th>
+                                                    <th class="col">@if(isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                                                    पद का नाम
+                                    @else
+                                    Designation
+                          @endif
+                           :-</th>
                                                     <td>{{ $organization->designation ?? '' }}</td>
                                                 </tr>
                                                 <tr>
-                                                    <th class="col">Email :-</th>
+                                                    <th class="col">@if(isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                                                    ईमेल
+                                    @else
+                                    Email
+                          @endif
+                           :-</th>
                                                     <td>{{ $organization->email ?? '' }}</td>
                                                 </tr>
                                             </tbody>
