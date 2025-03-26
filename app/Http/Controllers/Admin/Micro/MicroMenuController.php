@@ -510,7 +510,10 @@ public function add_menu(Request $request){
     {
         // Find the existing menu
         $menu = MicroMenu::findOrFail($id);
-    
+
+        
+        
+
         // Validate the incoming request data
         $rules = [
           
@@ -554,7 +557,16 @@ public function add_menu(Request $request){
         $validatedData = $validator->validated();
         $menutitle = strip_tags($request->menutitle); // Remove HTML tags
         $menutitle = htmlspecialchars($menutitle, ENT_QUOTES, 'UTF-8'); 
-        $slug = Str::slug($menutitle, '-');
+        
+        if( $request->txtlanguage == 2 ) {
+            if( !empty($menu) && !empty($menu->meta_title) && $menu->meta_title == 'organizations' ) {
+                $slug = 'organizations';
+            }
+        }
+        else {
+            $slug = Str::slug($menutitle, '-');
+        }
+        
         // Check for duplicate combination of research_centre and menutitle, excluding the current menu
         $existingMenu = MicroMenu::where('research_centreid', $request->research_centre)
             ->where('menutitle', $menutitle)
