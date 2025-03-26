@@ -165,38 +165,37 @@ class MicroManageMediaCenterController extends Controller
                 $imagePath = $image->store('uploads/category_images', 'public');
                 
                 // Save only the filename in the database
-                $validated['category_image'] = basename($imagePath);
+                $validatedData['category_image'] = basename($imagePath);
             } catch (\Exception $e) {
-                \Log::error('File upload error: ' . $e->getMessage());
+                Log::error('File upload error: ' . $e->getMessage());
                 return redirect()->back()->with('error', 'Error while uploading the image.');
             }
         } else {
             // If no image is uploaded, retain the old image (if available)
-            $validated['category_image'] = $request->input('old_category_image') ?? null;
+            $validatedData['category_image'] = $request->input('old_category_image') ?? null;
         }
-
         // Save or update the category
         try {
             if ($request->has('id')) {
                 // Update category if 'id' is provided
-                \DB::table('micro_media_categories')->where('id', $request->input('id'))->update([
-                    'media_gallery' => $validated['media_gallery'],
-                    'name' => $validated['name'],
-                    'research_centre' => $validated['research_centre'],
-                    'hindi_name' => $validated['hindi_name'],
-                    'status' => $validated['status'],
-                    'category_image' => $validated['category_image'],
+                DB::table('micro_media_categories')->where('id', $request->input('id'))->update([
+                    'media_gallery' => $validatedData['media_gallery'],
+                    'name' => $validatedData['name'],
+                    'research_centre' => $validatedData['research_centre'],
+                    'hindi_name' => $validatedData['hindi_name'],
+                    'status' => $validatedData['status'],
+                    'category_image' => $validatedData['category_image'],
                     'updated_at' => now(),
                 ]);
             } else {
                 // Insert new category if no 'id' is provided
-                \DB::table('micro_media_categories')->insert([
-                    'media_gallery' => $validated['media_gallery'],
-                    'name' => $validated['name'],
-                    'research_centre' => $validated['research_centre'],
-                    'hindi_name' => $validated['hindi_name'],
-                    'status' => $validated['status'],
-                    'category_image' => $validated['category_image'],
+                DB::table('micro_media_categories')->insert([
+                    'media_gallery' => $validatedData['media_gallery'],
+                    'name' => $validatedData['name'],
+                    'research_centre' => $validatedData['research_centre'],
+                    'hindi_name' => $validatedData['hindi_name'],
+                    'status' => $validatedData['status'],
+                    'category_image' => $validatedData['category_image'],
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);

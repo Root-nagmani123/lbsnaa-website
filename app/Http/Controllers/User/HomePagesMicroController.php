@@ -24,17 +24,33 @@ class HomePagesMicroController extends Controller
         // Build the query
         $query = DB::table('research_centres as rc') // Alias `research_centres` as `rc`
             ->join('micro_media_categories as mmc', 'rc.id', '=', 'mmc.research_centre')
-            ->where('rc.status', 1) // Ensure `research_centres` is active
-            ->where('mmc.status', 1) // Ensure `micro_media_categories` is active
+            ->where('rc.status', 1); // Ensure `research_centres` is active
+
+
+        // ($this->getLang() == 2) ? $query->where('micro_media_categories.')
+        $query = $query->where('mmc.status', 1) // Ensure `micro_media_categories` is active
             ->where('mmc.media_gallery', 1) // Ensure it's a media gallery category
-            ->where('rc.research_centre_slug', $slug) // Filter by the provided slug
-            ->select(
-                'rc.id as research_centre_id', // ID from `research_centres`
-                'mmc.name as media_category_name',
-                'mmc.category_image as category_image',
-                'mmc.id as category_id',
-                'mmc.created_at'
-            );
+            ->where('rc.research_centre_slug', $slug); // Filter by the provided slug
+            if( $this->getLang() == 2 ) {
+                $query = $query->select(
+                    'rc.id as research_centre_id', // ID from `research_centres`
+                    'mmc.name as media_category_name',
+                    'mmc.category_image as category_image',
+                    'mmc.id as category_id',
+                    'mmc.created_at',
+                    'micro_media_categories.hindi_name'
+                );
+            }
+            else {
+                $query = $query->select(
+                    'rc.id as research_centre_id', // ID from `research_centres`
+                    'mmc.name as media_category_name',
+                    'mmc.category_image as category_image',
+                    'mmc.id as category_id',
+                    'mmc.created_at'
+                );
+            }
+            
 
         // Apply filters if provided
         if ($keyword) {
