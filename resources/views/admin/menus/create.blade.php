@@ -387,38 +387,6 @@ function displayFileName() {
     }
 }
 
-document.getElementById('menutitle').addEventListener('blur', function() {
-    const title = this.value.trim();
 
-    if (title) {
-        // Generate slug (optional)
-        const slug = title.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
-
-        // Send AJAX request to check the database
-        fetch('/admin/check-menu-title', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
-                        'content'),
-                },
-                body: JSON.stringify({
-                    title: slug
-                }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                const feedback = document.getElementById('titleFeedback');
-                if (data.exists) {
-                    feedback.textContent = 'This menu title already exists!';
-                } else {
-                    feedback.textContent = '';
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    }
-});
 </script>
 @endsection
