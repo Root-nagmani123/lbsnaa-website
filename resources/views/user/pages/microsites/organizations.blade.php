@@ -85,15 +85,31 @@
                                         <table class="table table-borderless">
                                             <tbody>
                                                 <tr>
-                                                    <th class="col">Name :-</th>
+                                                    <th class="col">
+                                                    @if(isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                                                    नाम
+                                    @else
+                                    Name
+                          @endif        
+                                                     :-</th>
                                                     <td>{{ $organization->employee_name ?? '' }}</td>
                                                 </tr>
                                                 <tr>
-                                                    <th class="col">Designation :-</th>
+                                                    <th class="col">@if(isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                                                    पद का नाम
+                                    @else
+                                    Designation
+                          @endif
+                           :-</th>
                                                     <td>{{ $organization->designation ?? '' }}</td>
                                                 </tr>
                                                 <tr>
-                                                    <th class="col">Email :-</th>
+                                                    <th class="col">@if(isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                                                    ईमेल
+                                    @else
+                                    Email
+                          @endif
+                           :-</th>
                                                     <td>{{ $organization->email ?? '' }}</td>
                                                 </tr>
                                             </tbody>
