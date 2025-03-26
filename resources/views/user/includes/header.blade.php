@@ -554,7 +554,7 @@
                         </a>
                     </li>
                    
-                    @elseif($menu->menutitle === 'Research Centers' || $menu->menu_slug === 'research-centers-hi')
+                    @elseif($menu->menutitle === 'Research Centers' || $menu->menu_slug === 'research-centers_hi')
 
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle"
