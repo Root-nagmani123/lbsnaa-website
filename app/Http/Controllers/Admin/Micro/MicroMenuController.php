@@ -508,6 +508,9 @@ public function add_menu(Request $request){
 
     public function update(Request $request, $id)
     {
+        try{
+
+        
         // Find the existing menu
         $menu = MicroMenu::findOrFail($id);
 
@@ -635,6 +638,10 @@ public function add_menu(Request $request){
     
         // Redirect with success message
         return redirect()->route('micromenus.index')->with('success', 'Menu updated successfully.');
+    }
+    catch(\Exception $e) {
+        \Log::info($e->getMessage());
+    }
     }
     
 
