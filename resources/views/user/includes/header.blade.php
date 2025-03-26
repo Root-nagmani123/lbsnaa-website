@@ -301,15 +301,22 @@
                             <img src="{{ asset('assets/images/search.png') }}" alt="search" style="height: 30px;">
                         </a>
                         <div class="dropdown-menu p-2 custom-dropdown" style="width: 250px;">
-                            <form action="https://www.google.com/search" method="GET" target="_blank">
-                                <input type="text" name="q" class="form-control mb-2" placeholder="Search..." required>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="searchType" value="web"
-                                        id="searchWeb">
-                                    <label class="form-check-label" for="searchWeb">The Web</label>
-                                </div>
-                                <button type="submit" class="btn btn-primary btn-sm w-100 mt-2">Search</button>
-                            </form>
+                        <form action="https://www.google.com/search" method="GET" target="_blank">
+                        <input type="text" name="q" class="form-control mb-2" 
+                            placeholder="{{ $_COOKIE['language'] == '2' ? 'खोजें...' : 'Search...' }}" required>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="searchType" value="web" id="searchWeb">
+                            <label class="form-check-label" for="searchWeb">
+                                {{ $_COOKIE['language'] == '2' ? 'वेब' : 'The Web' }}
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-sm w-100 mt-2">
+                            {{ $_COOKIE['language'] == '2' ? 'खोजें' : 'Search' }}
+                        </button>
+                    </form>
+
                         </div>
                     </li>
                     <li class="nav-item dropdown">
@@ -368,6 +375,9 @@
 
                     $Research_Center_list = DB::table('research_centres')
                     ->where('status', 1)
+                    ->when($language == 2 || $language == 1, function ($query) use ($language) {
+                        return $query->where('language', $language);
+                    })
                     ->get();
 
                     function renderMenuItems($parentId, $isCourseOrTraining = false) {
@@ -543,7 +553,9 @@
                             {{ $menu->menutitle }}
                         </a>
                     </li>
-                    @elseif($menu->menutitle === 'Research Centers')
+                   
+                    @elseif($menu->menutitle === 'Research Centers' || $menu->menu_slug === 'research-centers-hi')
+
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle"
                             href="{{ route('user.navigationpagesbyslug', $menu->menu_slug) }}" data-bs-toggle="dropdown"

@@ -151,10 +151,12 @@ class MenuController extends Controller
                 Cache::put('validation_errors', $validator->errors()->toArray(), 1); // 1 minute ke liye errors cache karo
                 return redirect(session('url.previousdata', url('/')));
             }
-        
-            $menutitle = strip_tags($request->menutitle);
-            $menutitle = htmlspecialchars($menutitle, ENT_QUOTES, 'UTF-8'); 
-            $slug = Str::slug($menutitle, '-');
+            if ($request->txtlanguage == '1') {
+                $slug = Str::slug($request->menutitle, '-');
+            } elseif ($request->txtlanguage == '2') {
+                $slug = Str::slug($request->meta_title, '-') . '_hi';
+            }
+          
         
             // Check if slug already exists
             $existingMenu = Menu::where('menu_slug', $slug)->where('is_deleted', 0)->first();
@@ -165,8 +167,8 @@ class MenuController extends Controller
         
             $menu = new Menu();
             $menu->language = $request->txtlanguage;
-            $menu->menutitle = $menutitle;
-            $menu->menu_slug = $request->txtlanguage == '1' ? Str::slug($menutitle, '-') : Str::slug($request->meta_title, '-') . '_hi';
+            $menu->menutitle = $request->menutitle;
+            $menu->menu_slug = $request->txtlanguage == '1' ? Str::slug($request->menutitle, '-') : Str::slug($request->meta_title, '-') . '_hi';
             $menu->texttype = $request->texttype;
             $menu->menucategory = $request->menucategory;
             $menu->parent_id = $request->menucategory;

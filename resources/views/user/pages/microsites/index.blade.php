@@ -42,7 +42,12 @@
 
                     <!-- Play/Pause Button -->
                     <button id="playPauseBtn" class="btn btn-primary btn-sm" aria-label="Play/Pause button for Sliders">
-                        <i class="bi bi-pause-fill"></i>Pause
+                        <i class="bi bi-pause-fill"></i>
+                        @if(isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                            रोकें
+                        @else
+                            Pause
+                        @endif
                     </button>
                 </div>
             </div>
@@ -54,14 +59,29 @@
                     <div class="card-header" style="background-color:#af2910">
                         <div class="row">
                             <div class="col-lg-6">
-                                <h2 class="text-white h4">What's New</h2>
-
+                                <h2 class="text-white h4">
+                                    @if(isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                                        नया क्या है
+                                    @else
+                                        What's New
+                                    @endif
+                                </h2>
+                                
                             </div>
                             <div class="col-lg-6 text-end">
-                                <a href="{{ route('user.whatnewall', ['slug' => $slug]) }}"
-                                    style="text-decoration: none;color: #fff" aria-label="view all for what's new">View
-                                    All</a>
+                                <a href="{{ route('user.whatnewall', ['slug' => $slug]) }}" 
+                                    style="text-decoration: none; color: #fff" 
+                                    aria-label="view all for what's new">
+                                    
+                                    @if(isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                                        सभी देखें
+                                    @else
+                                        View All
+                                    @endif
+                                    
+                                </a>
                             </div>
+                            
                         </div>
                     </div>
                     <div class="card-body" style="height:440px;overflow-y: scroll;">
@@ -96,8 +116,14 @@
                                 @endif
                             </li>
                             @empty
-                            <li class="list-group-item text-primary">No data available</li>
-                            @endforelse
+                            <li class="list-group-item text-primary">
+                                @if(isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                                    कोई डेटा उपलब्ध नहीं है
+                                @else
+                                    No data available
+                                @endif
+                            </li>
+                                                        @endforelse
                         </ul>
                     </div>
                 </div>
@@ -127,8 +153,14 @@
                         <div class="card-body">
                             <img src="{{ asset('assets/images/image (2).png') }}"
                                 alt="{{ $research_centre->home_title }}" class="img-fluid">
-                            <p class="mt-3">Gallery</p>
-                        </div>
+                                <p class="mt-3">
+                                    @if(isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                                        गैलरी
+                                    @else
+                                        Gallery
+                                    @endif
+                                </p>
+                                                        </div>
                     </a>
                     @endforeach
 
@@ -138,8 +170,14 @@
                         <div class="card-body">
                             <img src="{{ asset('assets/images/newspaper (1).png') }}"
                                 alt="{{ $research_centre->home_title }}" class="img-fluid">
-                            <p class="mt-3">Latest News</p>
-                        </div>
+                                <p class="mt-3">
+                                    @if(isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                                        ताज़ा खबर
+                                    @else
+                                        Latest News
+                                    @endif
+                                </p>
+                                                        </div>
                     </a>
                     @endforeach
                 </div>
@@ -149,8 +187,14 @@
             <div class="col-12 col-lg-3 mb-4">
                 <div class="card card-hover border">
                     <div class="card-header" style="background-color:#af2910">
-                        <h4 class="text-white h4">Quick Links</h4>
-                    </div>
+                        <h4 class="text-white h4">
+                            @if(isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                                त्वरित लिंक
+                            @else
+                                Quick Links
+                            @endif
+                        </h4>
+                                            </div>
                     <div class="card-body" style="max-height: 500px; overflow-y: scroll;">
                         <ul class="list-group list-group-flush">
                             @forelse($quickLinks as $link)
@@ -183,8 +227,14 @@
                                 @endif
                             </li>
                             @empty
-                            <li class="list-group-item text-primary">No data available</li>
-                            @endforelse
+                            <li class="list-group-item text-primary">
+                                @if(isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                                    कोई डेटा उपलब्ध नहीं है
+                                @else
+                                    No data available
+                                @endif
+                            </li>
+                                                        @endforelse
                         </ul>
 
                     </div>

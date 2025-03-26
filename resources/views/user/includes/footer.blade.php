@@ -57,7 +57,7 @@ return $query->where('language', '1');
                                 <a href="{{ $footer_icon->link }}" target="_blank">
                                     <img src="{{ asset('footer-images/' . $footer_icon->image) }}"
                                         alt="Logo of {{ $footer_icon->title }}"
-                                        title="Logo of {{ $footer_icon->title }}" class="img-fluid"
+                                        title="{{ $footer_icon->title }}" class="img-fluid"
                                         style="max-width: 150px; max-height: 60px; object-fit: cover;">
                                 </a>
                             </div>
