@@ -317,8 +317,14 @@
                 @endphp
                 <ul class="navbar-nav me-auto navmenu">
                     <li class="nav-item">
-                        <a href="{{ url('/lbsnaa-sub/' . $slug) }}" class="nav-link">Home</a>
-                    </li>
+                        <a href="{{ url('/lbsnaa-sub/' . $slug) }}" class="nav-link">
+                            @if(isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                                होम
+                            @else
+                                Home
+                            @endif
+                        </a>
+                                            </li>
                     @php
                     // Get the slug from the request to identify the current research center
                     $slug = request()->query('slug') ?: request()->route('slug');
