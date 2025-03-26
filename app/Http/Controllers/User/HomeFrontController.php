@@ -344,12 +344,20 @@ class HomeFrontController extends Controller
         date_default_timezone_set('Asia/Kolkata'); // Set timezone to Asia/Kolkata
         $today = date('Y-m-d H:i:s'); // Include time for more precise filtering
         // dd($today);
-        $query = DB::table('manage_tenders')
+        if(isset($_COOKIE['language'])){  
+            $language = $_COOKIE['language'];
+         }else{
+            $language =1;
+         }
+
+       $query = DB::table('manage_tenders')
             ->where('status', 1)
-            ->where('publish_date', '<=', $today)
-            ->where('expiry_date', '>=', $today)
-            ->orderBy('expiry_date', 'desc')
+            ->whereDate('publish_date', '<=', $today)
+            ->whereDate('expiry_date', '>=', $today)
+            ->when(in_array($language, [1, 2]), fn($query) => $query->where('language', $language))
+            ->orderByDesc('expiry_date')
             ->get();
+
     
         return view('user.pages.tenders', compact('query','title'));
     }
@@ -358,7 +366,11 @@ class HomeFrontController extends Controller
         $title = 'Archive Tenders';
         date_default_timezone_set('Asia/Kolkata'); // Set timezone to Asia/Kolkata
         $today = date('Y-m-d H:i:s');
-    
+        if(isset($_COOKIE['language'])){  
+            $language = $_COOKIE['language'];
+         }else{
+            $language =1;
+         }
         // Fetch the distinct years of news
         $currentYear = date('Y');
         $startingYear = 2010; // Change this to your desired starting year
@@ -366,20 +378,20 @@ class HomeFrontController extends Controller
     
         // Build the query for news
         $query = DB::table('manage_tenders')
-            ->where('status', 1)
-            ->where('expiry_date', '<', $today);
+        ->where('status', 1)
+        ->whereDate('expiry_date', '<', $today)
+        ->when($request->filled('keywords'), fn($q) => 
+            $q->where('title', 'like', '%' . $request->keywords . '%')
+        )
+        ->when($request->filled('year'), fn($q) => 
+            $q->whereYear('expiry_date', $request->year)
+        )
+        ->when(in_array($language, [1, 2]), fn($q) => 
+            $q->where('language', $language)
+        )
+        ->orderBy('expiry_date', 'desc')
+        ->get();
     
-        // Apply search filters if provided
-        if ($request->filled('keywords')) {
-            $query->where('title', 'like', '%' . $request->keywords . '%');
-        }
-        if ($request->filled('year')) {
-            $query->whereYear('expiry_date', $request->year);
-        }
-        $query->orderBy('expiry_date', 'desc');
-
-    
-       $query = $query->get();
           return view('user.pages.old_tenders',compact('query','years','title'));
     }
     function faculty(Request $request)
@@ -416,13 +428,22 @@ function vacancy(){
         $title = 'Vacancy';
         date_default_timezone_set('Asia/Kolkata'); // Set timezone to Asia/Kolkata
         $today = date('Y-m-d H:i:s'); // Include time for more precise filtering
-  
-    $query = DB::table('manage_vacancies')
-    ->where('status', 1)
-    ->where('publish_date', '<=', $today)
-    ->where('expiry_date', '>=', $today)
-    ->orderBy('publish_date', 'desc')
-    ->get();
+        if(isset($_COOKIE['language'])){  
+            $language = $_COOKIE['language'];
+         }else{
+            $language =1;
+         }
+
+         $query = DB::table('manage_vacancies')
+         ->where('status', 1)
+         ->whereDate('publish_date', '<=', $today)
+         ->whereDate('expiry_date', '>=', $today)
+         ->when(in_array($language, [1, 2]), function ($query) use ($language) {
+             return $query->where('language', $language);
+         })
+         ->orderByDesc('publish_date')
+         ->get();
+     
     return view('user.pages.vacancy',compact('query','title'));
     
 }
@@ -430,10 +451,17 @@ function vacancy_archive(){
     $title = 'Vacancy  Archive';
     date_default_timezone_set('Asia/Kolkata'); // Set timezone to Asia/Kolkata
     $today = date('Y-m-d H:i:s'); // Include time for more precise filtering
-
+    if(isset($_COOKIE['language'])){  
+        $language = $_COOKIE['language'];
+     }else{
+        $language =1;
+     }
 $query = DB::table('manage_vacancies')
 ->where('status', 1)
 ->where('expiry_date', '<', $today)
+->when(in_array($language, [1, 2]), function ($query) use ($language) {
+    return $query->where('language', $language);
+})
 ->orderBy('publish_date', 'desc')
 ->get();
 return view('user.pages.vacancy_archive',compact('query','title'));
