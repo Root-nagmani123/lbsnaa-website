@@ -5,6 +5,8 @@ namespace App\Http\Controllers\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Admin\{ResearchCentre, MicroQuickLinks};
+use App\Models\Admin\Micro\{MicroSlider};
+
 use DOMDocument;
 
 class HomeFrontmicroController extends Controller
@@ -12,12 +14,12 @@ class HomeFrontmicroController extends Controller
     public function index($slug = null)
     { 
         // Start the query to fetch data from 'micro_sliders' joined with 'research_centres'
-        $sliders = DB::table('micro_sliders')
-            ->join('research_centres', 'micro_sliders.research_centre', '=', 'research_centres.id')  // Join with 'research_centres'
+        $sliders = MicroSlider::join('research_centres', 'micro_sliders.research_centre', '=', 'research_centres.id')  // Join with 'research_centres'
             ->where('micro_sliders.status', 1)
             ->when($slug, function($query) use ($slug) {
                 return $query->where('research_centres.research_centre_slug', $slug);  // Filter by slug if provided
             })
+            ->where('micro_sliders.language', $this->getLang())
             ->select('micro_sliders.*', 'research_centres.research_centre_name as research_centre_name')
             ->get();
 

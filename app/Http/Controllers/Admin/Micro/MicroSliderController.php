@@ -99,11 +99,11 @@ class MicroSliderController extends Controller
         if ($request->hasFile('slider_image')) {
             $slider->slider_image = $request->file('slider_image')->store('sliders', 'public');
         }
-        $slider->slider_text = $validated['slider_text'];
-        $slider->slider_description = $validated['slider_description'];
-        $slider->research_centre = $validated['research_centre'];
-        $slider->language = $validated['language'];
-        $slider->status = $validated['status'];
+        $slider->slider_text = $validatedData['slider_text'];
+        $slider->slider_description = $validatedData['slider_description'];
+        $slider->research_centre = $validatedData['research_centre'];
+        $slider->language = $validatedData['language'];
+        $slider->status = $validatedData['status'];
         $slider->save();
 
         // Log the action (audit trail)

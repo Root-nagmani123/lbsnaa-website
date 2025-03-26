@@ -290,6 +290,7 @@ class HomePagesMicroController extends Controller
             })
             ->whereDate('micro_quick_links.start_date', '<=', now())  // Ensure start_date is before or equal to today
             ->whereDate('micro_quick_links.termination_date', '>=', now())  // Ensure termination_date is after or equal to today
+            ->where('micro_quick_links.language', $this->getLang())
             ->select('micro_quick_links.*', 'research_centres.research_centre_name as research_centre_name')
             ->get();
 
@@ -313,6 +314,7 @@ class HomePagesMicroController extends Controller
             ->join('research_centres as rc', 'mmtp.research_centre', '=', 'rc.id')
             ->where('mmtp.page_status', 1)
             ->where('rc.research_centre_slug', $slug)
+            ->where('mmtp.language', $this->getLang())
             ->select('mmtp.program_name', 'mmtp.venue', 'mmtp.start_date', 'mmtp.end_date', 'mmtp.registration_status', 'mmtp.id', 'rc.research_centre_slug')
             ->orderBy('mmtp.start_date', 'DESC')
             ->get();
@@ -330,6 +332,7 @@ class HomePagesMicroController extends Controller
             })
             ->whereDate('micro_quick_links.start_date', '<=', now())  // Ensure start_date is before or equal to today
             ->whereDate('micro_quick_links.termination_date', '>=', now())  // Ensure termination_date is after or equal to today
+            ->where('micro_quick_links.language', $this->getLang())
             ->select('micro_quick_links.*', 'research_centres.research_centre_name as research_centre_name')
             ->get();
         // dd($trainingprograms);
