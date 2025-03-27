@@ -21,35 +21,54 @@ class HomePagesMicroController extends Controller
         $category = $request->query('category');
         $year = $request->query('year');
 
-        // Build the query
         $query = DB::table('research_centres as rc') // Alias `research_centres` as `rc`
-            ->join('micro_media_categories as mmc', 'rc.id', '=', 'mmc.research_centre')
-            ->where('rc.status', 1); // Ensure `research_centres` is active
+        ->join('micro_media_categories as mmc', 'rc.id', '=', 'mmc.research_centre')
+        ->where('rc.status', 1) // Ensure `research_centres` is active
+        ->where('mmc.status', 1) // Ensure `micro_media_categories` is active
+        ->where('mmc.media_gallery', 1) // Ensure it's a media gallery category
+        ->where('rc.research_centre_slug', $slug); // Filter by the provided slug
+    
+    //    $language = (isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+    $language  = isset($_COOKIE['language']) && $_COOKIE['language'] == '2';
 
+    
+    if ($language) { // If Hindi language is selected
+        $query = $query->select(
+            'rc.id as research_centre_id', 
+            'mmc.name as media_category_name',
+            'mmc.category_image as category_image',
+            'mmc.id as category_id',
+            'mmc.created_at',
+            'mmc.hindi_name' 
+        );
+    } else { // Default to English
+        $query = $query->select(
+            'rc.id as research_centre_id', 
+            'mmc.name as media_category_name',
+            'mmc.category_image as category_image',
+            'mmc.id as category_id',
+            'mmc.created_at'
+        );
+    }
+//     $query = DB::table('research_centres as rc') // Alias `research_centres` as `rc`
+//     ->join('micro_media_categories as mmc', 'rc.id', '=', 'mmc.research_centre')
+//     ->where('rc.status', 1) // Ensure `research_centres` is active
+//     ->where('mmc.status', 1) // Ensure `micro_media_categories` is active
+//     ->where('mmc.media_gallery', 1) // Ensure it's a media gallery category
+//     ->where('rc.research_centre_slug', $slug); // Filter by the provided slug
 
-        // ($this->getLang() == 2) ? $query->where('micro_media_categories.')
-        $query = $query->where('mmc.status', 1) // Ensure `micro_media_categories` is active
-            ->where('mmc.media_gallery', 1) // Ensure it's a media gallery category
-            ->where('rc.research_centre_slug', $slug); // Filter by the provided slug
-            if( $this->getLang() == 2 ) {
-                $query = $query->select(
-                    'rc.id as research_centre_id', // ID from `research_centres`
-                    'mmc.name as media_category_name',
-                    'mmc.category_image as category_image',
-                    'mmc.id as category_id',
-                    'mmc.created_at',
-                    'micro_media_categories.hindi_name'
-                );
-            }
-            else {
-                $query = $query->select(
-                    'rc.id as research_centre_id', // ID from `research_centres`
-                    'mmc.name as media_category_name',
-                    'mmc.category_image as category_image',
-                    'mmc.id as category_id',
-                    'mmc.created_at'
-                );
-            }
+// $language = isset($_COOKIE['language']) && $_COOKIE['language'] == '2'; // Check if language is Hindi (2)
+
+// $query = $query->select(
+//     'rc.id as research_centre_id', 
+//     $language ? 'mmc.hindi_name as media_category_name' : 'mmc.name as media_category_name', // Select Hindi or English Name
+//     'mmc.category_image as category_image',
+//     'mmc.id as category_id',
+//     'mmc.created_at'
+// );
+
+    
+    
             
 
         // Apply filters if provided
@@ -216,6 +235,7 @@ class HomePagesMicroController extends Controller
 
     public function videoGallery(Request $request)
     {
+        
         // Get the 'slug' parameter from the request
         $slug = $request->query('slug');
         $Title = "videoGallery";
