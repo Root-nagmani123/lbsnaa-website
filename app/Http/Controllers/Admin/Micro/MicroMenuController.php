@@ -264,7 +264,22 @@ public function add_menu(Request $request){
         
         $menutitle = strip_tags($request->menutitle); // Remove HTML tags
         $menutitle = htmlspecialchars($menutitle, ENT_QUOTES, 'UTF-8'); 
-        $slug = Str::slug($menutitle, '-');
+
+        $slug = '';
+        
+        if( $request->language == 2 ) {
+            if( !empty($request->meta_title) && $request->meta_title == 'organizations' ) {
+                $slug = 'organizations';
+            }
+            if( !empty($request->meta_title) && $request->meta_title == 'trainings' ) {
+                $slug = 'trainings';
+            }
+        }
+        else {
+            $slug = Str::slug($menutitle, '-');
+        }
+       
+        // $slug = Str::slug($menutitle, '-');
         // dd($request);
         // Check if the combination of menutitle and research_centre already exists
         $existingMenu = MicroMenu::where('research_centreid', $request->research_centre)
@@ -311,7 +326,7 @@ public function add_menu(Request $request){
         // Save the menu to the database
         $menu->menu_status = $request->menu_status;
         $menu->save();
-
+        \Log::info('after the save micromenu if');
         // Audit logging
         MicroManageAudit::create([
             'Module_Name' => 'Menu',
@@ -566,6 +581,13 @@ public function add_menu(Request $request){
                 $slug = 'organizations';
             }
             if( !empty($menu) && !empty($menu->meta_title) && $menu->meta_title == 'trainings' ) {
+                $slug = 'trainings';
+            }
+
+            if( !empty($request->meta_title) && $request->meta_title == 'organizations' ) {
+                $slug = 'organizations';
+            }
+            if( !empty($request->meta_title) && $request->meta_title == 'trainings' ) {
                 $slug = 'trainings';
             }
         }
