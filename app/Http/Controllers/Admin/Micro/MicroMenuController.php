@@ -565,6 +565,9 @@ public function add_menu(Request $request){
             if( !empty($menu) && !empty($menu->meta_title) && $menu->meta_title == 'organizations' ) {
                 $slug = 'organizations';
             }
+            if( !empty($menu) && !empty($menu->meta_title) && $menu->meta_title == 'trainings' ) {
+                $slug = 'trainings';
+            }
         }
         else {
             $slug = Str::slug($menutitle, '-');
