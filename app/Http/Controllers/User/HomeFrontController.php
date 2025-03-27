@@ -397,29 +397,45 @@ class HomeFrontController extends Controller
     function faculty(Request $request)
 {
     $title = 'Faculty';
-    $query = DB::table('faculty_members')->where('page_status', 1);
+    if(isset($_COOKIE['language'])){  
+        $language = $_COOKIE['language'];
+     }else{
+        $language =1;
+     }
 
-    // Check if a search keyword is provided
-    if ($request->has('keywords') && !empty($request->keywords)) {
-        $query->where('name', 'LIKE', '%' . $request->keywords . '%');
-    }
-    
-    $query->orderBy('position', 'ASC');
-    $faculty = $query->get();
+     $query = DB::table('faculty_members')
+     ->where('page_status', 1)
+     ->when($request->filled('keywords'), fn($q) => 
+         $q->where('name', 'LIKE', '%' . $request->keywords . '%')
+     )
+     ->when(in_array($language, [1, 2]), fn($q) => 
+         $q->where('language', $language)
+     )
+     ->orderBy('position', 'ASC')
+     ->get();
+ 
     // print_r($faculty);die;
     return view('user.pages.faculty', compact('faculty','title'));
 }
 function staff(Request $request)
 {
     $title = 'Staff';
-    $query = DB::table('staff_members')->where('page_status', 1);
-
-    // Check if a search keyword is provided
-    if ($request->has('keywords') && !empty($request->keywords)) {
-        $query->where('name', 'LIKE', '%' . $request->keywords . '%');
-    }
-    $query->orderBy('position', 'ASC');
-    $staff = $query->get();
+    if(isset($_COOKIE['language'])){  
+        $language = $_COOKIE['language'];
+     }else{
+        $language =1;
+     }
+     $query = DB::table('staff_members')
+     ->where('page_status', 1)
+     ->when($request->filled('keywords'), fn($q) => 
+         $q->where('name', 'LIKE', '%' . $request->keywords . '%')
+     )
+     ->when(in_array($language, [1, 2]), fn($q) => 
+         $q->where('language', $language)
+     )
+     ->orderBy('position', 'ASC')
+     ->get();
+ 
 
     return view('user.pages.staff', compact('staff','title'));
 }
@@ -701,7 +717,14 @@ public function souvenir(Request $request)
 }
 
 function rti_main_page(Request $request) {
-    $slug = 'rti';
+    if(isset($_COOKIE['language'])){  
+        $language = $_COOKIE['language'];
+        $slug = 'rti_hi';
+     }else{
+        $language =1;
+        $slug = 'rti';
+     }
+   
 $title = ucwords(str_replace('-', ' ', $slug));
     // Generate breadcrumb
     $breadcrumb = $this->generateBreadcrumb($slug);

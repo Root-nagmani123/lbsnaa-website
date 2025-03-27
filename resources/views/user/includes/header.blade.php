@@ -546,7 +546,7 @@
                     @endphp
 
                     @foreach($menus as $menu)
-                    @if($menu->menutitle === 'RTI')
+                    @if($menu->menutitle === 'RTI' || $menu->menu_slug === 'rti_hi')
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('user.get_rti_page', $menu->menu_slug) }}"
                             aria-expanded="false">
