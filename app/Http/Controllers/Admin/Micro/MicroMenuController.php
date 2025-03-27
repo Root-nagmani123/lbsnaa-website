@@ -575,7 +575,7 @@ public function add_menu(Request $request){
         $validatedData = $validator->validated();
         $menutitle = strip_tags($request->menutitle); // Remove HTML tags
         $menutitle = htmlspecialchars($menutitle, ENT_QUOTES, 'UTF-8'); 
-        
+        $slug = '';
         if( $request->txtlanguage == 2 ) {
             if( !empty($menu) && !empty($menu->meta_title) && $menu->meta_title == 'organizations' ) {
                 $slug = 'organizations';
