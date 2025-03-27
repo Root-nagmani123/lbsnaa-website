@@ -5,9 +5,9 @@ namespace App\Models\Admin\Micro;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 // dddd
-class MicroMenu extends Model
+class micromenu extends Model
 {
-    use HasFactory ;
+    use HasFactory;
 
     protected $table = 'micromenus';
 
@@ -35,11 +35,11 @@ class MicroMenu extends Model
 
     public function parent()
     {
-        return $this->belongsTo(Micromenu::class, 'parent_id');
+        return $this->belongsTo(micromenu::class, 'parent_id');
     }
 
     public function children()
     {
-        return $this->hasMany(Micromenu::class, 'parent_id');
+        return $this->hasMany(micromenu::class, 'parent_id');
     }
 }
