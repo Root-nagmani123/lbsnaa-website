@@ -403,7 +403,7 @@ class HomeFrontController extends Controller
         $language =1;
      }
 
-     $query = DB::table('faculty_members')
+     $faculty = DB::table('faculty_members')
      ->where('page_status', 1)
      ->when($request->filled('keywords'), fn($q) => 
          $q->where('name', 'LIKE', '%' . $request->keywords . '%')
@@ -425,7 +425,7 @@ function staff(Request $request)
      }else{
         $language =1;
      }
-     $query = DB::table('staff_members')
+     $staff = DB::table('staff_members')
      ->where('page_status', 1)
      ->when($request->filled('keywords'), fn($q) => 
          $q->where('name', 'LIKE', '%' . $request->keywords . '%')
