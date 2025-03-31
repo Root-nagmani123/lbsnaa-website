@@ -9,13 +9,31 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb p-2">
                         <li class="breadcrumb-item">
-                            <a href="{{ route('user.micrositebyslug', ['slug' => $slug]) }}" style="color: #af2910;">Home</a>
-                        </li>
+                            <a href="{{ route('user.micrositebyslug', ['slug' => $slug]) }}" style="color: #af2910;">
+                                @if(isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                                    होम <!-- Hindi -->
+                                @else
+                                    Home <!-- English -->
+                                @endif
+                            </a>
+                                                    </li>
                         <li class="breadcrumb-item">
-                            <a href="/lbsnaa-sub_m/mediagallery?slug={{ $slug }}" style="color: #af2910;">Media Gallery</a>
+                            <a href="/lbsnaa-sub_m/mediagallery?slug={{ $slug }}" style="color: #af2910;">
+                                @if(isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                                    मीडिया गैलरी <!-- Hindi -->
+                                @else
+                                    Media Gallery <!-- English -->
+                                @endif
+                            </a>
+                                                    </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            @if(isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                                वीडियो गैलरी <!-- Hindi -->
+                            @else
+                                Video Gallery <!-- English -->
+                            @endif
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">Video Gallery</li>
-                    </ol>
+                                            </ol>
                 </nav>
             </div>
         </div>
@@ -26,8 +44,12 @@
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
         @if($videos->isEmpty())
         <div class="col text-center">
-            <p>No YouTube links available</p>
-        </div>
+            @if(isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+            <p>कोई यूट्यूब लिंक उपलब्ध नहीं है</p> <!-- Hindi -->
+        @else
+            <p>No YouTube links available</p> <!-- English -->
+        @endif
+                </div>
         @else
         @foreach ($videos as $video)
         <div class="col-lg-3 mb-4">

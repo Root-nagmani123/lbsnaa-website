@@ -103,6 +103,7 @@ class HomeFrontmicroController extends Controller
 
     public function get_navigation_pages(Request $request, $slug, $childSlug = null)
     {
+        $Title = '';
         // Generate breadcrumb based on slug
         $breadcrumb = $this->generateBreadcrumb($slug);
         // Fetch data for rendering
