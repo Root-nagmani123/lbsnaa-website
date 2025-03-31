@@ -123,20 +123,16 @@
                         </p>
                     </div>
                     <div class="card-body pt-2" style=" height: 80px;">
-                        <a href="{{ url('menu/director-message') }}" class="icon-link icon-link-hover link-primary">
-                            @if($_COOKIE['language'] == '2')
-                            संदेश
-                            @else
-                            Message
-                            @endif
-                        </a> <br>
-                        <a href="{{ url('menu/previous-directors') }}" class="icon-link icon-link-hover link-primary">
-                            @if($_COOKIE['language'] == '2')
-                            पूर्व निदेशक
-                            @else
-                            Previous Director
-                            @endif
-                        </a>
+                    <a href="{{ url($_COOKIE['language'] == '2' ? 'menu/director-message_hi' : 'menu/director-message') }}" 
+                            class="icon-link icon-link-hover link-primary">
+                                {{ $_COOKIE['language'] == '2' ? 'संदेश' : 'Message' }}
+                            </a> 
+                            <br>
+                            <a href="{{ url($_COOKIE['language'] == '2' ? 'menu/previous-directors_hi' : 'menu/previous-directors') }}" 
+                            class="icon-link icon-link-hover link-primary">
+                                {{ $_COOKIE['language'] == '2' ? 'पूर्व निदेशक' : 'Previous Director' }}
+                            </a>
+
                     </div>
                 </div>
             </div>
@@ -287,31 +283,21 @@
                     </div>
                     <div class="card-header" style="border-bottom: none;">
                         <p class="fw-bold">
-                            @if($_COOKIE['language'] == '2')
-                            अकादमी में जीवन
-                            @else
-                            Life at Academy
-                            @endif
+                            {{ $_COOKIE['language'] == '2' ? 'अकादमी में जीवन' : 'Life at Academy' }}
                         </p>
                     </div>
                     <div class="card-body pt-2" style="height: 80px;">
-                        <a href="{{ url('menu/the-academy-experience') }}"
-                            class="icon-link icon-link-hover link-primary">
-                            @if($_COOKIE['language'] == '2')
-                            अकादमी का अनुभव
-                            @else
-                            The Academy Experience
-                            @endif
-
+                        <a href="{{ url($_COOKIE['language'] == '2' ? 'menu/the-academy-experience_hi' : 'menu/the-academy-experience') }}" 
+                        class="icon-link icon-link-hover link-primary">
+                            {{ $_COOKIE['language'] == '2' ? 'अकादमी का अनुभव' : 'The Academy Experience' }}
                         </a><br>
-                        <a href="{{ url('menu/a-day-in-the-life-of-a-trainee') }}"
-                            class="icon-link icon-link-hover link-primary">
-                            @if($_COOKIE['language'] == '2')
-                            एक प्रशिक्षु के जीवन का एक दिन
-                            @else
-                            A day in the life of a Trainee
-                            @endif</a>
+                        
+                        <a href="{{ url($_COOKIE['language'] == '2' ? 'menu/a-day-in-the-life-of-a-trainee_hi' : 'menu/a-day-in-the-life-of-a-trainee') }}" 
+                        class="icon-link icon-link-hover link-primary">
+                            {{ $_COOKIE['language'] == '2' ? 'एक प्रशिक्षु के जीवन का एक दिन' : 'A day in the life of a Trainee' }}
+                        </a>
                     </div>
+
                 </div>
             </div>
             <div class="col-md-2 col-12 mb-4">

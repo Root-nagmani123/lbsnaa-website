@@ -16,7 +16,7 @@ class HomeFrontController extends Controller
         $title  = 'Home ';
        
    
-     if(isset($_COOKIE['language'])){  
+        if(isset($_COOKIE['language']) && $_COOKIE['language'] == 2){   
         $language = $_COOKIE['language'];
      }else{
         $language =1;
@@ -344,7 +344,7 @@ class HomeFrontController extends Controller
         date_default_timezone_set('Asia/Kolkata'); // Set timezone to Asia/Kolkata
         $today = date('Y-m-d H:i:s'); // Include time for more precise filtering
         // dd($today);
-        if(isset($_COOKIE['language'])){  
+        if(isset($_COOKIE['language']) && $_COOKIE['language'] == 2){  
             $language = $_COOKIE['language'];
          }else{
             $language =1;
@@ -366,7 +366,7 @@ class HomeFrontController extends Controller
         $title = 'Archive Tenders';
         date_default_timezone_set('Asia/Kolkata'); // Set timezone to Asia/Kolkata
         $today = date('Y-m-d H:i:s');
-        if(isset($_COOKIE['language'])){  
+        if(isset($_COOKIE['language']) && $_COOKIE['language'] == 2){  
             $language = $_COOKIE['language'];
          }else{
             $language =1;
@@ -397,7 +397,7 @@ class HomeFrontController extends Controller
     function faculty(Request $request)
 {
     $title = 'Faculty';
-    if(isset($_COOKIE['language'])){  
+    if(isset($_COOKIE['language']) && $_COOKIE['language'] == 2){  
         $language = $_COOKIE['language'];
      }else{
         $language =1;
@@ -420,7 +420,7 @@ class HomeFrontController extends Controller
 function staff(Request $request)
 {
     $title = 'Staff';
-    if(isset($_COOKIE['language'])){  
+    if(isset($_COOKIE['language']) && $_COOKIE['language'] == 2){  
         $language = $_COOKIE['language'];
      }else{
         $language =1;
@@ -444,7 +444,7 @@ function vacancy(){
         $title = 'Vacancy';
         date_default_timezone_set('Asia/Kolkata'); // Set timezone to Asia/Kolkata
         $today = date('Y-m-d H:i:s'); // Include time for more precise filtering
-        if(isset($_COOKIE['language'])){  
+        if(isset($_COOKIE['language']) && $_COOKIE['language'] == 2){  
             $language = $_COOKIE['language'];
          }else{
             $language =1;
@@ -467,7 +467,7 @@ function vacancy_archive(){
     $title = 'Vacancy  Archive';
     date_default_timezone_set('Asia/Kolkata'); // Set timezone to Asia/Kolkata
     $today = date('Y-m-d H:i:s'); // Include time for more precise filtering
-    if(isset($_COOKIE['language'])){  
+    if(isset($_COOKIE['language']) && $_COOKIE['language'] == 2){  
         $language = $_COOKIE['language'];
      }else{
         $language =1;
@@ -717,7 +717,7 @@ public function souvenir(Request $request)
 }
 
 function rti_main_page(Request $request) {
-    if(isset($_COOKIE['language'])){  
+    if(isset($_COOKIE['language']) && $_COOKIE['language'] == 2){  
         $language = $_COOKIE['language'];
         $slug = 'rti_hi';
      }else{
