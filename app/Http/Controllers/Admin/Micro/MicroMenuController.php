@@ -285,6 +285,7 @@ class MicroMenuController extends Controller
         // Check if the combination of menutitle and research_centre already exists
         $existingMenu = MicroMenu::where('research_centreid', $request->research_centre)
             ->where('menutitle', $menutitle)
+            ->where('menu_status', 1)
             ->first();
 
         if ($existingMenu) {
