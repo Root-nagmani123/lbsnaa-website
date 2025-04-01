@@ -273,8 +273,11 @@ class MicroMenuController extends Controller
             if (!empty($request->meta_title) && $request->meta_title == 'organizations') {
                 $slug = 'organizations';
             }
-            if (!empty($request->meta_title) && $request->meta_title == 'trainings') {
+            else if (!empty($request->meta_title) && $request->meta_title == 'trainings') {
                 $slug = 'trainings';
+            }
+            else {
+                $slug = Str::slug($menutitle, '-');
             }
         } else {
             $slug = Str::slug($menutitle, '-');
@@ -582,20 +585,23 @@ class MicroMenuController extends Controller
                 if (!empty($menu) && !empty($menu->meta_title) && $menu->meta_title == 'organizations') {
                     $slug = 'organizations';
                 }
-                if (!empty($menu) && !empty($menu->meta_title) && $menu->meta_title == 'trainings') {
+                else if (!empty($menu) && !empty($menu->meta_title) && $menu->meta_title == 'trainings') {
                     $slug = 'trainings';
                 }
 
-                if (!empty($request->meta_title) && $request->meta_title == 'organizations') {
+                else if (!empty($request->meta_title) && $request->meta_title == 'organizations') {
                     $slug = 'organizations';
                 }
-                if (!empty($request->meta_title) && $request->meta_title == 'trainings') {
+                else if (!empty($request->meta_title) && $request->meta_title == 'trainings') {
                     $slug = 'trainings';
+                }
+                else {
+                    $slug = Str::slug($menutitle, '-');
                 }
             } else {
                 $slug = Str::slug($menutitle, '-');
             }
-
+            
             // Check for duplicate combination of research_centre and menutitle, excluding the current menu
             $existingMenu = MicroMenu::where('research_centreid', $request->research_centre)
                 ->where('menutitle', $menutitle)
