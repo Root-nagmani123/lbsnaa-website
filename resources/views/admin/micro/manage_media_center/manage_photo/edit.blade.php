@@ -12,14 +12,14 @@
             </a>
         </li>
         <li>
-                <i class="ri-arrow-right-double-line"></i>
-                <span>Manage Media Center</span>
+            <i class="ri-arrow-right-double-line"></i>
+            <span>Manage Media Center</span>
         </li>
         <li>
             <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Photo Gallery</span>
         </li>
     </ul>
-</div> 
+</div>
 <div class="row justify-content-center">
     <div class="col-lg-12">
         <div class="card bg-white border-0 rounded-10 mb-4">
@@ -29,38 +29,38 @@
                 </div>
 
                 @if(Cache::has('success_message'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        {{ Cache::get('success_message') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-@endif
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ Cache::get('success_message') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
 
-@if(Cache::has('error_message'))
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        {{ Cache::get('error_message') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-@endif
+                @if(Cache::has('error_message'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ Cache::get('error_message') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
 
-@if(Cache::has('validation_errors'))
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <ul>
-            @foreach (Cache::get('validation_errors') as $field => $errors)
-                @foreach ($errors as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            @endforeach
-        </ul>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-@endif
+                @if(Cache::has('validation_errors'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <ul>
+                        @foreach (Cache::get('validation_errors') as $field => $errors)
+                        @foreach ($errors as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                        @endforeach
+                    </ul>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
 
                 <form action="{{ route('micro-photo-gallery.update', $gallery->id) }}" method="POST"
                     enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
 
-                    <!-- <div class="row">
+                    <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label">Category Name:</label>
@@ -68,86 +68,90 @@
                                 <div class="form-group position-relative">
                                     <input type="text" id="course-search" class="form-control text-dark  h-58"
                                         placeholder="Type to search for course..." value="{{ old('aaa', $aaa ?? '') }}">
-                                    
+
                                     <input type="hidden" name="course_id" id="selected-course-id"
                                         value="{{ old('course_id', $gallery->course_id ?? '') }}">
-                                    
+
                                     <div id="course-suggestions" class="dropdown-menu"
                                         style="display: none; position: relative;">
-                                       
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
 
-                        <div class="col-lg-5">
-                            <div class="form-group mb-4">
-                                <label for="research_centre_id" class="label">Select Research Center</label>
-                                <span class="star">*</span>
-                                <div class="form-group position-relative">
-                                    <select name="research_centre" id="select_research_centre" class="form-control text-dark  h-58">
-                                        <option value="">Select Research Centre</option>
-                                        @foreach ($researchCentres as $id => $name)
-                                            <option value="{{ $id }}" {{ old('research_centre', $gallery->research_centre) == $id ? 'selected' : '' }}>
-                                                {{ $name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                   
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- <div class="col-lg-6" id="related_news_field">
+                        <div class="col-lg-6">
+                            <div class="form-group mb-4">
+                                <label for="research_centre_id" class="label">Select Research Center</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <select name="research_centre" id="select_research_centre"
+                                        class="form-control text-dark  h-58">
+                                        <option value="">Select Research Centre</option>
+                                        @foreach ($researchCentres as $id => $name)
+                                        <option value="{{ $id }}"
+                                            {{ old('research_centre', $gallery->research_centre) == $id ? 'selected' : '' }}>
+                                            {{ $name }}
+                                        </option>
+                                        @endforeach
+                                    </select>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6" id="related_news_field">
                             <div class="form-group mb-4">
                                 <label for="related_news" class="label">Related News:</label>
                                 <div class="form-group position-relative">
-                                     
+
                                     <input type="text" id="news-search" class="form-control text-dark  h-58"
                                         placeholder="Type to search for courses..."
                                         value="{{ old('bbb', $bbb ?? '') }}">
-                                    
+
                                     <input type="hidden" name="related_news" id="selected-news-id"
                                         value="{{ old('related_news', $gallery->related_news) }}">
-                                     
+
                                     <div id="news-suggestions" class="dropdown-menu"
                                         style="display: none; position: relative;">
                                     </div>
                                 </div>
                             </div>
-                        </div> -->
-                        <!-- <div class="col-lg-6" id="related_training_field">
+                        </div>
+                        <div class="col-lg-6" id="related_training_field">
                             <div class="form-group mb-4">
                                 <label for="related_training_program" class="label">Related Training Programme:</label>
                                 <div class="form-group position-relative">
-                                    
+
                                     <input type="text" id="training-search" class="form-control text-dark  h-58"
                                         placeholder="Type to search for training programmes..."
                                         value="{{ old('ccc', $ccc ?? '') }}">
-                                    
+
                                     <input type="hidden" name="related_training_program" id="selected-training-id"
                                         value="{{ $gallery->related_training_program }}">
                                     <div id="training-suggestions" class="dropdown-menu"
                                         style="display: none; position: relative;"></div>
                                 </div>
-                            </div> 
-                        </div> -->
+                            </div>
+                        </div>
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label">Select Category Center</label>
                                 <div class="form-group position-relative">
-                                <select name="media_categories" id="media_categories" class="form-control text-dark  h-58">
-                                    <option value="">Select Category Centre</option>
-                                    @foreach ($mediaCategories as $id => $name)
-                                        <option value="{{ $id }}" {{ old('media_categories', $gallery->media_categories ?? '') == $id ? 'selected' : '' }}>
+                                    <select name="media_categories" id="media_categories"
+                                        class="form-control text-dark  h-58">
+                                        <option value="">Select Category Centre</option>
+                                        @foreach ($mediaCategories as $id => $name)
+                                        <option value="{{ $id }}"
+                                            {{ old('media_categories', $gallery->media_categories ?? '') == $id ? 'selected' : '' }}>
                                             {{ $name }}
                                         </option>
-                                    @endforeach
-                                </select>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="col-lg-6" id="related_events_field">
+                        <div class="col-lg-6" id="related_events_field">
                             <div class="form-group mb-4">
                                 <label for="related_events" class="label">Related Events:</label>
                                 <div class="form-group position-relative">
@@ -159,7 +163,7 @@
                                         style="display: none; position: relative;"></div>
                                 </div>
                             </div>
-                        </div> -->
+                        </div>
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
                                 <label class="label">Image Title (English)</label>
@@ -168,7 +172,7 @@
                                     <input type="text" name="image_title_english"
                                         value="{{ old('image_title_english', $gallery->image_title_english ?? '') }}"
                                         class="form-control text-dark  h-58">
-                                
+
                                 </div>
                             </div>
                         </div>
@@ -219,8 +223,7 @@
                                 <input type="hidden" name="removed_files" id="removed-files" value="">
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-6">
+                        <div class="col-lg-6">
                         <div class="form-group mb-4">
                             <label class="label">Status</label>
                             <div class="form-group position-relative">
@@ -233,6 +236,8 @@
                             </div>
                         </div>
                     </div>
+                    </div>
+                    
                     <div class="d-flex ms-sm-3 ms-md-0 mt-4">
                         <button class="btn btn-success text-white fw-semibold" type="submit">Update</button> &nbsp;
                         <a href="{{ route('micro-photo-gallery.index') }}"
@@ -246,10 +251,8 @@
 
     </div>
 </div>
-</div>
-</div>
 
-
+@endsection
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     const removedFilesInput = document.getElementById('removed-files'); // Hidden input for removed files
@@ -291,32 +294,34 @@ document.addEventListener("DOMContentLoaded", function() {
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
-    $(document).ready(function () {
-        $('#select_research_centre').on('change', function () {
-            const researchCentreId = $(this).val();
-            // alert(researchCentreId);
+$(document).ready(function() {
+    $('#select_research_centre').on('change', function() {
+        const researchCentreId = $(this).val();
+        // alert(researchCentreId);
 
-            $('#media_categories').html('<option value="" selected>Select Media Category</option>');
+        $('#media_categories').html('<option value="" selected>Select Media Category</option>');
 
-            if (researchCentreId) {
-                $.ajax({
-                    url: "{{ route('fetchMediaCategories') }}",
-                    type: "GET",
-                    data: { research_centre_id: researchCentreId },
-                    success: function (data) {
-                        if (data.length > 0) {
-                            data.forEach(function (category) {
-                                $('#media_categories').append(
-                                    `<option value="${category.id}">${category.name}</option>`
-                                );
-                            });
-                        }
-                    },
-                    error: function () {
-                        alert('Failed to fetch media categories. Please try again.');
+        if (researchCentreId) {
+            $.ajax({
+                url: "{{ route('fetchMediaCategories') }}",
+                type: "GET",
+                data: {
+                    research_centre_id: researchCentreId
+                },
+                success: function(data) {
+                    if (data.length > 0) {
+                        data.forEach(function(category) {
+                            $('#media_categories').append(
+                                `<option value="${category.id}">${category.name}</option>`
+                            );
+                        });
                     }
-                });
-            }
-        });
+                },
+                error: function() {
+                    alert('Failed to fetch media categories. Please try again.');
+                }
+            });
+        }
     });
+});
 </script>
