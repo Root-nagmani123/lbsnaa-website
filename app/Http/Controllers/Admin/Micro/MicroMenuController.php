@@ -281,7 +281,7 @@ class MicroMenuController extends Controller
         }
 
         // $slug = Str::slug($menutitle, '-');
-        // dd($request);
+        
         // Check if the combination of menutitle and research_centre already exists
         $existingMenu = MicroMenu::where('research_centreid', $request->research_centre)
             ->where('menutitle', $menutitle)
