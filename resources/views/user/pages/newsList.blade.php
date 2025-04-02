@@ -13,7 +13,7 @@
                         <li class="breadcrumb-item">
                             <a href="{{ route('home') }}" class="text-danger">
                                 @if($_COOKIE['language'] == '2')
-                                घर
+                               होम
                                 @else
                                 Home
                                 @endif

@@ -12,7 +12,7 @@
                     <ol class="breadcrumb p-2">
                         <li class="breadcrumb-item">
                             <a href="{{ route('home')}}" style="color: #af2910;">@if($_COOKIE['language'] ==
-                                '2')घर
+                                '2')होम
                                 @else
                                 Home
                                 @endif</a>
@@ -79,8 +79,20 @@
                                 @foreach($staff as $key => $value)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $value->name }}</td>
-                                    <td>{{ $value->designation }}</td>
+                                    <td>
+                                    @if(isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                                        {{ $value->name_in_hindi }}
+                                    @else
+                                        {{ $value->name }}
+                                    @endif
+                                </td>
+                                    <td>
+                                    @if(isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                                        {{ $value->designation_in_hindi }}
+                                    @else
+                                        {{ $value->designation }}
+                                    @endif
+                                </td>
                                     <td>{{ $value->email }}</td>
                                     <td>{{ $value->country_code }}-{{ $value->std_code }}-{{ $value->phone_pt_office }}</td>
                                     <td>{{ $value->phone_pt_residence }}</td>

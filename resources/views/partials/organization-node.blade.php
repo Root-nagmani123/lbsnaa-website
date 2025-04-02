@@ -6,20 +6,47 @@
                           <img src="{{ asset($node->image) }}" alt="{{ $node->name }}" class="avatar avatar-xl rounded-circle">
                           <!--content-->
                           <div class="m-2">
-                              <h3 class="mb-0 h4">{{ $node->name }}</h3>
-                              <h4 class="text-gray-800 h5">{{ $node->designation }}</span>
+                          <h3 class="mb-0 h4">
+                                    @if(isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                                        
+                                        {{ $node->name_in_hindi }}
+                                    @else
+                                    {{ $node->name }}
+                                    @endif
+                                </h3>
+                             
+                              <h4 class="text-gray-800 h5">
+                              @if(isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                                        
+                                        {{ $node->designation_in_hindi }}
+                                    @else
+                                    {{ $node->designation }}
+                                    @endif
+                              </span>
                           </div>
                       </div>
                       <div class="card-footer" style="border:0;background-color:transparent;padding:0;">
-                      <a href="{{ route('user.faculty_responsibility') }}?keywords={{ $keyword }}">{{ $node->name }} Responsibility</a>
-                      <a href="#" data-bs-toggle="modal" data-bs-target="#bioDataModal" data-name="{{ $node->name }}"
-                          data-image="{{ asset($node->image) }}" data-designation="{{ $node->designation }}"
-                          data-email="{{ $node->email }}" data-phone="{{ $node->phone_pt_office }}"
-                          data-description-id="description-{{ $node->id }}">
-                          {{ $node->name }} Bio Data
-                      </a>
-                      <input type="hidden" id="description-{{ $node->id }}" name="description"
-                          value="{{ htmlspecialchars($node->description, ENT_QUOTES, 'UTF-8') }}" />
+                      <a href="{{ route('user.faculty_responsibility') }}?keywords={{ $keyword }}">
+                        {{ $_COOKIE['language'] == '2' && !empty($node->name_in_hindi) ? $node->name_in_hindi : $node->name }} 
+                        {{ $_COOKIE['language'] == '2' ? 'ज़िम्मेदारी' : 'Responsibility' }}
+                    </a>
+
+
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#bioDataModal"
+   data-name="{{ $_COOKIE['language'] == '2' && !empty($node->name_in_hindi) ? $node->name_in_hindi : $node->name }}"
+   data-image="{{ asset($node->image) }}"
+   data-designation="{{ $_COOKIE['language'] == '2' && !empty($node->designation_in_hindi) ? $node->designation_in_hindi : $node->designation }}"
+   data-email="{{ $node->email }}"
+   data-phone="{{ $node->phone_pt_office }}"
+   data-description-id="description-{{ $node->id }}">
+   {{ $_COOKIE['language'] == '2' && !empty($node->name_in_hindi) ? $node->name_in_hindi : $node->name }} 
+   {{ $_COOKIE['language'] == '2' ? 'जीवनी' : 'Bio Data' }}
+</a>
+
+
+<input type="hidden" id="description-{{ $node->id }}" name="description"
+       value="{{ htmlspecialchars($_COOKIE['language'] == '2' && !empty($node->description_in_hindi) ? $node->description_in_hindi : $node->description, ENT_QUOTES, 'UTF-8') }}" />
+
                       </div>
                   </div>
 

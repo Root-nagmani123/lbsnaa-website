@@ -37,7 +37,7 @@
                     <ol class="breadcrumb p-2">
                         <li class="breadcrumb-item">
                             <a href="{{ route('home')}}" style="color: #af2910;">
-                                @if($_COOKIE['language'] == '2')घर @else Home @endif
+                                @if($_COOKIE['language'] == '2')होम @else Home @endif
                             </a>
                         </li>
                         <li class="breadcrumb-item active">

@@ -80,9 +80,10 @@
                         <tr class="text-center">
                             <th class="col">#</th>
                             <th class="col">Employee Name</th>
+                            <th class="col">Employee Name Hindi</th>
                             <th class="col">Sub org.</th>
                             <th class="col">Parent</th>
-                            <th class="col">Description</th>
+                            
                             <th class="col">Status</th>
                             <th class="col">Action</th>
                         </tr>
@@ -97,6 +98,7 @@
                         <tr data-id="{{ $record->id }}" class="sortable-row">
                         <td class="handle" style="cursor: move;">☰</td> <!-- Drag handle -->
                             <td>{{ $record->employeeNames }}</td>
+                            <td>{{ $record->employeename_in_hindi }}</td>
                             <td><a href="{{ route('organisation-chart.sub-org', ['parent_id' => $record->id]) }}"
                                     class="btn btn-secondary btn-sm text-white">click here</a></td>
                             <td>{{ $record->faculty_id_faculty}}</td>
