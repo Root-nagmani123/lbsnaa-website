@@ -159,9 +159,7 @@ class HomeFrontController extends Controller
             if ($request->has('keywords') && !empty($request->keywords)) {
                 $query->where('name', 'LIKE', '%' . $request->keywords . '%');
             }
-            $query->when(in_array($language, [1, 2]), function ($q) use ($language) {
-                return $q->where('language', $language);
-            });
+            
             $query->orderBy('position', 'ASC');
             $faculty = $query->get();
        
@@ -441,8 +439,9 @@ function staff(Request $request)
          $q->where('name', 'LIKE', '%' . $request->keywords . '%')
      )
      ->when($language == 2, fn($q) => 
-     $q->whereNotNull('name_in_hindi') // Sirf wahi jisme name_in_hindi null na ho
- )
+    $q->whereNotNull('name_in_hindi') // NULL check
+      ->where('name_in_hindi', '!=', '') // Empty check
+)
      ->orderBy('position', 'ASC')
      ->get();
  
