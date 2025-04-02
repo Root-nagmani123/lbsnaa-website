@@ -22,9 +22,13 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>
         @if(isset($title))
-        {{ $title }} | Lal Bahadur Shastri National Academy of Administration
+            {{ $title }} | 
+            {{ (isset($_COOKIE['language']) && $_COOKIE['language'] == '2') 
+                ? 'लाल बहादुर शास्त्री राष्ट्रीय प्रशासन अकादमी' 
+                : 'Lal Bahadur Shastri National Academy of Administration' }}
         @endif
     </title>
+    
     <style>
     *:focus {
         outline: 2px solid #af2910;
