@@ -15,7 +15,7 @@ class HomePagesMicroController extends Controller
     public function media_gallery(Request $request)
     {
         // Get the 'slug' from the request
-        $Title = "Media gallery";
+        $Title = (isset($_COOKIE['language']) && $_COOKIE['language'] == '2') ? 'मीडिया गैलरी' : 'Media Gallery';
         $slug = $request->query('slug');
         $keyword = $request->query('keyword');
         $category = $request->query('category');
@@ -117,8 +117,10 @@ class HomePagesMicroController extends Controller
             $research_centre_slug = $research_centre->research_centre_slug;  // Get the first news item and its associated research_centre_slug
 
             // Concatenate the research centre slug with the title
-            $Title = "Media gallery  | " . ucfirst(str_replace('-', ' ', $research_centre_slug));
-        }
+            $Title = (isset($_COOKIE['language']) && $_COOKIE['language'] == '2') 
+            ? "मीडिया गैलरी | " . ucfirst(str_replace('-', ' ', $research_centre_slug)) 
+            : "Media Gallery | " . ucfirst(str_replace('-', ' ', $research_centre_slug));
+                }
 
         return view('user.pages.microsites.mediagallery', compact('quickLinks', 'research_centre', 'slug', 'Title'));
     }
@@ -127,8 +129,10 @@ class HomePagesMicroController extends Controller
     {
         // Get the slug from the request
         $slug = $request->query('slug'); // Fetch the 'slug' query parameter from the URL
-        $Title = "Latest News";
-        // Fetch all records from the managenews table joined with research_centres table
+        $Title = (isset($_COOKIE['language']) && $_COOKIE['language'] == '2') 
+        ? "ताज़ा खबरें" 
+        : "Latest News";
+            // Fetch all records from the managenews table joined with research_centres table
         $newsItems = DB::table('managenews as mn')
             ->join('research_centres as rc', 'mn.research_centreid', '=', 'rc.id') // Join the tables based on research_centreid
             ->where('mn.status', 1) // Filter by status (active news)
@@ -147,8 +151,10 @@ class HomePagesMicroController extends Controller
             $research_centre_slug = $newsItems->first()->research_centre_slug;  // Get the first news item and its associated research_centre_slug
 
             // Concatenate the research centre slug with the title
-            $Title = "Latest News | " . ucfirst(str_replace('-', ' ', $research_centre_slug));
-        }
+            $Title = (isset($_COOKIE['language']) && $_COOKIE['language'] == '2') 
+            ? "ताज़ा खबरें | " . ucfirst(str_replace('-', ' ', $research_centre_slug)) 
+            : "Latest News | " . ucfirst(str_replace('-', ' ', $research_centre_slug));
+                }
         // Debugging to verify the data
         // dd($newsItems);
 
@@ -173,8 +179,10 @@ class HomePagesMicroController extends Controller
             ->first(); // Fetch a single result
 
         if ($news) {
-            $Title = $news->title . ' | Latest News'; // Concatenate news title with "Latest News"
-        }
+            $Title = (isset($_COOKIE['language']) && $_COOKIE['language'] == '2') 
+            ? $news->hindi_title . ' | ताज़ा खबरें' 
+            : $news->title . ' | Latest News';
+                }
         // Decode the multiple images JSON array
         if ($news && $news->multiple_images) {
             $news->multiple_images = json_decode($news->multiple_images, true);
@@ -187,8 +195,10 @@ class HomePagesMicroController extends Controller
     {
         // Use the slug from the route parameter instead of fetching it from the query string
         $slug = $request->route('slug');
-        $Title = "Archive";
-        // Fetch all records from the managenews table joined with research_centres table
+        $Title = (isset($_COOKIE['language']) && $_COOKIE['language'] == '2') 
+        ? "पुरालेख" 
+        : "Archive";
+            // Fetch all records from the managenews table joined with research_centres table
         $archives = DB::table('managenews as mn')
             ->join('research_centres as rc', 'mn.research_centreid', '=', 'rc.id') // Join the tables based on research_centreid
             ->where('mn.status', 1) // Filter by status (active news)
@@ -212,8 +222,10 @@ class HomePagesMicroController extends Controller
         // Get the slug from the request (query parameter) or from the route parameter if it's provided
         $slug = $request->query('slug'); // Fetch the 'slug' query parameter from the URL
         // dd($id);
-        $Title = "Archive_Details";
-        // Fetch the specific news item by ID and Slug
+        $Title = (isset($_COOKIE['language']) && $_COOKIE['language'] == '2') 
+        ? "पुरालेख विवरण" 
+        : "Archive Details";
+            // Fetch the specific news item by ID and Slug
         $archive_details = DB::table('managenews')
             ->join('research_centres as rc', 'managenews.research_centreid', '=', 'rc.id') // Join with the research_centres table
             ->where('managenews.id', $id) // Filter by the specific news ID
@@ -238,8 +250,10 @@ class HomePagesMicroController extends Controller
         
         // Get the 'slug' parameter from the request
         $slug = $request->query('slug');
-        $Title = "videoGallery";
-        // Fetch video gallery data with research centres
+        $Title = (isset($_COOKIE['language']) && $_COOKIE['language'] == '2') 
+        ? "वीडियो गैलरी" 
+        : "Video Gallery";
+            // Fetch video gallery data with research centres
         $videos = DB::table('micro_video_galleries as video_gallery')
             ->join('research_centres as research_centres', 'video_gallery.research_centre', '=', 'research_centres.id') // Join research centres
             ->select(
@@ -259,8 +273,10 @@ class HomePagesMicroController extends Controller
 
     public function show($id, Request $request)
     {
-        $Title = "Category Details";
-        $slug = $request->query('slug');
+        $Title = (isset($_COOKIE['language']) && $_COOKIE['language'] == '2') 
+        ? "श्रेणी विवरण" 
+        : "Category Details";
+            $slug = $request->query('slug');
         $category = DB::table('micro_manage_photo_galleries as mmpg')
             ->join('micro_media_categories as mmc', 'mmpg.media_categories', '=', 'mmc.id') // Adjust column names
             ->where('mmpg.media_categories', $id) // Filter by ID
@@ -278,8 +294,10 @@ class HomePagesMicroController extends Controller
     {
         // Get the slug from the request
         $slug = $request->query('slug');
-        $Title = "Media gallery details";
-        // Fetch the gallery details based on ID and slug
+        $Title = (isset($_COOKIE['language']) && $_COOKIE['language'] == '2') 
+        ? "मीडिया गैलरी विवरण" 
+        : "Media Gallery Details";
+            // Fetch the gallery details based on ID and slug
         $gallery_details = DB::table('micro_manage_photo_galleries as mmpg')
             ->join('research_centres as rc', 'mmpg.research_centre', '=', 'rc.id')
             ->join('micro_media_categories as mmc', 'mmpg.media_categories', '=', 'mmc.id')
@@ -300,8 +318,10 @@ class HomePagesMicroController extends Controller
 
     public function getAllOrganizations($slug)
     {
-        $Title = "Organizations";
-        // Fetch the data from the database
+        $Title = (isset($_COOKIE['language']) && $_COOKIE['language'] == '2') 
+        ? "संगठन" 
+        : "Organizations";
+            // Fetch the data from the database
 
         // $organizations = DB::table('mirco_organization_setups as org')
         //     ->join('research_centres as rc', 'org.research_centre', '=', 'rc.id')
@@ -337,8 +357,10 @@ class HomePagesMicroController extends Controller
 
     public function handleTrainingsPage(Request $request, $slug)
     {
-        $Title = "Manage training programs";
-        $slug = $request->query('slug', $slug);
+        $Title = (isset($_COOKIE['language']) && $_COOKIE['language'] == '2') 
+        ? "प्रशिक्षण कार्यक्रम प्रबंधित करें" 
+        : "Manage Training Programs";
+            $slug = $request->query('slug', $slug);
         // Check if 'slug' is present
         if (!$slug) {
             return abort(400, 'Missing slug parameter.');
@@ -378,8 +400,10 @@ class HomePagesMicroController extends Controller
 
     public function details(Request $request, $id, $slug)
     {
-        $Title = "Microsites training details";
-        $slug = $request->query('slug', $slug);
+        $Title = (isset($_COOKIE['language']) && $_COOKIE['language'] == '2') 
+        ? "माइक्रोसाइट प्रशिक्षण विवरण" 
+        : "Microsites Training Details";
+            $slug = $request->query('slug', $slug);
         $today = now(); // Current date and time
 
         // Fetch training details using the provided ID
@@ -414,8 +438,10 @@ class HomePagesMicroController extends Controller
     public function whatnewall(Request $request, $slug)
     {
         $slug = $request->query('slug', $slug);
-        $Title = "Whats New";
-        $today = now(); // Current date and time
+        $Title = (isset($_COOKIE['language']) && $_COOKIE['language'] == '2') 
+        ? "क्या नया है" 
+        : "What's New";
+            $today = now(); // Current date and time
         // Join the tables to get data from both 'micro_quick_links' and 'research_centres'
         $whatnewalls = DB::table('micro_quick_links')  // Start from the 'micro_quick_links' table
             ->join('research_centres', 'micro_quick_links.research_centre_id', '=', 'research_centres.id') // Join 'research_centres'
