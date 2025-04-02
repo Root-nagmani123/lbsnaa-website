@@ -61,8 +61,11 @@ class HomeFrontmicroController extends Controller
             $researchCentre = $query->first();
             
             if ($researchCentre) {
-                $Title = ucwords(str_replace('-', ' ', $researchCentre->research_centre_name)). ' | Lal Bahadur Shastri National Academy of Administration';
-                $pageTitle = $researchCentre->research_centre_name;
+                $Title = ucwords(str_replace('-', ' ', $researchCentre->research_centre_name)) . ' | ' .
+                (isset($_COOKIE['language']) && $_COOKIE['language'] == '2' 
+                    ? 'लाल बहादुर शास्त्री राष्ट्रीय प्रशासन अकादमी' 
+                    : 'Lal Bahadur Shastri National Academy of Administration');
+                            $pageTitle = $researchCentre->research_centre_name;
             }
         }
         $research_centres = $query->get();
@@ -123,7 +126,6 @@ class HomeFrontmicroController extends Controller
             ->where('menu_slug', $slug)
             ->where('rc.research_centre_slug', $main_slug)
             ->first();
-
             // if ($nav_page) {
             //     $menu_slug = $nav_page->menu_slug;  // Get the 'menu_slug' from the query result
             //     $Title = ucfirst(str_replace('-', ' ', $menu_slug));  // Format the title
@@ -131,7 +133,7 @@ class HomeFrontmicroController extends Controller
             // }
 
             if ($nav_page) {
-                $menu_slug = $nav_page->menu_slug;  // Get the 'menu_slug' from the query result
+                $menu_slug = $nav_page->menutitle;  // Get the 'menu_slug' from the query result
                 $research_centre_slug = $nav_page->research_centre_slug;  // Get the 'research_centre_slug' from the query result
             
                 // Concatenate 'menu_slug' and 'research_centre_slug' with a pipe separator
