@@ -51,7 +51,9 @@
                                 Name
                                 @endif
                                 <span class="text-danger">*</span></label>
-                            <input type="text" id="name" name="name" class="form-control" placeholder="Enter your Name"
+                            <input type="text" id="name" name="name" class="form-control" 
+                            
+                            placeholder="@if(isset($_COOKIE['language']) && $_COOKIE['language'] =='2')अपना नाम दर्ज करें @else Enter your Name @endif"
                                 required />
                         </div>
                         <div class="mb-3 ">
@@ -63,7 +65,7 @@
                                 @endif
                                 <span class="text-danger">*</span></label>
                             <input type="tel" id="mobile" name="mobile" class="form-control"
-                                placeholder="Enter your Mobile No." required pattern="[6-9][0-9]{9}"
+                                placeholder="@if(isset($_COOKIE['language']) && $_COOKIE['language'] =='2')अपना मोबाइल नम्बर दर्ज करें। @else Enter your Mobile No. @endif" required pattern="[6-9][0-9]{9}"
                                 title="Enter a valid 10-digit mobile number starting with 6-9" />
                         </div>
 
@@ -75,7 +77,7 @@
                                 @endif
                                 <span class="text-danger">*</span></label>
                             <input type="email" id="email" name="email" class="form-control"
-                                placeholder="Enter your Email" required />
+                                placeholder="@if(isset($_COOKIE['language']) && $_COOKIE['language'] =='2')अपना ईमेल दर्ज करें @else Enter your Email @endif" required />
                         </div>
                         <div class="mb-3 ">
                             <label class="form-label" for="category">
@@ -103,7 +105,7 @@
                                 @endif
                                 <span class="text-danger">*</span></label>
                             <textarea name="comments" id="comments" class="form-control"
-                                placeholder="Maximum 500 characters" rows="5" required></textarea>
+                                placeholder="@if(isset($_COOKIE['language']) && $_COOKIE['language'] =='2')अधिकतम 500 अक्षर @else Maximum 500 characters @endif" rows="5" required></textarea>
                         </div>
                         <div class="mb-3">
                             <button type="submit" class="btn btn-primary">

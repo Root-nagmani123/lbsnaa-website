@@ -9,13 +9,13 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
 
 use App\Models\Admin\Micro\MicroManageAudit;
-use Illuminate\Support\Facades\Auth; 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 
 class MicroMenuController extends Controller
-{ 
+{
     // public function index() 
     // {
 
@@ -25,7 +25,7 @@ class MicroMenuController extends Controller
     //     ->where('micromenus.is_deleted', 0)
     //     ->get()
     //     ->toArray();
-    
+
     //     echo '<pre>';
     //     print_r($menus);
     //     echo '</pre>';
@@ -42,59 +42,59 @@ class MicroMenuController extends Controller
     //     return view('admin.micro.manage_micromenus.index', compact('menuTree'));
     // }
 
-    public function index() 
-{
-    // Fetch data with raw join, still working with objects
-    $menus = DB::table('micromenus')
-        ->leftJoin('research_centres', 'micromenus.research_centreid', '=', 'research_centres.id')
-        ->select(
-            'micromenus.id',
-            'micromenus.menutitle', 
-            'micromenus.research_centreid',
-            'research_centres.research_centre_name', 
-            'micromenus.texttype', 
-            'micromenus.txtpostion', 
+    public function index()
+    {
+        // Fetch data with raw join, still working with objects
+        $menus = DB::table('micromenus')
+            ->leftJoin('research_centres', 'micromenus.research_centreid', '=', 'research_centres.id')
+            ->select(
+                'micromenus.id',
+                'micromenus.menutitle',
+                'micromenus.research_centreid',
+                'research_centres.research_centre_name',
+                'micromenus.texttype',
+                'micromenus.txtpostion',
 
-            'micromenus.menu_status', 
-            'micromenus.created_at', 
-            'micromenus.updated_at',
-            'micromenus.parent_id'
-        )
-        ->where('micromenus.is_deleted', 0) 
-        ->orderBy('micromenus.position', 'ASC')
-        ->get(); 
+                'micromenus.menu_status',
+                'micromenus.created_at',
+                'micromenus.updated_at',
+                'micromenus.parent_id'
+            )
+            ->where('micromenus.is_deleted', 0)
+            ->orderBy('micromenus.position', 'ASC')
+            ->get();
 
-    // Convert the result into an array (optional step)
-    $menus = $menus->toArray(); // If you need to convert to array
+        // Convert the result into an array (optional step)
+        $menus = $menus->toArray(); // If you need to convert to array
 
-    // Now, proceed with the rest of the processing as usual
-    $menuTree = $this->buildMenuTree($menus);
+        // Now, proceed with the rest of the processing as usual
+        $menuTree = $this->buildMenuTree($menus);
 
-    return view('admin.micro.manage_micromenus.index', compact('menuTree'));
-}
+        return view('admin.micro.manage_micromenus.index', compact('menuTree'));
+    }
 
 
-public function updatePosition(Request $request)
+    public function updatePosition(Request $request)
     {
         foreach ($request->positions as $position) {
             DB::table('micromenus')->where('id', $position['id'])->update(['position' => $position['position']]);
         }
-    
+
         return response()->json(['status' => 'success', 'message' => 'Menu positions updated']);
     }
 
-//     public function index()
-// {
-//     $menus = DB::table('micromenus')
-//         ->leftJoin('research_centres', 'micromenus.research_centreid', '=', 'research_centres.id')
-//         ->select('micromenus.*', 'research_centres.research_centre_name as rec_name') // Select desired columns
-//         ->where('micromenus.is_deleted', 0)
-//         ->get();
+    //     public function index()
+    // {
+    //     $menus = DB::table('micromenus')
+    //         ->leftJoin('research_centres', 'micromenus.research_centreid', '=', 'research_centres.id')
+    //         ->select('micromenus.*', 'research_centres.research_centre_name as rec_name') // Select desired columns
+    //         ->where('micromenus.is_deleted', 0)
+    //         ->get();
 
-//     $menuTree = $this->buildMenuTree($menus);
+    //     $menuTree = $this->buildMenuTree($menus);
 
-//     return view('admin.micro.manage_micromenus.index', compact('menuTree'));
-// }
+    //     return view('admin.micro.manage_micromenus.index', compact('menuTree'));
+    // }
 
 
     // private function buildMenuTree($menus, $parentId = null)
@@ -118,33 +118,33 @@ public function updatePosition(Request $request)
     // }
 
     private function buildMenuTree($menus, $parentId = null)
-{
-    $branch = [];
+    {
+        $branch = [];
 
-    // Loop through each menu item
-    foreach ($menus as $menu) {
-        // Check if the current menu's parent_id matches the parentId passed to the function
-        if ($menu->parent_id == $parentId) {  // Use object access here
-            // Recursively build tree for children
-            $children = $this->buildMenuTree($menus, $menu->id);  // Access 'id' in object format
+        // Loop through each menu item
+        foreach ($menus as $menu) {
+            // Check if the current menu's parent_id matches the parentId passed to the function
+            if ($menu->parent_id == $parentId) {  // Use object access here
+                // Recursively build tree for children
+                $children = $this->buildMenuTree($menus, $menu->id);  // Access 'id' in object format
 
-            // If children exist, add them to the current menu item
-            if ($children) {
-                // Ensure the children property exists
-                $menu->children = $children;
+                // If children exist, add them to the current menu item
+                if ($children) {
+                    // Ensure the children property exists
+                    $menu->children = $children;
+                }
+
+                // Add the current menu item to the branch
+                $branch[] = $menu;
             }
-
-            // Add the current menu item to the branch
-            $branch[] = $menu;
         }
+
+        return $branch;
     }
 
-    return $branch;
-}
 
 
 
-    
 
 
     protected function getMenuType($type)
@@ -187,15 +187,15 @@ public function updatePosition(Request $request)
     {
         // Filter research centres where state equals 1
         $researchCentres = DB::table('research_centres')
-                            ->where('status', 1)
-                            ->pluck('research_centre_name', 'id'); // Replace 'name' and 'id' with your actual column names.
+            ->where('status', 1)
+            ->pluck('research_centre_name', 'id'); // Replace 'name' and 'id' with your actual column names.
 
 
         $menuOptions = $this->buildMenuOptions();
-$menu = [];
+        $menu = [];
         // Return view with filtered research centres and menu options
-        return view('admin.micro.manage_micromenus.create', compact('menuOptions', 'researchCentres','menu'));
-    } 
+        return view('admin.micro.manage_micromenus.create', compact('menuOptions', 'researchCentres', 'menu'));
+    }
 
 
     private function buildMenuOptions($parentId = null, $spacing = '')
@@ -215,14 +215,16 @@ $menu = [];
         return $options;
     }
 
-   
-public function add_menu(Request $request){
-    print_r($_POST);die;
-}
+
+    public function add_menu(Request $request)
+    {
+        print_r($_POST);
+        die;
+    }
     public function store(Request $request)
     {
         $rules = [
-            
+
             'research_centre' => 'required|string',
             'menutitle' => 'required|string|max:255',
             'texttype' => 'required|string',
@@ -230,66 +232,69 @@ public function add_menu(Request $request){
             'txtpostion' => 'required|integer',
             'menu_status' => 'required|integer|in:1,0',
         ];
-        
+
         $messages = [
-           
+
             'research_centre.required' => 'Please select a research centre.',
-            
+
             'menutitle.required' => 'Menu title is required.',
             'menutitle.string' => 'Menu title must be a valid text.',
             'menutitle.max' => 'Menu title must not exceed 255 characters.',
-            
+
             'texttype.required' => 'The text type is required.',
-            
+
             'menucategory.required' => 'The menu category is required.',
-        
+
             'txtpostion.required' => 'The position field is required.',
             'txtpostion.integer' => 'The position must be a valid number.',
-        
+
             'menu_status.required' => 'Menu status is required.',
             'menu_status.integer' => 'Invalid menu status format.',
             'menu_status.in' => 'Menu status must be either 1 (active) or 0 (inactive).',
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
-    
+
         // **If Validation Fails**
         if ($validator->fails()) {
             // **Cache validation errors for 1 minute**
             Cache::put('validation_errors', $validator->errors()->toArray(), 1);
-    
+
             // **Redirect back with errors and old input**
             return redirect(session('url.previousdata', url('/')))->withInput();
         }
         $validatedData = $validator->validated();
-        
+
         $menutitle = strip_tags($request->menutitle); // Remove HTML tags
-        $menutitle = htmlspecialchars($menutitle, ENT_QUOTES, 'UTF-8'); 
+        $menutitle = htmlspecialchars($menutitle, ENT_QUOTES, 'UTF-8');
 
         $slug = '';
-        
-        if( $request->language == 2 ) {
-            if( !empty($request->meta_title) && $request->meta_title == 'organizations' ) {
+
+        if ($request->language == 2) {
+            if (!empty($request->meta_title) && $request->meta_title == 'organizations') {
                 $slug = 'organizations';
             }
-            if( !empty($request->meta_title) && $request->meta_title == 'trainings' ) {
+            else if (!empty($request->meta_title) && $request->meta_title == 'trainings') {
                 $slug = 'trainings';
             }
-        }
-        else {
+            else {
+                $slug = Str::slug($menutitle, '-');
+            }
+        } else {
             $slug = Str::slug($menutitle, '-');
         }
-       
+
         // $slug = Str::slug($menutitle, '-');
-        // dd($request);
+        
         // Check if the combination of menutitle and research_centre already exists
         $existingMenu = MicroMenu::where('research_centreid', $request->research_centre)
             ->where('menutitle', $menutitle)
-            ->first(); 
+            ->where('menu_status', 1)
+            ->first();
 
         if ($existingMenu) {
-            return redirect()->back()->withErrors([
-                'menutitle' => 'The menu title for the selected research centre already exists.'
-            ])->withInput();
+            Cache::put('error_message', 'The menu title for the selected research centre already exists.');
+            // **Redirect back with errors and old input**
+            return redirect(session('url.previousdata', url('/')))->withInput();
         }
 
         // Create new menu entry
@@ -523,152 +528,153 @@ public function add_menu(Request $request){
 
     public function update(Request $request, $id)
     {
-        try{
+        try {
 
-        
-        // Find the existing menu
-        $menu = MicroMenu::findOrFail($id);
 
-        
-        
+            // Find the existing menu
+            $menu = MicroMenu::findOrFail($id);
 
-        // Validate the incoming request data
-        $rules = [
-          
-            'research_centre' => 'required|string',
-            'menutitle' => 'required|string|max:255',
-            'texttype' => 'required|string',
-            'menucategory' => 'required|string',
-            'txtpostion' => 'required|integer',
-            'menu_status' => 'required|integer|in:1,0',
-        ];
-        
-        $messages = [
 
-            'research_centre.required' => 'Please select a research centre.',
-            
-            'menutitle.required' => 'Menu title is required.',
-            'menutitle.string' => 'Menu title must be a valid text.',
-            'menutitle.max' => 'Menu title must not exceed 255 characters.',
-            
-            'texttype.required' => 'The text type is required.',
-            
-            'menucategory.required' => 'The menu category is required.',
-        
-            'txtpostion.required' => 'The position field is required.',
-            'txtpostion.integer' => 'The position must be a valid number.',
-        
-            'menu_status.required' => 'Menu status is required.',
-            'menu_status.integer' => 'Invalid menu status format.',
-            'menu_status.in' => 'Menu status must be either 1 (active) or 0 (inactive).',
-        ];
-        $validator = Validator::make($request->all(), $rules, $messages);
-    
-        // **If Validation Fails**
-        if ($validator->fails()) {
-            // **Cache validation errors for 1 minute**
-            Cache::put('validation_errors', $validator->errors()->toArray(), 1);
-    
-            // **Redirect back with errors and old input**
-            return redirect(session('url.previousdata', url('/')))->withInput();
-        }
-        $validatedData = $validator->validated();
-        $menutitle = strip_tags($request->menutitle); // Remove HTML tags
-        $menutitle = htmlspecialchars($menutitle, ENT_QUOTES, 'UTF-8'); 
-        $slug = '';
-        if( $request->txtlanguage == 2 ) {
-            if( !empty($menu) && !empty($menu->meta_title) && $menu->meta_title == 'organizations' ) {
-                $slug = 'organizations';
+
+
+            // Validate the incoming request data
+            $rules = [
+
+                'research_centre' => 'required|string',
+                'menutitle' => 'required|string|max:255',
+                'texttype' => 'required|string',
+                'menucategory' => 'required|string',
+                'txtpostion' => 'required|integer',
+                'menu_status' => 'required|integer|in:1,0',
+            ];
+
+            $messages = [
+
+                'research_centre.required' => 'Please select a research centre.',
+
+                'menutitle.required' => 'Menu title is required.',
+                'menutitle.string' => 'Menu title must be a valid text.',
+                'menutitle.max' => 'Menu title must not exceed 255 characters.',
+
+                'texttype.required' => 'The text type is required.',
+
+                'menucategory.required' => 'The menu category is required.',
+
+                'txtpostion.required' => 'The position field is required.',
+                'txtpostion.integer' => 'The position must be a valid number.',
+
+                'menu_status.required' => 'Menu status is required.',
+                'menu_status.integer' => 'Invalid menu status format.',
+                'menu_status.in' => 'Menu status must be either 1 (active) or 0 (inactive).',
+            ];
+            $validator = Validator::make($request->all(), $rules, $messages);
+
+            // **If Validation Fails**
+            if ($validator->fails()) {
+                // **Cache validation errors for 1 minute**
+                Cache::put('validation_errors', $validator->errors()->toArray(), 1);
+
+                // **Redirect back with errors and old input**
+                return redirect(session('url.previousdata', url('/')))->withInput();
             }
-            if( !empty($menu) && !empty($menu->meta_title) && $menu->meta_title == 'trainings' ) {
-                $slug = 'trainings';
-            }
-
-            if( !empty($request->meta_title) && $request->meta_title == 'organizations' ) {
-                $slug = 'organizations';
-            }
-            if( !empty($request->meta_title) && $request->meta_title == 'trainings' ) {
-                $slug = 'trainings';
-            }
-        }
-        else {
-            $slug = Str::slug($menutitle, '-');
-        }
-        
-        // Check for duplicate combination of research_centre and menutitle, excluding the current menu
-        $existingMenu = MicroMenu::where('research_centreid', $request->research_centre)
-            ->where('menutitle', $menutitle)
-            ->where('id', '!=', $id)
-            ->first();
-    
-        if ($existingMenu) {
-            return redirect()->back()->withErrors([
-                'menutitle' => 'The menu title for the selected research centre already exists.'
-            ])->withInput();
-        }
-    
-        // Handle different texttype values
-        if ($request->texttype == 1) { // Content
-            $menu->content = $request->input('content', null);
-            $menu->website_url = null;
-            $menu->pdf_file = null;
-        } elseif ($request->texttype == 2) { // PDF file Upload
-            $menu->content = null;
-            $menu->website_url = null;
-            
-            // Handle file upload
-            if ($request->hasFile('pdf_file')) {
-                if (File::exists(public_path($menu->pdf_file))) {
-                    File::delete(public_path($menu->pdf_file));
+            $validatedData = $validator->validated();
+            $menutitle = strip_tags($request->menutitle); // Remove HTML tags
+            $menutitle = htmlspecialchars($menutitle, ENT_QUOTES, 'UTF-8');
+            $slug = '';
+            if ($request->txtlanguage == 2) {
+                if (!empty($menu) && !empty($menu->meta_title) && $menu->meta_title == 'organizations') {
+                    $slug = 'organizations';
                 }
-    
-                $file = $request->file('pdf_file');
-                $fileName = time() . '_' . $file->getClientOriginalName();
-                $file->move(public_path('uploads/menus/'), $fileName);
-                $menu->pdf_file = 'uploads/menus/' . $fileName;
+                else if (!empty($menu) && !empty($menu->meta_title) && $menu->meta_title == 'trainings') {
+                    $slug = 'trainings';
+                }
+
+                else if (!empty($request->meta_title) && $request->meta_title == 'organizations') {
+                    $slug = 'organizations';
+                }
+                else if (!empty($request->meta_title) && $request->meta_title == 'trainings') {
+                    $slug = 'trainings';
+                }
+                else {
+                    $slug = Str::slug($menutitle, '-');
+                }
+            } else {
+                $slug = Str::slug($menutitle, '-');
             }
-        } elseif ($request->texttype == 3) { // Website Url
-            $menu->content = null;
-            $menu->pdf_file = null;
-            $menu->website_url = $request->input('website_url', null);
+            
+            // Check for duplicate combination of research_centre and menutitle, excluding the current menu
+            $existingMenu = MicroMenu::where('research_centreid', $request->research_centre)
+                ->where('menutitle', $menutitle)
+                ->where('id', '!=', $id)
+                ->first();
+
+            if ($existingMenu) {
+                return redirect()->back()->withErrors([
+                    'menutitle' => 'The menu title for the selected research centre already exists.'
+                ])->withInput();
+            }
+
+            // Handle different texttype values
+            if ($request->texttype == 1) { // Content
+                $menu->content = $request->input('content', null);
+                $menu->website_url = null;
+                $menu->pdf_file = null;
+            } elseif ($request->texttype == 2) { // PDF file Upload
+                $menu->content = null;
+                $menu->website_url = null;
+
+                // Handle file upload
+                if ($request->hasFile('pdf_file')) {
+                    if (File::exists(public_path($menu->pdf_file))) {
+                        File::delete(public_path($menu->pdf_file));
+                    }
+
+                    $file = $request->file('pdf_file');
+                    $fileName = time() . '_' . $file->getClientOriginalName();
+                    $file->move(public_path('uploads/menus/'), $fileName);
+                    $menu->pdf_file = 'uploads/menus/' . $fileName;
+                }
+            } elseif ($request->texttype == 3) { // Website Url
+                $menu->content = null;
+                $menu->pdf_file = null;
+                $menu->website_url = $request->input('website_url', null);
+            }
+
+            // Update other fields
+            $menu->language = $request->txtlanguage;
+            $menu->research_centreid = $request->research_centre;
+            $menu->menutitle = $menutitle;
+            $menu->menu_slug = $slug;
+            $menu->menucategory = $request->menucategory;
+            $menu->parent_id = $request->menucategory;
+            $menu->txtpostion = $request->txtpostion;
+            $menu->meta_title = $request->input('meta_title');
+            $menu->meta_keyword = $request->input('meta_keyword');
+            $menu->meta_description = $request->input('meta_description');
+            $menu->menu_status = $request->input('menu_status', 0);
+            $menu->start_date = $request->input('start_date');
+            $menu->termination_date = $request->input('termination_date');
+
+            // Save the updated menu
+            $menu->save();
+
+            // Audit logging
+            MicroManageAudit::create([
+                'Module_Name' => 'Menu',
+                'Time_Stamp' => time(),
+                'Created_By' => null,
+                'Updated_By' => null,
+                'Action_Type' => 'Update',
+                'IP_Address' => $request->ip(),
+            ]);
+
+            // Redirect with success message
+            return redirect()->route('micromenus.index')->with('success', 'Menu updated successfully.');
+        } catch (\Exception $e) {
+            \Log::info($e->getMessage());
         }
-    
-        // Update other fields
-        $menu->language = $request->txtlanguage;
-        $menu->research_centreid = $request->research_centre;
-        $menu->menutitle = $menutitle;
-        $menu->menu_slug = $slug;
-        $menu->menucategory = $request->menucategory;
-        $menu->parent_id = $request->menucategory;
-        $menu->txtpostion = $request->txtpostion;
-        $menu->meta_title = $request->input('meta_title');
-        $menu->meta_keyword = $request->input('meta_keyword');
-        $menu->meta_description = $request->input('meta_description');
-        $menu->menu_status = $request->input('menu_status', 0);
-        $menu->start_date = $request->input('start_date');
-        $menu->termination_date = $request->input('termination_date');
-    
-        // Save the updated menu
-        $menu->save();
-    
-        // Audit logging
-        MicroManageAudit::create([
-            'Module_Name' => 'Menu',
-            'Time_Stamp' => time(),
-            'Created_By' => null,
-            'Updated_By' => null,
-            'Action_Type' => 'Update',
-            'IP_Address' => $request->ip(),
-        ]);
-    
-        // Redirect with success message
-        return redirect()->route('micromenus.index')->with('success', 'Menu updated successfully.');
     }
-    catch(\Exception $e) {
-        \Log::info($e->getMessage());
-    }
-    }
-    
+
 
 
     public function delete($id)
@@ -689,19 +695,19 @@ public function add_menu(Request $request){
             return redirect()->route('micromenus.index')->with('error', 'Failed to delete the menu.');
         }
     }
-  
+
 
 
     public function toggleStatus(Request $request, $id)
     {
-        
+
         $menu = MicroMenu::findOrFail($id);
         $menu->menu_status = !$menu->menu_status;
         $menu->save();
 
         return response()->json(['status' => $menu->menu_status]);
     }
-    
+
 
     public function getDropdownMenu(Request $request)
     {
@@ -736,7 +742,6 @@ public function add_menu(Request $request){
             \Log::info('Menu Options:', ['options' => $menuOptions]);
 
             return response()->json(['menuOptions' => $menuOptions]);
-
         } catch (\Exception $e) {
             // Log the exception details
             \Log::error('Error in getDropdownMenu:', [
@@ -760,11 +765,4 @@ public function add_menu(Request $request){
         }
         return $html;
     }
-
-
-
-
-
-
-
 }
