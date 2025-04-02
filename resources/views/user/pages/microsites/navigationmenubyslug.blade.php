@@ -11,7 +11,15 @@
                         <ol class="breadcrumb">
                             <!-- Home link -->
                             <li class="breadcrumb-item"> 
-                                <a href="{{ route('user.micrositebyslug', ['slug' => $slug]) }}" style="color: #af2910;">Home</a>
+                                <a href="{{ route('user.micrositebyslug', ['slug' => $slug]) }}" style="color: #af2910;">
+                                    @if(isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                                    होम
+                            @else
+                            Home
+                            @endif
+                                    
+                                
+                                </a>
                             </li>
                             <!-- Dynamic breadcrumbs --> 
                             @foreach ($breadcrumb as $crumb)
@@ -28,7 +36,15 @@
                     </nav>
                 @else
                     <!-- Optionally display a message if breadcrumb is empty -->
-                    <p>No breadcrumbs available.</p>
+                    <p>
+                        
+                        @if(isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                        कोई ब्रेडक्रम्ब्स उपलब्ध नहीं है.
+                            @else
+                            No breadcrumbs available.
+                            @endif
+                            
+                            </p>
                 @endif
             </div>
         </div>
@@ -54,7 +70,13 @@
             <div class="col-4">
                 <div class="card card-hover border">
                     <div class="card-header" style="background-color: #af2910;">
-                        <h3 class="text-white">Quick Links</h3>
+                        <h3 class="text-white">
+                            @if(isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                            त्वरित लिंक
+                            @else
+                            Quick Links
+                            @endif
+                        </h3>
                     </div>
                     <div class="card-body" style="padding: 0;">
                         <ul class="mt-2 mb-2 list-group list-group-flush">

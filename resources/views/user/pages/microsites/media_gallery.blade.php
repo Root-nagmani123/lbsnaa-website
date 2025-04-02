@@ -9,13 +9,29 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb p-2">
                             <li class="breadcrumb-item">
-                                Home
+                                @if (isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                                    होम <!-- Hindi -->
+                                @else
+                                    Home <!-- English -->
+                                @endif
                             </li>
+
                             <li class="breadcrumb-item">
-                                <a href="/lbsnaa-sub_m/mediagallery?slug={{ $slug }}"
-                                    style="color: #af2910;">Media Gallery</a>
+                                <a href="/lbsnaa-sub_m/mediagallery?slug={{ $slug }}" style="color: #af2910;">
+                                    @if (isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                                        मीडिया गैलरी <!-- Hindi -->
+                                    @else
+                                        Media Gallery <!-- English -->
+                                    @endif
+                                </a>
                             </li>
-                            <li class="breadcrumb-item active" aria-current="page">Photo Gallery</li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                @if (isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                                    फोटो गैलरी <!-- Hindi -->
+                                @else
+                                    Photo Gallery <!-- English -->
+                                @endif
+                            </li>
                         </ol>
                     </nav>
                 </div>
@@ -52,11 +68,11 @@
                             All Categories
                         @endif
                     </option>
-                    
+
                     @foreach ($photoGalleries as $gallery)
                         <option value="{{ $gallery->category_id }}"
                             {{ request('category') == $gallery->category_id ? 'selected' : '' }}>
-                            {{ (isset($_COOKIE['language']) && $_COOKIE['language'] == '2') ? $gallery->hindi_name : $gallery->media_category_name }}
+                            {{ isset($_COOKIE['language']) && $_COOKIE['language'] == '2' ? $gallery->hindi_name : $gallery->media_category_name }}
                         </option>
                     @endforeach
                 </select>
