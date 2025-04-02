@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Admin\MenuController;
+use App\Http\Controllers\Admin\NewsletterController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Admin\ManageOrganizationController;
@@ -189,6 +190,19 @@ Route::put('/admin/menu/{id}', [MenuController::class, 'update'])->name('admin.m
 Route::delete('/admin/menu/{id}/delete', [MenuController::class, 'delete'])->name('admin.menus.delete');
 
 Route::post('/admin/menus/{id}/toggle-status', [MenuController::class, 'toggleStatus'])->name('admin.menus.toggleStatus');
+
+Route::prefix('admin/newsletter')->group(function () {
+    Route::name('admin.newsletter.')->group(function () {
+
+        Route::controller(NewsletterController::class)->group(function () {
+
+            Route::get('/', 'index')->name('index');
+            Route::get('create', 'create')->name('create');
+            Route::post('store', 'store')->name('store');
+        });
+    });
+});
+
 
 
 Route::prefix('admin')->group(function () {
@@ -537,3 +551,4 @@ Route::group(['middleware' => [PreventBackHistory::class]], function () {
 });
 
 
+Route::get('lbsnaa-newsletter', [NewsletterController::class, 'newsletterFront'])->name('partials.lbsnaa-newsletter');
