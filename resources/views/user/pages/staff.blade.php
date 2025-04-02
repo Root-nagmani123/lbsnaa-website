@@ -45,14 +45,18 @@
                         <form id="form2" action="{{ url()->current() }}" method="GET">
                             <fieldset>
                                 <label for="keywords">
-                                    <input type="text" id="Keywords" name="keywords" value="{{ request('keywords') }}"
-                                        placeholder="Search Staff" fdprocessedid="79mcc"
-                                        class="form-control form-control-sm">
+                                <input type="text" id="Keywords" name="keywords" 
+       value="{{ request('keywords') }}" 
+       placeholder="{{ $_COOKIE['language'] == '2' ? 'कर्मचारी खोजें' : 'Search Staff' }}" 
+       class="form-control form-control-sm">
+
                                 </label>
 
                                 <label for="btn2">
-                                    <input id="btn2" type="submit" value="Submit" class="btn btn-outline-primary btn-sm"
-                                        fdprocessedid="6rx09">
+                                <input id="btn2" type="submit" 
+       value="{{ $_COOKIE['language'] == '2' ? 'जमा करें' : 'Submit' }}" 
+       class="btn btn-outline-primary btn-sm">
+
                                     <input type="hidden" name="action" value="submit">
                                 </label>
                             </fieldset>
@@ -67,11 +71,22 @@
                             <thead>
                                 <tr class="even bg-primary">
                                     <th class="col text-white">#</th>
-                                    <th class="col text-white">Name</th>
-                                    <th class="col text-white">Designation</th>
-                                    <th class="col text-white">Email</th>
-                                    <th class="col text-white">Office</th>
-                                    <th class="col text-white">Residence</th>
+                                    <th class="col text-white">
+                                        {{ $_COOKIE['language'] == '2' ? 'नाम' : 'Name' }}
+                                    </th>
+                                    <th class="col text-white">
+                                        {{ $_COOKIE['language'] == '2' ? 'पदनाम' : 'Designation' }}
+                                    </th>
+                                    <th class="col text-white">
+                                        {{ $_COOKIE['language'] == '2' ? 'ईमेल' : 'Email' }}
+                                    </th>
+                                    <th class="col text-white">
+                                        {{ $_COOKIE['language'] == '2' ? 'कार्यालय' : 'Office' }}
+                                    </th>
+                                    <th class="col text-white">
+                                        {{ $_COOKIE['language'] == '2' ? 'आवास' : 'Residence' }}
+                                    </th>
+
                                 </tr>
                             </thead>
                             <tbody>

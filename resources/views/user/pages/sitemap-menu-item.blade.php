@@ -1,6 +1,14 @@
 @php
+if(isset($_COOKIE['language']) && $_COOKIE['language'] == 2){   
+        $language = $_COOKIE['language'];
+     }else{
+        $language =1;
+     }
 $Research_Center_list = DB::table('research_centres')
 ->where('status', 1)
+->when($language == 2, function ($query) use ($language) {
+            return $query->where('language', '2');
+        })
 ->get(); @endphp
 
 <li>

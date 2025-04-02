@@ -474,6 +474,12 @@
                         ->leftJoin('courses_sub_categories as parent', 'sub.parent_id', '=', 'parent.id')
                         ->select('sub.*', 'parent.category_name as parent_category_name')
                         ->where('sub.status', 1)
+                        ->when($language == 2, function ($query) use ($language) {
+                    return $query->where('language', '2');
+                    })
+                    ->when($language == 1, function ($query) use ($language) {
+                    return $query->where('language', '1');
+                    })
                         ->orderBy('parent.category_name', 'asc')
                         ->orderBy('sub.category_name', 'asc')
                         ->get();
