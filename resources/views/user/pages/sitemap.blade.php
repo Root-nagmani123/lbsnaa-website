@@ -42,7 +42,12 @@
                 @foreach($menuTree as $menu)
                 @include('user.pages.sitemap-menu-item', ['menu' => $menu])
                 @endforeach
-                <h3 class="mb-3 mt-3">Quick Links</h3>
+                @if($_COOKIE['language'] ==
+                    '2')<h3 class="mb-3 mt-3">त्वरित लिंक्स</h3>
+                    @else
+                    <h3 class="mb-3 mt-3">Quick Links</h3>
+                    @endif
+                
                 <ul class="list-group" style="margin-left:30px;">
                     @foreach($quickLinks as $quick_link)
                     <li class="me-2">
