@@ -1063,20 +1063,38 @@ function running_events(){
         return view('user.pages.running_events', compact('current_course','title'));
 }
 function sitemap(){
+    if(isset($_COOKIE['language']) && $_COOKIE['language'] == 2){  
+        $language = $_COOKIE['language'];
+     }else{
+        $language =1;
+     }
+
     $title = 'Sitemap';
-    $quickLinks = DB::table('quick_links')->where('is_deleted',0)->where('status',1)->get();
-    $footerLinks = DB::table('menus')->where('txtpostion',3)->where('menu_status',1)->get();
+    $quickLinks = DB::table('quick_links')->where('is_deleted',0)->where('status',1)->when(in_array($language, [1, 2]), fn($q) => 
+            $q->where('language', $language)
+        )->get();
+    $footerLinks = DB::table('menus')->where('txtpostion',3)->where('menu_status',1)->when(in_array($language, [1, 2]), fn($q) => 
+    $q->where('language', $language)
+)->get();
     $menuTree = $this->buildMenuTree();
     return view('user.pages.sitemap', compact('menuTree', 'quickLinks', 'footerLinks','title'));
     
 }
 private function buildMenuTree($parentId = null)
 {
+    if(isset($_COOKIE['language']) && $_COOKIE['language'] == 2){  
+        $language = $_COOKIE['language'];
+     }else{
+        $language =1;
+     }
     $parentId = $parentId ?? 0;
     $menus = Menu::where('parent_id', $parentId)
         ->whereIn('txtpostion', [1, 2])
         ->where('is_deleted', 0)
         ->where('menu_status', 1)
+        ->when(in_array($language, [1, 2]), fn($q) => 
+    $q->where('language', $language)
+)
         ->get();
 
     $tree = [];
