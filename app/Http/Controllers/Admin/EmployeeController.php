@@ -21,13 +21,13 @@ class EmployeeController extends Controller
         $records = DB::table('organisation_chart')
         ->leftJoin('faculty_members', 'organisation_chart.faculty_id', '=', 'faculty_members.id')
         ->where('organisation_chart.category', 0)
-        ->select('organisation_chart.*','faculty_members.name')
+        ->select('organisation_chart.*','faculty_members.name','faculty_members.name_in_hindi')
         ->get();
         return view('admin.manage_organisationchart.index', compact('records'));
     }
 
     // Category create method to show the create form
-    public function organisation_chartCreate(Request $request)
+    public function organisation_chartCreate(Request $request) 
     {
         $parent_id = !empty($request->query('parent_id')) ? $request->query('parent_id') : '';
         $records = DB::table('faculty_members')->where('page_status',1)->get();
@@ -258,6 +258,7 @@ $parent_id = $organisationChart->parent_id;
                 ->select(
                     'oc.*',
                     'fm1.name as employeeNames',
+                    'fm1.name_in_hindi as employeename_in_hindi',
                     'fm2.name as faculty_id_faculty'
                 )
                 ->get();

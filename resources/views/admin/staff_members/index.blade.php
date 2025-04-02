@@ -68,6 +68,7 @@
         <tr class="text-center">
             <th class="col">#</th>
             <th class="col">Name</th>
+            <th class="col">Name in hindi</th>
             <th class="col">Email</th>
             <th class="col">Designation</th>
             <th class="col">Actions</th>
@@ -79,6 +80,7 @@
         <tr data-id="{{ $staff->id }}" class="sortable-row">
             <td class="handle" style="cursor: move;">☰</td> <!-- Drag handle -->
             <td>{{ $staff->name }}</td>
+            <td>{{ $staff->name_in_hindi }}</td>
             <td>{{ $staff->email }}</td>
             <td>{{ $staff->designation }}</td>
             <td class="text-center">

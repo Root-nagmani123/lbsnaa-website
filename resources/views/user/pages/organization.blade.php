@@ -8,7 +8,7 @@
                         <li class="breadcrumb-item">
                             <a href="{{ route('home')}}" style="color: #af2910;">
                                 @if($_COOKIE['language'] ==
-                                '2')घर
+                                '2')होम
                                 @else
                                 Home
                                 @endif
@@ -30,7 +30,12 @@
 </section>
 <section class="py-2" id="skip_to_main_content">
     <div class="container-fluid">
+    @if($_COOKIE['language'] ==
+    '2')
+    <h2 class="fw-bold text-primary"><a href="#" class="text-primary">संगठन संरचना</a></h2>
+    @else
         <h2 class="fw-bold text-primary"><a href="#" class="text-primary">Organization Structure</a></h2>
+        @endif
         <div class="org-chart">
             <!-- Render the top level (First Layer) -->
             @if (!empty($hierarchy))

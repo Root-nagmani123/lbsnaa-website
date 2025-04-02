@@ -60,6 +60,7 @@
                         <tr class="text-center">
                             <th class="col">#</th>
                             <th class="col">Category Name</th>
+                            <th class="col">Name in Hindi</th>
                             <th class="col">Sub org.</th>
                             <th class="col">Description</th>
                             <th class="col">Action</th>
@@ -76,6 +77,7 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $record->name }}</td>
+                            <td>{{ $record->name_in_hindi }}</td>
                             <td><a href="{{ route('organisation-chart.sub-org', ['parent_id' => $record->id]) }}"
                                     class="btn btn-secondary btn-sm text-white">click here</a></td>
                             <td>{{ $record->description }}</td>

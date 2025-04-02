@@ -66,6 +66,7 @@
         <tr class="text-center">
             <th class="col">#</th>
             <th class="col">Name</th>
+            <th class="col">Name in Hindi</th>
             <th class="col">Email</th>
             <th class="col">Designation</th>
             <th class="col">Category</th>
@@ -78,6 +79,7 @@
         <tr data-id="{{ $faculty->id }}" class="sortable-row">
             <td class="handle"  style="cursor: move;">☰</td>
             <td>{{ $faculty->name }}</td>
+            <td>{{ $faculty->name_in_hindi }}</td>
             <td>{{ $faculty->email }}</td>
             <td>{{ $faculty->designation }}</td>
             <td>{{ $faculty->category == 1 ? 'Inhouse' : 'Visiting' }}</td>

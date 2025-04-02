@@ -65,7 +65,7 @@ class ManageOrganizationController extends Controller
             'email' => [
                 'required',
                 'email:rfc,dns',
-                'unique:staff_members,email',
+               
                 function ($attribute, $value, $fail) {
                     if (preg_match('/^[\.\,\/\!\@\#\$\%\^\~]/', $value)) {
                         $fail("The {$attribute} must not start with special characters.");
@@ -158,7 +158,7 @@ class ManageOrganizationController extends Controller
         $rules = [
             'category' => 'required',
             'name' => 'required',
-            'email' => 'required|email|unique:faculty_members,email,' . $facultyMember->id,
+          'email' => 'required|email|unique:faculty_members,email,' . $facultyMember->id,
             'designation' => 'required',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'phone_internal_office' => 'nullable',

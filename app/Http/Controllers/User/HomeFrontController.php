@@ -147,14 +147,21 @@ class HomeFrontController extends Controller
     public function get_navigation_pages(Request $request, $slug)
     {
         $title = ucwords(str_replace('-', ' ', $slug)) ;
+        if(isset($_COOKIE['language']) && $_COOKIE['language'] == 2){   
+            $language = $_COOKIE['language'];
+         }else{
+            $language =1;
+         }
         // echo $slug;die;
         if($slug == 'faculty'){
             $query = DB::table('faculty_members')->where('page_status', 1)->where('category', 1);
 
-            // Check if a search keyword is provided
             if ($request->has('keywords') && !empty($request->keywords)) {
                 $query->where('name', 'LIKE', '%' . $request->keywords . '%');
             }
+            $query->when(in_array($language, [1, 2]), function ($q) use ($language) {
+                return $q->where('language', $language);
+            });
             $query->orderBy('position', 'ASC');
             $faculty = $query->get();
        
@@ -167,6 +174,9 @@ class HomeFrontController extends Controller
             if ($request->has('keywords') && !empty($request->keywords)) {
                 $query->where('name', 'LIKE', '%' . $request->keywords . '%');
             }
+            // $query->when(in_array($language, [1, 2]), function ($q) use ($language) {
+            //     return $q->where('language', $language);
+            // });
 
             $staff = $query->get();
 
@@ -408,9 +418,9 @@ class HomeFrontController extends Controller
      ->when($request->filled('keywords'), fn($q) => 
          $q->where('name', 'LIKE', '%' . $request->keywords . '%')
      )
-     ->when(in_array($language, [1, 2]), fn($q) => 
-         $q->where('language', $language)
-     )
+     ->when($language == 2, fn($q) => 
+        $q->whereNotNull('name_in_hindi') // Sirf wahi jisme name_in_hindi null na ho
+    )
      ->orderBy('position', 'ASC')
      ->get();
  
@@ -430,9 +440,9 @@ function staff(Request $request)
      ->when($request->filled('keywords'), fn($q) => 
          $q->where('name', 'LIKE', '%' . $request->keywords . '%')
      )
-     ->when(in_array($language, [1, 2]), fn($q) => 
-         $q->where('language', $language)
-     )
+     ->when($language == 2, fn($q) => 
+     $q->whereNotNull('name_in_hindi') // Sirf wahi jisme name_in_hindi null na ho
+ )
      ->orderBy('position', 'ASC')
      ->get();
  
@@ -909,6 +919,11 @@ if($type == 'gallery'){
 }
 public function organization(Request $request)
 {
+    if(isset($_COOKIE['language']) && $_COOKIE['language'] == 2){  
+        $language = $_COOKIE['language'];
+     }else{
+        $language =1;
+     } 
     $title  = 'Organizational Structure';
     $orgChart = DB::table('organisation_chart')
         ->leftJoin('faculty_members as faculty', 'organisation_chart.employee_name', '=', 'faculty.id')
@@ -917,14 +932,21 @@ public function organization(Request $request)
             'organisation_chart.employee_name',
             'organisation_chart.parent_id',
             'faculty.designation as designation', // Fetch designation from faculty_members table
+            'faculty.designation_in_hindi as designation_in_hindi', // Fetch designation from faculty_members table
             'faculty.description as description', // Fetch designation from faculty_members table
+            'faculty.description_in_hindi as description_in_hindi', // Fetch designation from faculty_members table
             'faculty.image as image', // Fetch designation from faculty_members table
             'faculty.email as email', // Fetch designation from faculty_members table
             'faculty.phone_pt_office as phone_pt_office', // Fetch designation from faculty_members table
-            'faculty.name as name' // Fetch designation from faculty_members table
+            'faculty.name as name', // Fetch designation from faculty_members table
+            'faculty.name_in_hindi as name_in_hindi' // Fetch designation from faculty_members table
         )
         ->where('organisation_chart.status', 1)
+        // ->when(in_array($language, [1, 2]), fn($query) => $query->where('organisation_chart.language', $language))
         // ->orderBy('organisation_chart.id')
+        ->when($language == 2, fn($q) => 
+        $q->whereNotNull('faculty.name_in_hindi') // Sirf wahi jisme name_in_hindi null na ho
+    )
         ->orderBy('organisation_chart.position', 'ASC')
         ->get();
     $orgChart = $orgChart->toArray();
@@ -950,6 +972,11 @@ private function buildHierarchy($elements, $parentId = null)
     return $branch;
 }
 public function faculty_responsibility(Request $request) {
+    if(isset($_COOKIE['language']) && $_COOKIE['language'] == 2){  
+        $language = $_COOKIE['language'];
+     }else{
+        $language =1;
+     }
     $title = 'Faculty Responsibility';
     $query = DB::table('faculty_members')
         ->where('page_status', 1)
@@ -958,6 +985,9 @@ public function faculty_responsibility(Request $request) {
     if ($request->has('keywords') && !empty($request->keywords)) {
         $query->where('name', 'LIKE', '%' . $request->keywords . '%');
     }
+    // $query->when(in_array($language, [1, 2]), function ($q) use ($language) {
+    //     return $q->where('language', $language);
+    // });
     $data = $query->get();
     foreach ($data as $key => $value) {
         // Officer Incharge
@@ -996,6 +1026,11 @@ public function faculty_responsibility(Request $request) {
     return view('user.pages.faculty_responsibility', compact('data','title'));
 }
 function upcoming_events(){
+    if(isset($_COOKIE['language']) && $_COOKIE['language'] == 2){  
+        $language = $_COOKIE['language'];
+     }else{
+        $language =1;
+     }
     $title = 'Upcoming Courses';
     date_default_timezone_set('Asia/Kolkata'); // Set timezone to Asia/Kolkata
     $today = date('Y-m-d H:i:s'); 
@@ -1027,6 +1062,7 @@ function upcoming_events(){
             $query->whereNull('parent_categories.status') // Include records with no parent
                   ->orWhere('parent_categories.status', 1); // Or active parent categories
         })
+        ->when(in_array($language, [1, 2]), fn($query) => $query->where('course.language', $language))
         ->orderBy('course.course_start_date', 'asc') 
         ->get();
 
@@ -1034,6 +1070,11 @@ function upcoming_events(){
         return view('user.pages.upcoming_events', compact('upcoming_course','title'));
 }
 function running_events(){
+    if(isset($_COOKIE['language']) && $_COOKIE['language'] == 2){  
+        $language = $_COOKIE['language'];
+     }else{
+        $language =1;
+     }
     $title = 'Running Courses';  // Change title as per your requirement
     date_default_timezone_set('Asia/Kolkata'); // Set timezone to Asia/Kolkata
     $today = date('Y-m-d H:i:s'); 
@@ -1058,6 +1099,7 @@ function running_events(){
             $query->whereNull('parent_categories.status') // Include records with no parent
                   ->orWhere('parent_categories.status', 1); // Or active parent categories
         })
+        ->when(in_array($language, [1, 2]), fn($query) => $query->where('course.language', $language))
         ->orderBy('course.course_start_date', 'asc') 
         ->get();
         return view('user.pages.running_events', compact('current_course','title'));
