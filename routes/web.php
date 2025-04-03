@@ -199,6 +199,7 @@ Route::prefix('admin/newsletter')->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('create', 'create')->name('create');
             Route::post('store', 'store')->name('store');
+            
         });
     });
 });
@@ -552,3 +553,4 @@ Route::group(['middleware' => [PreventBackHistory::class]], function () {
 
 
 Route::get('lbsnaa-newsletter', [NewsletterController::class, 'newsletterFront'])->name('partials.lbsnaa-newsletter');
+Route::get('newsletter-ebook/{id}', [NewsletterController::class, 'ebook'])->name('newsletter-ebook');
