@@ -213,6 +213,18 @@
                                             {{ $member->name }}
                                         </option>
                                         @endforeach
+                                        @foreach($staff_members as $member)
+                                        <option value="{{ $member->name_in_hindi }}" class="text-dark"
+                                            {{ old('coordinator_id') == $member->name_in_hindi ? 'selected' : '' }}>
+                                            {{ $member->name_in_hindi }}
+                                        </option>
+                                        @endforeach
+                                        @foreach($faculty_members as $member)
+                                        <option value="{{ $member->name_in_hindi }}" class="text-dark"
+                                            {{ old('coordinator_id') == $member->name_in_hindi ? 'selected' : '' }}>
+                                            {{ $member->name_in_hindi }}
+                                        </option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>

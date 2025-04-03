@@ -40,7 +40,7 @@
    data-phone="{{ $node->phone_pt_office }}"
    data-description-id="description-{{ $node->id }}">
    {{ $_COOKIE['language'] == '2' && !empty($node->name_in_hindi) ? $node->name_in_hindi : $node->name }} 
-   {{ $_COOKIE['language'] == '2' ? 'जीवनी' : 'Bio Data' }}
+   {{ $_COOKIE['language'] == '2' ? 'बायोडेटा' : 'Bio Data' }}
 </a>
 
 
@@ -56,7 +56,7 @@
                       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
                           <div class="modal-content">
                               <div class="modal-header">
-                                  <h5 class="modal-title" id="bioDataModalLabel">Bio Data</h5>
+                                  <h5 class="modal-title" id="bioDataModalLabel">{{ $_COOKIE['language'] == '2' ? 'बायोडेटा' : 'Bio Data' }}</h5>
                                   <button type="button" class="btn-close" data-bs-dismiss="modal"
                                       aria-label="Close"></button>
                               </div>
@@ -67,10 +67,11 @@
                                               style="height:150px;width:150px;">
                                       </div>
                                       <div class="col-lg-3">
-                                          <h6>Name:-</h6>
-                                          <p>Designation:-</p>
-                                          <p>Email:-</p>
-                                          <p>Phone:-</p>
+                                      <h6>{{ $_COOKIE['language'] == '2' ? 'नाम' : 'Name' }}:-</h6>
+                                        <p>{{ $_COOKIE['language'] == '2' ? 'पद' : 'Designation' }}:-</p>
+                                        <p>{{ $_COOKIE['language'] == '2' ? 'ईमेल' : 'Email' }}:-</p>
+                                        <p>{{ $_COOKIE['language'] == '2' ? 'फ़ोन' : 'Phone' }}:-</p>
+
                                       </div>
                                       <div class="col-lg-6">
                                           <h6 id="modalName"></h6>
