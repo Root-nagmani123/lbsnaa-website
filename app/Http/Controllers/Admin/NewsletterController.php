@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\Newsletter;
 use App\Http\Requests\NewsletterRequest;
+use Illuminate\Support\Facades\Crypt;
 
 class NewsletterController extends Controller
 {
@@ -56,5 +57,30 @@ class NewsletterController extends Controller
     {
         $newsletters = Newsletter::latest('id')->get();
         return view('user.pages.lbsnaa-newsletter', compact('newsletters'));
+    }
+
+    function ebook($id)
+    {
+        if (empty($id)) {
+            return redirect()->back(); // If ID is empty, redirect back
+        }
+    
+        try {
+            // Decrypt the ID
+            $decryptedId = decrypt($id);
+
+            // Use the decrypted ID to find the newsletter
+            $newsletter = Newsletter::findOrFail($decryptedId);
+
+            if($newsletter->ebook == null) {
+                return redirect()->back();
+            }
+            
+            // Pass the newsletter data to the view
+            return view('user.pages.flipbook', compact('newsletter'));
+        } catch (DecryptException $e) {
+            // Handle error if the ID is not valid or cannot be decrypted
+            return redirect()->back()->with('error', 'Invalid ebook ID.');
+        }
     }
 }

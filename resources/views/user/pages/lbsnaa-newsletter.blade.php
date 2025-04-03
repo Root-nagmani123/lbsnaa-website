@@ -1,4 +1,5 @@
 @include('user.includes.header')
+
 <!-- Page Content -->
 <section class="py-4">
     <div class="container-fluid">
@@ -9,7 +10,7 @@
                     <ol class="breadcrumb p-2 mb-0">
                         <li class="breadcrumb-item">
                             <a href="{{ route('home') }}" style="color: #af2910;">
-                                @if ($_COOKIE['language'] == '2')
+                                @if (isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
                                     होम
                                 @else
                                     Home
@@ -17,7 +18,7 @@
                             </a>
                         </li>
                         <li class="breadcrumb-item active" aria-current="page">
-                            @if ($_COOKIE['language'] == '2')
+                            @if (isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
                                 संकाय
                             @else
                                 Newsletter
@@ -31,7 +32,7 @@
             <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center pb-20 mb-20 mb-2">
                     <h3 class="fw-semibold fs-18 mb-0">
-                        @if ($_COOKIE['language'] == '2')
+                        @if (isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
                             इनहाउस फैकल्टी
                         @else
                             Newsletter
@@ -54,25 +55,28 @@
                                             </div>
 
                                             <p>{{ $val?->title }}</p>
+
                                             <div class="content d-flex justify-content-between">
+                                                <!-- Display PDF Button (No download button) -->
+                                                @if ($val?->pdf)
+                                                    <a href="javascript:void(0)" class="btn btn-primary mt-3" onclick="openPDFModal('{{ asset($val->pdf) }}')">
+                                                        @if (isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                                                            देखें PDF
+                                                        @else
+                                                            View PDF
+                                                        @endif
+                                                    </a>
+                                                @endif
 
-                                                <a href="{{ asset($val?->pdf) }}"
-                                                    class="btn btn-primary mt-3" target="_blank">
-                                                    @if ($_COOKIE['language'] == '2')
-                                                        डाउनलोड
-                                                    @else
-                                                        View PDF
-                                                    @endif
-                                                </a>
-
-                                                <a href="{{ asset($val?->ebook) }}"
-                                                    class="btn btn-primary mt-3 ms-auto" target="_blank">
-                                                    @if ($_COOKIE['language'] == '2')
-                                                        डाउनलोड
-                                                    @else
-                                                        View E-Book
-                                                    @endif
-                                                </a>
+                                                @if ($val?->ebook)
+                                                    <a href="{{ route('newsletter-ebook', ['id' => encrypt($val->id)]) }}" class="btn btn-primary mt-3" >
+                                                        @if (isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                                                            देखें
+                                                        @else
+                                                            View ebook
+                                                        @endif
+                                                    </a>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -86,6 +90,68 @@
             </div>
         </div>
     </div>
-    </div>
 </section>
+
+<!-- Modal for displaying the PDF -->
+<div class="modal fade" id="pdfModal" tabindex="-1" role="dialog" aria-labelledby="pdfModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="pdfModalLabel">PDF View</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- PDF container with scrolling enabled -->
+                <div id="pdfContainer" style="width: 100%; height: 600px; overflow-y: scroll;">
+                    <!-- Pages will be appended here dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+
+<script>
+    // Function to open PDF in the modal using PDF.js
+    function openPDFModal(pdfUrl) {
+        const container = document.getElementById('pdfContainer');
+        container.innerHTML = "";  // Clear the container before loading the PDF
+
+        // Fetch the PDF document using PDF.js
+        pdfjsLib.getDocument(pdfUrl).promise.then(function (pdfDoc_) {
+            const pdfDoc = pdfDoc_;
+            const totalPages = pdfDoc.numPages;
+
+            // Loop through all pages and render them
+            for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
+                pdfDoc.getPage(pageNum).then(function(page) {
+                    const viewport = page.getViewport({ scale: 1.5 });
+
+                    // Create a canvas element for each page
+                    const canvas = document.createElement("canvas");
+                    canvas.classList.add("pdf-canvas");
+                    canvas.style.marginBottom = "20px";  // Add some spacing between pages
+                    container.appendChild(canvas);
+
+                    const context = canvas.getContext('2d');
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
+
+                    // Render the page into the canvas
+                    page.render({
+                        canvasContext: context,
+                        viewport: viewport
+                    });
+                });
+            }
+
+            // Show the modal with the rendered PDF
+            $('#pdfModal').modal('show');
+        }).catch(function(error) {
+            console.error('Error loading PDF: ', error);
+        });
+    }
+</script>
+
 @include('user.includes.footer')
