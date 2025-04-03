@@ -45,7 +45,7 @@
                 <div class="default-table-area members-list">
                     <div class="row">
                         <div class="col-xs-12">
-                            <div class="_df_book" height="600" webgl="true" backgroundcolor="#af2910" source="{{ asset($newsletter->pdf) }}" id="df_manual_book">
+                            <div class="_df_book" height="600" webgl="true" backgroundcolor="#af2910" source="{{ asset($newsletter->ebook) }}" id="df_manual_book">
                           </div>
                         </div>
                     </div>

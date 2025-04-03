@@ -16,14 +16,27 @@ class NewsletterController extends Controller
         return view('admin.newsletter.index', compact('newsletters'));
     }
 
-    function create()
+    function create($id = null)
     {
-        return view('admin.newsletter.create');
+        
+        $newsletter = '';
+        if(!empty($id)) {
+            $newsletter = Newsletter::find(decrypt($id));
+        }
+        return view('admin.newsletter.create')->with('newsletter', $newsletter);
     }
 
     public function store(NewsletterRequest $request)
     {
-        $newsletter = new Newsletter();
+        $message = 'Newsletter created successfully!';
+        
+        if($request->id) {
+            $newsletter = Newsletter::find($request->id);
+            $message = 'Newsletter updated successfully!';
+        } else {
+            $newsletter = new Newsletter();
+        }
+
         $newsletter->title = $request->newsletterTitle;
         $newsletter->language = $request->txtlanguage;
 
@@ -45,7 +58,7 @@ class NewsletterController extends Controller
 
         $newsletter->save();
 
-        return redirect()->route('admin.newsletter.index')->with('success', 'Newsletter created successfully.');
+        return redirect()->route('admin.newsletter.index')->with('success', $message);
     }
     public function edit($id)
     {

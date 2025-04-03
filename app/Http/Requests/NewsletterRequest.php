@@ -26,9 +26,9 @@ class NewsletterRequest extends FormRequest
         return [
             'txtlanguage'       => 'required',
             'newsletterTitle'   => 'required',
-            'img_file'          => 'required|image|mimes:jpeg,png,jpg,gif',
-            'pdf_file'          => 'required|mimes:pdf',
-            'ebook_file'        => 'required|mimes:pdf',
+            'img_file'          => 'nullable|image|mimes:jpeg,png,jpg,gif',
+            'pdf_file'          => 'nullable|mimes:pdf',
+            'ebook_file'        => 'nullable|mimes:pdf',
         ];
     }
 
