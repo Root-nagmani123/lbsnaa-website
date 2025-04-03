@@ -145,9 +145,9 @@
                     <div class="card-header" style="border-bottom: none;">
                         <p class="fw-bold">
                             @if($_COOKIE['language'] == '2')
-                            दौड़ पाठ्यक्रम
+                            चल रहे पाठ्यक्रम
                             @else
-                            Runing Courses
+                            Running Courses
                             @endif
                         </p>
                     </div>
