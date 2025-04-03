@@ -13,7 +13,7 @@ class HomeFrontController extends Controller
 
     public function index(Request $request)
     {
-        $title  = 'Home ';
+        $title = ((isset($_COOKIE['language']) && $_COOKIE['language'] == '2') ? 'होम' : 'Home');
        
    
         if(isset($_COOKIE['language']) && $_COOKIE['language'] == 2){   
@@ -108,8 +108,10 @@ class HomeFrontController extends Controller
     } 
     public function get_news($slug)
     {
-        $title = 'Academy News';
-        $news =  DB::table('news')->where('status',1)->where('title_slug',$slug)->first();
+        $title = (isset($_COOKIE['language']) && $_COOKIE['language'] == '2') 
+        ? 'अकादमी समाचार' 
+        : 'Academy News';
+            $news =  DB::table('news')->where('status',1)->where('title_slug',$slug)->first();
         
         $news_images = json_decode($news->multiple_images);
 
@@ -159,9 +161,7 @@ class HomeFrontController extends Controller
             if ($request->has('keywords') && !empty($request->keywords)) {
                 $query->where('name', 'LIKE', '%' . $request->keywords . '%');
             }
-            $query->when(in_array($language, [1, 2]), function ($q) use ($language) {
-                return $q->where('language', $language);
-            });
+            
             $query->orderBy('position', 'ASC');
             $faculty = $query->get();
        
@@ -290,6 +290,7 @@ class HomeFrontController extends Controller
         $breadcrumb = $this->generateBreadcrumb($slug);
        
         $nav_page =  DB::table('menus')->where('menu_status',1)->where('is_deleted',0)->where('menu_slug',$slug)->first();
+        $title = ucwords(str_replace('-', ' ', $nav_page->menutitle));
         $director_img = '';
         if($slug == 'director-message' ){
         $director_img = DB::table('faculty_members')->select('image')->where('designation','Director')->where('page_status',1)->first();
@@ -306,8 +307,10 @@ class HomeFrontController extends Controller
         return view('user.pages.footer_details_page', compact('nav_page','title'));
     }
     function news_listing(){
-        $title = 'Academy News';
-        $today = date('Y-m-d');
+        $title = (isset($_COOKIE['language']) && $_COOKIE['language'] == '2') 
+        ? 'अकादमी समाचार' 
+        : 'Academy News';
+            $today = date('Y-m-d');
         $news =  DB::table('news')->where('status',1)->where('start_date', '<=', $today)
         ->where('end_date', '>=', $today)->orderBy('start_date', 'desc')->get();
     
@@ -315,8 +318,10 @@ class HomeFrontController extends Controller
         
     }
     public function news_old_listing(Request $request) {
-        $title = 'Archive Academy News';
-        $today = date('Y-m-d');
+        $title = (isset($_COOKIE['language']) && $_COOKIE['language'] == '2') 
+        ? 'अकादमी समाचार अभिलेख' 
+        : 'Archive Academy News';
+            $today = date('Y-m-d');
     
         // Fetch the distinct years of news
         $currentYear = date('Y');
@@ -343,15 +348,19 @@ class HomeFrontController extends Controller
     }
     
     function letest_updates($slug){
-        $title = 'Latest Updates';
-        $nav_page=  DB::table('menus')->where('txtpostion',7)->where('is_deleted',0)->where('menu_status',1)->where('menu_slug',$slug)->first();
+        $title = (isset($_COOKIE['language']) && $_COOKIE['language'] == '2') 
+        ? 'नवीनतम अपडेट' 
+        : 'Latest Updates';
+            $nav_page=  DB::table('menus')->where('txtpostion',7)->where('is_deleted',0)->where('menu_status',1)->where('menu_slug',$slug)->first();
     
         return view('user.pages.letest_updates', compact('nav_page','title'));
         
     }
     function tenders() {
-        $title = 'Tenders';
-        date_default_timezone_set('Asia/Kolkata'); // Set timezone to Asia/Kolkata
+        $title = (isset($_COOKIE['language']) && $_COOKIE['language'] == '2') 
+        ? 'निविदाएं' 
+        : 'Tenders';
+            date_default_timezone_set('Asia/Kolkata'); // Set timezone to Asia/Kolkata
         $today = date('Y-m-d H:i:s'); // Include time for more precise filtering
         // dd($today);
         if(isset($_COOKIE['language']) && $_COOKIE['language'] == 2){  
@@ -373,8 +382,10 @@ class HomeFrontController extends Controller
     }
     
     function tenders_archive(Request $request){
-        $title = 'Archive Tenders';
-        date_default_timezone_set('Asia/Kolkata'); // Set timezone to Asia/Kolkata
+        $title = (isset($_COOKIE['language']) && $_COOKIE['language'] == '2') 
+        ? 'संग्रह निविदाएं' 
+        : 'Archive Tenders';
+            date_default_timezone_set('Asia/Kolkata'); // Set timezone to Asia/Kolkata
         $today = date('Y-m-d H:i:s');
         if(isset($_COOKIE['language']) && $_COOKIE['language'] == 2){  
             $language = $_COOKIE['language'];
@@ -406,7 +417,10 @@ class HomeFrontController extends Controller
     }
     function faculty(Request $request)
 {
-    $title = 'Faculty';
+    $title = (isset($_COOKIE['language']) && $_COOKIE['language'] == '2') 
+    ? 'संकाय' 
+    : 'Faculty';
+
     if(isset($_COOKIE['language']) && $_COOKIE['language'] == 2){  
         $language = $_COOKIE['language'];
      }else{
@@ -429,7 +443,9 @@ class HomeFrontController extends Controller
 }
 function staff(Request $request)
 {
-    $title = 'Staff';
+    $title = (isset($_COOKIE['language']) && $_COOKIE['language'] == '2') 
+    ? 'कर्मचारी' 
+    : 'Staff';
     if(isset($_COOKIE['language']) && $_COOKIE['language'] == 2){  
         $language = $_COOKIE['language'];
      }else{
@@ -441,8 +457,9 @@ function staff(Request $request)
          $q->where('name', 'LIKE', '%' . $request->keywords . '%')
      )
      ->when($language == 2, fn($q) => 
-     $q->whereNotNull('name_in_hindi') // Sirf wahi jisme name_in_hindi null na ho
- )
+    $q->whereNotNull('name_in_hindi') // NULL check
+      ->where('name_in_hindi', '!=', '') // Empty check
+)
      ->orderBy('position', 'ASC')
      ->get();
  
@@ -451,7 +468,9 @@ function staff(Request $request)
 }
 
 function vacancy(){
-        $title = 'Vacancy';
+    $title = (isset($_COOKIE['language']) && $_COOKIE['language'] == '2') 
+    ? 'रिक्ति' 
+    : 'Vacancy';
         date_default_timezone_set('Asia/Kolkata'); // Set timezone to Asia/Kolkata
         $today = date('Y-m-d H:i:s'); // Include time for more precise filtering
         if(isset($_COOKIE['language']) && $_COOKIE['language'] == 2){  
@@ -474,7 +493,9 @@ function vacancy(){
     
 }
 function vacancy_archive(){
-    $title = 'Vacancy  Archive';
+    $title = (isset($_COOKIE['language']) && $_COOKIE['language'] == '2') 
+    ? 'रिक्ति संग्रह' 
+    : 'Vacancy Archive';
     date_default_timezone_set('Asia/Kolkata'); // Set timezone to Asia/Kolkata
     $today = date('Y-m-d H:i:s'); // Include time for more precise filtering
     if(isset($_COOKIE['language']) && $_COOKIE['language'] == 2){  
@@ -495,7 +516,9 @@ return view('user.pages.vacancy_archive',compact('query','title'));
 }
 public function training_cal(Request $request)
 {
-    $title = 'Training Calendar';
+    $title = (isset($_COOKIE['language']) && $_COOKIE['language'] == '2') 
+    ? 'प्रशिक्षण कैलेंडर' 
+    : 'Training Calendar';
     // Step 1: Fetch all parent categories
     $parentCategories = DB::table('courses_sub_categories')
         ->where('parent_id', 0)  // Get only the parent categories
@@ -702,7 +725,9 @@ public function get_course_details_pages(Request $request, $slug)
 }
 public function souvenir(Request $request)
 {
-    $title = 'Souvenirs';
+    $title = (isset($_COOKIE['language']) && $_COOKIE['language'] == '2') 
+    ? 'स्मृति चिन्ह' 
+    : 'Souvenirs';
     // Fetch categories for the filter
     $categories = DB::table('souvenircategory')->select('id', 'category_name')->where('status', '1')->get();
 
@@ -839,11 +864,15 @@ function feedback(Request $request){
         return redirect()->back()->with('success', 'Feedback submitted successfully!');
     }
 function mediagallery(){
-    $title = 'Media Gallery';
+    $title = (isset($_COOKIE['language']) && $_COOKIE['language'] == '2') 
+    ? 'मीडिया गैलरी' 
+    : 'Media Gallery';
     return view('user.pages.mediagallery',compact('title'));
 }
 function audiogallery(){
-    $title = 'Audio Gallery';
+    $title = (isset($_COOKIE['language']) && $_COOKIE['language'] == '2') 
+    ? 'ऑडियो गैलरी' 
+    : 'Audio Gallery';
     $media_data = DB::table('manage_media_centers')
     ->where('page_status',1)
     ->get(); 
@@ -852,7 +881,9 @@ function audiogallery(){
     
 }
 function videogallery(){
-    $title = 'Video Gallery';
+    $title = (isset($_COOKIE['language']) && $_COOKIE['language'] == '2') 
+    ? 'वीडियो गैलरी' 
+    : 'Video Gallery';
     $media_data = DB::table('manage_video_centers')
     ->leftjoin('manage_media_categories', 'manage_video_centers.category_name', '=', 'manage_media_categories.id')
     ->where('page_status',1)
@@ -862,7 +893,9 @@ function videogallery(){
     return view('user.pages.videogallery',compact('media_data','title'));
 }
 function photogallery(Request $request){
-    $title = 'Photo Gallery';
+    $title = (isset($_COOKIE['language']) && $_COOKIE['language'] == '2') 
+    ? 'फोटो गैलरी' 
+    : 'Photo Gallery';
     $keywords = $request->input('keywords');
     $category = $request->input('txtcategory');
     $year = $request->input('year');
@@ -898,7 +931,9 @@ function photogallery(Request $request){
     return view('user.pages.photogallery', compact('media_cat','news','title'));
 }
 function view_all_photogallery(Request $request){
-    $title = 'All Photo Gallery';
+    $title = (isset($_COOKIE['language']) && $_COOKIE['language'] == '2') 
+    ? 'सभी फोटो गैलरी' 
+    : 'All Photo Gallery';
     $catid = $request->input('glrid');
     $type = $request->input('type');
 
@@ -924,8 +959,10 @@ public function organization(Request $request)
      }else{
         $language =1;
      } 
-    $title  = 'Organizational Structure';
-    $orgChart = DB::table('organisation_chart')
+     $title = (isset($_COOKIE['language']) && $_COOKIE['language'] == '2') 
+     ? 'संगठन संरचना' 
+     : 'Organizational Structure';
+     $orgChart = DB::table('organisation_chart')
         ->leftJoin('faculty_members as faculty', 'organisation_chart.employee_name', '=', 'faculty.id')
         ->select(
             'organisation_chart.id',
@@ -977,8 +1014,10 @@ public function faculty_responsibility(Request $request) {
      }else{
         $language =1;
      }
-    $title = 'Faculty Responsibility';
-    $query = DB::table('faculty_members')
+     $title = (isset($_COOKIE['language']) && $_COOKIE['language'] == '2') 
+     ? 'संकाय जिम्मेदारी' 
+     : 'Faculty Responsibility';
+     $query = DB::table('faculty_members')
         ->where('page_status', 1)
         ->select('name', 'email');
     // Apply keyword search if provided
@@ -1031,8 +1070,10 @@ function upcoming_events(){
      }else{
         $language =1;
      }
-    $title = 'Upcoming Courses';
-    date_default_timezone_set('Asia/Kolkata'); // Set timezone to Asia/Kolkata
+     $title = (isset($_COOKIE['language']) && $_COOKIE['language'] == '2') 
+     ? 'आगामी पाठ्यक्रम' 
+     : 'Upcoming Courses';
+     date_default_timezone_set('Asia/Kolkata'); // Set timezone to Asia/Kolkata
     $today = date('Y-m-d H:i:s'); 
     // $upcoming_course = DB::table('course')
     // ->Join('courses_sub_categories', 'course.course_type', '=', 'courses_sub_categories.id')
@@ -1075,8 +1116,10 @@ function running_events(){
      }else{
         $language =1;
      }
-    $title = 'Running Courses';  // Change title as per your requirement
-    date_default_timezone_set('Asia/Kolkata'); // Set timezone to Asia/Kolkata
+     $title = (isset($_COOKIE['language']) && $_COOKIE['language'] == '2') 
+     ? 'चल रहे पाठ्यक्रम' 
+     : 'Running Courses';
+     date_default_timezone_set('Asia/Kolkata'); // Set timezone to Asia/Kolkata
     $today = date('Y-m-d H:i:s'); 
 
             $current_course = DB::table('course')
@@ -1111,8 +1154,10 @@ function sitemap(){
         $language =1;
      }
 
-    $title = 'Sitemap';
-    $quickLinks = DB::table('quick_links')->where('is_deleted',0)->where('status',1)->when(in_array($language, [1, 2]), fn($q) => 
+     $title = (isset($_COOKIE['language']) && $_COOKIE['language'] == '2') 
+     ? 'साइटमैप' 
+     : 'Sitemap';
+     $quickLinks = DB::table('quick_links')->where('is_deleted',0)->where('status',1)->when(in_array($language, [1, 2]), fn($q) => 
             $q->where('language', $language)
         )->get();
     $footerLinks = DB::table('menus')->where('txtpostion',3)->where('menu_status',1)->when(in_array($language, [1, 2]), fn($q) => 
@@ -1153,7 +1198,9 @@ private function buildMenuTree($parentId = null)
     return $tree;
 }
 function search(Request $request){
-    $title = 'Search Results';
+    $title = (isset($_COOKIE['language']) && $_COOKIE['language'] == '2') 
+    ? 'खोज परिणाम' 
+    : 'Search Results';
     // Logic to handle search query
     $query = $request->input('query');
 
@@ -1162,13 +1209,17 @@ function search(Request $request){
     return view('user.pages.search',compact('query', 'title'));
 }
 function screenReader(Request $request){
-    $title = 'Screen Reader Content';
+    $title = (isset($_COOKIE['language']) && $_COOKIE['language'] == '2') 
+    ? 'स्क्रीन रीडर सामग्री' 
+    : 'Screen Reader Content';
     $screenRender = DB::table('screenrender')->first();
 
     return view('user.pages.screenRender', compact('screenRender','title'));
 }
 function archive(Request $request){
-    $title = 'Archive';
+    $title = (isset($_COOKIE['language']) && $_COOKIE['language'] == '2') 
+    ? 'अभिलेखागार' 
+    : 'Archive';
     return view('user.pages.archive', compact('title'));
 }
 public function set_language1(Request $request, $lang) {
@@ -1202,10 +1253,6 @@ public function set_language1(Request $request, $lang) {
             'language' => session('language') // ✅ Confirm session data
         ]);
     }
-    
-
-
-
 
 
 

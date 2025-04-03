@@ -22,9 +22,13 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>
         @if(isset($title))
-        {{ $title }} | Lal Bahadur Shastri National Academy of Administration
+            {{ $title }} | 
+            {{ (isset($_COOKIE['language']) && $_COOKIE['language'] == '2') 
+                ? 'लाल बहादुर शास्त्री राष्ट्रीय प्रशासन अकादमी' 
+                : 'Lal Bahadur Shastri National Academy of Administration' }}
         @endif
     </title>
+    
     <style>
     *:focus {
         outline: 2px solid #af2910;
@@ -474,6 +478,12 @@
                         ->leftJoin('courses_sub_categories as parent', 'sub.parent_id', '=', 'parent.id')
                         ->select('sub.*', 'parent.category_name as parent_category_name')
                         ->where('sub.status', 1)
+                        ->when($language == 2, function ($query) use ($language) {
+                    return $query->where('sub.language', '2');
+                    })
+                    ->when($language == 1, function ($query) use ($language) {
+                    return $query->where('sub.language', '1');
+                    })
                         ->orderBy('parent.category_name', 'asc')
                         ->orderBy('sub.category_name', 'asc')
                         ->get();
