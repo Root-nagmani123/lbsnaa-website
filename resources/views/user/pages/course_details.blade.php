@@ -119,15 +119,23 @@
                             </tr>
                             <tr>
                                 <td><b>
-                                        @if($_COOKIE['language'] == '2')
+                                    @if($_COOKIE['language'] == '2')
                                         अवधि:
-                                        @else
+                                    @else
                                         Duration:
-                                        @endif
-                                    </b></td>
-                                <td>{{ \Carbon\Carbon::parse($course->course_start_date)->format('d M, Y') }} to
-                                    {{ \Carbon\Carbon::parse($course->course_end_date)->format('d M, Y') }}</td>
+                                    @endif
+                                </b></td>
+                                <td>
+                                    @php
+                                        \Carbon\Carbon::setLocale($_COOKIE['language'] == '2' ? 'hi' : 'en');
+                                        $startDate = \Carbon\Carbon::parse($course->course_start_date)->translatedFormat('d F, Y');
+                                        $endDate = \Carbon\Carbon::parse($course->course_end_date)->translatedFormat('d F, Y');
+                                    @endphp
+
+                                    {{ $startDate }} to {{ $endDate }}
+                                </td>
                             </tr>
+
                         </table>
                     </div>
                 </div>

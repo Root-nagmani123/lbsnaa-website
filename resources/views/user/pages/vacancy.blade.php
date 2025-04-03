@@ -67,8 +67,18 @@
                         <tr>
                             <td style="padding-left:10px;">{{ $loop->iteration }}</td>
                             <td>{{ $value->job_title }}</td>
-                            <td>{{ \Carbon\Carbon::parse($value->publish_date)->format('d F, Y') }}</td>
-                            <td>{{ \Carbon\Carbon::parse($value->expiry_date)->format('d F, Y') }}</td>
+                            <td>
+                            @php
+                                \Carbon\Carbon::setLocale($_COOKIE['language'] == '2' ? 'hi' : 'en');
+                                $publishDate = \Carbon\Carbon::parse($value->publish_date)->translatedFormat('d F, Y');
+                                $expiryDate = \Carbon\Carbon::parse($value->expiry_date)->translatedFormat('d F, Y');
+                            @endphp
+
+                            {{ $publishDate }}
+                        </td>
+                        <td>
+                            {{ $expiryDate }}
+                        </td>
                             <td>
                                 @if(!empty($value->document_upload))
                                 <a href="{{ asset('storage/' . $value->document_upload) }}" target="_blank">Download</a>
