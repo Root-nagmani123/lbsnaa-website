@@ -68,7 +68,7 @@ class NewsletterController extends Controller
 
     public function newsletterFront()
     {
-        $newsletters = Newsletter::latest('id')->get();
+        $newsletters = Newsletter::where('status', 1)->latest('id')->get();
         return view('user.pages.lbsnaa-newsletter', compact('newsletters'));
     }
 
@@ -94,6 +94,23 @@ class NewsletterController extends Controller
         } catch (DecryptException $e) {
             // Handle error if the ID is not valid or cannot be decrypted
             return redirect()->back()->with('error', 'Invalid ebook ID.');
+        }
+    }
+
+    function toggleStatus(Request $request)
+    {
+        try {
+            $decryptedId = decrypt($request->id);
+
+            $newsletter = Newsletter::find($decryptedId);
+            if ($newsletter) {
+                $newsletter->status = !$newsletter->status;
+                $newsletter->save();
+                return response()->json(['success' => true, 'status' => $newsletter->status]);
+            }
+        }
+        catch(\Exception $e) {
+            return response()->json(['success' => false]);
         }
     }
 }

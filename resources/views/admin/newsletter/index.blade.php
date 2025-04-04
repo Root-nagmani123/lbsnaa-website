@@ -79,10 +79,10 @@
                                         <a href="{{ route('admin.newsletter.create', ['id' => encrypt($newsletter->id)]) }}" class="btn btn-primary btn-sm">Edit</a>
                                     </td>
                                     <td>
-                                        {{-- <label class="switch">
-                                            <input type="checkbox" class="status-toggle" data-id="{{ $newsletter->id }}" {{ $newsletter->status ? 'checked' : '' }}>
+                                        <label class="switch">
+                                            <input type="checkbox" class="status-toggle-newsletter" data-id="{{ encrypt($newsletter->id) }}" {{ $newsletter->status ? 'checked' : '' }}>
                                             <span class="slider round"></span>
-                                        </label> --}}
+                                        </label>
                                     </td>
                             @endforeach
                         @endif
@@ -99,23 +99,24 @@
 <script>
     $(document).ready(function() {
         // Attach change event to all toggle switches
-        $('.status-toggle').change(function() {
+        $('.status-toggle-newsletter').change(function() {
             var checkbox = $(this);
             var menuId = checkbox.data('id');
 
             // Send AJAX request to toggle the status
             $.ajax({
-                // url: '/admin/menus/' + menuId + '/toggle-status',
-                url: '{{ url("admin/menus") }}/' + menuId + '/toggle-status',
+                
+                url: '{{ route("admin.newsletter.toggle-status") }}/',
                 type: 'POST',
                 data: {
                     _token: '{{ csrf_token() }}',
+                    id: menuId,
                 },
                 success: function(response) {
                     if (response.status) {
-                        alert('Menu status updated to Active.');
+                        alert('Newsletter updated to Active.');
                     } else {
-                        alert('Menu status updated to Inactive.');
+                        alert('Newsletter updated to Inactive.');
                     }
                 },
                 error: function() {
