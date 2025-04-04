@@ -162,7 +162,7 @@
                                     style="color: #af2910;">
                                     {{ $course->course_name }}
                                 </a><br>
-                                Course Coordinator: {{ $course->coordinator_id }}<br>
+                                {{ $_COOKIE['language'] == '2' ? 'पाठ्यक्रम समन्वयक' : 'Course Coordinator' }}: {{ $course->coordinator_id }}<br>
                                 {{ date('d F, Y', strtotime($course->course_start_date)) }} to
                                 {{ date('d F, Y', strtotime($course->course_end_date)) }}
                             </li>
@@ -220,7 +220,7 @@
                                     style="color: #af2910;">
                                     {{ $course->course_name }}
                                 </a><br>
-                                Course Coordinator: {{ $course->coordinator_id }}<br>
+                                {{ $_COOKIE['language'] == '2' ? 'पाठ्यक्रम समन्वयक' : 'Course Coordinator' }}: {{ $course->coordinator_id }}<br>
                                 {{ date('d F, Y', strtotime($course->course_start_date)) }} to
                                 {{ date('d F, Y', strtotime($course->course_end_date)) }}
                             </li>

@@ -438,7 +438,6 @@ class HomeFrontController extends Controller
      }else{
         $language =1;
      }
-
      $faculty = DB::table('faculty_members')
      ->where('page_status', 1)
      ->when($request->filled('keywords'), fn($q) => 
