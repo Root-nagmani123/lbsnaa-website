@@ -28,8 +28,8 @@
                 </nav>
             </div>
         </div>
-        <div class="card bg-white border-0 rounded-10 mb-4" id="skip_to_main_content">
-            <div class="card-header">
+        <div class="card bg-white border-0 rounded-10 mb-4 mt-4" id="skip_to_main_content">
+            <!-- <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center pb-20 mb-20 mb-2">
                     <h3 class="fw-semibold fs-18 mb-0">
                         @if (isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
@@ -39,7 +39,7 @@
                         @endif
                     </h3>
                 </div>
-            </div>
+            </div> -->
             <div class="card-body p-4">
                 <div class="default-table-area members-list">
                     <div class="row">
