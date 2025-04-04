@@ -161,17 +161,19 @@ class HomeFrontController extends Controller
     public function get_navigation_pages(Request $request, $slug)
     {
         $title = ucwords(str_replace('-', ' ', $slug)) ;
-        if(isset($_COOKIE['language']) && $_COOKIE['language'] == 2){   
-            $language = $_COOKIE['language'];
-         }else{
-            $language =1;
-         }
+        if (isset($_COOKIE['language']) && $_COOKIE['language'] == 2) {   
+            $language = 2;
+            $searchColumn = 'name_in_hindi';
+        } else {
+            $language = 1;
+            $searchColumn = 'name';
+        }
         // echo $slug;die;
         if($slug == 'faculty'){
             $query = DB::table('faculty_members')->where('page_status', 1)->where('category', 1);
 
             if ($request->has('keywords') && !empty($request->keywords)) {
-                $query->where('name', 'LIKE', '%' . $request->keywords . '%');
+                $query->where($searchColumn, 'LIKE', '%' . $request->keywords . '%');
             }
             
             $query->orderBy('position', 'ASC');
@@ -433,21 +435,24 @@ class HomeFrontController extends Controller
     ? 'संकाय' 
     : 'Faculty';
 
-    if(isset($_COOKIE['language']) && $_COOKIE['language'] == 2){  
-        $language = $_COOKIE['language'];
-     }else{
-        $language =1;
-     }
-     $faculty = DB::table('faculty_members')
-     ->where('page_status', 1)
-     ->when($request->filled('keywords'), fn($q) => 
-         $q->where('name', 'LIKE', '%' . $request->keywords . '%')
-     )
-     ->when($language == 2, fn($q) => 
-        $q->whereNotNull('name_in_hindi') // Sirf wahi jisme name_in_hindi null na ho
-    )
-     ->orderBy('position', 'ASC')
-     ->get();
+    if (isset($_COOKIE['language']) && $_COOKIE['language'] == 2) {   
+        $language = 2;
+        $searchColumn = 'name_in_hindi';
+    } else {
+        $language = 1;
+        $searchColumn = 'name';
+    }
+    
+    $faculty = DB::table('faculty_members')
+        ->where('page_status', 1)
+        ->when($request->filled('keywords'), fn($q) => 
+            $q->where($searchColumn, 'LIKE', '%' . $request->keywords . '%') // <-- NO semicolon here
+        )
+        ->when($language == 2, fn($q) => 
+            $q->whereNotNull('name_in_hindi') // Show only if Hindi name is available
+        )
+        ->orderBy('position', 'ASC')
+        ->get();
  
     // print_r($faculty);die;
     return view('user.pages.faculty', compact('faculty','title'));
@@ -457,16 +462,19 @@ function staff(Request $request)
     $title = (isset($_COOKIE['language']) && $_COOKIE['language'] == '2') 
     ? 'कर्मचारी' 
     : 'Staff';
-    if(isset($_COOKIE['language']) && $_COOKIE['language'] == 2){  
-        $language = $_COOKIE['language'];
-     }else{
-        $language =1;
-     }
+    if (isset($_COOKIE['language']) && $_COOKIE['language'] == 2) {   
+        $language = 2;
+        $searchColumn = 'name_in_hindi';
+    } else {
+        $language = 1;
+        $searchColumn = 'name';
+    } 
+    
      $staff = DB::table('staff_members')
      ->where('page_status', 1)
      ->when($request->filled('keywords'), fn($q) => 
-         $q->where('name', 'LIKE', '%' . $request->keywords . '%')
-     )
+     $q->where($searchColumn, 'LIKE', '%' . $request->keywords . '%') // <-- NO semicolon here
+ )
      ->when($language == 2, fn($q) => 
     $q->whereNotNull('name_in_hindi') // NULL check
       ->where('name_in_hindi', '!=', '') // Empty check

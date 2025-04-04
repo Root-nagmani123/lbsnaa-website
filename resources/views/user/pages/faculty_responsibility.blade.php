@@ -32,7 +32,7 @@
                     </nav>
                 </div>
             </div>
-        </div>
+        </div> 
 
         <!-- Tenders Card -->
         <div class="card bg-white border-0 rounded-4 shadow-sm mb-4">
