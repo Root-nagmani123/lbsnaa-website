@@ -162,9 +162,18 @@
                                     style="color: #af2910;">
                                     {{ $course->course_name }}
                                 </a><br>
-                                {{ $_COOKIE['language'] == '2' ? 'पाठ्यक्रम समन्वयक' : 'Course Coordinator' }}: {{ $course->coordinator_id }}<br>
-                                {{ date('d F, Y', strtotime($course->course_start_date)) }} to
-                                {{ date('d F, Y', strtotime($course->course_end_date)) }}
+                                @if(isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                                        @php \Carbon\Carbon::setLocale('hi'); @endphp
+                                        पाठ्यक्रम समन्वयक: {{ $course->coordinator_id }}<br>
+                                        {{ \Carbon\Carbon::parse($course->course_start_date)->translatedFormat('d F, Y') }} से
+                                        {{ \Carbon\Carbon::parse($course->course_end_date)->translatedFormat('d F, Y') }} तक
+                                    @else
+                                        Course Coordinator: {{ $course->coordinator_id }}<br>
+                                        {{ \Carbon\Carbon::parse($course->course_start_date)->format('d F, Y') }} to
+                                        {{ \Carbon\Carbon::parse($course->course_end_date)->format('d F, Y') }}
+                                    @endif
+
+
                             </li>
                             @php $i++; @endphp
                             @endforeach
@@ -220,9 +229,16 @@
                                     style="color: #af2910;">
                                     {{ $course->course_name }}
                                 </a><br>
-                                {{ $_COOKIE['language'] == '2' ? 'पाठ्यक्रम समन्वयक' : 'Course Coordinator' }}: {{ $course->coordinator_id }}<br>
-                                {{ date('d F, Y', strtotime($course->course_start_date)) }} to
-                                {{ date('d F, Y', strtotime($course->course_end_date)) }}
+                                @if(isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                                    @php \Carbon\Carbon::setLocale('hi'); @endphp
+                                    पाठ्यक्रम समन्वयक: {{ $course->coordinator_id }}<br>
+                                    {{ \Carbon\Carbon::parse($course->course_start_date)->translatedFormat('d F, Y') }} से
+                                    {{ \Carbon\Carbon::parse($course->course_end_date)->translatedFormat('d F, Y') }} तक
+                                @else
+                                    Course Coordinator: {{ $course->coordinator_id }}<br>
+                                    {{ \Carbon\Carbon::parse($course->course_start_date)->format('d F, Y') }} to
+                                    {{ \Carbon\Carbon::parse($course->course_end_date)->format('d F, Y') }}
+                                @endif
                             </li>
                             @endforeach
 

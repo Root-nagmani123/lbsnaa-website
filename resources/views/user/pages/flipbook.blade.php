@@ -56,14 +56,10 @@
 </section>
 
 
-{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>   --}}
 <script src="{{ asset('assets/libs/3dflipbooks/js/libs/three.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/libs/3dflipbooks/js/libs/compatibility.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/libs/3dflipbooks/js/libs/mockup.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/libs/3dflipbooks/js/libs/pdf.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/libs/3dflipbooks/js/libs/pdf.worker.min.js') }}" type="text/javascript"></script>
-<!-- Flipbook main Js file -->
 <script src="{{ asset('assets/libs/3dflipbooks/js/dflip.min.js') }}" type="text/javascript"></script>
-
-
 @include('user.includes.footer')

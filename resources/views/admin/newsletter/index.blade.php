@@ -76,7 +76,7 @@
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $newsletter->title }}</td>
                                     <td>
-                                        <a href="{{ route('admin.newsletter.create', ['id' => encrypt($newsletter->id)]) }}" class="btn btn-primary btn-sm">Edit</a>
+                                        <a href="{{ route('admin.newsletter.create', ['id' => encrypt($newsletter->id)]) }}" class="btn btn-primary btn-sm text-white">Edit</a>
                                     </td>
                                     <td>
                                         <label class="switch">
@@ -182,8 +182,4 @@
       border-radius: 50%;
     }
 </style>
-
-
-
-
 @endsection

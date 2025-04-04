@@ -102,25 +102,30 @@ if (!$selectedYear) {
                         // Determine current year and month
                         $selectedYear = request()->input('select_year');
                         if (!$selectedYear) {
-    $currentYear = date('Y');
-    $currentMonth = date('m');
+                            $currentYear = date('Y');
+                            $currentMonth = date('m');
 
-    if ($currentMonth >= 4) {
-        $startYear = $currentYear;
-        $endYear = $currentYear + 1;
-    } else {
-        $startYear = $currentYear - 1;
-        $endYear = $currentYear;
-    }
-} else {
-    // Agar user ne year select kiya hai toh usko financial year ka start-end banayein
-    $startYear = $selectedYear - 1;  // Financial Year Start
-    $endYear = $selectedYear;        // Financial Year End
-}
+                            if ($currentMonth >= 4) {
+                                $startYear = $currentYear;
+                                $endYear = $currentYear + 1;
+                            } else {
+                                $startYear = $currentYear - 1;
+                                $endYear = $currentYear;
+                            }
+                        } else {
+                            // Agar user ne year select kiya hai toh usko financial year ka start-end banayein
+                            $startYear = $selectedYear - 1;  // Financial Year Start
+                            $endYear = $selectedYear;        // Financial Year End
+                        }
+                        $selectedMonths = ['Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar'];
+                        $lang = isset($_COOKIE['language']) && $_COOKIE['language'] == '2' ? 'hi' : 'en';
 
+$months = [
+    'en' => ['Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar'],
+    'hi' => ['अप्रैल', 'मई', 'जून', 'जुलाई', 'अगस्त', 'सितंबर', 'अक्टूबर', 'नवंबर', 'दिसंबर', 'जनवरी', 'फ़रवरी', 'मार्च'],
+];
 
-                        // Months for the financial year
-                        $months = ['Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar'];
+$selectedMonths = $months[$lang];
                     @endphp
 
                     <thead>
@@ -155,7 +160,7 @@ if (!$selectedYear) {
                                 @endif
                             </th>
                             {{-- Month headers for the table --}}
-                            @foreach ($months as $index => $month)
+                            @foreach ($selectedMonths as $index => $month)
                                 <th>{{ $month }} {{ $index < 9 ? $startYear : $endYear }}</th>
                             @endforeach
                         </tr>
@@ -187,15 +192,25 @@ if (!$selectedYear) {
                                 @foreach ($subcategory['courses'] as $course)
                                     {{-- Calculate Duration --}}
                                     @php
-                                        $courseStart = strtotime($course['course_start_date']);
+                                  
+                                    $courseStart = strtotime($course['course_start_date']);
                                         $courseEnd = strtotime($course['course_end_date']);
                                         $durationInDays = ($courseEnd - $courseStart) / (60 * 60 * 24) + 1;
 
                                         if ($durationInDays < 7) {
-                                            $duration = $durationInDays . ' day' . ($durationInDays > 1 ? 's' : '');
-                                        } else {
-                                            $durationInWeeks = ceil($durationInDays / 7);
-                                            $duration = $durationInWeeks . ' week' . ($durationInWeeks > 1 ? 's' : '');
+                                            if ($lang == 'hi') {
+                                        $duration = $durationInDays . ' दिन';
+                                    } else {
+                                        $duration = $durationInDays . ' day' . ($durationInDays > 1 ? 's' : '');
+                                    }
+                                                                        } else {
+
+                                                                        $durationInWeeks = ceil($durationInDays / 7);
+                                                                    if ($lang == 'hi') {
+                                        $duration = $durationInWeeks . ' सप्ताह';
+                                    } else {
+                                        $duration = $durationInWeeks . ' week' . ($durationInWeeks > 1 ? 's' : '');
+                                    }
                                         }
                                     @endphp
 
