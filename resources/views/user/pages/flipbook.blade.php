@@ -1,6 +1,11 @@
 @include('user.includes.header')
 <link href="{{ asset('assets/libs/3dflipbooks/css/dflip.min.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('assets/libs/3dflipbooks/css/themify-icons.min.css')}}" rel="stylesheet" type="text/css"/>
+<style>
+    .df-ui-btn.df-ui-download.ti-download {
+        display: none !important;
+    }
+</style>
 <!-- Page Content -->
 <section class="py-4">
     <div class="container-fluid">

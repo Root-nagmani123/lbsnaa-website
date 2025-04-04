@@ -70,7 +70,11 @@
                             Search:
                             @endif</label>
                         <input type="text" id="Keywords" name="keywords" value="{{ request('keywords') }}"
-                            placeholder="Keyword Search" class="form-control">
+                            placeholder="@if($_COOKIE['language'] ==
+                            '2')संकेत शब्द की खोज
+                            @else
+                            Keyword Search
+                            @endif" class="form-control">
                     </div>
                     <div class="col-md-3">
                         <label for="txtcategory" class="form-label">
@@ -81,7 +85,11 @@
                             @endif
                         </label>
                         <select name="txtcategory" id="txtcategory" class="form-select">
-                            <option value="">Select</option>
+                            <option value="">@if($_COOKIE['language'] ==
+                            '2')चुनना
+                            @else
+                            Select
+                            @endif </option>
                             @foreach($media_cat as $media)
                             <option value="{{ $media->id }}"
                                 {{ request('txtcategory') == $media->id ? 'selected' : '' }}>
@@ -105,7 +113,11 @@
                             @endif
                         </label>
                         <select name="year" id="year" class="form-select">
-                            <option value="">Select</option>
+                            <option value="">@if($_COOKIE['language'] ==
+                            '2')चुनना
+                            @else
+                            Select
+                            @endif</option>
                             @for($i = date('Y'); $i >= 2011; $i--)
                             <option value="{{ $i }}" {{ request('year') == $i ? 'selected' : '' }}>
                                 {{ $i }}

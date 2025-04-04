@@ -44,8 +44,7 @@
                     <div class="contsearch">
                         <form id="form2" action="{{ url()->current() }}" method="GET">
                             <fieldset class="d-flex align-items-center">
-                                <input type="text" id="Keywords" name="keywords" value="{{ request('keywords') }}"
-                                    placeholder="Search Faculty" class="form-control form-control-sm me-2">
+                                <input type="text" id="Keywords" name="keywords" value="{{ request('keywords') }}" class="form-control form-control-sm me-2">
                                 <input id="btn2" type="submit" value="Submit" class="btn btn-outline-primary btn-sm">
                                 <input type="hidden" name="action" value="submit" class="form-control fw-bold">
                             </fieldset>

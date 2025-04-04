@@ -160,6 +160,10 @@ class HomeFrontController extends Controller
     }
     public function get_navigation_pages(Request $request, $slug)
     {
+        if( $slug == 'lbsnaa-newsletter' ) {
+            return redirect()->route('partials.lbsnaa-newsletter');
+        }
+        
         $title = ucwords(str_replace('-', ' ', $slug)) ;
         if (isset($_COOKIE['language']) && $_COOKIE['language'] == 2) {   
             $language = 2;

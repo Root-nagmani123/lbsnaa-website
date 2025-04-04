@@ -38,9 +38,11 @@ class NewsController extends Controller
     $rules = [
         'language' => 'required',
         'title' => 'required',
+        'title_hindi' => 'required',
         'short_description' => 'required',
         'meta_title' => 'required',
         'description' => 'required',
+        'description_hindi' => 'required',
         'meta_keywords' => 'required',
         'meta_description' => 'required',
         'multiple_images' => 'required',
@@ -121,14 +123,35 @@ class NewsController extends Controller
             $img->setAttribute('src', $image_name);
         }
         $description = $dom->saveHTML();
+
+
+        $description_hindi = $request->description_hindi;
+ 
+        $dom = new DOMDocument('1.0', 'UTF-8');
+        libxml_use_internal_errors(true); // HTML parsing errors को suppress करने के लिए
+        $dom->loadHTML(mb_convert_encoding($description_hindi, 'HTML-ENTITIES', 'UTF-8'));
+    
+        $images = $dom->getElementsByTagName('img');
+    
+        foreach ($images as $key => $img) {
+            $data = base64_decode(explode(',', explode(';', $img->getAttribute('src'))[1])[1]);
+            $image_name = "/ckupload/" . time() . $key . '.png';
+            file_put_contents(public_path() . $image_name, $data);
+    
+            $img->removeAttribute('src');
+            $img->setAttribute('src', $image_name);
+        }
+        $description_hindi = $dom->saveHTML();
     
         $news->language = $request->language;
         $news->title = $request->title;
+        $news->title_hindi = $request->title_hindi;
         $news->short_description = $request->short_description;
         $news->meta_title = $request->meta_title;
         $news->meta_keywords = $request->meta_keywords;
         $news->meta_description = $request->meta_description;
         $news->description = $description;
+        $news->description_hindi = $description_hindi;
         $news->start_date = $request->start_date;
         $news->end_date = $request->end_date;
         $news->status = $request->status;
@@ -169,9 +192,11 @@ class NewsController extends Controller
         $rules = [
             'language' => 'required',
             'title' => 'required',
+            'title_hindi' => 'required',
             'short_description' => 'required',
             'meta_title' => 'required',
             'description' => 'required',
+            'description_hindi' => 'required',
             'meta_keywords' => 'required',
             'meta_description' => 'required',
             'end_date' => 'required|date|after_or_equal:start_date',
@@ -312,6 +337,43 @@ class NewsController extends Controller
         
         // Save the modified HTML with UTF-8
         $description = $dom->saveHTML();
+
+        $description_hindi = $request->description_hindi;
+
+        // DOMDocument को UTF-8 में इनिशियलाइज़ करें
+        $dom = new DOMDocument('1.0', 'UTF-8');
+        libxml_use_internal_errors(true); // HTML parsing errors को suppress करने के लिए
+        $dom->loadHTML(mb_convert_encoding($description_hindi, 'HTML-ENTITIES', 'UTF-8')); 
+        
+        $images = $dom->getElementsByTagName('img');
+        
+        foreach ($images as $key => $img) {
+            $src = $img->getAttribute('src');
+        
+            // Check if src contains "data:" prefix and ";base64," to ensure it's a valid data URI
+            if (str_starts_with($src, 'data:') && str_contains($src, ';base64,')) {
+                $srcParts = explode(';', $src);
+                
+                // Extract and decode the base64 data
+                if (isset($srcParts[1]) && str_contains($srcParts[1], ',')) {
+                    $dataParts = explode(',', $srcParts[1]);
+                    $base64Data = $dataParts[1] ?? '';
+                    $data = base64_decode($base64Data);
+        
+                    if ($data !== false) {
+                        $image_name = "/ckupload/" . time() . $key . '.png';
+                        file_put_contents(public_path() . $image_name, $data);
+        
+                        // Update the src attribute to the new file path
+                        $img->removeAttribute('src');
+                        $img->setAttribute('src', $image_name);
+                    }
+                }
+            }
+        }
+        
+        // Save the modified HTML with UTF-8
+        $description_hindi = $dom->saveHTML();
         
         // Debug the output
         // echo $description;die;
@@ -322,11 +384,13 @@ class NewsController extends Controller
         // Update other news attributes
         $news->language = $request->language;
         $news->title = $request->title;
+        $news->title_hindi = $request->title_hindi;
         $news->short_description = $request->short_description;
         $news->meta_title = $request->meta_title;
         $news->meta_keywords = $request->meta_keywords;
         $news->meta_description = $request->meta_description;
         $news->description = $description;
+        $news->description_hindi = $description_hindi;
         $news->start_date = $request->start_date;
         $news->end_date = $request->end_date;
         $news->status = $request->status;

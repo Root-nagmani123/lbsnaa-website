@@ -54,7 +54,11 @@
                         @endif
                     </label>
                     <input type="text" id="Keywords" name="keywords" value="{{ request('keywords') }}"
-                        placeholder="Search News" class="form-control ps-5 text-dark h-58">
+                        placeholder="@if($_COOKIE['language'] == '2')
+                        समाचार खोजें
+                        @else
+                        Search News
+                        @endif" class="form-control ps-5 text-dark h-58">
                 </div>
                 <div class="col-lg-4">
                     <label for="year" class="form-label">

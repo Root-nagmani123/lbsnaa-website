@@ -68,7 +68,9 @@ class NewsletterController extends Controller
 
     public function newsletterFront()
     {
-        $newsletters = Newsletter::where('status', 1)->latest('id')->get();
+        $newsletters = Newsletter::where('status', 1)
+            ->where('language', $this->getLang())
+            ->latest('id')->get();
         return view('user.pages.lbsnaa-newsletter', compact('newsletters'));
     }
 

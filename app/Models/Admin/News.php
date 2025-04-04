@@ -10,12 +10,14 @@ class News extends Model
     use HasFactory;
     protected $fillable = [
         'language',                // News language
-        'title',                // News Title
+        'title',  
+        'title_hindi',                // News Title
         'short_description',    // News Short Description
         'meta_title',           // Meta Title
         'meta_keyword',         // Meta Keyword
         'meta_description',     // Meta Description
-        'description',          // Full Description
+        'description', 
+        'description_hindi',         // Full Description
         'main_image',           // Main Image
         'multiple_images',      // Multiple Images (usually a JSON or text field)
         'start_date',           // Start Date
