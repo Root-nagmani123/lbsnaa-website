@@ -19,7 +19,7 @@
                         </li>
                         <li class="breadcrumb-item active" aria-current="page">
                             @if (isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
-                                संकाय
+                            समाचार पत्रिका
                             @else
                                 Newsletter
                             @endif
@@ -33,7 +33,7 @@
                 <div class="d-flex justify-content-between align-items-center pb-20 mb-20 mb-2">
                     <h3 class="fw-semibold fs-18 mb-0">
                         @if (isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
-                            इनहाउस फैकल्टी
+                        समाचार पत्रिका
                         @else
                             Newsletter
                         @endif
@@ -61,7 +61,7 @@
                                                 @if ($val?->pdf)
                                                     <a href="javascript:void(0)" class="btn btn-primary mt-3" onclick="openPDFModal('{{ asset($val->pdf) }}')">
                                                         @if (isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
-                                                            देखें PDF
+                                                            देखें पीडीएफ
                                                         @else
                                                             View PDF
                                                         @endif
@@ -71,7 +71,7 @@
                                                 @if ($val?->ebook)
                                                     <a href="{{ route('newsletter-ebook', ['id' => encrypt($val->id)]) }}" class="btn btn-primary mt-3" >
                                                         @if (isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
-                                                            देखें
+                                                            देखें ई-पुस्तक
                                                         @else
                                                             View ebook
                                                         @endif
