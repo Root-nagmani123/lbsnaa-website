@@ -962,7 +962,7 @@ function photogallery(Request $request){
             return $query->whereYear('end_date', $year);
         })
         ->where('status', 1)
-        ->select('id', 'title', 'title_slug', 'main_image')
+        ->select('id', 'title','title_hindi','title_slug', 'main_image')
         ->get();
         // print_r($news);die; 
 
