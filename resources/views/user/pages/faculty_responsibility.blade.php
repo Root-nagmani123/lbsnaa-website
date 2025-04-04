@@ -51,21 +51,40 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="contsearch float-end">
-                            <form id="form2" action="{{ route('user.faculty_responsibility') }}" method="GET">
-                                <fieldset>
-                                    <label class="form-label">Search by Keywords:</label>
-                                    <label for="keywords">
-                                        <input type="text" id="Keywords" name="keywords"
-                                            value="{{ urlencode(request('keywords')) }}" placeholder="Search Faculty"
-                                            class="form-control text-dark ps-5 h-58">
-                                    </label>
-                                    <label for="btn2">
-                                        <input id="btn2" type="submit" value="Submit" class="btn btn-success">
-                                    </label>
-                                    <a href="{{ route('user.faculty_responsibility') }}"
-                                        class="btn btn-warning">Reset</a>
-                                </fieldset>
-                            </form>
+                        @php
+    $lang = isset($_COOKIE['language']) && $_COOKIE['language'] == '2' ? 'hi' : 'en';
+@endphp
+
+                <form id="form2" action="{{ route('user.faculty_responsibility') }}" method="GET">
+                    <fieldset>
+                        <label class="form-label">
+                            {{ $lang == 'hi' ? 'कीवर्ड द्वारा खोजें:' : 'Search by Keywords:' }}
+                        </label>
+
+                        <label for="keywords">
+                            <input 
+                                type="text" 
+                                id="Keywords" 
+                                name="keywords"
+                                value="{{ request('keywords') }}" 
+                                placeholder="{{ $lang == 'hi' ? 'संकाय खोजें' : 'Search Faculty' }}"
+                                class="form-control text-dark ps-5 h-58">
+                        </label>
+
+                        <label for="btn2">
+                            <input 
+                                id="btn2" 
+                                type="submit" 
+                                class="btn btn-success" 
+                                value="{{ $lang == 'hi' ? 'जमा करें' : 'Submit' }}">
+                        </label>
+
+                        <a href="{{ route('user.faculty_responsibility') }}" class="btn btn-warning">
+                            {{ $lang == 'hi' ? 'रीसेट करें' : 'Reset' }}
+                        </a>
+                    </fieldset>
+                </form>
+
 
                         </div>
                     </div>
@@ -114,7 +133,9 @@
                             @foreach($data as $key => $value)
                             <tr>
                                 <td>{{ $key + 1 }}</td> <!-- Serial Number -->
-                                <td>{{ $value->name }}</td> <!-- Faculty Name -->
+                                <td>
+    {{ $lang == 'hi' && !empty($value->name_in_hindi) ? $value->name_in_hindi : $value->name }}
+</td> <!-- Faculty Name -->
                                 <td>
                                     @if(count($value->Officer_Incharge) > 0)
                                     <ul class="list-unstyled mb-0">

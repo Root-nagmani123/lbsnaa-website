@@ -71,18 +71,27 @@
                 <div class="current-course-box mb-3 p-3 border rounded bg-light">
                 <a href="{{ route('user.courseDetailslug', [$upcomingCourses->id]) }}"
                 class="text-primary"><h5 class="fw-bold">{{ $upcomingCourses->course_name }}</h5></a>
+                @php
+                        use Carbon\Carbon;
+
+                        $isHindi = isset($_COOKIE['language']) && $_COOKIE['language'] == '2';
+
+                        // Hindi ke liye locale set karo
+                        Carbon::setLocale($isHindi ? 'hi' : 'en');
+
+                        $startDate = Carbon::parse($upcomingCourses->course_start_date);
+                        $endDate = Carbon::parse($upcomingCourses->course_end_date);
+                    @endphp
+
                     <p>
                         <strong>
-                            @if($_COOKIE['language'] == '2')
-                            पाठ्यक्रम तिथि:
-                            @else
-                            Course Date:
-                            @endif
-                        </strong> 
-                        {{ \Carbon\Carbon::parse($upcomingCourses->course_start_date)->format('d F, Y') }}
-                        to
-                        {{ \Carbon\Carbon::parse($upcomingCourses->course_end_date)->format('d F, Y') }}
+                            {{ $isHindi ? 'पाठ्यक्रम तिथि:' : 'Course Date:' }}
+                        </strong>
+                        {{ $startDate->translatedFormat('d F, Y') }} 
+                        {{ $isHindi ? 'से' : 'to' }}
+                        {{ $endDate->translatedFormat('d F, Y') }}
                     </p>
+
                 </div>
                 @endforeach
                 @else

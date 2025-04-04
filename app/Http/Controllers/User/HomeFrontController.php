@@ -1043,20 +1043,23 @@ private function buildHierarchy($elements, $parentId = null)
     return $branch;
 }
 public function faculty_responsibility(Request $request) {
-    if(isset($_COOKIE['language']) && $_COOKIE['language'] == 2){  
-        $language = $_COOKIE['language'];
-     }else{
-        $language =1;
-     }
+    if (isset($_COOKIE['language']) && $_COOKIE['language'] == 2) {   
+        $language = 2;
+        $searchColumn = 'name_in_hindi';
+    } else {
+        $language = 1;
+        $searchColumn = 'name';
+    }
      $title = (isset($_COOKIE['language']) && $_COOKIE['language'] == '2') 
      ? 'संकाय जिम्मेदारी' 
      : 'Faculty Responsibility';
      $query = DB::table('faculty_members')
         ->where('page_status', 1)
-        ->select('name', 'email');
+        ->select('name','name_in_hindi', 'email');
     // Apply keyword search if provided
     if ($request->has('keywords') && !empty($request->keywords)) {
-        $query->where('name', 'LIKE', '%' . $request->keywords . '%');
+        // $query->where('name', 'LIKE', '%' . $request->keywords . '%');
+        $query->where($searchColumn, 'LIKE', '%' . $request->keywords . '%');
     }
     // $query->when(in_array($language, [1, 2]), function ($q) use ($language) {
     //     return $q->where('language', $language);
