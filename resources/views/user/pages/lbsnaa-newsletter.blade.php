@@ -99,7 +99,13 @@
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="pdfModalLabel">PDF View</h5>
+                <h5 class="modal-title" id="pdfModalLabel">
+                    @if(isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                        पीडीएफ दृश्य
+                    @else
+                    PDF View
+                    @endif
+                </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -108,7 +114,13 @@
                     <div class="spinner-border" role="status">
                         <span class="visually-hidden">Loading...</span>
                     </div>
-                    <p>Loading PDF...</p>
+                    <p>
+                        @if(isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                            लोडिंग पीडीएफ...
+                        @else
+                        Loading PDF...
+                        @endif
+                    </p>
                 </div>
 
                 <!-- PDF container with scrolling enabled -->
