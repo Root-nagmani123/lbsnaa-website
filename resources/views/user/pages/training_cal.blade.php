@@ -125,7 +125,7 @@ if (!$selectedYear) {
 
                     <thead>
                         <tr>
-                            <th>Serial</th>
+                            <th>#</th>
                             <th>
                                 @if ($_COOKIE['language'] == '2')
                                     कोर्स का नाम

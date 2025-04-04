@@ -42,13 +42,29 @@
 
             <table class="table table-striped table-hover table-bordered">
                 <thead class="bg-primary">
-                    <tr>
-                        <th class="col text-white">#</th>
-                        <th class="col text-white">Job Title</th>
-                        <th class="col text-white">Publish Date</th>
-                        <th class="col text-white">Last Date</th>
-                        <th class="col text-white">Document</th>
-                    </tr>
+                <tr>
+                            <th class="col text-white">#</th>
+                            <th class="col text-white">@if($_COOKIE['language'] ==
+                        '2')पद का नाम
+                        @else
+                        Job Title
+                        @endif</th>
+                            <th class="col text-white">@if($_COOKIE['language'] ==
+                        '2')प्रकाशित तिथि
+                        @else
+                        Publish Date
+                        @endif</th>
+                            <th class="col text-white">@if($_COOKIE['language'] ==
+                        '2')अंतिम तिथि
+                        @else
+                        Last Date
+                        @endif</th>
+                            <th class="col text-white">@if($_COOKIE['language'] ==
+                        '2')दस्तावेज़
+                        @else
+                        Document
+                        @endif</th>
+                        </tr>
                 </thead>
                 <tbody>
                     @if(count($query) > 0)
