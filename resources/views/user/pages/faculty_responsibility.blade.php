@@ -53,17 +53,32 @@
                         <div class="contsearch float-end">
                             <form id="form2" action="{{ route('user.faculty_responsibility') }}" method="GET">
                                 <fieldset>
-                                    <label class="form-label">Search by Keywords:</label>
+                                    <label class="form-label">@if($_COOKIE['language'] ==
+                                '2')
+                                कीवर्ड द्वारा खोजें:
+                                @else
+                                Search by Keywords:
+                                @endif</label>
                                     <label for="keywords">
                                         <input type="text" id="Keywords" name="keywords"
                                             value="{{ urlencode(request('keywords')) }}" placeholder="Search Faculty"
                                             class="form-control text-dark ps-5 h-58">
                                     </label>
                                     <label for="btn2">
-                                        <input id="btn2" type="submit" value="Submit" class="btn btn-success">
+                                        <input id="btn2" type="submit" class="btn btn-success">@if($_COOKIE['language'] ==
+                                '2')
+                                जमा करना
+                                @else
+                               Submit
+                                @endif
                                     </label>
                                     <a href="{{ route('user.faculty_responsibility') }}"
-                                        class="btn btn-warning">Reset</a>
+                                        class="btn btn-warning">@if($_COOKIE['language'] ==
+                                '2')
+                                रीसेट करें
+                                @else
+                                Reset
+                                @endif</a>
                                 </fieldset>
                             </form>
 
