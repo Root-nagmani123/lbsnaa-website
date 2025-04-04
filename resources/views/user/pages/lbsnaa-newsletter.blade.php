@@ -85,7 +85,11 @@
                                 </div>
                             @endforeach
                         @else
-                            <p class="text-center">No Newsletter Found</p>
+                            @if (isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                                <p class="text-center">कोई समाचार पत्रिका नहीं मिली</p>
+                                @else
+                                <p class="text-center">No Newsletter Found</p>
+                            @endif
                         @endif
                     </div>
                 </div>
