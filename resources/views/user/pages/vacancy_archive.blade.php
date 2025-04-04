@@ -87,7 +87,11 @@
 
                         <td>
                             @if(!empty($value->document_upload))
-                            <a href="{{ asset('storage/' . $value->document_upload) }}" target="_blank">Download</a>
+                            <a href="{{ asset('storage/' . $value->document_upload) }}" target="_blank"> @if($_COOKIE['language'] ==
+                            '2')डाउनलोड
+                            @else
+                            Download
+                            @endif</a>
                             @else
                             N/A
                             @endif
