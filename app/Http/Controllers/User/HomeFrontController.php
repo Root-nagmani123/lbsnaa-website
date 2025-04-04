@@ -960,7 +960,7 @@ function photogallery(Request $request){
         ->where('status', 1)
         ->select('id', 'title', 'title_slug', 'main_image')
         ->get();
-        // print_r($news);die;
+        // print_r($news);die; 
 
     return view('user.pages.photogallery', compact('media_cat','news','title'));
 }
@@ -976,11 +976,11 @@ if($type == 'gallery'){
     ->leftjoin('manage_media_categories', 'manage_photo_galleries.media_categories', '=', 'manage_media_categories.id')
         ->where('media_categories', $catid)
         ->where('manage_photo_galleries.status', 1)
-        ->select('manage_photo_galleries.id','manage_photo_galleries.image_title_english','manage_photo_galleries.image_files','manage_media_categories.name')
+        ->select('manage_photo_galleries.id','manage_photo_galleries.image_title_hindi','manage_photo_galleries.image_title_english','manage_photo_galleries.image_files','manage_media_categories.name')
         ->get();
         // print_r($media_d);
 }else if($type == 'news'){
-    $media_d = DB::table('news')->select('id','title','multiple_images','main_image')->where('id', $catid)->where('status', 1)->get();
+    $media_d = DB::table('news')->select('id','title','title_hindi','multiple_images','main_image')->where('id', $catid)->where('status', 1)->get();
 
 }
   
@@ -1067,22 +1067,33 @@ public function faculty_responsibility(Request $request) {
     $data = $query->get();
     foreach ($data as $key => $value) {
         // Officer Incharge
-        $Officer = DB::table('section_category')
-            ->leftJoin('sections', 'section_category.section_id', '=', 'sections.id')
-            ->where('section_category.officer_Incharge', $value->email)
-            ->select('sections.id as sections_id', 'sections.title as section_title', 'section_category.name as category_name')
-            ->get()
-            ->groupBy('sections_id')
-            ->map(function ($items) {
-                return [
-                    'section_title' => $items->first()->section_title,
-                    'categories' => $items->pluck('category_name')->toArray(),
-                ];
-            });
+                        $Officer = DB::table('section_category')
+                            ->leftJoin('sections', 'section_category.section_id', '=', 'sections.id')
+                            ->when(in_array($language, [1, 2]), function ($q) use ($language) {
+                                return $q->where('section_category.language', $language);
+                            })
+                            ->where('section_category.officer_Incharge', $value->email)
+                            ->select(
+                                'sections.id as sections_id',
+                                'sections.title as section_title',
+                                'section_category.name as category_name'
+                            )
+                            ->get()
+                            ->groupBy('sections_id')
+                            ->map(function ($items) {
+                                return [
+                                    'section_title' => $items->first()->section_title,
+                                    'categories' => $items->pluck('category_name')->toArray(),
+                                ];
+                            });
+
 
         // Deputy Incharge
         $Deputy = DB::table('section_category')
             ->leftJoin('sections', 'section_category.section_id', '=', 'sections.id')
+            ->when(in_array($language, [1, 2]), function ($q) use ($language) {
+                return $q->where('section_category.language', $language);
+            })
             ->where('section_category.alternative_Incharge_1st', $value->email)
             ->select('sections.id as sections_id', 'sections.title as section_title', 'section_category.name as category_name')
             ->get()

@@ -69,7 +69,7 @@
                     </div>
                     <div class="card-footer" style="border:none;">
                         <div class="form-field mt-2">
-                            <p>{{ $media->image_title_english }}</p>
+                            <p>{{ ($_COOKIE['language'] ?? '1') == '2' ? $media->image_title_hindi : $media->image_title_english }}</p>
                         </div>
                     </div>
                 </div>
@@ -95,7 +95,7 @@
                     </div>
                     <div class="card-footer" style="border:none;">
                         <div class="form-field mt-2">
-                            <p>{{ $media->title }}</p>
+                            <p>{{ ($_COOKIE['language'] ?? '1') == '2' ? $media->title_hindi : $media->title }}</p>
                         </div>
                     </div>
                 </div>

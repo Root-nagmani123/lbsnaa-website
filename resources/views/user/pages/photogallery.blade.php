@@ -147,7 +147,10 @@
                     </a>
 
                     <div class="card-body text-center">
-                        <h5 class="card-title mb-0">{{ $media->name }}</h5>
+                    <h5 class="card-title mb-0">
+                        {{ ($_COOKIE['language'] ?? '1') == '2' ? $media->hindi_name : $media->name }}
+                    </h5>
+
                     </div>
                 </div>
             </div>
@@ -160,8 +163,8 @@
                             class="card-img-top img-fluid rounded-top" style="height:300px; object-fit: cover;">
                     </a>
 
-                    <div class="card-body text-center">
-                        <h5 class="card-title mb-0">{{ $media->title }}</h5>
+                    <div class="card-body text-center">title_hindi 
+                        <h5 class="card-title mb-0">{{ ($_COOKIE['language'] ?? '1') == '2' ? $media->title_hindi : $media->title }}</h5>
                     </div>
                 </div>
             </div>
