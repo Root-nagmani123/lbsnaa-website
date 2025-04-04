@@ -172,7 +172,7 @@
                                     </select>
                                 </div>
                             </div>
-                        </div>
+                        </div> 
                     
                         <div class="col-lg-6">
                             <div class="form-group mb-4">
@@ -190,6 +190,18 @@
                                         <option value="{{ $member->name }}" class="text-dark"
                                             {{ $course->coordinator_id == $member->name ? 'selected' : '' }}>
                                             {{ $member->name }}
+                                        </option>
+                                        @endforeach
+                                        @foreach($staff_members as $member)
+                                        <option value="{{ $member->name_in_hindi }}" class="text-dark"
+                                            {{ $course->coordinator_id == $member->name_in_hindi ? 'selected' : '' }}>
+                                            {{ $member->name_in_hindi }}
+                                        </option>
+                                        @endforeach
+                                        @foreach($faculty_members as $member)
+                                        <option value="{{ $member->name_in_hindi }}" class="text-dark"
+                                            {{ $course->coordinator_id == $member->name_in_hindi ? 'selected' : '' }}>
+                                            {{ $member->name_in_hindi }}
                                         </option>
                                         @endforeach
                                     </select>

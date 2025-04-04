@@ -78,6 +78,12 @@ class HomeFrontController extends Controller
             $query->whereNull('parent_categories.status') // Include records with no parent
                   ->orWhere('parent_categories.status', 1); // Or active parent categories
         })
+        ->when($language == 2, function ($query) use ($language) {
+            return $query->where('course.language', '2');
+        })
+        ->when($language == 1, function ($query) use ($language) {
+            return $query->where('course.language', '1');
+        })
         ->get();
     
 
@@ -99,6 +105,12 @@ class HomeFrontController extends Controller
         ->where(function ($query) {
             $query->whereNull('parent_categories.status') // Include records with no parent
                   ->orWhere('parent_categories.status', 1); // Or active parent categories
+        })
+        ->when($language == 2, function ($query) use ($language) {
+            return $query->where('course.language', '2');
+        })
+        ->when($language == 1, function ($query) use ($language) {
+            return $query->where('course.language', '1');
         })
         ->get();
     
@@ -426,7 +438,6 @@ class HomeFrontController extends Controller
      }else{
         $language =1;
      }
-
      $faculty = DB::table('faculty_members')
      ->where('page_status', 1)
      ->when($request->filled('keywords'), fn($q) => 
@@ -516,6 +527,12 @@ return view('user.pages.vacancy_archive',compact('query','title'));
 }
 public function training_cal(Request $request)
 {
+    if(isset($_COOKIE['language']) && $_COOKIE['language'] == 2){  
+        $language = $_COOKIE['language'];
+     }else{
+        $language =1;
+     }
+    
     $title = (isset($_COOKIE['language']) && $_COOKIE['language'] == '2') 
     ? 'प्रशिक्षण कैलेंडर' 
     : 'Training Calendar';
@@ -523,6 +540,9 @@ public function training_cal(Request $request)
     $parentCategories = DB::table('courses_sub_categories')
         ->where('parent_id', 0)  // Get only the parent categories
         ->where('status', 1) 
+        ->when(in_array($language, [1, 2]), function ($q) use ($language) {
+                return $q->where('language', $language);
+            })
         ->select('id','slug', 'category_name', 'color_theme')
         ->get();
 
@@ -530,6 +550,9 @@ public function training_cal(Request $request)
     $subcategories = DB::table('courses_sub_categories')
         ->where('parent_id', '!=', 0) // Get all subcategories that have a parent
         ->where('status', 1) // Get all subcategories that have a parent
+        ->when(in_array($language, [1, 2]), function ($q) use ($language) {
+            return $q->where('language', $language);
+        })
         ->select('id','slug', 'category_name', 'color_theme', 'parent_id')
         ->get();
 
@@ -565,6 +588,9 @@ public function training_cal(Request $request)
         ->leftJoin('section_category', 'course.support_section', '=', 'section_category.id')
         ->where('course.page_status', 1)
         ->whereBetween('course.course_start_date', [$start_date, $end_date])
+        ->when(in_array($language, [1, 2]), function ($q) use ($language) {
+            return $q->where('course.language', $language);
+        })
         ->select(
             'course.id',
             'course.course_name',

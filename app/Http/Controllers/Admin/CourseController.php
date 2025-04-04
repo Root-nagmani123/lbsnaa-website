@@ -43,8 +43,8 @@ class CourseController extends Controller
         $tree = $this->buildCategoryTree($categories);
         $section_category = DB::table('section_category')->select('id','name')->get();
         $manage_venues = DB::table('manage_venues')->where('status', 1)->select('id','venue_title')->get();
-        $staff_members = DB::table('staff_members')->where('page_status', 1)->select('id','name')->get();
-        $faculty_members = DB::table('faculty_members')->where('page_status', 1)->select('id','name')->get();
+        $staff_members = DB::table('staff_members')->where('page_status', 1)->select('id','name','name_in_hindi')->get();
+        $faculty_members = DB::table('faculty_members')->where('page_status', 1)->select('id','name','name_in_hindi')->get();
         return view('admin.courses.create', compact('section_category','manage_venues','tree','staff_members','faculty_members'));
     }
    

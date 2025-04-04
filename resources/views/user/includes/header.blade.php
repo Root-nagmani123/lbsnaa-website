@@ -602,8 +602,8 @@
                     </li>
                     @else
 
-                    <li
-                        class="nav-item {{ renderMenuItems($menu->id, $menu->menutitle === 'Training') ? 'dropdown' : '' }}">
+                    <li class="nav-item {{ renderMenuItems($menu->id, in_array($menu->menu_slug, ['training', 'training_hi'])) ? 'dropdown' : '' }}">
+
                         @php
                         // Initialize URL and target for the menu link
                         $url = '';
@@ -633,14 +633,14 @@
                         @endphp
 
                         <!-- Render the menu link -->
-                        <a class="nav-link {{ renderMenuItems($menu->id, $menu->menutitle === 'Training') ? 'dropdown-toggle' : '' }}"
-                            href="{{ $url }}" target="{{ $target }}" aria-expanded="false"
-                            aria-label="Expanded {{ $menu->menutitle }}">
-                            {{ $menu->menutitle }}
-                        </a>
+                        <a class="nav-link {{ renderMenuItems($menu->id, in_array($menu->menu_slug, ['training', 'training_hi'])) ? 'dropdown-toggle' : '' }}"
+                                href="{{ $url }}" target="{{ $target }}" aria-expanded="false"
+                                aria-label="Expanded {{ $menu->menutitle }}">
+                                {{ $menu->menutitle }}
+                                </a>
 
+                                {!! renderMenuItems($menu->id, in_array($menu->menu_slug, ['training', 'training_hi'])) !!}
 
-                        {!! renderMenuItems($menu->id, $menu->menutitle === 'Training') !!}
                     </li>
                     @endif
                     @endforeach

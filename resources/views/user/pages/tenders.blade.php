@@ -30,7 +30,7 @@
         <section class="container-fluid">
             <div class="row mb-3">
                 <div class="col-md-9">
-                    <h2 class="fw-semibold fs-18 mb-0 text-primary">Tenders</h2>
+                    <h2 class="fw-semibold fs-18 mb-0 text-primary">  {{ $_COOKIE['language'] == '2' ? 'निविदाएँ' : 'Tenders' }}</h2>
                 </div>
                 <div class="col-md-3 text-end">
                     <a href="{{ route('user.tenders_archive') }}" class="btn btn-primary fw-semibold btn-sm">
@@ -107,7 +107,7 @@
                                 <td>
                                     @if(!empty($value->file))
                                     <a href="{{ asset('storage/tender/'.$value->file) }}"
-                                        class="btn btn-sm btn-outline-primary" target="_blank">Download</a>
+                                        class="btn btn-sm btn-outline-primary" target="_blank"> {{ $_COOKIE['language'] == '2' ? 'डाउनलोड करें' : 'Download' }}</a>
                                     @else
                                     <span class="text-muted">N/A</span>
                                     @endif
@@ -115,7 +115,7 @@
                                 <td>
                                     @if(!empty($value->corrigendum))
                                     <a href="{{ asset('storage/tender/'.$value->corrigendum) }}"
-                                        class="btn btn-sm btn-outline-primary" target="_blank">Download</a>
+                                        class="btn btn-sm btn-outline-primary" target="_blank"> {{ $_COOKIE['language'] == '2' ? 'डाउनलोड करें' : 'Download' }}</a>
                                     @else
                                     <span class="text-muted">N/A</span>
                                     @endif

@@ -17,7 +17,7 @@
                         </li>
                         <li class="breadcrumb-item active">
                             @if($_COOKIE['language'] ==
-                            '2')दौड़ आयोजन
+                            '2')चल रहे पाठ्यक्रम
                             @else
                             Running Events
                             @endif
@@ -33,7 +33,7 @@
         <div class="card p-3">
             <div class="d-flex justify-content-between align-items-center pb-20 mb-20 mb-2">
                 <h2 class="fw-semibold fs-18 mb-0">@if($_COOKIE['language'] ==
-                    '2')दौड़ आयोजन
+                    '2')चल रहे पाठ्यक्रम
                     @else
                     Running Events
                     @endif</h2>
@@ -43,26 +43,37 @@
                 @foreach($current_course as $course)
                 <div class="col-12">
 
-                    <div class="current-course-box mb-3 p-3 border rounded bg-light">
-                        <h5 class="fw-bold text-dark mb-2 h4">@if($_COOKIE['language'] ==
-                            '2')पाठ्यक्रम शीर्षक:
-                            @else
-                            Course Title:
-                            @endif
-                            <span class="text-primary"><a href="{{ route('user.courseDetailslug', [$course->id]) }}"
-                                    class="text-primary">{{ $course->course_name }}</a></span>
-                        </h5>
-                        <p style="font-weight: 600">@if($_COOKIE['language'] ==
-                            '2')पाठ्यक्रम तिथि:
-                            @else
-                            Course Date:
-                            @endif
+                <div class="current-course-box mb-3 p-3 border rounded bg-light">
+    <h5 class="fw-bold text-dark mb-2 h4">
+        @if($_COOKIE['language'] == '2')
+            पाठ्यक्रम शीर्षक:
+        @else
+            Course Title:
+        @endif
+        <span class="text-primary">
+            <a href="{{ route('user.courseDetailslug', [$course->id]) }}" class="text-primary">
+                {{ $course->course_name }}
+            </a>
+        </span>
+    </h5>
 
-                            {{ \Carbon\Carbon::parse($course->course_start_date)->format('d F, Y') }}
-                            to
-                            {{ \Carbon\Carbon::parse($course->course_end_date)->format('d F, Y') }}
-                        </p>
-                    </div>
+    <p style="font-weight: 600">
+        @if($_COOKIE['language'] == '2')
+            पाठ्यक्रम तिथि:
+        @else
+            Course Date:
+        @endif
+
+        @php
+            \Carbon\Carbon::setLocale($_COOKIE['language'] == '2' ? 'hi' : 'en');
+            $startDate = \Carbon\Carbon::parse($course->course_start_date)->translatedFormat('d F, Y');
+            $endDate = \Carbon\Carbon::parse($course->course_end_date)->translatedFormat('d F, Y');
+        @endphp
+
+        {{ $startDate }} to {{ $endDate }}
+    </p>
+</div>
+
 
                 </div>
                 @endforeach
