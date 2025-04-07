@@ -175,7 +175,7 @@
                             class="card-img-top img-fluid rounded-top" style="height:300px; object-fit: cover;">
                     </a>
 
-                    <div class="card-body text-center"> 
+                    <div class="card-body text-center">
                         <h5 class="card-title mb-0">{{ ($_COOKIE['language'] ?? '1') == '2' ? $media->title_hindi : $media->title }}</h5>
                     </div>
                 </div>

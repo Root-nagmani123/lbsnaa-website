@@ -72,16 +72,13 @@
                 <a href="{{ route('user.courseDetailslug', [$upcomingCourses->id]) }}"
                 class="text-primary"><h5 class="fw-bold">{{ $upcomingCourses->course_name }}</h5></a>
                 @php
-                        use Carbon\Carbon;
+    $isHindi = isset($_COOKIE['language']) && $_COOKIE['language'] == '2';
 
-                        $isHindi = isset($_COOKIE['language']) && $_COOKIE['language'] == '2';
+    \Carbon\Carbon::setLocale($isHindi ? 'hi' : 'en');
 
-                        // Hindi ke liye locale set karo
-                        Carbon::setLocale($isHindi ? 'hi' : 'en');
-
-                        $startDate = Carbon::parse($upcomingCourses->course_start_date);
-                        $endDate = Carbon::parse($upcomingCourses->course_end_date);
-                    @endphp
+    $startDate = \Carbon\Carbon::parse($upcomingCourses->course_start_date);
+    $endDate = \Carbon\Carbon::parse($upcomingCourses->course_end_date);
+@endphp
 
                     <p>
                         <strong>
