@@ -216,6 +216,7 @@
                                 <div class="form-group position-relative">
                                     <select class="form-select form-control h-58" name="asst_coordinator_1_id" id="asst_coordinator_1_id">
                                         <option value="" class="text-dark">Select Name</option>
+                                        
                                         @foreach($staff_members as $member)
                                         <option value="{{ $member->name }}" class="text-dark"
                                             {{ $course->asst_coordinator_1_id == $member->name ? 'selected' : '' }}>
@@ -226,6 +227,18 @@
                                         <option value="{{ $member->name }}" class="text-dark"
                                             {{ $course->asst_coordinator_1_id == $member->name ? 'selected' : '' }}>
                                             {{ $member->name }}
+                                        </option>
+                                        @endforeach
+                                        @foreach($staff_members as $member)
+                                        <option value="{{ $member->name_in_hindi }}" class="text-dark"
+                                            {{ $course->asst_coordinator_1_id == $member->name_in_hindi ? 'selected' : '' }}>
+                                            {{ $member->name_in_hindi }}
+                                        </option>
+                                        @endforeach
+                                        @foreach($faculty_members as $member)
+                                        <option value="{{ $member->name_in_hindi }}" class="text-dark"
+                                            {{ $course->asst_coordinator_1_id == $member->name_in_hindi ? 'selected' : '' }}>
+                                            {{ $member->name_in_hindi }}
                                         </option>
                                         @endforeach
                                     </select>
@@ -239,6 +252,7 @@
                                 <div class="form-group position-relative">
                                     <select class="form-select form-control h-58" name="asst_coordinator_2_id" id="asst_coordinator_2_id">
                                         <option value="" class="text-dark">Select Name</option>
+                                      
                                         @foreach($staff_members as $member)
                                         <option value="{{ $member->name }}" class="text-dark"
                                             {{ $course->asst_coordinator_2_id == $member->name ? 'selected' : '' }}>
@@ -249,6 +263,18 @@
                                         <option value="{{ $member->name }}" class="text-dark"
                                             {{ $course->asst_coordinator_2_id == $member->name ? 'selected' : '' }}>
                                             {{ $member->name }}
+                                        </option>
+                                        @endforeach
+                                        @foreach($staff_members as $member)
+                                        <option value="{{ $member->name_in_hindi }}" class="text-dark"
+                                            {{ $course->asst_coordinator_2_id == $member->name_in_hindi ? 'selected' : '' }}>
+                                            {{ $member->name_in_hindi }}
+                                        </option>
+                                        @endforeach
+                                        @foreach($faculty_members as $member)
+                                        <option value="{{ $member->name_in_hindi }}" class="text-dark"
+                                            {{ $course->asst_coordinator_2_id == $member->name_in_hindi ? 'selected' : '' }}>
+                                            {{ $member->name_in_hindi }}
                                         </option>
                                         @endforeach
                                     </select>
@@ -272,6 +298,18 @@
                                         <option value="{{ $member->name }}" class="text-dark"
                                             {{ $course->asst_coordinator_3_id == $member->name ? 'selected' : '' }}>
                                             {{ $member->name }}
+                                        </option>
+                                        @endforeach
+                                        @foreach($staff_members as $member)
+                                        <option value="{{ $member->name_in_hindi }}" class="text-dark"
+                                            {{ $course->asst_coordinator_3_id == $member->name_in_hindi ? 'selected' : '' }}>
+                                            {{ $member->name_in_hindi }}
+                                        </option>
+                                        @endforeach
+                                        @foreach($faculty_members as $member)
+                                        <option value="{{ $member->name_in_hindi }}" class="text-dark"
+                                            {{ $course->asst_coordinator_3_id == $member->name_in_hindi ? 'selected' : '' }}>
+                                            {{ $member->name_in_hindi }}
                                         </option>
                                         @endforeach
                                     </select>
@@ -299,6 +337,18 @@
                                             {{ $member->name }}
                                         </option>
                                         @endforeach
+                                        @foreach($staff_members as $member)
+                                        <option value="{{ $member->name_in_hindi }}" class="text-dark"
+                                            {{ $course->asst_coordinator_4_id == $member->name_in_hindi ? 'selected' : '' }}>
+                                            {{ $member->name_in_hindi }}
+                                        </option>
+                                        @endforeach
+                                        @foreach($faculty_members as $member)
+                                        <option value="{{ $member->name_in_hindi }}" class="text-dark"
+                                            {{ $course->asst_coordinator_4_id == $member->name_in_hindi ? 'selected' : '' }}>
+                                            {{ $member->name_in_hindi }}
+                                        </option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -320,6 +370,18 @@
                                         <option value="{{ $member->name }}" class="text-dark"
                                             {{ $course->asst_coordinator_5_id == $member->name ? 'selected' : '' }}>
                                             {{ $member->name }}
+                                        </option>
+                                        @endforeach
+                                        @foreach($staff_members as $member)
+                                        <option value="{{ $member->name_in_hindi }}" class="text-dark"
+                                            {{ $course->asst_coordinator_5_id == $member->name_in_hindi ? 'selected' : '' }}>
+                                            {{ $member->name_in_hindi }}
+                                        </option>
+                                        @endforeach
+                                        @foreach($faculty_members as $member)
+                                        <option value="{{ $member->name_in_hindi }}" class="text-dark"
+                                            {{ $course->asst_coordinator_5_id == $member->name_in_hindi ? 'selected' : '' }}>
+                                            {{ $member->name_in_hindi }}
                                         </option>
                                         @endforeach
                                     </select>
