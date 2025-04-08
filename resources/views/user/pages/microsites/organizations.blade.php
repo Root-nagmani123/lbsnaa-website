@@ -127,7 +127,14 @@
                 @endforeach
             </div>
             @else
-            <p style="text-align: center; color: #999; font-size: 18px;">No organization available.</p>
+            <p style="text-align: center; color: #999; font-size: 18px;">
+                @if (isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                    कोई संगठन उपलब्ध नहीं है।
+                @else
+                    No organization available.
+                @endif
+            </p>
+
             @endif
         </div>
 
@@ -135,7 +142,14 @@
         <div class="col-12 col-lg-3 mb-4">
             <div class="card card-hover border">
                 <div class="card-header" style="background-color: #af2910;">
-                    <h3 class="text-white">Quick Links</h3>
+                <h3 class="text-white">
+                    @if (isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                        त्वरित लिंक
+                    @else
+                        Quick Links
+                    @endif
+                </h3>
+
                 </div>
                 <div class="card-body" style="padding: 0;">
                     <ul class="mt-2 mb-2 list-group list-group-flush">
