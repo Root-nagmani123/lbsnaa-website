@@ -166,7 +166,11 @@
                         </label>
                         <select name="archive" id="archive_course" class="form-select"
                             onchange="navigateToArchivedCourse(this.value)">
-                            <option value="">Select Archived Course</option>
+                            <option value="">@if($_COOKIE['language'] == '2')
+                        संग्रहीत पाठ्यक्रम का चयन करें
+                        @else
+                        Select Archived Course
+                        @endif</option>
                             @foreach ($courses as $archived)
                             <option value="{{ route('user.courseDetailslug', $archived->id) }}">
                                 {{ $archived->course_name }}

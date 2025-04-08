@@ -80,11 +80,11 @@
                         </label>
 
                         <label for="btn2">
-                            <input id="btn2" class="btn btn-primary" fdprocessedid="a5chyc" >@if($_COOKIE['language'] == '2')
+                            <input id="btn2" class="btn btn-primary" fdprocessedid="a5chyc" value="@if($_COOKIE['language'] == '2')
                             जमा करना
                                     @else
                                     Submit
-                                    @endif
+                                    @endif">
                             <input type="hidden" name="action" value="submit">
                         </label>
                     </fieldset>
