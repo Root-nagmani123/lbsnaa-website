@@ -9,9 +9,19 @@
                 <nav aria-label="breadcrumb ">
                     <ol class="breadcrumb p-2">
                         <li class="breadcrumb-item">
-                            <a href="{{ route('user.micrositebyslug', ['slug' => $slug]) }}" style="color: #af2910;">Home</a>
+                            <a href="{{ route('user.micrositebyslug', ['slug' => $slug]) }}" style="color: #af2910;">  @if (isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                                    होम <!-- Hindi -->
+                                @else
+                                    Home <!-- English -->
+                                @endif</a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">Academy News</li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            @if (isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                                अकादमी समाचार <!-- Hindi -->
+                            @else
+                                Academy News <!-- English -->
+                            @endif
+                        </li>
                     </ol>
                 </nav>
             </div>
@@ -24,7 +34,14 @@
         <div class="row">
             @if($archives->isEmpty())
                 <div class="col-12 text-center">
-                    <p class="text-muted fs-4">No Archives News Available</p>
+                <p class="text-muted fs-4">
+                    @if (isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                        कोई संग्रहित समाचार उपलब्ध नहीं है
+                    @else
+                        No Archives News Available
+                    @endif
+                </p>
+
                 </div>
             @else
                 @foreach($archives as $news)

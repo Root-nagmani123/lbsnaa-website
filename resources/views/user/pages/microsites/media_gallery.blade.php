@@ -142,7 +142,14 @@
                 @endforeach
             </div>
         @else
-            <p style="text-align: center; color: #999; font-size: 18px;">No photos available.</p>
+        <p style="text-align: center; color: #999; font-size: 18px;">
+    @if (isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+        कोई फोटो उपलब्ध नहीं है।
+    @else
+        No photos available.
+    @endif
+</p>
+
         @endif
 @endif
 </section>

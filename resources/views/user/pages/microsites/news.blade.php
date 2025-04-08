@@ -9,27 +9,52 @@
                 <nav aria-label="breadcrumb ">
                     <ol class="breadcrumb p-2">
                         <li class="breadcrumb-item">
-                            <a href="{{ route('user.micrositebyslug', ['slug' => $slug]) }}" style="color: #af2910;">Home</a>
+                            <a href="{{ route('user.micrositebyslug', ['slug' => $slug]) }}" style="color: #af2910;">  @if (isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                                    होम <!-- Hindi -->
+                                @else
+                                    Home <!-- English -->
+                                @endif</a>
                         </li>
-                        <li class="breadcrumb-item active" aria-current="page">Academy News</li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            @if (isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                                अकादमी समाचार <!-- Hindi -->
+                            @else
+                                Academy News <!-- English -->
+                            @endif
+                        </li>
+
                     </ol>
                 </nav>
-            </div>
+            </div> 
         </div>
-    </div>
+    </div> 
 </section>
 <section class="py-6" id="skip_to_main_content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-9"></div>
             <div class="col-3">
-                <a href="{{ route('user.archive', ['slug' => $slug]) }}" class="btn btn-outline-primary fw-semibold btn-sm" style="float: right">Archive</a>
+            <a href="{{ route('user.archive', ['slug' => $slug]) }}" class="btn btn-outline-primary fw-semibold btn-sm" style="float: right">
+                    @if(isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                        संग्रहित करें <!-- Hindi -->
+                    @else
+                        Archive <!-- English -->
+                    @endif
+                </a>
+
             </div>
         </div>
         <div class="row">
             @if($newsItems->isEmpty())
                 <div class="col-12 text-center">
-                    <p class="text-muted fs-4">No News Available</p>
+                <p class="text-muted fs-4">
+                    @if (isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                        कोई समाचार उपलब्ध नहीं है
+                    @else
+                        No News Available
+                    @endif
+                </p>
+
                 </div>
             @else
                 @foreach($newsItems as $news)
