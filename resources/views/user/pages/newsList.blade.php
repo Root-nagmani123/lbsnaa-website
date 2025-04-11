@@ -71,21 +71,27 @@
                     <!-- Card body -->
                     <div class="card-body d-flex flex-column">
                         <p class="fs-5 mb-2 fw-semibold d-block" style="color:#007A33;">
-                            @if($_COOKIE['language'] == '2')
-                            प्रकाशित किया गया:
+                            @if (isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                                प्रकाशित किया गया:
                             @else
-                            Posted On:
+                                Posted On:
                             @endif
-                            </a>
-
-                            {{ \Carbon\Carbon::parse($slider->start_date)->format('d F, Y') }}</p>
+                            {{ \Carbon\Carbon::parse($slider->start_date)->format('d F, Y') }}
+                        </p>
+                    
                         <a href="{{ route('user.newsbyslug', $slider->title_slug) }}" class="fs-5">
                             <h3 class="fs-5">
-                                {{ $slider->title }}
+                                {{ (isset($_COOKIE['language']) && $_COOKIE['language'] == '2') ? ($slider->title_hindi ?? $slider->title) : $slider->title }}
                             </h3>
                         </a>
-                        <p class="text-truncate" style="max-height: 3rem;">{{ $slider->short_description }}</p>
+                    
+                        <p class="text-truncate" style="max-height: 3rem;">
+                            {!! (isset($_COOKIE['language']) && $_COOKIE['language'] == '2') 
+                                ? ($slider->description_hindi ?? $slider->short_description) 
+                                : $slider->short_description !!}
+                        </p>
                     </div>
+                    
                     <!-- Card footer -->
                     <div class="card-footer bg-white border-0 text-start">
                         <a href="{{ route('user.newsbyslug', $slider->title_slug) }}" class="text-primary">
