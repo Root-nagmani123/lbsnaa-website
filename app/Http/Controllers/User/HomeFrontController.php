@@ -33,12 +33,6 @@ class HomeFrontController extends Controller
         ->where('status', 1)
         ->where('start_date', '<=', $today)
         ->where('end_date', '>=', $today)
-        ->when($language == 2, function ($query) use ($language) {
-            return $query->where('language', '2');
-        })
-        ->when($language == 1, function ($query) use ($language) {
-            return $query->where('language', '1');
-        })
         ->orderBy('start_date', 'desc')
         ->get();
         $quick_links = DB::table('quick_links')->where('is_deleted',0)->where('status',1)->when($language == 2, function ($query) use ($language) {

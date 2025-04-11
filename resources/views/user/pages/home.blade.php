@@ -39,11 +39,11 @@
     </button>
 
     <!-- Play/Pause Button -->
-   <button id="playPauseBtn" class="btn btn-primary btn-sm" aria-label="
+    <button id="playPauseBtn" class="btn btn-primary btn-sm" aria-label="
     {{ $_COOKIE['language'] == '2' ? 'स्लाइडर के लिए प्ले / पॉज़ बटन' : 'Play/Pause button for Sliders' }}">
-    <i class="bi bi-pause-fill"></i>
-    {{ $_COOKIE['language'] == '2' ? 'रोकें' : 'Pause' }}
-</button>
+        <i class="bi bi-pause-fill"></i>
+        {{ $_COOKIE['language'] == '2' ? 'रोकें' : 'Pause' }}
+    </button>
 
 </div>
 
@@ -123,15 +123,15 @@
                         </p>
                     </div>
                     <div class="card-body pt-2" style=" height: 80px;">
-                    <a href="{{ url($_COOKIE['language'] == '2' ? 'menu/director-message_hi' : 'menu/director-message') }}" 
+                        <a href="{{ url($_COOKIE['language'] == '2' ? 'menu/director-message_hi' : 'menu/director-message') }}"
                             class="icon-link icon-link-hover link-primary">
-                                {{ $_COOKIE['language'] == '2' ? 'संदेश' : 'Message' }}
-                            </a> 
-                            <br>
-                            <a href="{{ url($_COOKIE['language'] == '2' ? 'menu/previous-directors_hi' : 'menu/previous-directors') }}" 
+                            {{ $_COOKIE['language'] == '2' ? 'संदेश' : 'Message' }}
+                        </a>
+                        <br>
+                        <a href="{{ url($_COOKIE['language'] == '2' ? 'menu/previous-directors_hi' : 'menu/previous-directors') }}"
                             class="icon-link icon-link-hover link-primary">
-                                {{ $_COOKIE['language'] == '2' ? 'पूर्व निदेशक' : 'Previous Director' }}
-                            </a>
+                            {{ $_COOKIE['language'] == '2' ? 'पूर्व निदेशक' : 'Previous Director' }}
+                        </a>
 
                     </div>
                 </div>
@@ -163,15 +163,15 @@
                                     {{ $course->course_name }}
                                 </a><br>
                                 @if(isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
-                                        @php \Carbon\Carbon::setLocale('hi'); @endphp
-                                        पाठ्यक्रम समन्वयक: {{ $course->coordinator_id }}<br>
-                                        {{ \Carbon\Carbon::parse($course->course_start_date)->translatedFormat('d F, Y') }} से
-                                        {{ \Carbon\Carbon::parse($course->course_end_date)->translatedFormat('d F, Y') }} तक
-                                    @else
-                                        Course Coordinator: {{ $course->coordinator_id }}<br>
-                                        {{ \Carbon\Carbon::parse($course->course_start_date)->format('d F, Y') }} to
-                                        {{ \Carbon\Carbon::parse($course->course_end_date)->format('d F, Y') }}
-                                    @endif
+                                @php \Carbon\Carbon::setLocale('hi'); @endphp
+                                पाठ्यक्रम समन्वयक: {{ $course->coordinator_id }}<br>
+                                {{ \Carbon\Carbon::parse($course->course_start_date)->translatedFormat('d F, Y') }} से
+                                {{ \Carbon\Carbon::parse($course->course_end_date)->translatedFormat('d F, Y') }} तक
+                                @else
+                                Course Coordinator: {{ $course->coordinator_id }}<br>
+                                {{ \Carbon\Carbon::parse($course->course_start_date)->format('d F, Y') }} to
+                                {{ \Carbon\Carbon::parse($course->course_end_date)->format('d F, Y') }}
+                                @endif
 
 
                             </li>
@@ -230,14 +230,14 @@
                                     {{ $course->course_name }}
                                 </a><br>
                                 @if(isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
-                                    @php \Carbon\Carbon::setLocale('hi'); @endphp
-                                    पाठ्यक्रम समन्वयक: {{ $course->coordinator_id }}<br>
-                                    {{ \Carbon\Carbon::parse($course->course_start_date)->translatedFormat('d F, Y') }} से
-                                    {{ \Carbon\Carbon::parse($course->course_end_date)->translatedFormat('d F, Y') }} तक
+                                @php \Carbon\Carbon::setLocale('hi'); @endphp
+                                पाठ्यक्रम समन्वयक: {{ $course->coordinator_id }}<br>
+                                {{ \Carbon\Carbon::parse($course->course_start_date)->translatedFormat('d F, Y') }} से
+                                {{ \Carbon\Carbon::parse($course->course_end_date)->translatedFormat('d F, Y') }} तक
                                 @else
-                                    Course Coordinator: {{ $course->coordinator_id }}<br>
-                                    {{ \Carbon\Carbon::parse($course->course_start_date)->format('d F, Y') }} to
-                                    {{ \Carbon\Carbon::parse($course->course_end_date)->format('d F, Y') }}
+                                Course Coordinator: {{ $course->coordinator_id }}<br>
+                                {{ \Carbon\Carbon::parse($course->course_start_date)->format('d F, Y') }} to
+                                {{ \Carbon\Carbon::parse($course->course_end_date)->format('d F, Y') }}
                                 @endif
                             </li>
                             @endforeach
@@ -303,13 +303,13 @@
                         </p>
                     </div>
                     <div class="card-body pt-2" style="height: 80px;">
-                        <a href="{{ url($_COOKIE['language'] == '2' ? 'menu/the-academy-experience_hi' : 'menu/the-academy-experience') }}" 
-                        class="icon-link icon-link-hover link-primary">
+                        <a href="{{ url($_COOKIE['language'] == '2' ? 'menu/the-academy-experience_hi' : 'menu/the-academy-experience') }}"
+                            class="icon-link icon-link-hover link-primary">
                             {{ $_COOKIE['language'] == '2' ? 'अकादमी का अनुभव' : 'The Academy Experience' }}
                         </a><br>
-                        
-                        <a href="{{ url($_COOKIE['language'] == '2' ? 'menu/a-day-in-the-life-of-a-trainee_hi' : 'menu/a-day-in-the-life-of-a-trainee') }}" 
-                        class="icon-link icon-link-hover link-primary">
+
+                        <a href="{{ url($_COOKIE['language'] == '2' ? 'menu/a-day-in-the-life-of-a-trainee_hi' : 'menu/a-day-in-the-life-of-a-trainee') }}"
+                            class="icon-link icon-link-hover link-primary">
                             {{ $_COOKIE['language'] == '2' ? 'एक प्रशिक्षु के जीवन का एक दिन' : 'A day in the life of a Trainee' }}
                         </a>
                     </div>
@@ -393,17 +393,28 @@
                                         </div>
                                         <div class="card-body" style="height: 200px; overflow-y: hidden;">
                                             <span class="fs-5 mb-2 fw-semibold d-block" style="color:#007A33;">
-                                                @if($_COOKIE['language'] == '2')
+                                                @if (isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
                                                 प्रकाशित किया गया:
                                                 @else
                                                 Posted On:
                                                 @endif
+                                                {{ \Carbon\Carbon::parse($slider->start_date)->format('d F, Y') }}
+                                            </span>
 
-                                                {{ \Carbon\Carbon::parse($slider->start_date)->format('d F, Y') }}</span>
-                                            <h3><a href="{{ route('user.newsbyslug', $slider->title_slug) }}"
-                                                    class="icon-link icon-link-hover link-dark fw-semibold">{{ $slider->title }}</a>
+                                            <h3>
+                                                <a href="{{ route('user.newsbyslug', $slider->title_slug) }}"
+                                                    class="icon-link icon-link-hover link-dark fw-semibold">
+                                                    {{ isset($_COOKIE['language']) && $_COOKIE['language'] == '2' ? $slider->title_hindi ?? $slider->title : $slider->title }}
+                                                </a>
                                             </h3>
-                                            <p>{{ $slider->short_description }}</p>
+
+                                            <p class="text-truncate"
+                                                style="max-height: 3rem; overflow: hidden; text-overflow: ellipsis;">
+                                                {!! isset($_COOKIE['language']) && $_COOKIE['language'] == '2'
+                                                ? strip_tags($slider->description_hindi ?? $slider->short_description)
+                                                : strip_tags($slider->short_description) !!}
+                                            </p>
+                                                      
                                         </div>
                                         <div class="card-footer border-0" style="height:50px;">
                                             <a href="{{ route('user.newsbyslug', $slider->title_slug) }}"

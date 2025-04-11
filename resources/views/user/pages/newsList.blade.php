@@ -86,11 +86,17 @@
                         </a>
                     
                         <p class="text-truncate" style="max-height: 3rem;">
-                            {!! (isset($_COOKIE['language']) && $_COOKIE['language'] == '2') 
-                                ? ($slider->description_hindi ?? $slider->short_description) 
-                                : $slider->short_description !!}
+                            
+                            @if (isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                                <!-- $string = {!! $slider->description_hindi ?? $slider->short_description !!} -->
+                                {!! substr($slider->description_hindi, 0, 600). '...' !!}
+                            @else
+                                {!! substr($slider->short_description, 0, 600). '...' !!}
+                            @endif
+
                         </p>
                     </div>
+                    
                     
                     <!-- Card footer -->
                     <div class="card-footer bg-white border-0 text-start">
