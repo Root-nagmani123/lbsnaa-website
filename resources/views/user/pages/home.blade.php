@@ -414,7 +414,7 @@
                                                 ? strip_tags($slider->description_hindi ?? $slider->short_description)
                                                 : strip_tags($slider->short_description) !!}
                                             </p>
-                                                      
+                                            
                                         </div>
                                         <div class="card-footer border-0" style="height:50px;">
                                             <a href="{{ route('user.newsbyslug', $slider->title_slug) }}"
