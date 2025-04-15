@@ -36,7 +36,6 @@ class NewsController extends Controller
     {
     // Store new news
     $rules = [
-        'language' => 'required',
         'title' => 'required',
         'title_hindi' => 'required',
         'short_description' => 'required',
@@ -55,7 +54,6 @@ class NewsController extends Controller
 
     // Custom Error Messages
     $messages = [
-        'language.required' => 'Please select a language.',
         'title.required' => 'Please enter the title.',
         'short_description.required' => 'Please enter a short description.',
         'meta_title.required' => 'Please enter a meta title.',
@@ -190,7 +188,6 @@ class NewsController extends Controller
     public function update(Request $request, $id)
     {
         $rules = [
-            'language' => 'required',
             'title' => 'required',
             'title_hindi' => 'required',
             'short_description' => 'required',
@@ -208,7 +205,6 @@ class NewsController extends Controller
     
         // Custom Messages
         $messages = [
-            'language.required' => 'Please select a language.',
             'title.required' => 'Please enter the title.',
             'short_description.required' => 'Please enter a short description.',
             'meta_title.required' => 'Please enter a meta title.',

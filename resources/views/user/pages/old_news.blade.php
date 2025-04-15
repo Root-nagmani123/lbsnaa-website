@@ -11,7 +11,7 @@
                         <li class="breadcrumb-item">
                             <a href="{{ route('home') }}" class="text-danger">
                                 @if($_COOKIE['language'] == '2')
-                               होम
+                                होम
                                 @else
                                 Home
                                 @endif
@@ -53,8 +53,7 @@
                         Search by Day/Month/Year:
                         @endif
                     </label>
-                    <input type="text" id="Keywords" name="keywords" value="{{ request('keywords') }}"
-                        placeholder="@if($_COOKIE['language'] == '2')
+                    <input type="text" id="Keywords" name="keywords" value="{{ request('keywords') }}" placeholder="@if($_COOKIE['language'] == '2')
                         समाचार खोजें
                         @else
                         Search News
@@ -111,30 +110,34 @@
                     <div class="card-header p-0">
                         <a href="#">
                             <img src="{{ $slider->main_image ? asset($slider->main_image) : asset('assets/images/4.jpg') }}"
-                                class="card-img-top" alt=" {{ $slider->title }}" style="height: 200px; object-fit: cover;">
+                                class="card-img-top" alt=" {{ $slider->title }}"
+                                style="height: 200px; object-fit: cover;">
                         </a>
                     </div>
                     <!-- Card body -->
                     <div class="card-body d-flex flex-column">
                         <p class="fs-5 mb-2 fw-semibold d-block" style="color:#007A33;">
                             @if (isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
-                                प्रकाशित किया गया:
+                            प्रकाशित किया गया:
                             @else
-                                Posted On:
+                            Posted On:
                             @endif
                             {{ \Carbon\Carbon::parse($slider->start_date)->format('d F, Y') }}
                         </p>
-                    
+
                         <a href="{{ route('user.newsbyslug', $slider->title_slug) }}" class="fs-5">
                             <h3 class="fs-5">
                                 {{ (isset($_COOKIE['language']) && $_COOKIE['language'] == '2') ? ($slider->title_hindi ?? $slider->title) : $slider->title }}
                             </h3>
                         </a>
-                    
+
                         <p class="text-truncate" style="max-height: 3rem;">
-                            {!! (isset($_COOKIE['language']) && $_COOKIE['language'] == '2') 
-                                ? ($slider->description_hindi ?? $slider->short_description) 
-                                : $slider->short_description !!}
+                            @if (isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                            <!-- $string = {!! $slider->description_hindi ?? $slider->short_description !!} -->
+                            {!! substr($slider->description_hindi, 0, 600). '...' !!}
+                            @else
+                            {!! substr($slider->short_description, 0, 600). '...' !!}
+                            @endif
                         </p>
                     </div>
                     <!-- Card footer -->
@@ -158,7 +161,7 @@
             @else
             No News Found
             @endif
-            </h4>
+        </h4>
         @endif
     </div>
 </section>
