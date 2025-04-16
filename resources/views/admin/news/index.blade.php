@@ -76,7 +76,7 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td> <!-- Auto-incrementing index -->
                             <td>{{ $item->title }}</td>
-                            <td>{{ $item->language == 1 ? 'English' : 'Hindi' }}</td>
+                            <td> {{ $item->language == 1 ? 'English' : ($item->language == 2 ? 'Hindi' : 'All') }}</td>
                             <td>
                                 <button type="button" class="btn btn-outline-primary fw-semibold btn-sm view-slider"
                                     data-bs-toggle="modal" data-bs-target="#staticBackdrop"

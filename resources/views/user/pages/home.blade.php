@@ -8,23 +8,23 @@
 <div id="carouselExampleCaptions" class="carousel slide position-relative carousel-fade" data-bs-ride="carousel"
     data-bs-interval="3000">
     <div class="carousel-indicators ">
-        @foreach($sliders as $i => $slider)
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ $i }}"
-            class="{{ $i == 0 ? 'active' : '' }}" aria-current="{{ $i == 0 ? 'true' : 'false' }}"
-            aria-label="{{ $slider->text }}"></button>
+        @foreach ($sliders as $i => $slider)
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ $i }}"
+                class="{{ $i == 0 ? 'active' : '' }}" aria-current="{{ $i == 0 ? 'true' : 'false' }}"
+                aria-label="{{ $slider->text }}"></button>
         @endforeach
     </div>
 
     <!-- Dynamic Slider -->
     <div class="carousel-inner">
-        @foreach($sliders as $key => $slider)
-        <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
-            <img src="{{ asset('slider-images/' . $slider->image) }}" class="d-block w-100"
-                alt="{{ $slider->description }}">
-            <div class="carousel-caption">
-                <p class="text-center slider-caption">{{ $slider->text }}</p>
+        @foreach ($sliders as $key => $slider)
+            <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+                <img src="{{ asset('slider-images/' . $slider->image) }}" class="d-block w-100"
+                    alt="{{ $slider->description }}">
+                <div class="carousel-caption">
+                    <p class="text-center slider-caption">{{ $slider->text }}</p>
+                </div>
             </div>
-        </div>
         @endforeach
     </div>
 
@@ -39,7 +39,8 @@
     </button>
 
     <!-- Play/Pause Button -->
-    <button id="playPauseBtn" class="btn btn-primary btn-sm" aria-label="
+    <button id="playPauseBtn" class="btn btn-primary btn-sm"
+        aria-label="
     {{ $_COOKIE['language'] == '2' ? 'स्लाइडर के लिए प्ले / पॉज़ बटन' : 'Play/Pause button for Sliders' }}">
         <i class="bi bi-pause-fill"></i>
         {{ $_COOKIE['language'] == '2' ? 'रोकें' : 'Pause' }}
@@ -60,34 +61,34 @@
             <!-- Latest Updates Button -->
             <button class="btn btn-primary btn-sm me-2 rounded py-2" id="basic-addon2"
                 style="z-index: 999;width: 200px;">
-                @if($_COOKIE['language'] == '2')
-                नवीनतम अपडेट
+                @if ($_COOKIE['language'] == '2')
+                    नवीनतम अपडेट
                 @else
-                Latest Updates
+                    Latest Updates
                 @endif
             </button>
 
             <!-- Marquee Section -->
             <div id="marqueeWrapper" class="w-100 overflow-hidden position-relative">
                 <div id="marqueeContainer" class="d-flex gap-3 flex-nowrap align-items-center">
-                    @foreach($news_scrollers as $scroller)
-                    @if(!empty($scroller->website_url))
-                    <a href="{{ str_starts_with($scroller->website_url, 'http') ? $scroller->website_url : 'http://' . $scroller->website_url }}"
-                        target="_blank"
-                        class="d-inline-flex align-items-center justify-content-center text-center card-lift px-3 rounded border shadow-sm marquee-item">
-                        <span class="text-gray-800">{{ $scroller->menutitle }}</span>
-                    </a>
-                    @elseif(!empty($scroller->pdf_file))
-                    <a href="{{ asset($scroller->pdf_file) }}" target="_blank"
-                        class="d-inline-flex align-items-center justify-content-center text-center card-lift px-3 rounded border shadow-sm marquee-item">
-                        <span class="text-gray-800">{{ $scroller->menutitle }}</span>
-                    </a>
-                    @else
-                    <a href="{{ route('user.letest_updates', $scroller->menu_slug) }}"
-                        class="d-inline-flex align-items-center justify-content-center text-center card-lift px-3 rounded border shadow-sm marquee-item">
-                        <span class="text-gray-800">{{ $scroller->menutitle }}</span>
-                    </a>
-                    @endif
+                    @foreach ($news_scrollers as $scroller)
+                        @if (!empty($scroller->website_url))
+                            <a href="{{ str_starts_with($scroller->website_url, 'http') ? $scroller->website_url : 'http://' . $scroller->website_url }}"
+                                target="_blank"
+                                class="d-inline-flex align-items-center justify-content-center text-center card-lift px-3 rounded border shadow-sm marquee-item">
+                                <span class="text-gray-800">{{ $scroller->menutitle }}</span>
+                            </a>
+                        @elseif(!empty($scroller->pdf_file))
+                            <a href="{{ asset($scroller->pdf_file) }}" target="_blank"
+                                class="d-inline-flex align-items-center justify-content-center text-center card-lift px-3 rounded border shadow-sm marquee-item">
+                                <span class="text-gray-800">{{ $scroller->menutitle }}</span>
+                            </a>
+                        @else
+                            <a href="{{ route('user.letest_updates', $scroller->menu_slug) }}"
+                                class="d-inline-flex align-items-center justify-content-center text-center card-lift px-3 rounded border shadow-sm marquee-item">
+                                <span class="text-gray-800">{{ $scroller->menutitle }}</span>
+                            </a>
+                        @endif
                     @endforeach
                 </div>
             </div>
@@ -115,10 +116,10 @@
                     </div>
                     <div class="card-header " style="border-bottom: none;">
                         <p class="mb-3 fw-bold">
-                            @if($_COOKIE['language'] == '2')
-                            निदेशक संदेश
+                            @if ($_COOKIE['language'] == '2')
+                                निदेशक संदेश
                             @else
-                            Director Message
+                                Director Message
                             @endif
                         </p>
                     </div>
@@ -144,61 +145,61 @@
                     </div>
                     <div class="card-header" style="border-bottom: none;">
                         <p class="fw-bold">
-                            @if($_COOKIE['language'] == '2')
-                            चल रहे पाठ्यक्रम
+                            @if ($_COOKIE['language'] == '2')
+                                चल रहे पाठ्यक्रम
                             @else
-                            Running Courses
+                                Running Courses
                             @endif
                         </p>
                     </div>
                     <div class="card-body pt-2" style="overflow-y:scroll; height: 80px;">
 
-                        @if(count($current_course) > 0)
-                        <ul>
-                            @php $i = 0; @endphp
-                            @foreach ($current_course as $course)
-                            <li>
-                                <a href="{{ route('user.courseDetailslug', ['slug' => $course->id]) }}"
-                                    style="color: #af2910;">
-                                    {{ $course->course_name }}
-                                </a><br>
-                                @if(isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
-                                @php \Carbon\Carbon::setLocale('hi'); @endphp
-                                पाठ्यक्रम समन्वयक: {{ $course->coordinator_id }}<br>
-                                {{ \Carbon\Carbon::parse($course->course_start_date)->translatedFormat('d F, Y') }} से
-                                {{ \Carbon\Carbon::parse($course->course_end_date)->translatedFormat('d F, Y') }} तक
-                                @else
-                                Course Coordinator: {{ $course->coordinator_id }}<br>
-                                {{ \Carbon\Carbon::parse($course->course_start_date)->format('d F, Y') }} to
-                                {{ \Carbon\Carbon::parse($course->course_end_date)->format('d F, Y') }}
-                                @endif
+                        @if (count($current_course) > 0)
+                            <ul>
+                                @php $i = 0; @endphp
+                                @foreach ($current_course as $course)
+                                    <li>
+                                        <a href="{{ route('user.courseDetailslug', ['slug' => $course->id]) }}"
+                                            style="color: #af2910;">
+                                            {{ $course->course_name }}
+                                        </a><br>
+                                        @if (isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                                            @php \Carbon\Carbon::setLocale('hi'); @endphp
+                                            पाठ्यक्रम समन्वयक: {{ $course->coordinator_id }}<br>
+                                            {{ \Carbon\Carbon::parse($course->course_start_date)->translatedFormat('d F, Y') }}
+                                            से
+                                            {{ \Carbon\Carbon::parse($course->course_end_date)->translatedFormat('d F, Y') }}
+                                            तक
+                                        @else
+                                            Course Coordinator: {{ $course->coordinator_id }}<br>
+                                            {{ \Carbon\Carbon::parse($course->course_start_date)->format('d F, Y') }}
+                                            to
+                                            {{ \Carbon\Carbon::parse($course->course_end_date)->format('d F, Y') }}
+                                        @endif
 
 
-                            </li>
-                            @php $i++; @endphp
-                            @endforeach
+                                    </li>
+                                    @php $i++; @endphp
+                                @endforeach
 
-                        </ul>
-
-
-
+                            </ul>
                         @else
-                        <span>
-                            @if($_COOKIE['language'] == '2')
-                            कोई पाठ्यक्रम उपलब्ध नहीं है
-                            @else
-                            No Course Available
-                            @endif
-                        </span>
+                            <span>
+                                @if ($_COOKIE['language'] == '2')
+                                    कोई पाठ्यक्रम उपलब्ध नहीं है
+                                @else
+                                    No Course Available
+                                @endif
+                            </span>
                         @endif
                     </div>
                     <div class="card-footer" style="border:none;float: right;text-align: right;">
                         <button class="btn btn-primary btn-sm"> <a href="{{ route('user.runningCourses') }}"
                                 style="color: white;" aria-label="View All Running Courses">
-                                @if($_COOKIE['language'] == '2')
-                                सभी को देखें
+                                @if ($_COOKIE['language'] == '2')
+                                    सभी को देखें
                                 @else
-                                View All
+                                    View All
                                 @endif
                             </a></button>
                     </div>
@@ -212,54 +213,59 @@
                     </div>
                     <div class="card-header" style="border-bottom: none;">
                         <p class="fw-bold">
-                            @if($_COOKIE['language'] == '2')
-                            आगामी पाठ्यक्रम
+                            @if ($_COOKIE['language'] == '2')
+                                आगामी पाठ्यक्रम
                             @else
-                            Upcoming Courses
+                                Upcoming Courses
                             @endif
                         </p>
                     </div>
                     <div class="card-body pt-2 pb-2" style="overflow-y:scroll;height: 80px;">
-                        @if(count($upcoming_course) > 0)
-                        <ul>
+                        @if (count($upcoming_course) > 0)
+                            <ul>
 
-                            @foreach ($upcoming_course as $course)
-                            <li>
-                                <a href="{{ route('user.courseDetailslug', ['slug' => $course->id]) }}"
-                                    style="color: #af2910;">
-                                    {{ $course->course_name }}
-                                </a><br>
-                                @if(isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
-                                @php \Carbon\Carbon::setLocale('hi'); @endphp
-                                पाठ्यक्रम समन्वयक: {{ $course->coordinator_id }}<br>
-                                {{ \Carbon\Carbon::parse($course->course_start_date)->translatedFormat('d F, Y') }} से
-                                {{ \Carbon\Carbon::parse($course->course_end_date)->translatedFormat('d F, Y') }} तक
-                                @else
-                                Course Coordinator: {{ $course->coordinator_id }}<br>
-                                {{ \Carbon\Carbon::parse($course->course_start_date)->format('d F, Y') }} to
-                                {{ \Carbon\Carbon::parse($course->course_end_date)->format('d F, Y') }}
-                                @endif
-                            </li>
-                            @endforeach
+                                @foreach ($upcoming_course as $course)
+                                    <li>
+                                        <a href="{{ route('user.courseDetailslug', ['slug' => $course->id]) }}"
+                                            style="color: #af2910;">
+                                            {{ $course->course_name }}
+                                        </a><br>
+                                        @if (isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                                            @php \Carbon\Carbon::setLocale('hi'); @endphp
+                                            पाठ्यक्रम समन्वयक: {{ $course->coordinator_id }}<br>
+                                            {{ \Carbon\Carbon::parse($course->course_start_date)->translatedFormat('d F, Y') }}
+                                            से
+                                            {{ \Carbon\Carbon::parse($course->course_end_date)->translatedFormat('d F, Y') }}
+                                            तक
+                                        @else
+                                            Course Coordinator: {{ $course->coordinator_id }}<br>
+                                            {{ \Carbon\Carbon::parse($course->course_start_date)->format('d F, Y') }}
+                                            to
+                                            {{ \Carbon\Carbon::parse($course->course_end_date)->format('d F, Y') }}
+                                        @endif
+                                    </li>
+                                @endforeach
 
-                        </ul>
-
+                            </ul>
                         @else
-                        <span> @if($_COOKIE['language'] == '2')
-                            कोई पाठ्यक्रम उपलब्ध नहीं है
-                            @else
-                            No Course Available
-                            @endif</span>
+                            <span>
+                                @if ($_COOKIE['language'] == '2')
+                                    कोई पाठ्यक्रम उपलब्ध नहीं है
+                                @else
+                                    No Course Available
+                                @endif
+                            </span>
                         @endif
                     </div>
                     <div class="card-footer" style="border:none;float: right;text-align: right;">
                         <button class="btn btn-primary btn-sm"><a href="{{ route('user.upcomingCourses') }}"
-                                style="color: white;" aria-label="View All Upcoming Courses">@if($_COOKIE['language']
-                                == '2')
-                                सभी को देखें
+                                style="color: white;" aria-label="View All Upcoming Courses">
+                                @if ($_COOKIE['language'] == '2')
+                                    सभी को देखें
                                 @else
-                                View All
-                                @endif</a></button>
+                                    View All
+                                @endif
+                            </a></button>
 
                     </div>
                 </div>
@@ -272,20 +278,20 @@
                     </div>
                     <div class="card-header" style="border-bottom: none;">
                         <p class="fw-bold">
-                            @if($_COOKIE['language'] == '2')
-                            प्रशिक्षण कैलेंडर
+                            @if ($_COOKIE['language'] == '2')
+                                प्रशिक्षण कैलेंडर
                             @else
-                            Training Calendar
+                                Training Calendar
                             @endif
                         </p>
                     </div>
 
                     <div class="card-body pt-2" style="height: 80px;">
                         <a href="{{ url('cms/training_cal') }}" class="icon-link icon-link-hover link-primary">
-                            @if($_COOKIE['language'] == '2')
-                            एलबीएसएनएए का प्रशिक्षण कैलेंडर
+                            @if ($_COOKIE['language'] == '2')
+                                एलबीएसएनएए का प्रशिक्षण कैलेंडर
                             @else
-                            Training Calendar of LBSNAA
+                                Training Calendar of LBSNAA
                             @endif
                         </a>
                     </div>
@@ -324,26 +330,28 @@
                     </div>
                     <div class="card-header" style="border-bottom: none;">
                         <p class="fw-bold">
-                            @if($_COOKIE['language'] == '2')
-                            अकादमी स्मारिका
+                            @if ($_COOKIE['language'] == '2')
+                                अकादमी स्मारिका
                             @else
-                            Academy Souvenir
+                                Academy Souvenir
                             @endif
                         </p>
                     </div>
                     <div class="card-body pt-2" style="height: 80px;">
-                        <a href="{{ url('souvenir?pro_category=7')}}" class="icon-link icon-link-hover link-primary">
-                            @if($_COOKIE['language'] == '2')
-                            यादगार लम्हे
+                        <a href="{{ url('souvenir?pro_category=7') }}"
+                            class="icon-link icon-link-hover link-primary">
+                            @if ($_COOKIE['language'] == '2')
+                                यादगार लम्हे
                             @else
-                            Memorabilia
+                                Memorabilia
                             @endif
                         </a><br>
-                        <a href="{{ url('souvenir?pro_category=6')}}" class="icon-link icon-link-hover link-primary">
-                            @if($_COOKIE['language'] == '2')
-                            परिधान
+                        <a href="{{ url('souvenir?pro_category=6') }}"
+                            class="icon-link icon-link-hover link-primary">
+                            @if ($_COOKIE['language'] == '2')
+                                परिधान
                             @else
-                            Apparel
+                                Apparel
                             @endif
                         </a>
                     </div>
@@ -360,17 +368,22 @@
                 <div class="mb-3">
                     <div class="card card-hover border">
                         <div class="card-header" style="background-color:#af2910">
-                            <h2 class="text-white h4">@if($_COOKIE['language'] == '2')
-                                अकादमी समाचार
+                            <h2 class="text-white h4">
+                                @if ($_COOKIE['language'] == '2')
+                                    अकादमी समाचार
                                 @else
-                                LBSNAA Academy News
-                                @endif <span class="float-end"><a href="{{ route('user.news_listing') }}"
+                                    LBSNAA Academy News
+                                @endif
+                                <span class="float-end"><a href="{{ route('user.news_listing') }}"
                                         class="text-white" style="text-decoration: none;font-size:14px"
-                                        aria-label="View All Academy News">@if($_COOKIE['language'] == '2')
-                                        सभी को देखें
+                                        aria-label="View All Academy News">
+                                        @if ($_COOKIE['language'] == '2')
+                                            सभी को देखें
                                         @else
-                                        View All
-                                        @endif</a></span></h2>
+                                            View All
+                                        @endif
+                                    </a></span>
+                            </h2>
                         </div>
                     </div>
                 </div>
@@ -378,68 +391,83 @@
                     <!-- Carousel Inner (carousel items) -->
                     <div class="carousel-inner">
                         @foreach ($news->chunk(3) as $chunk)
-                        <!-- Group cards into chunks of 3 for each slide -->
-                        <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                            <div class="row">
-                                @foreach ($chunk as $slider)
-                                <!-- Card -->
-                                <div class="col-lg-4 col-md-6 col-12 mb-4">
-                                    <div class="card">
-                                        <div class="card-header p-0 border-0">
-                                            <img src="{{ isset($slider->main_image) && !empty($slider->main_image) ? asset($slider->main_image) : asset('assets/images/4.jpg') }}"
-                                                class="card-img-top img-fluid" alt="{{ $slider->short_description }}"
-                                                aria-label="{{ $slider->short_description }}"
-                                                style="object-fit: cover; height: 250px; width: 100%;">
-                                        </div>
-                                        <div class="card-body" style="height: 200px; overflow-y: hidden;">
-                                            <span class="fs-5 mb-2 fw-semibold d-block" style="color:#007A33;">
-                                                @if (isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
-                                                प्रकाशित किया गया:
-                                                @else
-                                                Posted On:
-                                                @endif
-                                                {{ \Carbon\Carbon::parse($slider->start_date)->format('d F, Y') }}
-                                            </span>
+                            <!-- Group cards into chunks of 3 for each slide -->
+                            <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                                <div class="row">
+                                    @foreach ($chunk as $slider)
+                                        <!-- Card -->
+                                        <div class="col-lg-4 col-md-6 col-12 mb-4">
+                                            <div class="card">
+                                                <div class="card-header p-0 border-0">
+                                                    <img src="{{ isset($slider->main_image) && !empty($slider->main_image) ? asset($slider->main_image) : asset('assets/images/4.jpg') }}"
+                                                        class="card-img-top img-fluid"
+                                                        alt="{{ $slider->short_description }}"
+                                                        aria-label="{{ $slider->short_description }}"
+                                                        style="object-fit: cover; height: 250px; width: 100%;">
+                                                </div>
+                                                <div class="card-body" style="height: 200px; overflow-y: hidden;">
+                                                    <span class="fs-5 mb-2 fw-semibold d-block"
+                                                        style="color:#007A33;">
+                                                        @if (isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                                                            प्रकाशित किया गया:
+                                                        @else
+                                                            Posted On:
+                                                        @endif
+                                                        {{ \Carbon\Carbon::parse($slider->start_date)->format('d F, Y') }}
+                                                    </span>
 
-                                            <h3>
-                                                <a href="{{ route('user.newsbyslug', $slider->title_slug) }}"
+                                                    <h3>
+                                                        {{-- <a href="{{ route('user.newsbyslug', $slider->title_slug) }}"
                                                     class="icon-link icon-link-hover link-dark fw-semibold">
                                                     {{ isset($_COOKIE['language']) && $_COOKIE['language'] == '2' ? $slider->title_hindi ?? $slider->title : $slider->title }}
-                                                </a>
-                                            </h3>
+                                                </a> --}}
+                                                        <a href="{{ route('user.newsbyslug', $slider->title_slug) }}"
+                                                            class="icon-link icon-link-hover link-dark fw-semibold">
+                                                            {{ ($_COOKIE['language'] ?? '1') == '2' ? $slider->title_hindi ?? $slider->title : $slider->title }}
+                                                        </a>
 
-                                            <p class="text-truncate"
-                                                style="max-height: 3rem; overflow: hidden; text-overflow: ellipsis;">
-                                                {!! isset($_COOKIE['language']) && $_COOKIE['language'] == '2'
-                                                ? strip_tags($slider->description_hindi ?? $slider->short_description)
-                                                : strip_tags($slider->short_description) !!}
-                                            </p>
-                                            
+                                                    </h3>
+
+                                                    @php
+                                                        $lang = $_COOKIE['language'] ?? '1';
+                                                        $description =
+                                                            $lang == '2' && !empty($slider->description_hindi)
+                                                                ? $slider->description_hindi
+                                                                : $slider->short_description;
+                                                    @endphp
+
+                                                    <p class="text-truncate"
+                                                        style="max-height: 3rem; overflow: hidden; text-overflow: ellipsis;">
+                                                        {!! strip_tags($description) !!}
+                                                    </p>
+
+
+                                                </div>
+                                                <div class="card-footer border-0" style="height:50px;">
+                                                    <a href="{{ route('user.newsbyslug', $slider->title_slug) }}"
+                                                        class="icon-link icon-link-hover link-primary fw-semibold"
+                                                        aria-label="Read More {{ $slider->short_description }}">
+                                                        <span>
+                                                            @if ($_COOKIE['language'] == '2')
+                                                                और पढ़ें
+                                                            @else
+                                                                Read More
+                                                            @endif
+                                                        </span>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="14"
+                                                            height="14" fill="currentColor"
+                                                            class="bi bi-arrow-right" viewBox="0 0 16 16">
+                                                            <path fill-rule="evenodd"
+                                                                d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8">
+                                                            </path>
+                                                        </svg>
+                                                    </a>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="card-footer border-0" style="height:50px;">
-                                            <a href="{{ route('user.newsbyslug', $slider->title_slug) }}"
-                                                class="icon-link icon-link-hover link-primary fw-semibold"
-                                                aria-label="Read More {{ $slider->short_description }}">
-                                                <span>
-                                                    @if($_COOKIE['language'] == '2')
-                                                    और पढ़ें
-                                                    @else
-                                                    Read More
-                                                    @endif
-                                                </span>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                                    fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                                                    <path fill-rule="evenodd"
-                                                        d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8">
-                                                    </path>
-                                                </svg>
-                                            </a>
-                                        </div>
-                                    </div>
+                                    @endforeach
                                 </div>
-                                @endforeach
                             </div>
-                        </div>
                         @endforeach
                     </div>
                 </div>
@@ -451,43 +479,50 @@
                 <!-- Quick Links Section -->
                 <div class="card card-hover border">
                     <div class="card-header" style="background-color:#af2910">
-                        <h4 class="text-white">@if($_COOKIE['language'] == '2') त्वरित लिंक्स @else Quick Links
-                            @endif</h4>
+                        <h4 class="text-white">
+                            @if ($_COOKIE['language'] == '2')
+                                त्वरित लिंक्स
+                            @else
+                                Quick Links
+                            @endif
+                        </h4>
                     </div>
                     <div class="card-body p-0" style="height: 520px; overflow-y: scroll;">
                         <ul class="mt-2 mb-2 list-group list-group-flush">
-                            @foreach($quick_links as $key => $quick_link)
-                            <li class="text-start list-group-item">
-                                @if(!empty($quick_link->url))
-                                <a href="{{ $quick_link->url_type == 'external' ? (str_starts_with($quick_link->url, 'http') ? $quick_link->url : 'http://' . $quick_link->url) : url($quick_link->url) }}"
-                                    class="text-decoration-none text-primary">
-                                    <span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                            fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd"
-                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z">
-                                            </path>
-                                        </svg>
-                                    </span>
-                                    {{ $quick_link->text }}
-                                </a>
-                                @elseif(!empty($quick_link->file))
-                                <a href="{{ asset('quick-links-files/'.$quick_link->file) }}" target="_blank"
-                                    class="text-decoration-none text-primary">
-                                    <span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                            fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd"
-                                                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z">
-                                            </path>
-                                        </svg>
-                                    </span>
-                                    {{ $quick_link->text }}
-                                </a>
-                                @else
-                                {{ $quick_link->text }}
-                                @endif
-                            </li>
+                            @foreach ($quick_links as $key => $quick_link)
+                                <li class="text-start list-group-item">
+                                    @if (!empty($quick_link->url))
+                                        <a href="{{ $quick_link->url_type == 'external' ? (str_starts_with($quick_link->url, 'http') ? $quick_link->url : 'http://' . $quick_link->url) : url($quick_link->url) }}"
+                                            class="text-decoration-none text-primary">
+                                            <span>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                    fill="currentColor" class="bi bi-arrow-right-short"
+                                                    viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd"
+                                                        d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z">
+                                                    </path>
+                                                </svg>
+                                            </span>
+                                            {{ $quick_link->text }}
+                                        </a>
+                                    @elseif(!empty($quick_link->file))
+                                        <a href="{{ asset('quick-links-files/' . $quick_link->file) }}" target="_blank"
+                                            class="text-decoration-none text-primary">
+                                            <span>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                    fill="currentColor" class="bi bi-arrow-right-short"
+                                                    viewBox="0 0 16 16">
+                                                    <path fill-rule="evenodd"
+                                                        d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z">
+                                                    </path>
+                                                </svg>
+                                            </span>
+                                            {{ $quick_link->text }}
+                                        </a>
+                                    @else
+                                        {{ $quick_link->text }}
+                                    @endif
+                                </li>
                             @endforeach
                         </ul>
                     </div>

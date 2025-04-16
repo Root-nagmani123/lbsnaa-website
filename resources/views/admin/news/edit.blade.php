@@ -64,6 +64,8 @@
                                         {{ $news->language == '1' ? 'checked' : '' }}> English
                                     <input type="radio" name="language" value="2"
                                         {{ $news->language == '2' ? 'checked' : '' }}> Hindi
+                                        <input type="radio" name="language" value= ''
+                                        {{ $news->language == '' ? 'checked' : '' }}> All
                                 </div>
 
                             </div>

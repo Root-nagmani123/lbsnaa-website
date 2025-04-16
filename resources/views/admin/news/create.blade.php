@@ -63,6 +63,8 @@
                                         {{ old('language') == 1 ? 'checked' : '' }}> English
                                     <input type="radio" name="language" value="2"
                                         {{ old('language') == 2 ? 'checked' : '' }}> Hindi
+                                        <input type="radio" name="language" value="0"
+                                        {{ old('language') == 0 ? 'checked' : '' }}> All
                                 </div>
 
                             </div>

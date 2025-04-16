@@ -38,15 +38,32 @@ class HomeFrontController extends Controller
         // ->orderBy('start_date', 'desc')
         // ->get();
 
+        // $news = DB::table('news')
+        //     ->where('status', 1)
+        //     ->where('start_date', '<=', $today)
+        //     ->where('end_date', '>=', $today)
+        //     ->when(in_array($language, [1, 2]), function ($query) use ($language) {
+        //         return $query->where('language', $language);
+        //     })
+        //     ->orderBy('start_date', 'desc')
+        //     ->get();
+
+        $language = $_COOKIE['language'] ?? null;
+
         $news = DB::table('news')
             ->where('status', 1)
             ->where('start_date', '<=', $today)
             ->where('end_date', '>=', $today)
-            ->when(in_array($language, [1, 2]), function ($query) use ($language) {
-                return $query->where('language', $language);
+            ->when(in_array($language, ['1', '2']), function ($query) use ($language) {
+                $query->where(function ($q) use ($language) {
+                    $q->where('language', $language)
+                        ->orWhereNull('language'); // include nulls too
+                });
             })
             ->orderBy('start_date', 'desc')
             ->get();
+
+
 
         $quick_links = DB::table('quick_links')->where('is_deleted', 0)->where('status', 1)->when($language == 2, function ($query) use ($language) {
             return $query->where('language', '2');
@@ -339,16 +356,29 @@ class HomeFrontController extends Controller
         $today = date('Y-m-d');
         // $news =  DB::table('news')->where('status', 1)->where('start_date', '<=', $today)
         //     ->where('end_date', '>=', $today)->orderBy('start_date', 'desc')->get();
+        // $news = DB::table('news')
+        //     ->where('status', 1)
+        //     ->where('start_date', '<=', $today)
+        //     ->where('end_date', '>=', $today)
+        //     ->when(in_array($language, [1, 2]), function ($query) use ($language) {
+        //         return $query->where('language', $language);
+        //     })
+        //     ->orderBy('start_date', 'desc')
+        //     ->get();
+        $language = $_COOKIE['language'] ?? null;
+
         $news = DB::table('news')
             ->where('status', 1)
             ->where('start_date', '<=', $today)
             ->where('end_date', '>=', $today)
-            ->when(in_array($language, [1, 2]), function ($query) use ($language) {
-                return $query->where('language', $language);
+            ->when(in_array($language, ['1', '2']), function ($query) use ($language) {
+                $query->where(function ($q) use ($language) {
+                    $q->where('language', $language)
+                        ->orWhereNull('language'); // include nulls too
+                });
             })
             ->orderBy('start_date', 'desc')
             ->get();
-
 
         return view('user.pages.newsList', compact('news', 'title'));
     }
