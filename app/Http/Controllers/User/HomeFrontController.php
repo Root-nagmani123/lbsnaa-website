@@ -395,9 +395,32 @@ class HomeFrontController extends Controller
         $years = range($currentYear, $startingYear);
 
         // Build the query for news
+        // $query = DB::table('news')
+        //     ->where('status', 1)
+        //     ->where('end_date', '<', $today);
+
+        // // Apply search filters if provided
+        // if ($request->filled('keywords')) {
+        //     $query->where('title', 'like', '%' . $request->keywords . '%');
+        // }
+        // if ($request->filled('year')) {
+        //     $query->whereYear('start_date', $request->year);
+        // }
+
+        // $news = $query->get();
+
+        $language = $_COOKIE['language'] ?? null;
+        $today = date('Y-m-d');
+
         $query = DB::table('news')
             ->where('status', 1)
-            ->where('end_date', '<', $today);
+            ->where('end_date', '<', $today)
+            ->when(in_array($language, ['1', '2']), function ($query) use ($language) {
+                $query->where(function ($q) use ($language) {
+                    $q->where('language', $language)
+                        ->orWhereNull('language');
+                });
+            });
 
         // Apply search filters if provided
         if ($request->filled('keywords')) {
@@ -407,7 +430,30 @@ class HomeFrontController extends Controller
             $query->whereYear('start_date', $request->year);
         }
 
-        $news = $query->get();
+        $news = $query->orderBy('start_date', 'desc')->get();
+        $language = $_COOKIE['language'] ?? null;
+        $today = date('Y-m-d');
+
+        $query = DB::table('news')
+            ->where('status', 1)
+            ->where('end_date', '<', $today)
+            ->when(in_array($language, ['1', '2']), function ($query) use ($language) {
+                $query->where(function ($q) use ($language) {
+                    $q->where('language', $language)
+                        ->orWhereNull('language');
+                });
+            });
+
+        // Apply search filters if provided
+        if ($request->filled('keywords')) {
+            $query->where('title', 'like', '%' . $request->keywords . '%');
+        }
+        if ($request->filled('year')) {
+            $query->whereYear('start_date', $request->year);
+        }
+
+        $news = $query->orderBy('start_date', 'desc')->get();
+
 
         // Return view with news and years
         return view('user.pages.old_news', compact('news', 'years', 'title'));
