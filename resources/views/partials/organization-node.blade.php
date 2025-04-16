@@ -1,7 +1,9 @@
                   <div class="card card-lift" style="width: 18rem;">
-                      @php
-                      $keyword = str_replace(' ', '+', $node->name);
-                      @endphp
+                 
+                  @php
+                        $name = isset($_COOKIE['language']) && $_COOKIE['language'] == '2' ? $node->name_in_hindi : $node->name;
+                        $keyword = str_replace(' ', '+', $name);
+                    @endphp
                       <div class="card-body" style="padding:0;">
                           <img src="{{ asset($node->image) }}" alt="{{ $node->name }}" class="avatar avatar-xl rounded-circle">
                           <!--content-->
