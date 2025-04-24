@@ -14,7 +14,7 @@
         <li>
             <span class="fw-semibold fs-14 heading-font text-dark dot ms-2">Training Program - Micro</span>
         </li>
-    </ul>
+    </ul> 
 </div>
 @if(Cache::has('success_message'))
     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -232,7 +232,7 @@
 </div>
 
 <!-- here this code use for the editer js -->
-<!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <script>
 $('#important_links').summernote({
@@ -298,7 +298,6 @@ jQuery(document).ready(function ($) {
             }
         }
     });
-    
 
     function uploadPDF(file) {
         // Use AJAX to upload the file to your server
