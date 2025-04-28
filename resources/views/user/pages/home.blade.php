@@ -533,8 +533,8 @@
     </div>
 </section>
 <div class="modal fade" id="pdfModal" tabindex="-1" role="dialog" aria-labelledby="pdfModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
-        <div class="modal-content">
+    <div class="modal-dialog modal-xl" role="document" style="display: flex; justify-content: center; align-items: center;">
+        <div class="modal-content" style="width: 100%; max-width: 100%; height: 100%; display: flex; flex-direction: column;">
             <div class="modal-header">
                 <h5 class="modal-title" id="pdfModalLabel">
                     @if(isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
@@ -545,7 +545,7 @@
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="display: flex; justify-content: center; align-items: center; flex-direction: column; height: 80vh; text-align: center;">
                 <!-- Loading Spinner -->
                 <div id="loader" class="text-center" style="display: block;">
                     <div class="spinner-border" role="status">
@@ -587,65 +587,69 @@
 });
     // Function to open PDF in the modal using PDF.js
     function openPDFModal(pdfUrl) {
-        const loader = document.getElementById('loader'); // Loading spinner element
-        const pdfContainer = document.getElementById('pdfContainer'); // PDF container element
+    const loader = document.getElementById('loader'); // Loading spinner element
+    const pdfContainer = document.getElementById('pdfContainer'); // PDF container element
 
-        // Show loader and hide PDF container initially
-        loader.style.display = "block"; // Show the loader spinner
-        pdfContainer.style.display = "none"; // Hide the PDF container
+    // Show loader and hide PDF container initially
+    loader.style.display = "block"; // Show the loader spinner
+    pdfContainer.style.display = "none"; // Hide the PDF container
 
-        const container = document.getElementById('pdfContainer');
-        container.innerHTML = ""; // Clear the container before loading the PDF
+    const container = document.getElementById('pdfContainer');
+    container.innerHTML = ""; // Clear the container before loading the PDF
 
-        // Fetch the PDF document using PDF.js
-        pdfjsLib.getDocument(pdfUrl).promise.then(function(pdfDoc_) {
-            const pdfDoc = pdfDoc_;
-            const totalPages = pdfDoc.numPages;
+    // Fetch the PDF document using PDF.js
+    pdfjsLib.getDocument(pdfUrl).promise.then(function(pdfDoc_) {
+        const pdfDoc = pdfDoc_;
+        const totalPages = pdfDoc.numPages;
 
-            let renderedPages = 0;
+        let renderedPages = 0;
 
-            // Loop through all pages and render them
-            for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
-                pdfDoc.getPage(pageNum).then(function(page) {
-                    const viewport = page.getViewport({
-                        scale: 1.25
-                    });
+        // Loop through all pages and render them
+        for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
+            pdfDoc.getPage(pageNum).then(function(page) {
+                const viewport = page.getViewport({ scale: 1.25 });
 
-                    // Create a canvas element for each page
-                    const canvas = document.createElement("canvas");
-                    canvas.classList.add("pdf-canvas");
-                    canvas.style.marginBottom = "20px"; // Add some spacing between pages
-                    container.appendChild(canvas);
+                // Create a canvas element for each page
+                const canvas = document.createElement("canvas");
+                canvas.classList.add("pdf-canvas");
 
-                    const context = canvas.getContext('2d');
-                    canvas.height = viewport.height;
-                    canvas.width = viewport.width;
+                // Adjust canvas size to fit properly without creating excessive space
+                // canvas.style.marginBottom = "-25px"; // Remove bottom margin
+                canvas.style.marginTop = "0px";  // Remove top margin
+                canvas.style.marginBottom = "-25px"; // Remove bottom margin
 
-                    // Render the page into the canvas
-                    page.render({
-                        canvasContext: context,
-                        viewport: viewport
-                    }).promise.then(function() {
-                        // Increment the rendered pages count
-                        renderedPages++;
+                container.appendChild(canvas);
 
-                        // If all pages are rendered, hide loader and show the PDF container
-                        if (renderedPages === totalPages) {
-                            loader.style.display = "none"; // Hide the loader
-                            pdfContainer.style.display = "block"; // Show the PDF container
-                        }
-                    });
+                const context = canvas.getContext('2d');
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                // Render the page into the canvas
+                page.render({
+                    canvasContext: context,
+                    viewport: viewport
+                }).promise.then(function() {
+                    // Increment the rendered pages count
+                    renderedPages++;
+
+                    // If all pages are rendered, hide loader and show the PDF container
+                    if (renderedPages === totalPages) {
+                        loader.style.display = "none"; // Hide the loader
+                        pdfContainer.style.display = "block"; // Show the PDF container
+                    }
                 });
-            }
+            });
+        }
 
-            // Show the modal with the rendered PDF
-            $('#pdfModal').modal('show');
-        }).catch(function(error) {
-            console.error('Error loading PDF: ', error);
-            loader.innerHTML =
+        // Show the modal with the rendered PDF
+        $('#pdfModal').modal('show');
+    }).catch(function(error) {
+        console.error('Error loading PDF: ', error);
+        loader.innerHTML =
             "<p>Error loading PDF. Please try again later.</p>"; // Show error if PDF fails to load
-        });
-    }
+    });
+}
+
     
 </script>
 @include('user.includes.footer')

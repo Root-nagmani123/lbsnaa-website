@@ -258,7 +258,7 @@
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="display: flex; justify-content: center; align-items: center; flex-direction: column; height: 80vh; text-align: center;">
                 <!-- Loading Spinner -->
                 <div id="loader" class="text-center" style="display: block;">
                     <div class="spinner-border" role="status">
@@ -329,7 +329,9 @@
                     // Create a canvas element for each page
                     const canvas = document.createElement("canvas");
                     canvas.classList.add("pdf-canvas");
-                    canvas.style.marginBottom = "20px"; // Add some spacing between pages
+                    canvas.style.marginTop = "0px";  // Remove top margin
+                canvas.style.marginBottom = "-25px"; // Remove bottom margin
+
                     container.appendChild(canvas);
 
                     const context = canvas.getContext('2d');
