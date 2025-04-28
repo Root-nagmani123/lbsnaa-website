@@ -68,4 +68,9 @@
             alert('Printing is disabled on this website.');
         }
     });
+
+    // Block right-click context menu
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+    });
 </script>
