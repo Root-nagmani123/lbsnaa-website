@@ -274,16 +274,25 @@
                 </div>
 
                 <!-- PDF container with scrolling enabled -->
-                <div id="pdfContainer" style="width: 100%; height: 600px; overflow-y: scroll; display: none;">
+                <div id="pdfContainer" style="width: 100%; height: 600px; overflow-y: scroll; display: none;background-color: darkgray;">
                     <!-- Pages will be appended here dynamically -->
                 </div>
             </div>
         </div>
     </div>
 </div>
+<style>.modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.5); /* Adjust the rgba value to control the opacity */
+}
+</style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
 
 <script>
+    $('#pdfModal').on('show.bs.modal', function () {
+    // Set the backdrop color when the modal is shown
+    $('.modal-backdrop').css('background-color', 'rgba(61, 56, 56, 0.5)');
+});
+
     document.addEventListener('DOMContentLoaded', function() {
     // Jab modal khule
     $('#pdfModal').on('show.bs.modal', function() {

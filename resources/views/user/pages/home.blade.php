@@ -505,22 +505,18 @@
                                             </span>
                                             {{ $quick_link->text }}
                                         </a>
-                                    @elseif(!empty($quick_link->file))
-                                        <a href="javascript:void(0)" 
-                                            onclick="openPDFModal('{{ asset('quick-links-files/' . $quick_link->file) }}')"
-                                            class="text-decoration-none text-primary">
-                                            <span>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                                    fill="currentColor" class="bi bi-arrow-right-short"
-                                                    viewBox="0 0 16 16">
-                                                    <path fill-rule="evenodd"
-                                                        d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z">
-                                                    </path>
-                                                </svg>
-                                            </span>
-                                            {{ $quick_link->text }}
-                                        </a>
+                                        @elseif(!empty($quick_link->file))
+                                        <a href="{{ route('view-pdf', ['filename' => $quick_link->file]) }}" target="_blank" class="text-decoration-none text-primary">
+                                                <span>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                                                        <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"></path>
+                                                    </svg>
+                                                </span>
+                                                {{ $quick_link->text }}
+                                            </a>
+
                                     @else
+
                                         {{ $quick_link->text }}
                                     @endif
                                 </li>
@@ -561,7 +557,7 @@
                 </div>
 
                 <!-- PDF container with scrolling enabled -->
-                <div id="pdfContainer" style="width: 100%; height: 600px; overflow-y: scroll; display: none;">
+                <div id="pdfContainer" style="width: 100%; height: 600px; overflow-y: scroll; display: none; background-color: darkgray;">
                     <!-- Pages will be appended here dynamically -->
                 </div>
             </div>
@@ -569,87 +565,6 @@
     </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-    // Jab modal khule
-    $('#pdfModal').on('show.bs.modal', function() {
-        document.addEventListener('contextmenu', disableRightClick);
-    });
 
-    // Jab modal band ho
-    $('#pdfModal').on('hidden.bs.modal', function() {
-        document.removeEventListener('contextmenu', disableRightClick);
-    });
 
-    function disableRightClick(e) {
-        e.preventDefault();
-    }
-});
-    // Function to open PDF in the modal using PDF.js
-    function openPDFModal(pdfUrl) {
-    const loader = document.getElementById('loader'); // Loading spinner element
-    const pdfContainer = document.getElementById('pdfContainer'); // PDF container element
-
-    // Show loader and hide PDF container initially
-    loader.style.display = "block"; // Show the loader spinner
-    pdfContainer.style.display = "none"; // Hide the PDF container
-
-    const container = document.getElementById('pdfContainer');
-    container.innerHTML = ""; // Clear the container before loading the PDF
-
-    // Fetch the PDF document using PDF.js
-    pdfjsLib.getDocument(pdfUrl).promise.then(function(pdfDoc_) {
-        const pdfDoc = pdfDoc_;
-        const totalPages = pdfDoc.numPages;
-
-        let renderedPages = 0;
-
-        // Loop through all pages and render them
-        for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
-            pdfDoc.getPage(pageNum).then(function(page) {
-                const viewport = page.getViewport({ scale: 1.25 });
-
-                // Create a canvas element for each page
-                const canvas = document.createElement("canvas");
-                canvas.classList.add("pdf-canvas");
-
-                // Adjust canvas size to fit properly without creating excessive space
-                // canvas.style.marginBottom = "-25px"; // Remove bottom margin
-                canvas.style.marginTop = "0px";  // Remove top margin
-                canvas.style.marginBottom = "-25px"; // Remove bottom margin
-
-                container.appendChild(canvas);
-
-                const context = canvas.getContext('2d');
-                canvas.height = viewport.height;
-                canvas.width = viewport.width;
-
-                // Render the page into the canvas
-                page.render({
-                    canvasContext: context,
-                    viewport: viewport
-                }).promise.then(function() {
-                    // Increment the rendered pages count
-                    renderedPages++;
-
-                    // If all pages are rendered, hide loader and show the PDF container
-                    if (renderedPages === totalPages) {
-                        loader.style.display = "none"; // Hide the loader
-                        pdfContainer.style.display = "block"; // Show the PDF container
-                    }
-                });
-            });
-        }
-
-        // Show the modal with the rendered PDF
-        $('#pdfModal').modal('show');
-    }).catch(function(error) {
-        console.error('Error loading PDF: ', error);
-        loader.innerHTML =
-            "<p>Error loading PDF. Please try again later.</p>"; // Show error if PDF fails to load
-    });
-}
-
-    
-</script>
 @include('user.includes.footer')

@@ -13,6 +13,7 @@ use App\Models\Admin\ManageAudit;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class HomeController extends Controller
 {
@@ -646,6 +647,17 @@ public function footer_images_status_update(Request $request, $id)
 
         return response()->json(['message' => 'File upload failed size upto 40mb'], 400);
     }
+    public function viewPDF($filename)
+    {
+        // Set the path to the file
+        $path =  $filename;
+    
+        return view('user.pages.viewPDF', compact('path'));
+    }
+
+
+    
+    
 
     
 }
