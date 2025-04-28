@@ -1,6 +1,6 @@
 <style>
     #pdf-container {
-        width: 90%;
+        width: 70%;
         margin: 0px auto;
         background-color: #f0f0f0;
         padding: 10px;
