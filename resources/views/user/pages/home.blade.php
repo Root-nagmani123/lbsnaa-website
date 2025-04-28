@@ -506,7 +506,8 @@
                                             {{ $quick_link->text }}
                                         </a>
                                     @elseif(!empty($quick_link->file))
-                                        <a href="{{ asset('quick-links-files/' . $quick_link->file) }}" target="_blank"
+                                        <a href="javascript:void(0)" 
+                                            onclick="openPDFModal('{{ asset('quick-links-files/' . $quick_link->file) }}')"
                                             class="text-decoration-none text-primary">
                                             <span>
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
@@ -531,4 +532,104 @@
         </div>
     </div>
 </section>
+<div class="modal fade" id="pdfModal" tabindex="-1" role="dialog" aria-labelledby="pdfModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="pdfModalLabel">
+                    @if(isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                        पीडीएफ दृश्य
+                    @else
+                    PDF View
+                    @endif
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Loading Spinner -->
+                <div id="loader" class="text-center" style="display: block;">
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p>
+                        @if(isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                            लोडिंग पीडीएफ...
+                        @else
+                        Loading PDF...
+                        @endif
+                    </p>
+                </div>
+
+                <!-- PDF container with scrolling enabled -->
+                <div id="pdfContainer" style="width: 100%; height: 600px; overflow-y: scroll; display: none;">
+                    <!-- Pages will be appended here dynamically -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+<script>
+    // Function to open PDF in the modal using PDF.js
+    function openPDFModal(pdfUrl) {
+        const loader = document.getElementById('loader'); // Loading spinner element
+        const pdfContainer = document.getElementById('pdfContainer'); // PDF container element
+
+        // Show loader and hide PDF container initially
+        loader.style.display = "block"; // Show the loader spinner
+        pdfContainer.style.display = "none"; // Hide the PDF container
+
+        const container = document.getElementById('pdfContainer');
+        container.innerHTML = ""; // Clear the container before loading the PDF
+
+        // Fetch the PDF document using PDF.js
+        pdfjsLib.getDocument(pdfUrl).promise.then(function(pdfDoc_) {
+            const pdfDoc = pdfDoc_;
+            const totalPages = pdfDoc.numPages;
+
+            let renderedPages = 0;
+
+            // Loop through all pages and render them
+            for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
+                pdfDoc.getPage(pageNum).then(function(page) {
+                    const viewport = page.getViewport({
+                        scale: 1.25
+                    });
+
+                    // Create a canvas element for each page
+                    const canvas = document.createElement("canvas");
+                    canvas.classList.add("pdf-canvas");
+                    canvas.style.marginBottom = "20px"; // Add some spacing between pages
+                    container.appendChild(canvas);
+
+                    const context = canvas.getContext('2d');
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
+
+                    // Render the page into the canvas
+                    page.render({
+                        canvasContext: context,
+                        viewport: viewport
+                    }).promise.then(function() {
+                        // Increment the rendered pages count
+                        renderedPages++;
+
+                        // If all pages are rendered, hide loader and show the PDF container
+                        if (renderedPages === totalPages) {
+                            loader.style.display = "none"; // Hide the loader
+                            pdfContainer.style.display = "block"; // Show the PDF container
+                        }
+                    });
+                });
+            }
+
+            // Show the modal with the rendered PDF
+            $('#pdfModal').modal('show');
+        }).catch(function(error) {
+            console.error('Error loading PDF: ', error);
+            loader.innerHTML =
+            "<p>Error loading PDF. Please try again later.</p>"; // Show error if PDF fails to load
+        });
+    }
+</script>
 @include('user.includes.footer')
