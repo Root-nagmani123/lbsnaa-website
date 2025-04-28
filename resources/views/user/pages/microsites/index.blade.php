@@ -282,7 +282,24 @@
     </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    // Jab modal khule
+    $('#pdfModal').on('show.bs.modal', function() {
+        document.addEventListener('contextmenu', disableRightClick);
+    });
+
+    // Jab modal band ho
+    $('#pdfModal').on('hidden.bs.modal', function() {
+        document.removeEventListener('contextmenu', disableRightClick);
+    });
+
+    function disableRightClick(e) {
+        e.preventDefault();
+    }
+});
+
     // Function to open PDF in the modal using PDF.js
     function openPDFModal(pdfUrl) {
         const loader = document.getElementById('loader'); // Loading spinner element
