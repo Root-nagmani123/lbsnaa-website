@@ -554,4 +554,4 @@ Route::group(['middleware' => [PreventBackHistory::class]], function () {
 
 Route::get('lbsnaa-newsletter', [NewsletterController::class, 'newsletterFront'])->name('partials.lbsnaa-newsletter');
 Route::get('newsletter-ebook/{id}', [NewsletterController::class, 'ebook'])->name('newsletter-ebook');
-Route::get('advisory-pdf/{filename}', [HomeController::class,'viewPDF'])->name('advisory-pdf');
+Route::get('advisory/{filename}', [HomeController::class,'viewPDF'])->name('advisory');
