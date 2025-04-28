@@ -514,6 +514,7 @@ public function footer_images_status_update(Request $request, $id)
     // Update an existing quick link
     public function quick_link_update(Request $request, $id)
     {
+        // print_r($request->all());die;
         // Validation Rules
         $rules = [
             'text' => 'required|string|max:255',
@@ -560,16 +561,18 @@ public function footer_images_status_update(Request $request, $id)
     
         // Update quick link data
         $quickLink->text = $request->text;
+
         if ($request->link_type == 'file') {
             $quickLink->url = null;
+            // File ko upar handle kar liya
         } else if ($request->link_type == 'url') {
             $quickLink->file = null;
+            $quickLink->url = $request->url;
         }
     
         $quickLink->url_type = $request->url_type ?? null;
         $quickLink->status = $request->status ?? 0;
         $quickLink->language = $request->language;
-        $quickLink->url = $request->url;
         $quickLink->save();
     
         // Log the update action in ManageAudit
