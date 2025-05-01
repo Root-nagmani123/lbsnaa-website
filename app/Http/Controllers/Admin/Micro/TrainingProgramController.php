@@ -30,7 +30,7 @@ class TrainingProgramController extends Controller
         
         return view('admin.micro.training_program.create', compact('researchCentres'));
     }
-
+ 
 
 
     public function store(Request $request)
@@ -118,7 +118,7 @@ class TrainingProgramController extends Controller
     {
         // Fetch the specific training program by ID
         $trainingProgram = TrainingProgram::findOrFail($id); 
-
+// print_r($trainingProgram); die;// Debugging line to check the fetched program
         // Fetch the research centers
         $researchCentres = DB::table('research_centres')
             ->select('id', 'research_centre_name')

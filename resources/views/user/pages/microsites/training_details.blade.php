@@ -36,6 +36,7 @@
                     </thead>
                     <tbody>
                         @if($trainingdetails)
+                       
                         <tr>
                             <th><b>Program Name:</b></th>
                             <td>{{ $trainingdetails->program_name }}</td>
@@ -57,6 +58,10 @@
                         <tr>
                             <td><b>Program Description:</b></td>
                             <td>{!! html_entity_decode($trainingdetails->program_description ?? '') !!}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Important Link:</b></td>
+                            <td>{!! html_entity_decode($trainingdetails->important_links ?? '') !!}</td>
                         </tr>
                         @else
                         <p>No training details available.</p>

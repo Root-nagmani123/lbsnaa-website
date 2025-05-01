@@ -162,8 +162,9 @@
                         <div class="form-group mb-4">
                             <label for="important_links" class="label">Important Links</label>
                             <div class="form-group position-relative">
-                                <input type="text" name="important_links" class="form-control text-dark  h-58"
-                                    value="{{ old('important_links') }}" id="important_links">
+                               
+                                    <textarea name="important_links" class="form-control text-dark  h-58" id="important_links" 
+                                    value="{{ old('important_links') }}"></textarea>
                             </div>
 
                         </div>
@@ -217,12 +218,7 @@
 <!-- here this code use for the editer js -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-<script>
-$('#important_links').summernote({
-    tabsize: 2,
-    height: 300
-});
-</script>  
+
 <!-- here this code end of the editer js -->
 @endsection
 
@@ -275,8 +271,70 @@ jQuery(document).ready(function ($) {
             }
         }
     });
+    $('#important_links').summernote({
+        tabsize: 2,
+        height: 300,
+        toolbar: [
+            ['style', ['style']], // Heading styles (e.g., H1, H2)
+            ['font', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']], // Font options
+            ['fontname', ['fontname']], // Font family selector
+            ['fontsize', ['fontsize']], // Font size selector
+            ['color', ['color']], // Font and background color
+            ['para', ['ul', 'ol', 'paragraph', 'align']], // Lists and alignment
+            ['height', ['height']], // Line height adjustment
+            ['table', ['table']], // Table insertion
+            ['insert', ['link', 'picture', 'video', 'pdf']], // Insert elements
+            ['view', ['fullscreen', 'codeview', 'help']], // Fullscreen, code view, and help
+            ['misc', ['undo', 'redo']] // Undo and redo actions
+        ],
+        buttons: {
+            pdf: function () {
+                var ui = $.summernote.ui; 
+
+                // Create a PDF upload button
+                return ui.button({
+                    contents: '<i class="note-icon-file"></i> PDF',
+                    tooltip: 'Upload PDF',
+                    click: function () {
+                        // Trigger file input dialog
+                        $('<input type="file" accept="application/pdf">')
+                            .on('change', function (event) {
+                                var file = event.target.files[0];
+                                if (file) {
+                                    uploadPDF_important_links(file);
+                                }
+                            })
+                            .click();
+                    }
+                }).render();
+            }
+        }
+    });
     
 
+    function uploadPDF_important_links(file) {
+        // Use AJAX to upload the file to your server
+        var formData = new FormData();
+        formData.append('file', file);
+
+        $.ajax({
+            url: '/admin/upload-pdf', // Your server endpoint
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Add CSRF token to headers
+        },
+            success: function (response) {
+                $('#important_links').summernote('insertText', response.url);
+      
+            },
+            error: function (xhr) {
+                alert('Failed to upload PDF. Please try again.');
+            }
+        });
+    }
     function uploadPDF(file) {
         // Use AJAX to upload the file to your server
         var formData = new FormData();
