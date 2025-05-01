@@ -120,7 +120,7 @@ class MicroManageMediaCenterController extends Controller
             'research_centre' => 'required|string|max:255',
             'hindi_name' => 'nullable|string|max:255',
             'status' => 'required|integer|in:1,0',
-            'category_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4098',
+          'category_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:15360',
         ];
         
         $messages = [
@@ -140,7 +140,7 @@ class MicroManageMediaCenterController extends Controller
             'status.in' => 'Invalid status selection.',
             'category_image.image' => 'Category image must be a valid image file.',
             'category_image.mimes' => 'Category image must be of type: jpeg, png, jpg, gif.',
-            'category_image.max' => 'Category image size must not exceed 4MB.',
+            'category_image.max' => 'Category image size must not exceed 15MB.',
         ];
         
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -295,7 +295,7 @@ class MicroManageMediaCenterController extends Controller
             'research_centre' => 'required|string|max:255',
             'hindi_name' => 'nullable|string|max:255',
             'status' => 'required|integer|in:1,0',
-            'category_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4098',
+            'category_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:15360',
         ];
         
         $messages = [
@@ -315,7 +315,7 @@ class MicroManageMediaCenterController extends Controller
             'status.in' => 'Invalid status selection.',
             'category_image.image' => 'Category image must be a valid image file.',
             'category_image.mimes' => 'Category image must be of type: jpeg, png, jpg, gif.',
-            'category_image.max' => 'Category image size must not exceed 4MB.',
+            'category_image.max' => 'Category image size must not exceed 15MB.',
         ];
         
         $validator = Validator::make($request->all(), $rules, $messages);
