@@ -15,5 +15,6 @@ class MicroManageMediaCategories extends Model
         'hindi_name',
         'category_images',
         'status',
+        'year',
     ];
 }
