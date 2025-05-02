@@ -185,6 +185,7 @@ class MicroManageMediaCenterController extends Controller
                     'hindi_name' => $validatedData['hindi_name'],
                     'status' => $validatedData['status'],
                     'category_image' => $validatedData['category_image'],
+                    'year' => $request->input('year'),
                     'updated_at' => now(),
                 ]);
             } else {
@@ -196,6 +197,7 @@ class MicroManageMediaCenterController extends Controller
                     'hindi_name' => $validatedData['hindi_name'],
                     'status' => $validatedData['status'],
                     'category_image' => $validatedData['category_image'],
+                    'year' => $request->input('year'),
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);
@@ -358,10 +360,13 @@ class MicroManageMediaCenterController extends Controller
             // If no new image is uploaded, retain the old image
             $validated['category_image'] = $category->category_image;
         }
-    
+        $validated['name'] = $request->input('name');
+        $validated['hindi_name'] = $request->input('hindi_name');
+        $validated['status'] = $request->input('status');
+        $validated['year'] = $request->input('year');
         // Update the category record with the validated data
         $category->update($validated);
-    
+        // dd($validated);
         // Audit trail (you can add the user and other details)
         MicroManageAudit::create([
             'Module_Name' => 'Media Photo Video',

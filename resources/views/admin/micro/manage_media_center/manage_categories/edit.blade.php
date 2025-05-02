@@ -137,7 +137,7 @@
                         </div>
 
 
-                        <div class="col-lg-6">
+                        <div class="col-lg-3">
                             <div class="form-group mb-4">
                                 <label class="label" for="status">Status :</label>
                                 <span class="star">*</span>
@@ -149,6 +149,17 @@
                                         <option value="0" class="text-dark"
                                             {{ $category->status == 0? 'selected' : '' }}>Inactive</option>
                                     </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group mb-4">
+                                <label class="label" for="status">Year  :</label>
+                                <span class="star">*</span>
+                                <div class="form-group position-relative">
+                                    <input type="date" class="form-control text-dark  h-58" name="year" id="year"
+                                        value="{{ old('year', $category->year ?? '') }}">
+                                    
                                 </div>
                             </div>
                         </div>

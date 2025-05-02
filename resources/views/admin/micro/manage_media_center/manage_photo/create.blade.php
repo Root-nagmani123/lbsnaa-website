@@ -57,136 +57,120 @@
                 <div class="alert alert-success">{{ session('success') }}</div>
                 @endif
                 <form 
-                    action="{{ isset($gallery) ? route('micro-photo-gallery.update', $gallery->id) : route('micro-photo-gallery.store') }}"
-                    method="POST" enctype="multipart/form-data">
-                    @csrf
-                    @if(isset($gallery))
-                    @method('PUT')
-                    @endif
-                    <div class="row">
+    action="{{ route('micro-photo-gallery.store_data') }}"
+    method="POST" enctype="multipart/form-data" >
+    {{-- CSRF Token --}}
+    
+    @csrf
+    
 
-                        <div class="col-lg-6">
-                            <div class="form-group mb-4">
-                                <label for="select_research_centre" class="label">Select Research Centre :</label>
-                                <span class="star">*</span>
-                                <select name="research_centre" id="select_research_centre" class="form-control h-58 text-dark">
-                                    <option value="" selected>Select Research Centre</option>
-                                    @foreach ($researchCentres as $id => $name)
-                                    <option value="{{ $id }}">{{ $name }}</option>
-                                    @endforeach
-                                </select>
-                             
-                            </div>
-                        </div>
+    <div class="row ok">
 
-                        <!-- Placeholder for Training Programme-related fields -->
-                        <div class="col-lg-6" id="related_training_field" style="display: none;">
-                            <div class="form-group mb-4">
-                                <label class="label" for="training-search">Related Training Programme :</label>
-                                <div class="form-group position-relative">
-                                    <!-- Text Input -->
-                                    <input type="text" class="form-control text-dark  h-58" name="training-search"
-                                        id="training-search" placeholder="Type to search for training programmes..."
-                                        value="{{ old('training-search') }}">
-                                    <!-- Hidden Field -->
-                                    <input type="hidden" name="related_training_program" id="selected-training-id"
-                                        value="{{ old('related_training_program') }}">
-                                    <!-- Dropdown Suggestions -->
-                                    <div id="training-suggestions" class="dropdown-menu"
-                                        style="display: none; position: relative;"></div>
-                                </div>
-                            </div>
-                        </div>
+        {{-- Research Centre --}}
+        <div class="col-lg-6">
+            <div class="form-group mb-4">
+                <label for="select_research_centre" class="label">Select Research Centre :</label>
+                <span class="star">*</span>
+                <select name="research_centre" id="select_research_centre" class="form-control h-58 text-dark">
+                    <option value="">Select Research Centre</option>
+                    @foreach ($researchCentres as $id => $name)
+                        <option value="{{ $id }}" {{ old('research_centre', $gallery->research_centre ?? '') == $id ? 'selected' : '' }}>
+                            {{ $name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
 
+        {{-- Related Training Programme --}}
+        <div class="col-lg-6" id="related_training_field" style="display: none;">
+            <div class="form-group mb-4">
+                <label class="label" for="training-search">Related Training Programme :</label>
+                <div class="form-group position-relative">
+                    <input type="text" class="form-control text-dark h-58" name="training-search"
+                        id="training-search" placeholder="Type to search for training programmes..."
+                        value="{{ old('training-search') }}">
+                    
+                    <input type="hidden" name="related_training_program" id="selected-training-id"
+                        value="{{ old('related_training_program') }}">
+                    
+                    <div id="training-suggestions" class="dropdown-menu"
+                        style="display: none; position: relative;"></div>
+                </div>
+            </div>
+        </div>
 
+        {{-- Media Categories --}}
+        <div class="col-lg-6">
+            <div class="form-group mb-4">
+                <label for="media_categories" class="label">Media Category:</label>
+                <span class="star">*</span>
+                <select name="media_categories" id="media_categories" class="form-control">
+                    <option value="">Select Media Category</option>
+                    @foreach ($mediaCategories as $category)
+                        <option value="{{ $category->id }}" {{ old('media_categories', $gallery->media_categories ?? '') == $category->id ? 'selected' : '' }}>
+                            {{ $category->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
 
-                        <div class="col-lg-6">
-                            <div class="form-group mb-4">
-                                <label for="media_categories" class="label">Media Category:</label>
-                                <span class="star">*</span>
-                                <select name="media_categories" id="media_categories" class="form-control">
-                                    <option value="" selected>Select Media Category</option>
-                                </select>
-                               
-                            </div>
-                        </div>
+        {{-- Image Title English --}}
+        <div class="col-lg-6">
+            <div class="form-group mb-4">
+                <label class="label" for="image_title_english">Image Title (English) :</label>
+                <span class="star">*</span>
+                <input type="text" class="form-control text-dark h-58"
+                    name="image_title_english" id="image_title_english"
+                    value="{{ old('image_title_english', $gallery->image_title_english ?? '') }}">
+            </div>
+        </div>
 
+        {{-- Image Title Hindi --}}
+        <div class="col-lg-6">
+            <div class="form-group mb-4">
+                <label class="label" for="image_title_hindi">Image Title (Hindi) :</label>
+                <input type="text" class="form-control text-dark h-58"
+                    name="image_title_hindi" id="image_title_hindi"
+                    value="{{ old('image_title_hindi', $gallery->image_title_hindi ?? '') }}">
+            </div>
+        </div>
 
+        {{-- Image Upload --}}
+        <div class="col-lg-6">
+            <div class="form-group mb-4">
+                <label class="label">Image Files:</label>
+                <span class="star">*</span>
+                <input type="file" name="image_files[]" class="form-control text-dark h-58" accept="image/*" multiple>
+                <button type="button" class="btn btn-outline-danger text-danger remove-file mt-2" style="display: none;">Remove</button>
+            </div>
+            <button type="button" class="btn btn-secondary text-white mt-2" id="add-file">Add More</button>
+            <div id="file-container"></div>
+        </div>
 
+        {{-- Status --}}
+        <div class="col-lg-6">
+            <div class="form-group mb-4">
+                <label class="label" for="status">Status:</label>
+                <span class="star">*</span>
+                <select class="form-select form-control h-58" name="status" id="status">
+                    <option value="">Select</option>
+                    <option value="1" {{ old('status', $gallery->status ?? '') == '1' ? 'selected' : '' }}>Active</option>
+                    <option value="0" {{ old('status', $gallery->status ?? '') == '0' ? 'selected' : '' }}>Inactive</option>
+                </select>
+            </div>
+        </div>
 
+        {{-- Submit --}}
+        <div class="d-flex ms-sm-3 ms-md-0 mt-4">
+            <button class="btn btn-success text-white fw-semibold" type="submit">Submit</button> &nbsp;
+            <a href="{{ route('micro-photo-gallery.index') }}" class="btn btn-secondary text-white">Back</a>
+        </div>
 
+    </div>
+</form>
 
-
-
-
-                        
-                        <!-- Placeholder for Events-related fields -->
-
-                        <div class="col-lg-6">
-                            <div class="form-group mb-4">
-                                <label class="label" for="image_title_english">Image Title (English) :</label>
-                                <span class="star">*</span>
-                                <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark  h-58"
-                                        name="image_title_english" id="image_title_english"
-                                        value="{{ old('image_title_english', $gallery->image_title_english ?? '') }}">
-                                 
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group mb-4">
-                                <label class="label" for="image_title_hindi">Image Title (Hindi) :</label>
-                                <div class="form-group position-relative">
-                                    <input type="text" class="form-control text-dark  h-58" name="image_title_hindi"
-                                        id="image_title_hindi"
-                                        value="{{ old('image_title_hindi', $gallery->image_title_hindi ?? '') }}">
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- for image -->
-
-                        <div class="col-lg-6">
-                            <div class="form-group mb-4">
-                                <label class="label">Image Files:</label>
-                                <span class="star">*</span>
-                                <div class="form-group position-relative">
-                                    <input type="file" name="image_files[]" class="form-control text-dark  h-58"
-                                        accept="image/*">
-                                  
-                                    <button type="button" class="btn btn-outline-danger text-danger remove-file mt-2"
-                                        style="display: none;">Remove</button>
-                                </div>
-                            </div>
-                            <!-- Button to add more file input fields -->
-                            <button type="button" class="btn btn-secondary text-white mt-2" id="add-file">Add
-                                More</button>
-                            <div id="file-container"></div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="form-group mb-4">
-                                <label class="label" for="status">Status:</label>
-                                <span class="star">*</span>
-                                <div class="form-group position-relative">
-                                    <select class="form-select form-control  h-58" name="status" id="status">
-                                        <option value="" class="text-dark">Select</option>
-                                        <option value="1" class="text-dark"
-                                            {{ old('status') == '1' ? 'selected' : '' }}>Active</option>
-                                        <option value="0" class="text-dark"
-                                            {{ old('status') == '0' ? 'selected' : '' }}>Inactive</option>
-                                    </select>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-flex ms-sm-3 ms-md-0 mt-4">
-                            <button class="btn btn-success text-white fw-semibold" type="submit">Submit</button> &nbsp;
-                            <a href="{{ route('micro-photo-gallery.index') }}"
-                                class="btn btn-secondary text-white">Back</a>
-                        </div>
-                    </div>
-                </form>
 
 
             </div>

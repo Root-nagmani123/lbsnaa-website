@@ -84,6 +84,8 @@ use App\Http\Middleware\PreventBackHistory;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+
 Route::get('/', [HomeFrontController::class,'index'])->name('home');
 Route::get('/news/{slug}', [HomeFrontController::class,'get_news'])->name('user.newsbyslug');
 Route::get('/menu/{slug}', [HomeFrontController::class, 'get_navigation_pages'])->name('user.navigationpagesbyslug');
@@ -485,6 +487,8 @@ Route::post('/screenrender/update', [HomeController::class, 'screen_reader_updat
     Route::put('micro-video-gallery/{id}', [MicroVideoGalleryController::class, 'update'])->name('micro-video-gallery.update');
     Route::resource('micro-photo-gallery', MicroManagePhotoGalleryController::class);
 
+    
+
     Route::resource('photovideogallery', MicroManageMediaCenterController::class);
     // Manage manage Research centre  route
     Route::get('researchcentres', [ManageResearchCentreController::class, 'researchcentresIndex'])->name('researchcentres.index');
@@ -555,3 +559,9 @@ Route::group(['middleware' => [PreventBackHistory::class]], function () {
 Route::get('lbsnaa-newsletter', [NewsletterController::class, 'newsletterFront'])->name('partials.lbsnaa-newsletter');
 Route::get('newsletter-ebook/{id}', [NewsletterController::class, 'ebook'])->name('newsletter-ebook');
 Route::get('advisory/{filename}', [HomeController::class,'viewPDF'])->name('advisory');
+
+// Route::prefix('admin')->name('admin.')->group(function () {
+Route::post('/micro-photo-gallery/store_data', [MicroManagePhotoGalleryController::class, 'store_data'])->name('micro-photo-gallery.store_data');
+
+
+// });

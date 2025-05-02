@@ -12,6 +12,6 @@ class VerifyCsrfToken extends Middleware
      * @var array<int, string>
      */
     protected $except = [
-        //
+        'micro-photo-gallery/store_data','micro-photo-gallery/index','micro-photo-gallery'
     ];
 }

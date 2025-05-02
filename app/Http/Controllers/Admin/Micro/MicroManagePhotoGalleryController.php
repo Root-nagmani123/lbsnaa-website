@@ -13,22 +13,28 @@ use Illuminate\Support\Facades\Validator;
 
 use App\Models\Admin\Micro\MicroManageAudit;
 use Illuminate\Support\Facades\Auth; 
+use Illuminate\Support\Str;
+
 
 class MicroManagePhotoGalleryController extends Controller
 { 
+    // public function __construct()
+    // {
+    //     dd('inder');
+    // }
     public function index()
     { 
 
         $galleries = DB::table('micro_manage_photo_galleries as sub')
-        ->leftJoin('courses as parent', 'sub.course_id', '=', 'parent.id') // Correct join
-        ->leftJoin('courses as second_row', 'sub.related_training_program', '=', 'second_row.id') // Correct join
+        ->leftJoin('course as parent', 'sub.course_id', '=', 'parent.id') // Correct join
+        ->leftJoin('course as second_row', 'sub.related_training_program', '=', 'second_row.id') // Correct join
         ->leftJoin('micro_media_categories as third_row', 'sub.media_categories', '=', 'third_row.id') // Correct join
         ->leftJoin('research_centres as four_row', 'sub.research_centre', '=', 'four_row.id') // Correct join
         ->select(
             'sub.*',                    // All columns from micro_manage_photo_galleries
             'parent.id as course_id',   // Alias for parent.id to avoid overwriting sub.id
-            'parent.name',              // Course name from parent
-            'second_row.name as media_cat_name', // Media category name
+            'parent.course_name',              // Course name from parent
+            'second_row.course_name as media_cat_name', // Media category name
             'third_row.name as name',
             'four_row.research_centre_name as research_centre_name'
         )
@@ -71,6 +77,7 @@ class MicroManagePhotoGalleryController extends Controller
 
     public function create()
     {
+        //echo session('url.previousdata', url('/'));die;
         // Fetch media categories and join with research centres
         $mediaCategories = DB::table('micro_media_categories')
             ->join('research_centres', 'micro_media_categories.research_centre', '=', 'research_centres.id')
@@ -88,9 +95,88 @@ class MicroManagePhotoGalleryController extends Controller
         return view('admin.micro.manage_media_center.manage_photo.create', compact('mediaCategories', 'researchCentres'));
     }
 
- 
+    public function store_data(Request $request)
+    {
+        try {
+
+        
+        // dd($request->all());
+        // Validate the request
+        $rules = [
+            'image_files' => 'required|array', // Ensure an array of images is provided
+            'image_files.*' => 'file|mimes:jpeg,png,jpg', // Validate each file in the array
+            'image_title_english' => 'required|string|max:255', // Ensure the English title is provided
+            'research_centre' => 'required|string', // Ensure research centre is provided
+            'status' => 'required|integer|in:1,0', // Ensure status is either 1 or 0
+            'media_categories' => 'required', // Ensure media categories are selected
+        ];
+        
+        $messages = [
+            'image_files.required' => 'Please upload at least one image.',
+            'image_files.array' => 'Images must be uploaded as an array.',
+            'image_files.*.mimes' => 'Each image must be of type: jpeg, png, jpg.',
+            'image_title_english.required' => 'Please enter the English title.',
+            'image_title_english.max' => 'The English title should not exceed 255 characters.',
+            'research_centre.required' => 'Please select a research centre.',
+            'status.required' => 'Please select a valid status.',
+            'status.integer' => 'Status must be a valid number.',
+            'status.in' => 'Invalid status selection.',
+            'media_categories.required' => 'Please select at least one media category.',
+        ];
+        // dd(Validator::make($request->all(), $rules, $messages));
+        $validator = Validator::make($request->all(), $rules, $messages);
+    
+        // **If Validation Fails**
+        if ($validator->fails()) {
+            // **Cache validation errors for 1 minute**
+            Cache::put('validation_errors', $validator->errors()->toArray(), 1);
+    
+            // **Redirect back with errors and old input**
+            return redirect(session('url.previousdata', url('/')))->withInput();
+        }
+        $validatedData = $validator->validated();
+        
+        // Create new gallery entry
+        $gallery = new MicroManagePhotoGallery();
+        $gallery->research_centre = $request->research_centre ?? '';
+        $gallery->media_categories = $request->media_categories ?? '';
+        $gallery->image_title_english = $request->image_title_english ?? '';
+        $gallery->image_title_hindi = $request->image_title_hindi ?? '';
+        $gallery->status = $request->status ?? 0; // Default to 0 if not provided
+    
+        // Save to get the ID (if images are stored based on ID)
+        // $gallery->save();
+            // dd($gallery);
+        // // Handle image upload
+        $uploadedFiles = [];
+        if ($request->hasFile('image_files')) {
+            foreach ($request->file('image_files') as $file) {
+                $filename = time() . '_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
+                // $path = $file->storeAs('public/gallery_images', $filename); // storage/app/public/gallery_images
+                $path = $file->store('uploads/gallery', 'public');
+                $uploadedFiles[] = $path;
+            }
+    
+            // Optionally store image names as JSON (or make a new table for multiple images)
+            $gallery->image_files = json_encode($uploadedFiles);
+            
+        }
+        $gallery->save();
+        // return redirect(session('url.previousdata', url('/')));
+        dd('success please use back button to go back');
+        // return redirect(session('url.previousdata', url('/')))->withInput();
+        // return redirect()->route('micro-photo-gallery.index')->with('success', 'Gallery added successfully.');
+        } catch (\Exception $e) {
+            dd($e);
+            // Handle exceptions and return an error message
+            // return redirect()->route('micro-photo-gallery.index')
+            //     ->with('error', 'Error saving Photo Gallery: ' . $e->getMessage());
+        }
+    }
     public function store(Request $request)
     {
+        dd($request->all());
+        print_r($_POST);die;
         // Validate inputs
         $rules = [
             'image_files' => 'required|array', // Ensure an array of images is provided

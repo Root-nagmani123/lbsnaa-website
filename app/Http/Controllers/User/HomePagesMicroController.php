@@ -81,7 +81,7 @@ class HomePagesMicroController extends Controller
         }
 
         if ($year) {
-            $query->whereYear('mmc.created_at', $year);
+            $query->whereYear('mmc.year', $year);
         }
 
         // Execute the query and fetch results
