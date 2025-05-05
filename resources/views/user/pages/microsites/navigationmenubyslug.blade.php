@@ -103,9 +103,15 @@
                                         </a>
                                     @endif
                                 </li>
-                            @empty
-                                <li class="text-start list-group-item text-danger">No data available</li>
-                            @endforelse
+                                @empty
+                            <li class="list-group-item text-primary">
+                                @if(isset($_COOKIE['language']) && $_COOKIE['language'] == '2')
+                                    कोई डेटा उपलब्ध नहीं है
+                                @else
+                                    No data available
+                                @endif
+                            </li>
+                                                        @endforelse
                         </ul>
 
                     </div>

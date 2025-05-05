@@ -49,7 +49,8 @@
                         {{ $category->category_name }}
                     </h2>
                 </div>
-                <p class="text-muted"><?=$category->description;?></p>
+                <p class="text-muted">{!! $category->description !!}
+                </p>
             </div>
         </div>
 

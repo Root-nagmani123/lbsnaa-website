@@ -367,12 +367,15 @@ class HomePagesMicroController extends Controller
         }
         // Fetch the data from the database using the slug
         $today = Carbon::today();  // Get today's date
-
+        $year = $request->input('year');
         $trainingprograms = DB::table('micro_manage_training_programs as mmtp')
             ->join('research_centres as rc', 'mmtp.research_centre', '=', 'rc.id')
             ->where('mmtp.page_status', 1)
             ->where('rc.research_centre_slug', $slug)
             ->where('mmtp.language', $this->getLang())
+            ->when($year, function ($query, $year) {
+                return $query->whereYear('mmtp.start_date', $year);
+            })
             ->select('mmtp.program_name', 'mmtp.venue', 'mmtp.start_date', 'mmtp.end_date', 'mmtp.registration_status', 'mmtp.id', 'rc.research_centre_slug')
             ->orderBy('mmtp.start_date', 'DESC')
             ->get();

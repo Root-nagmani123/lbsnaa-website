@@ -49,6 +49,10 @@
         @endif
         <div class="default-table-area members-list">
             <div class="table-responsive">
+            <div class="mb-3 text-end">
+    <input type="text" id="menuTitleSearch" class="form-control w-25 d-inline-block" placeholder="Search Menu Title">
+</div>
+
             <table class="table align-middle" id="sortableTable">
                     <thead>
                         <tr class="text-center">
@@ -74,3 +78,17 @@
     </div>
 </div>
 @endsection
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+
+    $(document).ready(function() {
+        $('#menuTitleSearch').on('keyup', function() {
+            let value = $(this).val().toLowerCase();
+            $('#sortable_micromenu tr').filter(function() {
+                $(this).toggle($(this).find('td:nth-child(2)').text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>

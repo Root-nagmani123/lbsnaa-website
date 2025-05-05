@@ -21,6 +21,21 @@
 </section>
 
 <section class="container-fluid" id="skip_to_main_content">
+<div class="col-lg-3 col-12 text-end">
+            <form method="GET" action="">
+                <div class="input-group">
+                    <select name="year" class="form-select" onchange="this.form.submit()">
+                        <option value="">Select Year</option>
+                        @foreach(range(date('Y'), date('Y') - 50) as $year)
+                            <option value="{{ $year }}" {{ request('year') == $year ? 'selected' : '' }}>
+                                {{ $year }}
+                            </option>
+                        @endforeach
+                    </select>
+                    <button type="submit" class="btn btn-primary">Filter</button>
+                </div>
+            </form>
+        </div>
     <!-- Gallery Display -->
 
     <div class="row">

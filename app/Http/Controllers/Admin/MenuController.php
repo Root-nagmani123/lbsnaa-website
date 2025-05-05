@@ -303,7 +303,12 @@ class MenuController extends Controller
         $menu->start_date = $request->input('start_date');
         $menu->termination_date = $request->input('termination_date');
         $menu->web_site_target = $request->input('web_site_target');
-    
+        if ($request->texttype == '1') {
+            $menu->website_url = null;
+            // File ko upar handle kar liya
+        } else if ($request->texttype == '2') {
+            $menu->content = null;
+        }
         if ($request->hasFile('pdf_file')) {
             if (File::exists(public_path($menu->pdf_file))) {
                 File::delete(public_path($menu->pdf_file));
@@ -373,6 +378,7 @@ class MenuController extends Controller
             $menu->menu_slug = Str::slug($request->meta_title, '-') . '_hi';
 
         }
+
         // $menu->menu_slug = Str::slug($request->menutitle, '-');
         $menu->texttype = $request->texttype;
         $menu->menucategory = $request->menucategory;
@@ -387,6 +393,7 @@ class MenuController extends Controller
         $menu->start_date = $request->input('start_date');
         $menu->termination_date = $request->input('termination_date');
         $menu->web_site_target = $request->input('web_site_target');
+        
 
         if ($request->hasFile('pdf_file')) {
             if (File::exists(public_path($menu->pdf_file))) {
