@@ -80,11 +80,9 @@
                         </label>
 
                         <label for="btn2">
-                            <input id="btn2" class="btn btn-primary" fdprocessedid="a5chyc" value="@if($_COOKIE['language'] == '2')
-                            जमा करना
-                                    @else
-                                    Submit
-                                    @endif">
+                        <input id="btn2" type="submit" class="btn btn-primary"
+ value="@if($_COOKIE['language'] == '2') जमा करना @else Submit @endif">
+
                             <input type="hidden" name="action" value="submit">
                         </label>
                     </fieldset>
@@ -93,10 +91,10 @@
         </div>
     </div>
 </section>
-@include('user.includes.footer')
 
 <script>
 function redirectToCategory() {
+  
     const category = document.getElementById('cattype').value;
     let url = '';
     switch (category) {
@@ -117,3 +115,4 @@ function redirectToCategory() {
     return false;
 }
 </script>
+@include('user.includes.footer')

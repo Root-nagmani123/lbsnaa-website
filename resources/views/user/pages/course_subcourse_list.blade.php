@@ -49,7 +49,7 @@
                         {{ $category->category_name }}
                     </h2>
                 </div>
-                <p class="text-muted">{!! $category->description !!}
+                <p class="text-muted"><?= htmlspecialchars_decode($category->description); ?>
                 </p>
             </div>
         </div>

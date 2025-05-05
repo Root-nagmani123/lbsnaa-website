@@ -818,17 +818,25 @@ class HomeFrontController extends Controller
     }
     function get_course_subcourse_list_pages(Request $request, $slug)
     {
+        if (isset($_COOKIE['language']) && $_COOKIE['language'] == 2) {
+            $language = $_COOKIE['language'];
+        } else {
+            $language = 1;
+        }
         $title =  ucwords(str_replace('-', '', $slug));
         $category = DB::table('courses_sub_categories')
             ->where('slug', $slug)
             ->where('status', 1)
             ->select('id', 'category_name', 'color_theme', 'description')
             ->first();
-
+            
 
         $sub_category = DB::table('courses_sub_categories')
             ->where('parent_id', $category->id)
             ->where('status', 1)
+            ->when(in_array($language, [1, 2]), function ($q) use ($language) {
+                return $q->where('courses_sub_categories.language', $language);
+            })
             ->select('id', 'category_name', 'slug', 'color_theme', 'description')
             ->get();
 

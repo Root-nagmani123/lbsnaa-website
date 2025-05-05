@@ -494,7 +494,7 @@
                         $output .= '<li class="dropdown-submenu dynamic-direction w-100 border-bottom">';
                             $output .= '<a
                                 class="dropdown-item ' . (isset($category['children']) && count($category['children']) > 0 ? 'dropdown-toggle' : '') . '"
-                                href="' . route('user.courseslug', $category['category']->slug) . '" ' . (isset($category['
+                                href="' . route('user.course_subcourse_slug', $category['category']->slug) . '" ' . (isset($category['
                                 children']) && count($category['children'])> 0 ? 'data-bs-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false"' : '') . ' aria-expanded="false">' .
                                 $category['category']->category_name . '</a>';
