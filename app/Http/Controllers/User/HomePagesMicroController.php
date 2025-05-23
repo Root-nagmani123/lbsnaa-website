@@ -164,9 +164,38 @@ class HomePagesMicroController extends Controller
 
 
 
+public function newsdetails(Request $request, $id)
+{
+    $slug = $request->query('slug');
 
-    public function newsdetails(Request $request, $id)
-    {
+    $news = DB::table('managenews')
+        ->join('research_centres as rc', 'managenews.research_centreid', '=', 'rc.id')
+        ->where('managenews.id', $id)
+        ->where('rc.research_centre_slug', $slug)
+        ->where('managenews.status', 1)
+        ->where('managenews.language', $this->getLang())
+        ->select('managenews.*')
+        ->first();
+
+    // Set title based on language and news title
+    if ($news) {
+        $Title = (isset($_COOKIE['language']) && $_COOKIE['language'] == '2') 
+            ? $news->hindi_title . ' | ताज़ा खबरें' 
+            : $news->title . ' | Latest News';
+
+        // Decode multiple images JSON if present
+        if (!empty($news->multiple_images)) {
+            $news->multiple_images = json_decode($news->multiple_images, true);
+        }
+    } else {
+        $Title = "News Not Found";
+    }
+
+    return view('user.pages.microsites.newsdetails', compact('news', 'slug', 'Title'));
+}
+
+    public function newsdetails_bkp(Request $request, $id)
+    { 
         // ManageNews
         // Get the slug from the request (query parameter) or from the route parameter if it's provided
         $slug = $request->query('slug'); // Fetch the 'slug' query parameter from the URL
