@@ -96,7 +96,7 @@
         <div class="card bg-white border-0 rounded-10 mb-4">
             <div class="card-body p-4">
                 <div class="default-table-area members-list">
-                    <div class="table-responsive">
+                    <div class="table-responsive" style="max-height: 600px; overflow-y: auto;">
                         <table class="table align-middle table-bordered mb-0 table-striped text-nowrap" id="myTable">
                             @php
                             // Determine current year and month
@@ -131,7 +131,7 @@
                             $selectedMonths = $months[$lang];
                             @endphp
 
-                            <thead>
+                            <thead class="sticky-top bg-white" style="z-index: 1020;">
                                 <tr>
                                     <th>#</th>
                                     <th>
@@ -270,15 +270,5 @@
     </div>
     </div>
 </section>
-
-<style>
-    /* Make table header sticky */
-    #myTable thead tr th {
-        position: sticky;
-        top: 0;
-        background: #fff; /* or your preferred background */
-        z-index: 2;
-    }
-</style>
 
 @include('user.includes.footer')
