@@ -97,7 +97,7 @@
             <div class="card-body p-4">
                 <div class="default-table-area members-list">
                     <div class="table-responsive">
-                        <table class="table align-middle table-bordered" id="myTable">
+                        <table class="table align-middle table-bordered mb-0 table-striped text-nowrap" id="myTable">
                             @php
                             // Determine current year and month
                             $selectedYear = request()->input('select_year');
