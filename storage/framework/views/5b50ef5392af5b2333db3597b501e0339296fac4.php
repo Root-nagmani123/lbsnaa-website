@@ -1,4 +1,4 @@
-@include('user.includes.header')
+<?php echo $__env->make('user.includes.header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
 
 
@@ -11,19 +11,19 @@
                 <nav aria-label="breadcrumb ">
                     <ol class="breadcrumb p-2">
                         <li class="breadcrumb-item">
-                            <a href="{{ route('home')}}" style="color: #af2910;">@if($_COOKIE['language'] ==
-                                '2')होम
-                                @else
+                            <a href="<?php echo e(route('home')); ?>" style="color: #af2910;"><?php if($_COOKIE['language'] ==
+                                '2'): ?>होम
+                                <?php else: ?>
                                 Home
-                                @endif</a>
+                                <?php endif; ?></a>
                         </li>
                         <li class="breadcrumb-item">
 
-                            @if($_COOKIE['language'] ==
-                            '2')प्रशिक्षण कैलेंडर
-                            @else
+                            <?php if($_COOKIE['language'] ==
+                            '2'): ?>प्रशिक्षण कैलेंडर
+                            <?php else: ?>
                             Traning Calendar
-                            @endif
+                            <?php endif; ?>
                         </li>
                     </ol>
                 </nav>
@@ -37,26 +37,26 @@
         <div class="col-12">
             <div class="mb-4">
                 <h2 class="h1 fw-bold text-primary">
-                    @if($_COOKIE['language'] ==
-                    '2')प्रशिक्षण कैलेंडर
-                    @else
+                    <?php if($_COOKIE['language'] ==
+                    '2'): ?>प्रशिक्षण कैलेंडर
+                    <?php else: ?>
                     Traning Calendar
-                    @endif
+                    <?php endif; ?>
                 </h2>
             </div>
         </div>
-        <form id="form2" action="{{ url()->current() }}" method="GET">
+        <form id="form2" action="<?php echo e(url()->current()); ?>" method="GET">
             <div class="row mb-4">
                 <div class="col-lg-1">
-                    <label for="select_year" class="form-label"> @if($_COOKIE['language'] ==
-                        '2')फ़िल्टर वर्ष
-                        @else
+                    <label for="select_year" class="form-label"> <?php if($_COOKIE['language'] ==
+                        '2'): ?>फ़िल्टर वर्ष
+                        <?php else: ?>
                         Filter Year
-                        @endif
+                        <?php endif; ?>
                     </label>
                 </div>
                 <div class="col-lg-3">
-                    @php
+                    <?php
                     $currentYear = date('Y'); // Current year
                     $currentMonth = date('m'); // Current month
                     $startYear = $currentYear - 3; // Start year (adjust as needed)
@@ -72,23 +72,24 @@
                     $selectedYear = $currentYear; // Previous - current year
                     }
                     }
-                    @endphp
+                    ?>
 
                     <select name="select_year" id="select_year" class="form-control ps-5 text-dark h-58">
                         <option value="">Select Year</option>
-                        @for ($year = $startYear; $year <= $currentYear + 3; $year++) <option value="{{ $year }}"
-                            {{ ($year == $selectedYear) ? 'selected' : '' }}>
-                            {{ $year - 1 }} - {{ $year }}
+                        <?php for($year = $startYear; $year <= $currentYear + 3; $year++): ?> <option value="<?php echo e($year); ?>"
+                            <?php echo e(($year == $selectedYear) ? 'selected' : ''); ?>>
+                            <?php echo e($year - 1); ?> - <?php echo e($year); ?>
+
                             </option>
-                            @endfor
+                            <?php endfor; ?>
                     </select>
                 </div>
                 <div class="col-lg-3">
-                    <button type="submit" id="btn2" class="btn btn-outline-primary">@if($_COOKIE['language'] ==
-                        '2')जमा करना
-                        @else
+                    <button type="submit" id="btn2" class="btn btn-outline-primary"><?php if($_COOKIE['language'] ==
+                        '2'): ?>जमा करना
+                        <?php else: ?>
                         Submit
-                        @endif</button>
+                        <?php endif; ?></button>
                 </div>
             </div>
         </form>
@@ -97,7 +98,7 @@
             <div class="default-table-area members-list">
                     <div class="table-responsive" style="max-height: 600px; overflow-y: auto;">
                         <table class="table align-middle table-bordered mb-0" id="myTable">
-                            @php
+                            <?php
                             // Determine current year and month
                             $selectedYear = request()->input('select_year');
                             if (!$selectedYear) {
@@ -128,72 +129,74 @@
                             ];
 
                             $selectedMonths = $months[$lang];
-                            @endphp
+                            ?>
 
                             <thead class="sticky-top bg-white" style="z-index: 1020;">
                                 <tr>
                                     <th>#</th>
                                     <th>
-                                        @if ($_COOKIE['language'] == '2')
+                                        <?php if($_COOKIE['language'] == '2'): ?>
                                         कोर्स का नाम
-                                        @else
+                                        <?php else: ?>
                                         Course Name
-                                        @endif
+                                        <?php endif; ?>
                                     </th>
                                     <th>
-                                        @if ($_COOKIE['language'] == '2')
+                                        <?php if($_COOKIE['language'] == '2'): ?>
                                         सहायता अनुभाग
-                                        @else
+                                        <?php else: ?>
                                         Support Section
-                                        @endif
+                                        <?php endif; ?>
                                     </th>
                                     <th>
-                                        @if ($_COOKIE['language'] == '2')
+                                        <?php if($_COOKIE['language'] == '2'): ?>
                                         पाठ्यक्रम समन्वयक
-                                        @else
+                                        <?php else: ?>
                                         Course Coordinator
-                                        @endif
+                                        <?php endif; ?>
                                     </th>
                                     <th>
-                                        @if ($_COOKIE['language'] == '2')
+                                        <?php if($_COOKIE['language'] == '2'): ?>
                                         अवधि
-                                        @else
+                                        <?php else: ?>
                                         Duration
-                                        @endif
+                                        <?php endif; ?>
                                     </th>
-                                    {{-- Month headers for the table --}}
-                                    @foreach ($selectedMonths as $index => $month)
-                                    <th>{{ $month }} {{ $index < 9 ? $startYear : $endYear }}</th>
-                                    @endforeach
+                                    
+                                    <?php $__currentLoopData = $selectedMonths; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $month): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <th><?php echo e($month); ?> <?php echo e($index < 9 ? $startYear : $endYear); ?></th>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </tr>
                             </thead>
 
                             <tbody>
-                                @php $serial = 1; @endphp
-                                {{-- Loop through parent categories --}}
-                                @foreach ($organizedCategories as $parentCategoryId => $parentCategory)
-                                {{-- Parent Category Row --}}
+                                <?php $serial = 1; ?>
+                                
+                                <?php $__currentLoopData = $organizedCategories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $parentCategoryId => $parentCategory): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                
                                 <tr>
                                     <td></td>
                                     <td colspan="16" class="text-dark fw-bold">
-                                        {{ $parentCategory['name'] }}
+                                        <?php echo e($parentCategory['name']); ?>
+
                                     </td>
                                 </tr>
 
-                                {{-- Loop through subcategories under this parent category --}}
-                                @foreach ($parentCategory['subcategories'] as $subcategoryId => $subcategory)
-                                {{-- Subcategory Row --}}
+                                
+                                <?php $__currentLoopData = $parentCategory['subcategories']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $subcategoryId => $subcategory): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                
                                 <tr>
                                     <td></td>
                                     <td colspan="16" class="text-dark fw-bold">
-                                        -- {{ $subcategory['name'] }}
+                                        -- <?php echo e($subcategory['name']); ?>
+
                                     </td>
                                 </tr>
 
-                                {{-- Loop through courses under this subcategory --}}
-                                @foreach ($subcategory['courses'] as $course)
-                                {{-- Calculate Duration --}}
-                                @php
+                                
+                                <?php $__currentLoopData = $subcategory['courses']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $course): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                
+                                <?php
 
                                 $courseStart = strtotime($course['course_start_date']);
                                 $courseEnd = strtotime($course['course_end_date']);
@@ -211,52 +214,58 @@
                                     $duration = $durationInWeeks . ' week' . ($durationInWeeks > 1 ? 's' : '');
                                     }
                                     }
-                                    @endphp
+                                    ?>
 
-                                    {{-- Course Row --}}
+                                    
                                     <tr>
-                                        <td style="background-color: {{ $subcategory['color'] }};">{{ $serial++ }}</td>
-                                        <td style="background-color: {{ $subcategory['color'] }};">
-                                            {{ $course['course_name'] }}
+                                        <td style="background-color: <?php echo e($subcategory['color']); ?>;"><?php echo e($serial++); ?></td>
+                                        <td style="background-color: <?php echo e($subcategory['color']); ?>;">
+                                            <?php echo e($course['course_name']); ?>
+
                                         </td>
-                                        <td style="background-color: {{ $subcategory['color'] }};">
-                                            {{ $course['support_section'] }}
+                                        <td style="background-color: <?php echo e($subcategory['color']); ?>;">
+                                            <?php echo e($course['support_section']); ?>
+
                                         </td>
-                                        <td style="background-color: {{ $subcategory['color'] }};">
-                                            {{ $course['coordinator_id'] }}
+                                        <td style="background-color: <?php echo e($subcategory['color']); ?>;">
+                                            <?php echo e($course['coordinator_id']); ?>
+
                                         </td>
-                                        <td style="background-color: {{ $subcategory['color'] }};">
-                                            @if ($course['course_start_date'] && $course['course_end_date'])
-                                            {{ $duration }}
-                                            @else
+                                        <td style="background-color: <?php echo e($subcategory['color']); ?>;">
+                                            <?php if($course['course_start_date'] && $course['course_end_date']): ?>
+                                            <?php echo e($duration); ?>
+
+                                            <?php else: ?>
                                             N/A
-                                            @endif
+                                            <?php endif; ?>
                                         </td>
-                                        {{-- Month Columns --}}
-                                        @for ($month = 4; $month <= 15; $month++) @php $cellDate=($month <=12
+                                        
+                                        <?php for($month = 4; $month <= 15; $month++): ?> <?php $cellDate=($month <=12
                                             ? "$startYear-" : "$endYear-" ) . str_pad(($month - 1) % 12 + 1, 2, '0' ,
                                             STR_PAD_LEFT); $courseStartDate=date('Y-m',
                                             strtotime($course['course_start_date'])); $courseEndDate=date('Y-m',
                                             strtotime($course['course_end_date'])); $isWithinDuration=($courseStartDate
                                             <=$cellDate) && ($courseEndDate>= $cellDate);
-                                            @endphp
+                                            ?>
                                             <td class="center" style="
-                                                @if ($isWithinDuration) background-color: {{ $subcategory['color'] }}; @endif
+                                                <?php if($isWithinDuration): ?> background-color: <?php echo e($subcategory['color']); ?>; <?php endif; ?>
                                             ">
-                                                @if ($courseStartDate == $cellDate && $courseEndDate == $cellDate)
-                                                {{ date('d', strtotime($course['course_start_date'])) }} -
-                                                {{ date('d', strtotime($course['course_end_date'])) }}
-                                                @elseif ($courseStartDate == $cellDate)
-                                                {{ date('d', strtotime($course['course_start_date'])) }} -
-                                                @elseif ($courseEndDate == $cellDate)
-                                                {{ date('d', strtotime($course['course_end_date'])) }}
-                                                @endif
+                                                <?php if($courseStartDate == $cellDate && $courseEndDate == $cellDate): ?>
+                                                <?php echo e(date('d', strtotime($course['course_start_date']))); ?> -
+                                                <?php echo e(date('d', strtotime($course['course_end_date']))); ?>
+
+                                                <?php elseif($courseStartDate == $cellDate): ?>
+                                                <?php echo e(date('d', strtotime($course['course_start_date']))); ?> -
+                                                <?php elseif($courseEndDate == $cellDate): ?>
+                                                <?php echo e(date('d', strtotime($course['course_end_date']))); ?>
+
+                                                <?php endif; ?>
                                             </td>
-                                            @endfor
+                                            <?php endfor; ?>
                                     </tr>
-                                    @endforeach
-                                    @endforeach
-                                    @endforeach
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </tbody>
                         </table>
                     </div>
@@ -269,4 +278,4 @@
     </div>
 </section>
 
-@include('user.includes.footer')
+<?php echo $__env->make('user.includes.footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp1\htdocs\lbsnaa-website\resources\views/user/pages/training_cal.blade.php ENDPATH**/ ?>
