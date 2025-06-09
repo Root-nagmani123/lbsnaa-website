@@ -151,9 +151,9 @@
                                     @else
                                     <span class="text-muted">@if($_COOKIE['language'] ==
                                         '2')
-                                        कोई जिम्मेदारी नहीं
+                                        ---
                                         @else
-                                        No Responsibilities
+                                        ---
                                         @endif
                                     </span>
                                     @endif
@@ -173,9 +173,9 @@
                                     @else
                                     <span class="text-muted">@if($_COOKIE['language'] ==
                                         '2')
-                                        कोई जिम्मेदारी नहीं
+                                        ---
                                         @else
-                                        No Responsibilities
+                                        ---
                                         @endif</span>
                                     @endif
                                 </td>
