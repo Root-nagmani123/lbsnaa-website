@@ -1198,6 +1198,7 @@ class HomeFrontController extends Controller
         // $query->when(in_array($language, [1, 2]), function ($q) use ($language) {
         //     return $q->where('language', $language);
         // });
+        $query->orderBy('position', 'ASC');
         $data = $query->get();
         foreach ($data as $key => $value) {
             // Officer Incharge
