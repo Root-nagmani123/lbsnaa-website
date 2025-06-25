@@ -209,17 +209,22 @@ class HomeFrontController extends Controller
 
             return view('user.pages.faculty', compact('faculty'));
         } elseif ($slug == 'staff') {
-            $query = DB::table('staff_members')->where('page_status', 1);
+            $query = DB::table('staff_members')
+                    ->where('page_status', 1)
+                    ->orderBy('position', 'ASC');
 
-            // Check if a search keyword is provided
-            if ($request->has('keywords') && !empty($request->keywords)) {
-                $query->where('name', 'LIKE', '%' . $request->keywords . '%');
-            }
-            // $query->when(in_array($language, [1, 2]), function ($q) use ($language) {
-            //     return $q->where('language', $language);
-            // });
+                // Optional: Filter by keyword if provided
+                if ($request->filled('keywords')) {
+                    $query->where('name', 'LIKE', '%' . $request->keywords . '%');
+                }
 
-            $staff = $query->get();
+                // Optional: Filter by language if needed
+                // if (in_array($language, [1, 2])) {
+                //     $query->where('language', $language);
+                // }
+
+                $staff = $query->get();
+
 
             return view('user.pages.staff', compact('staff', 'title'));
         } elseif ($slug == 'organogram') {
