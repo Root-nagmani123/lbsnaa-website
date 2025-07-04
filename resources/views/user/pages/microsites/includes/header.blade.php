@@ -8,22 +8,22 @@
     <meta name="author" content="Codescandy">
 
     <!-- Favicon icon-->
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/favicon.ico') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ secure_asset('assets/favicon.ico') }}">
 
     <!-- darkmode js -->
-    <script src="{{ asset('assets/js/vendors/darkMode.js') }}"></script>
+    <script src="{{ secure_asset('assets/js/vendors/darkMode.js') }}"></script>
 
     <!-- Libs CSS -->
-    <link href="{{ asset('assets/fonts/feather/feather.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/libs/bootstrap-icons/font/bootstrap-icons.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/libs/simplebar/dist/simplebar.min.css') }}" rel="stylesheet">
+    <link href="{{ secure_asset('assets/fonts/feather/feather.css') }}" rel="stylesheet">
+    <link href="{{ secure_asset('assets/libs/bootstrap-icons/font/bootstrap-icons.min.css') }}" rel="stylesheet">
+    <link href="{{ secure_asset('assets/libs/simplebar/dist/simplebar.min.css') }}" rel="stylesheet">
 
     <!-- Theme CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/css/theme.min.css') }}">
+    <link rel="stylesheet" href="{{ secure_asset('assets/css/theme.min.css') }}">
 
     <link rel="canonical" href="LBSNAA">
-    <link href="{{ asset('assets/libs/tiny-slider/dist/tiny-slider.css') }}" rel="stylesheet">
-    <link rel="icon" type="image/png" href="{{ asset('admin_assets/images/favicon.ico') }}">
+    <link href="{{ secure_asset('assets/libs/tiny-slider/dist/tiny-slider.css') }}" rel="stylesheet">
+    <link rel="icon" type="image/png" href="{{ secure_asset('admin_assets/images/favicon.ico') }}">
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
     <link rel="stylesheet" type="text/css"
@@ -240,7 +240,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-4 d-flex align-items-center" style="font-size: 16px;font-weight:400;color:#af2910;">
-                    <img class="img-fluid" src="{{ asset('assets/images/icons/ashok.jpg') }}" alt="Logo of Ashok Stambh"
+                    <img class="img-fluid" src="{{ secure_asset('assets/images/icons/ashok.jpg') }}" alt="Logo of Ashok Stambh"
                         aria-label="Logo of Ashoka Stambh" style="font-size: 510px;height: 50px;margin-right:5px;">
                     भारत सरकार | Government of India
                 </div>
@@ -252,7 +252,7 @@
                                 data-bs-placement="bottom" title="Skip to main content"
                                 aria-label="Skip to main content">
                                 <!-- <i class="material-icons menu-icon">event_repeat</i> -->
-                                <img src="{{ asset('assets/images/skip_to_main_content.png') }}"
+                                <img src="{{ secure_asset('assets/images/skip_to_main_content.png') }}"
                                     alt="skip to main content" style="height: 30px;">
 
                             </a>
@@ -267,7 +267,7 @@
             <div class="container-fluid px-0">
                 <a class="navbar-brand" href="{{ route('home') }}"
                     aria-label="Logo of Lal Bahadur Shastri National Academy of Administration"><img
-                        src="{{ asset('assets/images/microsites/logo.png') }}"
+                        src="{{ secure_asset('assets/images/microsites/logo.png') }}"
                         alt="Logo of Lal Bahadur Shastri National Academy of Administration" width="350"></a>
                 <!-- Button -->
                 @php

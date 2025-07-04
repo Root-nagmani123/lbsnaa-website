@@ -243,19 +243,19 @@ $(document).ready(function() {
     </script>
 <!-- Scripts -->
 <!-- Libs JS -->
-<script src="{{ asset('assets/libs/%40popperjs/core/dist/umd/popper.min.js') }}"></script>
-<script src="{{ asset('assets/libs/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-<script src="{{ asset('assets/libs/simplebar/dist/simplebar.min.js') }}"></script>
+<script src="{{ secure_asset('assets/libs/%40popperjs/core/dist/umd/popper.min.js') }}"></script>
+<script src="{{ secure_asset('assets/libs/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+<script src="{{ secure_asset('assets/libs/simplebar/dist/simplebar.min.js') }}"></script>
 
 <!-- Theme JS -->
-<script src="{{ asset('assets/js/theme.min.js') }}"></script>
+<script src="{{ secure_asset('assets/js/theme.min.js') }}"></script>
 
 
-<script src="{{ asset('assets/libs/tippy.js/dist/tippy-bundle.umd.min.js') }}"></script>
+<script src="{{ secure_asset('assets/libs/tippy.js/dist/tippy-bundle.umd.min.js') }}"></script>
 
-<script src="{{ asset('assets/js/vendors/tooltip.js') }}"></script>
-<script src="{{ asset('assets/libs/tiny-slider/dist/min/tiny-slider.js') }}"></script>
-<script src="{{ asset('assets/js/vendors/tnsSlider.js') }}"></script>
+<script src="{{ secure_asset('assets/js/vendors/tooltip.js') }}"></script>
+<script src="{{ secure_asset('assets/libs/tiny-slider/dist/min/tiny-slider.js') }}"></script>
+<script src="{{ secure_asset('assets/js/vendors/tnsSlider.js') }}"></script>
 </body>
 
 </html>
