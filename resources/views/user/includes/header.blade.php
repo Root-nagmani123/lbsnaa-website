@@ -7,18 +7,18 @@
     <meta name="author" content="Codescandy">
 
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/favicon.ico') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ secure_asset('assets/favicon.ico') }}">
 
     <!-- CSS Assets -->
-    <link href="{{ asset('assets/fonts/feather/feather.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/libs/bootstrap-icons/font/bootstrap-icons.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/libs/simplebar/dist/simplebar.min.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('assets/css/theme.min.css') }}">
+    <link href="{{ secure_asset('assets/fonts/feather/feather.css') }}" rel="stylesheet">
+    <link href="{{ secure_asset('assets/libs/bootstrap-icons/font/bootstrap-icons.min.css') }}" rel="stylesheet">
+    <link href="{{ secure_asset('assets/libs/simplebar/dist/simplebar.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ secure_asset('assets/css/theme.min.css') }}">
     <link rel="canonical" href="LBSNAA">
-    <link href="{{ asset('assets/libs/tiny-slider/dist/tiny-slider.css') }}" rel="stylesheet">
-    <link rel="icon" type="image/png" href="{{ asset('admin_assets/images/favicon.ico') }}">
+    <link href="{{ secure_asset('assets/libs/tiny-slider/dist/tiny-slider.css') }}" rel="stylesheet">
+    <link rel="icon" type="image/png" href="{{ secure_asset('admin_assets/images/favicon.ico') }}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script src="{{ asset('assets/js/orgchart.js') }}"></script>
+    <script src="{{ secure_asset('assets/js/orgchart.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>
         @if(isset($title))
@@ -206,7 +206,7 @@
     <div class="container-fluid bg-light bar">
         <div class="row py-1 align-items-center">
             <div class="col-md-6 d-flex align-items-center" style="font-size: 16px;font-weight:400;color:#af2910;">
-                <img class="img-fluid" src="{{ asset('assets/images/icons/ashok.jpg') }}" alt="Logo of Ashok Stambh"
+                <img class="img-fluid" src="{{ secure_asset('assets/images/icons/ashok.jpg') }}" alt="Logo of Ashok Stambh"
                     aria-label="Logo of Ashoka Stambh" style="font-size: 510px;height: 50px;margin-right:5px;">
                 भारत सरकार | Government of India
             </div>
@@ -217,7 +217,7 @@
                         <a class="nav-link fw-bold" href="#skip_to_main_content" data-bs-toggle="tooltip"
                             data-bs-placement="bottom"title="@if($_COOKIE['language'] == '2')मुख्य सामग्री पर जाएं @else Skip to main content @endif"
                             aria-label="@if($_COOKIE['language'] == '2')मुख्य सामग्री पर जाएं @else Skip to main content @endif">
-                            <img src="{{ asset('assets/images/skip_to_main_content.png') }}" alt="skip to main content"
+                            <img src="{{ secure_asset('assets/images/skip_to_main_content.png') }}" alt="skip to main content"
                                 style="height: 30px;">
                         </a>
                     </li>
@@ -225,7 +225,7 @@
                         <a class="nav-link" href="{{ route('user.screen-reader') }}" data-bs-toggle="tooltip"
                             data-bs-placement="bottom" title="@if($_COOKIE['language'] == '2')स्क्रीन रीडर @else Screen Reader @endif"
                             aria-label="@if($_COOKIE['language'] == '2')स्क्रीन रीडर @else Screen Reader @endif">
-                            <img src="{{ asset('assets/images/screenreadeer.png') }}" alt="screen reader"
+                            <img src="{{ secure_asset('assets/images/screenreadeer.png') }}" alt="screen reader"
                                 style="height: 30px;">
                         </a>
                     </li>
@@ -234,7 +234,7 @@
                         aria-expanded="false"
                         title="@if($_COOKIE['language'] == '2')सुलभता @else Accessibility @endif"
                         aria-label="@if($_COOKIE['language'] == '2')विस्तारित सुलभता मेनू @else Expanded accessibility menu @endif">
-                        <img src="{{ asset('assets/images/Accessibility (2).png') }}" 
+                        <img src="{{ secure_asset('assets/images/Accessibility (2).png') }}" 
                             alt="@if($_COOKIE['language'] == '2')सुलभता @else Accessibility @endif"
                             style="height: 30px;">
                     </a>
@@ -253,7 +253,7 @@
                             aria-expanded="false" data-bs-toggle="tooltip" data-bs-placement="bottom"
                             title="@if($_COOKIE['language'] == '2')सोशल मीडिया लिंक @else Social Media Links @endif"
                             aria-label="@if($_COOKIE['language'] == '2')विस्तारित सोशल मीडिया लिंक @else Expanded Social Media Links @endif">
-                            <img src="{{ asset('assets/images/social_group.png') }}" 
+                            <img src="{{ secure_asset('assets/images/social_group.png') }}" 
                                 alt="@if($_COOKIE['language'] == '2')सोशल मीडिया लिंक @else Social Media Links @endif"
                                 style="height: 30px;">
                         </a>
@@ -293,7 +293,7 @@
                         data-bs-placement="bottom"
                         title="@if($_COOKIE['language'] == '2')साइटमैप @else Sitemap @endif"
                         aria-label="@if($_COOKIE['language'] == '2')साइटमैप @else Sitemap @endif">
-                        <img src="{{ asset('assets/images/sitemap.png') }}" 
+                        <img src="{{ secure_asset('assets/images/sitemap.png') }}" 
                             alt="@if($_COOKIE['language'] == '2')साइटमैप @else Sitemap @endif"
                             style="height: 30px;">
                     </a>
@@ -302,7 +302,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link" href="#" data-bs-toggle="dropdown" aria-expanded="false"
                             data-bs-display="static">
-                            <img src="{{ asset('assets/images/search.png') }}" alt="search" style="height: 30px;">
+                            <img src="{{ secure_asset('assets/images/search.png') }}" alt="search" style="height: 30px;">
                         </a>
                         <div class="dropdown-menu p-2 custom-dropdown" style="width: 250px;">
                         <form action="https://www.google.com/search" method="GET" target="_blank">
@@ -327,7 +327,7 @@
                         <a class="nav-link dropdown-toggle fw-bold" href="#" id="languageDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside"
                             data-bs-offset="10,20" aria-label="Language">
-                            <img src="{{ asset('assets/images/language.png') }}" alt="language" style="height: 30px;">
+                            <img src="{{ secure_asset('assets/images/language.png') }}" alt="language" style="height: 30px;">
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="languageDropdown">
                             <li><a class="dropdown-item set-language" data-lang="1" href="{{ route('set.language', 1) }}" aria-label="English">English</a></li>
@@ -343,7 +343,7 @@
         <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
             <!-- Logo -->
             <h1><a href="{{ route('home') }}" class="navbar-brand me-auto logo d-flex align-items-center">
-                    <img src="{{ asset('admin_assets/images/logo.png') }}" alt="logo-icon" class="img-fluid logo"
+                    <img src="{{ secure_asset('admin_assets/images/logo.png') }}" alt="logo-icon" class="img-fluid logo"
                         aria-label="Logo of Lal Bahadur Shastri National Academy of Administration">
                 </a></h1>
 
@@ -577,7 +577,7 @@
                             <li class="border-bottom">
                                 @if($reserch_c->pdf)
                                 <!-- Redirect to PDF -->
-                                <a class="dropdown-item" href="{{ asset('storage/' . $reserch_c->pdf) }}"
+                                <a class="dropdown-item" href="{{ secure_asset('storage/' . $reserch_c->pdf) }}"
                                     target="_blank" aria-expanded="false">
                                     {{ $reserch_c->research_centre_name }}
                                 </a>
